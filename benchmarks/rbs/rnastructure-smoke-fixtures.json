@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "backend": "RNAstructure 6.6 standalone programs",
+  "source_archive_sha256": "1bedc62aaab984279055caaa6234d48fca113f4b8e17a8060e0b3784d5a397c3",
+  "table_manifest_sha256": "ece4c4b535783cb4e03c7ce8f243d09be84a165ecd113b1d20941b5ed8b69501",
+  "temperature_kelvin": 310.15,
+  "inputs": {
+    "hairpin": "GGGAAACCC",
+    "poly_a": "AAAAAAAAAAAA",
+    "sd": "AAAGGAGGAAAAAA",
+    "asd": "ACCUCCUUA"
+  },
+  "commands": [
+    "Fold hairpin.fa hairpin.ct -m 1 -t 310.15",
+    "Fold poly_a.fa poly_a.ct -m 1 -t 310.15",
+    "bifold sd.fa asd.fa duplex.ct -m 20 -p 50 -w 0 -t 310.15",
+    "efn2 hairpin.ct hairpin-energy.txt -t 310.15"
+  ],
+  "observations": [
+    {
+      "id": "hairpin",
+      "sequence_ct": "G G G A A A C C C",
+      "first_structure_header": "9  ENERGY = -1.2  hairpin",
+      "base_pairs_1based": [
+        [
+          1,
+          9
+        ],
+        [
+          2,
+          8
+        ],
+        [
+          3,
+          7
+        ]
+      ],
+      "raw_ct_sha256": "36539a1a3c393c7c8543538a863039d95b34e05afc6be3b033b41667f5196060"
+    },
+    {
+      "id": "poly_a",
+      "sequence_ct": "A A A A A A A A A A A A",
+      "first_structure_header": "12  poly_a",
+      "base_pairs_1based": [],
+      "raw_ct_sha256": "810ec9d5050bbb995654085027392db52623f20f90751867b353ede07cb66975"
+    },
+    {
+      "id": "duplex",
+      "sequence_ct": "A A A G G A G G A A A A A A I I I A C C U C C U U A",
+      "first_structure_header": "26  ENERGY = -11.6  sd_asd",
+      "base_pairs_1based": [
+        [
+          2,
+          25
+        ],
+        [
+          3,
+          24
+        ],
+        [
+          4,
+          23
+        ],
+        [
+          5,
+          22
+        ],
+        [
+          6,
+          21
+        ],
+        [
+          7,
+          20
+        ],
+        [
+          8,
+          19
+        ]
+      ],
+      "raw_ct_sha256": "d05f2cdcc0ae0db3562a05d9e8e01bcf00c35f05d2dfeaad7f62db66ac659629"
+    }
+  ],
+  "hairpin_efn2_kcal_mol": -1.2,
+  "scope": "Independent backend smoke fixtures, not RBS predictions; first duplex structure only",
+  "licence": "Original synthetic inputs and observation compilation: GPL-3.0-or-later"
+}
