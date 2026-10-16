@@ -1,5 +1,6 @@
 # RBS live-reference acquisition contract
 
+- Purpose: Acquire bounded, provenance-preserving live-reference outputs.
 - Scope: Session B alone owns the isolated Chrome session and acquisition ledger.
 - Last verified: 2026-10-16
 - Panel: [12 exact diagnostic inputs](../../benchmarks/rbs/live-diagnostic-panel.json).

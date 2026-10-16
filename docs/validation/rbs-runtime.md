@@ -146,12 +146,12 @@ python3 -m venv .venv
 Install RNAstructure separately from its pinned source archive, preserving its
 source and licence. Choose a user-writable installation directory. Download
 requires network; installed inference and fresh wheel installation do not.
-The official URL is mutable: refuse a different hash rather than silently
+Use the verified versioned URL and refuse a different hash rather than silently
 upgrading. A retained matching archive can be used instead of downloading.
 
 ```sh
 mkdir -p .cache
-curl --fail --location https://rna.urmc.rochester.edu/Releases/current/RNAstructureSource.tgz -o .cache/RNAstructureSource.tgz
+curl --fail --location https://rna.urmc.rochester.edu/Releases/rnastructure-6.6/RNAstructureSource.tgz -o .cache/RNAstructureSource.tgz
 python3 -c 'import hashlib,pathlib; assert hashlib.sha256(pathlib.Path(".cache/RNAstructureSource.tgz").read_bytes()).hexdigest()=="1bedc62aaab984279055caaa6234d48fca113f4b8e17a8060e0b3784d5a397c3"'
 tar -xzf .cache/RNAstructureSource.tgz -C .cache
 make -C .cache/RNAstructure -j2 Fold bifold efn2
@@ -186,7 +186,7 @@ variable skips real-engine fixtures, so that run cannot satisfy release gates.
 .venv/bin/ruff check src tests
 .venv/bin/ruff format --check src tests
 .venv/bin/mypy src/regsite
-.venv/bin/python -m pytest --cov=regsite --cov-report=term-missing
+.venv/bin/python -m pytest --cov=regsite --cov=benchmarks.rbs --cov-report=term-missing
 .venv/bin/python -m build --no-isolation
 .venv/bin/python -m venv .cache/fresh
 .cache/fresh/bin/python -m pip install --no-index --no-deps dist/*.whl
@@ -220,3 +220,69 @@ example totals −12.794 and scores approximately 791687.32. These do **not**
 establish historical whole-model, hosted or experimental accuracy. Benchmark
 and hosted discrepancies belong to the separate evidence protocol; freeze them
 before using outcomes for improvements. Native UTEX calibration remains absent.
+
+
+## Frozen development baseline and live discrepancy
+
+The runtime source at `d367d864c6f8f52de35e858d7c0579fda927510c`
+was frozen before the 136-record public development evaluation. The independently
+prepared data/evaluator are from `bf77ce33df2883965df0d5ea81285717b07bc123`.
+Use explicit `ACCUCCUUA`, 37°C, supplied starts, the original full source windows,
+a 60-second per-record budget and the predeclared `standby2014:5'UTR_136`
+normalization. No parameters, slope, intercept or exclusions were fitted.
+The 2017 held-out outcomes remain unexamined by the implementation session.
+
+| Metric | Reconstruction | Constant relative-rate baseline |
+| --- | ---: | ---: |
+| Successful / eligible | 136 / 136 | 136 / 136 |
+| Within twofold | 52 / 136 (38.24%) | 47 / 136 (34.56%) |
+| Within fivefold | 113 / 136 (83.09%) | 87 / 136 (63.97%) |
+| Log2 RMSE | 1.93223 | 2.75628 |
+| Mean absolute log2 error | 1.55567 | 2.10435 |
+| Spearman rho | 0.50757 | Undefined (constant predictor) |
+
+The family-bootstrap 95% interval for reconstruction mean absolute log2 error
+was [1.26818, 1.84070]. This is a development-set result with shared reporters and
+related constructs, not independent native-host validation or an improvement
+promotion test. See the [frozen evaluation protocol](rbs-evaluation-protocol.md)
+for measurement noise, family dependence, reference normalization and holdout rules.
+
+Reproduce the prediction/evaluation with the installed runtime and backend:
+
+```sh
+mkdir -p .cache/development
+.venv/bin/python - <<'PYCODE'
+import json, os
+from pathlib import Path
+from regsite.backend import RnaStructure
+from regsite.rbs import predict
+backend = RnaStructure.open(os.environ['REGSITE_RNASTRUCTURE'])
+records = json.loads(Path('benchmarks/rbs/standby2014.json').read_text())['records']
+predictions = []
+for row in records:
+    result = predict({'id': row['id'], 'sequence': row['sequence'],
+                      'anti_sd': 'ACCUCCUUA', 'temperature_c': 37,
+                      'host': 'Escherichia coli DH10B (configuration only)',
+                      'start_positions': [row['start']]}, backend)
+    site = result['sites'][0] if result['sites'] else {}
+    predictions.append({'id': row['id'], 'status': result['status'],
+                        'predicted': site.get('tir')})
+Path('.cache/development/predictions.json').write_text(
+    json.dumps({'records': predictions}, indent=2, allow_nan=False) + '\n')
+PYCODE
+.venv/bin/python -m benchmarks.rbs score benchmarks/rbs/standby2014.json .cache/development/predictions.json .cache/development/evaluation.json --comparison reconstruction-versus-experiment --prediction-identity d367d864c6f8f52de35e858d7c0579fda927510c-ACCUCCUUA-37C-60s --reference "standby2014:5'UTR_136"
+```
+
+For a new evaluated revision, replace the prediction identity with its frozen
+commit/settings and retain full JSON output when auditing per-term differences.
+Keep evaluator/data pins fixed unless a separately reviewed source correction is
+required. A new inference run may use different binary hashes; preserve them.
+
+The single completed `w1-atg` live diagnostic matches the declared start but has
+materially different energies and initiation score. Raw numerical output and
+the per-term comparison stay in the private acquisition directory because open
+redistribution terms were not established. No production equivalence is claimed.
+The public [acquisition manifest](../../benchmarks/rbs/live-acquisition.json)
+records v2.1.1, its 100-nt upstream window, 13-nt footprint, 8-kcal/mol search gap,
+and different energy tables. Ticket 04 must implement documented later mechanisms
+as a distinct profile; tickets 05/06 retain live acquisition and release evaluation.

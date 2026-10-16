@@ -1,5 +1,6 @@
 # RBS experimental benchmark quality card
 
+- Purpose: Assess historical benchmark quality and distinguish it from current accuracy.
 - Scope: independently reproduced historical outputs and frozen new evaluation.
 - Last verified: 2026-10-16
 - Machine-readable evidence: [manifest](../../benchmarks/rbs/dataset-manifest.json),

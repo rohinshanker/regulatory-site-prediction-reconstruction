@@ -2,7 +2,4 @@ include NOTICE requirements-dev.in requirements-dev.lock
 recursive-include schemas *.json
 recursive-include examples *.json
 recursive-include docs *.md
-include benchmarks/rbs/scalar-fixtures.json
-include benchmarks/rbs/rnastructure-smoke-fixtures.json
-include benchmarks/rbs/rnastructure-tables.json
-include benchmarks/rbs/sources.json
+recursive-include benchmarks *.py *.json *.md

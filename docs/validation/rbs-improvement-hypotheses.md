@@ -1,5 +1,6 @@
 # Ranked falsifiable RBS improvement hypotheses
 
+- Scope: Future RBS model improvements evaluated separately from compatibility.
 - Purpose: ticket 13 experiment design; no production engine changes in this slice.
 - Last verified: 2026-10-16
 - Evaluation contract: [frozen protocol](rbs-evaluation-protocol.md).

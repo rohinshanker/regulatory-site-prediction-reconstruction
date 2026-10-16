@@ -32,7 +32,7 @@ jobs:
         shell: bash
         run: |
           mkdir -p .cache
-          curl --fail --location --retry 2 https://rna.urmc.rochester.edu/Releases/current/RNAstructureSource.tgz -o .cache/RNAstructureSource.tgz
+          curl --fail --location --retry 2 https://rna.urmc.rochester.edu/Releases/rnastructure-6.6/RNAstructureSource.tgz -o .cache/RNAstructureSource.tgz
           python -c 'import hashlib,pathlib; p=pathlib.Path(".cache/RNAstructureSource.tgz"); assert hashlib.sha256(p.read_bytes()).hexdigest()=="1bedc62aaab984279055caaa6234d48fca113f4b8e17a8060e0b3784d5a397c3"'
           tar -xzf .cache/RNAstructureSource.tgz -C .cache
           if [[ "$RUNNER_OS" == macOS ]]; then
@@ -46,7 +46,7 @@ jobs:
           ruff check src tests
           ruff format --check src tests
           mypy src/regsite
-          python -m pytest --cov=regsite --cov-report=term-missing
+          python -m pytest --cov=regsite --cov=benchmarks.rbs --cov-report=term-missing
           git diff --check
       - name: Build and run fresh offline wheel installation
         shell: bash
