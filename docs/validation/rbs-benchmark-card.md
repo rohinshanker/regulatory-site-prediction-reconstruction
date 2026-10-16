@@ -74,8 +74,10 @@ The 2020 abstract's 9,862 is numerically 1,014 individually characterized plus
 Goodman constructs, making 16,779 flow-seq rows and 17,793 when added to 1,014.
 The SI's standby count is 174; its IC workbook contains 175 rows in that source
 group. We have not established why those editorial/count differences arose.
-The older harness database size is a different version, not another independent
-cohort. The full 2020 publisher main text was not accessible during this audit;
+The pinned SynBioMTS README says “over 16000,” which is compatible with the
+broader flow-seq collection rather than the 9,862-record comparison subset; it
+does not supply an exact row reconciliation or another independent cohort.
+The full 2020 publisher main text was not accessible during this audit;
 its primary SI was retrieved and inspected directly.
 
 The IC compilation includes the 2014/2017 studies and 47 rows labelled unpublished
