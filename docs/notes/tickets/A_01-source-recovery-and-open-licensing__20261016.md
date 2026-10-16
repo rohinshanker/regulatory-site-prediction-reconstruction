@@ -1,15 +1,15 @@
-# O_01-source-recovery-and-open-licensing__20261016 — Open
+# A_01-source-recovery-and-open-licensing__20261016 — Active
 
 - Scope: Recover complete sources and establish an open dependency path.
-- Status: open
+- Status: active
 - Opened: 2026-10-16
 - Updated: 2026-10-16
-- Current State: Planned; implementation has not started. See the work and acceptance criteria below.
+- Current State: RBS source/licence recovery, independent fixtures and experimental evaluation in progress. Other-calculator slices remain open.
 - Verification: Repository setup checked ticket H1/fields, queue membership and local links on 2026-10-16; implementation validation is specified below and has not run.
 - Cleanup: Owning session records final checks and unresolved findings, resolves the ticket, distills reusable guidance into docs/validation/, updates both indexes and linked GitHub issue, then removes the resolved ticket.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/1
 - Priority: P0
-- Owner: Unclaimed; the implementing session must claim this ticket before writing its scope.
+- Owner: Session B (`9677689a-1792176763`), Wave 1 RBS slice; branch `wave1/rbs-evidence`.
 - Dependencies: None; complete the RBS slice first.
 
 Search public repositories, historical releases, papers, supplements and permitted website downloads for complete implementations of all four calculators. Distinguish a runnable model from wrappers, UI assets and bytecode. Select reuse versus reconstruction per component.
