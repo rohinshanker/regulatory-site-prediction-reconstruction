@@ -62,7 +62,7 @@ warning. Even `--simple` can disagree with Fold/bifold's native objective, so
 this does not prove global minimum selection under the evaluation function.
 An absent CT energy remains null in native provenance and is explicitly
 evaluated, never assumed zero. `Fold --MFE` avoids the extra positive-energy
-traceback sometimes emitted by `--maximum 1` alone. Invalid/nonreciprocal CT
+traceback sometimes emitted by the combination `--maximum 1 --window 0`. Invalid/nonreciprocal CT
 output remains a failed computation; it is not repaired into a guessed structure.
 A known 6.6 diagnostic leader `UGGCUUGACGGCGUCAUUCCUAUUAUCAAAGCAAU`
 with aSD `ACCUCCUUA` produced a nonreciprocal suboptimal CT during review.

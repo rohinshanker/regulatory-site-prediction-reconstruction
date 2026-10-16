@@ -224,7 +224,7 @@ def test_batch_energy_rejects_count_and_index_corruption(monkeypatch, folding):
 
 
 def test_real_mfe_only_short_prefix_regression(real_backend):
-    # With --maximum 1 alone, 6.6 emits BOTH an unpaired structure and a
+    # With --maximum 1 --window 0, 6.6 emits BOTH an unpaired structure and a
     # positive-energy paired structure. --MFE emits only the actual minimum.
     structure = real_backend.session(37).fold("UUAAGUUCUUUGCAAG")
     assert structure.energy == 0

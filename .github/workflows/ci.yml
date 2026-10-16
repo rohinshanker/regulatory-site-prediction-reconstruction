@@ -1,12 +1,12 @@
 name: RBS runtime
 on:
   push:
-    branches: [main, 'wave1/**']
+    branches: [main]
   pull_request:
 permissions:
   contents: read
 concurrency:
-  group: rbs-${{ github.event.pull_request.head.ref || github.ref_name }}
+  group: rbs-${{ github.event_name }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 jobs:
   runtime:
