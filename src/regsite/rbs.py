@@ -30,6 +30,7 @@ MODEL_PARAMETERS = {
     "standby_nt": 4,
     "historical_footprint_nt": 1000,
     "suboptimal_filter_kcal_mol": 3.0,
+    "energy_comparison_tolerance_kcal_mol": 1e-9,
     "optimal_aligned_spacing": 5,
     "spacing_push": [12.2, 2.5, 2.0, 3.0],
     "spacing_pull": [0.048, 0.24, 0.0],
@@ -129,6 +130,7 @@ def _structure_result(structure: Structure, mrna_length: int) -> dict:
             "zero-based window-relative mRNA and 5-prime-to-3-prime anti_sd"
         ),
         "energy_kcal_mol": structure.energy,
+        "prediction_energy_kcal_mol": structure.prediction_energy,
     }
 
 
@@ -176,7 +178,7 @@ def _score_site(request: RbsRequest, start: int, folding) -> dict:
         for index, candidate in enumerate(candidates):
             binding = interstrand_pairs(candidate, len(leader))
             spacing = aligned_spacing(binding, len(leader))
-            if spacing is not None and candidate.energy <= lowest + 3.0:
+            if spacing is not None and candidate.energy <= lowest + 3.0 + 1e-9:
                 penalty = spacing_energy(spacing)
                 viable.append(
                     (candidate.energy + penalty, index, spacing, penalty, binding)
@@ -207,6 +209,12 @@ def _score_site(request: RbsRequest, start: int, folding) -> dict:
         )
         rate = initiation_rate(total)
         warnings = []
+        if any(
+            s.prediction_energy is not None
+            and abs(s.prediction_energy - s.energy) > 1e-9
+            for s in (unbound, *candidates)
+        ):
+            warnings.append("native_prediction_energy_differs_from_efn2_evaluation")
         if penalty > 3:
             warnings.append("spacing_penalty_exceeds_suboptimal_energy_band")
         if len(candidates) == MAX_STRUCTURES:
@@ -227,6 +235,8 @@ def _score_site(request: RbsRequest, start: int, folding) -> dict:
             log_tir=math.log(2500) - total / 2.222,
             energies={
                 "dG_mRNA": unbound.energy,
+                "dG_mRNA_native_prediction": unbound.prediction_energy,
+                "dG_cofold_native_prediction": candidates[index].prediction_energy,
                 "dG_cofold_search": candidates[index].energy,
                 "dG_search_with_spacing": ranking_energy,
                 "dG_complex": before.energy,

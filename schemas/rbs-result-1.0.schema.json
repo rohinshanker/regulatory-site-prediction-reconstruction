@@ -169,6 +169,18 @@
                         },
                         "units": {
                           "const": "kcal/mol"
+                        },
+                        "dG_mRNA_native_prediction": {
+                          "type": [
+                            "number",
+                            "null"
+                          ]
+                        },
+                        "dG_cofold_native_prediction": {
+                          "type": [
+                            "number",
+                            "null"
+                          ]
                         }
                       },
                       "required": [
@@ -181,7 +193,9 @@
                         "dG_standby_signed",
                         "dG_accessible_complex",
                         "dG_total",
-                        "units"
+                        "units",
+                        "dG_mRNA_native_prediction",
+                        "dG_cofold_native_prediction"
                       ]
                     },
                     {
@@ -289,6 +303,12 @@
                             },
                             "energy_kcal_mol": {
                               "type": "number"
+                            },
+                            "prediction_energy_kcal_mol": {
+                              "type": [
+                                "number",
+                                "null"
+                              ]
                             }
                           },
                           "required": [
@@ -297,7 +317,8 @@
                             "mrna_intramolecular_pairs",
                             "mrna_anti_sd_pairs",
                             "coordinate_space",
-                            "energy_kcal_mol"
+                            "energy_kcal_mol",
+                            "prediction_energy_kcal_mol"
                           ]
                         },
                         "bound_before_standby": {
@@ -342,6 +363,12 @@
                             },
                             "energy_kcal_mol": {
                               "type": "number"
+                            },
+                            "prediction_energy_kcal_mol": {
+                              "type": [
+                                "number",
+                                "null"
+                              ]
                             }
                           },
                           "required": [
@@ -350,7 +377,8 @@
                             "mrna_intramolecular_pairs",
                             "mrna_anti_sd_pairs",
                             "coordinate_space",
-                            "energy_kcal_mol"
+                            "energy_kcal_mol",
+                            "prediction_energy_kcal_mol"
                           ]
                         },
                         "bound_after_standby": {
@@ -395,6 +423,12 @@
                             },
                             "energy_kcal_mol": {
                               "type": "number"
+                            },
+                            "prediction_energy_kcal_mol": {
+                              "type": [
+                                "number",
+                                "null"
+                              ]
                             }
                           },
                           "required": [
@@ -403,7 +437,8 @@
                             "mrna_intramolecular_pairs",
                             "mrna_anti_sd_pairs",
                             "coordinate_space",
-                            "energy_kcal_mol"
+                            "energy_kcal_mol",
+                            "prediction_energy_kcal_mol"
                           ]
                         }
                       },
@@ -550,6 +585,18 @@
                           },
                           "units": {
                             "const": "kcal/mol"
+                          },
+                          "dG_mRNA_native_prediction": {
+                            "type": [
+                              "number",
+                              "null"
+                            ]
+                          },
+                          "dG_cofold_native_prediction": {
+                            "type": [
+                              "number",
+                              "null"
+                            ]
                           }
                         },
                         "required": [
@@ -562,7 +609,9 @@
                           "dG_standby_signed",
                           "dG_accessible_complex",
                           "dG_total",
-                          "units"
+                          "units",
+                          "dG_mRNA_native_prediction",
+                          "dG_cofold_native_prediction"
                         ]
                       },
                       "tir": {
@@ -621,6 +670,12 @@
                               },
                               "energy_kcal_mol": {
                                 "type": "number"
+                              },
+                              "prediction_energy_kcal_mol": {
+                                "type": [
+                                  "number",
+                                  "null"
+                                ]
                               }
                             },
                             "required": [
@@ -629,7 +684,8 @@
                               "mrna_intramolecular_pairs",
                               "mrna_anti_sd_pairs",
                               "coordinate_space",
-                              "energy_kcal_mol"
+                              "energy_kcal_mol",
+                              "prediction_energy_kcal_mol"
                             ]
                           },
                           "bound_before_standby": {
@@ -674,6 +730,12 @@
                               },
                               "energy_kcal_mol": {
                                 "type": "number"
+                              },
+                              "prediction_energy_kcal_mol": {
+                                "type": [
+                                  "number",
+                                  "null"
+                                ]
                               }
                             },
                             "required": [
@@ -682,7 +744,8 @@
                               "mrna_intramolecular_pairs",
                               "mrna_anti_sd_pairs",
                               "coordinate_space",
-                              "energy_kcal_mol"
+                              "energy_kcal_mol",
+                              "prediction_energy_kcal_mol"
                             ]
                           },
                           "bound_after_standby": {
@@ -727,6 +790,12 @@
                               },
                               "energy_kcal_mol": {
                                 "type": "number"
+                              },
+                              "prediction_energy_kcal_mol": {
+                                "type": [
+                                  "number",
+                                  "null"
+                                ]
                               }
                             },
                             "required": [
@@ -735,7 +804,8 @@
                               "mrna_intramolecular_pairs",
                               "mrna_anti_sd_pairs",
                               "coordinate_space",
-                              "energy_kcal_mol"
+                              "energy_kcal_mol",
+                              "prediction_energy_kcal_mol"
                             ]
                           }
                         },

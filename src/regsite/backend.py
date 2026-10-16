@@ -24,6 +24,8 @@ MAX_STRUCTURES = 100
 SETTINGS = {
     "alphabet": "rna",
     "fold_maximum": 1,
+    "fold_mfe_only": True,
+    "energy_evaluation": "efn2 --simple for every structure",
     "fold_window": 0,
     "maximum_loop": 30,
     "bifold_maximum": MAX_STRUCTURES,
@@ -142,21 +144,40 @@ class FoldingSession:
 
     def evaluate(self, sequence: str, pairs: tuple[int, ...]) -> Structure:
         """Evaluate the supplied structure, preserving its exact base pairs."""
-        if not 1 <= len(sequence) <= 82:
+        return self._evaluate_many((Structure(sequence, pairs, None),))[0]
+
+    def _evaluate_many(
+        self, structures: tuple[Structure, ...]
+    ) -> tuple[Structure, ...]:
+        """Use one explicit energy evaluator for folded and constructed states."""
+        if not 1 <= len(structures) <= MAX_STRUCTURES:
+            raise BackendError("invalid fixed-structure count")
+        if any(not 1 <= len(s.sequence) <= 82 for s in structures):
             raise BackendError("fixed structure exceeds the supported window")
         with TemporaryDirectory(prefix="regsite-") as directory:
             ct, output = Path(directory) / "input.ct", Path(directory) / "energy.txt"
-            ct.write_text(to_ct(sequence, pairs))
+            ct.write_text("".join(to_ct(s.sequence, s.pairs) for s in structures))
             self._call("efn2", [str(ct), str(output), "--simple", "--ne"])
-            text = self._read(output)
-        match = re.fullmatch(r"\s*Structure:\s*1\s+Energy\s*=\s*(\S+)\s*", text)
-        try:
-            energy = float(match.group(1)) if match else float("nan")
-        except ValueError as exc:
-            raise BackendError("invalid efn2 energy") from exc
-        if not math.isfinite(energy):
-            raise BackendError("missing/nonfinite efn2 energy")
-        return Structure(sequence, pairs, energy)
+            lines = self._read(output).strip().splitlines()
+        if len(lines) != len(structures):
+            raise BackendError("efn2 structure count mismatch")
+        evaluated = []
+        for index, (structure, line) in enumerate(
+            zip(structures, lines, strict=True), 1
+        ):
+            match = re.fullmatch(
+                rf"\s*Structure:\s*{index}\s+Energy\s*=\s*(\S+)\s*", line
+            )
+            try:
+                energy = float(match.group(1)) if match else float("nan")
+            except ValueError as exc:
+                raise BackendError("invalid efn2 energy") from exc
+            if not math.isfinite(energy):
+                raise BackendError("missing/nonfinite efn2 energy")
+            evaluated.append(
+                replace(structure, energy=energy, prediction_energy=structure.energy)
+            )
+        return tuple(evaluated)
 
     def fold(self, sequence: str) -> Structure:
         """Fold an RNA window; an empty mathematical prefix has energy zero."""
@@ -172,6 +193,7 @@ class FoldingSession:
                 [
                     str(fasta),
                     str(ct),
+                    "--MFE",
                     "--maximum",
                     "1",
                     "--window",
@@ -183,10 +205,7 @@ class FoldingSession:
             structures = parse_ct(self._read(ct), sequence)
         if len(structures) != 1:
             raise BackendError("Fold returned more than one requested structure")
-        structure = structures[0]
-        if structure.energy is None:
-            return self.evaluate(sequence, structure.pairs)
-        return structure
+        return self._evaluate_many(structures)[0]
 
     def cofold(self, leader: str, anti_sd: str) -> tuple[Structure, ...]:
         """Bounded cofold search with intramolecular pairing, not exhaustive subopt."""
@@ -220,9 +239,4 @@ class FoldingSession:
                 ],
             )
             structures = parse_ct(self._read(ct), sequence)
-        return tuple(
-            replace(s, energy=self.evaluate(sequence, s.pairs).energy)
-            if s.energy is None
-            else s
-            for s in structures
-        )
+        return self._evaluate_many(structures)

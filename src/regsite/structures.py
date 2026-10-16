@@ -20,6 +20,7 @@ class Structure:
     sequence: str
     pairs: tuple[int, ...]
     energy: float | None
+    prediction_energy: float | None = None
 
     def dot_bracket(self) -> str:
         """Render a pseudoknot-free structure; fail rather than misrender pairs."""

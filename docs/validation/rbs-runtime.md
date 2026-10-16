@@ -22,11 +22,12 @@ requires a new package version before release.
 
 For each supplied or scanned start at oriented position `s`:
 
-1. Fold `[max(0,s−35), min(n,s+35))` for unbound mRNA energy.
+1. Predict the minimum structure of `[max(0,s−35), min(n,s+35))` with
+   `Fold --MFE`, then evaluate it with `efn2 --simple` for unbound mRNA energy.
 2. Cofold the upstream portion and explicit 9-nt aSD, permitting intramolecular
    pairing. RNAstructure's 100 tracebacks, 100-percent energy window, zero
    diversity window and 30-nt internal-loop cap are fixed. Retain structures
-   within 3 kcal/mol of the lowest returned energy. This is a bounded search,
+   within 3 kcal/mol of the lowest reevaluated energy (1e-9 numerical tolerance). This is a bounded search,
    not NUPACK's exhaustive 3-kcal/mol suboptimal enumeration; it can miss states.
 3. For interstrand pairs `(m,r)` in zero-based leader/aSD coordinates, choose
    the greatest paired `r`. Preserve the legacy strict boundary `m+1 < len(leader)`.
@@ -51,6 +52,16 @@ The plain dot-bracket strings represent individual strands of a joint structure:
 interstrand parentheses are balanced only when the strings are concatenated.
 Pair lists are the authoritative mapping. The artificial `III` linker never
 appears in reported biological coordinates.
+
+All predicted and constructed structures use `efn2 --simple` for scoring,
+including candidate ranking and the 3-kcal/mol filter. RNAstructure's native
+prediction energies are retained separately; differences trigger an explicit
+warning. Even `--simple` can disagree with Fold/bifold's native objective, so
+this does not prove global minimum selection under the evaluation function.
+An absent CT energy remains null in native provenance and is explicitly
+evaluated, never assumed zero. `Fold --MFE` avoids the extra positive-energy
+traceback sometimes emitted by `--maximum 1` alone. Invalid/nonreciprocal CT
+output remains a failed computation; it is not repaired into a guessed structure.
 
 RNAstructure parameters, dangles/coaxial stacking, isolated-pair rules, loop
 caps, traceback ordering and suboptimal enumeration differ from NUPACK rna1999.
@@ -188,10 +199,9 @@ Limits: 10,000 normalized bases, 1,000 selected starts, 100 batch records,
 bases plus 3 linker/9 aSD positions, ≤100 structures and one thread. Process
 wall-time is capped at 15 s and total folding time at 60 s per record by default,
 configurable up to 120 s. Input-size/window caps bound computational memory;
-there is no operating-system memory quota. A four-record shipped batch on
-macOS arm64/Python 3.14 took 0.77 s wall time; `/usr/bin/time -l` reported
-85,409,792 bytes maximum resident set size and 26,231,288 bytes peak footprint.
-These are smoke observations, not throughput or peak-memory guarantees.
+there is no operating-system memory quota. The shipped batch provides a reproducible smoke workload; measure wall time and
+peak RSS with `/usr/bin/time` on the actual installation, since every predicted
+structure is reevaluated and backend binaries/hosts differ.
 Timeout failure is tested, not
 silently converted to no binding. Large native-genome scans require a separately
 validated adapter and budget policy.

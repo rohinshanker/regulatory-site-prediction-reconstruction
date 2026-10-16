@@ -191,3 +191,41 @@ def test_independent_engine_fixtures(real_backend):
         "observations"
     ][2]["base_pairs_1based"]
     assert session.evaluate(duplex.sequence, duplex.pairs).energy == duplex.energy
+
+
+def test_batch_energy_rejects_count_and_index_corruption(monkeypatch, folding):
+    from regsite.structures import Structure
+
+    with pytest.raises(BackendError, match="structure count"):
+        folding._evaluate_many(())
+    monkeypatch.setattr(
+        FoldingSession, "_call", lambda self, p, a: Path(a[1]).write_text("")
+    )
+    with pytest.raises(BackendError, match="count mismatch"):
+        folding.evaluate("AAAA", (-1,) * 4)
+    monkeypatch.setattr(
+        FoldingSession,
+        "_call",
+        lambda self, p, a: Path(a[1]).write_text("Structure: 2 Energy = -1"),
+    )
+    with pytest.raises(BackendError, match="efn2 energy"):
+        folding.evaluate("AAAA", (-1,) * 4)
+    monkeypatch.setattr(
+        FoldingSession,
+        "_call",
+        lambda self, p, a: Path(a[1]).write_text(
+            "Structure: 1 Energy = -1\nStructure: 2 Energy = -3\n"
+        ),
+    )
+    structures = (Structure("AAAA", (-1,) * 4, -2), Structure("CCCC", (-1,) * 4, -4))
+    results = folding._evaluate_many(structures)
+    assert [s.energy for s in results] == [-1, -3]
+    assert [s.prediction_energy for s in results] == [-2, -4]
+
+
+def test_real_mfe_only_short_prefix_regression(real_backend):
+    # With --maximum 1 alone, 6.6 emits BOTH an unpaired structure and a
+    # positive-energy paired structure. --MFE emits only the actual minimum.
+    structure = real_backend.session(37).fold("UUAAGUUCUUUGCAAG")
+    assert structure.energy == 0
+    assert set(structure.pairs) == {-1}

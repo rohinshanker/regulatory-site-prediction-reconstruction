@@ -307,3 +307,18 @@ def test_real_standby_opens_a_folded_upstream_prefix(real_backend):
     assert after["mrna_anti_sd_pairs"] == before["mrna_anti_sd_pairs"]
     assert all(j < len(leader) for i, j in before["mrna_intramolecular_pairs"])
     assert after["energy_kcal_mol"] > before["energy_kcal_mol"]
+
+
+@pytest.mark.parametrize(
+    "candidate_energy,expected", [(0.9, "ok"), (0.90001, "no_candidate")]
+)
+def test_three_kcal_boundary_uses_numeric_tolerance(candidate_energy, expected):
+    class Boundary(AlgebraBackend):
+        def cofold(self, leader, anti_sd):
+            paired = super().cofold(leader, anti_sd)[0]
+            return (
+                Structure(paired.sequence, (-1,) * len(paired.sequence), -2.1),
+                Structure(paired.sequence, paired.pairs, candidate_energy),
+            )
+
+    assert predict(request(), Boundary())["status"] == expected
