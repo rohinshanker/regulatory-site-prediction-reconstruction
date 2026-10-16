@@ -1,0 +1,236 @@
+{
+  "schema_version": 1,
+  "retrieved_utc_date": "2026-10-16",
+  "source_dependencies_for_ingestion": {
+    "xlrd": "2.0.2",
+    "openpyxl": "3.1.5"
+  },
+  "datasets": {
+    "standby2014": {
+      "sha256": "ee4117e073dcfbc4fad88ff877bf981ad140a0bfa14ee8ae61eb673c4a245345",
+      "local_cache_path": "papers/PMC3936740/supp_gkt1139_nar-02492-r-2013-File010.xls",
+      "download_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC3936740/supplementaryFiles",
+      "archive_members": [
+        "supp_gkt1139_nar-02492-r-2013-File010.xls"
+      ],
+      "title": "Translation rate is controlled by coupled trade-offs between site accessibility, selective RNA unfolding and sliding at upstream standby sites",
+      "doi": "10.1093/nar/gkt1139",
+      "primary_article": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3936740/",
+      "licence": "CC-BY-3.0",
+      "licence_url": "https://creativecommons.org/licenses/by/3.0/",
+      "attribution": "Espah Borujeni, Channarasappa and Salis (2014)",
+      "role": "development; primary publisher supplement",
+      "n": 136,
+      "host": "Escherichia coli DH10B",
+      "temperature_c": 37,
+      "medium": "LB + 50 micrograms/ml chloramphenicol",
+      "plasmid": "pFTV1; ColE1; CmR",
+      "promoter": "J23100",
+      "reporter": "mRFP1",
+      "assay": "Arithmetic mean flow cytometry fluorescence, autofluorescence subtracted; three exponential-growth sampling times",
+      "schema": {
+        "sheet": "Supplemental Data",
+        "header_excel_row": 5,
+        "name_column": "A",
+        "leader_including_ATG": "F",
+        "CDS_cell": "B3",
+        "mean": "G",
+        "sd": "H",
+        "n": "J",
+        "dg_total": "N",
+        "apparent_standby": "K",
+        "predicted_standby": "S"
+      },
+      "sequence_reconstruction": "uppercase DNA; remove terminal ATG from F, concatenate B3 (102 nt); start=len(F)-3; preserve full leader",
+      "exclusions": "None of 136; source flags retained, not outcome-selected",
+      "redistribution": "Derived measurements and sequences committed with attribution; extraction/normalization changes declared"
+    },
+    "salis2009": {
+      "sha256": "bd473f0e5ff088f9aa0d9a4c249f8e7188e006c2badd6def8b20efd2dcba2b6c",
+      "local_cache_path": "synbiomts/examples/RBS/datasets/Salis_Nat_Biotech_2009.xls",
+      "download_url": "https://raw.githubusercontent.com/reisalex/SynBioMTS/d7d46af7981f90d2147cbc0463c5254b16c5c92c/examples/RBS/datasets/Salis_Nat_Biotech_2009.xls",
+      "archive_members": [],
+      "title": "Automated design of synthetic ribosome binding sites to control protein expression",
+      "doi": "10.1038/nbt.1568",
+      "primary_article": "https://pmc.ncbi.nlm.nih.gov/articles/PMC2782888/",
+      "licence": "Publisher/author manuscript research terms; no open data redistribution licence established",
+      "role": "historical audit only; author-curated SynBioMTS copy, not proven publisher-byte-identical",
+      "n_audited": 57,
+      "host": "Escherichia coli DH10B",
+      "reporter": "mRFP1",
+      "assay": "Flow cytometry fluorescence; source Figure 2 groups",
+      "schema": {
+        "sheet": "Sheet1",
+        "existing_excel_rows": [
+          19,
+          46
+        ],
+        "designed_excel_rows": [
+          49,
+          77
+        ],
+        "dg_total": "C",
+        "fluorescence_mean": "D",
+        "sd": "E"
+      },
+      "exclusions": "Spacing fit, other contexts and upstream-start experiments not pooled into these figure groups",
+      "redistribution": "Source remains outside Git; only derived aggregate statistics published"
+    },
+    "footprint2017": {
+      "sha256": "c4eba651e85ff6cb7802df92d9f68fd5ea5a4ad137697f15c4d22db2967aa243",
+      "local_cache_path": "papers/PMC5435973/supp/nar-03716-r-2016-File008.xlsx",
+      "download_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC5435973/supplementaryFiles",
+      "archive_members": [
+        "gkx061_Supp.zip",
+        "nar-03716-r-2016-File008.xlsx"
+      ],
+      "title": "Precise quantification of translation inhibition by mRNA structures that overlap with the ribosomal footprint in N-terminal coding sequences",
+      "doi": "10.1093/nar/gkx061",
+      "primary_article": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5435973/",
+      "licence": "CC-BY-NC-4.0",
+      "licence_url": "https://creativecommons.org/licenses/by-nc/4.0/",
+      "attribution": "Espah Borujeni, Cetnar, Farasat, Smith, Lundgren and Salis (2017)",
+      "role": "held out from reconstruction tuning; primary publisher supplement",
+      "n": 27,
+      "host": "Escherichia coli DH10B",
+      "temperature_c": 37,
+      "reporter": "mRFP1",
+      "assay": "Flow cytometry and RT-qPCR; relative translation=fluorescence/mRNA abundance",
+      "schema": {
+        "sheet": "FP = 13",
+        "header_excel_row": 5,
+        "data_excel_rows": [
+          6,
+          32
+        ],
+        "id": "A",
+        "UTR": "D",
+        "coding_insert": "E",
+        "coding_remainder": "F",
+        "fluorescence_mean_sd_n": [
+          "J",
+          "K",
+          "L"
+        ],
+        "mrna_mean_sd_n": [
+          "M",
+          "N",
+          "O"
+        ],
+        "translation_mean_sd": [
+          "P",
+          "Q"
+        ]
+      },
+      "sequence_reconstruction": "D + E + F; start=len(D); no repeated copies from other footprint tabs",
+      "exclusions": "495-mRNA historical compilation excluded from holdout; other FP tabs contain repeated measurements",
+      "redistribution": "Raw workbook, exact constructs and outcomes outside Git; public split contains identities/hashes only",
+      "n_translation_measured": 18,
+      "n_translation_unmeasured": 9,
+      "n_fluorescence_measured": 27,
+      "medium": "LB-Miller + 50 micrograms/ml chloramphenicol",
+      "plasmid": "pFTV1-derived; ColE1; CmR",
+      "promoter": "J23100",
+      "sampling": "Fluorescence: four samples, two days, serial exponential cultures, 100000 cells/sample. RT-qPCR: separate cultures, OD600 1.5\u20132.0, 16S endogenous control; n varies 2,3,6,8."
+    },
+    "mts2020_ic": {
+      "sha256": "b36fed7a13eb2421874f0d9bc52d76866cc64fbd5a94ffc05115f3759210455b",
+      "local_cache_path": "papers/sb0c00394_si_002.xlsx",
+      "download_url": "https://ndownloader.figshare.com/files/25103531",
+      "archive_members": [],
+      "title": "An automated model test system for systematic development and improvement of gene expression models",
+      "doi": "10.1021/acssynbio.0c00394",
+      "primary_article": "https://pubmed.ncbi.nlm.nih.gov/33054181/",
+      "licence": "CC-BY-NC-4.0 on ACS Figshare article",
+      "licence_url": "https://creativecommons.org/licenses/by-nc/4.0/",
+      "attribution": "Reis and Salis (2020)",
+      "role": "historical model/output and denominator audit, never independent holdout",
+      "redistribution": "Raw source outside Git; derived aggregate statistics only",
+      "figshare_article": 13096484,
+      "n": 1014,
+      "host": "Multiple; preserve ORGANISM per record",
+      "assay": "Compiled individually characterized studies; PROT.MEAN; not one homogeneous assay",
+      "schema": {
+        "sheet": "1014 IC",
+        "columns": [
+          "DATASET",
+          "ORGANISM",
+          "PROTEIN",
+          "5pUTR",
+          "CDS",
+          "SEQUENCE",
+          "PROT.MEAN",
+          "PROT.STD"
+        ]
+      },
+      "exclusions": "No tuning or held-out prediction on this compilation; contains 2017 reserved-study duplicates"
+    },
+    "mts2020_fs": {
+      "sha256": "00446e97b2df76a52c45dce66ec7c9faf1abbbcd2b9a5562c4bbfbf9a2897d75",
+      "local_cache_path": "papers/sb0c00394_si_003.xlsx",
+      "download_url": "https://ndownloader.figshare.com/files/25103534",
+      "archive_members": [],
+      "title": "An automated model test system for systematic development and improvement of gene expression models",
+      "doi": "10.1021/acssynbio.0c00394",
+      "primary_article": "https://pubmed.ncbi.nlm.nih.gov/33054181/",
+      "licence": "CC-BY-NC-4.0 on ACS Figshare article",
+      "licence_url": "https://creativecommons.org/licenses/by-nc/4.0/",
+      "attribution": "Reis and Salis (2020)",
+      "role": "historical model/output and denominator audit, never independent holdout",
+      "redistribution": "Raw source outside Git; derived aggregate statistics only",
+      "figshare_article": 13096487,
+      "n": 16779,
+      "n_kosuri": 8848,
+      "n_goodman": 7931,
+      "host": "Escherichia coli str. K-12 substr. MG1655",
+      "temperature_c": 30,
+      "plasmid": "pEGRC",
+      "reporter": "sfGFP",
+      "assay": "Compiled flow-seq protein plus RNA abundance; target TRANSL.RATE, not PROT.MEAN",
+      "schema": {
+        "measurements_sheet": "FS",
+        "predictions_sheet": "RBS Calculator v2.1",
+        "statistics_sheet": "Statistics",
+        "measurement_id": "A",
+        "measurement_target": "AU (zero-based 46)",
+        "cached_prediction": "U (zero-based 20)",
+        "cached_observed_over_prediction": "V (zero-based 21)"
+      },
+      "exclusions": "Published preprocessing already applied; no new residual exclusions; use all 8848/7931 table records",
+      "normalization": "Cached predictions use per-subgroup fitted slope/intercept after MAD-trimmed fitting; evaluation is not out-of-study prediction"
+    }
+  },
+  "source_dependency_notices": {
+    "xlrd": {
+      "version": "2.0.2",
+      "metadata_licence": "BSD",
+      "notice_files": [
+        {
+          "path": "xlrd-2.0.2.dist-info/LICENSE",
+          "sha256": "b5a5dbce60265e305a815a6cb83ed07f24519d8ba644f2a307994488bced8815"
+        }
+      ]
+    },
+    "openpyxl": {
+      "version": "3.1.5",
+      "metadata_licence": "MIT",
+      "notice_files": [
+        {
+          "path": "openpyxl-3.1.5.dist-info/LICENCE.rst",
+          "sha256": "0c84bb42f5d367e5ebf9fc2dde35b16141df5ee0fdc189250858bc6c5560f69e"
+        }
+      ]
+    },
+    "et_xmlfile": {
+      "version": "2.0.0",
+      "metadata_licence": "MIT",
+      "notice_files": [
+        {
+          "path": "et_xmlfile-2.0.0.dist-info/LICENCE.rst",
+          "sha256": "0c84bb42f5d367e5ebf9fc2dde35b16141df5ee0fdc189250858bc6c5560f69e"
+        }
+      ]
+    }
+  },
+  "source_dependency_disposition": "Isolated optional ingestion tools; not vendored or required for calculator/offline tests. xlrd LICENSE includes BSD-3-Clause plus earlier advertising/acknowledgment terms; do not flatten to one BSD-3-Clause claim or bundle with GPL code without compatibility review."
+}

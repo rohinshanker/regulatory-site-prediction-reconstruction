@@ -4,8 +4,8 @@
 - Status: active
 - Opened: 2026-10-16
 - Updated: 2026-10-16
-- Current State: RBS source/licence recovery, independent fixtures and experimental evaluation in progress. Other-calculator slices remain open.
-- Verification: Repository setup checked ticket H1/fields, queue membership and local links on 2026-10-16; implementation validation is specified below and has not run.
+- Current State: RBS decision package delivered in a7f5cd1: pinned Salis v1/iDOG/other candidates, licence decisions, RNAstructure 6.6 standalone smoke checks and independent scalar fixtures. Exact versioned RNAstructure source re-fetched successfully. Modern DNAc remains unavailable; other-calculator source slices remain open.
+- Verification: RNAstructure Fold/bifold/efn2 smoke outputs and 45 table hashes recorded in docs/validation/rbs-source-decision.md. Source archive and five dataset artifacts freshly re-fetched with matching SHA-256. Independent fixture arithmetic covered by 27 passing benchmark tests; no runtime engine implemented here.
 - Cleanup: Owning session records final checks and unresolved findings, resolves the ticket, distills reusable guidance into docs/validation/, updates both indexes and linked GitHub issue, then removes the resolved ticket.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/1
 - Priority: P0
