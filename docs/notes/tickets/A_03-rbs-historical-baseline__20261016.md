@@ -1,15 +1,15 @@
-# O_03-rbs-historical-baseline__20261016 — Open
+# A_03-rbs-historical-baseline__20261016 — Active
 
 - Scope: Implement and validate the historical RBS scoring baseline.
-- Status: open
+- Status: active
 - Opened: 2026-10-16
 - Updated: 2026-10-16
-- Current State: Planned; implementation has not started. See the work and acceptance criteria below.
+- Current State: Active Wave 1 implementation in the isolated runtime worktree. Source/licence/backend evidence and independent benchmarks are owned by Session B; no production-parity claim is made.
 - Verification: Repository setup checked ticket H1/fields, queue membership and local links on 2026-10-16; implementation validation is specified below and has not run.
 - Cleanup: Owning session records final checks and unresolved findings, resolves the ticket, distills reusable guidance into docs/validation/, updates both indexes and linked GitHub issue, then removes the resolved ticket.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/3
 - Priority: P0
-- Owner: Unclaimed; the implementing session must claim this ticket before writing its scope.
+- Owner: Session A / cyano-rbs-scraping (agent-deck baf5b738-1792172297), branch wave1/rbs-runtime.
 - Dependencies: RBS selection in 01; working foundation in 02.
 
 Deliver the first real RBS prediction implementation using the public Salis v1 source and Jaymin/iDOG as pinned references. Establish which historical behaviors can be preserved with an entirely open runtime.

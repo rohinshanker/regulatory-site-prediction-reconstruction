@@ -1,15 +1,15 @@
-# O_02-core-runtime-and-result-contract__20261016 — Open
+# A_02-core-runtime-and-result-contract__20261016 — Active
 
 - Scope: Build the shared local runtime, result schema and test infrastructure.
-- Status: open
+- Status: active
 - Opened: 2026-10-16
 - Updated: 2026-10-16
-- Current State: Planned; implementation has not started. See the work and acceptance criteria below.
+- Current State: Active Wave 1 implementation in the isolated runtime worktree. Source/licence/backend evidence and independent benchmarks are owned by Session B; no production-parity claim is made.
 - Verification: Repository setup checked ticket H1/fields, queue membership and local links on 2026-10-16; implementation validation is specified below and has not run.
 - Cleanup: Owning session records final checks and unresolved findings, resolves the ticket, distills reusable guidance into docs/validation/, updates both indexes and linked GitHub issue, then removes the resolved ticket.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/2
 - Priority: P0
-- Owner: Unclaimed; the implementing session must claim this ticket before writing its scope.
+- Owner: Session A / cyano-rbs-scraping (agent-deck baf5b738-1792172297), branch wave1/rbs-runtime.
 - Dependencies: RBS slice of 01 for adopted dependencies; contract design can start immediately.
 
 Create the smallest working package/CLI foundation needed by the first RBS engine. Prefer Python and reuse verified open scientific dependencies; choose another language only with a documented practical reason. No browser UI or hosted service is necessary for the first release.
