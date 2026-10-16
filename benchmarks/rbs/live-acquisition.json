@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "acquired_utc_date": "2026-10-16",
+  "panel_sha256": "dd58758467b242b8e0c9f9feaacce7aac639200b5cac700d73514cbd7bb0f038",
+  "n_planned": 12,
+  "n_submitted": 1,
+  "n_finished_exported": 1,
+  "n_unsubmitted": 11,
+  "advertised_coins_per_job": 1,
+  "advertised_submitted_total_coins": 1,
+  "observed_balance_delta": 0,
+  "actual_charge_status": "unreconciled",
+  "stop_reason": "unchanged balance after completed one-coin job and reloads; resolve before further acquisition",
+  "form_version": "2020",
+  "returned_version": "v2.1.1",
+  "returned_settings": {
+    "pre_cutoff_nt": 100,
+    "post_cutoff_nt": 35,
+    "dangles": 0,
+    "suboptimal_gap_kcal_mol": 8,
+    "footprint_nt": 13,
+    "temperature_c": 37,
+    "rna_energy_model": "rna_andronescu2007.par",
+    "rrna_displayed": "ACCUCCUUA",
+    "maximum_bulge_nt": null
+  },
+  "outputs_redistribution": "not established; raw outputs private",
+  "jobs": [
+    {
+      "id": "w1-atg",
+      "input_sha256": "24d215f5a1ac0e8f45335413bd83818d3c8ac6d426c5e93fa0a078f534ce43ba",
+      "job_id_sha256": "6f1aa8498f509b9deeca5ee9e858ae7cfd0d15e01bc860c003d2c88d980ce7f8",
+      "status": "finished_exported",
+      "exports": [
+        {
+          "file": "w1-atg.csv",
+          "sha256": "2ed6b48bc9d8ecf557d7688919286160790eafc4858fec1c4d276fd1d57e23bc",
+          "bytes": 249
+        },
+        {
+          "file": "w1-atg-rendered.txt",
+          "sha256": "1cb3bc713ff22f82d9e8771d038c5cd468e81fe964d792219d521ddfd5e9626b",
+          "bytes": 2925
+        }
+      ],
+      "coordinate_check": "CSV start_position 25 equals declared zero-based start; one-based nucleotide is26",
+      "component_sum_matches_total": true
+    }
+  ]
+}

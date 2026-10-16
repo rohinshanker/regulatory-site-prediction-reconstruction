@@ -38,11 +38,12 @@ NUPACK's exhaustive 3 kcal/mol suboptimal band. Report truncation explicitly.
 Pass every setting rather than relying on help defaults: the 6.6 `bifold.cpp`
 constructor sets `percent = 50.0` while help describes 10 percent.
 
-The official `/Releases/6.6/` URL returned 404. The source served at
-[`/Releases/current/RNAstructureSource.tgz`](https://rna.urmc.rochester.edu/Releases/current/RNAstructureSource.tgz)
+The official `/Releases/6.6/` URL returned 404. The versioned source at
+[`/Releases/rnastructure-6.6/RNAstructureSource.tgz`](https://rna.urmc.rochester.edu/Releases/rnastructure-6.6/RNAstructureSource.tgz)
 has SHA-256 `1bedc62aaab984279055caaa6234d48fca113f4b8e17a8060e0b3784d5a397c3`
 (30,765,790 bytes), matching the 6.6 Bioconda recipe. The archive hash, not the
-mutable `current` path, is the identity. Runtime smoke results are recorded below. Installation remains ticket 02's
+URL, is the identity. A fresh download of this versioned URL matched the initial
+`current` download byte-for-byte. Runtime smoke results are recorded below. Installation remains ticket 02's
 responsibility.
 
 ## Recovered candidates
