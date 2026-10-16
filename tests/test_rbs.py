@@ -279,3 +279,31 @@ def test_scratch_io_failure_is_isolated_per_record():
     result = predict(request(), Unwritable())
     assert result["status"] == "failed"
     assert result["sites"][0]["tir"] is None
+
+
+def test_real_standby_opens_a_folded_upstream_prefix(real_backend):
+    # Synthetic mechanism check, not an independent whole-calculator benchmark.
+    leader = "GGGAAACCC" + "AAAGGAGGAAAAAA"
+    sequence = leader + "ATG" + "GGGAAACCC" * 4
+    result = predict(
+        {
+            "sequence": sequence,
+            "anti_sd": "ACCUCCUUA",
+            "start_positions": [len(leader)],
+        },
+        real_backend,
+    )
+    site = result["sites"][0]
+    assert result["status"] == "ok"
+    assert site["energies"]["dG_standby_signed"] < 0
+    before = site["structures"]["bound_before_standby"]
+    after = site["structures"]["bound_after_standby"]
+    assert before["mrna_intramolecular_pairs"]
+    standby = site["standby_interval"]
+    begin = site["window"]["oriented_start"]
+    for i, j in after["mrna_intramolecular_pairs"]:
+        assert not standby["start"] <= i + begin < standby["end"]
+        assert not standby["start"] <= j + begin < standby["end"]
+    assert after["mrna_anti_sd_pairs"] == before["mrna_anti_sd_pairs"]
+    assert all(j < len(leader) for i, j in before["mrna_intramolecular_pairs"])
+    assert after["energy_kcal_mol"] > before["energy_kcal_mol"]
