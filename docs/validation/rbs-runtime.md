@@ -111,6 +111,10 @@ are excluded. Output metadata is copied and cannot mutate model constants.
 Python ≥3.11; CI targets Python 3.11 and 3.14 on Ubuntu 24.04 and macOS 14.
 Windows is unverified. The Python runtime has no third-party dependencies.
 Build/test dependencies are version/hash locked in `requirements-dev.lock`.
+Their installed metadata identifies MIT, BSD, Apache-2.0, MPL-2.0 or PSF-2.0
+terms (the exact distributions/versions are in the lock); they are development
+only and are not bundled with the runtime. Python itself is separately installed
+under its PSF/component notices. Source-derived fixture compilation is GPL-3.0-or-later.
 The lock generator uses pip 25.3 because pip-tools 7.5.3 imports an API removed
 by the installed newer pip. Do not regenerate with an untested toolchain.
 
