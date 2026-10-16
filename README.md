@@ -34,8 +34,8 @@ labels do not select hidden defaults. See the [input schema](schemas/rbs-request
 2. Read the [source map](docs/validation/source-map.md),
    [reconstruction contract](docs/validation/reconstruction-contract.md), and
    [benchmark-quality assessment](docs/validation/benchmark-quality.md).
-3. Check current owners before claiming an open scope. Rename a
-   claimed ticket from `O_` to `A_`, update its H1/status and index, and identify
+3. Foundation 02 and reconstructed RBS baseline 03 are complete. Check current
+   owners before claiming refinement 04 or validation 06. Rename a claimed ticket from `O_` to `A_`, update its H1/status and index, and identify
    the owning session. Work through RBS tickets 03–06 before implementing the
    other three calculators. Source discovery for those calculators may proceed
    independently; their incomplete discovery must not block RBS work.
