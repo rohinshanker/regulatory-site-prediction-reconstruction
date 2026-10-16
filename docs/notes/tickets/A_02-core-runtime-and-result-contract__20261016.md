@@ -5,7 +5,7 @@
 - Opened: 2026-10-16
 - Updated: 2026-10-16
 - Current State: Active Wave 1 implementation in the isolated runtime worktree. Source/licence/backend evidence and independent benchmarks are owned by Session B; no production-parity claim is made.
-- Verification: 116 runtime tests pass with 100% statement/branch coverage using the real independently built RNAstructure 6.6 backend; Ruff and mypy pass. Fresh wheel single/batch JSON/CSV examples run offline. CI and independent patch review are pending; production equivalence is unverified.
+- Verification: 125 runtime tests pass with 100% statement/branch coverage using the independently built RNAstructure 6.6 backend; Ruff and mypy pass. Fresh wheel single/batch JSON/CSV examples run offline. All four CI jobs passed at a27a76f; final connected-band/input-normalization fix d367d86 is in CI and focused review. B’s early source/backend evidence is integrated; its benchmark handoff is pending. Production equivalence is unverified.
 - Cleanup: Owning session records final checks and unresolved findings, resolves the ticket, distills reusable guidance into docs/validation/, updates both indexes and linked GitHub issue, then removes the resolved ticket.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/2
 - Priority: P0
