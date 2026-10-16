@@ -1,0 +1,19 @@
+Regulatory site prediction reconstruction — GPL-3.0-or-later.
+
+src/regsite/rbs.py adapts equations and the structural calculation procedure of:
+RBS_Calculator.py, Ribosome Binding Site Calculator v1.0
+Copyright 2008–2009 University of California Regents. All rights reserved.
+GNU General Public License version 3 or (at your option) any later version.
+https://github.com/hsalis/Ribosome-Binding-Site-Calculator-v1.0/blob/8a9c1de1bdd847bb90d2ab6ceaa3c20feceda307/RBS_Calculator.py
+
+This program is distributed WITHOUT ANY WARRANTY; without even the implied
+warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See LICENSE.
+
+RNAstructure 6.6 is independently installed software (GPL-2.0-only) by the
+Mathews Lab, University of Rochester. This package neither links nor distributes
+its executables, source code or thermodynamic tables. It exchanges ordinary
+sequence/CT files with separate command-line processes. The included table
+manifest contains hashes, not table contents. Preserve RNAstructure's own
+ReadMe.txt, gpl.txt and corresponding source when separately distributing it.
+
+No iDOG wrapper, ViennaRNA, NUPACK or private DNAc code is included.

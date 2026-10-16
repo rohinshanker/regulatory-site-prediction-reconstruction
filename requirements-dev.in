@@ -1,0 +1,9 @@
+build==1.6.1
+jsonschema==4.26.0
+mypy==1.20.2
+pytest==9.1.1
+pytest-cov==7.1.0
+ruff==0.17.1
+setuptools==82.0.1
+pip-tools==7.5.3
+pip==25.3

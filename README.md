@@ -4,10 +4,29 @@ Build fully open-source, locally usable RBS, Promoter, Operon, and Riboswitch
 calculators, pursuing the closest demonstrable behavior to the production
 [De Novo DNA tools](https://www.denovodna.com/software/).
 
-**Status: implementation is planned, not shipped. RBS is the first implementation.**
-This repository currently contains implementation tickets, source leads, and
-validation contracts. It contains no calculator, downloaded model, or generated
-biological predictions yet. The project is independent of De Novo DNA/Salis Lab.
+**Wave 1: a locally runnable RBS reconstruction is implemented.** The Python
+library/CLI uses published Salis v1 equations and separately installed
+RNAstructure 6.6 executables. It returns energy terms, relative initiation
+scores, structures, coordinates and explicit failure/missingness. It is
+independent of De Novo DNA/Salis Lab; production equivalence and cyanobacterial
+calibration have not been established. The other calculators remain planned.
+
+## Run the RBS calculator
+
+Follow the [installation and validation contract](docs/validation/rbs-runtime.md)
+to install the Python package and pinned open folding backend. Inference is
+local and needs no accounts, coins or network access after installation.
+
+```sh
+export REGSITE_RNASTRUCTURE="/absolute/path/to/RNAstructure"
+.venv/bin/regsite examples/rbs-single.json
+.venv/bin/regsite examples/rbs-batch.json --format csv
+```
+
+A request supplies `sequence` and a 9-nt `anti_sd`; optional `start_positions`
+selects starts in transcript orientation. The default scans AUG/GUG/UUG. Host
+labels do not select hidden defaults. See the [input schema](schemas/rbs-request-1.0.schema.json),
+[result schema](schemas/rbs-result-1.0.schema.json), and [model deviations](docs/validation/rbs-runtime.md).
 
 ## Start a new implementation session
 
@@ -15,7 +34,7 @@ biological predictions yet. The project is independent of De Novo DNA/Salis Lab.
 2. Read the [source map](docs/validation/source-map.md),
    [reconstruction contract](docs/validation/reconstruction-contract.md), and
    [benchmark-quality assessment](docs/validation/benchmark-quality.md).
-3. Claim the RBS slice of ticket 01 and the core runtime ticket 02. Rename a
+3. Check current owners before claiming an open scope. Rename a
    claimed ticket from `O_` to `A_`, update its H1/status and index, and identify
    the owning session. Work through RBS tickets 03–06 before implementing the
    other three calculators. Source discovery for those calculators may proceed

@@ -9,3 +9,5 @@ Verification dates cover the stated source observations or specification review;
 | cyano-integration | Separate reconstructed engines from downstream native-data admission and UI. | 2026-10-16 | [cyano-integration.md](cyano-integration.md) |
 | benchmark-quality | Assess published benchmark limitations and define stronger evaluation. | 2026-10-16 | [benchmark-quality.md](benchmark-quality.md) |
 | rbs-source-decision | Pinned RBS sources, licences, open-backend decision and scalar fixtures. | 2026-10-16 | [rbs-source-decision.md](rbs-source-decision.md) |
+
+- [RBS runtime and reconstruction profile](rbs-runtime.md): installation, schemas, model equations/deviations, resource bounds and release gates.

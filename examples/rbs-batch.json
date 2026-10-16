@@ -1,0 +1,38 @@
+[
+  {
+    "schema_version": "1.0",
+    "id": "synthetic-sd-smoke",
+    "host": null,
+    "sequence": "AAAGGAGGAAAAAAATGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+    "anti_sd": "ACCUCCUUA",
+    "temperature_c": 37,
+    "strand": "+"
+  },
+  {
+    "schema_version": "1.0",
+    "id": "alternate-asd-boundary",
+    "host": null,
+    "sequence": "AAAGGAGGAAAAAAATGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+    "anti_sd": "ACCUCCUUU",
+    "temperature_c": 37,
+    "strand": "+"
+  },
+  {
+    "schema_version": "1.0",
+    "id": "no-start",
+    "host": null,
+    "sequence": "AAAAAA",
+    "anti_sd": "ACCUCCUUA",
+    "temperature_c": 37,
+    "strand": "+"
+  },
+  {
+    "schema_version": "1.0",
+    "id": "leaderless-unsupported",
+    "host": null,
+    "sequence": "ATGAAA",
+    "anti_sd": "ACCUCCUUA",
+    "temperature_c": 37,
+    "strand": "+"
+  }
+]
