@@ -106,3 +106,19 @@ verify that a caller actually froze a model, kept a holdout secret, or used corr
 coordinates; those remain evaluator responsibilities. Family bootstrap returns
 null for the one-family 2017 panel. A constant-relative-rate baseline is included
 for reference-normalized comparisons.
+
+## Verify private live CSVs
+
+For a completed job with a supported CSV export:
+
+```sh
+python -m benchmarks.rbs.live benchmarks/rbs/live-diagnostic-panel.json w1-atg \
+  "$RBS_PRIVATE/w1-atg.csv"
+```
+
+This validates the exact CSV schema, frozen input hash, unique zero-based start
+coordinates, finite energies, positive rates and component sums. It reports target
+coverage, warnings and the byte-preserving CSV hash; it does not assess biological
+accuracy. A header-only CSV is a valid empty result. A form rejection or server
+failure is recorded separately and is never converted into an invented empty CSV
+or a zero translation rate. An empty candidate set cannot verify energy arithmetic.

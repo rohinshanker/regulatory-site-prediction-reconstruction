@@ -77,12 +77,61 @@ class EvidenceTest(unittest.TestCase):
         self.assertEqual(
             record["n_submitted"] + record["n_unsubmitted"], record["n_planned"]
         )
-        self.assertEqual(record["n_finished_exported"], len(record["jobs"]))
+        self.assertEqual(
+            record["n_finished_exported"],
+            sum(row["status"] == "finished_exported" for row in record["jobs"]),
+        )
         inputs = {r["id"]: r for r in json.loads(panel)["records"]}
+        self.assertEqual(set(inputs), {row["id"] for row in record["jobs"]})
+        self.assertEqual(len(record["jobs"]), record["n_attempted"])
+        for count, status in [
+            ("n_finished_empty", "finished_empty"),
+            ("n_form_rejected", "form_rejected"),
+        ]:
+            self.assertEqual(
+                record[count], sum(row["status"] == status for row in record["jobs"])
+            )
+        self.assertEqual(
+            record["n_submitted"],
+            record["n_finished_exported"] + record["n_finished_empty"],
+        )
+        self.assertEqual(
+            record["advertised_submitted_total_coins"],
+            record["n_submitted"] * record["advertised_coins_per_job"],
+        )
+        self.assertLessEqual(
+            record["advertised_submitted_total_coins"],
+            record["authorized_panel_cap_coins"],
+        )
         for row in record["jobs"]:
             self.assertEqual(row["input_sha256"], inputs[row["id"]]["sequence_sha256"])
-            self.assertTrue(row["exports"])
+            if row["status"] in {
+                "finished_exported",
+                "finished_empty",
+                "failed_captured",
+                "form_rejected",
+            }:
+                self.assertTrue(row["exports"])
             self.assertNotIn("job_id", row)
+            if row["status"] == "finished_exported":
+                checks = row["export_checks"]
+                self.assertTrue(checks["selected_start_returned"])
+                self.assertLessEqual(
+                    checks["max_component_sum_residual_kcal_mol"], 1e-8
+                )
+                self.assertEqual(
+                    checks["csv_sha256"],
+                    next(
+                        item["sha256"]
+                        for item in row["exports"]
+                        if item["file"].endswith(".csv")
+                    ),
+                )
+            elif row["status"] == "finished_empty":
+                self.assertEqual(row["n_candidates"], 0)
+                self.assertFalse(
+                    any(item["file"].endswith(".csv") for item in row["exports"])
+                )
 
 
 if __name__ == "__main__":

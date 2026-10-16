@@ -4,8 +4,8 @@
 - Status: active
 - Opened: 2026-10-16
 - Updated: 2026-10-16
-- Current State: Frozen 12-job RBS diagnostic panel at observed 1 coin/job, capped at 12 coins. One v2.1.1 job finished; CSV and rendered structures/settings saved privately and hashed. Eleven jobs remain unsubmitted because the completed job did not change the displayed banner or account-settings balance; actual charge is unreconciled. Owner billing clarification requested. No duplicate jobs or credit purchases.
-- Verification: CSV selected start independently matches zero-based 25; component energy sum agrees with exported total. Input/output hashes, completed status and private job/coin ledger verified. Public manifest: benchmarks/rbs/live-acquisition.json. Full live panel and experimental comparisons are not complete; other calculators remain open.
+- Current State: All twelve frozen RBS cases attempted: eleven accepted jobs finished (nine CSV exports, two explicit no-candidate results); the 99-base leaderless case was form-rejected below the 100-base minimum. Owner authorized one coin/job budgeting despite unchanged balance. Eleven coins reserved; actual charging remains unreconciled. No duplicates, replacements or purchases. Other calculators and larger-panel acquisition remain open.
+- Verification: Nine CSVs contain seventeen candidates; all nine declared targets are present, all candidate coordinates match their input starts, and energy component sums agree within 1e-8 kcal/mol. All eleven jobs report v2.1.1 and matching displayed settings. Private export hashes/ledger and final account balance (100, unchanged) verified. Public manifest: benchmarks/rbs/live-acquisition.json. Live-versus-experiment and reconstruction comparisons remain uncomputed.
 - Cleanup: Owning session records final checks and unresolved findings, resolves the ticket, distills reusable guidance into docs/validation/, updates both indexes and linked GitHub issue, then removes the resolved ticket.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/5
 - Priority: P0
