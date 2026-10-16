@@ -1,5 +1,9 @@
 # Reconstruction and release contract
 
+- Purpose: Define reproducible, fully open calculator reconstruction and release requirements.
+- Scope: All four calculators; specification reviewed, implementation not yet verified.
+- Last verified: 2026-10-16
+
 ## Target and implementation identity
 
 Recover or reconstruct the best fully open-source implementation feasible for

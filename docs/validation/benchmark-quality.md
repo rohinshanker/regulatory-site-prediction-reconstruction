@@ -1,5 +1,9 @@
 # Benchmark quality and improvement contract
 
+- Purpose: Assess published benchmark limitations and define stronger evaluation.
+- Scope: Primary-source metric observations and planned independent validation; no new live run.
+- Last verified: 2026-10-16
+
 ## Current evidence assessment
 
 Checked 2026-10-16 against the primary sources below. These are published model

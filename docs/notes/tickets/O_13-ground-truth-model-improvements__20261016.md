@@ -7,6 +7,7 @@
 - Current State: Improvement hypotheses are proposed; no improvement has been demonstrated or implemented.
 - Verification: Acceptance protocol specified below; all improvement experiments and software checks are pending.
 - Cleanup: Owning session records results including negative findings, distills reusable model/evaluation contracts, updates indexes and GitHub issue, then removes the resolved ticket.
+- GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/13
 - Priority: P1
 - Owner: Unclaimed.
 - Dependencies: Frozen data/splits and quality audit 12; relevant working calculator 03/06–09; 05 for optional production comparisons.

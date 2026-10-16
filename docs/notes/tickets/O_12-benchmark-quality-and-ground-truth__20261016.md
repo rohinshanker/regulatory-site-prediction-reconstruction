@@ -7,6 +7,7 @@
 - Current State: Initial primary-source assessment exists in benchmark-quality.md; raw-data reproduction and current-live-version evaluation have not run.
 - Verification: Initial numerical statements and located passages checked against primary papers; implementation benchmarks remain unexecuted.
 - Cleanup: Owning session records final checks and unresolved findings, distills reusable benchmark guidance, updates indexes and GitHub issue, then removes the resolved ticket.
+- GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/12
 - Priority: P0
 - Owner: Unclaimed.
 - Dependencies: Start now from the source map; coordinate data pins/splits with 01, 05 and 06–09.

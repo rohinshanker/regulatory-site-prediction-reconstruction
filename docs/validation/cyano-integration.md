@@ -1,5 +1,9 @@
 # Cyano consumer boundary
 
+- Purpose: Separate reconstructed engines from downstream native-data admission and UI.
+- Scope: Versioned producer/consumer boundaries and conditional dependencies.
+- Last verified: 2026-10-16
+
 The canonical consumer is
 [isaacs-cyano-gene-selection](https://github.com/rohinshanker/isaacs-cyano-gene-selection),
 locally `/Users/Rohin/Desktop/coding_stuff/ISAACS-LAB/isaacs-cyano-gene-selection`.

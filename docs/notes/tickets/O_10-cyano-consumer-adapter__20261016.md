@@ -7,6 +7,7 @@
 - Current State: Planned; implementation has not started. See the work and acceptance criteria below.
 - Verification: Repository setup checked ticket H1/fields, queue membership and local links on 2026-10-16; implementation validation is specified below and has not run.
 - Cleanup: Owning session records final checks and unresolved findings, resolves the ticket, distills reusable guidance into docs/validation/, updates both indexes and linked GitHub issue, then removes the resolved ticket.
+- GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/10
 - Priority: P1
 - Owner: Unclaimed; the implementing session must claim this ticket before writing its scope.
 - Dependencies: 02 schema and each relevant calculator release; RBS can ship after 06 without waiting for 07–09.

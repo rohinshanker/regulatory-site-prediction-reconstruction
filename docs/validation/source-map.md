@@ -1,5 +1,9 @@
 # Starting source map
 
+- Purpose: Preserve pinned starting sources and known recovery gaps.
+- Scope: Public-source and hosted-contract observations; not a runtime or accuracy certification.
+- Last verified: 2026-10-16
+
 This is the handoff from direct source and website inspection on 2026-10-16.
 Pinned code observations below are starting evidence; completeness, dependency
 terms, execution and production parity still require ticket 01 and benchmarks.

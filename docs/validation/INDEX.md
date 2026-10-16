@@ -1,11 +1,10 @@
 # Validation contracts
 
-| Contract | Purpose |
-| --- | --- |
-| [Reconstruction and release](reconstruction-contract.md) | Open runtime, model identities, coordinates, benchmark and release requirements |
-| [Source map](source-map.md) | Pinned starting sources, known gaps, and retrieval guidance for all four calculators |
-| [Benchmark quality](benchmark-quality.md) | Published accuracy, evidence limits, independent evaluation and improvement criteria |
-| [Cyano integration](cyano-integration.md) | Producer/consumer boundary, dependency mapping and admission requirements |
+Verification dates cover the stated source observations or specification review; they do not certify an unimplemented calculator.
 
-These documents define requirements and source leads. They do not assert that
-an implementation, hosted comparison, or biological validation has completed.
+| Area | Purpose | Last verified | Document |
+| --- | --- | --- | --- |
+| reconstruction-contract | Define reproducible, fully open calculator reconstruction and release requirements. | 2026-10-16 | [reconstruction-contract.md](reconstruction-contract.md) |
+| source-map | Preserve pinned starting sources and known recovery gaps. | 2026-10-16 | [source-map.md](source-map.md) |
+| cyano-integration | Separate reconstructed engines from downstream native-data admission and UI. | 2026-10-16 | [cyano-integration.md](cyano-integration.md) |
+| benchmark-quality | Assess published benchmark limitations and define stronger evaluation. | 2026-10-16 | [benchmark-quality.md](benchmark-quality.md) |
