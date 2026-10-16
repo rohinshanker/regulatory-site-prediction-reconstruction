@@ -27,7 +27,9 @@ For each supplied or scanned start at oriented position `s`:
 2. Cofold the upstream portion and explicit 9-nt aSD, permitting intramolecular
    pairing. RNAstructure's 100 tracebacks, 100-percent energy window, zero
    diversity window and 30-nt internal-loop cap are fixed. Retain structures
-   within 3 kcal/mol of the lowest reevaluated energy (1e-9 numerical tolerance). This is a bounded search,
+   with interstrand pairs within 3 kcal/mol of the lowest **connected**
+   reevaluated energy (1e-9 numerical tolerance). Disconnected structures lack
+   the association energy term and must not define this connected-complex band. This is a bounded search,
    not NUPACK's exhaustive 3-kcal/mol suboptimal enumeration; it can miss states.
 3. For interstrand pairs `(m,r)` in zero-based leader/aSD coordinates, choose
    the greatest paired `r`. Preserve the legacy strict boundary `m+1 < len(leader)`.
@@ -62,6 +64,11 @@ An absent CT energy remains null in native provenance and is explicitly
 evaluated, never assumed zero. `Fold --MFE` avoids the extra positive-energy
 traceback sometimes emitted by `--maximum 1` alone. Invalid/nonreciprocal CT
 output remains a failed computation; it is not repaired into a guessed structure.
+A known 6.6 diagnostic leader `UGGCUUGACGGCGUCAUUCCUAUUAUCAAAGCAAU`
+with aSD `ACCUCCUUA` produced a nonreciprocal suboptimal CT during review.
+Rejecting that entire search is intentional: silently discarding an unknown
+candidate could change the band reference or selected state. This backend
+limitation remains visible in failure/coverage denominators for ticket 06.
 
 RNAstructure parameters, dangles/coaxial stacking, isolated-pair rules, loop
 caps, traceback ordering and suboptimal enumeration differ from NUPACK rna1999.
@@ -84,7 +91,8 @@ Runtime validation additionally enforces normalized sequence and index bounds.
   complemented when selecting the mRNA minus strand. Optional `host` is metadata,
   not a calibrated preset. ACCUCCUUA and ACCUCCUUU remain separate scenarios.
 - `strand: "-"` scores the reverse complement of normalized supplied sequence.
-  `start_positions` always indexes this oriented sequence. Omitted/null scans
+  `start_positions` always indexes this oriented sequence. JSON integral numbers
+  such as `20.0` normalize to integer indices; booleans and fractions fail. Omitted/null scans
   AUG/GUG/UUG; an empty list requests no starts. Explicit CUG is supported.
 - Report intervals as zero-based, half-open, ascending bounds in the normalized
   **supplied** sequence, with strand. Report window-relative pair positions

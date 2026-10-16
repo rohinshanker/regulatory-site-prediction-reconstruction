@@ -241,13 +241,22 @@
                         },
                         "exhaustive": {
                           "const": false
+                        },
+                        "connected_returned": {
+                          "type": "integer",
+                          "minimum": 1
+                        },
+                        "band_reference_kcal_mol": {
+                          "type": "number"
                         }
                       },
                       "required": [
                         "returned",
                         "viable_in_band",
                         "selected_index",
-                        "exhaustive"
+                        "exhaustive",
+                        "connected_returned",
+                        "band_reference_kcal_mol"
                       ]
                     },
                     {

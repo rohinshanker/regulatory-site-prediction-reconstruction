@@ -149,13 +149,13 @@ def test_warning_limits_ties_and_no_extra_post_start_folding():
     assert "spacing_penalty_exceeds_suboptimal_energy_band" in site["warnings"]
 
 
-def test_filter_band_and_nonbinding_candidates():
+def test_band_reference_excludes_disconnected_states():
     class Candidates(AlgebraBackend):
         def cofold(self, leader, anti_sd):
             valid = super().cofold(leader, anti_sd)[0]
             return (Structure(valid.sequence, (-1,) * len(valid.sequence), -20), valid)
 
-    assert predict(request(), Candidates())["status"] == "no_candidate"
+    assert predict(request(), Candidates())["status"] == "ok"
     assert predict(request(), AlgebraBackend(paired=None))["status"] == "no_candidate"
     assert predict(request(), AlgebraBackend(paired=19))["status"] == "no_candidate"
 
@@ -316,9 +316,40 @@ def test_three_kcal_boundary_uses_numeric_tolerance(candidate_energy, expected):
     class Boundary(AlgebraBackend):
         def cofold(self, leader, anti_sd):
             paired = super().cofold(leader, anti_sd)[0]
+            terminal = [-1] * len(paired.sequence)
+            terminal[len(leader) - 1] = len(leader) + 3 + 8
+            terminal[len(leader) + 3 + 8] = len(leader) - 1
             return (
-                Structure(paired.sequence, (-1,) * len(paired.sequence), -2.1),
+                Structure(paired.sequence, tuple(terminal), -2.1),
                 Structure(paired.sequence, paired.pairs, candidate_energy),
             )
 
     assert predict(request(), Boundary())["status"] == expected
+
+
+def test_equivalent_budget_representations_have_same_identity():
+    assert (
+        predict(request(), AlgebraBackend(), seconds=60)["prediction_id"]
+        == predict(request(), AlgebraBackend(), seconds=60.0)["prediction_id"]
+    )
+
+
+def test_real_connected_energy_band_regression(real_backend):
+    # Review reproducer: unbound structures lack bimolecular initiation energy
+    # and must not set the suboptimal band for connected complexes.
+    leader = "CAACCUGGACUGCCGGGAGGGCAGUUAUCAGGUUA"
+    result = predict(
+        {
+            "sequence": leader + "ATG" + "A" * 35,
+            "anti_sd": "ACCUCCUUA",
+            "start_positions": [len(leader)],
+        },
+        real_backend,
+    )
+    assert result["status"] == "ok"
+    search = result["sites"][0]["candidate_search"]
+    assert search["returned"] >= search["connected_returned"] > 0
+    assert (
+        result["sites"][0]["energies"]["dG_cofold_search"]
+        <= search["band_reference_kcal_mol"] + 3 + 1e-9
+    )

@@ -90,13 +90,16 @@ class RbsRequest:
                 raise InputError(
                     "start_positions must be a list of at most 1000 indices"
                 )
-            if any(type(index) is not int for index in starts):
+            if any(
+                not (type(index) is int or type(index) is float and index.is_integer())
+                for index in starts
+            ):
                 raise InputError("start_positions must contain integer indices")
             if any(not 0 <= index <= len(sequence) - 3 for index in starts):
                 raise InputError("a start codon must fit within the sequence")
             if len(set(starts)) != len(starts):
                 raise InputError("start_positions must not contain duplicates")
-            starts = tuple(sorted(starts))
+            starts = tuple(sorted(int(index) for index in starts))
         oriented = sequence if strand == "+" else reverse_complement(sequence)
         return cls(
             id=identifier,

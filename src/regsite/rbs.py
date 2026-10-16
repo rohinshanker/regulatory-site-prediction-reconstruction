@@ -30,6 +30,7 @@ MODEL_PARAMETERS = {
     "standby_nt": 4,
     "historical_footprint_nt": 1000,
     "suboptimal_filter_kcal_mol": 3.0,
+    "suboptimal_reference": "lowest_interstrand_connected_complex",
     "energy_comparison_tolerance_kcal_mol": 1e-9,
     "optimal_aligned_spacing": 5,
     "spacing_push": [12.2, 2.5, 2.0, 3.0],
@@ -173,10 +174,16 @@ def _score_site(request: RbsRequest, start: int, folding) -> dict:
     try:
         unbound = folding.fold(window)
         candidates = folding.cofold(leader, request.anti_sd)
-        lowest = min(candidate.energy for candidate in candidates)
-        viable = []
+        connected = []
         for index, candidate in enumerate(candidates):
             binding = interstrand_pairs(candidate, len(leader))
+            if binding:
+                connected.append((index, candidate, binding))
+        if not connected:
+            return dict(site, reason="no_interstrand_candidate_in_bounded_search")
+        lowest = min(candidate.energy for _, candidate, _ in connected)
+        viable = []
+        for index, candidate, binding in connected:
             spacing = aligned_spacing(binding, len(leader))
             if spacing is not None and candidate.energy <= lowest + 3.0 + 1e-9:
                 penalty = spacing_energy(spacing)
@@ -250,6 +257,8 @@ def _score_site(request: RbsRequest, start: int, folding) -> dict:
             aligned_spacing=spacing,
             candidate_search={
                 "returned": len(candidates),
+                "connected_returned": len(connected),
+                "band_reference_kcal_mol": lowest,
                 "viable_in_band": len(viable),
                 "selected_index": index,
                 "exhaustive": False,
@@ -314,7 +323,7 @@ def predict(value: object, backend: RnaStructure, *, seconds: float = 60) -> dic
         "input": provenance,
         "model": base["model"],
         "backend": deepcopy(backend.identity),
-        "budget_seconds": seconds,
+        "budget_seconds": float(seconds),
     }
     identifier = hashlib.sha256(
         json.dumps(stable, sort_keys=True, separators=(",", ":")).encode()

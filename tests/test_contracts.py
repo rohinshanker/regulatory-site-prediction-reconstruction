@@ -142,3 +142,16 @@ def test_schema_version_and_host_metadata():
             )
     with pytest.raises(InputError, match="schema_version"):
         RbsRequest.from_dict({"schema_version": "2.0"})
+
+
+def test_json_integral_float_start_coordinates_normalize_to_int():
+    request = RbsRequest.from_dict(
+        {"sequence": "AATG", "anti_sd": "ACCUCCUUA", "start_positions": [1.0]}
+    )
+    assert request.start_positions == (1,)
+    assert type(request.start_positions[0]) is int
+    for bad in [float("nan"), float("inf"), 1.5]:
+        with pytest.raises(InputError):
+            RbsRequest.from_dict(
+                {"sequence": "AATG", "anti_sd": "ACCUCCUUA", "start_positions": [bad]}
+            )

@@ -62,3 +62,8 @@ def test_missing_energy_remains_missing_and_ct_roundtrip():
         to_ct("AAAA", ())
     with pytest.raises(BackendError, match="linker bases cannot pair"):
         parse_ct(CT.replace("1 A", "1 I"), "ICGU")
+
+
+def test_corrupt_candidate_rejects_whole_search_without_silent_discard():
+    with pytest.raises(BackendError, match="not reciprocal"):
+        parse_ct(CT + CT.replace("1 A 0 2 4 1", "1 A 0 2 0 1"), "ACGU")
