@@ -108,9 +108,14 @@ proxy with combined noise, not a direct count of initiating ribosomes. Report
 eligible denominators before prediction coverage. Do not fill missing mRNA by
 assuming constant abundance. No held-out prediction accuracy has been computed.
 
-The isolated live form displays Version 2020; the accepted diagnostic job's input
-record reports v2.1.1. This establishes a returned version label only. Runtime
-identity, thermodynamic settings and accuracy remain unverified until completed
-exports are obtained. DH10B was absent from the form's host results; the declared
+The isolated live form displays Version 2020; all 11 accepted diagnostic jobs'
+input records report v2.1.1. Nine jobs exported 17 candidate rows with verified
+coordinates and component sums; two explicitly returned no canonical starts.
+The frozen 99-base leaderless input was rejected by the 100-base form minimum.
+Returned thermodynamic settings and artifact hashes are recorded in the
+[live manifest](../../benchmarks/rbs/live-acquisition.json); runtime source
+identity and experimental accuracy remain unverified. The observed account
+balance did not change; 11 advertised coins remain budgeted, with actual charging
+unreconciled. DH10B was absent from the form's host results; the declared
 MG1655 choice is a host mismatch for 2014 experimental comparison, not DH10B
 calibration. There is no cyanobacterial accuracy or site-detection validation here.
