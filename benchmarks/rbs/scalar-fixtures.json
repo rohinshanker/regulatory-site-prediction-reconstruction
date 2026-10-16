@@ -1,0 +1,105 @@
+{
+  "schema_version": 1,
+  "identity": "rbs-scalar-independent-v1",
+  "kind": "source-equation checks; not whole-calculator outputs or experimental measurements",
+  "source": "salis-v1:RBS_Calculator.py",
+  "coordinate_contract": "start_pos is zero based; base pair arrays are one based in upstream",
+  "licence": "GPL-3.0-or-later (original fixture compilation; source equations attributed)",
+  "spacing": [
+    {
+      "aligned_spacing": 0,
+      "expected_kcal_mol": 12.179779483478407
+    },
+    {
+      "aligned_spacing": 2,
+      "expected_kcal_mol": 9.628878392308204
+    },
+    {
+      "aligned_spacing": 3,
+      "expected_kcal_mol": 1.525
+    },
+    {
+      "aligned_spacing": 4,
+      "expected_kcal_mol": 0.005325582140839866
+    },
+    {
+      "aligned_spacing": 5,
+      "expected_kcal_mol": 0.0
+    },
+    {
+      "aligned_spacing": 6,
+      "expected_kcal_mol": 0.288
+    },
+    {
+      "aligned_spacing": 13,
+      "expected_kcal_mol": 4.992
+    }
+  ],
+  "start_codon_kcal_mol": {
+    "ATG": -1.194,
+    "GTG": -0.0748,
+    "TTG": -0.0435,
+    "CTG": -0.03406
+  },
+  "scan_start_codons": [
+    "ATG",
+    "GTG",
+    "TTG"
+  ],
+  "rates": [
+    {
+      "total_energy_kcal_mol": -10,
+      "salis_v1_expected": 225144.13044552106,
+      "idog_expected": 225042.82825130454
+    },
+    {
+      "total_energy_kcal_mol": 0,
+      "salis_v1_expected": 2500.0,
+      "idog_expected": 2500.0
+    },
+    {
+      "total_energy_kcal_mol": 10,
+      "salis_v1_expected": 27.759995286718496,
+      "idog_expected": 27.772491345605765
+    }
+  ],
+  "alignment": [
+    {
+      "mrna_length": 20,
+      "start_pos": 20,
+      "rrna_length": 9,
+      "bp_x": [
+        7
+      ],
+      "bp_y": [
+        29
+      ],
+      "expected_aligned_spacing": 5
+    },
+    {
+      "mrna_length": 20,
+      "start_pos": 20,
+      "rrna_length": 9,
+      "bp_x": [
+        8
+      ],
+      "bp_y": [
+        29
+      ],
+      "expected_aligned_spacing": 4
+    }
+  ],
+  "assembly": [
+    {
+      "complex_with_spacing": -8,
+      "start": -1.194,
+      "unbound_mrna": -4,
+      "standby_upstream_signed": -2,
+      "expected_total": -3.194
+    }
+  ],
+  "tolerance": {
+    "absolute": 1e-10,
+    "relative": 1e-12
+  }
+}
