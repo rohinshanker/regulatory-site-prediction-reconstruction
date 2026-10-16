@@ -184,7 +184,11 @@ Limits: 10,000 normalized bases, 1,000 selected starts, 100 batch records,
 bases plus 3 linker/9 aSD positions, ≤100 structures and one thread. Process
 wall-time is capped at 15 s and total folding time at 60 s per record by default,
 configurable up to 120 s. Input-size/window caps bound computational memory;
-there is no operating-system memory quota. Timeout failure is tested, not
+there is no operating-system memory quota. A four-record shipped batch on
+macOS arm64/Python 3.14 took 0.77 s wall time; `/usr/bin/time -l` reported
+85,409,792 bytes maximum resident set size and 26,231,288 bytes peak footprint.
+These are smoke observations, not throughput or peak-memory guarantees.
+Timeout failure is tested, not
 silently converted to no binding. Large native-genome scans require a separately
 validated adapter and budget policy.
 
