@@ -19,6 +19,16 @@ class Profile:
     def historical(self) -> bool:
         return self.name == "historical"
 
+    @property
+    def standby(self) -> bool:
+        return self.name == "standby2014"
+
+    @property
+    def schema_version(self) -> str:
+        if self.historical:
+            return "1.0"
+        return "1.2" if self.standby else "1.1"
+
 
 PROFILES = (
     Profile("historical", "salis-v1-rnastructure-6.6-reconstruction-1", 35, 35, 1000),
@@ -27,6 +37,9 @@ PROFILES = (
     ),
     Profile(
         "context2017", "context2017-rnastructure-6.6-reconstruction-1", 100, 100, 13
+    ),
+    Profile(
+        "standby2014", "standby2014-rnastructure-6.6-reconstruction-1", 100, 100, 13
     ),
 )
 

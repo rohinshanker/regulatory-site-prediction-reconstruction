@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "component": "rnastructure-6.6-traceback-2",
+  "license": "GPL-2.0-only",
+  "upstream": {
+    "version": "6.6",
+    "url": "https://rna.urmc.rochester.edu/Releases/rnastructure-6.6/RNAstructureSource.tgz",
+    "archive_sha256": "1bedc62aaab984279055caaa6234d48fca113f4b8e17a8060e0b3784d5a397c3",
+    "archive_bytes": 30765790,
+    "source_file": "src/algorithm.cpp",
+    "source_sha256": "c024b600aabfad624fa0d4dbcd2297b9aacdb654ad2e491686847b705fa343d8"
+  },
+  "patch": {
+    "file": "traceback.patch",
+    "sha256": "2d599e7fa9f6581b605350508163c4aa14458ebb8f444c096e5f923c8742d671",
+    "patched_source_sha256": "6300df34e26fe674b6e87260cee69617130c015910e3ed67fd1b45aa1e2dca6c"
+  },
+  "provenance": {
+    "basis": "Independent recurrence/traceback source analysis and deterministic development-only structural reproductions. No experimental outcomes used.",
+    "change": "Select one tied V decomposition; isolate W2 and WMB2 traceback tags with fill-matched guards, energies and modified-base predicates; keep ordinary W/WMB separate.",
+    "unchanged": "Dynamic-programming fill recurrence, thermodynamic parameters, candidate-pair heap ordering and enumeration limits."
+  }
+}

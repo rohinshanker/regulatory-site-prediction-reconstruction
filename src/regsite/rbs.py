@@ -16,9 +16,11 @@ from typing import Any
 
 from regsite import __version__
 from regsite.backend import MAX_STRUCTURES, RnaStructure
-from regsite.contracts import MAX_EXPLICIT_STARTS, SCHEMA_VERSION, RbsRequest
+from regsite.contracts import MAX_EXPLICIT_STARTS, RbsRequest
 from regsite.profiles import Profile, get_profile
 from regsite.sequence import InputError, input_interval
+from regsite.standby import PARAMETERS as STANDBY_PARAMETERS
+from regsite.standby import StandbyResult, StandbySearchLimit, optimize
 from regsite.structures import BackendError, Structure
 
 MODEL_ID = "salis-v1-rnastructure-6.6-reconstruction-1"
@@ -145,6 +147,48 @@ def _structure_result(structure: Structure, mrna_length: int) -> dict:
     }
 
 
+def _standby_result(result: StandbyResult, begin: int, request: RbsRequest) -> dict:
+    """Project module intervals while retaining explicit window-relative pairs."""
+
+    def interval(span):
+        return (
+            None
+            if span is None
+            else asdict(
+                input_interval(
+                    begin + span[0],
+                    begin + span[1],
+                    len(request.sequence),
+                    request.strand,
+                )
+            )
+        )
+
+    chosen = result.selected
+    return {
+        "original_hairpin": interval(chosen.original_hairpin),
+        "hairpin": interval(chosen.module.hairpin),
+        "distal": interval(chosen.module.distal),
+        "proximal": interval(chosen.module.proximal),
+        "height_nt": chosen.module.height,
+        "accessibility_height_nt": min(15, chosen.module.height),
+        "distal_length_nt": chosen.module.distal[1] - chosen.module.distal[0],
+        "proximal_length_nt": chosen.module.proximal[1] - chosen.module.proximal[0],
+        "surface_area_nt": chosen.module.area,
+        "downstream_height_nt": chosen.module.downstream_height,
+        "downstream_hairpins": [
+            {"interval": interval((start, end)), "height_nt": height}
+            for start, end, height in chosen.module.downstream
+        ],
+        "opened_pairs": [list(pair) for pair in chosen.opened_pairs],
+        "pair_coordinate_space": "zero-based window-relative transcript orientation",
+        "evaluated_states": result.evaluated_states,
+        "original_modules": result.original_modules,
+        "exhaustive_within_declared_opening_states": True,
+        "ablations_kcal_mol": result.ablations,
+    }
+
+
 def _score_site(request: RbsRequest, start: int, folding, profile: Profile) -> dict:
     sequence = request.oriented_sequence
     codon = sequence[start : start + 3]
@@ -177,6 +221,8 @@ def _score_site(request: RbsRequest, start: int, folding, profile: Profile) -> d
     }
     if not profile.historical:
         site.update(coding_footprint=None, post_footprint=None)
+    if profile.standby:
+        site["standby"] = None
     if codon not in START_ENERGIES:
         return dict(site, status="unsupported", reason="unsupported_start_codon")
     if start == 0:
@@ -221,19 +267,43 @@ def _score_site(request: RbsRequest, start: int, folding, profile: Profile) -> d
             ),
         )
         standby_start = max(0, first - 4)
-        accessible_prefix = folding.fold(window[:standby_start])
-        after = folding.evaluate(
-            joined,
-            _joined_pairs(
-                window,
-                request.anti_sd,
-                accessible_prefix,
-                binding,
-                suffix,
-                suffix_start,
-            ),
-        )
-        standby_signed = min(0.0, before.energy - after.energy)
+        standby = None
+        if profile.standby:
+            states = {prefix.pairs: before}
+
+            def evaluate_opening(pairs):
+                state_prefix = Structure(prefix.sequence, pairs, None)
+                state = folding.evaluate(
+                    joined,
+                    _joined_pairs(
+                        window,
+                        request.anti_sd,
+                        state_prefix,
+                        binding,
+                        suffix,
+                        suffix_start,
+                    ),
+                )
+                states[pairs] = state
+                return state.energy
+
+            standby = optimize(prefix, before.energy, evaluate_opening)
+            after = states[standby.selected.pairs]
+            standby_signed = -standby.selected.total
+        else:
+            accessible_prefix = folding.fold(window[:standby_start])
+            after = folding.evaluate(
+                joined,
+                _joined_pairs(
+                    window,
+                    request.anti_sd,
+                    accessible_prefix,
+                    binding,
+                    suffix,
+                    suffix_start,
+                ),
+            )
+            standby_signed = min(0.0, before.energy - after.energy)
         total = total_energy(
             before.energy + penalty,
             START_ENERGIES[codon],
@@ -252,7 +322,7 @@ def _score_site(request: RbsRequest, start: int, folding, profile: Profile) -> d
             warnings.append("spacing_penalty_exceeds_suboptimal_energy_band")
         if len(candidates) == MAX_STRUCTURES:
             warnings.append("bifold_traceback_count_reached_limit")
-        if first < 4:
+        if first < 4 and not profile.standby:
             warnings.append("standby_region_truncated_at_window_boundary")
         if begin == 0 or end == len(sequence):
             warnings.append("folding_window_touches_supplied_sequence_boundary")
@@ -306,6 +376,22 @@ def _score_site(request: RbsRequest, start: int, folding, profile: Profile) -> d
             ),
             warnings=warnings,
         )
+        if standby is not None:
+            chosen = standby.selected
+            del result["energies"]["dG_standby_signed"]
+            result["energies"].update(
+                dG_standby=chosen.total,
+                dG_distortion=chosen.distortion,
+                dG_unfolding=chosen.unfolding,
+                dG_unfolding_raw=chosen.unfolding_raw,
+                dG_sliding=chosen.sliding,
+            )
+            result["standby_interval"] = None
+            result["standby"] = _standby_result(standby, begin, request)
+            if standby.negative_unfolding_seen:
+                warnings.append("negative_fixed_state_unfolding_cost_clamped_to_zero")
+            if first == 0:
+                warnings.append("no_upstream_standby_context_available")
         if suffix is not None:
             result["energies"]["dG_post_footprint"] = suffix.energy
             result["coding_footprint"] = asdict(
@@ -326,6 +412,8 @@ def _score_site(request: RbsRequest, start: int, folding, profile: Profile) -> d
             if end < start + profile.footprint_nt:
                 warnings.append("coding_footprint_truncated_at_sequence_boundary")
         return result
+    except StandbySearchLimit as exc:
+        return dict(site, status="unsupported", reason=str(exc))
     except (BackendError, OSError, UnicodeError) as exc:
         return dict(site, status="failed", reason=str(exc))
 
@@ -347,7 +435,7 @@ def predict(
     """
     specification = get_profile(profile)
     base: dict[str, Any] = {
-        "schema_version": SCHEMA_VERSION if specification.historical else "1.1",
+        "schema_version": specification.schema_version,
         "id": None,
         "status": "invalid_input",
         "reason": None,
@@ -363,6 +451,8 @@ def predict(
         "input": None,
         "prediction_id": None,
     }
+    if backend.identity.get("variant"):
+        base["warnings"].append("patched_traceback_changes_candidate_search_results")
     if not specification.historical:
         parameters = base["model"]["parameters"]
         del parameters["historical_footprint_nt"]
@@ -378,9 +468,20 @@ def predict(
             ),
             standby_model="historical four-base opening; later geometry unimplemented",
         )
-        base["warnings"].append(
-            "later_standby_geometry_sliding_drafting_stacking_not_implemented"
-        )
+        if specification.standby:
+            del parameters["standby_nt"]
+            parameters["standby_model"] = deepcopy(STANDBY_PARAMETERS)
+            base["warnings"].extend(
+                [
+                    "standby_geometry_continuation_and_branch_opening_are_reconstructions",
+                    "binding_candidate_selected_before_standby_optimization",
+                    "drafting_stacking_and_nonequilibrium_mechanisms_not_implemented",
+                ]
+            )
+        else:
+            base["warnings"].append(
+                "later_standby_geometry_sliding_drafting_stacking_not_implemented"
+            )
     try:
         request = RbsRequest.from_dict(value)
     except InputError as exc:

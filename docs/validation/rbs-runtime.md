@@ -3,6 +3,8 @@
 - Purpose: Reproduce the implemented RBS contract, installation and validation gates.
 - Scope: Historical profile and shared runtime; refined profiles and schema 1.1 are specified in [rbs-mechanisms.md](rbs-mechanisms.md).
 - Last verified: 2026-10-17
+- Optional repaired backend: [source, installation and admission contract](rbs-backend-repair.md).
+- New standby profile/schema1.2: [complete bounded mechanism contract](rbs-standby.md).
 
 ## Identity and equations
 
@@ -188,13 +190,14 @@ variable skips real-engine fixtures, so that run cannot satisfy release gates.
 .venv/bin/ruff check src tests experiments
 .venv/bin/ruff format --check src tests experiments
 .venv/bin/mypy src/regsite experiments
-.venv/bin/python -m pytest --cov=regsite --cov=benchmarks.rbs --cov=experiments.rbs --cov-report=term-missing
+.venv/bin/python -m pytest --cov=regsite --cov=benchmarks.rbs --cov=benchmarks.promoter --cov=experiments.rbs --cov-report=term-missing
 .venv/bin/python -m build --no-isolation
 .venv/bin/python -m venv .cache/fresh
 .cache/fresh/bin/python -m pip install --no-index --no-deps dist/*.whl
 .cache/fresh/bin/regsite examples/rbs-single.json
 .cache/fresh/bin/regsite examples/rbs-batch.json
 .cache/fresh/bin/regsite examples/rbs-batch.json --format csv
+.cache/fresh/bin/regsite examples/rbs-standby-hairpin.json --profile standby2014
 git diff --check
 ```
 

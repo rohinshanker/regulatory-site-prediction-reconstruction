@@ -4,12 +4,19 @@ Build fully open-source, locally usable RBS, Promoter, Operon, and Riboswitch
 calculators, pursuing the closest demonstrable behavior to the production
 [De Novo DNA tools](https://www.denovodna.com/software/).
 
-**The RBS release candidate, 0.2.0rc1, runs locally.** It includes the historical
-Salis v1 reconstruction, separately named footprint/context refinements, a native
+**The RBS release candidate, 0.3.0rc1, runs locally.** It includes the historical
+Salis v1 reconstruction, separately named footprint/context/standby refinements, a native
 genome/transcript adapter, and experimental sequence and energy/sequence models.
 The mechanistic profiles use separately installed RNAstructure 6.6 executables
 and return energy terms, relative initiation scores, structures, coordinates and
 explicit failure/missingness. Sequence-only inference needs no folding backend.
+
+**The standby reconstruction improves the public 2014 development panel:**
+106/136 predictions are within twofold of measured expression, versus 52/136
+for historical scoring; mean absolute log2 error falls from 1.56 to 0.66. This
+E. coli dataset helped establish the published model, so the result does not
+establish performance on new studies or cyanobacteria. See the
+[Wave 3 validation and reproduction](docs/validation/rbs-wave3-results.md).
 
 **The independent Wave 2 comparison did not establish a superior model.** On
 468 held-out PCC 6803 genes, the sequence model's mean absolute log2 error was
@@ -31,12 +38,15 @@ separate validation gates.
 Follow the [installation and validation contract](docs/validation/rbs-runtime.md)
 to install the Python package and pinned open folding backend. Inference is
 local and needs no accounts, coins or network access after installation.
+The optional [traceback-repaired backend](docs/validation/rbs-backend-repair.md)
+fixes known malformed/missing folding results and identifies itself separately.
 
 ```sh
 export REGSITE_RNASTRUCTURE="/absolute/path/to/RNAstructure"
 .venv/bin/regsite examples/rbs-single.json
 .venv/bin/regsite examples/rbs-batch.json --format csv
 .venv/bin/regsite examples/rbs-footprint.json --profile footprint2017
+.venv/bin/regsite examples/rbs-standby-hairpin.json --profile standby2014
 ```
 
 A request supplies `sequence` and a 9-nt `anti_sd`; optional `start_positions`
@@ -51,6 +61,13 @@ and [result schema 1.1](schemas/rbs-result-1.1.schema.json). These are explicit
 partial reconstructions of later mechanisms. The [mechanism contract](docs/validation/rbs-mechanisms.md)
 records reproducible folding-backend failures; longer context does not guarantee
 better coverage or accuracy.
+
+The new `standby2014` profile calculates accessibility, selective RNA unfolding
+and sliding using the published 2014 relationships. It returns separate penalties,
+selected structures and explicit search limits in [schema 1.2](schemas/rbs-result-1.2.schema.json).
+Read the [standby contract](docs/validation/rbs-standby.md) for source pins and
+reconstruction choices. This implements additional mechanisms; it does not by
+itself establish better experimental accuracy.
 
 The transcript-aware adapter accepts pinned genomes and explicit TSS/CDS scenarios:
 
@@ -87,7 +104,7 @@ separate E. coli experiment and its limited sequence diversity.
 ## Start a new implementation session
 
 1. Read [AGENTS.md](AGENTS.md), the [live ticket queue](docs/notes/tickets/INDEX.md)
-   and the [independent results](docs/validation/rbs-wave2-results.md). Check current
+   and the [Wave 3 validation](docs/validation/rbs-wave3-results.md). Check current
    owners and preserve newer branches/worktrees before claiming work.
 2. Read the [source map](docs/validation/source-map.md),
    [reconstruction contract](docs/validation/reconstruction-contract.md), and
@@ -120,6 +137,7 @@ is a downstream consumer, not the home for reconstructed model internals.
 Its release/admission rules still govern any displayed prediction. See the
 [consumer boundary](docs/validation/cyano-integration.md).
 
+New website collection and coin purchases are deferred for this wave.
 Live-reference validation uses coin-funded website runs under ticket 05. The owner
 can supply additional authorized lab logins if coins are exhausted and can request
 lab funding for a justified larger panel. Reference spending is separate from the

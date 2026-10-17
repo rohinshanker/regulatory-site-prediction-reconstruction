@@ -16,7 +16,7 @@ jobs:
         os: [ubuntu-24.04, macos-14]
         python: ['3.11', '3.14']
     runs-on: ${{ matrix.os }}
-    timeout-minutes: 20
+    timeout-minutes: 30
     env:
       REGSITE_RNASTRUCTURE: ${{ github.workspace }}/.cache/RNAstructure
     steps:
@@ -45,9 +45,19 @@ jobs:
         run: |
           ruff check src tests experiments
           ruff format --check src tests experiments
+          ruff check benchmarks/rbs/structural.py benchmarks/rbs/new_data.py benchmarks/promoter
+          ruff format --check benchmarks/rbs/structural.py benchmarks/rbs/new_data.py benchmarks/promoter
           mypy src/regsite experiments
-          python -m pytest --cov=regsite --cov=benchmarks.rbs --cov=experiments.rbs --cov-report=term-missing
+          python -m pytest --cov=regsite --cov=benchmarks.rbs --cov=benchmarks.promoter --cov=experiments.rbs --cov-report=term-missing
           git diff --check
+      - name: Build and validate the separately licensed traceback repair
+        shell: bash
+        run: |
+          python backends/rnastructure66/build.py --archive .cache/RNAstructureSource.tgz --destination .cache/traceback-fixed --jobs 2
+          export RNASTRUCTURE66_ORIGINAL="$REGSITE_RNASTRUCTURE"
+          export RNASTRUCTURE66_PATCHED="$GITHUB_WORKSPACE/.cache/traceback-fixed/RNAstructure"
+          python -m unittest discover -s backends/rnastructure66/tests -v
+          REGSITE_RNASTRUCTURE="$RNASTRUCTURE66_PATCHED" python -m pytest --cov=regsite --cov=benchmarks.rbs --cov=benchmarks.promoter --cov=experiments.rbs --cov-report=term-missing
       - name: Build and run fresh offline wheel installation
         shell: bash
         run: |
@@ -59,6 +69,11 @@ jobs:
           .cache/fresh/bin/regsite examples/rbs-batch.json --format csv > .cache/batch.csv
           .cache/fresh/bin/regsite examples/rbs-footprint.json --profile footprint2017 > .cache/footprint.json
           .cache/fresh/bin/regsite examples/rbs-footprint.json --profile context2017 > .cache/context.json
+          .cache/fresh/bin/regsite examples/rbs-standby-hairpin.json --profile standby2014 > .cache/standby-original.json
+          REGSITE_RNASTRUCTURE="$GITHUB_WORKSPACE/.cache/traceback-fixed/RNAstructure" .cache/fresh/bin/regsite examples/rbs-standby-hairpin.json --profile standby2014 > .cache/standby-fixed.json
+          REGSITE_RNASTRUCTURE="$GITHUB_WORKSPACE/.cache/traceback-fixed/RNAstructure" .cache/fresh/bin/regsite examples/rbs-batch.json --profile standby2014 > .cache/standby-batch.json
+          .cache/fresh/bin/regsite examples/rbs-standby-hairpin.json --profile standby2014 --format csv > .cache/standby.csv
+          REGSITE_RNASTRUCTURE="$GITHUB_WORKSPACE/.cache/traceback-fixed/RNAstructure" .cache/fresh/bin/regsite-native examples/rbs-native-karlsen.json --profile standby2014 > .cache/native-standby.json
           .cache/fresh/bin/regsite-native benchmarks/rbs/native-input-example.json > .cache/native.json
           .cache/fresh/bin/regsite-native benchmarks/rbs/native-input-example.json --format gff3 > .cache/native.gff3
           .cache/fresh/bin/regsite-native examples/rbs-native-karlsen.json > .cache/native-real.json
@@ -68,7 +83,9 @@ jobs:
           .cache/fresh/bin/regsite-learned models/rbs/karlsen2018/sequence-v1.json examples/rbs-karlsen-native.json > .cache/learned-native.json
           .cache/fresh/bin/python -c 'import json; a=json.load(open(".cache/single.json")); b=json.load(open(".cache/batch.json")); assert a["results"][0]["status"]=="ok"; assert [r["status"] for r in b["results"]]==["ok","ok","no_candidate","unsupported"]'
           .cache/fresh/bin/python -c 'import json; a=json.load(open(".cache/footprint.json")); b=json.load(open(".cache/context.json")); assert a["schema_version"]==b["schema_version"]=="1.1"; assert a["results"][0]["status"]==b["results"][0]["status"]=="ok"'
+          .cache/fresh/bin/python -c 'import json; a=json.load(open(".cache/standby-original.json")); b=json.load(open(".cache/standby-fixed.json")); c=json.load(open(".cache/standby-batch.json")); assert a["schema_version"]==b["schema_version"]=="1.2"; assert a["results"][0]["status"]==b["results"][0]["status"]=="ok"; assert b["results"][0]["backend"]["variant"]=="rnastructure-6.6-traceback-2"; assert [r["status"] for r in c["results"]]==["ok","ok","no_candidate","unsupported"]'
           .cache/fresh/bin/python -c 'import json; a=json.load(open(".cache/native.json")); assert a["schema_version"]=="native-rbs-result-1"; assert len(a["results"])==7; assert a["results"][-1]["reason"]=="tss_inside_current_cds"; assert open(".cache/native.gff3").readline()=="##gff-version 3\n"'
           .cache/fresh/bin/python -c 'import json; a=json.load(open(".cache/native-real.json")); assert [r["status"] for r in a["results"]]==["ok","ok"]; rows=[l.split("\t") for l in open(".cache/native-real.gff3") if not l.startswith("#")]; assert [(r[3],r[4],r[6]) for r in rows if r[2]=="start_codon"]==[("383817","383819","+"),("745062","745064","-")]'
           .cache/fresh/bin/python -c 'import json; a=json.load(open(".cache/learned-sequence.json")); b=json.load(open(".cache/learned-energy.json")); assert a["results"][0]["status"]==b["results"][0]["status"]=="ok"; assert a["results"][0]["mechanistic_reference"] is None; assert b["results"][0]["mechanistic_reference"]["backend"]["version"]=="6.6"'
           .cache/fresh/bin/python -c 'import json; a=json.load(open(".cache/learned-native.json"))["results"][0]; assert a["status"]=="ok"; assert a["mechanistic_reference"] is None; assert "outside_declared_training_host_or_settings" not in a["warnings"]'
+          .cache/fresh/bin/python -c 'import csv,json; r=next(csv.DictReader(open(".cache/standby.csv"))); assert r["schema_version"]=="1.2" and r["status"]=="ok"; a=json.load(open(".cache/native-standby.json")); assert [r["status"] for r in a["results"]]==["ok","ok"]; assert all(r["prediction"]["schema_version"]=="1.2" and "standby_module" in r["genomic_sites"][0] for r in a["results"])'

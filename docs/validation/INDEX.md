@@ -12,7 +12,9 @@ Verification dates cover the stated source observations or specification review;
 | cyano-integration | Separate reconstructed engines from downstream native-data admission and UI. | 2026-10-16 | [cyano-integration.md](cyano-integration.md) |
 | benchmark-quality | Assess published benchmark limitations and define stronger evaluation. | 2026-10-16 | [benchmark-quality.md](benchmark-quality.md) |
 | rbs-source-decision | Pinned RBS sources, licences, open-backend decision and scalar fixtures. | 2026-10-16 | [rbs-source-decision.md](rbs-source-decision.md) |
+| rbs-standby | Published standby geometry, complete bounded opening search, explicit reconstruction choices and schema 1.2. | 2026-10-17 | [rbs-standby.md](rbs-standby.md) |
 | rbs-mechanisms | Versioned footprint/context profiles, primary parameter provenance, structures and ablation checks. | 2026-10-16 | [rbs-mechanisms.md](rbs-mechanisms.md) |
+| rbs-backend-repair | Separate GPL2 traceback repair, strict build receipt admission, source pins and two-engine validation. | 2026-10-17 | [rbs-backend-repair.md](rbs-backend-repair.md) |
 | rbs-runtime | Installation, schemas, equations/deviations, resource bounds and release gates. | 2026-10-17 | [rbs-runtime.md](rbs-runtime.md) |
 | rbs-evaluation-protocol | Frozen experimental split, normalization, eligibility and independent evaluator boundary. | 2026-10-17 | [rbs-evaluation-protocol.md](rbs-evaluation-protocol.md) |
 | rbs-benchmark-card | Independently reproduced metrics, harness defects, leakage and measurement limits. | 2026-10-17 | [rbs-benchmark-card.md](rbs-benchmark-card.md) |
@@ -28,3 +30,7 @@ Verification dates cover the stated source observations or specification review;
 | rbs-secondary-native-studies | Diurnal normalization, frozen cross-study challenge and explicit unavailable stress TE. | 2026-10-17 | [rbs-secondary-native-studies.md](rbs-secondary-native-studies.md) |
 | rbs-utex-measurement-proposal | Optional staged UTEX matched RNA/protein design, family-level power assumptions and costed funding proposal. | 2026-10-17 | [rbs-utex-measurement-proposal.md](rbs-utex-measurement-proposal.md) |
 | rbs-wave2-results | Frozen primary/secondary experimental results, reproducible aggregate artifacts and next-cycle hypotheses. | 2026-10-17 | [rbs-wave2-results.md](rbs-wave2-results.md) |
+| rbs-structural-fixtures | Independent folding diagnostics, exhaustive tiny topology controls and repair acceptance. | 2026-10-17 | [rbs-structural-fixtures.md](rbs-structural-fixtures.md) |
+| promoter-source-and-benchmarks | Open historical source/weights, coordinate fixtures and independently reproduced published-column metrics. | 2026-10-17 | [promoter-source-and-benchmarks.md](promoter-source-and-benchmarks.md) |
+| rbs-wave3-results | Structural, software and development-only validation of standby scoring and traceback repair. | 2026-10-17 | [rbs-wave3-results.md](rbs-wave3-results.md) |
+| rbs-new-evaluation-data | New Cambray final and Kuo secondary inputs, exact local context, frozen selection and independent evaluation gates. | 2026-10-17 | [rbs-new-evaluation-data.md](rbs-new-evaluation-data.md) |

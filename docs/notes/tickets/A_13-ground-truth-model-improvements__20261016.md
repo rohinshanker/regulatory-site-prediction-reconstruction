@@ -4,12 +4,12 @@
 - Status: active
 - Opened: 2026-10-16
 - Updated: 2026-10-17
-- Current State: The frozen native sequence finalist scores 468/468 final genes: MAE 0.957226 log2, Spearman 0.243990. Paired gains are 0.032660 versus constant and 0.014808 versus train-only OSTIR affine; neither reaches the predeclared 0.20 gain and the OSTIR interval includes zero. No model is promoted. Hybrid remains coverage-ineligible (423/468). All seven named families and exactly 24 configurations are complete; no scientific changes follow exposed final outcomes.
-- Verification: Independent ridge, native recipe, learning-curve and frozen-export reviews accepted exact patches. Model/data/calibration/gates are pinned in models/rbs/wave2-freeze.json (commit dab5fb5956d12b57e0f8207bfded60dda370ec1c); final output hashes are in wave2-prediction-receipt.json. Native learning curves are nearly flat; 2017 reporter transfer fails and positional ranking is inferior to Prodigal on the positive-only panel. B's final aggregate audit is integrated in d062b95; reusable results/model cards retain denominators, overlap and uncertainty. A new improvement cycle requires untouched evaluation and stronger independent measurements.
+- Current State: Wave 2 native promotion still fails and its final cohort/weights remain frozen. The independently specified standby reconstruction improves public 2014 development error to 0.659250 log2 and 106/136 within 2× versus historical 1.555669 and 52/136, without fitting or selecting parameters from outcomes. This study informed the published mechanism, so no independent/native superiority is claimed. B has reserved 335 Cambray final inputs and prepared 261 Kuo exposed-secondary inputs for a separately prespecified next evaluation.
+- Verification: Scientific candidate 75d127cc350bcc4dc54be5b980db893da3c41e92 and backend/source/settings were frozen before 680 development predictions. All five declared configurations score 136/136; original/repaired context and standby scores are identical on this panel. Source-based mechanism review, independent structural/analytic fixtures and full software gates pass. See rbs-wave3-results.md and rbs-new-evaluation-data.md for exact pins, metrics, boundaries and next-study requirements.
 - Cleanup: Owning session records results including negative findings, distills reusable model/evaluation contracts, updates indexes and GitHub issue, then removes the resolved ticket.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/13
 - Priority: P0
-- Owner: Session A (`baf5b738-1792172297`), Wave 2 implementation/integration; suite-wide scope remains open where applicable.
+- Owner: Session A (`baf5b738-1792172297`), implementation/integration; suite-wide scope remains open where applicable.
 - Dependencies: Frozen data/splits and audit 12/16; competitor/source decisions 01/17; transcript-aware runtime 18; relevant calculator 03/06–09; 05 for optional hosted comparisons.
 
 Preserve a compatibility profile while building a separately named improved

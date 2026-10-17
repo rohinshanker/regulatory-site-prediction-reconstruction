@@ -127,7 +127,8 @@
                   "schema_version": {
                     "enum": [
                       "1.0",
-                      "1.1"
+                      "1.1",
+                      "1.2"
                     ]
                   },
                   "status": {
@@ -214,7 +215,8 @@
                     "schema_version": {
                       "enum": [
                         "1.0",
-                        "1.1"
+                        "1.1",
+                        "1.2"
                       ]
                     },
                     "status": {
@@ -507,6 +509,92 @@
           "items": {
             "$ref": "#/$defs/interval"
           }
+        },
+        "standby_module": {
+          "anyOf": [
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "original_hairpin": {
+                  "anyOf": [
+                    {
+                      "type": "array",
+                      "maxItems": 2,
+                      "items": {
+                        "$ref": "#/$defs/interval"
+                      }
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "hairpin": {
+                  "anyOf": [
+                    {
+                      "type": "array",
+                      "maxItems": 2,
+                      "items": {
+                        "$ref": "#/$defs/interval"
+                      }
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "distal": {
+                  "anyOf": [
+                    {
+                      "type": "array",
+                      "maxItems": 2,
+                      "items": {
+                        "$ref": "#/$defs/interval"
+                      }
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "proximal": {
+                  "anyOf": [
+                    {
+                      "type": "array",
+                      "maxItems": 2,
+                      "items": {
+                        "$ref": "#/$defs/interval"
+                      }
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "downstream_hairpins": {
+                  "type": "array",
+                  "items": {
+                    "type": "array",
+                    "maxItems": 2,
+                    "items": {
+                      "$ref": "#/$defs/interval"
+                    }
+                  }
+                }
+              },
+              "required": [
+                "original_hairpin",
+                "hairpin",
+                "distal",
+                "proximal",
+                "downstream_hairpins"
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
         }
       },
       "required": [
