@@ -176,10 +176,13 @@
       "name": "karlsen2018-ena.tsv",
       "url": "https://www.ebi.ac.uk/ena/portal/api/filereport?accession=PRJEB28203&result=read_run&fields=run_accession,experiment_accession,sample_accession,scientific_name,library_strategy,library_source,library_selection,library_layout,study_title,experiment_title,sample_title&format=tsv",
       "bytes": 1723,
-      "sha256": "04dd7598aa2aa65b4e4628d7eac898041a04bfcaec4d69a5eb701b16b9921526",
+      "sha256": "9394002fad9f3c4779f5139d890149c2dc9184755ceb9ecb514ba373de29d227",
       "licence": "Public ENA study metadata",
       "use": "Sequencing sample/replication identity",
-      "retrieved_utc": "2026-10-17"
+      "retrieved_utc": "2026-10-17",
+      "raw_first_retrieval_sha256": "04dd7598aa2aa65b4e4628d7eac898041a04bfcaec4d69a5eb701b16b9921526",
+      "canonicalization": "tsv_header_sort_data_lines_v1",
+      "identity_note": "ENA row order is unstable; pin header and lexicographically sorted complete data rows; preserve raw bytes and retrieval receipt"
     }
   ],
   "utex_identity": {
