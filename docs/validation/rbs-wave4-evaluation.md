@@ -39,6 +39,26 @@ Two fixed controls are constant 1 and GC fraction in the common available
 `[max(0,start-35), min(length,start+70))` window. Higher GC has higher score;
 its sign and scale cannot be chosen after observing performance.
 
+The [Wave4 comparator admission](../../benchmarks/rbs/wave4-comparator-admission.json)
+rechecks the unchanged source/parameter/model hashes and existing synthetic
+fixtures. OSTIR1.1.3/ViennaRNA2.7.2 library execution passes; CLI binaries remain
+absent and upstream environment2.6.4 parity is unverified. Its optional stack's
+separate ViennaRNA/NAVIEW restrictions remain outside the required open runtime.
+rebeca's four selected files/checkpoint match; the whole archive, exact training
+rows and publication-checkpoint identity remain unverified. Public MIT source
+notice was recovered at the embedded commit, but the local archive-embedded
+notice was not reverified. Zenodo's deposit terms do not grant Kuo data rights.
+
+Input-only checks find one Cambray leader/last30 input for the two UTR-only
+learned models, versus261 unique Kuo leaders. Their expected Cambray degeneracy
+is a feature-contract conclusion, not a new panel prediction or label result.
+The public2014 model remains the frozen136-row/22-family sequence-v1 artifact,
+with native log2-assay score; rebeca retains its declared exp(native mean-log)
+adapter scale. Neither scale is an absolute TIR. A readmission metadata probe
+incidentally included the public2014 intercept field; it was not used or copied
+into fixtures or sent to A. No private outcomes were accessed, and the independent
+joint fixtures had already been committed before this limited exposure.
+
 Kuo's 261 inputs remain exposed secondary, analyzed as three separate 87-input
 contexts. Missing means remain explicit. Their log base is unresolved; no
 exponentiation, log2/fold-error conversion or cross-context pooling is permitted.

@@ -8,6 +8,7 @@ import runpy
 import sys
 import unittest
 from argparse import Namespace
+from pathlib import Path
 from unittest.mock import Mock, patch
 
 from benchmarks.rbs import wave4_predict as p
@@ -80,6 +81,25 @@ class PredictionBridgeTest(unittest.TestCase):
         ):
             with self.subTest(key=key, value=value), self.assertRaises(ValueError):
                 p.input_check(dict(self.request, **{key: value}))
+
+    def test_admission_manifest_preserves_pinned_source_identities(self):
+        root = Path(__file__).resolve().parents[2]
+        admission = json.loads(
+            (root / "benchmarks/rbs/wave4-comparator-admission.json").read_text()
+        )
+        for name, expected in admission["manifest_pins"].items():
+            self.assertEqual(
+                hashlib.sha256((root / name).read_bytes()).hexdigest(), expected
+            )
+        self.assertEqual(admission["input_features"]["Cambray2018"]["n_unique_utrs"], 1)
+        self.assertEqual(
+            admission["input_features"]["Kuo2020"]["contexts"],
+            {"arti": 87, "dmsC": 87, "fepB": 87},
+        )
+        smokes = admission["synthetic_bridge_smokes"]
+        self.assertEqual(len(smokes), 4)
+        self.assertEqual(len({r["input_sha256"] for r in smokes}), 1)
+        self.assertTrue(all(r["status"] == "ok" for r in smokes))
 
     def test_runtime_identity_and_input_guards(self):
         self.assertEqual(self.normalized(self.core)["predicted"], 12.5)

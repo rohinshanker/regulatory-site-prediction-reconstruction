@@ -435,6 +435,29 @@ class CollectionTest(unittest.TestCase):
         )
         self.assertEqual(len(list(directory.glob("job-*.json"))), 12)
 
+    def test_timeout_can_have_successful_parent_with_open_descendant_pipe(self):
+        from benchmarks.rbs.wave4_evaluate import audit_execution
+
+        self.script.write_text(
+            "import subprocess,sys,json,hashlib\n"
+            "subprocess.Popen([sys.executable,'-c','import time;time.sleep(10)'])\n"
+            "raw=sys.stdin.buffer.read();r=json.loads(raw)\n"
+            "print(json.dumps(dict(id=r['id'],"
+            "input_sha256=hashlib.sha256(raw).hexdigest(),"
+            "status='ok',predicted=2.5,reason='')))\n"
+        )
+        row, config = self.inputs["records"][0], self.receipt["configurations"][0]
+        result = c.execute(row, config, 1, time.monotonic() + 5, self.root, 103)
+        self.assertEqual((result["status"], result["exit_code"]), ("timeout", 0))
+        self.assertIsNone(result["predicted"])
+        audit_execution(
+            result,
+            row,
+            config,
+            (self.root / "job-000103.stdout").read_bytes(),
+            (self.root / "job-000103.stderr").read_bytes(),
+        )
+
     def test_checked_bytes_returns_the_same_buffer_it_hashes(self):
         path = self.root / "replace.json"
         original = b'{"synthetic":1}'
