@@ -201,6 +201,12 @@ class FoldingSession:
         """Evaluate the supplied structure, preserving its exact base pairs."""
         return self._evaluate_many((Structure(sequence, pairs, None),))[0]
 
+    def evaluate_many(self, structures: tuple[Structure, ...]) -> tuple[Structure, ...]:
+        """Evaluate 1..100 states of one sequence, preserving input order."""
+        if structures and any(s.sequence != structures[0].sequence for s in structures):
+            raise BackendError("fixed-state batch requires one sequence")
+        return self._evaluate_many(structures)
+
     def _evaluate_many(
         self, structures: tuple[Structure, ...]
     ) -> tuple[Structure, ...]:

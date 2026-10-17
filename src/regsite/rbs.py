@@ -51,12 +51,16 @@ BASE_WARNINGS = [
     "host_configuration_is_not_host_calibration",
 ]
 MAX_JOINT_STATES = 4096
+JOINT_TIE_TOLERANCE = 1e-9
 JOINT_PARAMETERS = {
     "objective": "minimum complete initiation energy over eligible returned candidates",
     "energy_summation": "math.fsum(complex, spacing, start, -unbound, standby)",
-    "tie_rule": "complete energy, original backend enumeration index",
+    "tie_rule": "lowest backend index within absolute tolerance of global minimum",
+    "tie_tolerance_kcal_mol": JOINT_TIE_TOLERANCE,
     "candidate_deduplication": "none; each returned traceback retains its index",
     "maximum_bound_state_attempts_per_site": MAX_JOINT_STATES,
+    "maximum_fixed_states_per_process": MAX_STRUCTURES,
+    "prefix_suffix_fold_cache": "per-site sequence cache; no bound-state deduplication",
     "incomplete_search": "no winner or site score after any candidate failure or limit",
 }
 BindingOption = tuple[float, int, int, float, list[tuple[int, int]]]
@@ -84,12 +88,24 @@ def _bound_state(
     folding,
     profile: Profile,
     evaluate: Callable[[str, tuple[int, ...]], Structure],
+    *,
+    evaluate_many: Callable[[tuple[Structure, ...]], tuple[Structure, ...]]
+    | None = None,
+    fold_cache: dict[str, Structure] | None = None,
 ) -> _BoundState:
     """Preserve the original assembly/arithmetic for both selection procedures."""
+
+    def fold(sequence):
+        if fold_cache is None:
+            return folding.fold(sequence)
+        if sequence not in fold_cache:
+            fold_cache[sequence] = folding.fold(sequence)
+        return fold_cache[sequence]
+
     first, last = min(i for i, _ in binding), max(i for i, _ in binding)
-    prefix = folding.fold(window[:first])
+    prefix = fold(window[:first])
     suffix_start = min(len(window), len(leader) + profile.footprint_nt)
-    suffix = None if profile.historical else folding.fold(window[suffix_start:])
+    suffix = None if profile.historical else fold(window[suffix_start:])
     joined = window + "III" + anti_sd
     before = evaluate(
         joined, _joined_pairs(window, anti_sd, prefix, binding, suffix, suffix_start)
@@ -109,7 +125,33 @@ def _bound_state(
             states[pairs] = state
             return state.energy
 
-        standby = optimize(prefix, cast(float, before.energy), evaluate_opening)
+        def evaluate_openings(pairing_states):
+            structures = tuple(
+                Structure(
+                    joined,
+                    _joined_pairs(
+                        window,
+                        anti_sd,
+                        Structure(prefix.sequence, pairs, None),
+                        binding,
+                        suffix,
+                        suffix_start,
+                    ),
+                    None,
+                )
+                for pairs in pairing_states
+            )
+            evaluated = cast(Callable, evaluate_many)(structures)
+            for pairs, state in zip(pairing_states, evaluated, strict=True):
+                states[pairs] = state
+            return tuple(state.energy for state in evaluated)
+
+        standby = optimize(
+            prefix,
+            cast(float, before.energy),
+            evaluate_opening,
+            evaluate_many=evaluate_openings if evaluate_many is not None else None,
+        )
         after = states[standby.selected.pairs]
         standby_signed = -standby.selected.total
     else:
@@ -188,26 +230,45 @@ def _joint_selection(
             }
         )
 
+    def evaluate_many(structures: tuple[Structure, ...]) -> tuple[Structure, ...]:
+        results: list[Structure] = []
+        while len(results) < len(structures):
+            available = min(MAX_STRUCTURES, MAX_JOINT_STATES - search["state_attempts"])
+            if available == 0:
+                raise StandbySearchLimit(
+                    f"joint standby search exceeds {MAX_JOINT_STATES} bound states"
+                )
+            batch = structures[len(results) : len(results) + available]
+            search["state_attempts"] += len(batch)
+            evaluated = folding.evaluate_many(batch)
+            if len(evaluated) != len(batch):
+                raise BackendError("joint bulk energy count mismatch")
+            if any(s.energy is None or not math.isfinite(s.energy) for s in evaluated):
+                raise BackendError("nonfinite joint bound-state energy")
+            search["states_evaluated"] += len(evaluated)
+            results.extend(evaluated)
+        return tuple(results)
+
     def evaluate(sequence: str, pairs: tuple[int, ...]) -> Structure:
-        if search["state_attempts"] >= MAX_JOINT_STATES:
-            raise StandbySearchLimit(
-                f"joint standby search exceeds {MAX_JOINT_STATES} bound states"
-            )
-        search["state_attempts"] += 1
-        state = folding.evaluate(sequence, pairs)
-        if state.energy is None or not math.isfinite(state.energy):
-            raise BackendError("nonfinite joint bound-state energy")
-        search["states_evaluated"] += 1
-        return state
+        return evaluate_many((Structure(sequence, pairs, None),))[0]
 
     completed = []
+    fold_cache: dict[str, Structure] = {}
     for option, row in zip(viable, search["candidates"], strict=True):
         preliminary, index, spacing, penalty, binding = option
         attempts, evaluated = search["state_attempts"], search["states_evaluated"]
         search["not_evaluated"] -= 1
         try:
             state = _bound_state(
-                window, leader, request.anti_sd, binding, folding, profile, evaluate
+                window,
+                leader,
+                request.anti_sd,
+                binding,
+                folding,
+                profile,
+                evaluate,
+                evaluate_many=evaluate_many,
+                fold_cache=fold_cache,
             )
             total = _joint_total_energy(
                 cast(float, state.before.energy),
@@ -238,7 +299,11 @@ def _joint_selection(
         finally:
             row["state_attempts"] = search["state_attempts"] - attempts
             row["states_evaluated"] = search["states_evaluated"] - evaluated
-    selected = min(completed, key=lambda item: (item[0], item[1]))
+    minimum = min(item[0] for item in completed)
+    selected = min(
+        (item for item in completed if item[0] - minimum <= JOINT_TIE_TOLERANCE),
+        key=lambda item: item[1],
+    )
     greedy = min(completed, key=lambda item: (item[2][0], item[1]))
     search.update(
         complete=True,

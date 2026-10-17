@@ -26,12 +26,21 @@ standby2014. Enumerate eligible candidates in original backend order. For each:
 4. Calculate `total = complex + spacing + start - unbound + standby`, using
    `math.fsum` over the five signed terms. Complex is the original assembled
    state; the changed energy is not added a second time. Compensated summation
-   avoids spurious ordering from intermediate-addition rounding. No tolerance
-   bin or energy rounding is used in candidate selection. Earlier profiles keep
+   reduces intermediate-addition rounding; binary terms still have finite precision.
+   Earlier profiles keep
    their original arithmetic; singleton totals can differ in the last binary digits.
 
-Select by (complete total energy, original enumeration index). The module/state
-tie policy inside each candidate is unchanged. The greedy counterfactual uses
+Find the global minimum complete energy, then select the lowest original index
+among candidates at most 1e-9 kcal/mol above that minimum. This absolute numerical
+tie tolerance is far below the folding table precision and prevents a few binary
+rounding digits from choosing a different reported structure. The comparison is
+anchored to the global minimum, not a nontransitive sequence of pairwise tests.
+Scores/energies are not rounded; the selected energy can exceed the computed
+minimum by at most this tolerance. This pre-final policy was checked against the
+independent decimal/sliding tie, without experimental outcomes.
+
+The exact-float module/state tie policy inside each candidate is unchanged.
+The greedy counterfactual uses
 (cofold energy + spacing, original enumeration index) over the exact same set,
 and reports its *complete* energy after its own standby optimization. Neither
 score is fitted to experiments. Lower computed energy is not biological proof.
@@ -44,6 +53,14 @@ the cofold sequence and complete pairing array. It identifies a returned cofold
 state, not a biological regulatory element; the containing prediction identity
 provides model/settings/input/backend context.
 
+Identical prefix/suffix sequences share a per-site folding cache. Bound-state
+energies are not reused across binding candidates. Each candidate's opening
+states are submitted in ordered batches of at most 100 structures of the same
+sequence, using the same `efn2 --simple --ne` evaluator as single-state execution.
+The assembled baseline is evaluated first. Batching changes process overhead,
+not the declared geometry, state set or objective; individual/batched fixed-state
+energies are required to agree on real-engine controls.
+
 ## Limits, failure and diagnostics
 
 The backend's existing limit is 100 returned structures. Each standby candidate
@@ -54,6 +71,9 @@ separate operations under the same record deadline, not hidden opening states.
 All candidates share the default 60-second record budget (configurable through
 the existing API/CLI up to 120 seconds); backend processes retain their 15-second
 maximum. There is no approximate early winner or experimental-data-based pruning.
+The wall-time limit is independent of the deterministic state ceiling and can
+expire first on a slow or busy host. Neither limit promises that every allowed
+state count will finish within the wall-time budget.
 
 Before the 4,097th bound-state evaluation, return unsupported. Any eligible
 candidate's backend error, numerical failure, timeout or per-candidate limit
@@ -70,7 +90,14 @@ attempted/evaluated bound-state counts, completion, per-candidate status/reason,
 stable candidate ID and index, preliminary score, complete total and standby
 cost, and selected/greedy identities with the greedy complete energy. An empty
 eligible set is a complete empty search, with no selected or greedy candidate.
-All counts describe actual work; incomplete states never become numeric zero
+`failed` includes a candidate halted by an unsupported search limit as well as
+a computation error. `state_attempts` counts structures submitted in each batch;
+`states_evaluated` counts accepted finite energies from fully validated batches.
+If a batch fails, its submitted states remain attempted and none are accepted.
+The three candidate counts partition `eligible`; selected/greedy IDs and indices
+must identify candidate rows. The schema enforces local types/bounds, complete
+row statuses and empty-search semantics; these relational identities are also
+checked by runtime tests. All counts describe actual work; incomplete states never become numeric zero
 predictions. Any negative raw unfolding encountered in an evaluated candidate
 is explicitly flagged; its clamped energy policy remains unchanged.
 
@@ -97,10 +124,12 @@ checks a greedy loser, singleton and exact candidate/state ties. Its expected
 values are derived with Decimal arithmetic independently of the runtime.
 [The runtime bridge](../../tests/test_joint_reference.py) checks candidate
 selection/total accounting and forward/reverse/circular projection against those
-unchanged values. These abstract costs are not folding measurements: full
+unchanged values, plus the independent reviewer's non-dyadic sliding-cost tie.
+These abstract costs are not folding measurements: full
 geometry, state enumeration, deadlines, missingness and real engines are checked
-separately in the runtime tests. The independently defined mathematical tie
-requires compensated summation, rather than intermediate chained-addition rounding.
+separately in the runtime tests. Compensated totals and the declared numerical
+candidate-tie tolerance address representation error without changing the
+historical profiles or rounding exported energies.
 
 ```sh
 REGSITE_RNASTRUCTURE=/absolute/path/to/RNAstructure .venv/bin/python -m pytest tests/test_joint_runtime.py tests/test_joint_reference.py tests/benchmarks/test_joint_selection_oracle.py

@@ -192,10 +192,22 @@ def _openings(root: Hairpin) -> tuple[tuple[tuple[int, int], ...], ...]:
     return tuple(states)
 
 
+def _remove_pairs(
+    original: tuple[int, ...], removed: tuple[tuple[int, int], ...]
+) -> tuple[int, ...]:
+    pairs = list(original)
+    for left, right in removed:
+        pairs[left] = pairs[right] = -1
+    return tuple(pairs)
+
+
 def optimize(
     prefix: Structure,
     baseline_energy: float,
     evaluate: Callable[[tuple[int, ...]], float],
+    *,
+    evaluate_many: Callable[[tuple[tuple[int, ...], ...]], tuple[float, ...]]
+    | None = None,
 ) -> StandbyResult:
     """Minimize distortion + unfolding + sliding over a declared complete state set.
 
@@ -206,6 +218,8 @@ def optimize(
     No new pairs form. Over-limit searches fail, never return a partial minimum.
     evaluate receives the full prefix pairing array and returns the energy of
     the corresponding full bound complex, preserving all other structures.
+    Optional evaluate_many evaluates the identical ordered opening states in
+    bulk; it changes process overhead, not the state set or energy objective.
     """
     original_modules = modules(prefix)
     if not math.isfinite(baseline_energy):
@@ -215,6 +229,18 @@ def optimize(
     if count > MAX_STATES:
         raise StandbySearchLimit("standby opening search exceeds 512 states")
     searches = [(root, _openings(root)) for root in roots]
+    energies = {}
+    if evaluate_many is not None:
+        pairing_states = tuple(
+            _remove_pairs(prefix.pairs, removed)
+            for _root, openings in searches
+            for removed in openings[1:]
+        )
+        if pairing_states:
+            values = evaluate_many(pairing_states)
+            if len(values) != len(pairing_states):
+                raise BackendError("standby bulk energy count mismatch")
+            energies = dict(zip(pairing_states, values, strict=True))
     choices = [
         Choice(
             module,
@@ -231,11 +257,10 @@ def optimize(
     negative = False
     for root, openings in searches:
         for removed in openings[1:]:
-            pairs = list(prefix.pairs)
-            for left, right in removed:
-                pairs[left] = pairs[right] = -1
-            updated = tuple(pairs)
-            energy = evaluate(updated)
+            updated = _remove_pairs(prefix.pairs, removed)
+            energy = (
+                energies[updated] if evaluate_many is not None else evaluate(updated)
+            )
             if not math.isfinite(energy):
                 raise BackendError("nonfinite standby state energy")
             raw = energy - baseline_energy

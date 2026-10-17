@@ -21,8 +21,60 @@ from regsite.structures import Structure
 
 FIXTURE = json.loads(Path("benchmarks/rbs/joint-selection-fixtures.json").read_text())
 
+# Independent reviewer DEM-507 supplied this additional decimal-equal tie.
+# It deliberately includes non-dyadic0.2 sliding/one-decimal folding terms.
+REVIEW_TIE = {
+    "id": "reviewer_decimal_sliding_tie",
+    "unbound": "-15",
+    "start": "-1.194",
+    "candidates": [
+        {
+            "index": 0,
+            "cofold": "-10",
+            "spacing": "0",
+            "before": "-20",
+            "states": [
+                {
+                    "after": "-20",
+                    "distortion": "0",
+                    "sliding": "0.2",
+                    "opened": 0,
+                    "module": 0,
+                    "core": 0,
+                }
+            ],
+        },
+        {
+            "index": 1,
+            "cofold": "-9",
+            "spacing": "0",
+            "before": "-19.8",
+            "states": [
+                {
+                    "after": "-19.8",
+                    "distortion": "0",
+                    "sliding": "0",
+                    "opened": 0,
+                    "module": 0,
+                    "core": 0,
+                }
+            ],
+        },
+    ],
+    "expected": {
+        "winner": 0,
+        "greedy": 0,
+        "state": 0,
+        "total": "-5.994",
+        "greedy_total": "-5.994",
+        "candidate_totals": ["-5.994", "-5.994"],
+    },
+}
 
-@pytest.mark.parametrize("case", FIXTURE["cases"], ids=lambda case: case["id"])
+
+@pytest.mark.parametrize(
+    "case", [*FIXTURE["cases"], REVIEW_TIE], ids=lambda case: case["id"]
+)
 def test_independent_complete_energy_selection(case, monkeypatch):
     by_index = {c["index"]: c for c in case["candidates"]}
     request = RbsRequest.from_dict(
@@ -35,7 +87,9 @@ def test_independent_complete_energy_selection(case, monkeypatch):
     window, leader = request.sequence, request.sequence[:14]
     states = {}
 
-    def assembled(window, leader, anti_sd, binding, folding, profile, evaluate):
+    def assembled(
+        window, leader, anti_sd, binding, folding, profile, evaluate, **options
+    ):
         # Synthetic state energies and penalties are inputs to this isolated
         # selector check. No expected winning candidate is used to build them.
         index = binding[0][0]

@@ -773,7 +773,8 @@
       "properties": {
         "index": {
           "type": "integer",
-          "minimum": 0
+          "minimum": 0,
+          "maximum": 99
         },
         "candidate_id": {
           "type": "string",
@@ -896,35 +897,43 @@
       "properties": {
         "returned": {
           "type": "integer",
-          "minimum": 0
+          "minimum": 0,
+          "maximum": 100
         },
         "connected": {
           "type": "integer",
-          "minimum": 0
+          "minimum": 0,
+          "maximum": 100
         },
         "eligible": {
           "type": "integer",
-          "minimum": 0
+          "minimum": 0,
+          "maximum": 100
         },
         "evaluated": {
           "type": "integer",
-          "minimum": 0
+          "minimum": 0,
+          "maximum": 100
         },
         "failed": {
           "type": "integer",
-          "minimum": 0
+          "minimum": 0,
+          "maximum": 100
         },
         "not_evaluated": {
           "type": "integer",
-          "minimum": 0
+          "minimum": 0,
+          "maximum": 100
         },
         "state_attempts": {
           "type": "integer",
-          "minimum": 0
+          "minimum": 0,
+          "maximum": 4096
         },
         "states_evaluated": {
           "type": "integer",
-          "minimum": 0
+          "minimum": 0,
+          "maximum": 4096
         },
         "complete": {
           "type": "boolean"
@@ -934,7 +943,8 @@
             "integer",
             "null"
           ],
-          "minimum": 0
+          "minimum": 0,
+          "maximum": 99
         },
         "selected_candidate_id": {
           "anyOf": [
@@ -952,7 +962,8 @@
             "integer",
             "null"
           ],
-          "minimum": 0
+          "minimum": 0,
+          "maximum": 99
         },
         "greedy_candidate_id": {
           "anyOf": [
@@ -1061,6 +1072,65 @@
                 "const": 0
               },
               "not_evaluated": {
+                "const": 0
+              },
+              "candidates": {
+                "minItems": 1,
+                "items": {
+                  "properties": {
+                    "status": {
+                      "const": "ok"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "complete": {
+                "const": true
+              },
+              "eligible": {
+                "const": 0
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "selected_index": {
+                "type": "null"
+              },
+              "selected_candidate_id": {
+                "type": "null"
+              },
+              "greedy_index": {
+                "type": "null"
+              },
+              "greedy_candidate_id": {
+                "type": "null"
+              },
+              "greedy_total_energy": {
+                "type": "null"
+              },
+              "candidates": {
+                "maxItems": 0
+              },
+              "evaluated": {
+                "const": 0
+              },
+              "failed": {
+                "const": 0
+              },
+              "not_evaluated": {
+                "const": 0
+              },
+              "state_attempts": {
+                "const": 0
+              },
+              "states_evaluated": {
                 "const": 0
               }
             }

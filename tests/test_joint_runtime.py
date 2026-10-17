@@ -42,11 +42,14 @@ class FiniteBackend:
         self.candidates = candidates
         self.failure = failure
         self.calls = 0
+        self.folded = []
+        self.batch_sizes = []
 
     def session(self, temperature, seconds):
         return self
 
     def fold(self, sequence):
+        self.folded.append(sequence)
         return Structure(sequence, (-1,) * len(sequence), -4 if sequence else 0)
 
     def cofold(self, leader, anti_sd):
@@ -65,6 +68,10 @@ class FiniteBackend:
         if self.failure is not None and self.calls == 2:
             raise self.failure
         return Structure(sequence, pairs, -8)
+
+    def evaluate_many(self, structures):
+        self.batch_sizes.append(len(structures))
+        return tuple(self.evaluate(s.sequence, s.pairs) for s in structures)
 
 
 def finite_request(strand="+"):
@@ -244,6 +251,14 @@ def test_candidate_failure_preserves_complete_denominators_and_no_winner(error):
 
 def test_global_state_bound_is_enforced_before_4097th_call():
     class Branches(AlgebraBackend):
+        def __init__(self, **kwargs):
+            super().__init__(**kwargs)
+            self.batch_sizes = []
+
+        def evaluate_many(self, structures):
+            self.batch_sizes.append(len(structures))
+            return super().evaluate_many(structures)
+
         def fold(self, sequence):
             if len(sequence) == 42:
                 return Structure(
@@ -270,6 +285,7 @@ def test_global_state_bound_is_enforced_before_4097th_call():
     assert search["evaluated"] == 15  # 257 states each; the next is incomplete.
     assert search["failed"] == 1
     assert search["not_evaluated"] == 84
+    assert backend.batch_sizes == [1, 100, 100, 56] * 15 + [1, 100, 100, 40]
     assert site["tir"] is search["selected_index"] is None
 
 
@@ -471,10 +487,12 @@ def test_real_candidates_share_whole_record_deadline(real_backend, monkeypatch):
     deadlines = []
 
     def expire_after_first(
-        window, leader, anti_sd, binding, folding, profile, evaluate
+        window, leader, anti_sd, binding, folding, profile, evaluate, **options
     ):
         deadlines.append(folding.deadline)
-        result = original(window, leader, anti_sd, binding, folding, profile, evaluate)
+        result = original(
+            window, leader, anti_sd, binding, folding, profile, evaluate, **options
+        )
         clock.now = 161.0
         return result
 
@@ -487,7 +505,7 @@ def test_real_candidates_share_whole_record_deadline(real_backend, monkeypatch):
     search = site["joint_search"]
     assert search["evaluated"] == search["failed"] == 1
     assert search["not_evaluated"] == search["eligible"] - 2
-    assert search["candidates"][1]["state_attempts"] == 0
+    assert search["candidates"][1]["state_attempts"] <= 1
     assert search["selected_index"] is search["greedy_total_energy"] is None
     assert site["tir"] is site["structures"] is None
 
@@ -556,3 +574,114 @@ def test_complete_maximum_returned_candidates_remains_bounded_not_exhaustive():
     assert len({row["candidate_id"] for row in search["candidates"]}) == 100
     assert not site["candidate_search"]["exhaustive"]
     assert "bifold_traceback_count_reached_limit" in site["warnings"]
+    assert len(backend.folded) == 3  # Unbound, one prefix, one suffix.
+    assert backend.batch_sizes == [1] * 100  # Bound states are not deduplicated.
+
+
+@pytest.mark.parametrize("broken", ["count", "energy", "error"])
+def test_failed_opening_batch_retains_submitted_and_accepted_denominators(broken):
+    class BrokenBatch(OpeningBackend):
+        def evaluate_many(self, structures):
+            if len(structures) == 1:
+                return super().evaluate_many(structures)
+            if broken == "count":
+                return ()
+            if broken == "energy":
+                return tuple(
+                    Structure(s.sequence, s.pairs, math.inf) for s in structures
+                )
+            raise BackendError("deliberate bulk process failure")
+
+    site = validate(predict(value(), BrokenBatch(), profile="joint_standby"))
+    assert site["status"] == "failed"
+    search = site["joint_search"]
+    assert search["state_attempts"] == 13
+    assert search["states_evaluated"] == 1
+    assert search["evaluated"] == 0
+    assert search["failed"] == 1
+    assert search["selected_index"] is site["tir"] is None
+
+
+@pytest.mark.parametrize("kind", ["hairpin", "duplex"])
+def test_real_bulk_evaluation_preserves_every_fixed_structure_and_energy(
+    real_backend, kind
+):
+    folding = real_backend.session(37, 60)
+    states = (
+        (folding.fold("GGGAAACCC"),)
+        if kind == "hairpin"
+        else folding.cofold("AAAGGAGGAAAAAA", "ACCUCCUUA")[:3]
+    )
+    fixed = tuple(Structure(s.sequence, s.pairs, None) for s in states)
+    fixed += (Structure(states[0].sequence, (-1,) * len(states[0].sequence), None),)
+    batch = folding.evaluate_many(fixed)
+    single = tuple(folding.evaluate(s.sequence, s.pairs) for s in fixed)
+    assert batch == single
+
+
+def test_real_bulk_requires_one_sequence_and_nonempty_batch(real_backend):
+    folding = real_backend.session(37, 60)
+    with pytest.raises(BackendError, match="one sequence"):
+        folding.evaluate_many(
+            (Structure("AAAA", (-1,) * 4, None), Structure("CCCC", (-1,) * 4, None))
+        )
+    with pytest.raises(BackendError, match="structure count"):
+        folding.evaluate_many(())
+
+
+@pytest.mark.parametrize("status", ["failed", "not_evaluated"])
+def test_schema_rejects_non_ok_rows_in_complete_search(status):
+    result = predict(finite_request(), FiniteBackend(), profile="joint_standby")
+    row = result["sites"][0]["joint_search"]["candidates"][0]
+    row.update(
+        status=status,
+        reason="test",
+        total_energy=None,
+        standby_energy=None,
+        negative_unfolding_seen=None,
+    )
+    with pytest.raises(jsonschema.ValidationError):
+        validate(result)
+
+
+@pytest.mark.parametrize("mutation", ["selection", "candidate", "work"])
+def test_schema_rejects_fabricated_empty_search(mutation):
+    result = predict(
+        finite_request(), FiniteBackend(((None, 0, -1),)), profile="joint_standby"
+    )
+    search = result["sites"][0]["joint_search"]
+    if mutation == "selection":
+        search["selected_index"] = 0
+    elif mutation == "candidate":
+        good = predict(finite_request(), FiniteBackend(), profile="joint_standby")
+        search["candidates"] = good["sites"][0]["joint_search"]["candidates"][:1]
+    else:
+        search["state_attempts"] = 1
+    with pytest.raises(jsonschema.ValidationError):
+        validate(result)
+
+
+@pytest.mark.parametrize(
+    "difference,expected",
+    [(0.5e-9, 0), (1e-9, 0), (math.nextafter(1e-9, math.inf), 1)],
+)
+def test_numerical_ties_are_relative_to_global_minimum(
+    difference, expected, monkeypatch
+):
+    class NearTie(FiniteBackend):
+        def evaluate(self, sequence, pairs):
+            self.calls += 1
+            return Structure(sequence, pairs, difference if self.calls == 1 else 0)
+
+    # Isolate the comparison boundary with exactly represented supplied totals.
+    # The full five-term arithmetic is exercised by the independent references.
+    monkeypatch.setattr(
+        rbs, "_joint_total_energy", lambda complex_energy, *args: complex_energy
+    )
+    backend = NearTie(((5, 3, -10), (5, 3, -9)))
+    site = validate(predict(finite_request(), backend, profile="joint_standby"))
+    assert site["joint_search"]["selected_index"] == expected
+    assert [c["total_energy"] for c in site["joint_search"]["candidates"]] == [
+        difference,
+        0,
+    ]

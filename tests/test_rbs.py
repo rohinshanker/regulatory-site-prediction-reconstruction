@@ -98,6 +98,9 @@ class AlgebraBackend:
             sequence, pairs, self.before if self.evaluations % 2 else self.after
         )
 
+    def evaluate_many(self, structures):
+        return tuple(self.evaluate(s.sequence, s.pairs) for s in structures)
+
 
 def request(**changes):
     return dict(
