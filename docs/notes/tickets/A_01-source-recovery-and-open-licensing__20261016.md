@@ -4,12 +4,12 @@
 - Status: active
 - Opened: 2026-10-16
 - Updated: 2026-10-17
-- Current State: Promoter historical inference and weights recovered with open reuse decision; original and packaged fork pinned, compatibility/training gaps explicit. RBS structural package independently reviewed. Broader suite recovery remains active.
-- Verification: RBS 161 owned tests, 100% statement/branch coverage (2149/900); independent final audit 9759 aggregate/pin assertions, zero numerical mismatches. Result/source/model identities and scope limits are in rbs-wave2-results.md and benchmarks/rbs/results/wave2-results-manifest.json.
+- Current State: RBS structural oracles and open backend/source evidence delivered. Promoter historical inference/weights and public fork pinned with open reuse decision; source/coordinate/dependency gaps documented. Operon/Riboswitch source recovery remains active.
+- Verification: Wave3 benchmark suite and independent reviews are recorded in rbs-structural-fixtures.md, rbs-new-evaluation-data.md and promoter-source-and-benchmarks.md; source hashes, frozen split and aggregate audits are committed. Wave2 results remain unchanged.
 - Cleanup: Owning session records final checks and unresolved findings, resolves the ticket, distills reusable guidance into docs/validation/, updates both indexes and linked GitHub issue, then removes the resolved ticket.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/1
 - Priority: P0
-- Owner: Session B (`9677689a-1792176763`), Wave 2 RBS slice; branch `wave2/rbs-validation`, baseline `fc78dee42f934417f2bf905ae71b582903b7a949`.
+- Owner: Session B (`9677689a-1792176763`), Wave3 evidence; branch `wave3/b-evidence`, baseline `0a9fbd03326afc1baa918e85eb2dd7709f666b63`.
 - Dependencies: None; complete the RBS slice first.
 
 Search public repositories, historical releases, papers, supplements and permitted website downloads for complete implementations of all four calculators. Distinguish a runnable model from wrappers, UI assets and bytecode. Select reuse versus reconstruction per component.

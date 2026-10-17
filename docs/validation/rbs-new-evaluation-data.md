@@ -22,12 +22,12 @@ in 56 factorial seed series. Source field `rep` means three nearby designs
 (1–4 mutations), not the four biological measurement replicates.
 
 **Exact local input:** the 92-base `five_utr` literal from author Code15 plus
-`gs.sequence`, uppercase, without another ATG. Reporter start is zero-based89;
+`gs.sequence`, uppercase, without another ATG. Reporter start is zero-based 89;
 the design occupies [92,188). The same prefix and coordinates are independently
 present in `TIPDesigner.py` at commit
 `7ea83bcf7a2cda21eb8727575ff2b20ac8b49606`. Primer evidence supports the local
-junction. The prefix includes a translated leader, with ATGs at33/67/89, an
-amber at[45,48) and overlapping terminal TAA[87,90). Calling all92 bases a UTR
+junction. The prefix includes a translated leader, with ATGs at 33/67/89, an
+amber at [45,48) and overlapping terminal TAA [87,90). Calling all 92 bases a UTR
 would misdescribe the construct.
 
 The longer design example contains an extra downstream `GCA` before the
@@ -36,11 +36,11 @@ is therefore not silently added. Complete actual-clone/plasmid sequence and the
 transcription boundary remain unverified. This is a **188-base local-context
 benchmark**, not a recovered full transcript.
 
-The host is E. coli MDS42 delta-recA; the reported assay uses5 mL Rich MOPS,
-overnight37 C, with kanamycin/chloramphenicol/IPTG/aTc. Exact doses are incomplete.
+The host is E. coli MDS42 delta-recA; the reported assay uses 5 mL Rich MOPS,
+overnight 37 C, with kanamycin/chloramphenicol/IPTG/aTc. Exact doses are incomplete.
 Ordinary and facilitated initiation use the same DNA; arabinose/pAcF-enabled
 amber suppression activates upstream translation coupling. Supplementary FigS5
-panelA says pAcF2.5 **mM**, while panelB/captionC and the assay passage say2.5
+panel A says pAcF 2.5 **mM**, while panel B / caption C and the assay passage say 2.5
 **nM**. The million-fold conflict is unresolved. Accessory-system concentrations
 are not substituted for assay doses.
 
@@ -53,13 +53,13 @@ units; model-derived `ds.*`/`gs.*` energies are not experimental labels.
 Author Code6 processes the two conditions separately: mode-window filtering,
 replicate normalization, exponential transformation and clipping. Ordinary uses
 three bins; facilitated uses four. Its ordinary minimum-depth call is0, whereas
-the reporting summary describes requiring a mode bin with at least5 reads.
+the reporting summary describes requiring a mode bin with at least 5 reads.
 These are source processing ambiguities, not a claim that the deposited values
 are wrong. The importer preserves deposited means and replicate missingness;
 it does not rerun or repair the original FACS pipeline. Data9's count audit
-reproduced745,595,539 reads over166 samples; raw read processing was not repeated.
+reproduced 745,595,539 reads over 166 samples; raw read processing was not repeated.
 
-OSF declares BSD-3-Clause for its data/scripts, copyright2018 Guillaume Cambray.
+OSF declares BSD-3-Clause for its data/scripts, copyright 2018 Guillaume Cambray.
 This is a node-level declaration, not a blanket licence for the Nature article,
 Addgene records, external services or dependencies. This preparation publishes
 identities/hashes and source recipes; raw measurements and full scoring inputs
@@ -69,19 +69,19 @@ stay outside Git. Source fragments are attributed here and in the ledger.
 
 [Kuo et al.](https://pmc.ncbi.nlm.nih.gov/articles/PMC7263185/), DOI
 `10.1101/gr.260182.119`, BioProject `PRJNA516114`. Supplementary FilesS2/S3/S4
-each enumerate all262,144 RNA9-mers in fepB/arti/dmsC GFP contexts, respectively.
-There are761,787 populated context–genotype means. Full-file hashes and exact
+each enumerate all 262,144 RNA9-mers in fepB/arti/dmsC GFP contexts, respectively.
+There are 761,787 populated context–genotype means. Full-file hashes and exact
 archive members are in the manifest; Europe PMC ZIP hashes are acquisition
 provenance because regenerated ZIP metadata can change without member changes.
 
 The importer validates every genotype, unique universe, replicate/mean
-missingness and arithmetic mean within0.001 (the source's rounding precision).
+missingness and arithmetic mean within 0.001 (the source's rounding precision).
 It preserves blanks rather than treating them as zero. Source attribution of
-blanks to fewer than25 reads has not been independently reproduced from raw
-reads. The109 public FASTQs total15.199 GB and were not downloaded. The separate
-YFP S5 has9,463 literal `#VALUE!` cells and is outside the GFP panel.
+blanks to fewer than 25 reads has not been independently reproduced from raw
+reads. The 109 public FASTQs total 15.199 GB and were not downloaded. The separate
+YFP S5 has 9,463 literal `#VALUE!` cells and is outside the GFP panel.
 
-TableS2 plus primers/read-filter evidence give these exact30-base leaders:
+TableS2 plus primers/read-filter evidence give these exact 30-base leaders:
 
 | Context | Prefix length | Variable interval | Spacer length | Source plasmid |
 | --- | ---: | --- | ---: | --- |
@@ -91,14 +91,14 @@ TableS2 plus primers/read-filter evidence give these exact30-base leaders:
 
 The article's fepB/dmsC positional prose disagrees with those agreeing construct
 sources. Reverse-complement trimmed YC04p2 and append YC04p1; the ATG after the
-arti spacer begins a43-base GFP prefix, independently checked against ILp6.
+arti spacer begins a 43-base GFP prefix, independently checked against ILp6.
 Its SHA256 is `5bd7080e1406a40322afe3adeddd440db5af02a443bdb7731de6098cfa85fe83`.
-The resulting input is73 bases, start30. It is not a full reporter/transcript;
+The resulting input is 73 bases, start 30. It is not a full reporter/transcript;
 do not append generic GFP or pad an unavailable window.
 
-Host/condition: MG1655, LBKG (50 mg/L kanamycin,10 g/L glucose),37 C,225 rpm,
-OD6000.55–0.65. Three FACS/NGS experiments use eight bins, except fepB replicate3
-uses15, with spike-in calibration. Quantity is the source's **Log(GFP)**
+Host/condition: MG1655, LBKG (50 mg/L kanamycin, 10 g/L glucose), 37 C, 225 rpm,
+OD600 0.55–0.65. Three FACS/NGS experiments use eight bins, except fepB replicate 3
+uses 15, with spike-in calibration. Quantity is the source's **Log(GFP)**
 fluorescence-derived fitness, not growth fitness or RNA-normalized TE. The
 numerical log base remains unresolved: no exponentiation, fold-error or log2
 conversion is authorized by these data. Source scripts also contain a context
@@ -117,13 +117,13 @@ on unknown line endings in experimental files.
 Seed: `wave3-rbs-20261017-v1`. Selection uses sequence/identity fields only.
 
 - **Cambray:** hash-rank `seed:combi` families, retain two per seed and every
-  actual member. This selects335 inputs from112 families/56 seed blocks; one
+  actual member. This selects 335 inputs from 112 families / 56 seed blocks; one
   family has only two actual design members. Entire Cambray study stays reserved
   final, including unselected sequences. No Cambray development labels are
   released. A row-random split would leak the deliberately nearby designs.
 - **Kuo:** generate the full DNA9-mer universe; hash-select eight per GC count
-  (0..9), plus four homopolymers and three parental genotypes. The87 genotypes
-  appear in all three contexts, yielding261 inputs. All remain exposed secondary.
+  (0..9), plus four homopolymers and three parental genotypes. The 87 genotypes
+  appear in all three contexts, yielding 261 inputs. All remain exposed secondary.
   The full universe is connected by single-base substitutions, so arbitrary
   row partitions cannot establish remote-family generalization.
 
@@ -132,12 +132,12 @@ not select on available outcomes or backend success, trim outliers, fit scale
 on final measurements, or pool studies/conditions into one correlation. Primary
 comparison is rank and prediction coverage within study. A final log-error claim
 would additionally need an independently frozen, assay-compatible calibration;
-source1–100 fluorescence is not the runtime's arbitrary initiation-rate unit.
+source 1–100 fluorescence is not the runtime's arbitrary initiation-rate unit.
 Use Cambray seed blocks for clustered uncertainty, and identify that all blocks
 come from one experiment. Kuo is one study, not three independent replications.
 
 Before scoring, A supplies immutable candidate commits/artifacts, named profiles,
-folding/settings, resource limits and development/training exposure. Use37 C;
+folding/settings, resource limits and development/training exposure. Use 37 C;
 Code15's E. coli aSD default is ACCUCCUUA, a model configuration rather than a
 measured host calibration. Outcomes stay with B; no score-dependent retuning is
 allowed after the final panel is evaluated. Keep reconstruction-versus-experiment,
@@ -156,10 +156,10 @@ new to this project is not new to the literature.
 standby2014, footprint2017, Karlsen2018, diurnal2021 and the declared Hadjeras TIS
 contexts. `new_data.previous_inputs` reads only IDs/sequences/coordinates from
 these inputs. `new_data.overlap` compares both sequences over the same available
-portion of[-35,+70), at exact threshold1−edit_distance/length>=0.85. Thus Kuo's
-shorter input is compared over[-30,+43) on both sides, preventing truncation from
+portion of [-35,+70), at exact threshold 1−edit_distance/length>=0.85. Thus Kuo's
+shorter input is compared over [-30,+43) on both sides, preventing truncation from
 creating artificial separation. Its bit-vector recurrence is independently
-checked against a matrix implementation on7,225 short-string pairs and longer
+checked against a matrix implementation on 7,225 short-string pairs and longer
 64/65/105/188/257-base cases. Similarity flags are sequence proxies, not proof of
 all ancestral/model-training independence.
 
@@ -175,7 +175,7 @@ python -m unittest discover -s tests/benchmarks -p test_new_data.py
 
 The extractor rederives the entire input envelope and rejects any changed
 manifest/selection/source. Its output directory must not exist; it is created
-0700, with outcomes and source-completeness audit0600. It prints no outcomes.
+0700, with outcomes and source-completeness audit 0600. It prints no outcomes.
 Public split records contain identities, groups and sequence hashes, not labels
 or full source sequences. The stdlib importer needs no new package dependencies.
 For overlap reproduction, load each pinned prior input with

@@ -4,12 +4,12 @@
 - Status: active
 - Opened: 2026-10-16
 - Updated: 2026-10-17
-- Current State: Promoter published-column metrics and active parameters independently reproduced; new RBS dataset admission and outcome-blind panels in progress. Old Wave2 results remain consumed; no promotion claim.
-- Verification: RBS 161 owned tests, 100% statement/branch coverage (2149/900); independent final audit 9759 aggregate/pin assertions, zero numerical mismatches. Result/source/model identities and scope limits are in rbs-wave2-results.md and benchmarks/rbs/results/wave2-results-manifest.json.
+- Current State: Promoter published-column correlations and active parameters independently reproduced. New Cambray335 final and Kuo261 exposed-secondary panels frozen before extraction, with source completeness and prior-input overlap audits. New candidate evaluation awaits immutable models; broader suite audit remains active.
+- Verification: Wave3 benchmark suite and independent reviews are recorded in rbs-structural-fixtures.md, rbs-new-evaluation-data.md and promoter-source-and-benchmarks.md; source hashes, frozen split and aggregate audits are committed. Wave2 results remain unchanged.
 - Cleanup: Owning session records final checks and unresolved findings, distills reusable benchmark guidance, updates indexes and GitHub issue, then removes the resolved ticket.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/12
 - Priority: P0
-- Owner: Session B (`9677689a-1792176763`), Wave 2 RBS slice; branch `wave2/rbs-validation`, baseline `fc78dee42f934417f2bf905ae71b582903b7a949`.
+- Owner: Session B (`9677689a-1792176763`), Wave3 evidence; branch `wave3/b-evidence`, baseline `0a9fbd03326afc1baa918e85eb2dd7709f666b63`.
 - Dependencies: Start now from the source map; coordinate data pins/splits with 01, 05 and 06–09.
 
 The owner reports that older calculators were not close enough to ground truth

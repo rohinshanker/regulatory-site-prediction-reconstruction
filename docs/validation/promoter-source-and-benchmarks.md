@@ -73,10 +73,10 @@ is `L-1-t`; interval `[a,b)` maps to `[L-b,L-a)`. Name the conversion explicitly
 Legacy `scan_arbitrary` omits the one-base gap in its TSS distance sum.
 [Seven independent fixtures](../../benchmarks/promoter/source-fixtures.json)
 cover scalar definitions and coordinate algebra without executing a predictor:
-spacer17=-0.0924; A12 groove=30; A44 rigidity=25.2; A20 hybrid difference=-5.6
-(the source uses seven stride-two dimers); TSS100/discriminator6/spacer17 gives
-UP[40,64), -35[65,71), -10[88,94), ITR[100,120). Minimum complete context is 78
-bases, maximum 87; length200 has 123 evaluable forward TSS positions.
+spacer 17 =-0.0924; A12 groove = 30; A44 rigidity = 25.2; A20 hybrid difference = -5.6
+(the source uses seven stride-two dimers); TSS 100 / discriminator 6 / spacer 17 gives
+UP [40,64), -35[65,71), -10[88,94), ITR [100,120). Minimum complete context is 78
+bases, maximum 87; length 200 has 123 evaluable forward TSS positions.
 
 ## Published-column reproduction
 
@@ -104,17 +104,17 @@ not 22,132 untouched tests. Source-specific limitations:
   is another cohort. Exact 4,673/520 training/test membership is unavailable.
 - Table S2 selects models using test correlation and positive controls. The
   published test split is not demonstrated untouched model-selection evaluation.
-- Benchmark-specific calibration is fitted on benchmark outcomes (Methods26).
-  Supplied slope diagnostics are separately labelled. For Urtecho, slope0.7526
-  gives MAE0.930521/MSE1.281928; workbook squared-error formulas instead use0.75
-  and cached MSE1.281979. Both round1.28. Hossain slope1.98352291 gives
-  MAE1.076537/MSE1.879962. These are fitted-domain errors, not prospective errors.
-- The quadratic comparator trains on all 10,898 Urtecho records (Methods20).
+- Benchmark-specific calibration is fitted on benchmark outcomes (Methods 26).
+  Supplied slope diagnostics are separately labelled. For Urtecho, slope 0.7526
+  gives MAE 0.930521 / MSE 1.281928; workbook squared-error formulas instead use 0.75
+  and cached MSE 1.281979. Both round 1.28. Hossain slope 1.98352291 gives
+  MAE 1.076537 / MSE 1.879962. These are fitted-domain errors, not prospective errors.
+- The quadratic comparator trains on all 10,898 Urtecho records (Methods 20).
   A table-wide “unseen” designation cannot apply to every model on that cohort.
-- Tables S4–S6 use 36N denominator11,523; the linear worksheet contains11,485.
+- Tables S4–S6 use 36N denominator 11,523; the linear worksheet contains 11,485.
   The 38 omitted original sequences all have `estimate_bin=0`. Other comparator
   tables include them; join the same population before comparing errors.
-- PL has2,902 distinct strings in2,903 rows; two strings cross PL/PR. Sequence
+- PL has 2,902 distinct strings in 2,903 rows; two strings cross PL/PR. Sequence
   families and loci need grouping beyond exact matching. Yu's republished IPTG
   condition remains unidentified. Fluorescence studies also measure effects of
   translation and RNA stability, not isolated transcription initiation.
@@ -132,13 +132,13 @@ development-only studies before new final evaluation.
 
 The best newly recovered candidate is author data for **GSE144621**, commit
 `484abdb6ba2d398501009ee6eb25ca7f190d3b4c` (Urtecho genome-wide; reviewed preprint
-`10.7554/eLife.92558.1`, precursor2020). It has17,767 rows/17,617 unique strings,
+`10.7554/eLife.92558.1`, precursor 2020). It has 17,767 rows / 17,617 unique strings,
 MG1655/U00096.2, LB, two RNA replicates with DNA normalization, and no exact
 full-string overlap with the republished Urtecho2019/Yu sets. It is **reserved,
 not admitted as a fully open final set**: repository/data terms, exact reporter
 flanks/temperature, primary version and locus/near-family overlap remain gates.
 Group overlapping genomic windows and controls across partitions; inactive
-reporter labels are not universal biological negatives. Public since2020 does
+reporter labels are not universal biological negatives. Public since 2020 does
 not mean unseen by later predictors. Original Lagator CSVs have no located
 project-wide licence; article CC-BY does not settle that repository's terms.
 Johns2018 and PromoterAtlas2026 remain leads, not admitted benchmarks.
@@ -158,7 +158,7 @@ python -m benchmarks.promoter.audit SOURCE_ROOT benchmarks/promoter/source-manif
 python -m unittest discover -s tests/benchmarks -p test_promoter_audit.py
 ```
 
-Actual arithmetic used Python3.14.7/openpyxl3.1.5. Tests need only stdlib and mock
+Actual arithmetic used Python 3.14.7/openpyxl 3.1.5. Tests need only stdlib and mock
 workbook I/O; actual workbook/hash/NPY reads were also executed. The output is
 deterministic and contains no construct-level outcomes. Before implementation,
 A should verify fork installation/parity, preserve original notices, select an

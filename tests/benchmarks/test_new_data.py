@@ -54,6 +54,48 @@ def cambray_designs():
 
 
 class NewDataTest(unittest.TestCase):
+    def test_committed_split_and_audit_identities(self):
+        root = Path(__file__).resolve().parents[2] / "benchmarks/rbs"
+        split_bytes = (root / "new-evaluation-split.json").read_bytes()
+        split = json.loads(split_bytes)
+        admission = json.loads((root / "new-data-admission-audit.json").read_text())
+        overlap = json.loads((root / "new-data-overlap-audit.json").read_text())
+        self.assertEqual(
+            split["manifest_sha256"],
+            n.digest(json.dumps(self.real_manifest(), sort_keys=True)),
+        )
+        self.assertEqual(admission["split_file_sha256"], n.digest(split_bytes))
+        self.assertEqual(
+            split["input_envelope_sha256"], admission["input_envelope_sha256"]
+        )
+        self.assertEqual(
+            split["input_envelope_sha256"], overlap["input_envelope_sha256"]
+        )
+        self.assertEqual(len({r["id"] for r in split["records"]}), 596)
+        self.assertEqual(
+            split["partition_counts"], {"reserved_final": 335, "exposed_secondary": 261}
+        )
+        self.assertTrue(
+            all(
+                set(row)
+                <= {
+                    "id",
+                    "study",
+                    "group",
+                    "design_family",
+                    "partition",
+                    "sequence_sha256",
+                    "start",
+                }
+                for row in split["records"]
+            )
+        )
+        cambray = [r for r in split["records"] if r["study"] == "Cambray2018"]
+        self.assertEqual(len({r["group"] for r in cambray}), 56)
+        self.assertEqual(len({r["design_family"] for r in cambray}), 112)
+        self.assertFalse(split["selection_uses_outcomes"])
+        self.assertTrue(admission["no_model_predictions"])
+
     def test_previous_input_field_maps(self):
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp)
