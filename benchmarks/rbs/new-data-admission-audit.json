@@ -1,0 +1,80 @@
+{
+  "schema_version": "rbs-new-admission-audit-1",
+  "freeze_commit": "55da050fc3543cf9ff61e41eb269c3071d92b9fc",
+  "no_model_predictions": true,
+  "source_outcomes_remain_private": true,
+  "input_envelope_sha256": "00648504305dddb7accede06ab07ca0ce12749f271b8ec3858dd6f44c359ba5d",
+  "input_file_sha256": "c96399ddf396bbce4eb56802579f703c92dc46569ebcfee28db94a4001354271",
+  "split_file_sha256": "dcccc24f43993e82c71b23dba602ceb41b81404c34c04459c297d2149028ce9a",
+  "private_artifact_sha256": {
+    "outcomes.json": "443bc60476d79d2d1690b016d8acedd86eef05fdd5b49f4d10d5a6db6dc6015b",
+    "source-audit.json": "400519408b44a918a7c2f27383a27c47cecce1e8e6a2659679a07a2a1f4cbc92"
+  },
+  "selection_completeness": {
+    "Cambray2018": {
+      "selected_inputs": 335,
+      "observed_mean_present": 332,
+      "mean_missing": 3,
+      "mean_nonpositive": 0,
+      "replicate_count_4": 317,
+      "mean_rounding_mismatch": 0,
+      "replicate_count_3": 11,
+      "replicate_count_1": 2,
+      "replicate_count_0": 3,
+      "replicate_count_2": 2
+    },
+    "Kuo2020": {
+      "selected_inputs": 261,
+      "observed_mean_present": 253,
+      "mean_missing": 8,
+      "mean_nonpositive": 0,
+      "replicate_count_3": 145,
+      "mean_rounding_mismatch": 0,
+      "replicate_count_2": 76,
+      "replicate_count_1": 32,
+      "replicate_count_0": 8
+    }
+  },
+  "source_completeness": {
+    "cambray2018": {
+      "source_replicate_coverage": {
+        "0": 1731,
+        "1": 3417,
+        "2": 2997,
+        "3": 6811,
+        "4": 229044
+      }
+    },
+    "kuo2020:arti": {
+      "source_replicate_coverage": {
+        "0": 2323,
+        "1": 7379,
+        "2": 54552,
+        "3": 197890
+      }
+    },
+    "kuo2020:dmsC": {
+      "source_replicate_coverage": {
+        "0": 4579,
+        "1": 32030,
+        "2": 73550,
+        "3": 151985
+      }
+    },
+    "kuo2020:fepB": {
+      "source_replicate_coverage": {
+        "0": 17743,
+        "1": 52238,
+        "2": 82545,
+        "3": 109618
+      }
+    }
+  },
+  "output_modes": {
+    "directory": "0o700",
+    "files": {
+      "source-audit.json": "0o600",
+      "outcomes.json": "0o600"
+    }
+  }
+}
