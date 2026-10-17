@@ -54,6 +54,22 @@ def cambray_designs():
 
 
 class NewDataTest(unittest.TestCase):
+    def test_exclusive_reservations_and_failure_cleanup(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            first, second = root / "first.json", root / "second.json"
+            with self.assertRaises(FileExistsError):
+                n.write_new_outputs([(first, {}), (first, {})])
+            self.assertFalse(first.exists())
+            with self.assertRaises(ValueError):
+                n.write_new_outputs([(first, {"bad": float("nan")}), (second, {})])
+            self.assertFalse(first.exists())
+            self.assertFalse(second.exists())
+            first.write_text("preexisting data")
+            with self.assertRaises(FileExistsError):
+                n.write_new_outputs([(first, {})])
+            self.assertEqual(first.read_text(), "preexisting data")
+
     def test_selected_source_completeness_without_outcome_release(self):
         frozen = {"records": [{"id": str(i), "study": "Cambray2018"} for i in range(5)]}
         outcomes = [
@@ -403,6 +419,30 @@ class NewDataTest(unittest.TestCase):
                             ]
                         )
                     self.assertFalse(collision.exists())
+                # Exercise the actual filesystem's case behavior, not a mock.
+                probe = root / "case-probe"
+                probe.write_text("")
+                insensitive = (root / "CASE-PROBE").exists()
+                probe.unlink()
+                arguments = [
+                    "freeze",
+                    str(root),
+                    str(manifest_path),
+                    str(collision),
+                    "--split-output",
+                    str(root / "COLLISION.JSON"),
+                ]
+                if insensitive:
+                    with self.assertRaises(FileExistsError):
+                        n.main(arguments)
+                    self.assertFalse(collision.exists())
+                    self.assertFalse((root / "COLLISION.JSON").exists())
+                else:
+                    n.main(arguments)
+                    self.assertEqual(json.loads(collision.read_text()), frozen)
+                    self.assertEqual(
+                        json.loads((root / "COLLISION.JSON").read_text()), public
+                    )
                 split_path = root / "split.json"
                 n.main(
                     [
