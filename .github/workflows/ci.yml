@@ -50,14 +50,17 @@ jobs:
           mypy src/regsite experiments
           python -m pytest --cov=regsite --cov=benchmarks.rbs --cov=benchmarks.promoter --cov=experiments.rbs --cov-report=term-missing
           git diff --check
-      - name: Build and validate the separately licensed traceback repair
+      - name: Build and validate both separately licensed repairs
         shell: bash
         run: |
           python backends/rnastructure66/build.py --archive .cache/RNAstructureSource.tgz --destination .cache/traceback-fixed --jobs 2
+          python backends/rnastructure66/build.py --archive .cache/RNAstructureSource.tgz --destination .cache/linker-fixed --jobs 2 --component rnastructure-6.6-linker-3
           export RNASTRUCTURE66_ORIGINAL="$REGSITE_RNASTRUCTURE"
           export RNASTRUCTURE66_PATCHED="$GITHUB_WORKSPACE/.cache/traceback-fixed/RNAstructure"
+          export RNASTRUCTURE66_LINKER3="$GITHUB_WORKSPACE/.cache/linker-fixed/RNAstructure"
           python -m unittest discover -s backends/rnastructure66/tests -v
           REGSITE_RNASTRUCTURE="$RNASTRUCTURE66_PATCHED" python -m pytest --cov=regsite --cov=benchmarks.rbs --cov=benchmarks.promoter --cov=experiments.rbs --cov-report=term-missing
+          REGSITE_RNASTRUCTURE="$RNASTRUCTURE66_LINKER3" python -m pytest --cov=regsite --cov=benchmarks.rbs --cov=benchmarks.promoter --cov=experiments.rbs --cov-report=term-missing
       - name: Build and run fresh offline wheel installation
         shell: bash
         run: |
@@ -79,6 +82,9 @@ jobs:
           .cache/fresh/bin/regsite examples/rbs-batch.json --profile joint_standby > .cache/joint-batch.json
           .cache/fresh/bin/regsite examples/rbs-standby-hairpin.json --profile joint_standby --format csv > .cache/joint.csv
           REGSITE_RNASTRUCTURE="$GITHUB_WORKSPACE/.cache/traceback-fixed/RNAstructure" .cache/fresh/bin/regsite-native examples/rbs-native-karlsen.json --profile joint_standby > .cache/native-joint.json
+          REGSITE_RNASTRUCTURE="$GITHUB_WORKSPACE/.cache/linker-fixed/RNAstructure" .cache/fresh/bin/regsite examples/rbs-standby-hairpin.json --profile joint_standby > .cache/joint-linker.json
+          REGSITE_RNASTRUCTURE="$GITHUB_WORKSPACE/.cache/linker-fixed/RNAstructure" .cache/fresh/bin/regsite examples/rbs-batch.json --profile joint_standby --format csv > .cache/joint-linker-batch.csv
+          REGSITE_RNASTRUCTURE="$GITHUB_WORKSPACE/.cache/linker-fixed/RNAstructure" .cache/fresh/bin/regsite-native examples/rbs-native-karlsen.json --profile joint_standby > .cache/native-joint-linker.json
           .cache/fresh/bin/regsite-native benchmarks/rbs/native-input-example.json > .cache/native.json
           .cache/fresh/bin/regsite-native benchmarks/rbs/native-input-example.json --format gff3 > .cache/native.gff3
           .cache/fresh/bin/regsite-native examples/rbs-native-karlsen.json > .cache/native-real.json
@@ -96,3 +102,4 @@ jobs:
           .cache/fresh/bin/python -c 'import csv,json; r=next(csv.DictReader(open(".cache/standby.csv"))); assert r["schema_version"]=="1.2" and r["status"]=="ok"; a=json.load(open(".cache/native-standby.json")); assert [r["status"] for r in a["results"]]==["ok","ok"]; assert all(r["prediction"]["schema_version"]=="1.2" and "standby_module" in r["genomic_sites"][0] for r in a["results"])'
           .cache/fresh/bin/python -c 'import json; a=json.load(open(".cache/joint-original.json")); b=json.load(open(".cache/joint-fixed.json")); c=json.load(open(".cache/joint-batch.json")); assert a["schema_version"]==b["schema_version"]=="1.3"; assert all(r["status"]=="ok" and r["sites"][0]["joint_search"]["complete"] for x in (a,b) for r in x["results"]); assert [r["status"] for r in c["results"]]==["ok","ok","no_candidate","unsupported"]'
           .cache/fresh/bin/python -c 'import csv,json; r=next(csv.DictReader(open(".cache/joint.csv"))); assert r["schema_version"]=="1.3" and r["status"]=="ok"; a=json.load(open(".cache/native-joint.json")); assert [r["status"] for r in a["results"]]==["ok","ok"]; assert all(r["prediction"]["schema_version"]=="1.3" and "standby_module" in r["genomic_sites"][0] for r in a["results"])'
+          .cache/fresh/bin/python -c 'import csv,json; a=json.load(open(".cache/joint-linker.json")); b=json.load(open(".cache/native-joint-linker.json")); c=list(csv.DictReader(open(".cache/joint-linker-batch.csv"))); assert a["results"][0]["backend"]["variant"]=="rnastructure-6.6-linker-3"; assert a["results"][0]["status"]=="ok"; assert [r["status"] for r in b["results"]]==["ok","ok"]; assert all(r["prediction"]["backend"]["variant"]=="rnastructure-6.6-linker-3" for r in b["results"]); assert [r["status"] for r in c]==["ok","ok","no_candidate","unsupported"]'

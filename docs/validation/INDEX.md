@@ -16,7 +16,7 @@ Verification dates cover the stated source observations or specification review;
 | rbs-source-decision | Pinned RBS sources, licences, open-backend decision and scalar fixtures. | 2026-10-16 | [rbs-source-decision.md](rbs-source-decision.md) |
 | rbs-standby | Published standby geometry, complete bounded opening search, explicit reconstruction choices and schema 1.2. | 2026-10-17 | [rbs-standby.md](rbs-standby.md) |
 | rbs-mechanisms | Versioned footprint/context profiles, primary parameter provenance, structures and ablation checks. | 2026-10-16 | [rbs-mechanisms.md](rbs-mechanisms.md) |
-| rbs-backend-repair | Separate GPL2 traceback repair, strict build receipt admission, source pins and two-engine validation. | 2026-10-17 | [rbs-backend-repair.md](rbs-backend-repair.md) |
+| rbs-backend-repair | Separate GPL2 traceback/linker repairs, strict build receipts, source pins and three-engine validation. | 2026-10-17 | [rbs-backend-repair.md](rbs-backend-repair.md) |
 | rbs-runtime | Installation, schemas, equations/deviations, resource bounds and release gates. | 2026-10-17 | [rbs-runtime.md](rbs-runtime.md) |
 | rbs-evaluation-protocol | Frozen experimental split, normalization, eligibility and independent evaluator boundary. | 2026-10-17 | [rbs-evaluation-protocol.md](rbs-evaluation-protocol.md) |
 | rbs-benchmark-card | Independently reproduced metrics, harness defects, leakage and measurement limits. | 2026-10-17 | [rbs-benchmark-card.md](rbs-benchmark-card.md) |
