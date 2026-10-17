@@ -90,7 +90,10 @@ The 2014 standby model describes surface area `15 + P + D - H` (H capped at
 15), fitted distortion coefficients 0.038, -1.629 and 17.359, and optimization
 over module-specific unfolding/sliding. Copying just the polynomial would omit
 module selection and structural optimization. No such partial substitute is
-silently inserted here; ticket 04 retains this unresolved mechanism scope.
+silently inserted into these three preserved profiles. The separately versioned
+[standby2014 profile](rbs-standby.md) now implements a complete declared opening
+search, geometry and sliding calculation; it uses schema 1.2 and does not alter
+the Wave 2 models or their recorded results.
 
 ## Reproduce the mechanism checks
 
@@ -141,6 +144,8 @@ Use the pinned tables and source archive from the installation contract.
 Both are development-only diagnostic cases, selected by failure category.
 The parser correctly rejects the first and the missing-output check rejects
 the second. Discarding invalid structures would change the search and might
-discard the best candidate; it is not an equivalent repair. A future backend
-repair needs its own version, independent structural tests and a fresh
-evaluation cycle. The current release retains these failures in coverage.
+discard the best candidate; it is not an equivalent repair. The separately
+identified [traceback-2 repair](rbs-backend-repair.md) corrects these cases and
+has independent structural tests. Original-backend results and Wave 2 coverage
+remain unchanged. Search completeness and experimental accuracy remain separate
+validation questions.

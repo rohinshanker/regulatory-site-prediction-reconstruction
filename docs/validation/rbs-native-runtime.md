@@ -22,8 +22,12 @@ regsite-native benchmarks/rbs/native-input-example.json --mode conditional_scan
 ```
 
 The included seven-case fixture is synthetic coordinate validation, not evidence
-of native-host accuracy. `context2017` is the default; `--profile historical` and
-`--profile footprint2017` explicitly select the other mechanisms. The Python API
+of native-host accuracy. `context2017` is the default; `--profile historical`,
+`--profile footprint2017` and `--profile standby2014` select distinct mechanisms.
+The standby profile embeds result schema 1.2 and projects its module intervals
+into genomic segments in `genomic_sites.standby_module`, including circular
+crossings. Full geometry is retained in JSON; GFF3 keeps its established features.
+The Python API
 is `regsite.native.predict_native(value, backend, profile=..., mode=...)`.
 
 For real UTEX 2973 context, first reproduce `tan-contexts.json` with B's pinned

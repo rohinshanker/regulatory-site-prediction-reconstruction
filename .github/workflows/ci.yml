@@ -46,7 +46,7 @@ jobs:
           ruff check src tests experiments
           ruff format --check src tests experiments
           mypy src/regsite experiments
-          python -m pytest --cov=regsite --cov=benchmarks.rbs --cov=experiments.rbs --cov-report=term-missing
+          python -m pytest --cov=regsite --cov=benchmarks.rbs --cov=benchmarks.promoter --cov=experiments.rbs --cov-report=term-missing
           git diff --check
       - name: Build and validate the separately licensed traceback repair
         shell: bash
@@ -55,7 +55,7 @@ jobs:
           export RNASTRUCTURE66_ORIGINAL="$REGSITE_RNASTRUCTURE"
           export RNASTRUCTURE66_PATCHED="$GITHUB_WORKSPACE/.cache/traceback-fixed/RNAstructure"
           python -m unittest discover -s backends/rnastructure66/tests -v
-          REGSITE_RNASTRUCTURE="$RNASTRUCTURE66_PATCHED" python -m pytest --cov=regsite --cov=benchmarks.rbs --cov=experiments.rbs --cov-report=term-missing
+          REGSITE_RNASTRUCTURE="$RNASTRUCTURE66_PATCHED" python -m pytest --cov=regsite --cov=benchmarks.rbs --cov=benchmarks.promoter --cov=experiments.rbs --cov-report=term-missing
       - name: Build and run fresh offline wheel installation
         shell: bash
         run: |

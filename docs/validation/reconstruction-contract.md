@@ -105,9 +105,9 @@ be inferred from one reporter panel or website agreement.
   functional acceptance criteria must pass, or the owner must explicitly change
   its scope. Unknowns remain tracked while independent work continues.
 
-## RBS 0.2.0rc1 applicability
+## RBS 0.3.0rc1 applicability
 
-The candidate includes historical and explicit footprint/context profiles, a
+The candidate includes historical, footprint/context and published-standby profiles, a
 transcript-aware native adapter, versioned JSON/CSV/GFF3 exports and frozen
 experimental learned models. The [runtime](rbs-runtime.md),
 [native adapter](rbs-native-runtime.md) and [learned runtime](rbs-learning-runtime.md)
@@ -123,7 +123,16 @@ immutable [freeze](../../models/rbs/wave2-freeze.json) and
 evaluated code, weights, inputs and controls. New scientific changes require a
 new development cycle and untouched evaluation.
 
-Remaining scope includes later standby/sliding/drafting/stacking mechanisms,
+The [standby contract](rbs-standby.md) defines schema 1.2, source equations,
+structural optimization and declared reconstruction choices. The optional
+[traceback repair](rbs-backend-repair.md) is a separately identified GPL-2.0-only
+component, built outside the GPL-3.0-or-later Python runtime and communicated with
+through files/processes. The source distribution preserves its separate licence;
+the wheel contains no backend code or executable. Original profiles, installations
+and Wave 2 artifacts remain available. This new mechanism/backend combination
+requires its own scientific evaluation; the old final cohort is already consumed.
+
+Remaining scope includes drafting, kinetics and distinct production stacking,
 backend enumeration differences, design modes, the other three calculators and
 native UTEX calibration. A draft release candidate does not close those tickets.
 Main merge, a public tag/package and downstream consumer admission are separate
