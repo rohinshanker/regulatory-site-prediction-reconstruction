@@ -508,3 +508,51 @@ def test_independent_decimal_tie_survives_intermediate_rounding():
     assert a == b == -3.194
     # A representable unequal total is not rounded into the same tie bin.
     assert rbs._joint_total_energy(math.nextafter(-10, math.inf), 0, -1.194, -4, -4) > b
+
+
+@pytest.mark.parametrize("strand", ["+", "-"])
+def test_selected_coordinates_in_shifted_full_context(strand):
+    sequence = "A" * 105 + "AUG" + "A" * 120
+    request_value = request(
+        sequence=sequence if strand == "+" else reverse_complement(sequence),
+        start_positions=[105],
+        strand=strand,
+    )
+    site = validate(predict(request_value, FiniteBackend(), profile="joint_standby"))
+    assert site["joint_search"]["selected_index"] == 1
+    assert site["window"]["oriented_start"] == 5
+    assert site["window"]["oriented_end"] == 205
+    for interval, start, end in (
+        (site["binding_interval"], 10, 11),
+        (site["standby"]["proximal"], 5, 10),
+        (site["coding_footprint"], 105, 118),
+    ):
+        assert interval == {
+            "start": start if strand == "+" else len(sequence) - end,
+            "end": end if strand == "+" else len(sequence) - start,
+            "strand": strand,
+        }
+
+
+@pytest.mark.parametrize("inside", [True, False])
+def test_band_tolerance_boundary_retains_exact_eligible_set(inside):
+    boundary = -10 + 3.0 + 1e-9
+    energy = boundary if inside else math.nextafter(boundary, math.inf)
+    backend = FiniteBackend(((0, 8, -10), (5, 3, energy)))
+    site = validate(predict(finite_request(), backend, profile="joint_standby"))
+    search = site["joint_search"]
+    assert search["connected"] == 2
+    assert search["eligible"] == search["evaluated"] == 1 + inside
+    assert search["selected_index"] == int(inside)
+
+
+def test_complete_maximum_returned_candidates_remains_bounded_not_exhaustive():
+    backend = FiniteBackend(((5, 3, -9),) * 100)
+    site = validate(predict(finite_request(), backend, profile="joint_standby"))
+    search = site["joint_search"]
+    assert search["complete"]
+    assert search["evaluated"] == search["state_attempts"] == 100
+    assert search["selected_index"] == 0
+    assert len({row["candidate_id"] for row in search["candidates"]}) == 100
+    assert not site["candidate_search"]["exhaustive"]
+    assert "bifold_traceback_count_reached_limit" in site["warnings"]
