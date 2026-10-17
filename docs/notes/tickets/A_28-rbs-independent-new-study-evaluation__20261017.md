@@ -1,13 +1,13 @@
-# O_28-rbs-independent-new-study-evaluation__20261017 — Open
+# A_28-rbs-independent-new-study-evaluation__20261017 — Active
 
 - Scope: Implement and run a frozen independent RBS evaluation on the admitted Cambray panel, with Kuo secondary and identifiable comparators.
-- Status: open
+- Status: active
 - Opened: 2026-10-17
 - Updated: 2026-10-17
-- Current State: Planned for Session B in Wave 4. Inputs and outcome admission are frozen; no new candidate has been evaluated against these final outcomes.
+- Current State: Session B started Wave 4; protocol/tooling precedes final outcome joins. All prior input/source/private-output hashes and modes reverified without printing measurements. The initial protocol, synthetic rank evaluator, feasibility scenarios and joint-selection oracle are implemented; exact-patch review and collection adapters precede any candidate/outcome join.
 - Verification: Wave 3 admission preserves 335 Cambray inputs/332 means and 261 Kuo inputs/253 means, source hashes and overlap audits. Candidate freeze, evaluator implementation and new final comparison are pending.
 - Cleanup: Session B distills the protocol, aggregate results, exposure boundary and reproduction contract; resolves/removes this ticket only after a complete validated evaluation, retaining broad #12 and any incomplete stage.
-- Owner: Session B, reserved assignment; claim active when execution starts.
+- Owner: Session B (9677689a-1792176763), wave4/b-independent-evaluation at baseline 73521a6ae3251678073dce76181ee5909b34fe8b.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/28
 - Dependencies: Wave 3 new-data admission; A's immutable candidate receipt under #27/#6; #26 only when a new backend is accepted before freeze.
 - Parent: #12; supports #13/#6.

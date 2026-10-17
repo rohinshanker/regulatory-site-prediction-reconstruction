@@ -1,13 +1,13 @@
-# O_29-promoter-executable-reference__20261017 — Open
+# A_29-promoter-executable-reference__20261017 — Active
 
 - Scope: Execute the admitted historical Promoter source/fork and prepare independently verified numeric/coordinate fixtures for the later runtime.
-- Status: open
+- Status: active
 - Opened: 2026-10-17
 - Updated: 2026-10-17
-- Current State: Planned for Session B in Wave 4. Source/weights and seven analytic fixtures are pinned; published supplied prediction columns were audited, but upstream inference has not been executed by this project.
+- Current State: Session B started Wave 4. The optional Claude worker terminated with a provider biology-adjacent safeguard flag before producing changes; that provider request is not being retried. Source execution remains incomplete while independent evaluator/oracle work proceeds. Source/weights and seven analytic fixtures are pinned; published supplied prediction columns were audited, but upstream inference has not been executed by this project.
 - Verification: Existing source/parameter and published-column audit passes; modern isolated installation, executed parity and new inference fixtures remain to be verified.
 - Cleanup: Session B distills executable source/dependency identities, fixture semantics and discrepancies into validation contracts; resolves/removes this scoped ticket while #1/#7/#12 retain unfinished work.
-- Owner: Session B, reserved assignment; claim active when execution starts.
+- Owner: Session B (9677689a-1792176763), wave4/b-independent-evaluation at baseline 73521a6ae3251678073dce76181ee5909b34fe8b.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/29
 - Dependencies: Pinned Promoter source/benchmark contract; independent of A's RBS implementation.
 - Parent: #1/#12; prepares #7 without implementing the project Promoter runtime.
