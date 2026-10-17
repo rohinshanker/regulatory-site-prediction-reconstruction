@@ -1,0 +1,237 @@
+{
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": "native-rbs-evidence-1"
+    },
+    "genomes": {
+      "type": "object",
+      "minProperties": 1,
+      "maxProperties": 100,
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "sequence": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 20000000,
+            "pattern": "^[ACGT]+$"
+          },
+          "sequence_sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "accession": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256,
+            "pattern": "^[^\\x00-\\x1f\\x7f]+$"
+          },
+          "assembly": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256,
+            "pattern": "^[^\\x00-\\x1f\\x7f]+$"
+          },
+          "annotation": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256,
+            "pattern": "^[^\\x00-\\x1f\\x7f]+$"
+          },
+          "topology": {
+            "enum": [
+              "linear",
+              "circular"
+            ]
+          }
+        },
+        "required": [
+          "sequence",
+          "sequence_sha256",
+          "accession",
+          "assembly",
+          "annotation",
+          "topology"
+        ],
+        "additionalProperties": true
+      }
+    },
+    "records": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 10000,
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128,
+            "pattern": "^[^\\x00-\\x1f\\x7f]+$"
+          },
+          "genome_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256,
+            "pattern": "^[^\\x00-\\x1f\\x7f]+$"
+          },
+          "strand": {
+            "enum": [
+              "+",
+              "-"
+            ]
+          },
+          "tss_zero_based": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 19999999
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "cds_start_zero_based": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 19999999
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "leader_length_nt": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": -19999999,
+                "maximum": 19999999
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "origin_crossing": {
+            "type": "boolean"
+          },
+          "upstream_limit_nt": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100
+          },
+          "downstream_length_nt": {
+            "type": "integer",
+            "minimum": 3,
+            "maximum": 100
+          },
+          "mapping_status": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256,
+            "pattern": "^[^\\x00-\\x1f\\x7f]+$"
+          },
+          "transcript_start_evidence": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256,
+            "pattern": "^[^\\x00-\\x1f\\x7f]+$"
+          },
+          "translation_start_evidence": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256,
+            "pattern": "^[^\\x00-\\x1f\\x7f]+$"
+          },
+          "host": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128,
+            "pattern": "^[^\\x00-\\x1f\\x7f]+$"
+          },
+          "conditions": {
+            "type": "array"
+          },
+          "anti_sd": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 90
+          },
+          "anti_sd_provenance": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2048,
+            "pattern": "^[^\\x00-\\x1f\\x7f]+$"
+          },
+          "warnings": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "temperature_c": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+          },
+          "assembly": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256,
+            "pattern": "^[^\\x00-\\x1f\\x7f]+$"
+          },
+          "annotation": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256,
+            "pattern": "^[^\\x00-\\x1f\\x7f]+$"
+          },
+          "replicon": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256,
+            "pattern": "^[^\\x00-\\x1f\\x7f]+$"
+          },
+          "genome_sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          }
+        },
+        "required": [
+          "id",
+          "genome_id",
+          "strand",
+          "tss_zero_based",
+          "cds_start_zero_based",
+          "leader_length_nt",
+          "origin_crossing",
+          "upstream_limit_nt",
+          "downstream_length_nt",
+          "mapping_status",
+          "transcript_start_evidence",
+          "translation_start_evidence",
+          "host",
+          "conditions",
+          "anti_sd",
+          "anti_sd_provenance",
+          "warnings"
+        ],
+        "additionalProperties": true
+      }
+    }
+  },
+  "required": [
+    "schema_version",
+    "genomes",
+    "records"
+  ],
+  "additionalProperties": true,
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Native RBS evidence input 1"
+}

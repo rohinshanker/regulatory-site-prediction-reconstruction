@@ -46,6 +46,18 @@ the latter also expands the context window. See their [mechanism contract](docs/
 and [result schema 1.1](schemas/rbs-result-1.1.schema.json). These are explicit
 partial reconstructions of later mechanisms, with experimental comparison pending.
 
+The transcript-aware adapter accepts pinned genomes and explicit TSS/CDS scenarios:
+
+```sh
+.venv/bin/regsite-native benchmarks/rbs/native-input-example.json
+.venv/bin/regsite-native benchmarks/rbs/native-input-example.json --format gff3
+```
+
+It preserves source evidence and unsupported cases, handles both strands and
+circular origins, and separates supplied-start scoring from conditional candidate
+ranking. See the [native runtime contract](docs/validation/rbs-native-runtime.md).
+The small example validates coordinates; it is not a native accuracy benchmark.
+
 ## Start a new implementation session
 
 For the next parallel wave, use the complete [Session A prompt](docs/prompts/wave2-session-a.md)

@@ -4,6 +4,7 @@ import json
 from copy import deepcopy
 from pathlib import Path
 
+import jsonschema
 import pytest
 from test_rbs import AlgebraBackend
 
@@ -101,6 +102,8 @@ def test_unmeasured_flank_clipping_and_preserved_evidence():
         {"leader_length_nt": False},
         {"tss_zero_based": None, "leader_length_nt": 4},
         {"anti_sd": "bad"},
+        {"anti_sd": "AAA"},
+        {"temperature_c": True},
         {"temperature_c": float("nan")},
     ],
 )
@@ -274,3 +277,27 @@ def test_real_native_fixture_batch(real_backend):
         plus["prediction"]["sites"][0]["energies"]
         == minus["prediction"]["sites"][0]["energies"]
     )
+
+
+def test_native_schemas_separate_evidence_from_predictions():
+    input_schema = json.loads(
+        Path("schemas/native-rbs-evidence-1.schema.json").read_text()
+    )
+    output_schema = json.loads(
+        Path("schemas/native-rbs-result-1.schema.json").read_text()
+    )
+    jsonschema.validate(EXAMPLE, input_schema)
+    result = predict_native(EXAMPLE, AlgebraBackend(paired=0))
+    jsonschema.validate(result, output_schema)
+    for record in result["results"]:
+        if record["prediction"] is not None:
+            version = record["prediction"]["schema_version"]
+            schema = json.loads(
+                Path(f"schemas/rbs-result-{version}.schema.json").read_text()
+            )
+            jsonschema.validate(
+                {"schema_version": version, "results": [record["prediction"]]}, schema
+            )
+    result["results"][0]["context"] = None
+    with pytest.raises(jsonschema.ValidationError):
+        jsonschema.validate(result, output_schema)

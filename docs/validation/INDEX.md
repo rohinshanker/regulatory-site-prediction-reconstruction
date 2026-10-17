@@ -19,3 +19,4 @@ Verification dates cover the stated source observations or specification review;
 | rbs-live-reference | Diagnostic inputs, actual quoted pricing, private ledger and acquisition stop rules. | 2026-10-16 | [rbs-live-reference.md](rbs-live-reference.md) |
 | rbs-improvement-hypotheses | Ranked, falsifiable experiments for ticket 13 without holdout tuning. | 2026-10-16 | [rbs-improvement-hypotheses.md](rbs-improvement-hypotheses.md) |
 | rbs-native-input-contract | Source-specific record boundary and independent strand/origin fixtures for the runtime adapter. | 2026-10-17 | [rbs-native-input-contract.md](rbs-native-input-contract.md) |
+| rbs-native-runtime | Portable context extraction, explicit missingness, genomic/GFF3 conversion and resource bounds. | 2026-10-17 | [rbs-native-runtime.md](rbs-native-runtime.md) |

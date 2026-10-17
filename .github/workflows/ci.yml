@@ -59,5 +59,8 @@ jobs:
           .cache/fresh/bin/regsite examples/rbs-batch.json --format csv > .cache/batch.csv
           .cache/fresh/bin/regsite examples/rbs-footprint.json --profile footprint2017 > .cache/footprint.json
           .cache/fresh/bin/regsite examples/rbs-footprint.json --profile context2017 > .cache/context.json
+          .cache/fresh/bin/regsite-native benchmarks/rbs/native-input-example.json > .cache/native.json
+          .cache/fresh/bin/regsite-native benchmarks/rbs/native-input-example.json --format gff3 > .cache/native.gff3
           .cache/fresh/bin/python -c 'import json; a=json.load(open(".cache/single.json")); b=json.load(open(".cache/batch.json")); assert a["results"][0]["status"]=="ok"; assert [r["status"] for r in b["results"]]==["ok","ok","no_candidate","unsupported"]'
           .cache/fresh/bin/python -c 'import json; a=json.load(open(".cache/footprint.json")); b=json.load(open(".cache/context.json")); assert a["schema_version"]==b["schema_version"]=="1.1"; assert a["results"][0]["status"]==b["results"][0]["status"]=="ok"'
+          .cache/fresh/bin/python -c 'import json; a=json.load(open(".cache/native.json")); assert a["schema_version"]=="native-rbs-result-1"; assert len(a["results"])==7; assert a["results"][-1]["reason"]=="tss_inside_current_cds"; assert open(".cache/native.gff3").readline()=="##gff-version 3\n"'

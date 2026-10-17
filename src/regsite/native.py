@@ -18,7 +18,7 @@ from regsite.contracts import RbsRequest
 from regsite.genome import GenomicPath
 from regsite.profiles import get_profile
 from regsite.rbs import predict
-from regsite.sequence import InputError, sequence_hash
+from regsite.sequence import InputError, normalize_rna, sequence_hash
 
 INPUT_VERSION = "native-rbs-evidence-1"
 RESULT_VERSION = "native-rbs-result-1"
@@ -138,6 +138,13 @@ def prepare_context(record: object, genome: Genome) -> NativeContext:
     ):
         _text(record.get(key), key)
     _text(record.get("anti_sd_provenance"), "anti_sd_provenance", 2048)
+    host = _text(record.get("host"), "host", 128)
+    anti_sd = normalize_rna(record.get("anti_sd"), "anti_sd", max_length=9)
+    if len(anti_sd) != 9:
+        raise InputError("native anti_sd must contain exactly nine nucleotides")
+    temperature = record.get("temperature_c", 37.0)
+    if type(temperature) not in (int, float) or not 0 <= temperature <= 100:
+        raise InputError("native temperature_c must be finite and between 0 and 100")
     for key in ("conditions", "warnings"):
         if not isinstance(record.get(key), list):
             raise InputError(f"{key} must be an explicit list")
@@ -212,9 +219,9 @@ def prepare_context(record: object, genome: Genome) -> NativeContext:
         "id": identifier,
         "sequence": sequence,
         "start_positions": [count_up],
-        "anti_sd": record.get("anti_sd"),
-        "temperature_c": record.get("temperature_c", 37.0),
-        "host": _text(record.get("host"), "host", 128),
+        "anti_sd": anti_sd,
+        "temperature_c": temperature,
+        "host": host,
     }
     RbsRequest.from_dict(request)
     warnings.extend(
@@ -388,6 +395,12 @@ def predict_native(
         "batch_id": digest,
         "mode": mode,
         "model_id": specification.model_id,
+        "execution": {
+            "implementation_version": __version__,
+            "backend": deepcopy(backend.identity),
+            "seconds_per_record": float(seconds_per_record),
+            "seconds_per_batch": float(seconds_per_batch),
+        },
         "coordinate_space": (
             "zero-based half-open reference segments in transcript order"
         ),
