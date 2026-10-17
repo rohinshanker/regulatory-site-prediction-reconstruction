@@ -18,7 +18,7 @@ from collections import Counter, defaultdict
 from contextlib import ExitStack, contextmanager
 from pathlib import Path
 
-from benchmarks.rbs.datasets import digest, dna, write_json
+from benchmarks.rbs.datasets import digest, dna
 
 MEAN_TOLERANCE = {"Cambray2018": 1e-6, "Kuo2020": 0.001}
 
@@ -402,6 +402,29 @@ def selected_completeness(outcomes, frozen):
     return dict(result)
 
 
+def write_new_outputs(outputs):
+    """Reserve every destination exclusively before writing; clean up failures.
+
+    Filesystem exclusivity also detects case/Unicode aliases and dangling
+    symlinks that lexical path comparison cannot reliably identify.
+    """
+    with ExitStack() as stack:
+        created = []
+        try:
+            for path, value in outputs:
+                path.parent.mkdir(parents=True, exist_ok=True)
+                stream = stack.enter_context(path.open("x", encoding="utf-8"))
+                created.append((path, stream, value))
+            for _, stream, value in created:
+                json.dump(value, stream, indent=2, ensure_ascii=False, allow_nan=False)
+                stream.write("\n")
+        except BaseException:
+            stack.close()
+            for path, _, _ in created:
+                path.unlink()
+            raise
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("mode", choices=("freeze", "extract"))
@@ -423,9 +446,10 @@ def main(argv=None):
         ):
             raise FileExistsError("frozen input/split target already exists")
         frozen = freeze(args.source_root, manifest)
-        write_json(args.inputs, frozen)
+        outputs = [(args.inputs, frozen)]
         if args.split_output is not None:
-            write_json(args.split_output, public_split(frozen))
+            outputs.append((args.split_output, public_split(frozen)))
+        write_new_outputs(outputs)
     else:
         if args.private_output is None:
             raise ValueError("extract requires --private-output")
