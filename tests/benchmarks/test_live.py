@@ -4,11 +4,11 @@ import contextlib
 import csv
 import io
 import json
-from pathlib import Path
 import runpy
 import sys
 import tempfile
 import unittest
+from pathlib import Path
 from unittest.mock import patch
 
 from benchmarks.rbs.datasets import digest
