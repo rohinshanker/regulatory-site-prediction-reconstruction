@@ -86,7 +86,7 @@ def true_index(query, genomic_start, genome_length):
     ) % genome_length
 
 
-def evaluate(queries, labels, predictions, tolerance=3):
+def evaluate(queries, labels, predictions, tolerance=3, source_tier="plain"):
     """Positive-only conditional ranking with conservative, explicit tie handling.
 
     Unlabelled queries never become negatives. Top1 requires every top-tied start
@@ -108,6 +108,10 @@ def evaluate(queries, labels, predictions, tolerance=3):
         raise ValueError("Duplicate, unknown or invalid positional query identity")
     if type(tolerance) is not int or tolerance < 0:
         raise ValueError("Positional tolerance must be a nonnegative integer")
+    if source_tier not in {"plain", "weak", "combined"}:
+        raise ValueError(
+            "Choose plain primary, weak secondary or explicit combined tier"
+        )
     totals = Counter()
     ranks, counts = [], []
     for identity, query in universe.items():
@@ -149,6 +153,12 @@ def evaluate(queries, labels, predictions, tolerance=3):
             or any(type(x) is not int or x < 0 for x in label["starts"])
         ):
             raise ValueError("Only explicit positive labels are admitted")
+        declared_tier = label.get("source_tier", "plain")
+        if declared_tier not in {"plain", "weak"}:
+            raise ValueError("Positive source evidence tier is unknown")
+        if source_tier != "combined" and declared_tier != source_tier:
+            totals["excluded_evidence_tier"] += 1
+            continue
         target = set(label["starts"])
         totals["positive"] += 1
         counts.append(len(candidates))
@@ -184,6 +194,8 @@ def evaluate(queries, labels, predictions, tolerance=3):
         "n_queries": len(queries),
         "n_positive": n,
         "n_unlabelled": totals["unlabelled"],
+        "n_excluded_evidence_tier": totals["excluded_evidence_tier"],
+        "source_evidence_tier": source_tier,
         "counts": dict(totals),
         "tolerance_nt": tolerance,
         "candidate_count_range": [min(counts), max(counts)] if counts else None,
