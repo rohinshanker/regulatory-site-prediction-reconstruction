@@ -1,0 +1,137 @@
+{
+  "schema_version": 1,
+  "scope": "Verified source identities; dataset eligibility and final partitions are separate artifacts",
+  "sources": [
+    {
+      "name": "tan2018.xlsx",
+      "bytes": 3339692,
+      "sha256": "098ecbd204cd1042a6edee1d2a500eaeca4efe034c503e2ade3db1c605e79b00",
+      "url": "https://static-content.springer.com/esm/art%3A10.1186%2Fs13068-018-1215-8/MediaObjects/13068_2018_1215_MOESM1_ESM.xlsx",
+      "id": "tan2018.xlsx",
+      "retrieved_utc_date": "2026-10-17",
+      "study": "Tan2018",
+      "doi": "10.1186/s13068-018-1215-8",
+      "licence": "CC-BY-4.0; article data CC0 unless otherwise stated",
+      "purpose": "TSS/context and homology-based annotation proposals only",
+      "attribution": "Tan et al. (2018), Additional file 1, Tables S1/S2"
+    },
+    {
+      "name": "karlsen2018-s2.xlsx",
+      "bytes": 687601,
+      "sha256": "ac99487c400e2f753dc55dc9057978afca592b86b27bbeb26ab10b21e4e28eaa",
+      "url": "https://ndownloader.figshare.com/files/12739190",
+      "id": "karlsen2018-s2.xlsx",
+      "retrieved_utc_date": "2026-10-17",
+      "study": "Karlsen2018",
+      "doi": "10.1128/mSystems.00126-18",
+      "deposit_doi": "10.6084/m9.figshare.6743276.v1",
+      "licence": "CC-BY-4.0",
+      "purpose": "Native relative TE proxy and assay/QC evidence; not direct TIS labels",
+      "attribution": "Karlsen, Asplund-Samuelsson, Thomas, Jahn and Hudson (2018)"
+    },
+    {
+      "name": "karlsen2018-legends.pdf",
+      "bytes": 103418,
+      "sha256": "ce2ead47553e61bf30cdbc059f0e8e2e6ffc3b55e591bb4e805b92ccf132989f",
+      "url": "https://ndownloader.figshare.com/files/13015040",
+      "id": "karlsen2018-legends.pdf",
+      "retrieved_utc_date": "2026-10-17",
+      "study": "Karlsen2018",
+      "doi": "10.1128/mSystems.00126-18",
+      "deposit_doi": "10.6084/m9.figshare.6743276.v1",
+      "licence": "CC-BY-4.0",
+      "purpose": "Native relative TE proxy and assay/QC evidence; not direct TIS labels",
+      "attribution": "Karlsen, Asplund-Samuelsson, Thomas, Jahn and Hudson (2018)"
+    },
+    {
+      "name": "karlsen2018-methods.pdf",
+      "bytes": 171208,
+      "sha256": "af4e6bbaba43efc55a5559d606a61e7cdd5e69767e11bd2e32723892a2f93327",
+      "url": "https://ndownloader.figshare.com/files/12315467",
+      "id": "karlsen2018-methods.pdf",
+      "retrieved_utc_date": "2026-10-17",
+      "study": "Karlsen2018",
+      "doi": "10.1128/mSystems.00126-18",
+      "deposit_doi": "10.6084/m9.figshare.6743276.v1",
+      "licence": "CC-BY-4.0",
+      "purpose": "Native relative TE proxy and assay/QC evidence; not direct TIS labels",
+      "attribution": "Karlsen, Asplund-Samuelsson, Thomas, Jahn and Hudson (2018)"
+    },
+    {
+      "name": "utex-genomic.fna.gz",
+      "bytes": 815693,
+      "sha256": "22a2b07881c1099c32454778de0e90b1c40f74f44c0f59e000507106c0deb567",
+      "url": "https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/817/325/GCF_000817325.1_ASM81732v1/GCF_000817325.1_ASM81732v1_genomic.fna.gz",
+      "id": "utex-genomic.fna.gz",
+      "retrieved_utc_date": "2026-10-17",
+      "study": "NCBI-UTEX2973",
+      "assembly": "GCF_000817325.1",
+      "annotation": "NCBI RefSeq GCF_000817325.1-RS_2026_05_13",
+      "licence": "NCBI public sequence data; no blanket CC licence asserted",
+      "purpose": "Versioned reference sequence and current CDS association",
+      "attribution": "NCBI RefSeq; Washington University in St Louis; PRJNA209528"
+    },
+    {
+      "name": "utex-genomic.gff.gz",
+      "bytes": 240383,
+      "sha256": "7f606a08892b061667a1988cc05dee889a82f9407066dcf81010ec2e25bb215f",
+      "url": "https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/817/325/GCF_000817325.1_ASM81732v1/GCF_000817325.1_ASM81732v1_genomic.gff.gz",
+      "id": "utex-genomic.gff.gz",
+      "retrieved_utc_date": "2026-10-17",
+      "study": "NCBI-UTEX2973",
+      "assembly": "GCF_000817325.1",
+      "annotation": "NCBI RefSeq GCF_000817325.1-RS_2026_05_13",
+      "licence": "NCBI public sequence data; no blanket CC licence asserted",
+      "purpose": "Versioned reference sequence and current CDS association",
+      "attribution": "NCBI RefSeq; Washington University in St Louis; PRJNA209528"
+    },
+    {
+      "name": "utex-md5.txt",
+      "bytes": 1279,
+      "sha256": "e23c9a1b5be2d4adf2c9f95ef7ec075d6a721f5740f419de5c931d7359438b93",
+      "url": "https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/817/325/GCF_000817325.1_ASM81732v1/md5checksums.txt",
+      "id": "utex-md5.txt",
+      "retrieved_utc_date": "2026-10-17",
+      "study": "NCBI-UTEX2973",
+      "assembly": "GCF_000817325.1",
+      "annotation": "NCBI RefSeq GCF_000817325.1-RS_2026_05_13",
+      "licence": "NCBI public sequence data; no blanket CC licence asserted",
+      "purpose": "Versioned reference sequence and current CDS association",
+      "attribution": "NCBI RefSeq; Washington University in St Louis; PRJNA209528"
+    },
+    {
+      "id": "tan2018.xml",
+      "name": "tan2018.xml",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC6091082/fullTextXML",
+      "bytes": 190589,
+      "sha256": "7063969b6577a330390269bec64df5f22c696203239257cb06fc21ef5148f7d8",
+      "study": "Tan2018",
+      "purpose": "Primary methods/identity evidence",
+      "retrieved_utc_date": "2026-10-17",
+      "licence": "CC-BY-4.0"
+    },
+    {
+      "id": "utex-report.txt",
+      "name": "utex-report.txt",
+      "url": "https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/817/325/GCF_000817325.1_ASM81732v1/GCF_000817325.1_ASM81732v1_assembly_report.txt",
+      "bytes": 1478,
+      "sha256": "d20004f66641303245127964328a01edd5f9473c2b4a128eeb39571f5f24b7f8",
+      "study": "NCBI-UTEX2973",
+      "purpose": "Primary methods/identity evidence",
+      "retrieved_utc_date": "2026-10-17",
+      "licence": "NCBI public sequence data; no blanket CC licence asserted"
+    }
+  ],
+  "utex_identity": {
+    "assembly": "GCF_000817325.1",
+    "taxid": 1350461,
+    "annotation": "GCF_000817325.1-RS_2026_05_13",
+    "replicons": {
+      "NZ_CP006471.1": 2690418,
+      "NZ_CP006472.1": 46366,
+      "NZ_CP006473.1": 7842
+    },
+    "ncbi_md5_verified": true
+  },
+  "consumer_provenance": "Inspected read-only; publisher workbook hash independently re-fetched and matched. No sibling checkout is required."
+}

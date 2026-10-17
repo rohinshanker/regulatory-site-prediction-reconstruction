@@ -1,15 +1,15 @@
-# O_17-rbs-comparator-benchmark__20261016 — Open
+# A_17-rbs-comparator-benchmark__20261016 — Active
 
 - Scope: Establish runnable, task-matched mechanistic and ML comparator benchmarks with complete provenance.
-- Status: open
+- Status: active
 - Opened: 2026-10-16
-- Updated: 2026-10-16
-- Current State: Primary-source shortlist prepared; no newly audited comparator has been executed. Planned Wave 2 owner is Session B.
+- Updated: 2026-10-17
+- Current State: Session B is auditing small inference artifacts and separate code/weight/data permissions, then running eligible comparators in isolated environments. No new comparator accuracy claim yet.
 - Verification: Paper/repository metadata and selected licence files inspected; full artifact adoption and runtime verification pending.
 - Cleanup: Preserve comparator/source contracts and reproducible reports, update indexes and GitHub issue, then remove the resolved ticket after acceptance.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/17
 - Priority: P0
-- Owner: Unclaimed; reserved for Session B when Wave 2 is started by the user.
+- Owner: Session B (`9677689a-1792176763`), Wave 2; branch `wave2/rbs-validation`, baseline `fc78dee42f934417f2bf905ae71b582903b7a949`.
 - Dependencies: 01 code/weight/data review, 12/16 frozen evaluation; informs 04/13/18 and release 06.
 
 Read [comparator landscape](../../validation/rbs-comparator-landscape.md) and

@@ -122,3 +122,10 @@ coverage, warnings and the byte-preserving CSV hash; it does not assess biologic
 accuracy. A header-only CSV is a valid empty result. A form rejection or server
 failure is recorded separately and is never converted into an invented empty CSV
 or a zero translation rate. An empty candidate set cannot verify energy arithmetic.
+
+## Wave 2 native interface
+
+The [native input contract](../../docs/validation/rbs-native-input-contract.md)
+provides a genome-once batch example, independent strand/origin fixtures and
+primary-source pins. Native translation outcomes remain private until eligibility
+and grouped partitions are frozen; Tan TSS evidence is context only.

@@ -1,15 +1,15 @@
-# O_16-native-cyanobacterial-validation__20261016 — Open
+# A_16-native-cyanobacterial-validation__20261016 — Active
 
 - Scope: Build native cyanobacterial transcript-context, translation-start and translation-strength benchmarks with experimental evidence.
-- Status: open
+- Status: active
 - Opened: 2026-10-16
-- Updated: 2026-10-16
-- Current State: Primary sources and admission gates identified; no new native benchmark or accuracy result implemented. Planned Wave 2 owner is Session B.
-- Verification: Planning sources checked; source extraction, frozen splits, metrics and tests remain to be implemented.
+- Updated: 2026-10-17
+- Current State: Session B is retrieving primary native-context/TE/reporter sources and freezing eligibility/partitions before exposing outcomes. Tan remains TSS context only; direct TIS evidence is not yet admitted.
+- Verification: Early source ledger pins nine downloaded artifacts; UTEX FASTA/GFF match NCBI MD5 and the exact 2026-05-13 annotation. Seven independent coordinate fixtures and an example batch are prepared; 33 benchmark tests pass at 100% statements/branches. Full source extraction, native eligibility and frozen splits are still in progress.
 - Cleanup: Resolve only completed scope, distill reusable dataset/evaluation contracts, update indexes and GitHub issue, then remove the resolved ticket.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/16
 - Priority: P0
-- Owner: Unclaimed; reserved for Session B when Wave 2 is started by the user.
+- Owner: Session B (`9677689a-1792176763`), Wave 2; branch `wave2/rbs-validation`, baseline `fc78dee42f934417f2bf905ae71b582903b7a949`.
 - Dependencies: Source/licence review 01, benchmark protocol 12; supplies immutable data/contracts to 18 and final evidence to 06/13.
 
 Read [native validation](../../validation/rbs-native-validation.md) and the

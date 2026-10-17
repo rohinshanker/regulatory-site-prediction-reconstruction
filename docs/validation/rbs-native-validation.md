@@ -3,6 +3,10 @@
 - Purpose: Evaluate native transcript context, translation-start localization and translation strength as separate tasks.
 - Scope: Wave 2 RBS evidence and evaluation, with cyanobacteria prioritized; no native accuracy has yet been established.
 - Last verified: 2026-10-16
+- Evidence owner: Session B (`9677689a-1792176763`), accepted 2026-10-17; runtime adapter stays with Session A.
+
+Wave 2's source-record boundary and independent coordinate fixtures are in
+[the native input contract](rbs-native-input-contract.md).
 
 ## What counts as a measurement
 
