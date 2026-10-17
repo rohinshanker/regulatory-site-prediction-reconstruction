@@ -1,6 +1,8 @@
 # Standby accessibility reconstruction
 
 - Purpose: Specify the complete finite calculation and its scientific limits.
+- Scope: Published standby equations and the declared reconstruction geometry.
+- Last verified: 2026-10-17
 - Profile: standby2014-rnastructure-6.6-reconstruction-1; CLI standby2014.
 - Result contract: [schema 1.2](../../schemas/rbs-result-1.2.schema.json).
 - Source review: 2026-10-17; no experimental parameters fitted in this reconstruction.

@@ -1,6 +1,8 @@
 # RNAstructure traceback repair admission
 
 - Purpose: Install, identify and validate the separate repaired folding engine.
+- Scope: Separate GPL-2.0-only source, executables and runtime admission.
+- Last verified: 2026-10-17
 - Component: rnastructure-6.6-traceback-2, GPL-2.0-only.
 - Source: RNAstructure 6.6, archive SHA-256 1bedc62aaab984279055caaa6234d48fca113f4b8e17a8060e0b3784d5a397c3.
 - Patch SHA-256: 2d599e7fa9f6581b605350508163c4aa14458ebb8f444c096e5f923c8742d671.

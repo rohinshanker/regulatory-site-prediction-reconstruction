@@ -3,7 +3,7 @@
 - Purpose: Separate structural correctness, software reliability and experimental predictive accuracy.
 - Scope: Published standby reconstruction and the separately installed RNAstructure traceback repair.
 - Scientific candidate: 75d127cc350bcc4dc54be5b980db893da3c41e92.
-- Last verified: 2026-10-17.
+- Last verified: 2026-10-17
 
 ## Structural and software evidence
 

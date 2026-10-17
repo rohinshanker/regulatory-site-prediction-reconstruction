@@ -4,7 +4,9 @@
 - Scope: Two coordinated sessions; an optional fourteen-hour working horizon per session.
 - Scientific baseline: `a04ca92837772e1bbe4c47e230235baadecfc099` (Wave 3 integration); scientific files unchanged from `75d127cc350bcc4dc54be5b980db893da3c41e92`.
 - Planning baseline: The exact commit supplied in both launch messages; it must contain this document and both Wave 4 prompts and descend from the scientific baseline.
-- Last verified: 2026-10-17 (planning and repository state, not future implementation).
+- Last verified: 2026-10-17
+
+This verification covers the planning and repository state, not future implementation.
 
 ## Objective and ownership
 

@@ -4,7 +4,7 @@ Build fully open-source, locally usable RBS, Promoter, Operon, and Riboswitch
 calculators, pursuing the closest demonstrable behavior to the production
 [De Novo DNA tools](https://www.denovodna.com/software/).
 
-**The RBS release candidate, 0.3.0rc1, runs locally.** It includes the historical
+**The RBS release candidate, 0.4.0rc1, runs locally.** It includes the historical
 Salis v1 reconstruction, separately named footprint/context/standby refinements, a native
 genome/transcript adapter, and experimental sequence and energy/sequence models.
 The mechanistic profiles use separately installed RNAstructure 6.6 executables
@@ -47,6 +47,7 @@ export REGSITE_RNASTRUCTURE="/absolute/path/to/RNAstructure"
 .venv/bin/regsite examples/rbs-batch.json --format csv
 .venv/bin/regsite examples/rbs-footprint.json --profile footprint2017
 .venv/bin/regsite examples/rbs-standby-hairpin.json --profile standby2014
+.venv/bin/regsite examples/rbs-standby-hairpin.json --profile joint_standby
 ```
 
 A request supplies `sequence` and a 9-nt `anti_sd`; optional `start_positions`
@@ -62,12 +63,20 @@ partial reconstructions of later mechanisms. The [mechanism contract](docs/valid
 records reproducible folding-backend failures; longer context does not guarantee
 better coverage or accuracy.
 
-The new `standby2014` profile calculates accessibility, selective RNA unfolding
+The `standby2014` profile calculates accessibility, selective RNA unfolding
 and sliding using the published 2014 relationships. It returns separate penalties,
 selected structures and explicit search limits in [schema 1.2](schemas/rbs-result-1.2.schema.json).
 Read the [standby contract](docs/validation/rbs-standby.md) for source pins and
 reconstruction choices. This implements additional mechanisms; it does not by
 itself establish better experimental accuracy.
+
+The opt-in `joint_standby` profile evaluates that full cost for every eligible
+returned binding candidate before choosing one. It reports the selected candidate,
+the old selection's complete energy and search progress in
+[schema 1.3](schemas/rbs-result-1.3.schema.json). Any candidate failure or exhausted
+search budget prevents a winning score. This improves the completeness of the
+declared optimization; biological improvement awaits independent evaluation.
+Read the [joint-selection contract](docs/validation/rbs-joint-selection.md).
 
 The transcript-aware adapter accepts pinned genomes and explicit TSS/CDS scenarios:
 
@@ -103,12 +112,13 @@ separate E. coli experiment and its limited sequence diversity.
 
 ## Start a new implementation session
 
-For the planned next wave, use the [Session A implementation prompt](docs/prompts/wave4-session-a.md)
+For the active wave, use the [Session A implementation prompt](docs/prompts/wave4-session-a.md)
 or [Session B evaluation/reference prompt](docs/prompts/wave4-session-b.md), with
 the same exact planning commit supplied in their launch messages. The
 [shared Wave 4 program](docs/validation/rbs-wave4-program.md) defines ownership,
-the final-evaluation freeze and publication boundaries. These are planned
-deliverables, not additional implemented features.
+the final-evaluation freeze and publication boundaries. Check the ticket queue
+and immutable handoffs before resuming; the prompts are assignments, not proof
+that their evaluation and release gates have passed.
 
 1. Read [AGENTS.md](AGENTS.md), the [live ticket queue](docs/notes/tickets/INDEX.md)
    and the [Wave 3 validation](docs/validation/rbs-wave3-results.md). Check current

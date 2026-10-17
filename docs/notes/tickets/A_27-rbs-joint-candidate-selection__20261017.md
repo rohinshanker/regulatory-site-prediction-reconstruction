@@ -4,8 +4,8 @@
 - Status: active
 - Opened: 2026-10-17
 - Updated: 2026-10-17
-- Current State: Session A claimed Wave 4 from planning baseline 73521a6ae3251678073dce76181ee5909b34fe8b. Specification and independent-oracle handshake underway; backend source diagnosis proceeds separately. No reserved outcomes accessed.
-- Verification: Baseline source selection order inspected at a04ca92837772e1bbe4c47e230235baadecfc099; implementation and independent evaluation are pending.
+- Current State: Opt-in joint_standby implementation and schema 1.3 are ready for exact-patch review. Complete candidate objective, stable identities, greedy counterfactual, partial-progress missingness and bounded work are implemented. B's independent synthetic fixtures/protocol are available for reviewed integration; no reserved outcomes accessed or final collection authorized.
+- Verification: Traceback-2 full suite passes 1,506 tests and 234 subtests with 100% of 5,005 statements/2,084 branches. Two additional real-deadline/nonselected-warning checks bring focused joint tests to 27 passing. Ruff/mypy and scoped ticket/validation metadata checks pass. Resource measurements, independent review/oracle bridge, original-engine compatibility, fresh artifacts and four-platform CI remain before scientific freeze.
 - Cleanup: Session A records exact validation and remaining gaps, distills the runtime/model contract, resolves/removes this scoped ticket and index row; broader #4/#13 remain open as needed.
 - Owner: Session A (baf5b738-1792172297), wave4/rbs-joint-runtime; backend component may be assigned to one scoped worker.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/27

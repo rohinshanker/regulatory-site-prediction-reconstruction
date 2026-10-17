@@ -86,6 +86,13 @@ The [input schema](../../schemas/rbs-request-1.0.schema.json) and
 `schema_version` defaults to `1.0` on input; other supplied versions fail.
 Runtime validation additionally enforces normalized sequence and index bounds.
 
+The optional profiles keep that input contract and select separate result schemas:
+footprint/context use 1.1, standby2014 uses 1.2 and joint_standby uses
+[1.3](../../schemas/rbs-result-1.3.schema.json). Joint selection adds complete
+per-candidate work/failure accounting and a greedy counterfactual; see its
+[objective and limits](rbs-joint-selection.md). Earlier profile contracts and
+the historical default remain unchanged. Native JSON accepts all these profiles.
+
 - Uppercase, remove whitespace, and map T to U. Reject ambiguous bases. Sequence
   coordinates count normalized nucleotides, not raw text characters. Record
   raw, normalized and oriented SHA-256 identities.
@@ -101,9 +108,10 @@ Runtime validation additionally enforces normalized sequence and index bounds.
   separately, and window bounds in transcript orientation. Binding spans are
   the first through last paired mRNA base, not an experimentally established SD
   motif. Standby spans are modeled unpaired prefixes, possibly shorter than 4 nt.
-- Starts at position zero are unsupported leaderless initiation. Circular
-  sequence wrapping, genome projection, kinetic RBS models and design
-  are not implemented. Unsupported configurations emit no fabricated feature
+- Starts at position zero are unsupported leaderless initiation. The sequence
+  scorer does not infer circular wrapping or genome coordinates; use the
+  [native adapter](rbs-native-runtime.md) with explicit genomic paths for those.
+  Kinetic RBS models and design are not implemented. Unsupported cases emit no feature
   intervals. Refined equilibrium profiles and their coding-footprint intervals
   are specified separately.
 
@@ -198,6 +206,9 @@ variable skips real-engine fixtures, so that run cannot satisfy release gates.
 .cache/fresh/bin/regsite examples/rbs-batch.json
 .cache/fresh/bin/regsite examples/rbs-batch.json --format csv
 .cache/fresh/bin/regsite examples/rbs-standby-hairpin.json --profile standby2014
+.cache/fresh/bin/regsite examples/rbs-standby-hairpin.json --profile joint_standby
+.cache/fresh/bin/regsite examples/rbs-batch.json --profile joint_standby --format csv
+.cache/fresh/bin/regsite-native examples/rbs-native-karlsen.json --profile joint_standby
 git diff --check
 ```
 

@@ -1,6 +1,8 @@
 # Joint binding and standby selection
 
 - Purpose: Define a complete bounded selection objective before implementation/evaluation.
+- Scope: Opt-in joint selection, runtime diagnostics and compatibility boundaries.
+- Last verified: 2026-10-17
 - Profile: `joint_standby`; model `joint-standby-rnastructure-6.6-reconstruction-1`.
 - Result version: 1.3; input version remains 1.0.
 - Specification date: 2026-10-17; no experimental outcomes used to choose this algorithm.
