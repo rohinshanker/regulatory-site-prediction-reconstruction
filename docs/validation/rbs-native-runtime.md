@@ -143,6 +143,32 @@ backend single/batch execution, GFF origin/strand conversion, schema checks,
 invalid inputs, missing starts/TSSs, source-identity mismatches and both timeouts.
 Run the full [runtime gates](rbs-runtime.md), including fresh-wheel examples.
 
+## Reproducible real native batch
+
+`examples/rbs-native-karlsen.json` is an offline two-gene batch with the complete
+3,573,470-nt `NC_000911.1` chromosome and its pinned assembly/annotation metadata.
+It copies the first development-training ID in lexicographic order on each
+genomic strand: `karlsen2018:SGL_RS03715` (+) and `karlsen2018:SGL_RS05335` (-).
+Selection uses input identity and strand only, never measured or predicted response.
+The source envelope SHA256 is
+`9957f10416cd00dd2f5dae086db657d2d4eab22c119d4e2f955facd1eaca65d3`;
+the [native data card](rbs-native-data-card.md) gives source and annotation pins.
+Both records and the genome are unchanged subsets of that envelope, with no
+experimental outcome fields. Genome sequences are public NCBI sequence facts;
+no blanket CC licence is asserted for the chromosome.
+
+```sh
+.venv/bin/regsite-native examples/rbs-native-karlsen.json
+.venv/bin/regsite-native examples/rbs-native-karlsen.json --format gff3
+```
+
+The source start anchors are zero-based 383,816 (+) and 745,063 (-). Their GFF3
+start-codon spans are respectively 383817–383819 and 745062–745064. These are
+annotation-associated anchors, not experimentally mapped translation starts.
+Settings are 30°C and annotated-tail aSD `ACCUCCUUU`, with assumed 100-nt genomic
+flanks because measured transcript boundaries are unavailable. The example
+demonstrates extraction, local scoring and export; it does not establish accuracy.
+
 ## Whole-source coverage example
 
 The pinned Tan envelope SHA256 is

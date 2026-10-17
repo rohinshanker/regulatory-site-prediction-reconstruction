@@ -53,12 +53,16 @@ The transcript-aware adapter accepts pinned genomes and explicit TSS/CDS scenari
 ```sh
 .venv/bin/regsite-native benchmarks/rbs/native-input-example.json
 .venv/bin/regsite-native benchmarks/rbs/native-input-example.json --format gff3
+.venv/bin/regsite-native examples/rbs-native-karlsen.json --format gff3
 ```
 
 It preserves source evidence and unsupported cases, handles both strands and
 circular origins, and separates supplied-start scoring from conditional candidate
 ranking. See the [native runtime contract](docs/validation/rbs-native-runtime.md).
 The small example validates coordinates; it is not a native accuracy benchmark.
+The Karlsen example contains two real PCC 6803 genes, one on each strand, and
+their full pinned reference chromosome. It assumes 100-nt genomic flanks;
+neither transcript boundaries nor translation strengths are measured by this example.
 
 Experimental sequence-only and energy/sequence ridge models use a separate
 `regsite-learned` command and explicit frozen JSON weights. Their outputs are
