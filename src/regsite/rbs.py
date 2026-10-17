@@ -451,6 +451,8 @@ def predict(
         "input": None,
         "prediction_id": None,
     }
+    if backend.identity.get("variant"):
+        base["warnings"].append("patched_traceback_changes_candidate_search_results")
     if not specification.historical:
         parameters = base["model"]["parameters"]
         del parameters["historical_footprint_nt"]

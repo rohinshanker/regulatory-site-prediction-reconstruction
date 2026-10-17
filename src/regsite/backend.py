@@ -20,6 +20,13 @@ from tempfile import TemporaryDirectory
 from regsite.structures import BackendError, Structure, parse_ct, to_ct
 
 SOURCE_SHA256 = "1bedc62aaab984279055caaa6234d48fca113f4b8e17a8060e0b3784d5a397c3"
+TRACEBACK_COMPONENT = "rnastructure-6.6-traceback-1"
+TRACEBACK_PATCH_SHA256 = (
+    "01307e31001131c5693a99e4fe50db8a251c75ccde72e9049c07e94c6e456a10"
+)
+TRACEBACK_SOURCE_SHA256 = (
+    "5b1f4e4aa87c8e5d058e2787bd7da7dc12ba42bf443a718ab51859cd4eb52de4"
+)
 MAX_STRUCTURES = 100
 MAX_FOLD_NT = 200
 MAX_LEADER_NT = 100
@@ -44,6 +51,49 @@ SETTINGS = {
 
 def _sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def _build_identity(root: Path, binaries: dict, tables: dict) -> dict:
+    """Admit only the pinned separate patch when its build receipt is present."""
+    path = root / "traceback-build.json"
+    if not path.exists():
+        return {}
+    try:
+        with path.open("rb") as stream:
+            raw = stream.read(500_001)
+        if len(raw) > 500_000:
+            raise BackendError("RNAstructure build receipt exceeds 500000 bytes")
+        receipt = json.loads(raw.decode("utf-8"))
+    except (OSError, UnicodeError, ValueError) as exc:
+        raise BackendError(
+            "RNAstructure build receipt is unreadable or invalid"
+        ) from exc
+    required = {
+        "component": TRACEBACK_COMPONENT,
+        "license": "GPL-2.0-only",
+        "source_archive_sha256": SOURCE_SHA256,
+        "patch_sha256": TRACEBACK_PATCH_SHA256,
+        "patched_source_sha256": TRACEBACK_SOURCE_SHA256,
+        "executable_sha256": binaries,
+    }
+    if not isinstance(receipt, dict) or any(
+        receipt.get(key) != expected for key, expected in required.items()
+    ):
+        raise BackendError("RNAstructure build receipt identity/hash mismatch")
+    recorded_tables = receipt.get("table_sha256")
+    if not isinstance(recorded_tables, dict) or any(
+        recorded_tables.get(name) != digest for name, digest in tables.items()
+    ):
+        raise BackendError("RNAstructure build receipt table mismatch")
+    if _sha256(root / "src" / "algorithm.cpp") != TRACEBACK_SOURCE_SHA256:
+        raise BackendError("RNAstructure patched source hash mismatch")
+    return {
+        "variant": TRACEBACK_COMPONENT,
+        "build_provenance": {
+            key: value for key, value in required.items() if key != "executable_sha256"
+        },
+        "build_receipt_sha256": hashlib.sha256(raw).hexdigest(),
+    }
 
 
 def _run(executable: Path, args: list[str], tables: Path, timeout: float) -> str:
@@ -94,6 +144,7 @@ class RnaStructure:
                 if not re.search(r"\bVersion 6\.6(?:\s|\()", version):
                     raise BackendError(f"{program} is not RNAstructure 6.6")
                 binaries[program] = _sha256(executable)
+            modification = _build_identity(root, binaries, manifest)
         except OSError as exc:
             raise BackendError("RNAstructure installation is incomplete") from exc
         return cls(
@@ -107,6 +158,7 @@ class RnaStructure:
                 "binary_sha256": binaries,
                 "table_manifest_sha256": hashlib.sha256(manifest_bytes).hexdigest(),
                 "settings": deepcopy(SETTINGS),
+                **modification,
             },
         )
 
