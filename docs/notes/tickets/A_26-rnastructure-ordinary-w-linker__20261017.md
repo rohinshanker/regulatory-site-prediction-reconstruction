@@ -1,14 +1,14 @@
-# O_26-rnastructure-ordinary-w-linker__20261017 — Open
+# A_26-rnastructure-ordinary-w-linker__20261017 — Active
 
 - Scope: Diagnose and repair the remaining ordinary-W/intermolecular-linker traceback failure.
-- Status: open
+- Status: active
 - Opened: 2026-10-17
 - Updated: 2026-10-17
-- Current State: Independent source review confirms the same synthetic failure in original RNAstructure6.6 and traceback-2. The W2/WMB2 repair remains accepted; the ordinary-W finite fill value has no valid traced decomposition. Runtime and component checks preserve explicit failure.
+- Current State: Session A claimed Wave 4 from planning baseline 73521a6ae3251678073dce76181ee5909b34fe8b. Specification and independent-oracle handshake underway; backend source diagnosis proceeds separately. No reserved outcomes accessed.
 - Verification: Four deterministic reproductions per original/traceback-1/traceback-2 build in independent review; exit0, stderr traceback errors, no CT. Coordinator's real runtime rejects the input with null scores/energies in context2017 and standby2014 on both strands.
 - Cleanup: Resolve only after independently reviewed source repair or justified domain contract, real backend/CI checks and durable validation; remove resolved ticket/index row.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/26
-- Owner: Future Session A backend scope; B retains independent evidence and evaluation.
+- Owner: Session A (baf5b738-1792172297), wave4/rbs-joint-runtime; backend component may be assigned to one scoped worker.
 - Dependencies: #4; scoped #21 source repair and its preserved version2 controls.
 
 Independent review found a reproducible failure in RNAstructure's unchanged ordinary-W/linker path. Original RNAstructure 6.6 and traceback-2 both exit zero with traceback errors and no CT. This is an upstream limitation, not a regression introduced by the W2/WMB2 repair. Parent #4; follows the scoped #21 repair.

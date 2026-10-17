@@ -1,13 +1,13 @@
-# O_27-rbs-joint-candidate-selection__20261017 — Open
+# A_27-rbs-joint-candidate-selection__20261017 — Active
 
 - Scope: Implement a versioned RBS profile that selects binding and standby states using complete assembled initiation energy.
-- Status: open
+- Status: active
 - Opened: 2026-10-17
 - Updated: 2026-10-17
-- Current State: Planned for Session A in Wave 4. Existing standby scoring chooses its binding candidate before full complex/accessibility evaluation; no joint profile is implemented yet.
+- Current State: Session A claimed Wave 4 from planning baseline 73521a6ae3251678073dce76181ee5909b34fe8b. Specification and independent-oracle handshake underway; backend source diagnosis proceeds separately. No reserved outcomes accessed.
 - Verification: Baseline source selection order inspected at a04ca92837772e1bbe4c47e230235baadecfc099; implementation and independent evaluation are pending.
 - Cleanup: Session A records exact validation and remaining gaps, distills the runtime/model contract, resolves/removes this scoped ticket and index row; broader #4/#13 remain open as needed.
-- Owner: Session A, reserved assignment; claim active when execution starts.
+- Owner: Session A (baf5b738-1792172297), wave4/rbs-joint-runtime; backend component may be assigned to one scoped worker.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/27
 - Dependencies: Existing standby profile and backend contracts; B's #28 supplies independent fixtures/evaluation. #26 is a separate optional backend improvement, not a prerequisite to implement this profile.
 - Parent: #4/#13; release integration #6.
