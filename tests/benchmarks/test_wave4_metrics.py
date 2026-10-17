@@ -175,11 +175,21 @@ class Wave4MetricsTest(unittest.TestCase):
             ],
             "insufficient_support",
         )
+        self.assertIsNone(
+            m.paired(rows, rows, {**self.settings, "minimum_common_rows": 10})[
+                "rank_gain"
+            ]
+        )
         self.assertEqual(
             m.paired(rows, rows, {**self.settings, "minimum_common_blocks": 10})[
                 "interval_status"
             ],
             "insufficient_support",
+        )
+        self.assertIsNone(
+            m.paired(rows, rows, {**self.settings, "minimum_common_blocks": 10})[
+                "rank_gain"
+            ]
         )
         with self.assertRaises(ValueError):
             m.paired(rows, rows[:-1], self.settings)

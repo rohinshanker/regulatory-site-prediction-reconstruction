@@ -166,6 +166,7 @@ def paired(reference, contender, settings):
         len(common) < settings["minimum_common_rows"]
         or result["n_common_blocks"] < settings["minimum_common_blocks"]
     ):
+        result["rank_gain"] = None
         return result
     if point is None:
         result["interval_status"] = "undefined_point_correlation"
