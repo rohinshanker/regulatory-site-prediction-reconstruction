@@ -1,0 +1,191 @@
+# New RBS evaluation data
+
+- Purpose: Reproduce new source inputs and reserve independent experimental evaluation.
+- Scope: Cambray2018 bounded-context final panel; Kuo2020 exposed secondary audit.
+- Last verified: 2026-10-17
+
+The [source manifest](../../benchmarks/rbs/new-data-manifest.json),
+[source ledger](../../benchmarks/rbs/new-data-sources.json) and
+[frozen split](../../benchmarks/rbs/new-evaluation-split.json) identify the sources,
+sequence recipes, study conditions, rights and all selected records. No new
+model has been scored on these outcomes. The prior Wave2 final datasets remain
+consumed; this package does not reopen them as untouched tests.
+
+## Cambray2018: reserved final
+
+[Cambray, Guimaraes and Arkin](https://doi.org/10.1038/nbt.4238), deposit
+[OSF A56VU](https://osf.io/a56vu/), DOI `10.17605/OSF.IO/A56VU`, SRA `SRP086076`.
+Supplementary Data15 ZIP is 130,122,456 bytes, SHA256
+`2758ed63e469c77b42c01e3c022452ef52ebf8d1bd4a86bd4c5b502e44b7bbc0`.
+The named CSV contains **244,000 unique IDs and unique 96-base designed sequences**,
+in 56 factorial seed series. Source field `rep` means three nearby designs
+(1–4 mutations), not the four biological measurement replicates.
+
+**Exact local input:** the 92-base `five_utr` literal from author Code15 plus
+`gs.sequence`, uppercase, without another ATG. Reporter start is zero-based89;
+the design occupies [92,188). The same prefix and coordinates are independently
+present in `TIPDesigner.py` at commit
+`7ea83bcf7a2cda21eb8727575ff2b20ac8b49606`. Primer evidence supports the local
+junction. The prefix includes a translated leader, with ATGs at33/67/89, an
+amber at[45,48) and overlapping terminal TAA[87,90). Calling all92 bases a UTR
+would misdescribe the construct.
+
+The longer design example contains an extra downstream `GCA` before the
+primer-backed linker, unlike the oligonucleotide description. Its full suffix
+is therefore not silently added. Complete actual-clone/plasmid sequence and the
+transcription boundary remain unverified. This is a **188-base local-context
+benchmark**, not a recovered full transcript.
+
+The host is E. coli MDS42 delta-recA; the reported assay uses5 mL Rich MOPS,
+overnight37 C, with kanamycin/chloramphenicol/IPTG/aTc. Exact doses are incomplete.
+Ordinary and facilitated initiation use the same DNA; arabinose/pAcF-enabled
+amber suppression activates upstream translation coupling. Supplementary FigS5
+panelA says pAcF2.5 **mM**, while panelB/captionC and the assay passage say2.5
+**nM**. The million-fold conflict is unresolved. Accessory-system concentrations
+are not substituted for assay doses.
+
+Primary outcome `clean.lin.prot.mean` is ordinary/normal protein production,
+the mean of available cleaned FACS-seq biological replicates on the authors'
+1–100 scale. `clean.lin.prot.acf.mean` is a separate facilitated condition.
+Neither is protein/mRNA TE or an absolute initiation rate. `log.prot.*` are bin
+units; model-derived `ds.*`/`gs.*` energies are not experimental labels.
+
+Author Code6 processes the two conditions separately: mode-window filtering,
+replicate normalization, exponential transformation and clipping. Ordinary uses
+three bins; facilitated uses four. Its ordinary minimum-depth call is0, whereas
+the reporting summary describes requiring a mode bin with at least5 reads.
+These are source processing ambiguities, not a claim that the deposited values
+are wrong. The importer preserves deposited means and replicate missingness;
+it does not rerun or repair the original FACS pipeline. Data9's count audit
+reproduced745,595,539 reads over166 samples; raw read processing was not repeated.
+
+OSF declares BSD-3-Clause for its data/scripts, copyright2018 Guillaume Cambray.
+This is a node-level declaration, not a blanket licence for the Nature article,
+Addgene records, external services or dependencies. This preparation publishes
+identities/hashes and source recipes; raw measurements and full scoring inputs
+stay outside Git. Source fragments are attributed here and in the ledger.
+
+## Kuo2020: exposed secondary
+
+[Kuo et al.](https://pmc.ncbi.nlm.nih.gov/articles/PMC7263185/), DOI
+`10.1101/gr.260182.119`, BioProject `PRJNA516114`. Supplementary FilesS2/S3/S4
+each enumerate all262,144 RNA9-mers in fepB/arti/dmsC GFP contexts, respectively.
+There are761,787 populated context–genotype means. Full-file hashes and exact
+archive members are in the manifest; Europe PMC ZIP hashes are acquisition
+provenance because regenerated ZIP metadata can change without member changes.
+
+The importer validates every genotype, unique universe, replicate/mean
+missingness and arithmetic mean within0.001 (the source's rounding precision).
+It preserves blanks rather than treating them as zero. Source attribution of
+blanks to fewer than25 reads has not been independently reproduced from raw
+reads. The109 public FASTQs total15.199 GB and were not downloaded. The separate
+YFP S5 has9,463 literal `#VALUE!` cells and is outside the GFP panel.
+
+TableS2 plus primers/read-filter evidence give these exact30-base leaders:
+
+| Context | Prefix length | Variable interval | Spacer length | Source plasmid |
+| --- | ---: | --- | ---: | --- |
+| fepB | 15 | [15,24) | 6 | pYC09 |
+| arti | 16 | [16,25) | 5 | pYC08 |
+| dmsC | 17 | [17,26) | 4 | pYC20 |
+
+The article's fepB/dmsC positional prose disagrees with those agreeing construct
+sources. Reverse-complement trimmed YC04p2 and append YC04p1; the ATG after the
+arti spacer begins a43-base GFP prefix, independently checked against ILp6.
+Its SHA256 is `5bd7080e1406a40322afe3adeddd440db5af02a443bdb7731de6098cfa85fe83`.
+The resulting input is73 bases, start30. It is not a full reporter/transcript;
+do not append generic GFP or pad an unavailable window.
+
+Host/condition: MG1655, LBKG (50 mg/L kanamycin,10 g/L glucose),37 C,225 rpm,
+OD6000.55–0.65. Three FACS/NGS experiments use eight bins, except fepB replicate3
+uses15, with spike-in calibration. Quantity is the source's **Log(GFP)**
+fluorescence-derived fitness, not growth fitness or RNA-normalized TE. The
+numerical log base remains unresolved: no exponentiation, fold-error or log2
+conversion is authorized by these data. Source scripts also contain a context
+writer-name inconsistency; they were inspected, not executed or silently fixed.
+
+Article terms are CC-BY-NC-4.0; no separate permissive data/code grant was located.
+Raw outcome tables remain outside the repository and required open runtime.
+During a header probe, a CR-only CSV caused `head` to print measurement rows in
+B's tool output. This was disclosed immediately; they were not sent to A.
+**Kuo is explicitly exposed secondary data, not an untouched final set.**
+Use a newline-aware CSV reader and print only selected metadata, never `head`
+on unknown line endings in experimental files.
+
+## Frozen selection and independent evaluation
+
+Seed: `wave3-rbs-20261017-v1`. Selection uses sequence/identity fields only.
+
+- **Cambray:** hash-rank `seed:combi` families, retain two per seed and every
+  actual member. This selects335 inputs from112 families/56 seed blocks; one
+  family has only two actual design members. Entire Cambray study stays reserved
+  final, including unselected sequences. No Cambray development labels are
+  released. A row-random split would leak the deliberately nearby designs.
+- **Kuo:** generate the full DNA9-mer universe; hash-select eight per GC count
+  (0..9), plus four homopolymers and three parental genotypes. The87 genotypes
+  appear in all three contexts, yielding261 inputs. All remain exposed secondary.
+  The full universe is connected by single-base substitutions, so arbitrary
+  row partitions cannot establish remote-family generalization.
+
+Keep failed or missing predictions and unmeasured inputs in denominators. Do
+not select on available outcomes or backend success, trim outliers, fit scale
+on final measurements, or pool studies/conditions into one correlation. Primary
+comparison is rank and prediction coverage within study. A final log-error claim
+would additionally need an independently frozen, assay-compatible calibration;
+source1–100 fluorescence is not the runtime's arbitrary initiation-rate unit.
+Use Cambray seed blocks for clustered uncertainty, and identify that all blocks
+come from one experiment. Kuo is one study, not three independent replications.
+
+Before scoring, A supplies immutable candidate commits/artifacts, named profiles,
+folding/settings, resource limits and development/training exposure. Use37 C;
+Code15's E. coli aSD default is ACCUCCUUA, a model configuration rather than a
+measured host calibration. Outcomes stay with B; no score-dependent retuning is
+allowed after the final panel is evaluated. Keep reconstruction-versus-experiment,
+live-versus-experiment and reconstruction-versus-live separate. No coins or
+live jobs are part of this preparation.
+
+Published learned models already use these sources: Cambray is used by
+Nikolados2022 (`10.1038/s41467-022-34902-5`) and others; Kuo by CNN/CNN-LSTM work
+`10.1093/nar/gkae491`. The panel is not automatically independent for such models.
+Known-source declarations and near-duplicate checks are necessary per candidate;
+new to this project is not new to the literature.
+
+## Overlap and reproduction
+
+[Previous-input pins](../../benchmarks/rbs/new-overlap-sources.json) cover
+standby2014, footprint2017, Karlsen2018, diurnal2021 and the declared Hadjeras TIS
+contexts. `new_data.previous_inputs` reads only IDs/sequences/coordinates from
+these inputs. `new_data.overlap` compares both sequences over the same available
+portion of[-35,+70), at exact threshold1−edit_distance/length>=0.85. Thus Kuo's
+shorter input is compared over[-30,+43) on both sides, preventing truncation from
+creating artificial separation. Its bit-vector recurrence is independently
+checked against a matrix implementation on7,225 short-string pairs and longer
+64/65/105/188/257-base cases. Similarity flags are sequence proxies, not proof of
+all ancestral/model-training independence.
+
+Place the pinned Cambray ZIP and three Kuo CSV members under an evaluator-owned
+`SOURCE_ROOT` outside Git. Verify member hashes and original notices. Freeze
+before outcome extraction, using a private parent directory:
+
+```sh
+python -m benchmarks.rbs.new_data freeze SOURCE_ROOT benchmarks/rbs/new-data-manifest.json PRIVATE_INPUTS.json --split-output SPLIT.json
+python -m benchmarks.rbs.new_data extract SOURCE_ROOT benchmarks/rbs/new-data-manifest.json PRIVATE_INPUTS.json --private-output NEW_PRIVATE_DIRECTORY
+python -m unittest discover -s tests/benchmarks -p test_new_data.py
+```
+
+The extractor rederives the entire input envelope and rejects any changed
+manifest/selection/source. Its output directory must not exist; it is created
+0700, with outcomes and source-completeness audit0600. It prints no outcomes.
+Public split records contain identities, groups and sequence hashes, not labels
+or full source sequences. The stdlib importer needs no new package dependencies.
+For overlap reproduction, load each pinned prior input with
+`previous_inputs(root, asset)`, then call `overlap(frozen['records'], prior)`;
+record missing-source-input counts and every returned hit without filtering on
+outcomes. Input-only scoring exports may be shared with A; final outcomes may not.
+
+Additional cyanobacterial candidates remain honestly incomplete: Lin2021 UTEX
+and Sebesta2020 PCC7942 have useful construct/condition evidence but no recovered
+complete numerical sequence–measurement panel; published predicted rates are
+not experimental labels. Kosuri2013's linked workbooks were inaccessible through
+the attempted ordinary public routes. These gaps do not turn the new E. coli
+panels into evidence of cyanobacterial accuracy.

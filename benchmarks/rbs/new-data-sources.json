@@ -1,0 +1,528 @@
+{
+  "retrieved": "2026-10-17",
+  "cambray_sources": [
+    {
+      "file": "osf-node-verified.json",
+      "url": "https://api.osf.io/v2/nodes/a56vu/",
+      "final_url": "https://api.osf.io/v2/nodes/a56vu/",
+      "bytes": 4844,
+      "status": 200,
+      "sha256": "5b1ec10381b9b8e4a79305d2bcc993c81129311a8e1b33a2588fc03a1b4035bf",
+      "retrieved": "2026-10-17"
+    },
+    {
+      "file": "osf-license-verified.json",
+      "url": "https://api.osf.io/v2/licenses/563c1cf88c5e4a3877f9e967/",
+      "final_url": "https://api.osf.io/v2/licenses/563c1cf88c5e4a3877f9e967/",
+      "bytes": 1843,
+      "status": 200,
+      "sha256": "33b5fd1d4a3f641679fbfa944fe53392d5a46e209372493eddb32de636760120",
+      "retrieved": "2026-10-17"
+    },
+    {
+      "file": "code15-osf-verification.txt",
+      "url": "https://osf.io/download/jxzfg/",
+      "final_url": "https://idvyorynw6xy.compat.objectstorage.us-ashburn-1.oraclecloud.com/cos-prod-osf-1-files-ash/efa2ae41e56f13f03536e0ed7c65ab06e017d8c05acbe92883c8f6e2b8991642",
+      "status": 200,
+      "bytes": 7299,
+      "sha256": "efa2ae41e56f13f03536e0ed7c65ab06e017d8c05acbe92883c8f6e2b8991642",
+      "retrieved": "2026-10-17"
+    },
+    {
+      "file": "code15-publisher-verification.txt",
+      "url": "https://media.springernature.com/original/springer-static/esm/art%3A10.1038%2Fnbt.4238/MediaObjects/41587_2018_BFnbt4238_MOESM30_ESM.txt",
+      "final_url": "https://media.springernature.com/original/springer-static/esm/art%3A10.1038%2Fnbt.4238/MediaObjects/41587_2018_BFnbt4238_MOESM30_ESM.txt",
+      "status": 200,
+      "bytes": 7299,
+      "sha256": "efa2ae41e56f13f03536e0ed7c65ab06e017d8c05acbe92883c8f6e2b8991642",
+      "retrieved": "2026-10-17"
+    },
+    {
+      "file": "TIPDesigner-current.py",
+      "url": "https://raw.githubusercontent.com/jcg/d-tailor/master/RunningExamples/Designer/TIPDesigner.py",
+      "final_url": "https://raw.githubusercontent.com/jcg/d-tailor/master/RunningExamples/Designer/TIPDesigner.py",
+      "status": 200,
+      "bytes": 12312,
+      "sha256": "c5ece97eeed4b87ef12cec5721a8c4646449966b751db3ac1ecc631236d529e6",
+      "retrieved": "2026-10-17"
+    },
+    {
+      "file": "dtailor-commit.json",
+      "url": "https://api.github.com/repos/jcg/d-tailor/commits?path=RunningExamples/Designer/TIPDesigner.py&per_page=1",
+      "final_url": "https://api.github.com/repos/jcg/d-tailor/commits",
+      "status": 200,
+      "bytes": 1473,
+      "sha256": "028325acab52a37f34a36bddf77ee27580ed435238aaf8844b37ebcfe034b50f",
+      "retrieved": "2026-10-17"
+    },
+    {
+      "file": "TIPDesigner-7ea83bc.py",
+      "url": "https://raw.githubusercontent.com/jcg/d-tailor/7ea83bcf7a2cda21eb8727575ff2b20ac8b49606/RunningExamples/Designer/TIPDesigner.py",
+      "bytes": 12312,
+      "sha256": "c5ece97eeed4b87ef12cec5721a8c4646449966b751db3ac1ecc631236d529e6",
+      "retrieved": "2026-10-17"
+    },
+    {
+      "file": "Supplementary_Code_1_parameters.py",
+      "url": "https://osf.io/download/r6b5n/",
+      "sha256": "b34fff427af010dad89bce029ee24e6ed0c2b3b3270a7ac20e859baff7093315",
+      "bytes": 1388,
+      "kind": "public_source"
+    },
+    {
+      "file": "Supplementary_Code_6_protein_production_processing.R",
+      "url": "https://osf.io/download/jz2x4/",
+      "sha256": "3df877ca06e0579bd5a2312e25eb6d05bd491c03436ff4de9e2a94ed5a97ccd2",
+      "bytes": 14815,
+      "kind": "public_source"
+    },
+    {
+      "file": "Supplementary_Code_15_RBS_calculator_test.py",
+      "url": "https://osf.io/download/jxzfg/",
+      "sha256": "efa2ae41e56f13f03536e0ed7c65ab06e017d8c05acbe92883c8f6e2b8991642",
+      "bytes": 7299,
+      "kind": "public_source"
+    },
+    {
+      "file": "Supplementary_Code_26_DTailor_modules.txt",
+      "url": "https://osf.io/download/2udbz/",
+      "sha256": "20375dc08549fc249df19bfd0d00268ce82fdc458914342726006b5919ddc118",
+      "bytes": 718,
+      "kind": "public_source"
+    },
+    {
+      "file": "input-audit.json",
+      "url": null,
+      "sha256": "bb4efe3ec8de635f586dcd2f1aa7b3d99b591583dd63785531a71dd42851a623",
+      "bytes": 1393,
+      "kind": "coordinator_input_only_metadata"
+    },
+    {
+      "file": "../rbs-data-scout/cambray-MOESM12.pdf",
+      "url": "https://media.springernature.com/original/springer-static/esm/art%3A10.1038%2Fnbt.4238/MediaObjects/41587_2018_BFnbt4238_MOESM12_ESM.pdf",
+      "bytes": 6079428,
+      "sha256": "027954453cc9cf150b308e31304d74046334662d78079e500551abf89a5390e6",
+      "retrieved": "2026-10-17"
+    },
+    {
+      "file": "../rbs-data-scout/cambray-MOESM14.pdf",
+      "url": "https://media.springernature.com/original/springer-static/esm/art%3A10.1038%2Fnbt.4238/MediaObjects/41587_2018_BFnbt4238_MOESM14_ESM.pdf",
+      "bytes": 307172,
+      "sha256": "00dcc47d268fb97c02f869a3d87a19f4c1026e1995a674923aab55cd943e0e49",
+      "retrieved": "2026-10-17"
+    },
+    {
+      "file": "../rbs-data-scout/cambray-MOESM15.pdf",
+      "url": "https://media.springernature.com/original/springer-static/esm/art%3A10.1038%2Fnbt.4238/MediaObjects/41587_2018_BFnbt4238_MOESM15_ESM.pdf",
+      "bytes": 274122,
+      "sha256": "50d285cc17fa90810e4ccfb740b74070562f5883e49d6ccc00dbe7695c16be0a",
+      "retrieved": "2026-10-17"
+    },
+    {
+      "file": "../rbs-data-scout/cambray-crossmark.html",
+      "url": "https://crossmark.crossref.org/dialog/?doi=10.1038%2Fnbt.4238",
+      "bytes": 9908,
+      "sha256": "4a7a8ade9b7a3fa7f340a15edc5dffe7614164fa34f96422c73bad0a73cb49e8",
+      "retrieved": "2026-10-17"
+    },
+    {
+      "file": "paper-methods-web-extract.txt",
+      "url": "https://www.researchgate.net/publication/327851502_Evaluation_of_244000_synthetic_sequences_reveals_design_principles_to_optimize_translation_in_Escherichia_coli",
+      "sha256": "8c9d3a8230952fc39be7150ff1de0250df1f672e7ece62af9301175d23a74eb5",
+      "bytes": 25846,
+      "kind": "web_tool_indexed_extract_not_original_html_or_pdf"
+    },
+    {
+      "file": "paper-construct-web-extract.txt",
+      "url": "https://www.researchgate.net/publication/327851502_Evaluation_of_244000_synthetic_sequences_reveals_design_principles_to_optimize_translation_in_Escherichia_coli",
+      "sha256": "b2d11db50e92bae0784591fb484a9d7a0a0626ad89ba6452fda191b88a05f354",
+      "bytes": 25836,
+      "kind": "web_tool_indexed_extract_not_original_html_or_pdf"
+    }
+  ],
+  "cambray_context": {
+    "bounded_recipe": {
+      "prefix_source": "Supplementary_Code_15_RBS_calculator_test.py:89",
+      "prefix_length": 92,
+      "prefix_sha256_exact_lowercase": "46ae8af8edb75a433f271f063502aa0daa634d1fb5036cd0c145c5c686a98e62",
+      "prefix_sha256_uppercase": "6007d00a4327c25a6d78a11d02baf0694988380a7ebbcdd5a2384fbb629161eb",
+      "variable_length": 96,
+      "assembled_length": 188,
+      "start_zero_based": 89,
+      "start_interval_half_open": [
+        89,
+        92
+      ],
+      "variable_interval_half_open": [
+        92,
+        188
+      ],
+      "all_atg_offsets_in_prefix": [
+        33,
+        67,
+        89
+      ],
+      "source_assembly": "Code15:109 five_utr + gs",
+      "strand": "coding/transcript orientation",
+      "conditions": "same DNA in ordinary and facilitated assays; induction conditions differ",
+      "full_transcript": false
+    },
+    "long_design_context": {
+      "source": "TIPDesigner-7ea83bc.py:199",
+      "commit": "7ea83bcf7a2cda21eb8727575ff2b20ac8b49606",
+      "source_length": 1022,
+      "mutable_interval_half_open": [
+        92,
+        188
+      ],
+      "cds_interval_half_open": [
+        89,
+        1022
+      ],
+      "suffix_length": 834,
+      "suffix_sha256_exact_lowercase": "d9c2605d9216e63ab839e1f90c64872f5f1f1c200c2a81fe4ae3dffa010e8ed0",
+      "suffix_sha256_uppercase": "f0574451a0abef96fc39d9a3208d6f799964171625c7596c7fe8eb1e4c90d344",
+      "junction_discrepancy": "GCA at [188,191) before primer-backed linker at [191,216); paper oligonucleotide form places linker directly after the 96 designed bases. Actual assay complete-construct identity unverified."
+    },
+    "osf_license_declaration": {
+      "node": "a56vu",
+      "node_title": "Data and scripts for \"Evaluation of 244,000 synthetic sequences reveals design principles to optimize translation in Escherichia coli\"",
+      "node_description": "All data and scripts to reproduce the analyses shown in the paper \"Evaluation of 244,000 synthetic sequences reveals design principles to optimize translation in Escherichia coli\" published in Nature Biotechnology",
+      "node_license": {
+        "copyright_holders": [
+          "Guillaume Cambray"
+        ],
+        "year": "2018"
+      },
+      "license_id": "563c1cf88c5e4a3877f9e967",
+      "license_name": "BSD 3-Clause \"New\"/\"Revised\" License",
+      "level": "node-level declaration; no legal admission or third-party scope decision"
+    },
+    "access_gaps": [
+      "ResearchGate direct HTML returned403; indexed author-posted full text accessible through web tool; original PDF not recovered.",
+      "Addgene public pages declare login required for sequence downloads; no login or hidden download routes attempted.",
+      "No complete assay plasmid/transcript or fully resolved induction concentrations recovered."
+    ],
+    "findings": [
+      {
+        "id": "CAM-CONTEXT-01",
+        "class": "unit mismatch",
+        "source": "../rbs-data-scout/cambray-MOESM12.pdf",
+        "location": "page9 Figure5 panelA x-axis versus panelB legend and captionC",
+        "claims": [
+          "2.5 mM",
+          "2.5 nM"
+        ],
+        "effect": "million-fold concentration ambiguity; exact induction recipe unresolved",
+        "confidence": "high that the printed units conflict; intended dose unknown",
+        "verification": "rendered page9 and inspected labels",
+        "retrieved": "2026-10-17"
+      }
+    ]
+  },
+  "kuo_sources": [
+    {
+      "file": "kuo-search.json",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=DOI:10.1038/s41467-017-00239-7&format=json&resultType=core",
+      "bytes": 7845,
+      "sha256": "3657aefd583a2401457d11f967f05f3bba108fd44feee6254507eda2945b4a03",
+      "retrieved": "2026-10-17"
+    },
+    {
+      "file": "kuo2020-search.json",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=TITLE:%22Global%20fitness%20landscapes%20of%20the%20Shine-Dalgarno%20sequence%22&format=json&resultType=core",
+      "bytes": 9011,
+      "sha256": "d215436ecd324da2f1b3cd53502f72da16f2ce00e206001bfcea8f7989fa9efa",
+      "retrieved": "2026-10-17"
+    },
+    {
+      "file": "kuo2020.xml",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC7263185/fullTextXML",
+      "bytes": 143827,
+      "sha256": "52bbd3df0c9c3fec6811b416fa7bc4ad3d815e4780e19dee1996f6379d5edec8",
+      "retrieved": "2026-10-17"
+    },
+    {
+      "file": "kuo2020-supp.zip",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC7263185/supplementaryFiles",
+      "bytes": 48362217,
+      "sha256": "46d50e7c4f862f22edb802612f0d3ad16256708b9f1dfef71f0b10b197aeab7a",
+      "retrieved": "2026-10-17"
+    },
+    {
+      "file": "kuo-supp_30_5_711__index.html",
+      "archive": "kuo2020-supp.zip",
+      "member": "supp_30_5_711__index.html",
+      "bytes": 1352,
+      "sha256": "c8cc9eb636025035a174009f7ca61af66f45c8d2efd6edee58020f253e3a0468",
+      "retrieved": "2026-10-17"
+    },
+    {
+      "file": "kuo-Supplemental_File_S5.csv",
+      "archive": "kuo2020-supp.zip",
+      "member": "supp_gr.260182.119_Supplemental_File_S5.csv",
+      "bytes": 4183373,
+      "sha256": "29ccfcba1014ac3cb947b5d07109fb6f33126581a03ff5d6e381090543b2b4cf",
+      "retrieved": "2026-10-17"
+    },
+    {
+      "file": "kuo-Supplemental_File_S2.csv",
+      "archive": "kuo2020-supp.zip",
+      "member": "supp_gr.260182.119_Supplemental_File_S2.csv",
+      "bytes": 7542570,
+      "sha256": "3649ee0bb41492c1eded620dc0ebb2a2dd2c4292b91135048d0bf1b6ca680d20",
+      "retrieved": "2026-10-17"
+    },
+    {
+      "file": "kuo-Supplemental_Material_20200413.docx",
+      "archive": "kuo2020-supp.zip",
+      "member": "supp_gr.260182.119_Supplemental_Material_20200413.docx",
+      "bytes": 30559591,
+      "sha256": "9bfc4d8f8c3d707ca12c3c83b41da23271d767875e8f3d08763187505d01b8c0",
+      "retrieved": "2026-10-17"
+    },
+    {
+      "file": "kuo-Supplemental_File_S1.xlsx",
+      "archive": "kuo2020-supp.zip",
+      "member": "supp_gr.260182.119_Supplemental_File_S1.xlsx",
+      "bytes": 39253,
+      "sha256": "a135cf476af6144addcf9274824e12114edf4273270d605270f397cc9641e473",
+      "retrieved": "2026-10-17"
+    },
+    {
+      "file": "kuo-Supplemental_File_S3.csv",
+      "archive": "kuo2020-supp.zip",
+      "member": "supp_gr.260182.119_Supplemental_File_S3.csv",
+      "bytes": 8414579,
+      "sha256": "4c0ef99d7111b207f73c5f2e7f6fbbb690eb5b1bcfc9b7866b3b2506f4455951",
+      "retrieved": "2026-10-17"
+    },
+    {
+      "file": "kuo-Supplemental_File_S4.csv",
+      "archive": "kuo2020-supp.zip",
+      "member": "supp_gr.260182.119_Supplemental_File_S4.csv",
+      "bytes": 8032571,
+      "sha256": "fd85858aea96dd53c6f23c50e005df21fb32faec226c45591b1c353d310c4aac",
+      "retrieved": "2026-10-17"
+    },
+    {
+      "file": "kuo-Supplemental_File_S6.zip",
+      "archive": "kuo2020-supp.zip",
+      "member": "supp_gr.260182.119_Supplemental_File_S6.zip",
+      "bytes": 19087958,
+      "sha256": "964927ae0733fbae9bfda0c85971dd56101a019af649b6095ecbbff0e75a7b87",
+      "retrieved": "2026-10-17"
+    },
+    {
+      "file": "kuo-equation-rId11.png",
+      "archive": "kuo-Supplemental_Material_20200413.docx",
+      "member": "word/media/image1.png",
+      "bytes": 31972,
+      "sha256": "20b46fea81c3df023600e4a2fadcc08701c8b2a3301244b9e959c4a8dae588f4",
+      "retrieved": "2026-10-17"
+    },
+    {
+      "file": "kuo-equation-rId12.png",
+      "archive": "kuo-Supplemental_Material_20200413.docx",
+      "member": "word/media/image2.png",
+      "bytes": 24746,
+      "sha256": "7e90ab94e31673a8ebcbdd28fa1a218f685ef9f95489968254ae703ca29adf95",
+      "retrieved": "2026-10-17"
+    },
+    {
+      "file": "kuo-equation-rId13.png",
+      "archive": "kuo-Supplemental_Material_20200413.docx",
+      "member": "word/media/image3.png",
+      "bytes": 5860,
+      "sha256": "5b03dcdb10bb7a66aaed873a4b0d96bb25bb2d7a966f200c62f7ed93684a48d2",
+      "retrieved": "2026-10-17"
+    },
+    {
+      "file": "kuo-equation-rId14.png",
+      "archive": "kuo-Supplemental_Material_20200413.docx",
+      "member": "word/media/image4.png",
+      "bytes": 8069,
+      "sha256": "608e30b3d96b591eab662062f129a26923b1545e41c43a437512f0e568c1535a",
+      "retrieved": "2026-10-17"
+    },
+    {
+      "file": "kuo-equation-rId15.png",
+      "archive": "kuo-Supplemental_Material_20200413.docx",
+      "member": "word/media/image5.png",
+      "bytes": 4951,
+      "sha256": "dab9766dc479bcc6cb38d228a80e0d627ed9b5882c4b5e0f428f7efb5c682a9c",
+      "retrieved": "2026-10-17"
+    },
+    {
+      "file": "kuo-ReadCountTable_RBSarti_Rep1.py",
+      "archive": "kuo-Supplemental_File_S6.zip",
+      "member": "Supplemental_File_S6/I_Sort-seq_data_processing/ReadCountTable_RBSarti_Rep1.py",
+      "bytes": 1180,
+      "sha256": "495d48bb0c6452aa9d0e84c3cfe25217bfeebd64ae599ba7738b85fdf5ba1be8",
+      "retrieved": "2026-10-17"
+    },
+    {
+      "file": "kuo-ReadCountTable_RBSdmsc_Rep1.py",
+      "archive": "kuo-Supplemental_File_S6.zip",
+      "member": "Supplemental_File_S6/I_Sort-seq_data_processing/ReadCountTable_RBSdmsc_Rep1.py",
+      "bytes": 1180,
+      "sha256": "9650f440ab95b8e94c4c09bd80d765ddc172bd12e4bda07a7b166727be7652f9",
+      "retrieved": "2026-10-17"
+    },
+    {
+      "file": "kuo-ReadCountTable_RBSfepb_Rep1.py",
+      "archive": "kuo-Supplemental_File_S6.zip",
+      "member": "Supplemental_File_S6/I_Sort-seq_data_processing/ReadCountTable_RBSfepb_Rep1.py",
+      "bytes": 1180,
+      "sha256": "f37cb4d5a9e12b1c91bd254571f46a8de535dcb05b8e1f7aefa1e6bba512d67b",
+      "retrieved": "2026-10-17"
+    },
+    {
+      "file": "kuo-script_RBSarti_Rep1.sh",
+      "archive": "kuo-Supplemental_File_S6.zip",
+      "member": "Supplemental_File_S6/I_Sort-seq_data_processing/script_RBSarti_Rep1.sh",
+      "bytes": 921,
+      "sha256": "80a0dd5cbf8bb419b8035acaa9defa6aa4fb0861cea3bd516124021c3b850c18",
+      "retrieved": "2026-10-17"
+    },
+    {
+      "file": "kuo-script_RBSdmsc_Rep1.sh",
+      "archive": "kuo-Supplemental_File_S6.zip",
+      "member": "Supplemental_File_S6/I_Sort-seq_data_processing/script_RBSdmsc_Rep1.sh",
+      "bytes": 1599,
+      "sha256": "c01708f20cf802204482e634f33e442f2da247de89b78f94988693ce98f8cd9c",
+      "retrieved": "2026-10-17"
+    },
+    {
+      "file": "kuo-script_RBSfepb_Rep1.sh",
+      "archive": "kuo-Supplemental_File_S6.zip",
+      "member": "Supplemental_File_S6/I_Sort-seq_data_processing/script_RBSfepb_Rep1.sh",
+      "bytes": 1192,
+      "sha256": "378c6f65cab7cf98fd021644d5c9d983418954a40a61f7eb69e6f8068a8ff3d9",
+      "retrieved": "2026-10-17"
+    },
+    {
+      "file": "kuo-ena-runs.tsv",
+      "url": "https://www.ebi.ac.uk/ena/portal/api/filereport?accession=PRJNA516114&result=read_run&fields=run_accession,study_accession,sample_accession,experiment_accession,scientific_name,instrument_model,library_layout,fastq_bytes,fastq_md5,fastq_ftp&format=tsv",
+      "bytes": 22399,
+      "sha256": "17c08a0233521e0dddcd7440e20936c561efeb48739ce54f4c937b6fed3372f1",
+      "retrieved": "2026-10-17"
+    },
+    {
+      "file": "kuo-crossref.json",
+      "url": "https://api.crossref.org/works/10.1101/gr.260182.119",
+      "bytes": 12113,
+      "sha256": "2aaf5b72bb44375e4f811ad6a5a6e03bb9045dc0074096bd01046213d9b79725",
+      "retrieved": "2026-10-17"
+    }
+  ],
+  "kuo_sequence_recipe": {
+    "primer_reverse": "YC04p2",
+    "primer_forward": "YC04p1",
+    "join": "reverse_complement(trim(YC04p2)) + trim(YC04p1)",
+    "cds_begin": "ATG following template TAAGA spacer",
+    "cds_prefix_length": 43,
+    "cds_prefix_sha256": "5bd7080e1406a40322afe3adeddd440db5af02a443bdb7731de6098cfa85fe83",
+    "independent_amplicon_primer_check": {
+      "name": "ILp6",
+      "prefix_length": 24,
+      "matches": true
+    },
+    "templates": {
+      "pHC199v": {
+        "table_row_1based": 12,
+        "lengths": [
+          16,
+          9,
+          5
+        ],
+        "source_sequence_field_sha256": "c85cc653368fa253166bc3574e4c44989171b3d218760654d16ee095bb2477f4"
+      },
+      "pYC08": {
+        "table_row_1based": 27,
+        "lengths": [
+          16,
+          9,
+          5
+        ],
+        "source_sequence_field_sha256": "c85cc653368fa253166bc3574e4c44989171b3d218760654d16ee095bb2477f4"
+      },
+      "pYC09": {
+        "table_row_1based": 28,
+        "lengths": [
+          15,
+          9,
+          6
+        ],
+        "source_sequence_field_sha256": "103272669d97e9c7067b0f1925bcf1a7e339796249da75d620ce5e81e765534b"
+      },
+      "pYC20": {
+        "table_row_1based": 29,
+        "lengths": [
+          17,
+          9,
+          4
+        ],
+        "source_sequence_field_sha256": "559e3c6769f6b177f776c3636f92203fc77c7d7bc8766488306664d04d89ceef"
+      }
+    }
+  },
+  "secondary_candidate_admission": [
+    {
+      "id": "Kuo2020",
+      "doi": "10.1101/gr.260182.119",
+      "pmcid": "PMC7263185",
+      "accession": "PRJNA516114",
+      "commit": null,
+      "recovery_status": "source_values_and_exact_73nt_local_context_recoverable; full_construct_gate_incomplete",
+      "article_license_notice": "CC-BY-NC-4.0",
+      "separate_unrestricted_data_license_recovered": false,
+      "host": "Escherichia coli MG1655",
+      "quantity": "source Log(GFP) fluorescence-derived fitness",
+      "log_base": "unresolved",
+      "gfp_mean_cells": 761787,
+      "studies": 1,
+      "gfp_contexts": 3,
+      "known_training_exposure_doi": "10.1093/nar/gkae491",
+      "full_reporter_sequence_recovered": false,
+      "project_development_exposure": {
+        "status": "exposed_secondary: measurement rows printed during CR-only header probe in B; not sent to A",
+        "confidence_basis": "public cards and explicit handoff inventory only",
+        "private_ledger_checked": false,
+        "exact_sequence_overlap_checked": false
+      }
+    },
+    {
+      "id": "Lin2021",
+      "doi": "10.1016/j.mec.2021.e00164",
+      "pmcid": "PMC7890178",
+      "recovery_status": "no_complete_numerical_sequence_assay_panel_recovered",
+      "article_license_notice": "CC-BY-NC-ND-4.0"
+    },
+    {
+      "id": "SebestaPeebles2020",
+      "doi": "10.1016/j.mec.2019.e00117",
+      "pmcid": "PMC6940699",
+      "recovery_status": "construct_sequences_and_predicted_rates_recovered; experimental_panel_unavailable",
+      "article_license_notice": "CC-BY-NC-ND-4.0"
+    },
+    {
+      "id": "Kosuri2013",
+      "doi": "10.1073/pnas.1301301110",
+      "pmcid": "PMC3752251",
+      "recovery_status": "article_recovered; linked_workbooks_inaccessible",
+      "data_license": "not_recovered"
+    },
+    {
+      "id": "Cambray2018",
+      "doi": "10.1038/nbt.4238",
+      "deposit_doi": "10.17605/OSF.IO/A56VU",
+      "accession": "SRP086076",
+      "recovery_status": "244000 sequence-phenotype links recovered by B; exact188nt local context, start89; full transcript and induction concentration unresolved",
+      "osf_node_license_notice": "BSD-3-Clause",
+      "known_training_exposure_doi": "10.1038/s41467-022-34902-5",
+      "data15_sha256": "2758ed63e469c77b42c01e3c022452ef52ebf8d1bd4a86bd4c5b502e44b7bbc0"
+    }
+  ],
+  "scope": "Source identities and input recipes; no individual outcomes or new model scores."
+}
