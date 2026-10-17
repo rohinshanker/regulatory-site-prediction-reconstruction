@@ -1,0 +1,63 @@
+{
+  "decision": "reserved_not_admitted",
+  "new_measurements_read": false,
+  "new_predictions_run": false,
+  "primary_paper": {
+    "bytes": 2311889,
+    "doi": "10.7554/eLife.92558.1",
+    "license": "CC-BY-4.0",
+    "license_location": "PDF page38 Copyright; annotation https://creativecommons.org/licenses/by/4.0/",
+    "located_methods": {
+      "genomic_splits": "page30, Data processing",
+      "growth_and_replicates": "page25, Library growth and harvest for expression measurements; RNA and DNA sequencing library preparation",
+      "strain_and_library_design": "page21, Strains and TSS library design"
+    },
+    "publisher_file_commit": "02e328ec4db0c6aaa097239df28048d9d63fc700",
+    "publisher_repository": "elifesciences/enhanced-preprints-data",
+    "role": "2023 reviewed preprint v1, not an assertion of later publication status",
+    "sha256": "0d3de36b5d48880b5ebef0b3a86b415678ad416c037ccd2d37ebbc14482e4d06",
+    "url": "https://raw.githubusercontent.com/elifesciences/enhanced-preprints-data/02e328ec4db0c6aaa097239df28048d9d63fc700/data/92558/v1/92558-v1.pdf",
+    "visually_inspected_pages": [
+      21,
+      25,
+      38
+    ]
+  },
+  "raw_data_redistributed": false,
+  "remaining_gates": [
+    "Repository/data redistribution grant; article CC-BY4 is not a blanket grant for author GitHub data.",
+    "Exact full reporter flanks and construct/integration identities for each acquired row.",
+    "Reconcile2023 design/TSS/control denominators with the previously acquired17767 rows/17617 unique strings without outcome-driven exclusions.",
+    "Locus and near-family overlap across sources/controls, plus candidate-model training exposure.",
+    "Freeze a future model/protocol/split before any reserved-label comparison; historical exact-string nonoverlap does not establish independence."
+  ],
+  "repository_rights": {
+    "api_license": null,
+    "commit": "484abdb6ba2d398501009ee6eb25ca7f190d3b4c",
+    "nested_notices_are_not_project_grants": [
+      "bin/bbmap/license.txt",
+      "lib/deepTools/LICENSE.txt"
+    ],
+    "project_wide_license_located": false,
+    "publisher_version_listing_sha256": "41cadae7be0b44bb804b229882c9a4dd7350cb64b7f37a0662bf017422ef1298",
+    "recursive_tree_sha256": "a3036449c17a874331740fd714c40c588a39ee3d40ac5c641415d676ab053d9a",
+    "repository": "https://github.com/KosuriLab/ecoli_promoter_mpra",
+    "repository_metadata_sha256": "92c9288b77b05ba01932b65c5165edf8e4b50376a1f95efd94e635f367c8dd40"
+  },
+  "resolved_context": {
+    "assembly": "U00096.2; RegulonDB8.0 plus two mapped-TSS sources",
+    "growth_temperature_c": 30,
+    "host": "E. coli MG1655 background, engineered genomic landing pads",
+    "paper_negative_control_design_count": 500,
+    "paper_positive_control_design_count": 112,
+    "paper_tss_design_count": 17635,
+    "primary_medium": "LB",
+    "replicates": "two biological replicates, two technical RNA/DNA preparations per biological replicate; distinguish from the two expression columns previously acquired",
+    "synthesized_local_window": "-120 to +30 relative to selected TSS,150bp",
+    "temperature_role": "Assay growth/harvest condition, distinct from earlier37C pre-assay culture and42C integration steps.",
+    "tss_clustering": "within20bp, retain most upstream annotated TSS"
+  },
+  "schema_version": "promoter-gse144621-admission-update-1",
+  "scope_limit": "This update resolves primary-method context only; the previous source-manifest.json is an immutable record of the earlier audit.",
+  "verified_utc": "2026-10-17"
+}
