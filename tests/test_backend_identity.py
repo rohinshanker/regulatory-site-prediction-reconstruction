@@ -8,6 +8,7 @@ from test_rbs import AlgebraBackend, request
 
 from regsite import backend
 from regsite.rbs import predict
+from regsite.sequence import reverse_complement
 from regsite.structures import BackendError
 
 
@@ -133,3 +134,31 @@ def test_known_development_failures_are_repaired_without_dropping_states(
         assert site["status"] == result["status"] == "failed"
         assert site["tir"] is None and site["energies"] is None
         assert any(word in site["reason"] for word in ("reciprocal", "missing"))
+
+
+@pytest.mark.parametrize("profile", ["context2017", "standby2014"])
+@pytest.mark.parametrize("strand", ["+", "-"])
+def test_unrepaired_ordinary_w_failure_never_becomes_a_prediction(
+    real_backend, profile, strand
+):
+    # Independent review seed 484/index 17; no assay measurements were used.
+    # Original and repaired engines both exit zero without writing a CT here.
+    leader = "GGAGGGUAUAACAGUGAGUCACCUGAGGUGGUAAGGUUUGGAUAACUGCGUCUUAGCAGU"
+    sequence = leader + "AUG" + "A" * 35
+    result = predict(
+        {
+            "id": "synthetic-ordinary-w-linker-failure",
+            "sequence": sequence if strand == "+" else reverse_complement(sequence),
+            "strand": strand,
+            "start_positions": [len(leader)],
+            "anti_sd": "ACCUCCUUU",
+            "temperature_c": 30,
+        },
+        real_backend,
+        profile=profile,
+    )
+    assert result["status"] == "failed"
+    site = result["sites"][0]
+    assert site["status"] == "failed"
+    assert site["tir"] is None and site["energies"] is None
+    assert "missing" in site["reason"]

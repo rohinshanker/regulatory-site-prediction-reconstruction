@@ -106,3 +106,11 @@ an exhaustive tiny topology oracle. Native bifold omits two valid four-base dupl
 topologies within 3 kcal/mol of the independently evaluated minimum. Repairing
 traceback corruption does not make the bounded candidate search exhaustive.
 Keep this candidate-coverage limitation separate from invalid-output failures.
+
+A remaining ordinary-W/linker traceback failure is reproduced by synthetic seed
+484, index 17, in the original and repaired engines. Both exit zero with errors
+and no CT. This is outside the repaired W2/WMB2 transitions; [issue #26](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/26)
+records the exact input, source-state trace and next repair scope. The adapter
+returns failed with null scores/energies, including on reverse-strand input.
+Independent review found 69/70 valid fresh searches after repair versus 66/70
+original, with this one remaining failure retained in the denominator.
