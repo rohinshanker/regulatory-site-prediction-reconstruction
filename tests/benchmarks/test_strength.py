@@ -56,6 +56,40 @@ class StrengthTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             strength.evaluate(records, [])
 
+    def test_affine_scale_compression_is_train_only_and_named(self):
+        for i, row in enumerate(self.predictions):
+            row["predicted"] = 2 ** (2 * i + 2)
+        fit = strength.fit_affine(self.records, self.predictions)
+        self.assertEqual((fit["slope_log2"], fit["intercept_log2"]), (0.5, -1))
+        adapted = strength.apply_affine(self.predictions, fit)
+        self.assertEqual([r["predicted"] for r in adapted], [1, 2, 4, 8])
+        self.assertEqual(adapted[0]["uncalibrated_prediction"], 4)
+        self.records[0]["partition"] = "final"
+        with self.assertRaises(ValueError):
+            strength.fit_affine(self.records, self.predictions)
+        self.records[0]["partition"] = "development_train"
+        for row in self.predictions:
+            row["predicted"] = 1
+        with self.assertRaisesRegex(ValueError, "nonconstant"):
+            strength.fit_affine(self.records, self.predictions)
+
+    def test_affine_invalid_parameters_and_range_failures_remain_counted(self):
+        self.predictions[0].update(status="failed", predicted=None)
+        for intercept in (2000, -2000):
+            result = strength.apply_affine(
+                self.predictions, {"slope_log2": 1, "intercept_log2": intercept}
+            )
+            self.assertEqual(len(result), 4)
+            self.assertTrue(all(r["status"] == "failed" for r in result))
+            self.assertEqual(result[1]["reason"], "affine_numeric_range")
+        for key in ("slope_log2", "intercept_log2"):
+            for value in (True, math.inf, math.nan):
+                with self.assertRaises(ValueError):
+                    strength.apply_affine(
+                        self.predictions,
+                        {"slope_log2": 1, "intercept_log2": 0, key: value},
+                    )
+
     def test_invalid_join_and_group(self):
         for kind in (
             "duplicate_source",

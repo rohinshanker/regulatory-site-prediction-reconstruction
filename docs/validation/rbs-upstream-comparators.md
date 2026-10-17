@@ -120,3 +120,86 @@ The strength API's `fit_intercept`, `evaluate`, `paired_comparison` and
 Measurement eligibility and the immutable split must be supplied by the source
 pipeline, not inferred from model success. Timing is recorded separately and is
 not part of numerical prediction identity.
+
+## Hash-locked aggregate evaluation
+
+`benchmarks.rbs.native_evaluation` reads a manifest containing byte hashes for a
+private case table and every normalized prediction table. `native_cases` admits
+the frozen primary chromosome cohort from both source conditions, checking the
+original input hash, complete HC/LC measurement identities and split metadata.
+It assigns input-only codon, strand and source/current protein-length strata.
+No prediction-dependent source filtering is permitted.
+
+The report fits median log2 residuals on development-train only, then evaluates
+the requested validation or final partition. It never selects a model. The final
+manifest must explicitly freeze champion, selected simple-control baseline,
+selected upstream reference, original historical/upstream and constant identities
+before use. Two champion contrasts use 97.5% paired-group
+bootstrap intervals, a 0.20 log2 worthwhile MAE gain, no lost baseline-valid
+predictions, at least 95% coverage, Spearman deterioration at most 0.05, and
+at most 0.50 log2 MAE deterioration in predeclared strata with at least 30 common
+successful cases. Small strata are descriptive; an absence of applicable strata
+cannot silently pass the subgroup gate. Assay-missing/zero cases remain counted
+separately and are excluded only from logarithmic errors.
+
+```sh
+python -m benchmarks.rbs.native_evaluation "$PRIVATE/frozen-evaluation.json" "$PRIVATE/final-aggregate.json" --stage final
+python -m unittest discover -s tests/benchmarks -p 'test_native_evaluation.py'
+```
+
+The manifest's paths resolve relative to the manifest, and files with mismatched
+hashes fail before evaluation. This is a reproducibility boundary, not an
+adversarial access-control mechanism: the independent owner retains final labels,
+records the agreed roster freeze and does not rerun selection after final results.
+Native TE scale calibration does not convert a proxy into an absolute rate.
+
+Before final outcomes, A/B agreed on two additional fixed affine controls and six
+learning-curve fits, bringing the total budget to **24 fits/seven named model or
+calibration families**. Historical and OSTIR affine controls fit an OLS log2 slope
+on training only and center the training residual by its median. `fit_affine` and
+`apply_affine` preserve failures and raw scores; numerical range failures are
+explicit. This is a named native assay-scale adaptation with two fitted parameters,
+not a changed upstream algorithm or absolute-rate conversion. All models retain
+the common median-residual intercept convention in the aggregate report.
+
+Select the simple reference on validation from training-median constant,
+historical intercept-only and historical affine. Select upstream from OSTIR
+intercept-only, rebeca intercept-only and OSTIR affine. A lower conditional MAE
+cannot win by dropping original-historical-valid cases; report all and common-case
+denominators. Freeze these choices before final evaluation. Original historical
+and OSTIR intercept-only contrasts remain descriptive if not selected; they do
+not create extra confirmatory claims. The fixed 25/50/75% training-family learning
+curves use already selected penalties, never choose finalists and are not
+uncertainty estimates.
+
+A constant has undefined Spearman, not zero. If it is selected as the simple
+reference, its rank comparison is not applicable. The no-more-than-0.05 rank-loss
+gate still applies against original historical and the strongest nonconstant
+eligible upstream. Every original-historical-valid primary case must remain
+scored, independently of the chosen reference's coverage. Subgroups are fixed
+input-only start codon (ATG/GTG/TTG/other), genomic strand and source/current
+protein-length agreement/discrepancy. No threshold or cohort changes use final
+outcomes. Protocol agreement is recorded in issue #16 comments
+[6228890626](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/16#issuecomment-6228890626)
+and [6228902938](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/16#issuecomment-6228902938).
+
+## Public 2014 development audit
+
+`benchmarks.rbs.oof` independently checks submitted OOF case/family identities,
+every configuration's family-mean MAE and row RMSE, and the declared selection
+rule (family MAE, then RMSE, then stronger penalty). It reads public predictions
+and measurements, not training internals or weights. All eight configurations
+reproduced within 1e-12: selected sequence lambda 1 family MAE 0.9346512883,
+row RMSE 1.4277071995; selected hybrid lambda 1 family MAE 0.9147545857, row RMSE
+1.3378574978. There are four configurations per family, eight total. The two
+aggregate `standby2014-*-oof-audit.json` artifacts pin their inputs.
+
+```sh
+python -m benchmarks.rbs.oof benchmarks/rbs/standby2014.json "$MODEL_ROOT/sequence-v1-selection.json" "$AUDIT/sequence.json"
+python -m benchmarks.rbs.oof benchmarks/rbs/standby2014.json "$MODEL_ROOT/context-energy-sequence-v1-selection.json" "$AUDIT/hybrid.json"
+```
+
+This recomputes reported prediction metrics; it is not an independent retraining
+or proof of fold isolation. Selection itself uses these 22 source families, and
+near-identical constructs can cross source-family boundaries. Treat the result as
+development evidence, never native-host or wholly independent study performance.
