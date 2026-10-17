@@ -1,4 +1,4 @@
-# Joint binding and standby selection
+# Joint binding and standby model card
 
 - Purpose: Define a complete bounded selection objective before implementation/evaluation.
 - Scope: Opt-in joint selection, runtime diagnostics and compatibility boundaries.
@@ -83,6 +83,29 @@ features and does not invent boundaries for unselected alternatives.
 
 ## Verification and interpretation
 
+This is a deterministic mechanistic reconstruction with no learned weights or
+new fitted parameters. Published source parameters retain their notices in the
+[standby](rbs-standby.md) and [runtime](rbs-runtime.md) contracts. Original Python
+code and synthetic fixtures are GPL-3.0-or-later; separately installed folding
+executables remain GPL-2.0-only. No hosted implementation or restrictive folding
+library is required. A host name and an anti-SD sequence configure the request;
+they do not establish species-specific calibration. The historical scalar
+parameters are based on 37 C conditions and are not refitted at other temperatures.
+
+The independent [finite-state fixture](../../benchmarks/rbs/joint-selection-fixtures.json)
+checks a greedy loser, singleton and exact candidate/state ties. Its expected
+values are derived with Decimal arithmetic independently of the runtime.
+[The runtime bridge](../../tests/test_joint_reference.py) checks candidate
+selection/total accounting and forward/reverse/circular projection against those
+unchanged values. These abstract costs are not folding measurements: full
+geometry, state enumeration, deadlines, missingness and real engines are checked
+separately in the runtime tests. The independently defined mathematical tie
+requires compensated summation, rather than intermediate chained-addition rounding.
+
+```sh
+REGSITE_RNASTRUCTURE=/absolute/path/to/RNAstructure .venv/bin/python -m pytest tests/test_joint_runtime.py tests/test_joint_reference.py tests/benchmarks/test_joint_selection_oracle.py
+```
+
 Verify against independent synthetic fixed-state energies where the preliminary
 winner is worse after standby, singleton equality, ties and duplicate tracebacks,
 invalid/no-eligible inputs, all limit/error branches, nonfinite energies, partial
@@ -98,3 +121,12 @@ the energy band excludes other bindings. Refolding into new pairings, simultaneo
 opening of multiple original modules, kinetics, stacking extensions, coupling and
 ensemble population sums remain outside this model. Independent experimental
 ranking, hosted agreement and structural correctness are separate questions.
+
+The [independent Wave 4 protocol](rbs-wave4-evaluation.md) governs the new-study
+comparison. No advancement or native-host accuracy claim follows from the
+implementation tests. The public 2014 panel is development evidence, while
+Cambray ordinary protein-output ranking is the reserved primary endpoint and
+Kuo is exposed secondary. Neither endpoint directly measures absolute initiation
+rate; neither supplies native cyanobacterial calibration. The protocol's final
+candidate receipt and completed aggregate report are required before a new-study
+performance claim.

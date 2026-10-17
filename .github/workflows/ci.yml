@@ -45,8 +45,8 @@ jobs:
         run: |
           ruff check src tests experiments
           ruff format --check src tests experiments
-          ruff check benchmarks/rbs/structural.py benchmarks/rbs/new_data.py benchmarks/promoter
-          ruff format --check benchmarks/rbs/structural.py benchmarks/rbs/new_data.py benchmarks/promoter
+          ruff check benchmarks/rbs/structural.py benchmarks/rbs/new_data.py benchmarks/rbs/wave4_*.py benchmarks/promoter
+          ruff format --check benchmarks/rbs/structural.py benchmarks/rbs/new_data.py benchmarks/rbs/wave4_*.py benchmarks/promoter
           mypy src/regsite experiments
           python -m pytest --cov=regsite --cov=benchmarks.rbs --cov=benchmarks.promoter --cov=experiments.rbs --cov-report=term-missing
           git diff --check
