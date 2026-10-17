@@ -80,7 +80,7 @@
   "scope": "Input-only audit before final outcomes; no scoring/training internals inspected",
   "upstream_diurnal": {
     "ostir": {
-      "sha256": "e5a3c99560a3bd02fef3d704e91273d12881e4685ae24ae9dafcfb9065904a72",
+      "sha256": "21bbfead7212182fc5c2fe61b5897f02d7e21e50b1303d75adb0b33f12bf84f6",
       "n_rows": 1126,
       "n_reused": 986,
       "n_novel": 14,
@@ -90,7 +90,7 @@
       "new_predictions_sha256": "1819e54b3f8dd061c1da2062596353ba7bc16c0d093de6430fa6595ce3d8a03e"
     },
     "rebeca": {
-      "sha256": "64c319e1a5bec738323b3e1cb352ccee59ba66c131d9a71aca6277e87f32ff36",
+      "sha256": "b75761e74174c2e0b63817cb6ed78aa6a4011f22e46e488d4c689686c983dcc7",
       "n_rows": 1126,
       "n_reused": 986,
       "n_novel": 14,

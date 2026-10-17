@@ -272,7 +272,7 @@ prediction ID and host provenance. Final outcomes were not needed for this audit
 ```sh
 python -m benchmarks.rbs.context_reuse prepare "$DIURNAL_INPUT" "$KARLSEN_INPUT" "$NOVEL_INPUT" --target-sha256 c4a049cc1374d3db304a42efad596ee973f2eb05d1d1e53659fd059b21a246c4 --parent-sha256 9957f10416cd00dd2f5dae086db657d2d4eab22c119d4e2f955facd1eaca65d3
 python -m benchmarks.rbs.comparators ostir "$NOVEL_INPUT" "$NOVEL_PREDICTIONS"
-python -m benchmarks.rbs.context_reuse combine "$DIURNAL_INPUT" "$KARLSEN_INPUT" "$COMBINED" --target-sha256 c4a049cc1374d3db304a42efad596ee973f2eb05d1d1e53659fd059b21a246c4 --parent-sha256 9957f10416cd00dd2f5dae086db657d2d4eab22c119d4e2f955facd1eaca65d3 --parent-predictions "$PARENT_PREDICTIONS" --new-predictions "$NOVEL_PREDICTIONS"
+python -m benchmarks.rbs.context_reuse combine "$DIURNAL_INPUT" "$KARLSEN_INPUT" "$COMBINED" --target-sha256 c4a049cc1374d3db304a42efad596ee973f2eb05d1d1e53659fd059b21a246c4 --parent-sha256 9957f10416cd00dd2f5dae086db657d2d4eab22c119d4e2f955facd1eaca65d3 --parent-predictions "$PARENT_PREDICTIONS" --new-predictions "$NOVEL_PREDICTIONS" --parent-prediction-sha256 "$PARENT_PREDICTION_SHA256" --new-prediction-sha256 "$NOVEL_PREDICTION_SHA256"
 ```
 
 ## Secondary condition transfer
