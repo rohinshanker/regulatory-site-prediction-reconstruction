@@ -170,3 +170,26 @@ predates those changes and is not presented as a full final-tree rerun. Final
 coordinate/input preparation and fresh-wheel subsets are checked separately.
 These counts establish execution coverage on transcript-context scenarios, not
 translation accuracy. Tan supplies no translation-strength labels for this test.
+
+## Independent candidate-query collection
+
+For an evaluator-admitted input-only stop-bounded query file, collect every
+explicit start separately. This avoids giving a query with many candidates less
+folding time per candidate. The collector neither reads labels nor chooses a
+winner. Keep restricted source-derived query files outside Git.
+
+```sh
+RBS_CODE_COMMIT=$(git rev-parse HEAD)
+.venv/bin/python -m experiments.rbs.candidates "$TIS_INPUTS" \
+  "$REGSITE_RNASTRUCTURE" .cache/tis-context2017.json \
+  --input-sha256 a82062067f43542c50b1beaa234426aad5dabdffcfaa42abf08047be1e7b9a5e \
+  --code-commit "$RBS_CODE_COMMIT" --profile context2017 --seconds 3600
+```
+
+The code-commit argument is a caller assertion; verify a clean exact checkout.
+Each candidate has 60 seconds, within the stated whole-collection deadline.
+Expiration retains every remaining candidate with a null score and explicit
+failure. Unsupported source anchors remain unsupported query rows. Outputs
+retain full mechanistic references, enabling energy audits and separately frozen
+learned inference without recollecting folds. The positional evaluator joins
+query IDs and starts; it does not infer correctness from an annotation or score.
