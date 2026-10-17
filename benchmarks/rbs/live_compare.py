@@ -69,7 +69,14 @@ def compare(reference, predictions, settings):
         if case["live_status"] == "form_rejected":
             continue
         result = inferred.get(identity)
-        if result is not None:
+        unavailable = result is not None and result["input"] is None
+        counts["scenario_verification_unavailable"] += unavailable
+        if unavailable and (
+            result["status"] == "ok"
+            or any(site["status"] == "ok" for site in result["sites"])
+        ):
+            raise ValueError("Successful reconstruction lacks a verified input")
+        if result is not None and not unavailable:
             request = result["input"]
             if (
                 request["oriented_sha256"] != digest(request["oriented_sequence"])
@@ -79,7 +86,7 @@ def compare(reference, predictions, settings):
                 or request["temperature_c"] != settings["temperature_c"]
             ):
                 raise ValueError("Reconstruction/live input scenario mismatch")
-        sites = [] if result is None else result["sites"]
+        sites = [] if result is None or unavailable else result["sites"]
         site_map = {site["oriented_start"]: site for site in sites}
         if len(site_map) != len(sites):
             raise ValueError("Duplicate reconstruction start")
@@ -104,7 +111,9 @@ def compare(reference, predictions, settings):
                 "id": identity + ":" + str(start),
                 "observed": value,
                 "predicted": site.get("tir"),
-                "status": site.get("status", "not_evaluated"),
+                "status": site.get(
+                    "status", result["status"] if unavailable else "not_evaluated"
+                ),
             }
             all_rows.append(row)
             if start == case["selected_start_zero_based"]:

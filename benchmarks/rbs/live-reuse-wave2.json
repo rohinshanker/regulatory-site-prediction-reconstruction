@@ -17,6 +17,7 @@
     "historical": {
       "counts": {
         "finished_exported": 9,
+        "scenario_verification_unavailable": 0,
         "extra_returned_starts": 0,
         "returned_start_set_matches": 11,
         "scored_start_set_matches": 11,
@@ -28,12 +29,13 @@
       "n_scored_declared_targets": 9,
       "reconstruction_sha256": "b20fc294d8cfc8cac14792ff1cfa1b4293c3e18b986bcd751c9edd4bfec99434",
       "private_aggregate_file": "live-historical-aggregate.json",
-      "private_aggregate_sha256": "e72f20a419a64d494c8cfa7d2ddb68ab34a0fa2343ab917f0cb7a40101eed731",
+      "private_aggregate_sha256": "d1d8e600aee22a1e9d1533c7e1c2ca04a5727f01308643bfa57af310d542589c",
       "numerical_parity_established": false
     },
     "footprint2017": {
       "counts": {
         "finished_exported": 9,
+        "scenario_verification_unavailable": 0,
         "extra_returned_starts": 0,
         "returned_start_set_matches": 11,
         "scored_start_set_matches": 11,
@@ -45,12 +47,13 @@
       "n_scored_declared_targets": 9,
       "reconstruction_sha256": "cef1a4686bcd316a0cb0e840daf14876d5d6729e3a7e49326c7fd4929d5a2a2a",
       "private_aggregate_file": "live-footprint2017-aggregate.json",
-      "private_aggregate_sha256": "7131b2868f81f4867ccbaff93a2dd79f196e945e1ce3a91ea6021efbcbd81617",
+      "private_aggregate_sha256": "eb6c604ce2aed59ed705f39da0b883c7f286692b1707dfb5db9ec47708ae1c73",
       "numerical_parity_established": false
     },
     "context2017": {
       "counts": {
         "finished_exported": 9,
+        "scenario_verification_unavailable": 0,
         "extra_returned_starts": 0,
         "returned_start_set_matches": 11,
         "scored_start_set_matches": 11,
@@ -62,7 +65,7 @@
       "n_scored_declared_targets": 9,
       "reconstruction_sha256": "6b5d20bae231eb38c4d6fb765e72f9c6a51138b36870ee47b7242540ecbb53e8",
       "private_aggregate_file": "live-context2017-aggregate.json",
-      "private_aggregate_sha256": "b64bdc39f259b84b4461c3e03d3914eaab6430553e886b80108799d43a635a22",
+      "private_aggregate_sha256": "51563daf0b6542eda65d4accfa49d0e8f595850e69c676a70034896297d4ff37",
       "numerical_parity_established": false
     }
   },

@@ -100,6 +100,18 @@ class PredictionIoTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             prediction_io.native_predictions(self.inputs, self.result)
 
+    def test_null_input_failure_is_unverified_and_cannot_score(self):
+        row = self.result["results"][0]
+        row["status"] = "failed"
+        row["prediction"]["input"] = None
+        result = prediction_io.native_predictions(self.inputs, self.result)[0]
+        self.assertIsNone(result["predicted"])
+        self.assertFalse(result["scenario_verified"])
+        self.assertEqual(result["source_prediction_id"], "pinned-output")
+        row["status"] = "ok"
+        with self.assertRaises(ValueError):
+            prediction_io.native_predictions(self.inputs, self.result)
+
     def test_site_success_and_coordinate_boundary(self):
         for kind in (
             "duplicate",
