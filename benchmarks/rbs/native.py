@@ -51,8 +51,8 @@ def fetch_sources(root):
     return {"n_verified": len(manifest()["sources"])}
 
 
-def fasta_records(text):
-    """Read exact versioned FASTA IDs and unambiguous DNA; reject duplicate IDs."""
+def fasta_records(text, alphabet="ACGT"):
+    """Read exact versioned FASTA IDs in a declared alphabet; reject duplicate IDs."""
     records, key = {}, None
     for line in text.splitlines():
         if not line.strip():
@@ -66,8 +66,8 @@ def fasta_records(text):
                 raise ValueError("Duplicate FASTA identifier")
             records[key] = ""
         else:
-            if key is None or set(line.strip().upper()) - set("ACGT"):
-                raise ValueError("Invalid or unlabelled genomic DNA")
+            if key is None or set(line.strip().upper()) - set(alphabet):
+                raise ValueError("Invalid or unlabelled sequence")
             records[key] += line.strip().upper()
     if not records or any(not sequence for sequence in records.values()):
         raise ValueError("Empty genomic sequence")
@@ -85,7 +85,7 @@ def gff_features(text, sequences):
         fields = line.split("\t")
         if len(fields) != 9:
             raise ValueError("GFF must have nine columns")
-        if fields[2] not in {"CDS", "rRNA", "region"}:
+        if fields[2] not in {"CDS", "rRNA", "region", "gene", "pseudogene"}:
             continue
         attrs = dict(item.split("=", 1) for item in fields[8].split(";") if item)
         attrs = {key: unquote(value) for key, value in attrs.items()}
@@ -113,6 +113,7 @@ def gff_features(text, sequences):
                 "strand": fields[6],
                 "interval": [lower, upper],
                 "attributes": attrs,
+                "phase": fields[7],
                 "segments": segments,
                 "start_zero_based": (lower if fields[6] == "+" else upper - 1) % length,
             }

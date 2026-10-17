@@ -5,3 +5,5 @@ pinned Tan/UTEX envelope outside Git. Spreadsheet ingestion alone requires
 optional openpyxl 3.1.5; parser/evaluator tests remain dependency-independent.
 See the [native evidence contract](../docs/validation/rbs-native-validation.md)
 for mappings, counts, annotation disagreements and the explicit 16S-tail scenario.
+
+Native TE admission, split reproduction and the development-only release are documented in [the native data card](../docs/validation/rbs-native-data-card.md).
