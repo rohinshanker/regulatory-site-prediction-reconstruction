@@ -5,7 +5,7 @@ Verification dates cover the stated source observations or specification review;
 | Area | Purpose | Last verified | Document |
 | --- | --- | --- | --- |
 | rbs-wave2-program | Two-session ownership, dependencies, bounded fourteen-hour wave and acceptance. | 2026-10-16 | [rbs-wave2-program.md](rbs-wave2-program.md) |
-| rbs-native-validation | Tan TSS context, native TIS/TE and reporter validation with cyanobacterial claim gates. | 2026-10-16 | [rbs-native-validation.md](rbs-native-validation.md) |
+| rbs-native-validation | Tan TSS context, native TIS/TE and reporter validation with cyanobacterial claim gates. | 2026-10-17 | [rbs-native-validation.md](rbs-native-validation.md) |
 | rbs-comparator-landscape | Mechanistic/ML comparator roster, artifact gates and specialist improvement strategy. | 2026-10-16 | [rbs-comparator-landscape.md](rbs-comparator-landscape.md) |
 | reconstruction-contract | Define reproducible, fully open calculator reconstruction and release requirements. | 2026-10-16 | [reconstruction-contract.md](reconstruction-contract.md) |
 | source-map | Preserve pinned starting sources and known recovery gaps. | 2026-10-16 | [source-map.md](source-map.md) |

@@ -94,6 +94,36 @@ class NativeTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "outside"):
                 native.fetch_sources(path)
 
+    def test_unordered_metadata_canonicalization_retains_raw_receipt(self):
+        canonical = b"id\tvalue\na\t1\nb\t2\n"
+        raw = b"id\tvalue\nb\t2\na\t1\n"
+        source = {
+            "id": "metadata",
+            "name": "metadata.tsv",
+            "url": "https://example.invalid/metadata",
+            "bytes": len(canonical),
+            "sha256": digest(canonical),
+            "canonicalization": "tsv_header_sort_data_lines_v1",
+        }
+        with (
+            patch.object(native, "manifest", return_value={"sources": [source]}),
+            patch.object(native, "urlopen", return_value=io.BytesIO(raw)),
+        ):
+            self.assertEqual(native.fetch_sources(self.root), {"n_verified": 1})
+            self.assertEqual((self.root / "metadata.tsv").read_bytes(), raw)
+            self.assertEqual(native.checked_source(self.root, "metadata"), canonical)
+            receipt = json.loads(
+                (self.root / "metadata.tsv.retrieval.json").read_text()
+            )
+            self.assertEqual(receipt["raw_sha256"], digest(raw))
+            self.assertEqual(receipt["canonical_sha256"], digest(canonical))
+            self.assertEqual(native.fetch_sources(self.root), {"n_verified": 1})
+        for invalid in (b"", b"header", b"\na\n", b"id\tvalue\na\n", b"id\tvalue\n\n"):
+            with self.assertRaisesRegex(ValueError, "TSV"):
+                native.canonical_source(invalid, source)
+        with self.assertRaisesRegex(ValueError, "Unknown"):
+            native.canonical_source(raw, {"canonicalization": "other"})
+
     def test_fasta_valid_and_invalid(self):
         self.assertEqual(
             native.fasta_records("\n>x description\nacgt\nTT\n>y\nAAA\n"),

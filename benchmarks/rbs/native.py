@@ -22,10 +22,30 @@ def manifest():
     return json.loads(MANIFEST.read_text())
 
 
+def canonical_source(data, source):
+    """Canonicalize only explicitly declared unordered metadata, never measurements."""
+    rule = source.get("canonicalization")
+    if rule is None:
+        return data
+    if rule != "tsv_header_sort_data_lines_v1":
+        raise ValueError("Unknown source canonicalization rule")
+    lines = data.decode("utf-8").splitlines()
+    if (
+        len(lines) < 2
+        or not lines[0]
+        or any(
+            not line or len(line.split("\t")) != len(lines[0].split("\t"))
+            for line in lines[1:]
+        )
+    ):
+        raise ValueError("Invalid source TSV schema")
+    return (lines[0] + "\n" + "\n".join(sorted(lines[1:])) + "\n").encode()
+
+
 def checked_source(root, identity):
-    """Return exact pinned bytes; changed caches are never silently replaced."""
+    """Return pinned bytes, using only a source's explicit canonicalization rule."""
     source = next(row for row in manifest()["sources"] if row["id"] == identity)
-    data = (Path(root) / source["name"]).read_bytes()
+    data = canonical_source((Path(root) / source["name"]).read_bytes(), source)
     if len(data) != source["bytes"] or digest(data) != source["sha256"]:
         raise ValueError(f"Native source identity mismatch: {identity}")
     return data
@@ -43,10 +63,27 @@ def fetch_sources(root):
         if not path.exists():
             with urlopen(source["url"], timeout=30) as response:
                 data = response.read(source["bytes"] + 1)
-            if len(data) != source["bytes"] or digest(data) != source["sha256"]:
+            canonical = canonical_source(data, source)
+            if (
+                len(canonical) != source["bytes"]
+                or digest(canonical) != source["sha256"]
+            ):
                 raise ValueError(f"Downloaded source identity mismatch: {source['id']}")
             path.write_bytes(data)
             path.chmod(0o600)
+            if source.get("canonicalization"):
+                receipt = root / (source["name"] + ".retrieval.json")
+                write_json(
+                    receipt,
+                    {
+                        "url": source["url"],
+                        "raw_bytes": len(data),
+                        "raw_sha256": digest(data),
+                        "canonical_sha256": digest(canonical),
+                        "canonicalization": source["canonicalization"],
+                    },
+                )
+                receipt.chmod(0o600)
         checked_source(root, source["id"])
     return {"n_verified": len(manifest()["sources"])}
 

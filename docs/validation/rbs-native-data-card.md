@@ -1,6 +1,7 @@
 # Native RBS data and frozen evaluation
 
 - Purpose: Reproduce native evidence admission, leakage controls and independent evaluation without revealing final outcomes to model development.
+- Scope: PCC 6803 supplied-start relative TE, source provenance and outcome-blind native partitions.
 - Last verified: 2026-10-17
 - Owner: Session B; source/evaluation artifacts only.
 
@@ -13,7 +14,7 @@ TE values. It contains no formulas or Excel error cells; both TE columns contain
 2,530 numeric cells in General format. Use the stored TE, not a ratio reconstructed
 from rounded RPKM columns. Missing values and zero are distinct and never receive
 an invented pseudocount. The published first-60-amino-acid column is a numeric
-hydropathy feature, not a protein sequence.
+annotation, not a protein sequence. Its specific interpretation is unverified.
 
 The host is Synechocystis PCC 6803, 30°C, BG11 turbidostat, 200 µmol photons
 m−2 s−1 (90% red/10% blue), approximately 3.4% CO2 before removal. HC is −5 min;
@@ -110,3 +111,5 @@ python -m unittest discover -s tests/benchmarks
 Keep private directories mode 0700 and unpartitioned outcome files mode 0600.
 The extractor rejects repository-local raw-outcome destinations. Treat unknown
 assay conditions, unresolved mappings and missing labels as explicit limitations.
+
+ENA filereport row order is not stable. Only that metadata source uses the declared `tsv_header_sort_data_lines_v1` canonical identity; the fetcher retains raw bytes and their retrieval receipt. Experimental workbooks and genome files remain exact byte pins.
