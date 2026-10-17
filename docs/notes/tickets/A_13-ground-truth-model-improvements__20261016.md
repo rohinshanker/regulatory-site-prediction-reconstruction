@@ -3,9 +3,9 @@
 - Scope: Pursue a leading fully open experimental predictor through falsifiable comparisons, prioritizing cyanobacterial RBS prediction while preserving compatibility.
 - Status: active
 - Opened: 2026-10-16
-- Updated: 2026-10-16
-- Current State: Wave 2 active from `fc78dee42f934417f2bf905ae71b582903b7a949` on `wave2/rbs-models`. Own worktree created; real backend baseline and dependency-independent implementation underway. Session B owns evidence, held-out evaluation and browser.
-- Verification: Acceptance protocol specified below; all improvement experiments and software checks are pending.
+- Updated: 2026-10-17
+- Current State: Deterministic ridge math implemented and repaired after independent review; grouped development selection and frozen sequence/energy features underway. Six-family/eight-ridge-configuration initial plan declared before final outcomes. No model promoted; native development/split admission remains B-owned.
+- Verification: Ridge110tests100% branches with independent exact-solver/regression checks; grouped training23tests100%. Public136-case mechanism ablation complete, learned experiments/final evaluation pending.
 - Cleanup: Owning session records results including negative findings, distills reusable model/evaluation contracts, updates indexes and GitHub issue, then removes the resolved ticket.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/13
 - Priority: P0

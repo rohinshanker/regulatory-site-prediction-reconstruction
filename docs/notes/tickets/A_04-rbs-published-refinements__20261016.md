@@ -3,9 +3,9 @@
 - Scope: Reconstruct later published RBS mechanisms and production behavior.
 - Status: active
 - Opened: 2026-10-16
-- Updated: 2026-10-16
-- Current State: Historical profile preserved; real footprint-only and longer-context profiles implemented with schema 1.1, primary mechanism provenance and synthetic ablation. Independent B coordinate/parameter review and experimental comparisons pending. Later standby/sliding/drafting/stacking mechanisms remain unresolved; no production-equivalence claim.
-- Verification: 165 tests pass with the real pinned RNAstructure backend; 100% statements/branches, Ruff/mypy and scoped ticket validation pass. Historical shipped batch output is byte-identical to pinned baseline before release-version changes. Exact-patch review and independent experimental evaluation pending.
+- Updated: 2026-10-17
+- Current State: Historical science preserved; footprint/context profiles implemented and independently reviewed. All136 development cases score; footprint relative metrics unchanged, longer context has mixed accuracy. Later standby/sliding/drafting/stacking remain unresolved; no production equivalence.
+- Verification: 263-test integrated native checkpoint passed with real backend at100% statements/branches; refinement review low findings fixed in85fd8a5. Final evaluation and integrated release gates pending.
 - Cleanup: Owning session records final checks and unresolved findings, resolves the ticket, distills reusable guidance into docs/validation/, updates both indexes and linked GitHub issue, then removes the resolved ticket.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/4
 - Priority: P0

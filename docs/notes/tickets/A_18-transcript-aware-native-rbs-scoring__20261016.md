@@ -3,9 +3,9 @@
 - Scope: Implement portable transcript-aware native RBS scoring and coordinate export in the reconstruction repository.
 - Status: active
 - Opened: 2026-10-16
-- Updated: 2026-10-16
-- Current State: Wave 2 active from `fc78dee42f934417f2bf905ae71b582903b7a949` on `wave2/rbs-models`. Own worktree created; real backend baseline and dependency-independent implementation underway. Session B owns evidence, held-out evaluation and browser.
-- Verification: Existing runtime baseline is tested; new extraction/selection/export branches remain unimplemented.
+- Updated: 2026-10-17
+- Current State: Portable native JSON/GFF3 runtime implemented; B source pipeline integrated. All4808Tan contexts validated:2417 extractable,2375 unresolved starts,16 internal TSS,zero invalid records. Representative real batch succeeds with explicit unsupported cases; full batch and independent review running.
+- Verification: Seven independent coordinate fixtures and exhaustive small-genome path tests pass.90 source/runtime tests100% with real backend after structured-provenance integration. Fresh-wheel and final review remain.
 - Cleanup: Distill the final input/coordinate/runtime contract, update indexes and GitHub issue, then remove the resolved ticket after acceptance.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/18
 - Priority: P0

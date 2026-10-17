@@ -3,9 +3,9 @@
 - Scope: Validate and release the first fully usable open RBS calculator.
 - Status: active
 - Opened: 2026-10-16
-- Updated: 2026-10-16
-- Current State: Wave 2 active from `fc78dee42f934417f2bf905ae71b582903b7a949` on `wave2/rbs-models`. Own worktree created; real backend baseline and dependency-independent implementation underway. Session B owns evidence, held-out evaluation and browser.
-- Verification: Repository setup checked ticket H1/fields, queue membership and local links on 2026-10-16; implementation validation is specified below and has not run.
+- Updated: 2026-10-17
+- Current State: Wave2 release candidate0.2.0rc1 on wave2/rbs-models, stacked draft PR. Native/refinement/runtime and B source evidence integrated; learned experiments, independent review and final release gates in progress.
+- Verification: Native checkpoint263tests100% realbackend; source integration90focusedtests100%; ridge110tests100%; full unchanged final tree, fresh wheel and CI pending.
 - Cleanup: Owning session records final checks and unresolved findings, resolves the ticket, distills reusable guidance into docs/validation/, updates both indexes and linked GitHub issue, then removes the resolved ticket.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/6
 - Priority: P0

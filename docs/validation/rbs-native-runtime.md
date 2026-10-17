@@ -1,5 +1,9 @@
 # Native transcript-context runtime
 
+- Purpose: Define portable extraction, scoring, missingness and genomic export.
+- Scope: The native evidence adapter and its local CLI/library boundary.
+- Last verified: 2026-10-17
+
 The adapter consumes the [source-neutral evidence contract](rbs-native-input-contract.md)
 and preserves the full source record beside each prediction. It does not infer
 which TSS or historical/current CDS annotation is correct. Alternate scenarios
