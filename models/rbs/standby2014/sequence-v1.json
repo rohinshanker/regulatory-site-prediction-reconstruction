@@ -1,5 +1,5 @@
 {
-  "artifact_sha256": "1abeff858bc4b02e8e1cd0f5e105d7685febec97299735ff5fc01c65b5cb518e",
+  "artifact_sha256": "5af48fafd7b8bb5c992c26a06b928da5e8a31c3594e96d108a66f0c4777edf2b",
   "coefficients": [
     0.23292831835937922,
     0.0,
@@ -66,8 +66,7 @@
   ],
   "penalty": 136.0,
   "provenance": {
-    "code_commit": "05937604abb377940f45df15227da47559bcbf45",
-    "context_predictions_sha256": "fa8d51d29e7b4bb2e15605400a2f29081474f07788cb34b6b585eec9dc58b8d0",
+    "code_commit": "c0014aae510fc92557d9f4e781535734e6da3035",
     "data_licence": "CC-BY-3.0; Espah Borujeni et al. 2014 doi:10.1093/nar/gkt1139",
     "data_role": "development",
     "dataset_id": "standby2014:d74967eb964f1797138076ed12a35ef5f44c0ac3e87241e5186505503fd698f4",
@@ -99,7 +98,7 @@
     0.0,
     0.0
   ],
-  "score_scale": "log2_translation",
-  "training_sha256": "dcc0ab7eef228ec305911edf7246f1d75d146162c442a472eff76fc68fa0feb9",
-  "version": "ridge-log2-v1"
+  "score_scale": "log2_assay_response",
+  "training_sha256": "2bdc2c17c9cb6c6cb49b280eadf4d0e5028b707e0270c7ee3b6ab3ad2b9ce4be",
+  "version": "ridge-log2-assay-v1"
 }

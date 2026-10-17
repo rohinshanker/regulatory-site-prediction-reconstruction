@@ -1,5 +1,5 @@
 {
-  "artifact_sha256": "6665128b63fb654ae33a9a35a588ad8daa194381fa03b6c6f99929cad38fd963",
+  "artifact_sha256": "8837d60fae8b56a6577b1bea6949f5d782196c333d439ff5a3fca4414cd0e676",
   "coefficients": [
     0.1975148258933781,
     0.0,
@@ -81,11 +81,14 @@
   ],
   "penalty": 136.0,
   "provenance": {
-    "code_commit": "05937604abb377940f45df15227da47559bcbf45",
-    "context_predictions_sha256": "fa8d51d29e7b4bb2e15605400a2f29081474f07788cb34b6b585eec9dc58b8d0",
+    "code_commit": "c0014aae510fc92557d9f4e781535734e6da3035",
+    "context_results_sha256": "467b6aaf4df0d46c4648447f639973e18ca3fb7feea7fa4ed5dda1766bed69ec",
     "data_licence": "CC-BY-3.0; Espah Borujeni et al. 2014 doi:10.1093/nar/gkt1139",
     "data_role": "development",
     "dataset_id": "standby2014:d74967eb964f1797138076ed12a35ef5f44c0ac3e87241e5186505503fd698f4",
+    "energy_backend_sha256": "c8fbeb9fc2802db1ad9e4ba711d6893fd86baf304ca95005d6a47825f38c70d1",
+    "energy_collection_commit": "05937604abb377940f45df15227da47559bcbf45",
+    "energy_model_sha256": "9e22c4c9ad80d81e3c625d31511cf250575d8e58cd7919b9c7366c17b9ddc318",
     "feature_kind": "context-energy-sequence-v1",
     "feature_recipe": "19 sequence features; optional five context2017 energies",
     "split_id": "22-source-families-leave-one-family-out",
@@ -119,7 +122,7 @@
     4.344071846506737,
     0.0
   ],
-  "score_scale": "log2_translation",
-  "training_sha256": "126c79f6ad99d14435005f7ad1307757f061b211fa0ac72bc87e829f1d68b0a2",
-  "version": "ridge-log2-v1"
+  "score_scale": "log2_assay_response",
+  "training_sha256": "88bf9d401863ed04e277fbddbe543b88e43aa55dfbbf9ccc525dfadf83b5e2bf",
+  "version": "ridge-log2-assay-v1"
 }

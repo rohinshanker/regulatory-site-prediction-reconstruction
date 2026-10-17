@@ -18,7 +18,9 @@ The [recipe](../../../docs/validation/rbs-learning-runtime.md) uses fixed 19-fea
 sequence and 24-feature energy/sequence models. Four penalties per family were
 selected by leave-one-source-family-out validation, with fold-local scaling and
 intercepts. Both selected per-observation lambda 1.0, then fit all development rows.
-Exact source/recipe commit: `05937604abb377940f45df15227da47559bcbf45`. The artifacts
+Feature/recipe commit: `c0014aae510fc92557d9f4e781535734e6da3035`.
+Energy collection commit: `05937604abb377940f45df15227da47559bcbf45`; admitted
+cache SHA256 `fa8d51d29e7b4bb2e15605400a2f29081474f07788cb34b6b585eec9dc58b8d0`. The artifacts
 contain data/cache/input checksums, training statistics, weights and provenance;
 the adjacent selection JSON files retain all eight tested configurations.
 
