@@ -10,6 +10,9 @@ Only lists/tuples of finite Python ints/floats are accepted (booleans excluded).
 There are 1..10,000 rows and 1..64 features. Binary64 rounding applies; overflow,
 collapsed nonconstant scales and nonpositive Cholesky pivots raise ValueError.
 Penalties lost when added to a Gram diagonal are rejected explicitly.
+Cholesky also rejects a pivot/original-diagonal ratio below 2**-33. This
+feature-order-dependent heuristic screens severe local dependence; it is not a
+full-system condition-number estimate or a guarantee of coefficient accuracy.
 Provenance is caller-supplied nonsecret text, including dataset_id and split_id.
 No data access, target transformation, tuning or scientific evaluation occurs.
 """
@@ -27,6 +30,7 @@ from typing import ClassVar
 MAX_ROWS = 10_000
 MAX_FEATURES = 64
 VERSION = "ridge-log2-v1"
+_MIN_RELATIVE_PIVOT = 2.0**-33
 
 
 def _number(value: object, label: str) -> float:
@@ -107,6 +111,8 @@ class RidgeModel:
     The input fingerprint covers ordered rows, log2 responses, IDs, feature names,
     penalty, version and provenance after numeric validation/conversion to float.
     Returned JSON dictionaries and the original metadata cannot mutate the model.
+    Models are unhashable. JSON via to_dict/from_dict is the supported portability
+    boundary; pickle and deepcopy are unsupported.
     """
 
     feature_names: tuple[str, ...]
@@ -119,6 +125,7 @@ class RidgeModel:
     provenance: Mapping[str, str]
     version: str = VERSION
     score_scale: ClassVar[str] = "log2_translation"
+    __hash__: ClassVar[None] = None  # type: ignore[assignment]
 
     def __post_init__(self) -> None:
         if self.version != VERSION:
@@ -235,6 +242,11 @@ def _solve(gram: list[list[float]], rhs: list[float]) -> tuple[float, ...]:
                 if residual <= 0:
                     raise ValueError(
                         "nonpositive Cholesky pivot; increase ridge penalty"
+                    )
+                if residual / gram[i][i] < _MIN_RELATIVE_PIVOT:
+                    raise ValueError(
+                        "ill-conditioned Cholesky pivot; increase ridge penalty "
+                        "or remove dependent features"
                     )
                 lower[i][j] = sqrt(residual)
             else:

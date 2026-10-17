@@ -2,7 +2,9 @@
 
 import json
 import math
+from collections.abc import Hashable
 from dataclasses import FrozenInstanceError, replace
+from fractions import Fraction
 from hashlib import sha256
 
 import pytest
@@ -73,6 +75,94 @@ def test_constants_single_row_and_collinearity():
     assert duplicate.coefficients == pytest.approx((2 / 3, 2 / 3))
 
 
+@pytest.mark.parametrize(
+    "rows, targets, penalty",
+    [
+        ([[1, 1], [3, 3], [4, 4]], [2, 6, 7], 1e-15),
+        ([[0, 0], [1, 1 + 1e-9], [2, 2], [3, 3 - 1e-9]], [0, 1, 3, 2], 1e-14),
+    ],
+)
+def test_nearly_dependent_features_fail_closed(rows, targets, penalty):
+    with pytest.raises(ValueError, match="ill-conditioned Cholesky pivot"):
+        fit(
+            rows=rows,
+            responses_log2=targets,
+            record_ids=[str(i) for i in range(len(rows))],
+            feature_names=["x", "y"],
+            penalty=penalty,
+        )
+
+
+@pytest.mark.parametrize("magnitude", [1.0, 1e-200])
+def test_relative_pivot_guard_on_both_sides_of_threshold(magnitude):
+    # The second pivot/diagonal is approximately delta. Scaling the entire
+    # system preserves this ratio, so an absolute pivot cutoff would be wrong.
+    def gram(delta):
+        return [[magnitude, magnitude], [magnitude, magnitude * (1 + delta)]]
+
+    with pytest.raises(ValueError, match="ill-conditioned Cholesky pivot"):
+        _solve(gram(2**-34), [0, 0])
+    assert _solve(gram(2**-32), [0, 0]) == (0, 0)
+
+
+def exact_two_feature_solution(rows, targets, model):
+    """Independent rational 2x2 inverse in the model's stored coordinates."""
+    count = len(rows)
+    columns = [
+        [(Fraction(row[j]) - Fraction(center)) / Fraction(scale) for row in rows]
+        for j, (center, scale) in enumerate(zip(model.means, model.scales, strict=True))
+    ]
+    offsets = [sum(column) / count for column in columns]
+    u, v = [
+        [value - offset for value in column]
+        for column, offset in zip(columns, offsets, strict=True)
+    ]
+    average = sum(map(Fraction, targets)) / count
+    y = [Fraction(value) - average for value in targets]
+    a = sum(value * value for value in u) + Fraction(model.penalty)
+    b = sum(x * z for x, z in zip(u, v, strict=True))
+    c = sum(value * value for value in v) + Fraction(model.penalty)
+    d = sum(x * value for x, value in zip(u, y, strict=True))
+    e = sum(z * value for z, value in zip(v, y, strict=True))
+    determinant = a * c - b * b
+    weights = ((d * c - e * b) / determinant, (e * a - d * b) / determinant)
+    intercept = average - sum(x * w for x, w in zip(offsets, weights, strict=True))
+    return tuple(map(float, weights)), float(intercept)
+
+
+@pytest.mark.parametrize(
+    "rows, penalty",
+    [
+        ([[-1, -1], [-1, 1], [1, -1], [1, 1]], 1e-15),
+        ([[0, 0], [1, 1 + 1e-9], [2, 2], [3, 3 - 1e-9]], 1e-8),
+    ],
+)
+def test_conditioning_guard_accepts_justified_solutions(rows, penalty):
+    targets = [0, 1, 3, 2]
+    model = fit(
+        rows=rows,
+        responses_log2=targets,
+        record_ids=list("abcd"),
+        feature_names=["x", "y"],
+        penalty=penalty,
+    )
+    weights, intercept = exact_two_feature_solution(rows, targets, model)
+    assert model.coefficients == pytest.approx(weights, rel=1e-6, abs=1e-10)
+    assert model.intercept == pytest.approx(intercept, rel=1e-6, abs=1e-10)
+    assert model.predict([model.means]) == pytest.approx(
+        (intercept,), rel=1e-6, abs=1e-10
+    )
+    # An off-span row exposes coefficient errors hidden by training predictions.
+    off_span = [[model.means[0] + model.scales[0], model.means[1]]]
+    assert model.predict(off_span) == pytest.approx((intercept + weights[0],), rel=1e-6)
+
+
+def test_constant_column_with_tiny_penalty_is_not_ill_conditioned():
+    model = fit(rows=[[1, 1], [1, 3]], feature_names=["constant", "x"], penalty=1e-15)
+    assert model.coefficients == pytest.approx((0, 2))
+    assert model.predict([[1e308, 2]]) == (4,)
+
+
 def test_roundtrip_fingerprint_and_metadata_immutability():
     metadata = {"dataset_id": "synthetic", "split_id": "train", "note": "nonsecret"}
     model = fit(provenance=metadata)
@@ -107,6 +197,15 @@ def test_roundtrip_fingerprint_and_metadata_immutability():
         inputs, sort_keys=True, separators=(",", ":"), allow_nan=False
     )
     assert fit().training_sha256 == sha256(canonical.encode()).hexdigest()
+
+
+def test_model_is_explicitly_unhashable_with_json_portability():
+    model = fit()
+    assert model.__hash__ is None
+    assert not isinstance(model, Hashable)
+    with pytest.raises(TypeError, match="unhashable type: 'RidgeModel'"):
+        hash(model)
+    assert RidgeModel.from_dict(json.loads(json.dumps(model.to_dict()))) == model
 
 
 @pytest.mark.parametrize(
@@ -298,6 +397,19 @@ def test_unrepresentable_feature_mean_keeps_intercept_unpenalized():
     assert model.intercept == pytest.approx(3)
     assert model.predict([[1e16], [1e16 + 2]]) == pytest.approx((3, 5))
     assert fit(rows=[[-1e308], [1e308]], responses_log2=[0, 0]).scales == (1e308,)
+
+
+def test_rounded_target_mean_changes_the_exact_intercept():
+    # Exact target mean = 10**16 + 1, rounded down; exact feature mean =
+    # 10**16 + 3, rounded up. After centering, the exact ridge coefficient is
+    # 1/2 and the intercept in stored coordinates is 10**16 + 3/2, rounding
+    # to 10**16 + 2. Dropping target_offset instead rounds it to 10**16.
+    model = fit(rows=[[1e16 + 2], [1e16 + 4]], responses_log2=[1e16, 1e16 + 2])
+    assert model.means == (1e16 + 4,)
+    assert model.scales == (1,)
+    assert model.coefficients == (0.5,)
+    assert model.intercept == 1e16 + 2
+    assert model.predict([[1e16 + 4]]) == (1e16 + 2,)
 
 
 def test_resource_boundaries_and_text_limits():
