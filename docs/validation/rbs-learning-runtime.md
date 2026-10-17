@@ -115,3 +115,63 @@ then RMSE, then stronger penalty. Training and validation IDs and homology group
 must be disjoint. The selected artifact retains training-only weights: there is
 no refit on validation. The report ties its selected offset to the selected artifact SHA256.
 Preserve the offset alongside the artifact for independent evaluation; it is not silently folded into the raw learned prediction.
+
+The executable recipe admits the pinned public development data and split before
+fitting four fixed penalties. Sequence fitting needs no energy backend/cache:
+
+```sh
+RBS_CODE_COMMIT=$(git rev-parse HEAD)
+.venv/bin/python -m experiments.rbs.native_training \
+  benchmarks/rbs/karlsen2018-development.json benchmarks/rbs/native-splits.json \
+  .cache/native-models --kind sequence-v1 --code-commit "$RBS_CODE_COMMIT" \
+  --data-commit f28c0fc47b6fce5631f8bd5d30730e85cc75c959
+```
+
+For `context-energy-sequence-v1`, also supply `--context-predictions` and its
+independently admitted `--predictions-sha256`. The cache must retain all 2,530
+source IDs, including failures and input-only final cases; only released
+development IDs enter fitting. Its complete backend/model signatures must agree.
+Excluded cases remain in the report. Coverage eligibility is a separate decision,
+not a consequence of successfully fitting the retained subset.
+
+`python -m experiments.rbs.learning_curve --help` describes the three fixed
+nested homology-group diagnostics. It requires the exact selected model and
+selection-report file hashes, checks their original training fingerprint,
+calibration and validation predictions, and fits only 25/50/75% subsets at the
+already selected penalty. It never refits the full model or exports new weights.
+The [native model card](../../models/rbs/karlsen2018/README.md) pins the actual
+fit/diagnostic code and artifacts. Reproduction must not become additional
+selection against final outcomes.
+
+## Frozen inference from existing energy results
+
+`python -m experiments.rbs.inference --help` exposes an input-only collection
+recipe. It accepts exact source/model/code pins and, for an energy model, an
+exact cache pin. There are no backend calls, fitted coefficients, calibration
+adjustments or outcome fields. This is useful when the same expensive folds
+serve several predeclared ablations.
+
+The closed `rbs-learned-inference-input-1` envelope has `schema_version` and
+`records`. Each row has only `id`, `input`, `status` and `reason`: an `ok` row
+contains a standard RBS request with the same ID and null reason; an unsupported
+row contains null input and an explicit reason. The optional closed
+`rbs-learned-energy-cache-1` envelope has the same top-level keys, with rows
+containing only `id` and `prediction`. Cache IDs must exactly cover supported
+input IDs; each prediction is the complete original context2017 core result.
+
+Every parent's normalized sequence, orientation, explicit start, aSD and
+temperature must match, including failed parents. DNA/RNA spelling and source
+ID/host-label differences can be legitimate reuse: original IDs/hashes remain
+intact and host differences produce warnings. One consistent model/backend is
+required; a different digest from training remains explicitly warned. Invalid
+cache identity or successful energy terms reject admission before output.
+
+The `rbs-learned-inference-collection-1` result retains every source row, exact
+pins, parent provenance, domain/constant-feature warnings and explicit failures.
+`score_log2` is the raw learned response; `score` is its finite positive `2**x`
+conversion. Neither has the separately stored training calibration applied.
+Overflow and underflow are failures. Parent site-level reasons survive when the
+parent's aggregate reason is null. The deterministic collection checksum detects
+byte-independent content changes, not authenticity. CLI exits are 0 for complete
+success, 1 for retained unsuccessful rows and 2 for admission/setup errors;
+outputs cannot overwrite their inputs, including filesystem aliases.
