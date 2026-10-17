@@ -1,20 +1,27 @@
 # O_13-ground-truth-model-improvements__20261016 — Open
 
-- Scope: Implement and test scientifically justified improvements in experimental predictive accuracy, RBS first.
+- Scope: Pursue a leading fully open experimental predictor through falsifiable comparisons, prioritizing cyanobacterial RBS prediction while preserving compatibility.
 - Status: open
 - Opened: 2026-10-16
 - Updated: 2026-10-16
-- Current State: Improvement hypotheses are proposed; no improvement has been demonstrated or implemented.
+- Current State: Wave 1 baseline evaluated without tuning; no improved model demonstrated. Scope expanded to strong mechanistic/ML comparisons and a cyanobacterial specialist decision. Planned Wave 2 RBS owner is Session A.
 - Verification: Acceptance protocol specified below; all improvement experiments and software checks are pending.
 - Cleanup: Owning session records results including negative findings, distills reusable model/evaluation contracts, updates indexes and GitHub issue, then removes the resolved ticket.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/13
-- Priority: P1
-- Owner: Unclaimed.
-- Dependencies: Frozen data/splits and quality audit 12; relevant working calculator 03/06–09; 05 for optional production comparisons.
+- Priority: P0
+- Owner: Unclaimed; reserved for Session A's RBS slice when Wave 2 starts. Other calculator slices remain unassigned.
+- Dependencies: Frozen data/splits and audit 12/16; competitor/source decisions 01/17; transcript-aware runtime 18; relevant calculator 03/06–09; 05 for optional hosted comparisons.
 
 Preserve a compatibility profile while building a separately named improved
 profile. The user wants the best open predictor, so website agreement must not
 prevent a demonstrated improvement against experimental measurements.
+
+The expanded ambition is to outperform the strongest reproducible applicable
+methods, with a cyanobacterial specialist as the first focused target. Read the
+[comparison strategy](../../validation/rbs-comparator-landscape.md) and
+[Wave 2 program](../../validation/rbs-wave2-program.md). Do not promise universal
+superiority or conflate PCC 6803, UTEX 2973 and E. coli. Site localization and
+strength prediction require independent endpoints and evidence.
 
 ## Work
 
@@ -24,6 +31,15 @@ prevent a demonstrated improvement against experimental measurements.
 - Select a finite set of falsifiable changes from ticket 12. Start with corrected
   parameters/context and interpretable mechanisms; compare simple calibration,
   mechanistic refinements and, only if justified, learned residual models.
+- Compare simple regularized sequence/energy-feature models, a host-aware hybrid
+  and eligible pretrained transfer learning as data permit. Measure learning
+  curves and leave-context/study/host generalization. Keep pretraining exposure,
+  inference information, computational budget and calibration fair. No large
+  model trained only on 136 related constructs can establish broad superiority.
+- Freeze the contender roster, primary endpoint, minimum worthwhile gain,
+  subgroup/coverage tolerances and fit budget before final outcomes. If data
+  cannot distinguish a winner, deliver the tested negative/inconclusive finding
+  and ticket 16's costed prospective UTEX measurement proposal.
 - Apply analogous targeted analysis to Promoter host/sigma/context behavior,
   Operon submodel interaction/error propagation and Riboswitch concentration,
   affinity/constraint uncertainty. Avoid tuning unknown inputs to test outcomes.

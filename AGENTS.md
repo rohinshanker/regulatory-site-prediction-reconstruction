@@ -43,6 +43,16 @@
 - Predictions are not measurements. Distinguish host configuration from host
   calibration, start scoring from site discovery, and aptamer identification
   from conditional riboswitch scoring.
+- Follow `docs/validation/rbs-native-validation.md` for native evidence. Tan
+  2018 TSSs are transcription/context evidence, not translation-initiation labels.
+  Preserve alternate transcripts, assembly/annotation versions and unlabelled
+  sites; absence of an experimental peak is not automatically a negative.
+- The RBS program includes independently evaluated improvements beyond hosted
+  compatibility. Read `docs/validation/rbs-comparator-landscape.md` before selecting
+  learned components; review code, weights, training data and dependencies
+  separately. Keep final outcomes with the independent evaluator and freeze
+  candidate commits/settings before evaluation. No universal or native-host
+  superiority claim without task-matched independent evidence.
 
 ## Work and verification
 

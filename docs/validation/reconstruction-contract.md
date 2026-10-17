@@ -76,6 +76,17 @@ and checked against every stated sequence/structure constraint.
 
 ## Fully usable release
 
+For the RBS wave, apply [native validation](rbs-native-validation.md) and
+[comparator selection](rbs-comparator-landscape.md) in addition to the three
+questions above. Real experimental TSS context, TIS localization and translation
+strength are separate evidence types and require separate claims/metrics.
+Compare suitable mechanistic and learned methods; record pretrained-data overlap,
+code/weight/data permissions and coverage. Preserve the compatibility profile
+when developing a cyanobacterial specialist. A narrowly scoped, independently
+demonstrated improvement is the promotion target; universal superiority cannot
+be inferred from one reporter panel or website agreement.
+
+
 - Source and required model parameters are available under compatible open terms;
   preserve notices and supply a component/dependency inventory. No private
   `DNAc`, required NUPACK research licence, `.pyc`-only module, or account dependency.

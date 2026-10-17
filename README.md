@@ -11,6 +11,17 @@ scores, structures, coordinates and explicit failure/missingness. It is
 independent of De Novo DNA/Salis Lab; production equivalence and cyanobacterial
 calibration have not been established. The other calculators remain planned.
 
+**Wave 2 expands the RBS research goal beyond reconstruction.** Compare strong
+mechanistic and ML methods against experimental measurements, reconstruct native
+transcript context, and test whether a cyanobacterial specialist can outperform
+the strongest applicable baselines. “Best available” remains a hypothesis until
+independent evaluation supports it. See the [two-session program](docs/validation/rbs-wave2-program.md),
+[native validation](docs/validation/rbs-native-validation.md) and
+[comparator roster](docs/validation/rbs-comparator-landscape.md).
+Tan 2018 supplies transcription starts and RNA context, not measured translation
+starts or RBS strengths. Native site localization and strength prediction have
+separate validation gates.
+
 ## Run the RBS calculator
 
 Follow the [installation and validation contract](docs/validation/rbs-runtime.md)
@@ -30,12 +41,18 @@ labels do not select hidden defaults. See the [input schema](schemas/rbs-request
 
 ## Start a new implementation session
 
+For the next parallel wave, use the complete [Session A prompt](docs/prompts/wave2-session-a.md)
+and [Session B prompt](docs/prompts/wave2-session-b.md). Both start from the same
+final planning commit and create separate Wave 2 worktrees. The fourteen-hour
+budget includes integration and verification; the prompts do not launch themselves.
+
 1. Read [AGENTS.md](AGENTS.md) and the [live ticket queue](docs/notes/tickets/INDEX.md).
 2. Read the [source map](docs/validation/source-map.md),
    [reconstruction contract](docs/validation/reconstruction-contract.md), and
    [benchmark-quality assessment](docs/validation/benchmark-quality.md).
-3. Foundation 02 and reconstructed RBS baseline 03 are complete. Check current
-   owners before claiming refinement 04 or validation 06. Rename a claimed ticket from `O_` to `A_`, update its H1/status and index, and identify
+3. Foundation 02 and reconstructed RBS baseline 03 are complete. Wave 2 assigns
+   04/06/13/18 to Session A and the RBS slices of 01/05/12 plus 16/17 to Session B;
+   check current owners before claiming work. Rename a claimed ticket from `O_` to `A_`, update its H1/status and index, and identify
    the owning session. Work through RBS tickets 03–06 before implementing the
    other three calculators. Source discovery for those calculators may proceed
    independently; their incomplete discovery must not block RBS work.
@@ -45,7 +62,8 @@ labels do not select hidden defaults. See the [input schema](schemas/rbs-request
 5. Ship a reproducible RBS release and coordinate the consumer adapter under
    ticket 10. Then implement Promoter, Operon, and Riboswitch tickets 07–09 and
    complete design modes and the suite release under ticket 11.
-6. Run benchmark audit 12 alongside the RBS work. Use ticket 13 to test and release
+6. Run benchmark audit 12 and native/comparator validation 16/17 alongside RBS
+   implementation; 18 adds portable transcript-aware native scoring. Use ticket 13 to test and release
    improvements against experimental ground truth, while preserving the separately
    versioned production-compatibility profile.
 

@@ -278,11 +278,13 @@ commit/settings and retain full JSON output when auditing per-term differences.
 Keep evaluator/data pins fixed unless a separately reviewed source correction is
 required. A new inference run may use different binary hashes; preserve them.
 
-The single completed `w1-atg` live diagnostic matches the declared start but has
-materially different energies and initiation score. Raw numerical output and
+The `w1-atg` live diagnostic, the one compared with this reconstruction baseline,
+matches the declared start but has materially different energies and initiation score. Raw numerical output and
 the per-term comparison stay in the private acquisition directory because open
 redistribution terms were not established. No production equivalence is claimed.
 The public [acquisition manifest](../../benchmarks/rbs/live-acquisition.json)
 records v2.1.1, its 100-nt upstream window, 13-nt footprint, 8-kcal/mol search gap,
-and different energy tables. Ticket 04 must implement documented later mechanisms
+and different energy tables. B's full diagnostic acquisition now contains nine
+CSV exports, two explicit no-candidate results and one pre-execution form rejection;
+the additional reconstruction comparisons are next-wave work. Ticket 04 must implement documented later mechanisms
 as a distinct profile; tickets 05/06 retain live acquisition and release evaluation.
