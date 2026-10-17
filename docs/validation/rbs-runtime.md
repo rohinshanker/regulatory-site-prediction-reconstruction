@@ -3,6 +3,8 @@
 - Purpose: Reproduce the implemented RBS contract, installation and validation gates.
 - Scope: Historical profile and shared runtime; refined profiles and schema 1.1 are specified in [rbs-mechanisms.md](rbs-mechanisms.md).
 - Last verified: 2026-10-17
+- Optional repaired backend: [source, installation and admission contract](rbs-backend-repair.md).
+- New standby profile/schema1.2: [complete bounded mechanism contract](rbs-standby.md).
 
 ## Identity and equations
 

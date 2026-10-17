@@ -202,3 +202,32 @@ def test_validation_energy_failures_and_no_partial_over_limit_search():
             0,
             lambda pairs: pytest.fail(),
         )
+
+
+def test_exact_512_state_boundary_and_any_oracle_failure_aborts():
+    # Independent count: roots with C=257 and C=256 have 1+256+255=512.
+    # C=256 is 1+3*5*17, from a chain and two forks under another root.
+    first = "(" + "(...)" * 8 + ")"
+    second = "(" + "((...))" + "((...)(...))" + "(" + "(...)" * 4 + ")" + ")"
+    seen = set()
+
+    def evaluate(pairs):
+        assert pairs not in seen
+        seen.add(pairs)
+        return 100
+
+    result = optimize(structure(first + second), 0, evaluate)
+    assert result.evaluated_states == 512
+    assert len(seen) == 511
+    for failure_call in (1, 2, 3):
+        calls = []
+
+        def fail(pairs, calls=calls, failure_call=failure_call):
+            calls.append(pairs)
+            if len(calls) == failure_call:
+                raise BackendError("oracle failed")
+            return 100
+
+        with pytest.raises(BackendError, match="oracle failed"):
+            optimize(structure("(((...)))"), 0, fail)
+        assert len(calls) == failure_call

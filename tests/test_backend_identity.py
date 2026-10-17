@@ -101,3 +101,35 @@ def test_receipt_table_and_source_integrity(installation):
     path.mkdir()
     with pytest.raises(BackendError, match="unreadable"):
         backend.RnaStructure.open(root)
+
+
+@pytest.mark.parametrize("case", ["karlsen2018:SGL_RS10810", "karlsen2018:sll0085"])
+@pytest.mark.parametrize("profile", ["context2017", "standby2014"])
+def test_known_development_failures_are_repaired_without_dropping_states(
+    real_backend, case, profile
+):
+    # Read only public development sequence/settings, never experimental labels.
+    records = json.loads(
+        Path("benchmarks/rbs/karlsen2018-development.json").read_text()
+    )["records"]
+    row = next(record for record in records if record["id"] == case)
+    result = predict(
+        {
+            "id": case,
+            "sequence": row["sequence"],
+            "start_positions": [row["start"]],
+            "anti_sd": "ACCUCCUUU",
+            "temperature_c": 30,
+        },
+        real_backend,
+        profile=profile,
+    )
+    site = result["sites"][0]
+    if real_backend.identity.get("variant"):
+        assert site["status"] == result["status"] == "ok"
+        assert site["candidate_search"]["returned"] == 100
+        assert site["tir"] > 0
+    else:
+        assert site["status"] == result["status"] == "failed"
+        assert site["tir"] is None and site["energies"] is None
+        assert any(word in site["reason"] for word in ("reciprocal", "missing"))

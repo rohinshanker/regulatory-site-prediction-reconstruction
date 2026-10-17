@@ -31,6 +31,8 @@ separate validation gates.
 Follow the [installation and validation contract](docs/validation/rbs-runtime.md)
 to install the Python package and pinned open folding backend. Inference is
 local and needs no accounts, coins or network access after installation.
+The optional [traceback-repaired backend](docs/validation/rbs-backend-repair.md)
+fixes known malformed/missing folding results and identifies itself separately.
 
 ```sh
 export REGSITE_RNASTRUCTURE="/absolute/path/to/RNAstructure"

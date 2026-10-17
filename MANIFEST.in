@@ -6,3 +6,4 @@ recursive-include benchmarks *.py *.json *.md
 recursive-include experiments *.py
 recursive-include tests *.py
 recursive-include models *.json *.md
+recursive-include backends/rnastructure66 *.py *.json *.md *.patch LICENSE .gitattributes
