@@ -1,6 +1,7 @@
 """Train-only ridge fits selected on an explicit independent development partition."""
 
 import math
+import sys
 from collections.abc import Mapping
 from statistics import median
 
@@ -33,7 +34,7 @@ def fit_partitioned(
         not isinstance(penalties, tuple)
         or not 1 <= len(penalties) <= 4
         or any(
-            type(v) not in (int, float) or not math.isfinite(v) or v <= 0
+            type(v) not in (int, float) or not 0 < v <= sys.float_info.max
             for v in penalties
         )
         or len(set(penalties)) != len(penalties)
@@ -70,7 +71,9 @@ def fit_partitioned(
         not isinstance(validation_log2, list)
         or len(validation_log2) != len(validation_rows)
         or any(
-            type(v) not in (int, float) or not math.isfinite(v) for v in validation_log2
+            type(v) not in (int, float)
+            or not -sys.float_info.max <= v <= sys.float_info.max
+            for v in validation_log2
         )
     ):
         raise ValueError("validation targets must be finite log2 numbers")
@@ -120,6 +123,8 @@ def fit_partitioned(
         "train_groups": list(train_groups),
         "validation_groups": list(validation_groups),
         "selected_index": selected,
+        "selected_artifact_sha256": models[selected].to_dict()["artifact_sha256"],
+        "selected_calibration_log2": candidates[selected]["calibration_log2"],
         "configurations": candidates,
         "selection": "minimum validation row MAE, then RMSE, then stronger penalty",
         "calibration": "median train residual; never refit on validation/final",

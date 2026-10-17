@@ -24,8 +24,9 @@ retained. These are sequence statistics, never biological binding boundaries.
 successful `context2017` prediction: total, unbound mRNA, spacing, signed standby
 and isolated post-footprint energy. The signed standby term retains its sign.
 The extractor verifies sequence/hash, strand, aSD, temperature, explicit start,
-model identity and finite terms. Missing energy is unsupported, never zero-filled. Energy features require all 13 coding-footprint bases;
-shorter contexts are explicitly unsupported.
+model identity and finite terms. Missing energy is unsupported, never zero-filled. Energy features require all 13 coding-footprint bases plus at least one
+post-footprint base; shorter contexts are explicitly unsupported. One to three
+post-footprint bases legitimately have zero folding energy.
 The sequence feature module was frozen before fitting any assay outcomes.
 
 Ridge minimizes summed squared log2 residuals plus lambda times squared weights.
@@ -112,5 +113,5 @@ scales and coefficients. Each candidate's median training log2 residual is the
 explicit calibration offset. Validation selects the minimum calibrated row MAE,
 then RMSE, then stronger penalty. Training and validation IDs and homology groups
 must be disjoint. The selected artifact retains training-only weights: there is
-no refit on validation. Preserve the offset alongside the artifact for independent
-evaluation; it is not silently folded into the raw learned prediction.
+no refit on validation. The report ties its selected offset to the selected artifact SHA256.
+Preserve the offset alongside the artifact for independent evaluation; it is not silently folded into the raw learned prediction.

@@ -46,6 +46,8 @@ def test_validation_labels_never_fit_weights_or_calibration(monkeypatch):
     assert len(calls) == 2
     assert all(call[2]["record_ids"] == list("abcd") for call in calls)
     assert all(call[2]["penalty"] == 0.4 for call in calls)
+    assert report["selected_artifact_sha256"] == first.to_dict()["artifact_sha256"]
+    assert report["selected_calibration_log2"] == a["calibration_log2"]
     assert first.means == (1.5,)
     # Raw-x slope 23/11 and intercept 5/44 give residuals
     # [-5,-9,-13,27]/44, whose median is -7/44.
@@ -74,6 +76,7 @@ def test_deterministic_selection_and_exact_tie():
         {"penalties": (True,)},
         {"penalties": (0,)},
         {"penalties": (float("inf"),)},
+        {"penalties": (10**400,)},
         {"penalties": ("1",)},
         {"provenance": None},
         {"provenance": {"data_role": "final"}},
@@ -93,6 +96,7 @@ def test_deterministic_selection_and_exact_tie():
         {"validation_log2": [1]},
         {"validation_log2": [True, 2]},
         {"validation_log2": [float("nan"), 2]},
+        {"validation_log2": [10**400, 2]},
         {"train_log2": [False] * 4},
     ],
 )

@@ -108,3 +108,20 @@ def test_exact_tie_prefers_stronger_penalty_and_group_loss_is_balanced():
 def test_invalid_configuration_fails_closed(changes):
     with pytest.raises(ValueError):
         fit(**changes)
+
+
+def test_huge_integer_penalty_and_overflowing_loss_fail_explicitly():
+    from regsite.training import fit_grouped, grouped_losses
+
+    with pytest.raises(ValueError, match="penalties"):
+        fit_grouped(
+            [[0], [1], [2]],
+            [1, 2, 3],
+            feature_names=("x",),
+            record_ids=["a", "b", "c"],
+            groups=["a", "b", "c"],
+            provenance={"dataset_id": "x", "split_id": "x", "data_role": "development"},
+            penalties=(10**400,),
+        )
+    with pytest.raises(ValueError, match="finite numeric range"):
+        grouped_losses([1e308, 1e308], [0, 0], ["x", "x"])

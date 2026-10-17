@@ -7,6 +7,7 @@ selection diagnostics, not an unbiased final-test performance estimate.
 """
 
 import math
+import sys
 from collections import defaultdict
 from collections.abc import Mapping
 
@@ -20,10 +21,14 @@ def grouped_losses(targets: list[float], predictions: list[float], groups: list[
     errors: dict[str, list[float]] = defaultdict(list)
     for target, prediction, group in zip(targets, predictions, groups, strict=True):
         errors[group].append(abs(target - prediction))
-    mae = math.fsum(math.fsum(e) / len(e) for e in errors.values()) / len(errors)
-    rmse = math.sqrt(
-        math.fsum(e * e for values in errors.values() for e in values) / len(targets)
-    )
+    try:
+        mae = math.fsum(math.fsum(e) / len(e) for e in errors.values()) / len(errors)
+        rmse = math.sqrt(
+            math.fsum(e * e for values in errors.values() for e in values)
+            / len(targets)
+        )
+    except OverflowError as exc:
+        raise ValueError("development loss exceeds finite numeric range") from exc
     if not math.isfinite(mae) or not math.isfinite(rmse):
         raise ValueError("development loss exceeds finite numeric range")
     return mae, rmse
@@ -55,7 +60,7 @@ def fit_grouped(
         not isinstance(penalties, tuple)
         or not 1 <= len(penalties) <= 4
         or any(
-            type(value) not in (int, float) or not math.isfinite(value) or value <= 0
+            type(value) not in (int, float) or not 0 < value <= sys.float_info.max
             for value in penalties
         )
         or len(set(penalties)) != len(penalties)

@@ -4,7 +4,7 @@
 on columns standardized with training population statistics. The intercept is
 unpenalized. A zero scale explicitly marks a constant training column: it always
 contributes zero, including on new rows. Coefficients refer to standardized
-columns; predictions are log2 translation scores, never energies/probabilities.
+columns; predictions are log2 assay-response scores, never energies/probabilities.
 
 Only lists/tuples of finite Python ints/floats are accepted (booleans excluded).
 There are 1..10,000 rows and 1..64 features. Binary64 rounding applies; overflow,
