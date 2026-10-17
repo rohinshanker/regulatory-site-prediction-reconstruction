@@ -241,3 +241,36 @@ This recomputes reported prediction metrics; it is not an independent retraining
 or proof of fold isolation. Selection itself uses these 22 source families, and
 near-identical constructs can cross source-family boundaries. Treat the result as
 development evidence, never native-host or wholly independent study performance.
+
+## Exact-context reuse and learned output boundary
+
+`benchmarks.rbs.context_reuse` prepares only novel diurnal contexts, then combines
+unchanged upstream outputs. Parent selection is lexicographic by input identity
+before reading scores; failed parents remain failed. Sequence, supplied start,
+aSD and temperature must match exactly, and host spelling differences remain
+provenance. Karlsen's `strand` is genomic provenance; its stored sequences are
+already transcript-oriented. Diurnal v2 declares scoring strand `+` separately.
+The two comparator runs each reuse 986 contexts, infer 14 novel contexts, and
+retain 126 unadmitted source rows as unsupported. All 14 novel contexts score.
+Source input, parent output, novel output, upstream artifact and adapter hashes
+are checked before combination. No outcomes select reuse.
+
+`prediction_io.learned_predictions` checks prepared public inputs against the
+independently frozen source sequences, starts, aSD, temperatures and host labels,
+then binds output IDs to exact input/model/artifact hashes. An omitted request
+strand uses the public interface's `+` default; stored native genomic strand does
+not reverse an already oriented sequence. Scores must have consistent positive
+and log2 scales, and the export must declare calibration unapplied. This checks
+the public inference boundary, not training internals or feature arithmetic.
+
+The input-only [audit receipt](../../benchmarks/rbs/prediction-boundary-audit.json)
+pins all four native/diurnal learned collections and three diurnal mechanistic
+collections. B independently reproduced all 1,126 diurnal parent choices for
+each mechanistic profile and compared every reused original core object, status,
+prediction ID and host provenance. Final outcomes were not needed for this audit.
+
+```sh
+python -m benchmarks.rbs.context_reuse prepare "$DIURNAL_INPUT" "$KARLSEN_INPUT" "$NOVEL_INPUT" --target-sha256 c4a049cc1374d3db304a42efad596ee973f2eb05d1d1e53659fd059b21a246c4 --parent-sha256 9957f10416cd00dd2f5dae086db657d2d4eab22c119d4e2f955facd1eaca65d3
+python -m benchmarks.rbs.comparators ostir "$NOVEL_INPUT" "$NOVEL_PREDICTIONS"
+python -m benchmarks.rbs.context_reuse combine "$DIURNAL_INPUT" "$KARLSEN_INPUT" "$COMBINED" --target-sha256 c4a049cc1374d3db304a42efad596ee973f2eb05d1d1e53659fd059b21a246c4 --parent-sha256 9957f10416cd00dd2f5dae086db657d2d4eab22c119d4e2f955facd1eaca65d3 --parent-predictions "$PARENT_PREDICTIONS" --new-predictions "$NOVEL_PREDICTIONS"
+```

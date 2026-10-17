@@ -1,0 +1,103 @@
+{
+  "model_pins": {
+    "sequence-v1": [
+      "d104b86d96db076d2fb46512ec4d678024515d749c3846281f434fb91e31759a",
+      "c8814763a720082464f5140cb6052e7140f362e7031129a6d5344ef019e9f204"
+    ],
+    "context-energy-sequence-v1": [
+      "72677550caba08b15dabd108db49924f41872e17a6012e8236cfa67561cbfe0f",
+      "9668c3a8a01f259a020ef67dd8dad156cfea3252ec2f9488aaa55a7db67bb521"
+    ]
+  },
+  "collections": {
+    "karlsen-learned-sequence-v1.json": {
+      "sha256": "39d68d3f55750e032364fac7460c0d6bb9aa4571a729e9a5ffb4713576999ad4",
+      "normalized_sha256": "d6bf3432870771eba44b7470c7bd9d344536c6008479b020a8cc6740e187f867",
+      "statuses": {
+        "unsupported": 28,
+        "ok": 2502
+      }
+    },
+    "karlsen-learned-context-energy-sequence-v1.json": {
+      "sha256": "22e51a628059c50183ca46debc9e6c919f29fdb2b548f6adc00687f6498d2d20",
+      "normalized_sha256": "c8109bef01746c6d171cc1845e73d93b196ba8cd0a878fab6c52c76313d4ae4a",
+      "statuses": {
+        "unsupported": 28,
+        "ok": 2234,
+        "failed": 268
+      }
+    },
+    "diurnal-learned-sequence-v1.json": {
+      "sha256": "6d6c4ff0ae9958830fd5f5449acd13ade9242f13b1f658835b6e64c30ab50b24",
+      "normalized_sha256": "a621dff549c26db0a8849ea237aab78e385635942a4581c40985330abcd568cd",
+      "statuses": {
+        "ok": 1000,
+        "unsupported": 126
+      }
+    },
+    "diurnal-learned-context-energy-sequence-v1.json": {
+      "sha256": "99ca6c54bb59b229dc82f0d629827bc6a19cba1302c76bb7b237778101ea735b",
+      "normalized_sha256": "8e8fe251205eb01473cf18bc19288fa78cfca862c14cfe9ccce4b8401d4f532b",
+      "statuses": {
+        "failed": 107,
+        "ok": 893,
+        "unsupported": 126
+      }
+    },
+    "diurnal-historical-combined.json": {
+      "sha256": "2ea367dff4aa6a615381bc2ff562ab82c709251b259923cad827e2b58fb44c75",
+      "normalized_sha256": "bea8752bdc0194b3fc1b9cf56aae78580df21cc4b7bc8058d1211b90f9447d25",
+      "statuses": {
+        "ok": 955,
+        "no_candidate": 44,
+        "unsupported": 126,
+        "failed": 1
+      },
+      "independent_parent_choices_verified": 1126
+    },
+    "diurnal-footprint2017-combined.json": {
+      "sha256": "58b615a1d4cde8f19814bd19cd37db99a2945f3926e205586030af2b6ce667f1",
+      "normalized_sha256": "33405cea8d06a5b64c2bc7e7023ec0dcaafe578af8325a77a4ba69614e9b2b04",
+      "statuses": {
+        "ok": 955,
+        "no_candidate": 44,
+        "unsupported": 126,
+        "failed": 1
+      },
+      "independent_parent_choices_verified": 1126
+    },
+    "diurnal-context2017-combined.json": {
+      "sha256": "a6e3051788525389a964c462b142f52ab5d09f4b0cecb97376b0a8dc9f90a509",
+      "normalized_sha256": "56dd25b91b0d2d6a46b4ecddcc6668caf834c72c99f274e0ef1c82a928f7c059",
+      "statuses": {
+        "failed": 107,
+        "ok": 893,
+        "unsupported": 126
+      },
+      "independent_parent_choices_verified": 1126
+    }
+  },
+  "scope": "Input-only audit before final outcomes; no scoring/training internals inspected",
+  "upstream_diurnal": {
+    "ostir": {
+      "sha256": "e5a3c99560a3bd02fef3d704e91273d12881e4685ae24ae9dafcfb9065904a72",
+      "n_rows": 1126,
+      "n_reused": 986,
+      "n_novel": 14,
+      "n_unadmitted": 126,
+      "n_novel_success": 14,
+      "parent_predictions_sha256": "1026a374e0ec65460bf45df650622a9e3c274a4ba7f703249c46ce52cc8d77a6",
+      "new_predictions_sha256": "1819e54b3f8dd061c1da2062596353ba7bc16c0d093de6430fa6595ce3d8a03e"
+    },
+    "rebeca": {
+      "sha256": "64c319e1a5bec738323b3e1cb352ccee59ba66c131d9a71aca6277e87f32ff36",
+      "n_rows": 1126,
+      "n_reused": 986,
+      "n_novel": 14,
+      "n_unadmitted": 126,
+      "n_novel_success": 14,
+      "parent_predictions_sha256": "b67c4ca6f50eb1c2fe694ce96f528f3e2369a557c061f8365a1ee5baefa90e17",
+      "new_predictions_sha256": "1e0d561fad0bee2433b8f4f19170fd8faaf0ded0799e5f751e0cfd9efb8ed7dc"
+    }
+  }
+}

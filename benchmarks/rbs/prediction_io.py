@@ -2,11 +2,74 @@
 
 import argparse
 import json
+import math
 from pathlib import Path
 
 from benchmarks.rbs.datasets import digest, write_json
 from benchmarks.rbs.metrics import finite_number
 from benchmarks.rbs.positional_adapters import unique
+
+
+def learned_predictions(source, prepared_bytes, result, model_sha, artifact_sha):
+    """Audit the public cached-inference boundary without reading model features.
+
+    The source is an independently frozen supplied-context table. Prepared input
+    rows are checked against it, then exact source/model identities bind outputs.
+    No calibration, training implementation or feature arithmetic is imported.
+    """
+    original = unique(source)
+    prepared = unique(json.loads(prepared_bytes)["records"])
+    output = unique(result["records"])
+    if (
+        set(original) != set(prepared)
+        or set(original) != set(output)
+        or result["source_sha256"] != digest(prepared_bytes)
+        or result["model_sha256"] != model_sha
+        or result["artifact_sha256"] != artifact_sha
+        or result["calibration_applied"] is not False
+    ):
+        raise ValueError("Learned collection source/model/calibration identity drift")
+    predictions = []
+    for identity, row in original.items():
+        request = prepared[identity]["input"]
+        inferred = output[identity]
+        status, value = inferred["status"], inferred["score"]
+        if status not in {"ok", "failed", "unsupported", "no_candidate"}:
+            raise ValueError("Unknown learned collection status")
+        if request is not None and (
+            request["id"] != identity
+            or request["sequence"].replace("U", "T") != row["sequence"]
+            or request.get("strand", "+") != "+"
+            or request["start_positions"] != [row["start_position"]]
+            or request["temperature_c"] != row["temperature_celsius"]
+            or request["anti_sd"] != row["anti_sd"]
+            or request["host"] != row["host"]
+        ):
+            raise ValueError("Prepared learned input differs from frozen scenario")
+        if status == "ok":
+            if (
+                request is None
+                or prepared[identity]["status"] != "ok"
+                or not finite_number(value)
+                or value <= 0
+                or not finite_number(inferred["score_log2"])
+                or not math.isclose(
+                    math.log2(value), inferred["score_log2"], rel_tol=0.0, abs_tol=1e-12
+                )
+            ):
+                raise ValueError("Successful learned score lacks valid input/scale")
+        elif value is not None or inferred["score_log2"] is not None:
+            raise ValueError("Failed learned row must not supply a score")
+        predictions.append(
+            {
+                "id": identity,
+                "status": status,
+                "predicted": value,
+                "reason": inferred["reason"],
+                "scenario_verified": request is not None,
+            }
+        )
+    return predictions
 
 
 def native_predictions(inputs, result):
