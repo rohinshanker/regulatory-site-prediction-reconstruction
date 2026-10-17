@@ -151,8 +151,8 @@ backend integration tests:
 
 ```sh
 REGSITE_RNASTRUCTURE=/path/to/separate/RNAstructure \
-  .venv/bin/python -m pytest tests/test_standby.py tests/test_standby_runtime.py
-.venv/bin/regsite examples/rbs-single.json --profile standby2014
+  .venv/bin/python -m pytest tests/test_standby.py tests/test_standby_runtime.py tests/test_standby_reference.py
+.venv/bin/regsite examples/rbs-standby-hairpin.json --profile standby2014
 .venv/bin/regsite examples/rbs-batch.json --profile standby2014
 ```
 
@@ -170,3 +170,11 @@ settings first. Previously consumed Wave2 final outcomes cannot become a fresh
 holdout. Public 2014 development data may diagnose behavior but cannot establish
 independent superiority, native cyanobacterial calibration or hosted equivalence.
 Website collection and coin purchases are deferred for this wave.
+
+The synthetic hairpin example contains a six-pair upstream stem. With the pinned
+engine at 37 °C, the model evaluates seven opening states and retains the closed
+stem: its calculated unfolding cost exceeds the accessibility benefit. The
+returned accessibility penalty is 4.869 kcal/mol. This is a worked calculation,
+not an experimental expression measurement. Session B’s independent analytic
+fixtures are compared to the runtime in test_standby_reference.py, including the
+explicit difference between the printed polynomial and its declared continuation.

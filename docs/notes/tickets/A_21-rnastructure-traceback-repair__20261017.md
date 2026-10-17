@@ -4,8 +4,8 @@
 - Status: active
 - Opened: 2026-10-17
 - Updated: 2026-10-17
-- Current State: Structural reproduction/diagnosis begins from immutable RNAstructure6.6; scoped worker owns a separate backend worktree/component. Coordinator owns runtime integration.
-- Verification: Starting baseline 0a9fbd03326afc1baa918e85eb2dd7709f666b63 has 1,383 real-backend tests and four passing CI environments. New implementation checks are required below.
+- Current State: Version2 component integrates isolated W2/WMB2 trace states, matched fill guards, energy-class regression gates and safe builder preflight. Final focused review, fresh dual-backend gates and scientific freeze are underway. Original engines and frozen models are preserved.
+- Verification: Independent source review found and prompted W2 isolation. Worker checked 16 component tests, 60 synthetic and 12 development sequences, plus 14,000 recurrence cells. Coordinator freshly compiled arm64 version2; full integration gates underway.
 - Cleanup: Owner records final validation, distills reusable contracts, resolves/removes this ticket and its index row; broader #4 remains open where incomplete.
 - Owner: Session A (baf5b738-1792172297), wave3/rbs-mechanisms.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/21

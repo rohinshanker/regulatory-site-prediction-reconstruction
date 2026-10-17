@@ -38,7 +38,7 @@ def test_verified_receipt_is_explicit_and_changes_prediction_identity(installati
     assert "variant" not in original.identity
     (root / "traceback-build.json").write_text(json.dumps(receipt))
     patched = backend.RnaStructure.open(root)
-    assert patched.identity["variant"] == "rnastructure-6.6-traceback-1"
+    assert patched.identity["variant"] == "rnastructure-6.6-traceback-2"
     assert (
         patched.identity["build_provenance"]["patch_sha256"]
         == backend.TRACEBACK_PATCH_SHA256

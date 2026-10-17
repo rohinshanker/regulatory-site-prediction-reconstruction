@@ -156,8 +156,9 @@ def test_cli_uses_new_schema_without_changing_legacy(monkeypatch, capsys):
     assert result["schema_version"] == "1.2"
 
 
-def test_real_offline_standby_profile_and_term_identities(real_backend):
-    request_value = json.loads(Path("examples/rbs-single.json").read_text())
+@pytest.mark.parametrize("example", ["rbs-single", "rbs-standby-hairpin"])
+def test_real_offline_standby_profile_and_term_identities(real_backend, example):
+    request_value = json.loads(Path(f"examples/{example}.json").read_text())
     result = predict(request_value, real_backend, profile="standby2014")
     assert result["status"] == "ok"
     jsonschema.validate({"schema_version": "1.2", "results": [result]}, SCHEMA)

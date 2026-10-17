@@ -39,7 +39,7 @@ export REGSITE_RNASTRUCTURE="/absolute/path/to/RNAstructure"
 .venv/bin/regsite examples/rbs-single.json
 .venv/bin/regsite examples/rbs-batch.json --format csv
 .venv/bin/regsite examples/rbs-footprint.json --profile footprint2017
-.venv/bin/regsite examples/rbs-single.json --profile standby2014
+.venv/bin/regsite examples/rbs-standby-hairpin.json --profile standby2014
 ```
 
 A request supplies `sequence` and a 9-nt `anti_sd`; optional `start_positions`

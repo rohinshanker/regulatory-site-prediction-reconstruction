@@ -20,12 +20,12 @@ from tempfile import TemporaryDirectory
 from regsite.structures import BackendError, Structure, parse_ct, to_ct
 
 SOURCE_SHA256 = "1bedc62aaab984279055caaa6234d48fca113f4b8e17a8060e0b3784d5a397c3"
-TRACEBACK_COMPONENT = "rnastructure-6.6-traceback-1"
+TRACEBACK_COMPONENT = "rnastructure-6.6-traceback-2"
 TRACEBACK_PATCH_SHA256 = (
-    "01307e31001131c5693a99e4fe50db8a251c75ccde72e9049c07e94c6e456a10"
+    "2d599e7fa9f6581b605350508163c4aa14458ebb8f444c096e5f923c8742d671"
 )
 TRACEBACK_SOURCE_SHA256 = (
-    "5b1f4e4aa87c8e5d058e2787bd7da7dc12ba42bf443a718ab51859cd4eb52de4"
+    "6300df34e26fe674b6e87260cee69617130c015910e3ed67fd1b45aa1e2dca6c"
 )
 MAX_STRUCTURES = 100
 MAX_FOLD_NT = 200
