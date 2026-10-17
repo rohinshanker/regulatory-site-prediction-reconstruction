@@ -321,7 +321,8 @@ class CollectorTest(unittest.TestCase):
             )
             self.assertEqual((root / "timeout-text/one/stderr.txt").read_text(), "")
             self.assertEqual(
-                (root / "efn-timeout/one/efn2-stdout.txt").read_bytes(), b"energy partial"
+                (root / "efn-timeout/one/efn2-stdout.txt").read_bytes(),
+                b"energy partial",
             )
             self.assertEqual(
                 (root / "efn-timeout/one/efn2-stderr.txt").read_bytes(), b"energy error"
