@@ -43,10 +43,10 @@ jobs:
           fi
       - name: Static and full runtime gates
         run: |
-          ruff check src tests
-          ruff format --check src tests
-          mypy src/regsite
-          python -m pytest --cov=regsite --cov=benchmarks.rbs --cov-report=term-missing
+          ruff check src tests experiments
+          ruff format --check src tests experiments
+          mypy src/regsite experiments
+          python -m pytest --cov=regsite --cov=benchmarks.rbs --cov=experiments.rbs --cov-report=term-missing
           git diff --check
       - name: Build and run fresh offline wheel installation
         shell: bash
