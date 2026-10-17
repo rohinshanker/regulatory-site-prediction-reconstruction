@@ -2,7 +2,11 @@
 
 - Purpose: Keep experimental accuracy separate from implementation and hosted agreement.
 - Scope: Wave 1 RBS scoring at supplied starts; no site-discovery or native-cyano validation.
-- Last verified: 2026-10-16
+- Last verified: 2026-10-17
+
+Wave 2 native and secondary final results are recorded in the
+[frozen evaluation](rbs-wave2-results.md). Its primary native protocol is distinct
+from this historical/reporting-study scope; the 2017 panel remains secondary.
 
 ## Partitions and evaluator boundary
 

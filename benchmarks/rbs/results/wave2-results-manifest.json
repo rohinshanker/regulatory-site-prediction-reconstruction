@@ -1,0 +1,112 @@
+{
+  "schema_version": "rbs-wave2-evaluation-public-1",
+  "evaluated_utc_date": "2026-10-17",
+  "planning_baseline": "fc78dee42f934417f2bf905ae71b582903b7a949",
+  "B_evaluator_commit": "9bb479f0472a5e3285659ed872762eb4bd386329",
+  "A_freeze_commit": "dab5fb5956d12b57e0f8207bfded60dda370ec1c",
+  "A_freeze_sha256": "6315148ab9a11a60bdff1a8412c78cf5f57eb9be2acdfa6689b66376e218d4d4",
+  "runtime_export_commit": "7547778c508d4a31b4a4f95df370923ce8bd07c3",
+  "mechanistic_2017_live_runtime_commit": "5d9fed16004be23536dafa844543ce40d9f87d1a",
+  "results": {
+    "karlsen2018-final.json": {
+      "sha256": "b64fd03121c38c9fffc6f823d774946f9a230aeee8dda7815f8186e6cf7596c0",
+      "private_source_report": "primary-final-report.json",
+      "private_source_sha256": "a49330f670a334c7622db06dcefd9629552f2c7b3aa695a24594b9b6c730a518"
+    },
+    "karlsen2018-lc-secondary.json": {
+      "sha256": "c1e91dc6b8e0c7d88174f4c80c8efc693f4e28bbd276738e26f9c5d35a7a2b94",
+      "private_source_report": "secondary-LC-report.json",
+      "private_source_sha256": "dfb959e13d626c745b062a537435827acc3623a2b61eb6e148023569675ab509"
+    },
+    "karlsen2021-diurnal-secondary.json": {
+      "sha256": "6abf742c9c6ac4a87c47e1b1dd9daef1868eefbd062e2a98c2f3c34798577454",
+      "private_source_report": "secondary-diurnal-report.json",
+      "private_source_sha256": "46ab6056cabb118b0ed3a9091ab1a0cfce65c3c16a1c338b035af2ae61a6ea85"
+    },
+    "hadjeras2026-tis-secondary.json": {
+      "sha256": "d28b88628ce1445316231af7cbbfd440556f348c1f7c9b1851be90ab3a93dfee",
+      "private_source_report": "tis-final-report.json",
+      "private_source_sha256": "2cb7c5d3d65b02fa3c47394e46ba5646fde98b00b83ce420bbd7a5886c2f9df0"
+    },
+    "footprint2017-secondary.json": {
+      "sha256": "7b7c20b45f7a96f16144b6a3839af0a178b7865332348c3eaca912c531fa26eb",
+      "private_source_report": "footprint2017-final-report.json",
+      "private_source_sha256": "1ce507162462dd65aa0b578511e48524bb98c41b31d7c261f7fb0336c4e5e90f"
+    }
+  },
+  "protocol": {
+    "primary": "468 frozen PCC6803 HC genes /423 homology groups; two prespecified contrasts",
+    "references": [
+      "constant",
+      "OSTIR train-only affine"
+    ],
+    "selection": "native sequence-v1; hybrid coverage-ineligible before final outcomes",
+    "bootstrap": {
+      "repetitions": 10000,
+      "seed": 20261017,
+      "confidence_each": 0.975
+    },
+    "worthwhile_MAE_log2_gain": 0.2,
+    "promotion": false,
+    "secondary": "LC, five separate diurnal phases, TIS plain/weak tiers, 2017 fixed AEB-1 ratios; no selection/refit of weights",
+    "no_postfinal_tuning": true
+  },
+  "source_identities": {
+    "Karlsen2018_S2": "ac99487c400e2f753dc55dc9057978afca592b86b27bbeb26ab10b21e4e28eaa",
+    "native_inputs": "9957f10416cd00dd2f5dae086db657d2d4eab22c119d4e2f955facd1eaca65d3",
+    "native_splits": "d989341afcb3e463112e85134a322086d968a4cea6ad4b9cb4fa8cc893312409",
+    "diurnal_inputs": "c4a049cc1374d3db304a42efad596ee973f2eb05d1d1e53659fd059b21a246c4",
+    "diurnal_workbook": "38b907068044f28030d7e7e029e9bc35441a18548ae3ebc0ff56c45c956a54c4",
+    "TIS_v3_S1_S4": "c5ce6b83aae56f696a936f31af244277511115947e6003fb8ec4bcff3bee569a",
+    "TIS_inputs": "a82062067f43542c50b1beaa234426aad5dabdffcfaa42abf08047be1e7b9a5e",
+    "footprint2017_source": "c4eba651e85ff6cb7802df92d9f68fd5ea5a4ad137697f15c4d22db2967aa243",
+    "footprint2017_input": "00e738f49c4d31b9c1f92a17af046c33126d1710fdfd180d360cdade9c590805"
+  },
+  "source_cards": [
+    "docs/validation/rbs-native-data-card.md",
+    "docs/validation/rbs-secondary-native-studies.md",
+    "docs/validation/rbs-positional-evidence.md",
+    "docs/validation/rbs-benchmark-card.md",
+    "docs/validation/rbs-upstream-comparators.md"
+  ],
+  "diurnal_overlap": {
+    "partition_reuse_counts": {
+      "development_train": {
+        "reused": 572,
+        "new": 9
+      },
+      "development_validation": {
+        "reused": 204,
+        "new": 2
+      },
+      "final": {
+        "reused": 210,
+        "new": 3
+      }
+    },
+    "final_family_overlap_primary_training": 0,
+    "scope": "Input-only groups and exact contexts, not independent repeat measurements",
+    "input_sha256": "c4a049cc1374d3db304a42efad596ee973f2eb05d1d1e53659fd059b21a246c4"
+  },
+  "private_reproduction": {
+    "root": "~/.local/share/reg-site-reference/wave2",
+    "primary_manifest": "primary-final-manifest.json",
+    "LC_manifest": "secondary-LC-manifest.json",
+    "diurnal_manifest": "secondary-diurnal-manifest.json",
+    "TIS_manifest": "tis-final-manifest.json",
+    "2017_manifest": "footprint2017-final-manifest.json",
+    "primary_manifest_sha256": "6a5a4ddefd958afde843afdf060853ea283b0f41122be57d562cb94f1f8f3f8c",
+    "data_policy": "No raw final outcomes or per-case residuals in public Git. Source-specific scripts/manifests reconstruct permitted inputs; restricted source files remain separately acquired."
+  },
+  "rights": "Original aggregate analysis; no upstream code/weights/raw service exports or restricted measurements are redistributed by these result files. Component-specific notices remain in source ledgers.",
+  "independent_final_audit": {
+    "evaluator_target": "9bb479f0472a5e3285659ed872762eb4bd386329",
+    "passed_aggregate_pin_assertions": 9759,
+    "unresolved_numerical_mismatches": 0,
+    "method": "Separate standard-library arithmetic; no imports of benchmark metrics or A model implementations",
+    "review_sha256": "e81684d3e6fe2d7af8e56666aa4426beb4e2cdcb7a1789642db169969de192dd",
+    "aggregate_checks_sha256": "449640bfa4c0f56e7cc629841d025427778833f44762dd9d627c87ed3c0bd966",
+    "scope_limit": "Source joins checked against ingested outcomes; original workbook extraction and Prodigal projection were previously reviewed, not repeated; A training isolation not independently retrained",
+    "handling_exception": "Reviewer accidentally emitted private experimental records into its tool transcript. It reports no transfer to Session A and no records in deliverables. Further raw-data review was stopped; no credentials or live-site exports were involved."
+  }
+}

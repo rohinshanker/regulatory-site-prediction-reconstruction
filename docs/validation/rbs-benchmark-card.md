@@ -2,10 +2,14 @@
 
 - Purpose: Assess historical benchmark quality and distinguish it from current accuracy.
 - Scope: independently reproduced historical outputs and frozen new evaluation.
-- Last verified: 2026-10-16
+- Last verified: 2026-10-17
 - Machine-readable evidence: [manifest](../../benchmarks/rbs/dataset-manifest.json),
   [audit](../../benchmarks/rbs/historical-audit.json),
   [commands](../../benchmarks/rbs/README.md).
+
+Wave 2 native and secondary final results are recorded in the
+[frozen evaluation](rbs-wave2-results.md). Its primary native protocol is distinct
+from this historical/reporting-study scope; the 2017 panel remains secondary.
 
 ## Reproduced results and remaining discrepancies
 

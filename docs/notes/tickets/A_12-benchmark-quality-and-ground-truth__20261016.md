@@ -4,8 +4,8 @@
 - Status: active
 - Opened: 2026-10-16
 - Updated: 2026-10-17
-- Current State: Native homology-aware partitions and HC development release are frozen. Independent strength/calibration/paired-bootstrap and positive-only positional evaluators are implemented and tested. Final outcomes remain private pending exact contender freeze; broader suite audit remains active.
-- Verification: All 161 owned benchmark tests pass, 100% statement/branch coverage (2145/898); scoped Ruff passes. Independent review accepted the evaluator/control/live boundary package through06e9c16; exact-context reuse and learned boundary review is active. Real upstream/native prediction collections and source pins are retained; final labels remain sealed pending the unified freeze.
+- Current State: RBS frozen primary and secondary experimental evaluation is complete with independently reproduced metrics and no native promotion. Source/assay/overlap/uncertainty limits and reviewer handling exception are explicit in rbs-wave2-results.md. Wider-suite benchmark/ground-truth audit remains active.
+- Verification: RBS 161 owned tests, 100% statement/branch coverage (2149/900); independent final audit 9759 aggregate/pin assertions, zero numerical mismatches. Result/source/model identities and scope limits are in rbs-wave2-results.md and benchmarks/rbs/results/wave2-results-manifest.json.
 - Cleanup: Owning session records final checks and unresolved findings, distills reusable benchmark guidance, updates indexes and GitHub issue, then removes the resolved ticket.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/12
 - Priority: P0
