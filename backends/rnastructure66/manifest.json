@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "component": "rnastructure-6.6-traceback-1",
+  "license": "GPL-2.0-only",
+  "upstream": {
+    "version": "6.6",
+    "url": "https://rna.urmc.rochester.edu/Releases/rnastructure-6.6/RNAstructureSource.tgz",
+    "archive_sha256": "1bedc62aaab984279055caaa6234d48fca113f4b8e17a8060e0b3784d5a397c3",
+    "archive_bytes": 30765790,
+    "source_file": "src/algorithm.cpp",
+    "source_sha256": "c024b600aabfad624fa0d4dbcd2297b9aacdb654ad2e491686847b705fa343d8"
+  },
+  "patch": {
+    "file": "traceback.patch",
+    "sha256": "01307e31001131c5693a99e4fe50db8a251c75ccde72e9049c07e94c6e456a10",
+    "patched_source_sha256": "5b1f4e4aa87c8e5d058e2787bd7da7dc12ba42bf443a718ab51859cd4eb52de4"
+  },
+  "provenance": {
+    "basis": "Independent recurrence/traceback source analysis and deterministic development-only structural reproductions. No experimental outcomes used.",
+    "change": "Select one tied V decomposition; trace WMB2 with its own bifurcation/extension recurrence and matching energies, independently of ordinary WMB and unrestricted W2.",
+    "unchanged": "Dynamic-programming fill recurrence, thermodynamic parameters, candidate-pair heap ordering and enumeration limits."
+  }
+}

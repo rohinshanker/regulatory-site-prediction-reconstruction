@@ -1,0 +1,185 @@
+--- a/src/algorithm.cpp
++++ b/src/algorithm.cpp
+@@ -424,6 +424,33 @@
+ 
+ 	while (stack->pull(&i, &j, &open, &energy, &pair))
+ 	{
++		// State 3 is WMB2: an intermolecular exterior fragment with at least
++		// two branches. Keep its recurrence distinct from W2 and ordinary WMB.
++		if (pair == 3) {
++			found = false;
++			for (k = i; k < j && !found; k++) {
++				if (k != number && energy == w2->f(i, k) + w2->f(k + 1, j)) {
++					stack->push(i, k, 0, w2->f(i, k), 0);
++					stack->push(k + 1, j, 0, w2->f(k + 1, j), 0);
++					found = true;
++				}
++			}
++			if (!found && i != number && energy == wmb2->f(i + 1, j)
++					+ ((fce->f(i, i) & INTER) ? data->init - INFINITE_ENERGY : 0)) {
++				stack->push(i + 1, j, 0, wmb2->f(i + 1, j), 3);
++				found = true;
++			}
++			if (!found && j != number + 1 && energy == wmb2->f(i, j - 1)
++					+ ((fce->f(j, j) & INTER) ? data->init - INFINITE_ENERGY : 0)) {
++				stack->push(i, j - 1, 0, wmb2->f(i, j - 1), 3);
++				found = true;
++			}
++			if (!found) {
++				errmsg(100, 2);
++				tracebackerror = 1;
++			}
++			continue;
++		}
+ 		found = true;
+ 		// keep taking pairs off the stack until the stack is empty:
+ 		if (pair == 0) 
+@@ -916,48 +943,6 @@
+ 				j--;
+ 				energy = wmb->f(i, j);
+ 				if (i == j) break;
+-			}
+-			if (ct->intermolecular) 
+-			{
+-				while (energy == w2->f(i + 1, j)) 
+-				{
+-					i++;
+-					energy = w2->f(i, j);
+-					if (i == j) break;
+-				}
+-				while (energy == w2->f(i, j - 1)) 
+-				{
+-					j--;
+-					energy = w2->f(i, j);
+-					if (i == j) break;
+-				}
+-
+-				//Commented out by DHM (5/17/08) - Should be handled by wmb2
+-				//if (fce->f(i,i)&INTER) {
+-				//	if (energy==w2->f(i+1,j)-INFINITE_ENERGY+data->init) {
+-				//		i++;
+-				//		energy = w2->f(i,j);
+-				//	}
+-				//}
+-				//if (fce->f(j,j)&INTER) {
+-				//	if (energy==w2->f(i,j-1)-INFINITE_ENERGY+data->init) {
+-				//		j--;
+-				//		energy = w2->f(i,j);
+-				//	}
+-				//}
+-
+-				while (energy == w2->f(i + 1, j)) 
+-				{
+-					i++;
+-					energy = w2->f(i, j);
+-					if (i == j) break;
+-				}
+-				while (energy == w2->f(i, j - 1)) 
+-				{
+-					j--;
+-					energy = w2->f(i, j);
+-					if (i == j) break;
+-				}
+ 			}
+ 		}
+ 		if(pair == 2 || !found) 
+@@ -2081,51 +2066,10 @@
+ 					}
+ 					k++;
+ 				}
+-				if (ct->intermolecular) 
+-				{
+-					k = i + 1;
+-					while(k<j && !found) 
+-					{
+-						if (energy == w2->f(i, k) + w2->f(k+1, j)) 
+-						{
+-							stack->push(i, k, 0, w2->f(i, k), 0);
+-							stack->push(k+1, j, 0, w2->f(k+1, j), 0);
+-							found = true;
+-						}
+-						k++;
+-					}
+-					if (i!=number) 
+-					{
+-						if (!(fce->f(i, i) & INTER)) 
+-						{
+-							if (energy == wmb2->f(i+1, j) ) 
+-							{
+-								stack->push(i+1, j, 0, w2->f(i+1, j), 0); 
+-								found = true;
+-							}
+-						}
+-						else  if (energy == wmb2->f(i+1, j) + data->init - INFINITE_ENERGY) 
+-						{
+-							stack->push(i+1, j, 0, w2->f(i+1, j), 0);
+-							found = true;
+-						}
+-					}
+-					if ((j != number + 1) && (!found)) 
+-					{
+-						if (!(fce->f(j, j) & INTER)) 
+-						{
+-							if (energy == wmb2->f(i, j-1)) 
+-							{
+-								stack->push(i, j-1, 0, wmb2->f(i, j-1), 0);
+-								found = true;
+-							}
+-						}
+-						else if (energy == wmb2->f(i, j-1) + data->init-INFINITE_ENERGY) 
+-						{
+-							stack->push(i, j-1, 0, wmb2->f(i, j-1), 0);
+-							found = true;
+-						}
+-					}
++				if (ct->intermolecular && pair != 2 && !found
++						&& energy == wmb2->f(i, j)) {
++					stack->push(i, j, 0, wmb2->f(i, j), 3);
++					found = true;
+ 				}
+ 			}
+ 			if (i==j) found = true;
+@@ -2798,14 +2742,14 @@
+ 						k++;
+ 						}
+ 					}
+-				if (ct->intermolecular) 
++				if (ct->intermolecular && !found) 
+ 				{
+ 						if (energy == 
+ 									wmb2->f(i+1, j-1)
+ 									+ ptr_to_penalty(j,i, ct, data)
+ 									+ INFINITE_ENERGY) 
+ 						{
+-							stack->push(i+1, j-1, 0, wmb2->f(i+1, j-1), 2);
++							stack->push(i+1, j-1, 0, wmb2->f(i+1, j-1), 3);
+ 							found = true;
+ 						}
+ 						else if (energy == 
+@@ -2814,7 +2758,7 @@
+ 									+ ptr_to_erg4(i, j, i+1, 1, ct, data, lfce[i+1])
+ 									+ INFINITE_ENERGY) 
+ 						{
+-							stack->push(i+2, j-1, 0, wmb2->f(i+2, j-1), 2);
++							stack->push(i+2, j-1, 0, wmb2->f(i+2, j-1), 3);
+ 							found = true;
+ 						}
+ 						else if (energy == 
+@@ -2823,7 +2767,7 @@
+ 									+ ptr_to_erg4(i, j, j-1, 2, ct, data, lfce[j-1])
+ 									+ INFINITE_ENERGY) 
+ 						{
+-							stack->push(i+1, j-2, 0, wmb2->f(i+1, j-2), 2);
++							stack->push(i+1, j-2, 0, wmb2->f(i+1, j-2), 3);
+ 							found = true;
+ 						}
+ 						else if (energy == 
+@@ -2833,7 +2777,7 @@
+ 									+ multi_tstkm(i, j, i + 1, j - 1, ct)
+ 									+ checknp(lfce[i+1], lfce[j-1])) 
+ 						{
+-							stack->push(i+2, j-2, 0, wmb2->f(i+2, j-2), 2);
++							stack->push(i+2, j-2, 0, wmb2->f(i+2, j-2), 3);
+ 							found = true;
+ 						}
+ 				}
