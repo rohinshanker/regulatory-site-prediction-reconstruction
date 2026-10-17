@@ -42,12 +42,17 @@ bool pairable[64][64];
 void registerbasepair(CT *, int i, int j) { registered.push_back({i,j}); }
 void errmsg(int, int) {}
 bool can_pair(int i, int j) { return pairable[i][j]; }
-int ptr_to_penalty(int, int, CT *, Data *) { return 7; }
-int ptr_to_erg1(int, int, int, int, CT *, Data *) { return 11; }
-int ptr_to_erg4(int, int, int, int, CT *, Data *, bool forced) {
-    return forced ? INFINITE_ENERGY : 3;
+// Small positive argument-sensitive costs; these are not physical energies.
+int ptr_to_penalty(int a, int b, CT *, Data *) { return 1+(3*a+5*b)%23; }
+int ptr_to_erg1(int a, int b, int c, int d, CT *, Data *) {
+    return 1+(3*a+5*b+7*c+11*d)%29;
 }
-int multi_tstkm(int, int, int, int, CT *) { return 5; }
+int ptr_to_erg4(int a, int b, int c, int d, CT *, Data *, bool forced) {
+    return forced ? INFINITE_ENERGY : 1+(3*a+5*b+7*c+11*d)%31;
+}
+int multi_tstkm(int a, int b, int c, int d, CT *) {
+    return 1+(3*a+5*b+7*c+11*d)%37;
+}
 int checknp(bool a, bool b) { return a || b ? INFINITE_ENERGY : 0; }
 int main() {
     Grid vv, ww2, wwm2, ff;
@@ -78,8 +83,8 @@ int main() {
             if (j>0) ww2.values[i][j-1]=int(gen()%401)-200;
             wwm2.values[i][j]=int(gen()%401)-200;
             if (trial%20==0) {
-                // All legal stems tie at 7 or above; both strips tie at 7.
-                vv.reset(0); ww2.reset(7); wwm2.reset(7);
+                // Positive stem costs; both strips and WMB2 tie at zero.
+                vv.reset(0); ww2.reset(0); wwm2.reset(0);
                 std::fill(mod,mod+64,false); std::fill(lfce,lfce+64,false);
             }
             // The oracle is the unchanged source fill, not a rewritten formula.
@@ -105,19 +110,25 @@ int main() {
                 assert((j-i-1)>(2*minloop+2) || j>number);
             } else {
                 assert(child.pair==1);
-                int a=child.i, b=child.j, cost=7;
+                int a=child.i, b=child.j, cost=0;
                 if (!registered.empty()) {
                     assert(registered.size()==1);
                     a=registered[0].first; b=registered[0].second;
                     assert(child.i==a+1 && child.j==b-1);
-                    cost+=11; ++modified;
+                    cost+=ptr_to_erg1(a,b,child.i,child.j,ct,data); ++modified;
                 }
+                cost+=ptr_to_penalty(a,b,ct,data);
                 const int left=a-i, right=j-b;
                 assert(left>=0 && left<=1 && right>=0 && right<=1);
                 if (left) assert(i!=number);
                 if (right) assert(j!=number+1 && j!=1);
-                if (left && right) { cost+=5+checknp(lfce[i],lfce[j]); ++dangles[2]; }
-                else if (left || right) { cost+=3; ++dangles[left?0:1]; }
+                if (left && right) {
+                    cost+=multi_tstkm(b,a,j,i,ct)+checknp(lfce[i],lfce[j]); ++dangles[2];
+                } else if (left || right) {
+                    const int dangling=left?i:j, orientation=left?2:1;
+                    cost+=ptr_to_erg4(b,a,dangling,orientation,ct,data,lfce[dangling]);
+                    ++dangles[left?0:1];
+                }
                 assert(energy==child.energy+cost);
             }
             if (trial%20==0 && i<j && i!=number) assert(child.pair==4 && child.i==i+1);
@@ -170,7 +181,7 @@ int main() {
 
 
 class TraceStateTests(unittest.TestCase):
-    def test_handlers_against_unchanged_fill(self):
+    def make_program(self, wrong_penalty=False):
         root = Path(os.environ["RNASTRUCTURE66_PATCHED"])
         source = (root / "src/algorithm.cpp").read_text()
         component = Path(__file__).resolve().parents[1]
@@ -187,7 +198,13 @@ class TraceStateTests(unittest.TestCase):
         handlers = handlers[handlers.index("if (pair == 3)"):]
         handlers = handlers.split("\t\tfound = true;\n\t\t// keep taking pairs", 1)[0]
         program = HARNESS.replace("@W2_FILL@", w2).replace("@WMB2_FILL@", wmb2)
-        program = program.replace("@HANDLERS@", handlers)
+        if wrong_penalty:
+            call = "ptr_to_penalty(i + 1, j, ct, data)"
+            self.assertEqual(handlers.count(call), 2)
+            handlers = handlers.replace(call, "ptr_to_penalty(i, j, ct, data)")
+        return program.replace("@HANDLERS@", handlers)
+
+    def run_harness(self, program):
         compiler = "clang++" if platform.system() == "Darwin" else "g++"
         with tempfile.TemporaryDirectory() as directory:
             cpp, executable = Path(directory) / "states.cpp", Path(directory) / "states"
@@ -200,6 +217,18 @@ class TraceStateTests(unittest.TestCase):
             subprocess.run(command, check=True, capture_output=True, text=True)
             result = subprocess.run([str(executable)], capture_output=True, text=True,
                                     env=dict(os.environ, UBSAN_OPTIONS="halt_on_error=1"))
-            self.assertEqual(result.returncode, 0, result.stderr)
-            self.assertEqual(result.stderr, "")
-            print(result.stdout.strip())
+            return result
+
+    def test_handlers_against_unchanged_fill(self):
+        result = self.run_harness(self.make_program())
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(result.stderr, "")
+        print(result.stdout.strip())
+
+    def test_wrong_coordinate_penalty_is_detected(self):
+        # Mutate only extracted trace calls; the fill and child-cost oracle stay intact.
+        result = self.run_harness(self.make_program(wrong_penalty=True))
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("Assertion", result.stderr)
+        self.assertIn("tracebackerror", result.stderr)
+        print("Wrong-coordinate penalty mutation rejected by the harness.")

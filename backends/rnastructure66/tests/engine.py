@@ -21,6 +21,27 @@ class Structure:
     energy: Decimal | None
 
 
+def verify_installation(root, manifest):
+    """Bind the real tools and source to the declared component build receipt."""
+    root = Path(root)
+    receipt = json.loads((root / "traceback-build.json").read_text())
+    expected = {
+        "component": manifest["component"],
+        "source_archive_sha256": manifest["upstream"]["archive_sha256"],
+        "patch_sha256": manifest["patch"]["sha256"],
+        "patched_source_sha256": manifest["patch"]["patched_source_sha256"],
+    }
+    for field, value in expected.items():
+        if receipt.get(field) != value:
+            raise ValueError(f"Build receipt mismatch: {field}")
+    files = {manifest["upstream"]["source_file"]: expected["patched_source_sha256"]}
+    for name in ("Fold", "bifold", "efn2"):
+        files[f"exe/{name}"] = receipt["executable_sha256"][name]
+    for name, digest in files.items():
+        if hashlib.sha256((root / name).read_bytes()).hexdigest() != digest:
+            raise ValueError(f"Installed file hash mismatch: {name}")
+
+
 def parse_ct(text):
     """Parse CT while independently enforcing reciprocal, nested base pairs."""
     lines = text.splitlines()

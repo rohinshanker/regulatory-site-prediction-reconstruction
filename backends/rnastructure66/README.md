@@ -111,6 +111,22 @@ the state mismatch. The hand-checkable hairpin, unpaired strand and duplex are
 unaffected controls. Their first evaluated energies are −1.2, 0 and −11.6
 kcal/mol at 310.15 K; the hairpin has pairs (1,9), (2,8), (3,7).
 
+A residual **upstream ordinary-`W`/linker traceback failure remains**. With
+those same settings, synthetic seed 484/index 17 supplies leader
+`GGAGGGUAUAACAGUGAGUCACCUGAGGUGGUAAGGUUUGGAUAACUGCGUCUUAGCAGU`
+and anti-SD `ACCUCCUUU`. Both original and repaired engines print five
+`error # 2` messages, report `A traceback error occurred`, exit **0**, and
+write **no CT**. The public structural review traced it to unchanged tag-0
+ordinary `W` fragments containing the linker centre; the cause of their finite
+fill values remains unresolved. This component does not repair that recurrence.
+The independent runner rejects the result, and the gate requires both engines
+to fail closed on this exact input. Callers must inspect errors and CT presence
+rather than accepting exit status alone. Passing the 60-input panel below does
+not establish total coverage: the review's separate 70-input probe had 69 valid
+repaired searches versus 66 original (correcting its earlier 40/40 claim to
+39/40 on the initial subset). Application admission must preserve explicit
+backend failures.
+
 `efn2 --simple` is a separate fixed-structure evaluation path, not an independent
 thermodynamic parameter source. Its energies still differ from some native DP
 energies: 32/100 and 39/100 structures in the two development reproductions,
@@ -184,7 +200,12 @@ build. Every independently compiled executable has its own binary identity.
 
 Run from the repository root with an installed C++ compiler; no third-party Python packages or application
 imports are used. Both engine variables are mandatory and missing engines fail
-the gate instead of skipping it. Keep the original installation read-only.
+the gate instead of skipping it. Before running predictions, the gate compares
+`traceback-build.json` component, source-archive, patch and patched-source pins
+with the manifest, hashes the actual patched source and all three executables
+against the receipt, and checks the original source against its upstream pin.
+These consistency checks detect stale or changed installations; the receipt is
+not independent proof of binary provenance. Keep the original installation read-only.
 
 ```sh
 RNASTRUCTURE66_PATCHED=/new/user-owned/rnastructure66-traceback-2/RNAstructure \
@@ -210,8 +231,14 @@ The gate also extracts the actual handlers and unchanged fill from the pinned
 source and compiles a small deterministic DP-table harness with UBSan. It checks
 12,000 `W2` and 2,000 `WMB2` cells, boundaries, ties, modified-base/constraint
 predicates and failure paths without waiting for a sequence panel to visit them.
-Thermodynamic functions in that harness are stand-ins; it establishes local
-state correspondence, while the real tools supply structural/energy evidence.
+Thermodynamic stand-ins depend deterministically on their coordinate and
+orientation arguments; child costs are recomputed using the selected outer
+pair, inner pair and dangling bases. A mutation test requires rejection of
+`penalty(i,j)` substituted for `penalty(i+1,j)` in the extracted left-dangle
+handler. This establishes local state and energy-call correspondence under
+synthetic costs; it does not establish physical equivalence. The harness does
+not model SHAPE, and full constraint/modified-base behavior remains unverified
+through the real engine. The real tools supply the scoped structural/energy evidence.
 
 Validation is scoped to these deterministic cases and settings. It is not an
 exhaustive proof of RNAstructure correctness, support for every constraint or

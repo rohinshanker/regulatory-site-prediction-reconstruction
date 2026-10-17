@@ -8,12 +8,13 @@ import json
 import os
 from pathlib import Path
 import random
+import subprocess
 import tarfile
 import tempfile
 import unittest
 from unittest import mock
 
-from engine import Structure, energy_census, identity, linker_topology, parse_ct, run_engine
+from engine import Structure, energy_census, identity, linker_topology, parse_ct, run_engine, verify_installation
 
 
 COMPONENT = Path(__file__).resolve().parents[1]
@@ -129,12 +130,62 @@ class StructuralCheckerTests(unittest.TestCase):
                     self.assertEqual(parse_ct(ct(sequence, partners))[0].pairs, ((1, 4), (2, 3)))
 
 
+class InstallationIdentityTests(unittest.TestCase):
+    def test_receipt_and_installed_file_rejections(self):
+        manifest = json.loads((COMPONENT / "manifest.json").read_text())
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            files = {"src/algorithm.cpp": b"test source", **{
+                f"exe/{name}": name.encode() for name in ("Fold", "bifold", "efn2")}}
+            for name, content in files.items():
+                path = root / name
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_bytes(content)
+            # Independent small inputs avoid copying or altering a real install.
+            manifest["patch"]["patched_source_sha256"] = hashlib.sha256(files["src/algorithm.cpp"]).hexdigest()
+            receipt = {
+                "component": manifest["component"],
+                "source_archive_sha256": manifest["upstream"]["archive_sha256"],
+                "patch_sha256": manifest["patch"]["sha256"],
+                "patched_source_sha256": manifest["patch"]["patched_source_sha256"],
+                "executable_sha256": {name: hashlib.sha256(files[f"exe/{name}"]).hexdigest()
+                                      for name in ("Fold", "bifold", "efn2")},
+            }
+            receipt_path = root / "traceback-build.json"
+            receipt_path.write_text(json.dumps(receipt))
+            verify_installation(root, manifest)
+            for field in ("component", "source_archive_sha256", "patch_sha256", "patched_source_sha256"):
+                with self.subTest(field=field):
+                    receipt_path.write_text(json.dumps(dict(receipt, **{field: "wrong"})))
+                    with self.assertRaisesRegex(ValueError, f"Build receipt mismatch: {field}"):
+                        verify_installation(root, manifest)
+            receipt_path.write_text(json.dumps(receipt))
+            for name, content in files.items():
+                with self.subTest(file=name):
+                    (root / name).write_bytes(b"changed")
+                    with self.assertRaisesRegex(ValueError, f"Installed file hash mismatch: {name}"):
+                        verify_installation(root, manifest)
+                    (root / name).write_bytes(content)
+            receipt["executable_sha256"].pop("bifold")
+            receipt_path.write_text(json.dumps(receipt))
+            with self.assertRaises(KeyError):
+                verify_installation(root, manifest)
+            receipt_path.unlink()
+            with self.assertRaises(FileNotFoundError):
+                verify_installation(root, manifest)
+
+
 class EngineTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         # Missing engines must fail the gate, never silently skip it.
         cls.patched = Path(os.environ["RNASTRUCTURE66_PATCHED"])
         cls.original = Path(os.environ["RNASTRUCTURE66_ORIGINAL"])
+        manifest = json.loads((COMPONENT / "manifest.json").read_text())
+        verify_installation(cls.patched, manifest)
+        source = cls.original / manifest["upstream"]["source_file"]
+        if hashlib.sha256(source.read_bytes()).hexdigest() != manifest["upstream"]["source_sha256"]:
+            raise ValueError("Original source hash mismatch")
 
     def assert_multibranch_energy(self, structures, energies):
         for index, (structure, energy) in enumerate(zip(structures, energies, strict=True), 1):
@@ -142,6 +193,28 @@ class EngineTests(unittest.TestCase):
             if connected == "connected" and branches >= 2:
                 self.assertLessEqual(energy - structure.energy, Decimal("0.2"),
                                      f"structure {index}, linker branches={branches}")
+
+    def test_known_upstream_ordinary_w_linker_failure_fails_closed(self):
+        # Public review seed 484/index 17; upstream ordinary W (tag 0), not W2/WMB2.
+        sequence = "GGAGGGUAUAACAGUGAGUCACCUGAGGUGGUAAGGUUUGGAUAACUGCGUCUUAGCAGU"
+        real_run = subprocess.run
+        for root in (self.original, self.patched):
+            with self.subTest(root=root), tempfile.TemporaryDirectory() as directory:
+                results = []
+
+                def record_run(*args, **kwargs):
+                    result = real_run(*args, **kwargs)
+                    results.append(result)
+                    return result
+
+                with mock.patch("engine.subprocess.run", side_effect=record_run):
+                    with self.assertRaisesRegex(ValueError, "Folding failed: exit 0;"):
+                        run_engine(root, directory, sequence, "ACCUCCUUU")
+                self.assertEqual(len(results), 1)  # Never try to evaluate a missing CT.
+                self.assertEqual(results[0].returncode, 0)
+                self.assertIn("A traceback error occurred", results[0].stderr)
+                self.assertEqual(results[0].stderr.count("error # 2"), 5)
+                self.assertFalse((Path(directory) / "output.ct").exists())
 
     def test_frozen_structures_and_independent_energies(self):
         records = json.loads((REPOSITORY / "benchmarks/rbs/karlsen2018-development.json").read_text())["records"]
