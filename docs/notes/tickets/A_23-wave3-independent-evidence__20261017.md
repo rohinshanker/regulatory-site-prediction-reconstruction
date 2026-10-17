@@ -4,7 +4,7 @@
 - Status: active
 - Opened: 2026-10-17
 - Updated: 2026-10-17
-- Current State: Started from integrated 0a9fbd03326afc1baa918e85eb2dd7709f666b63 on wave3/b-evidence. Fourteen-case structural panel and two exhaustive tiny oracles completed; source checks for new RBS data and Promoter proceed independently.
+- Current State: Started from integrated 0a9fbd03326afc1baa918e85eb2dd7709f666b63 on wave3/b-evidence. Structural and Promoter packages independently reviewed with fixes verified. New Cambray335/Kuo261 input panels frozen without outcomes; source extraction and overlap audit proceed under independent evaluation boundaries.
 - Verification: Baseline/ownership/worktree and current GitHub state inspected; 10 structural tests, 100% statements/branches (198/96), plus analytic source fixtures, direct pinned-backend collection, 679 source/header byte comparisons pass; wider deliverables pending.
 - Cleanup: Distill reproducible evidence/contracts, record final checks, resolve and remove this ticket and row; keep broad suite tickets open.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/23

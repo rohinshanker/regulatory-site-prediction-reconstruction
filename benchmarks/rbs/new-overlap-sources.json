@@ -1,0 +1,42 @@
+{
+  "schema_version": "rbs-new-overlap-sources-1",
+  "assets": [
+    {
+      "path": "standby2014.json",
+      "sha256": "d74967eb964f1797138076ed12a35ef5f44c0ac3e87241e5186505503fd698f4",
+      "records_key": "records",
+      "start_field": "start",
+      "start_value": null
+    },
+    {
+      "path": "footprint2017-runtime-inputs.json",
+      "sha256": "c243a58d46fafd30950081216a7b9b52724a498b17c9ef5a55bff0d64e7c5239",
+      "records_key": null,
+      "start_field": "start_positions",
+      "start_value": null
+    },
+    {
+      "path": "karlsen-native-inputs.json",
+      "sha256": "9957f10416cd00dd2f5dae086db657d2d4eab22c119d4e2f955facd1eaca65d3",
+      "records_key": "records",
+      "start_field": null,
+      "start_value": 100
+    },
+    {
+      "path": "diurnal-context-inputs-v2.json",
+      "sha256": "c4a049cc1374d3db304a42efad596ee973f2eb05d1d1e53659fd059b21a246c4",
+      "records_key": "records",
+      "start_field": "start_position",
+      "start_value": null
+    },
+    {
+      "path": "tis-expanded-inputs.json",
+      "sha256": "1ebaf601d7182edacca97904803cadc9781bfc8781aedc3cad2e1ff46659c81b",
+      "records_key": "records",
+      "start_field": "start",
+      "start_value": null
+    }
+  ],
+  "context_rule": "Matched available interval within [-35,+70); similarity1-Levenshtein/length>=0.85; audit only, no outcome-based filtering",
+  "scope": "Consumed studies and development inputs:2014standby,2017footprint,Karlsen2018,diurnal2021,Hadjeras2025/2026 TIS designated contexts. Does not prove unknown upstream model training independence."
+}
