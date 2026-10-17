@@ -4,12 +4,12 @@
 - Status: active
 - Opened: 2026-10-16
 - Updated: 2026-10-17
-- Current State: Promoter published-column correlations and active parameters independently reproduced. New Cambray335 final and Kuo261 exposed-secondary panels frozen before extraction, with source completeness and prior-input overlap audits. New candidate evaluation awaits immutable models; broader suite audit remains active.
-- Verification: Wave3 benchmark suite and independent reviews are recorded in rbs-structural-fixtures.md, rbs-new-evaluation-data.md and promoter-source-and-benchmarks.md; source hashes, frozen split and aggregate audits are committed. Wave2 results remain unchanged.
+- Current State: Promoter published-column correlations, active parameters and 212 executed reference states independently reproduced. New Cambray335 final and Kuo261 exposed-secondary panels frozen before extraction, with source completeness and prior-input overlap audits. Reviewed Wave 4 protocol and evaluator are ready; candidate evaluation awaits A's final receipt and roster acknowledgement; broader suite audit remains active.
+- Verification: The benchmark suite passes 235 tests with 100% statement/branch coverage. Independent source execution, fixture and compatibility review is recorded in promoter-executed-reference.md; frozen input/source identities and evaluation rules are in rbs-new-evaluation-data.md and rbs-wave4-evaluation.md. Earlier results remain unchanged.
 - Cleanup: Owning session records final checks and unresolved findings, distills reusable benchmark guidance, updates indexes and GitHub issue, then removes the resolved ticket.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/12
 - Priority: P0
-- Owner: Session B (`9677689a-1792176763`), Wave3 evidence; branch `wave3/b-evidence`, baseline `0a9fbd03326afc1baa918e85eb2dd7709f666b63`.
+- Owner: Session B (`9677689a-1792176763`), Wave 4 evidence; branch `wave4/b-independent-evaluation`, baseline `73521a6ae3251678073dce76181ee5909b34fe8b`.
 - Dependencies: Start now from the source map; coordinate data pins/splits with 01, 05 and 06–09.
 
 The owner reports that older calculators were not close enough to ground truth
