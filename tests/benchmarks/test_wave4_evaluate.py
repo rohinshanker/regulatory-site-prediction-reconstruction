@@ -222,7 +222,12 @@ class EvaluationTest(unittest.TestCase):
         s = copy.deepcopy(split)
         s["selection_seed"] = "wrong"
         variants.append([protocol, inputs, s, receipt, collection])
-        for field in ("freeze_sha256", "protocol_sha256", "input_sha256"):
+        for field in (
+            "freeze_sha256",
+            "protocol_sha256",
+            "input_sha256",
+            "collector_sha256",
+        ):
             data = copy.deepcopy(collection)
             data[field] = "wrong"
             variants.append([protocol, inputs, split, receipt, data])
@@ -248,6 +253,125 @@ class EvaluationTest(unittest.TestCase):
                 with self.assertRaises(ValueError):
                     e.evaluate(self.manifest)
                 self.assertEqual(read.call_count, 5)
+
+    def test_semantic_and_raw_disagreements_reject_before_labels(self):
+        jobs = c.schedule(self.h.inputs["records"], self.h.receipt["configurations"])
+        index, (row, config) = next(
+            (i, job) for i, job in enumerate(jobs) if job[1]["kind"] == "mechanistic"
+        )
+        for field, value in (
+            ("status", "malformed"),
+            ("predicted", 999),
+            ("seconds", -1),
+            ("reason", None),
+        ):
+            changed = copy.deepcopy(self.collection)
+            prediction = next(
+                r
+                for r in changed["records_by_configuration"][config["id"]]
+                if r["id"] == row["id"]
+            )
+            prediction[field] = value
+            (self.directory / f"job-{index:06d}.json").write_bytes(
+                c.encoded(prediction)
+            )
+            path = self.directory / "collection.json"
+            path.write_bytes(c.encoded(changed))
+            self.manifest["collection"] = self.h.pin(path)
+            actual = e.checked_bytes
+            read_paths = []
+
+            def observe(spec, seen=read_paths, checked=actual):
+                seen.append(spec["path"])
+                return checked(spec)
+
+            with (
+                patch.object(e, "checked_bytes", side_effect=observe),
+                self.assertRaises(ValueError),
+            ):
+                e.evaluate(self.manifest)
+            self.assertNotIn(str(self.outcome_path), read_paths)
+
+    def test_execution_evidence_for_success_controls_and_every_failure(self):
+        row = self.h.inputs["records"][0]
+        config = self.h.receipt["configurations"][0]
+        valid_stdout = c.encoded(
+            dict(
+                id=row["id"],
+                input_sha256=c.digest(c.encoded(c.request(row))),
+                status="ok",
+                predicted=3,
+                reason="",
+            )
+        )
+        cases = [
+            ("not_run", "not_run", None, "collection_deadline", None, b"", b"", 0),
+            ("returned", "ok", 3, "", 0, valid_stdout, b"notice", 0.1),
+            (
+                "invalid_output",
+                "failed",
+                None,
+                "invalid_output",
+                0,
+                b"broken",
+                b"",
+                0.1,
+            ),
+            ("process_start", "failed", None, "process_start", None, b"", b"", 0.1),
+            ("process_exit", "failed", None, "process_exit", 2, b"", b"error", 0.1),
+            ("timeout", "timeout", None, "record_deadline", -9, b"partial", b"", 0.1),
+        ]
+        for (
+            execution,
+            status,
+            score,
+            reason,
+            exit_code,
+            stdout,
+            stderr,
+            seconds,
+        ) in cases:
+            prediction = dict(
+                execution=execution,
+                status=status,
+                predicted=score,
+                reason=reason,
+                exit_code=exit_code,
+                seconds=seconds,
+            )
+            e.audit_execution(prediction, row, config, stdout, stderr)
+            with self.assertRaises(ValueError):
+                e.audit_execution(
+                    dict(prediction, predicted=123), row, config, stdout, stderr
+                )
+        for execution, stdout in (("unknown", b""), ("invalid_output", valid_stdout)):
+            with self.assertRaises(ValueError):
+                e.audit_execution(
+                    dict(
+                        execution=execution,
+                        exit_code=0,
+                        status="failed",
+                        predicted=None,
+                        reason=execution,
+                    ),
+                    row,
+                    config,
+                    stdout,
+                    b"",
+                )
+        for kind in ("constant", "gc_content"):
+            prediction = dict(
+                execution="control",
+                exit_code=None,
+                status="ok",
+                predicted=c.control_score(row, kind),
+                reason="",
+            )
+            e.audit_execution(prediction, row, {"kind": kind}, b"", b"")
+            with self.assertRaises(ValueError):
+                e.audit_execution(
+                    dict(prediction, predicted=99), row, {"kind": kind}, b"", b""
+                )
 
     def test_cli_emits_aggregate_summary_only(self):
         path = self.h.root / "evaluation.json"

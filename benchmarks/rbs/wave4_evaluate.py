@@ -11,7 +11,14 @@ from pathlib import Path
 from benchmarks.rbs import wave4_metrics as metrics
 from benchmarks.rbs.datasets import digest
 from benchmarks.rbs.new_data import public_split, write_new_outputs
-from benchmarks.rbs.wave4_collect import checked_bytes, encoded, request, schedule
+from benchmarks.rbs.wave4_collect import (
+    checked_bytes,
+    control_score,
+    encoded,
+    normalized,
+    request,
+    schedule,
+)
 
 
 def common_point(reference, contender, minimum_rows):
@@ -152,6 +159,53 @@ def report(inputs, outcomes, collections, receipt, protocol):
     }
 
 
+def audit_execution(prediction, row, config, stdout, stderr):
+    """Substantiate normalized numbers from raw results or deterministic controls."""
+    actual = {k: prediction[k] for k in ("status", "predicted", "reason")}
+    execution, exit_code = prediction["execution"], prediction["exit_code"]
+    internal = config["kind"] in {"constant", "gc_content"}
+    empty = not stdout and not stderr
+    if execution == "not_run":
+        expected = dict(status="not_run", predicted=None, reason="collection_deadline")
+        valid = empty and exit_code is None and prediction["seconds"] == 0
+    elif internal:
+        expected = dict(
+            status="ok", predicted=control_score(row, config["kind"]), reason=""
+        )
+        valid = execution == "control" and exit_code is None and empty
+    elif execution == "returned":
+        expected = normalized(stdout, encoded(request(row)))
+        valid = type(exit_code) is int and exit_code == 0
+    else:
+        expected = dict(status="failed", predicted=None, reason=execution)
+        if execution == "invalid_output":
+            valid = type(exit_code) is int and exit_code == 0
+            try:
+                normalized(stdout, encoded(request(row)))
+            except (ValueError, KeyError, TypeError, OverflowError):
+                pass
+            else:
+                valid = False
+        elif execution == "process_start":
+            valid = exit_code is None and empty
+        elif execution in {"process_exit", "timeout"}:
+            valid = type(exit_code) is int and exit_code != 0
+            if execution == "timeout":
+                expected = dict(
+                    status="timeout", predicted=None, reason=prediction["reason"]
+                )
+                valid = valid and prediction["reason"] in {
+                    "record_deadline",
+                    "collection_deadline",
+                }
+        else:
+            valid = False
+    if not valid or actual != expected:
+        raise ValueError(
+            "Normalized prediction is inconsistent with execution evidence"
+        )
+
+
 def audit_prediction_receipts(inputs, collection, receipt, directory):
     """Check exact identity joins, request/config hashes and raw per-job evidence."""
     by_model = {
@@ -163,6 +217,11 @@ def audit_prediction_receipts(inputs, collection, receipt, directory):
         rows.keys() != source.keys() for rows in by_model.values()
     ):
         raise ValueError("Collection model/input identity drift")
+    # All semantic checks must precede reserved-label access. Null synthetic
+    # observations reuse the same join validator without reading any outcomes.
+    absent = [{"id": row["id"], "observed": None} for row in inputs["records"]]
+    for rows in by_model.values():
+        metrics.join(inputs["records"], absent, list(rows.values()))
     for number, (row, config) in enumerate(
         schedule(inputs["records"], receipt["configurations"])
     ):
@@ -174,13 +233,15 @@ def audit_prediction_receipts(inputs, collection, receipt, directory):
         stem = directory / f"job-{number:06d}"
         if stem.with_suffix(".json").read_bytes() != encoded(prediction):
             raise ValueError("Per-job receipt differs from collection")
+        evidence = {}
         for suffix in ("stdout", "stderr"):
-            checked_bytes(
+            evidence[suffix] = checked_bytes(
                 {
                     "path": str(stem.with_suffix("." + suffix)),
                     "sha256": prediction[suffix + "_sha256"],
                 }
             )
+        audit_execution(prediction, row, config, evidence["stdout"], evidence["stderr"])
 
 
 def evaluate(manifest):
@@ -201,6 +262,7 @@ def evaluate(manifest):
         or collection["freeze_sha256"] != digest(receipt_raw)
         or collection["protocol_sha256"] != digest(protocol_raw)
         or collection["input_sha256"] != digest(inputs_raw)
+        or collection["collector_sha256"] != receipt["collector_sha256"]
         or receipt["protocol"]["sha256"] != digest(protocol_raw)
         or receipt["inputs"]["sha256"] != digest(inputs_raw)
         or receipt["evaluation_authorized"] is not True
