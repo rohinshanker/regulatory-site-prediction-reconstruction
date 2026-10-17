@@ -60,8 +60,15 @@ The existing full-annotation homology components are inherited unchanged:
 together.986 of the1,000 primary contexts exactly match an existing Karlsen2018
 sequence/start/aSD/temperature request; deterministic predictions may be reused
 with an explicit source-output identity. No new family assignment or model fit
-uses diurnal outcomes. Input-only envelope SHA-256:
-`e17c2993a51d3585b622e5647ef2cf9099ef951f9de5b25c38089c0cc8b557be`.
+uses diurnal outcomes. Corrected input-only envelope SHA-256:
+`c4a049cc1374d3db304a42efad596ee973f2eb05d1d1e53659fd059b21a246c4`.
+Its contract is `rbs-diurnal-contexts-1`, not the complete native evidence schema.
+Sequences/starts are transcript-oriented with scoring `strand: "+"`;
+`genomic_strand` retains source direction. Use the supplied-start core adapter.
+The earlier envelope `e17c2993a51d3585b622e5647ef2cf9099ef951f9de5b25c38089c0cc8b557be`
+was mislabelled as the full native schema and used genomic `strand`; it is retained
+as superseded evidence, not overwritten. This input-only correction changes no
+identities, sequences, start positions, admissions, partitions or outcome bytes.
 `diurnal2021-admission-audit.json` retains counts and frozen-split identity.
 
 Predeclared secondary analysis: freeze champion/weights on the primary HC task;

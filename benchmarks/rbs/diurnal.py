@@ -117,6 +117,8 @@ def input_records(names, coordinates, genomes, features, splits):
             "primary_eligible": False,
             "sequence": None,
             "sequence_sha256": None,
+            "strand": "+",
+            "genomic_strand": None,
             "current_locus_tag": None,
             "group": None,
             "partition": None,
@@ -165,7 +167,7 @@ def input_records(names, coordinates, genomes, features, splits):
                     record.update(
                         mapping_status="exact_source_and_current_cds",
                         genome_id=replicon,
-                        strand=strand,
+                        genomic_strand=strand,
                         cds_start_zero_based=start,
                         sequence=context,
                         sequence_sha256=digest(context),
@@ -229,7 +231,10 @@ def prepare(root, genome_envelope, split_path, output):
         "eligibility_independent_of_model_output": True,
     }
     payload = {
-        "schema_version": "native-rbs-evidence-1",
+        "schema_version": "rbs-diurnal-contexts-1",
+        "sequence_orientation": (
+            "transcript; strand is scoring orientation, genomic_strand is provenance"
+        ),
         "genomes": genomes,
         "records": inputs,
         "source_workbook_sha256": WORKBOOK_SHA256,
