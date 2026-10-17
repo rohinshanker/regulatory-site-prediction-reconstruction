@@ -59,6 +59,7 @@ class EvaluationTests(unittest.TestCase):
         self.assertEqual(result["champion_contrasts"], {})
         result = evaluation.report(self.records, self.models, self.config, "final")
         self.assertEqual(result["n_evaluated"], 40)
+        self.assertEqual(result["descriptive_champion_contrasts"], {})
         self.assertEqual(result["models"]["champion"]["calibration"]["offset_log2"], -1)
         self.assertEqual(result["champion_contrasts"]["baseline"]["mae_log2_gain"], 2)
         self.assertTrue(
@@ -123,6 +124,9 @@ class EvaluationTests(unittest.TestCase):
         self.assertTrue(contrast["historical_spearman_gate"])
         self.assertTrue(contrast["upstream_spearman_gate"])
         self.assertIn("baseline", result["descriptive_champion_contrasts"])
+        self.assertFalse(
+            result["descriptive_champion_contrasts"]["baseline"]["confirmatory"]
+        )
         with self.assertRaises(ValueError):
             evaluation.report(
                 self.records, self.models, {**config, "upstream": "constant"}
@@ -130,6 +134,44 @@ class EvaluationTests(unittest.TestCase):
         self.models["constant"][0]["predicted"] = 2
         with self.assertRaisesRegex(ValueError, "constant model"):
             evaluation.report(self.records, self.models, config)
+
+    def test_validation_reports_crossed_success_sets_before_selection(self):
+        self.records = self.records[:5] + self.records[10:]
+        for row in self.records[5:]:
+            row["partition"] = "development_validation"
+        identities = {r["id"] for r in self.records}
+        self.models = {
+            name: [r for r in rows if r["id"] in identities]
+            for name, rows in self.models.items()
+        }
+        for row in self.models["baseline"]:
+            if row["id"] in {"10", "11"}:
+                row.update(status="failed", predicted=None)
+        for row in self.models["champion"]:
+            if row["id"] == "12":
+                row.update(status="failed", predicted=None)
+        result = evaluation.report(self.records, self.models, self.config)
+        paired = result["historical_common_case_diagnostics"]["champion"]
+        self.assertEqual(
+            (
+                paired["n_historical_success"],
+                paired["n_contender_success"],
+                paired["n_common_success"],
+            ),
+            (38, 39, 37),
+        )
+        self.assertEqual(paired["historical_valid_cases_dropped"], 1)
+        self.assertFalse(paired["reference_selection_coverage_eligible"])
+        self.assertEqual(paired["historical_common_metrics"]["n_submitted"], 37)
+        self.assertEqual(paired["contender_common_metrics"]["mae_log2"], 0)
+        for row in self.records[5:]:
+            row["observed"] = None
+        result = evaluation.report(self.records, self.models, self.config)
+        self.assertFalse(
+            result["historical_common_case_diagnostics"]["constant"][
+                "reference_selection_coverage_eligible"
+            ]
+        )
 
     def source(self):
         inputs = [
