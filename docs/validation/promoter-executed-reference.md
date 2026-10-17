@@ -90,6 +90,11 @@ under `HISTORICAL_ROOT/upstream/Promoter_Calculator/`. The tool checks their has
 before applying its explicit in-memory compatibility patch. Never use a mutable
 upstream branch or silently patch the installed fork.
 
+The serialized compatibility patch contains exactly six changed lines with no
+context markers; `git apply --unidiff-zero --whitespace=error` reproduces the
+same adapted bytes on a separate copy of the original files. The benchmark tool
+uses its hash-gated in-memory substitutions, leaving the original source intact.
+
 ```sh
 python -m pip install --require-hashes -r benchmarks/promoter/reference-requirements.txt
 python -m pip install setuptools==80.9.0 wheel==0.45.1

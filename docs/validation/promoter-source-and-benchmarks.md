@@ -149,6 +149,24 @@ not mean unseen by later predictors. Original Lagator CSVs have no located
 project-wide licence; article CC-BY does not settle that repository's terms.
 Johns2018 and PromoterAtlas2026 remain leads, not admitted benchmarks.
 
+The later [GSE144621 admission update](../../benchmarks/promoter/gse144621-admission-update.json)
+recovers the publisher's pinned reviewed-preprint v1 PDF, SHA256
+`0d3de36b5d48880b5ebef0b3a86b415678ad416c037ccd2d37ebbc14482e4d06`.
+Its Methods page 21 specifies MG1655 genomic landing pads and a 150-base local
+window from −120 to +30 around clustered TSSs; page 25 establishes **30°C** expression
+growth, with two biological and two technical preparations per biological replicate.
+The earlier 37°C/42°C steps are not the expression-growth condition. Page 38 and
+its linked licence identify article CC-BY-4.0. See the
+[publisher's exact PDF](https://raw.githubusercontent.com/elifesciences/enhanced-preprints-data/02e328ec4db0c6aaa097239df28048d9d63fc700/data/92558/v1/92558-v1.pdf).
+
+The author repository still has no located project-wide data/code grant; nested
+BBMap/deepTools notices do not supply one. Full reporter flanks, per-row construct
+identity and locus/family overlap remain unresolved. Reconcile the paper's design
+counts (17,635 TSS regions, 500 negative controls, 112 positive controls) with the
+previously acquired table before defining a denominator; do not invent exclusions
+from the count difference. No new measurement rows were read, predictions run or
+data redistributed for this update. The candidate remains reserved, not admitted.
+
 ## Reproduction and release handoff
 
 Recover the pinned seven raw GitHub files and Europe PMC supplementary archive
