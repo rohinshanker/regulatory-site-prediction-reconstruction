@@ -1,0 +1,257 @@
+{
+  "backend": {
+    "failure_policy": "retain failures; no invalid-structure filtering or success-based retries",
+    "interface": "separately licensed executables; exact binary digests in original core results",
+    "mechanistic_profiles": [
+      "historical",
+      "footprint2017",
+      "context2017"
+    ],
+    "name": "RNAstructure",
+    "native_seconds_per_batch": 3600,
+    "native_seconds_per_record": 60,
+    "source_archive_sha256": "1bedc62aaab984279055caaa6234d48fca113f4b8e17a8060e0b3784d5a397c3",
+    "subprocess_seconds": 15,
+    "table_manifest_sha256": "ece4c4b535783cb4e03c7ce8f243d09be84a165ecd113b1d20941b5ed8b69501",
+    "traceback_maximum": 100,
+    "version": "6.6"
+  },
+  "claims": "No production equivalence, native UTEX calibration or superiority assumed.",
+  "completed_learned_exports": [
+    {
+      "file": "karlsen-learned-sequence-v1.frozen.json",
+      "kind": "sequence-v1",
+      "panel": "karlsen",
+      "records": 2530,
+      "seconds": 0.1901207909686491,
+      "sha256": "8ca6d1c0fb53c65369eda7296a102a4f8d0d6faea0cac502fa9720587cb9c53c",
+      "successful": 2502,
+      "unchanged_from_previous_export_except_code_identity": true
+    },
+    {
+      "file": "karlsen-learned-context-energy-sequence-v1.frozen.json",
+      "kind": "context-energy-sequence-v1",
+      "panel": "karlsen",
+      "records": 2530,
+      "seconds": 1.662894207984209,
+      "sha256": "deefadb9441bd5fd208a877cbb740edc4634c4cd73efc84871d5ed7b91783095",
+      "successful": 2234,
+      "unchanged_from_previous_export_except_code_identity": true
+    },
+    {
+      "file": "diurnal-learned-sequence-v1.frozen.json",
+      "kind": "sequence-v1",
+      "panel": "diurnal",
+      "records": 1126,
+      "seconds": 0.11358029197435826,
+      "sha256": "3acf613c4113b3baa7e3b5f005678c8e0af2a6e1ba2c1b98da85d7d655bac6a6",
+      "successful": 1000,
+      "unchanged_from_previous_export_except_code_identity": true
+    },
+    {
+      "file": "diurnal-learned-context-energy-sequence-v1.frozen.json",
+      "kind": "context-energy-sequence-v1",
+      "panel": "diurnal",
+      "records": 1126,
+      "seconds": 0.615863332990557,
+      "sha256": "cc5361d27c54096e200cab6b9bb40287907fa77c8b58b31787f8205027aefe3d",
+      "successful": 893,
+      "unchanged_from_previous_export_except_code_identity": true
+    },
+    {
+      "file": "tis-learned-sequence-v1.frozen.json",
+      "kind": "sequence-v1",
+      "panel": "tis",
+      "records": 1020,
+      "seconds": 0.09976129198912531,
+      "sha256": "b9a4d98cd067e36a5a6a4c549da687348f06be9365d2e7f32aab928a9eae511f",
+      "successful": 1018,
+      "unchanged_from_previous_export_except_code_identity": true
+    }
+  ],
+  "evaluation_owner": "Session B 9677689a-1792176763",
+  "final_outcome_rule": "one frozen evaluation; no tuning from final or secondary outcomes; post-evaluation scientific changes require a new development cycle and untouched evaluation",
+  "fit_budget": {
+    "fixed_learning_curve_points": 6,
+    "further_search_allowed": false,
+    "named_model_calibration_families": 7,
+    "native": 8,
+    "public_2014": 8,
+    "stochastic_fits": 0,
+    "training_only_affine_controls": 2,
+    "unique_configurations": 24
+  },
+  "frozen_utc": "2026-10-17T03:53:00Z",
+  "immutable_checkout_name": "reconstruction-rbs-export-final-review",
+  "models": [
+    {
+      "artifact_sha256": "c8814763a720082464f5140cb6052e7140f362e7031129a6d5344ef019e9f204",
+      "feature_kind": "sequence-v1",
+      "file_sha256": "d104b86d96db076d2fb46512ec4d678024515d749c3846281f434fb91e31759a",
+      "native_training_only_offset_log2": 0.04659637563372265,
+      "path": "models/rbs/karlsen2018/sequence-v1.json",
+      "role": "native_finalist",
+      "selection_report": "models/rbs/karlsen2018/sequence-v1-selection.json",
+      "selection_report_sha256": "e0a389328ca16b432dd2d9ce08b1d30e602c924e3e0d2753726ccf5c4373c53d",
+      "training_provenance": {
+        "code_commit": "38d79d039e208935c4cc2e55823844bc87fe426d",
+        "data_commit": "f28c0fc47b6fce5631f8bd5d30730e85cc75c959",
+        "data_licence": "CC-BY-4.0; Karlsen et al. 2018 doi:10.1128/mSystems.00126-18; Figshare doi:10.6084/m9.figshare.6743276.v1 Table S2",
+        "data_role": "development",
+        "dataset_id": "karlsen2018-development:53ba87998de7e3d423fb7d6818db48a1bf93ede98bdb46bb6137b0119cfa39a4",
+        "feature_kind": "sequence-v1",
+        "sequence_rights": "NCBI public sequence facts; no blanket CC licence asserted",
+        "split_id": "d989341afcb3e463112e85134a322086d968a4cea6ad4b9cb4fa8cc893312409",
+        "target_name": "Karlsen2018 HC relative RPF_RPKM/RNA_RPKM TE assay proxy",
+        "target_units": "log2 relative TE proxy; not an initiation rate",
+        "training_domain": "{\"anti_sd\": [\"ACCUCCUUU\"], \"hosts\": [\"Synechocystis sp. PCC 6803\"], \"temperatures_c\": [30]}"
+      }
+    },
+    {
+      "artifact_sha256": "9668c3a8a01f259a020ef67dd8dad156cfea3252ec2f9488aaa55a7db67bb521",
+      "feature_kind": "context-energy-sequence-v1",
+      "file_sha256": "72677550caba08b15dabd108db49924f41872e17a6012e8236cfa67561cbfe0f",
+      "native_training_only_offset_log2": 0.039102431228718926,
+      "path": "models/rbs/karlsen2018/context-energy-sequence-v1.json",
+      "role": "coverage_ineligible_native_ablation",
+      "selection_report": "models/rbs/karlsen2018/context-energy-sequence-v1-selection.json",
+      "selection_report_sha256": "d5748ca9f715c68d7446e1d966330a961adf911d60e107b0884ec45ded25cc38",
+      "training_provenance": {
+        "code_commit": "870cd59a1f050d88431bd19825652acc46bdd9b3",
+        "context_results_sha256": "9d71cd15ad5a121cc7cef3bccdee56e1baf4973b540be7e136556ae9275ab98d",
+        "data_commit": "f28c0fc47b6fce5631f8bd5d30730e85cc75c959",
+        "data_licence": "CC-BY-4.0; Karlsen et al. 2018 doi:10.1128/mSystems.00126-18; Figshare doi:10.6084/m9.figshare.6743276.v1 Table S2",
+        "data_role": "development",
+        "dataset_id": "karlsen2018-development:53ba87998de7e3d423fb7d6818db48a1bf93ede98bdb46bb6137b0119cfa39a4",
+        "energy_backend_sha256": "c8fbeb9fc2802db1ad9e4ba711d6893fd86baf304ca95005d6a47825f38c70d1",
+        "energy_model_sha256": "9e22c4c9ad80d81e3c625d31511cf250575d8e58cd7919b9c7366c17b9ddc318",
+        "feature_kind": "context-energy-sequence-v1",
+        "sequence_rights": "NCBI public sequence facts; no blanket CC licence asserted",
+        "split_id": "d989341afcb3e463112e85134a322086d968a4cea6ad4b9cb4fa8cc893312409",
+        "target_name": "Karlsen2018 HC relative RPF_RPKM/RNA_RPKM TE assay proxy",
+        "target_units": "log2 relative TE proxy; not an initiation rate",
+        "training_domain": "{\"anti_sd\": [\"ACCUCCUUU\"], \"hosts\": [\"Synechocystis sp. PCC 6803\"], \"temperatures_c\": [30]}"
+      }
+    },
+    {
+      "artifact_sha256": "8837d60fae8b56a6577b1bea6949f5d782196c333d439ff5a3fca4414cd0e676",
+      "feature_kind": "context-energy-sequence-v1",
+      "file_sha256": "b3e1e5e8adad6ba48c10fe77349b1805382cc72f6f05ad5cb4568b7a049da9ac",
+      "native_training_only_offset_log2": null,
+      "path": "models/rbs/standby2014/context-energy-sequence-v1.json",
+      "role": "external_reporter_finalist",
+      "selection_report": "models/rbs/standby2014/context-energy-sequence-v1-selection.json",
+      "selection_report_sha256": "e24304a16693c0a13b449c4b23636e8032f845ab80009fe9b11ff88cbf3fef74",
+      "training_provenance": {
+        "code_commit": "c0014aae510fc92557d9f4e781535734e6da3035",
+        "context_results_sha256": "467b6aaf4df0d46c4648447f639973e18ca3fb7feea7fa4ed5dda1766bed69ec",
+        "data_licence": "CC-BY-3.0; Espah Borujeni et al. 2014 doi:10.1093/nar/gkt1139",
+        "data_role": "development",
+        "dataset_id": "standby2014:d74967eb964f1797138076ed12a35ef5f44c0ac3e87241e5186505503fd698f4",
+        "energy_backend_sha256": "c8fbeb9fc2802db1ad9e4ba711d6893fd86baf304ca95005d6a47825f38c70d1",
+        "energy_collection_commit": "05937604abb377940f45df15227da47559bcbf45",
+        "energy_model_sha256": "9e22c4c9ad80d81e3c625d31511cf250575d8e58cd7919b9c7366c17b9ddc318",
+        "feature_kind": "context-energy-sequence-v1",
+        "feature_recipe": "19 sequence features; optional five context2017 energies",
+        "split_id": "22-source-families-leave-one-family-out",
+        "target_name": "mean mRFP1 fluorescence (translation proxy)",
+        "target_units": "log2 source fluorescence arbitrary units",
+        "training_domain": "{\"hosts\": [\"Escherichia coli DH10B (configuration only)\"], \"anti_sd\": [\"ACCUCCUUA\"], \"temperatures_c\": [37]}"
+      }
+    },
+    {
+      "artifact_sha256": "5af48fafd7b8bb5c992c26a06b928da5e8a31c3594e96d108a66f0c4777edf2b",
+      "feature_kind": "sequence-v1",
+      "file_sha256": "90081b12780af1bbfca508ced58de3a0ed7a488eca0ceb26efa43f19c0d9b36b",
+      "native_training_only_offset_log2": null,
+      "path": "models/rbs/standby2014/sequence-v1.json",
+      "role": "external_reporter_ablation",
+      "selection_report": "models/rbs/standby2014/sequence-v1-selection.json",
+      "selection_report_sha256": "7bdefb1b727493c3e96248e56384e7d8cd1bb8a41f370be3c35c842514507f89",
+      "training_provenance": {
+        "code_commit": "c0014aae510fc92557d9f4e781535734e6da3035",
+        "data_licence": "CC-BY-3.0; Espah Borujeni et al. 2014 doi:10.1093/nar/gkt1139",
+        "data_role": "development",
+        "dataset_id": "standby2014:d74967eb964f1797138076ed12a35ef5f44c0ac3e87241e5186505503fd698f4",
+        "feature_kind": "sequence-v1",
+        "feature_recipe": "19 sequence features; optional five context2017 energies",
+        "split_id": "22-source-families-leave-one-family-out",
+        "target_name": "mean mRFP1 fluorescence (translation proxy)",
+        "target_units": "log2 source fluorescence arbitrary units",
+        "training_domain": "{\"hosts\": [\"Escherichia coli DH10B (configuration only)\"], \"anti_sd\": [\"ACCUCCUUA\"], \"temperatures_c\": [37]}"
+      }
+    }
+  ],
+  "native_primary": {
+    "anti_sd": "ACCUCCUUU",
+    "confirmatory_simple_control": "training_median_constant",
+    "confirmatory_upstream_control": "OSTIR_1.1.3_training_only_affine",
+    "constant_rank_rule": "undefined; compare original historical and strongest nonconstant upstream instead",
+    "control_development_artifact": "benchmarks/rbs/karlsen2018-control-development.json",
+    "control_development_sha256": "b391912409a3063a710f4573342202570e039961b7c36496162c2e7ed7a0b96c",
+    "descriptive_controls": [
+      "historical_intercept_only",
+      "OSTIR_intercept_only"
+    ],
+    "development_sha256": "53ba87998de7e3d423fb7d6818db48a1bf93ede98bdb46bb6137b0119cfa39a4",
+    "final_count": 468,
+    "host": "Synechocystis sp. PCC 6803",
+    "maximum_spearman_loss": 0.05,
+    "maximum_subgroup_mae_deterioration_log2": 0.5,
+    "minimum_coverage": 0.95,
+    "minimum_paired_mae_gain_log2": 0.2,
+    "paired_homology_bootstrap_confidence": 0.975,
+    "require_every_original_historical_valid_case": true,
+    "require_no_lower_comparator_coverage": true,
+    "required_positive_interval_lower_bound": true,
+    "source_input_sha256": "9957f10416cd00dd2f5dae086db657d2d4eab22c119d4e2f955facd1eaca65d3",
+    "split_sha256": "d989341afcb3e463112e85134a322086d968a4cea6ad4b9cb4fa8cc893312409",
+    "subgroup_minimum_common_n": 30,
+    "subgroups": [
+      "start_codon_ATG_GTG_TTG_other",
+      "genomic_strand",
+      "source_current_protein_length_agreement"
+    ],
+    "target": "HC relative RPF_RPKM/RNA_RPKM TE proxy at supplied starts",
+    "temperature_c": 30,
+    "train_count": 1465,
+    "validation_count": 479,
+    "weights_and_offsets": "training-only; no postselection refit"
+  },
+  "phase": "before_independent_final_outcomes",
+  "planning_baseline": "fc78dee42f934417f2bf905ae71b582903b7a949",
+  "runtime_and_export_code_commit": "7547778c508d4a31b4a4f95df370923ce8bd07c3",
+  "schema_version": "rbs-wave2-freeze-1",
+  "secondary": {
+    "diurnal": {
+      "admitted_contexts": 1000,
+      "input_sha256": "c4a049cc1374d3db304a42efad596ee973f2eb05d1d1e53659fd059b21a246c4",
+      "new": 14,
+      "partition_rule": "inherit native homology groups; all conditions stay together",
+      "protocol": "frozen HC transfer and separately named per-phase train-only median offset; no feature/model selection",
+      "reuse": 986,
+      "source_count": 1126
+    },
+    "footprint2017": {
+      "anti_sd": "ACCUCCUUA",
+      "exposure": "published values partly exposed; original paper used panel for footprint selection",
+      "input_count": 27,
+      "input_sha256": "00e738f49c4d31b9c1f92a17af046c33126d1710fdfd180d360cdade9c590805",
+      "normalization": "fixed reference ratio; no test slope/intercept",
+      "promotion_eligible": false,
+      "reference_id": "footprint2017:AEB-1",
+      "temperature_c": 37
+    },
+    "tis": {
+      "candidate_collection_code": "49822f1890312def680f28b2bfea7c9e0060c9a8",
+      "candidates": 1018,
+      "collection_state": "context2017 fixed collection still running; scores do not affect model selection",
+      "input_sha256": "a82062067f43542c50b1beaa234426aad5dabdffcfaa42abf08047be1e7b9a5e",
+      "label_scope": "primary verified annotated starts; weak tier separate, unlabelled not negative",
+      "metrics": "exact top1, MRR, worst ties; incomplete candidate ranking counts unsuccessful; no PR-AUC",
+      "queries": 165,
+      "seconds_per_candidate": 60,
+      "seconds_per_profile": 3600
+    }
+  }
+}
