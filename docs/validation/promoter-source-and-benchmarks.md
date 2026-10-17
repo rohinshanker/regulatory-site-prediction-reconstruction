@@ -4,7 +4,12 @@
 - Scope: Preparation for #7; runtime follows the first RBS release milestone #6.
 - Last verified: 2026-10-17
 
-No project Promoter model or hosted prediction was run.
+No project Promoter runtime or hosted prediction was run. The later
+[executed reference package](promoter-executed-reference.md) now verifies bounded
+historical/fork inference, complete optional environment pins and documented
+compatibility/coordinate discrepancies. This document preserves the earlier
+source and published-column audit; its immutable source manifest records that
+audit's pre-execution status.
 
 ## Reuse decision
 
@@ -24,9 +29,10 @@ redistributes arithmetic/aggregate findings, not the raw measurement workbooks.
 
 Assess the existing [Barrick v1.2.4 fork](https://github.com/barricklab/promoter-calculator/tree/0fe5f6f0fb2befc087556afa575f7241afd98fbf)
 before writing another port. It has the same arrays and inspected mathematical
-body, Python 3 fixes, packaging and CLI. Static comparison is not executed parity.
+body, Python 3 fixes, packaging and CLI. Static comparison alone is not executed parity.
 Its shorter GPL notice omits the original copyright line: preserve the original
-when combining sources. No fork installation or modern dependency lock is certified.
+when combining sources. The later executed reference contract records the tested
+isolated installation; production runtime/dependency admission remains separate.
 
 Required upstream imports are NumPy, SciPy, scikit-learn and Biopython. Reported
 development versions are Python 3.7.7, NumPy 1.21.2, SciPy 1.7.3 and scikit-learn

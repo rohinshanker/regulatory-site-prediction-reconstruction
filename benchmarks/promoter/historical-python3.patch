@@ -1,0 +1,47 @@
+--- a/Promoter_Calculator_v1_0.py
++++ b/Promoter_Calculator_v1_0.py
+@@ -66,7 +66,7 @@
+                     # seq_query[(float(dG_bind), float(dG_total), TSS_distance)] = ((tempUP, temp35, tempspacer, temp10, tempdisc, tempITR),(dg10, dg35, dg_disc, dg_ITR, dg_ext10, dg_spacer, dg_UP))
+                     seq_query[(float(dG_total), float(dG_apparent), TSS_distance)] = ((tempUP, temp35, tempspacer, temp10, tempdisc, tempITR),(dg10, dg35, dg_disc, dg_ITR, dg_ext10, dg_spacer, dg_UP))
+ 
+-    print "best: ", min(seq_query.items(), key=operator.itemgetter(0))
++    print("best: ", min(seq_query.items(), key=operator.itemgetter(0)))
+ 
+     best = (collections.OrderedDict(sorted(seq_query.items())), min(seq_query.items(), key=operator.itemgetter(0)))
+     return best, seq_query
+@@ -304,10 +304,10 @@
+     calc.run(sequence, TSS_range = [0, len(sequence)])
+     output = calc.output()
+     for (TSS, result) in output['Forward_Predictions_per_TSS'].items():
+-        print "Fwd TSS: %s. TX Rate: %s. Calcs: %s" % (TSS, result['Tx_rate'], str(result) )
++        print("Fwd TSS: %s. TX Rate: %s. Calcs: %s" % (TSS, result['Tx_rate'], str(result) ))
+     for (TSS, result) in output['Reverse_Predictions_per_TSS'].items():
+-        print "Rev TSS: %s. TX Rate: %s. Calcs: %s" % (TSS, result['Tx_rate'], str(result) )
+-
+-    print "Elapsed Time: ", time.time() - begin, " seconds."
+-
+-
++        print("Rev TSS: %s. TX Rate: %s. Calcs: %s" % (TSS, result['Tx_rate'], str(result) ))
++
++    print("Elapsed Time: ", time.time() - begin, " seconds.")
++
++
+--- a/util.py
++++ b/util.py
+@@ -212,7 +212,7 @@
+     length_array = np.array(length_array)
+ 
+     #one hot encode the array of length into bit vectors
+-    onehot_encoder = OneHotEncoder(sparse=False)
++    onehot_encoder = OneHotEncoder(sparse_output=False)
+     onehot_encoder.fit(length_array.reshape(-1, 1))
+     return onehot_encoder
+ 
+@@ -226,6 +226,6 @@
+     kmer_array = np.array(kmer_array)
+ 
+     #one hot encode the sequence
+-    onehot_encoder = OneHotEncoder(sparse=False)
++    onehot_encoder = OneHotEncoder(sparse_output=False)
+     onehot_encoder.fit(kmer_array.reshape(-1, 1))
+     return onehot_encoder
