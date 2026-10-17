@@ -1,0 +1,311 @@
+{
+  "schema_version": "rbs-structural-panel-1",
+  "source_archive_sha256": "1bedc62aaab984279055caaa6234d48fca113f4b8e17a8060e0b3784d5a397c3",
+  "table_manifest": "rnastructure-tables.json",
+  "table_manifest_sha256": "ece4c4b535783cb4e03c7ce8f243d09be84a165ecd113b1d20941b5ed8b69501",
+  "cases": [
+    {
+      "id": "unpaired",
+      "sequences": [
+        "AAAAAAAAA"
+      ],
+      "executable": "Fold",
+      "options": [
+        "--MFE"
+      ],
+      "temperature_kelvin": 310.15,
+      "scope": "synthetic topology/energy control"
+    },
+    {
+      "id": "hairpin37",
+      "sequences": [
+        "GGGAAACCC"
+      ],
+      "executable": "Fold",
+      "options": [
+        "--MFE"
+      ],
+      "temperature_kelvin": 310.15,
+      "scope": "synthetic topology/energy control"
+    },
+    {
+      "id": "hairpin30",
+      "sequences": [
+        "GGGAAACCC"
+      ],
+      "executable": "Fold",
+      "options": [
+        "--MFE"
+      ],
+      "temperature_kelvin": 303.15,
+      "scope": "synthetic topology/energy control"
+    },
+    {
+      "id": "hairpin-masked",
+      "sequences": [
+        "gggAAACCC"
+      ],
+      "executable": "Fold",
+      "options": [
+        "--MFE"
+      ],
+      "temperature_kelvin": 310.15,
+      "scope": "synthetic topology/energy control"
+    },
+    {
+      "id": "hairpin-allsub",
+      "sequences": [
+        "GGGAAACCC"
+      ],
+      "executable": "AllSub",
+      "options": [
+        "--absolute",
+        "3",
+        "--percent",
+        "1000"
+      ],
+      "temperature_kelvin": 310.15,
+      "scope": "synthetic topology/energy control"
+    },
+    {
+      "id": "gc-duplex",
+      "sequences": [
+        "GGGG",
+        "CCCC"
+      ],
+      "executable": "bifold",
+      "options": [
+        "--maximum",
+        "100",
+        "--percent",
+        "100",
+        "--window",
+        "0",
+        "--loop",
+        "30",
+        "--alphabet",
+        "rna"
+      ],
+      "temperature_kelvin": 310.15,
+      "scope": "synthetic topology/energy control"
+    },
+    {
+      "id": "duplex-unpaired",
+      "sequences": [
+        "AAAA",
+        "AAAA"
+      ],
+      "executable": "bifold",
+      "options": [
+        "--maximum",
+        "100",
+        "--percent",
+        "100",
+        "--window",
+        "0",
+        "--loop",
+        "30",
+        "--alphabet",
+        "rna"
+      ],
+      "temperature_kelvin": 310.15,
+      "scope": "synthetic topology/energy control"
+    },
+    {
+      "id": "sd-ecoli",
+      "sequences": [
+        "AAAGGAGGAAAAAA",
+        "ACCUCCUUA"
+      ],
+      "executable": "bifold",
+      "options": [
+        "--maximum",
+        "100",
+        "--percent",
+        "100",
+        "--window",
+        "0",
+        "--loop",
+        "30",
+        "--alphabet",
+        "rna"
+      ],
+      "temperature_kelvin": 310.15,
+      "scope": "synthetic topology/energy control"
+    },
+    {
+      "id": "mixed-intra-inter",
+      "sequences": [
+        "GGGAAACCCAAAGGAGGAAAAAA",
+        "ACCUCCUUA"
+      ],
+      "executable": "bifold",
+      "options": [
+        "--maximum",
+        "100",
+        "--percent",
+        "100",
+        "--window",
+        "0",
+        "--loop",
+        "30",
+        "--alphabet",
+        "rna"
+      ],
+      "temperature_kelvin": 310.15,
+      "scope": "synthetic topology/energy control"
+    },
+    {
+      "id": "gc-duplex-inter-only",
+      "sequences": [
+        "GGGG",
+        "CCCC"
+      ],
+      "executable": "bifold",
+      "options": [
+        "--maximum",
+        "100",
+        "--percent",
+        "100",
+        "--window",
+        "0",
+        "--loop",
+        "30",
+        "--alphabet",
+        "rna",
+        "--intramolecular"
+      ],
+      "temperature_kelvin": 310.15,
+      "scope": "synthetic topology/energy control"
+    },
+    {
+      "id": "sd-cyano",
+      "sequences": [
+        "AAAGGAGGAAAAAA",
+        "ACCUCCUUU"
+      ],
+      "executable": "bifold",
+      "options": [
+        "--maximum",
+        "100",
+        "--percent",
+        "100",
+        "--window",
+        "0",
+        "--loop",
+        "30",
+        "--alphabet",
+        "rna"
+      ],
+      "temperature_kelvin": 303.15,
+      "scope": "synthetic topology/energy control"
+    },
+    {
+      "id": "short-traceback-regression",
+      "sequences": [
+        "UGGCUUGACGGCGUCAUUCCUAUUAUCAAAGCAAU",
+        "ACCUCCUUA"
+      ],
+      "executable": "bifold",
+      "options": [
+        "--maximum",
+        "100",
+        "--percent",
+        "100",
+        "--window",
+        "0",
+        "--loop",
+        "30",
+        "--alphabet",
+        "rna"
+      ],
+      "temperature_kelvin": 310.15,
+      "scope": "Previously public development-only backend failure diagnostic; no outcomes"
+    },
+    {
+      "id": "nonreciprocal-native",
+      "sequences": [
+        "CGUUAUGUGGCUGUUUUUCCCAUGACCACUACCACUGGAACAGCGAAAGUACUUAGUGCUUGGAUAAUCCGCCCCGGGGAGACCUAUCCUCGACUAACCA",
+        "ACCUCCUUU"
+      ],
+      "executable": "bifold",
+      "options": [
+        "--maximum",
+        "100",
+        "--percent",
+        "100",
+        "--window",
+        "0",
+        "--loop",
+        "30",
+        "--alphabet",
+        "rna"
+      ],
+      "temperature_kelvin": 303.15,
+      "scope": "Public Karlsen2018 development-selected genomic input; sequence from pinned NCBI GCF_000009725.1 ASM972v1 reference, not measured transcript or Figshare nucleotide data.",
+      "sequence_provenance": {
+        "assembly": "GCF_000009725.1",
+        "annotation": "RS_2025_06_29",
+        "replicon": "NC_000911.1",
+        "strand": "-",
+        "flank_rule": "reverse complement of 100-nt genomic interval upstream of CDS",
+        "zero_based_interval": [
+          1892500,
+          1892600
+        ],
+        "gff_locus_tag": "SGL_RS10810",
+        "old_locus_tag": null,
+        "fasta_sha256": "cfaccf8f61d32314e91d1c6258ecc266f3d458d6dae21c15d2c9b736a0502577",
+        "gff_sha256": "8e220cc9a09d679470dc8036ed8004c4e51903a676316e8fb67a7fc2cb909687"
+      }
+    },
+    {
+      "id": "missing-native",
+      "sequences": [
+        "GCCAACAGUUGGAUAAGUUUAGGUUGCAAUUAGCUGGGCCAAUUCCCGUCUUUGCCAAUCUGGGGGAAACUGUUAGUCUGCUGGCUUCCCUUUCAAGCAA",
+        "ACCUCCUUU"
+      ],
+      "executable": "bifold",
+      "options": [
+        "--maximum",
+        "100",
+        "--percent",
+        "100",
+        "--window",
+        "0",
+        "--loop",
+        "30",
+        "--alphabet",
+        "rna"
+      ],
+      "temperature_kelvin": 303.15,
+      "scope": "Public Karlsen2018 development-selected genomic input; sequence from pinned NCBI GCF_000009725.1 ASM972v1 reference, not measured transcript or Figshare nucleotide data.",
+      "sequence_provenance": {
+        "assembly": "GCF_000009725.1",
+        "annotation": "RS_2025_06_29",
+        "replicon": "NC_000911.1",
+        "strand": "-",
+        "flank_rule": "reverse complement of 100-nt genomic interval upstream of CDS",
+        "zero_based_interval": [
+          2879289,
+          2879389
+        ],
+        "gff_locus_tag": "SGL_RS15275",
+        "old_locus_tag": "sll0085",
+        "fasta_sha256": "cfaccf8f61d32314e91d1c6258ecc266f3d458d6dae21c15d2c9b736a0502577",
+        "gff_sha256": "8e220cc9a09d679470dc8036ed8004c4e51903a676316e8fb67a7fc2cb909687"
+      }
+    }
+  ],
+  "notes": [
+    "Structural diagnostics only, not experimental RBS accuracy.",
+    "No reconstruction imports or scoring internals used.",
+    "AllSub and bifold are distinct enumeration algorithms; repeated topology is retained.",
+    "Failed baseline results are observations, not acceptable repaired-backend outputs."
+  ],
+  "rights": "Original synthetic inputs/compilation GPL-3.0-or-later. Karlsen2018 Figshare6743276.v1 CC-BY-4.0 establishes study attribution/development selection only. Native leaders are NCBI reference sequence facts, with separate source notice in native-sources.json; no blanket Creative Commons licence asserted for NCBI.",
+  "metadata_correction": {
+    "prior_manifest_sha256": "8b4b5e1b15048209df909020e2f148aad826865bced08dc0aafaf12a14a38ca6",
+    "scope": "Correct genomic sequence origin and separate rights; all 14 scientific inputs/settings unchanged."
+  }
+}

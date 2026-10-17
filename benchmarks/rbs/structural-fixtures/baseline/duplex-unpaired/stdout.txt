@@ -1,0 +1,8 @@
+Initializing nucleic acids...done.
+Folding two strands...
+
+  0% [=                                                 ] /                     
+ 45% [=======================                           ] -                     
+ 90% [==============================================    ] \                     done.
+Writing output ct file...done.
+Bimolecular folding complete.

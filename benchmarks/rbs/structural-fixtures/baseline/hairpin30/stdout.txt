@@ -1,0 +1,6 @@
+Initializing nucleic acids...done.
+Setting temperature...done.
+Folding single strand...
+  0% [=                                                 ] /                     done.
+Writing output ct file...done.
+Single strand folding complete.
