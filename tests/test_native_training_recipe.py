@@ -594,3 +594,34 @@ def test_extraction_uses_released_sequence_settings(panel):
         assert req.temperature_c == records[key]["temperature_celsius"]
         assert asdict(req)["start_positions"] == (records[key]["start"],)
         assert len(extract_features(req, kind="sequence-v1")) == 19
+
+
+def test_excluded_source_failures_are_auditable_without_entering_fit(panel):
+    _, _, cache, _, _ = panel
+    before = fit(panel, recipe.KINDS[1])
+    value = json.loads(cache.read_text())
+    for row in value["results"][6:]:
+        row.update(
+            status="failed",
+            reason="native_batch_time_budget_exhausted",
+            prediction=None,
+        )
+    write(cache, value)
+    after = fit(panel, recipe.KINDS[1])
+    assert before["artifact_sha256"] == after["artifact_sha256"]
+    assert before["configurations"] == after["configurations"]
+    assert after["failures"] == []
+    assert {r["reason"] for r in after["excluded_source_records"]} == {
+        "final_input_only",
+        "nonprimary_input_only",
+    }
+    assert all(
+        r["prediction_status"] == "failed"
+        and r["prediction_reason"] == "native_batch_time_budget_exhausted"
+        for r in after["excluded_source_records"]
+    )
+    sequence = fit(panel)
+    assert all(
+        r["prediction_status"] == "not_requested" and r["prediction_reason"] is None
+        for r in sequence["excluded_source_records"]
+    )

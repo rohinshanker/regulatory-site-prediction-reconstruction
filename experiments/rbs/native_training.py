@@ -310,6 +310,10 @@ def train(
                     "reason": "final_input_only"
                     if row["partition"] == "final"
                     else "nonprimary_input_only",
+                    "prediction_status": cached[key]["status"]
+                    if energy
+                    else "not_requested",
+                    "prediction_reason": cached[key].get("reason") if energy else None,
                 }
                 for key, row in sorted(assignments.items())
                 if key not in records
