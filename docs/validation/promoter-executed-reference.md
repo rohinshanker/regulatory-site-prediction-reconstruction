@@ -53,7 +53,10 @@ the execution audit compares every converted entry to the installed sources.
 [Frozen fixtures](../../benchmarks/promoter/reference-fixtures.json) were computed
 before source execution from these equations, not copied from returned predictions.
 Offline tests include an independently expressed Decimal homopolymer calculation,
-known feature values and fixed coordinate/category checks.
+known feature values and fixed coordinate/category checks. Independent validation
+with a separately expressed 50-digit Decimal calculation agrees with all 212
+states; the largest absolute score-term discrepancy is 1.51e-14, below the
+declared 1e-12 tolerance. Counts describe synthetic states, not biological samples.
 
 | Fixture/property | Expected and observed behavior |
 | --- | --- |
