@@ -2,7 +2,6 @@
 
 import hashlib
 import json
-import math
 from dataclasses import asdict
 from typing import Any, cast
 
@@ -11,6 +10,7 @@ from regsite.backend import RnaStructure
 from regsite.contracts import RbsRequest
 from regsite.features import FeatureError, extract_features, feature_names
 from regsite.learning import RidgeModel
+from regsite.provenance import energy_signature
 from regsite.rbs import predict
 from regsite.sequence import InputError, input_interval, normalize_rna
 
@@ -40,7 +40,7 @@ def validate_model(model: RidgeModel) -> dict:
         )
         or any(not isinstance(h, str) or not h.strip() for h in domain["hosts"])
         or any(
-            type(t) not in (int, float) or not math.isfinite(t) or not 0 <= t <= 100
+            type(t) not in (int, float) or not 0 <= t <= 100
             for t in domain["temperatures_c"]
         )
     ):
@@ -51,6 +51,14 @@ def validate_model(model: RidgeModel) -> dict:
             or len(sequence) != 9
         ):
             raise ValueError("training anti_sd must be normalized nine-base RNA")
+    if (
+        model.provenance["feature_kind"] == "context-energy-sequence-v1"
+        and not {"energy_backend_sha256", "energy_model_sha256"}
+        <= model.provenance.keys()
+    ):
+        raise ValueError(
+            "energy artifact requires explicit training backend/model digests"
+        )
     return domain
 
 
@@ -96,6 +104,7 @@ def predict_learned(
         "start_codon": None,
         "score_log2": None,
         "features": None,
+        "unlearned_feature_changes": [],
         "mechanistic_reference": None,
         "warnings": [
             "learned_assay_response_not_energy_or_probability",
@@ -111,7 +120,7 @@ def predict_learned(
             "artifact_sha256": artifact_id,
             "input": asdict(request),
             "backend": cast(RnaStructure, backend).identity if energy else None,
-            "seconds": float(seconds),
+            "seconds": float(seconds) if energy else None,
         }
         result["prediction_id"] = hashlib.sha256(
             json.dumps(identity, sort_keys=True, separators=(",", ":")).encode()
@@ -145,7 +154,27 @@ def predict_learned(
                 status=reference["status"], reason="mechanistic_feature_unavailable"
             )
             return result
+        if reference is not None:
+            signature = energy_signature(reference)
+            if any(
+                model.provenance[key] != digest for key, digest in signature.items()
+            ):
+                result["warnings"].append(
+                    "energy_backend_or_model_differs_from_training"
+                )
         values = extract_features(request, kind=kind, prediction=reference)
+        changed = [
+            name
+            for name, value, mean, scale in zip(
+                model.feature_names, values, model.means, model.scales, strict=True
+            )
+            if scale == 0 and value != mean
+        ]
+        result["unlearned_feature_changes"] = changed
+        if changed:
+            result["warnings"].append(
+                "changed_constant_training_features_have_no_learned_effect"
+            )
         score = model.predict([values])[0]
         result.update(
             status="ok",

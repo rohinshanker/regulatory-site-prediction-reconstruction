@@ -47,7 +47,10 @@ not consistently improve accuracy.
 
 The learned output is a log2 assay score with explicit domain warnings. Constant
 training features stay inactive, including codon/CDS features that do not vary in
-this dataset. Unseen reporters, start-codon classes, host strains, growth conditions
+this dataset. Changes to these inactive columns produce an explicit warning
+and list of unlearned feature changes. Source-family separation is imperfect:
+some families share identical local windows and closely related leaders, so
+leave-family-out performance includes interpolation. Unseen reporters, start-codon classes, host strains, growth conditions
 and native operons are unvalidated. Inference does not imply measured SD boundaries.
 Experimental fluorescence is influenced by transcription, RNA/protein stability
 and reporter properties as well as translation. The separate PCC 6803 experiment

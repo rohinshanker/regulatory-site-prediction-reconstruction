@@ -10,6 +10,7 @@ from pathlib import Path
 from regsite.contracts import RbsRequest
 from regsite.features import extract_features, feature_names
 from regsite.learned import validate_model
+from regsite.provenance import canonical_hash, consistent_energy_signature
 from regsite.training import fit_grouped
 
 SOURCE_SHA256 = "d74967eb964f1797138076ed12a35ef5f44c0ac3e87241e5186505503fd698f4"
@@ -35,7 +36,11 @@ def training_requests(records: list[dict]) -> list[RbsRequest]:
 
 
 def train(
-    source: Path, context_predictions: Path, output: Path, code_commit: str
+    source: Path,
+    context_predictions: Path,
+    output: Path,
+    code_commit: str,
+    predictions_sha256: str,
 ) -> dict:
     """Require exact public data and matching frozen predictions; never drop rows."""
     source_bytes = source.read_bytes()
@@ -46,7 +51,18 @@ def train(
     records = json.loads(source_bytes)["records"]
     requests = training_requests(records)
     cached_bytes = context_predictions.read_bytes()
-    cached = json.loads(cached_bytes)["results"]
+    if hashlib.sha256(cached_bytes).hexdigest() != predictions_sha256:
+        raise ValueError("energy cache hash mismatch against admitted artifact")
+    envelope = json.loads(cached_bytes)
+    if (
+        envelope.get("profile") != "context2017"
+        or envelope.get("dataset_sha256") != SOURCE_SHA256
+        or not isinstance(envelope.get("collection_commit"), str)
+        or not re.fullmatch("[0-9a-f]{40}", envelope["collection_commit"])
+    ):
+        raise ValueError("energy cache collection provenance is incompatible")
+    cached = envelope["results"]
+    signature = consistent_energy_signature(cached)
     predictions = {p["id"]: p for p in cached}
     if len(predictions) != len(cached) or set(predictions) != {r.id for r in requests}:
         raise ValueError("prediction cache must cover exactly the development IDs")
@@ -71,7 +87,6 @@ def train(
             {"hosts": [HOST], "anti_sd": ["ACCUCCUUA"], "temperatures_c": [37]}
         ),
         "code_commit": code_commit,
-        "context_predictions_sha256": hashlib.sha256(cached_bytes).hexdigest(),
         "feature_recipe": "19 sequence features; optional five context2017 energies",
     }
     results, files = {}, {}
@@ -80,13 +95,22 @@ def train(
             extract_features(r, kind=kind, prediction=predictions[r.id])
             for r in requests
         ]
+        energy_provenance = (
+            {
+                **signature,
+                "context_results_sha256": canonical_hash(cached),
+                "energy_collection_commit": envelope["collection_commit"],
+            }
+            if kind == "context-energy-sequence-v1"
+            else {}
+        )
         model, report = fit_grouped(
             features,
             targets,
             feature_names=feature_names(kind),
             record_ids=[r.id for r in requests],
             groups=[r["family"] for r in records],
-            provenance={**provenance, "feature_kind": kind},
+            provenance={**provenance, **energy_provenance, "feature_kind": kind},
         )
         validate_model(model)
         artifact = model.to_dict()
@@ -106,6 +130,7 @@ def train(
         )
     return {
         "data_role": "development",
+        "admitted_cache_sha256": predictions_sha256,
         "models": results,
         "warnings": ["not_independent_test_accuracy"],
     }
@@ -118,8 +143,15 @@ def main(argv=None):
     parser.add_argument("context_predictions", type=Path)
     parser.add_argument("output", type=Path)
     parser.add_argument("--code-commit", required=True)
+    parser.add_argument("--predictions-sha256", required=True)
     args = parser.parse_args(argv)
-    result = train(args.source, args.context_predictions, args.output, args.code_commit)
+    result = train(
+        args.source,
+        args.context_predictions,
+        args.output,
+        args.code_commit,
+        args.predictions_sha256,
+    )
     print(json.dumps(result, indent=2, sort_keys=True, allow_nan=False))
 
 

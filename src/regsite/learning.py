@@ -29,7 +29,7 @@ from typing import ClassVar
 
 MAX_ROWS = 10_000
 MAX_FEATURES = 64
-VERSION = "ridge-log2-v1"
+VERSION = "ridge-log2-assay-v1"
 _MIN_RELATIVE_PIVOT = 2.0**-33
 
 
@@ -124,7 +124,7 @@ class RidgeModel:
     training_sha256: str
     provenance: Mapping[str, str]
     version: str = VERSION
-    score_scale: ClassVar[str] = "log2_translation"
+    score_scale: ClassVar[str] = "log2_assay_response"
     __hash__: ClassVar[None] = None  # type: ignore[assignment]
 
     def __post_init__(self) -> None:
@@ -189,7 +189,7 @@ class RidgeModel:
         if not isinstance(value, dict) or value.keys() != fields:
             raise ValueError("ridge artifact has missing or unknown fields")
         if value["score_scale"] != cls.score_scale:
-            raise ValueError("ridge score_scale must be log2_translation")
+            raise ValueError("ridge score_scale must be log2_assay_response")
         model = cls(
             feature_names=value["feature_names"],
             means=value["means"],

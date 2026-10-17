@@ -527,3 +527,16 @@ def test_explicit_zero_energy_is_valid():
     prediction = prediction_for(value)
     prediction["sites"][0]["energies"] = dict.fromkeys(ENERGY_NAMES, 0)
     assert extract_features(value, kind=ENERGY, prediction=prediction)[-5:] == (0,) * 5
+
+
+@pytest.mark.parametrize("coding_length", [3, 12, 13])
+def test_complete_coding_footprint_required_for_energy(coding_length):
+    value = request(coding="AUG" + "A" * (coding_length - 3))
+    if coding_length < 13:
+        with pytest.raises(FeatureError, match="truncated"):
+            extract_features(value, kind=ENERGY, prediction=prediction_for(value))
+    else:
+        assert (
+            len(extract_features(value, kind=ENERGY, prediction=prediction_for(value)))
+            == 24
+        )

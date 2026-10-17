@@ -232,7 +232,11 @@ prepared data/evaluator are from `bf77ce33df2883965df0d5ea81285717b07bc123`.
 Use explicit `ACCUCCUUA`, 37°C, supplied starts, the original full source windows,
 a 60-second per-record budget and the predeclared `standby2014:5'UTR_136`
 normalization. No parameters, slope, intercept or exclusions were fitted.
-The 2017 held-out outcomes remain unexamined by the implementation session.
+The Wave 1 evaluation did not use 2017 held-out outcomes. During Wave 2, a
+public primary-paper retrieval exposed some 2017 aggregate Results values; this
+was disclosed to the evaluator. Treat that panel as partially exposed external
+evidence, never wholly untouched evaluation. Private final outcomes remain with
+Session B.
 
 | Metric | Reconstruction | Constant relative-rate baseline |
 | --- | ---: | ---: |

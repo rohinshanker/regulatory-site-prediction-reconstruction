@@ -31,7 +31,7 @@ def test_analytical_ridge_with_unpenalized_intercept_and_new_rows():
     assert model.intercept == 4.0
     assert model.coefficients == pytest.approx((1.0,))
     assert model.predict([[0], [5]]) == pytest.approx((2, 7))
-    assert model.score_scale == "log2_translation"
+    assert model.score_scale == "log2_assay_response"
     # Shrinkage affects the slope, never the intercept/target mean.
     assert fit(penalty=1e100).intercept == 4.0
     assert fit(penalty=1e100).coefficients[0] < 1e-90

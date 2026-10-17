@@ -15,6 +15,8 @@ from regsite.features import feature_names
 from regsite.learned import predict_learned, validate_model
 from regsite.learned_cli import main
 from regsite.learning import fit_ridge
+from regsite.provenance import energy_signature
+from regsite.rbs import predict
 from regsite.sequence import reverse_complement
 
 DOMAIN = {"hosts": ["synthetic"], "anti_sd": ["ACCUCCUUA"], "temperatures_c": [37]}
@@ -22,6 +24,11 @@ DOMAIN = {"hosts": ["synthetic"], "anti_sd": ["ACCUCCUUA"], "temperatures_c": [3
 
 def model(kind="sequence-v1", **metadata):
     names = feature_names(kind)
+    signature = (
+        energy_signature(predict(request(), AlgebraBackend(), profile="context2017"))
+        if kind == "context-energy-sequence-v1"
+        else {}
+    )
     return fit_ridge(
         [[0] * len(names)] * 2,
         [2, 4],
@@ -35,6 +42,7 @@ def model(kind="sequence-v1", **metadata):
             "target_name": "synthetic assay response",
             "target_units": "log2 arbitrary units",
             "training_domain": json.dumps(DOMAIN),
+            **signature,
             **metadata,
         },
     )
@@ -94,6 +102,7 @@ def test_domain_mismatch_is_disclosed(changes):
         {**DOMAIN, "temperatures_c": [True]},
         {**DOMAIN, "temperatures_c": [float("inf")]},
         {**DOMAIN, "temperatures_c": [101]},
+        {**DOMAIN, "temperatures_c": [10**400]},
         {**DOMAIN, "anti_sd": ["accticctt"]},
         {**DOMAIN, "anti_sd": ["ACCUCCUU"]},
         {**DOMAIN, "anti_sd": [None]},
@@ -190,3 +199,38 @@ def test_versioned_learned_result_schema():
     result["score_log2"] = 0
     with pytest.raises(jsonschema.ValidationError):
         jsonschema.validate(result, schema)
+
+
+def test_constant_training_changes_are_named_and_unchanged_values_are_quiet():
+    artifact = model()
+    changed = predict_learned(request(), artifact)
+    assert "clipped_leader_length" in changed["unlearned_feature_changes"]
+    assert "start_GUG" not in changed["unlearned_feature_changes"]
+    assert (
+        "changed_constant_training_features_have_no_learned_effect"
+        in changed["warnings"]
+    )
+    aligned = replace(artifact, means=tuple(changed["features"]["values"]))
+    quiet = predict_learned(request(), aligned)
+    assert quiet["unlearned_feature_changes"] == []
+    assert (
+        "changed_constant_training_features_have_no_learned_effect"
+        not in quiet["warnings"]
+    )
+    assert (
+        predict_learned(request(), artifact, seconds=1)["prediction_id"]
+        == changed["prediction_id"]
+    )
+
+
+def test_energy_identity_changes_and_missing_digests_are_explicit():
+    artifact = model("context-energy-sequence-v1")
+    first = predict_learned(request(), artifact, AlgebraBackend())
+    assert "energy_backend_or_model_differs_from_training" not in first["warnings"]
+    changed = model("context-energy-sequence-v1", energy_backend_sha256="f" * 64)
+    result = predict_learned(request(), changed, AlgebraBackend())
+    assert "energy_backend_or_model_differs_from_training" in result["warnings"]
+    metadata = dict(artifact.provenance)
+    del metadata["energy_model_sha256"]
+    with pytest.raises(ValueError, match="digests"):
+        validate_model(replace(artifact, provenance=metadata))

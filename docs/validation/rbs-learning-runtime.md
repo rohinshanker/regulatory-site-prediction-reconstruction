@@ -24,13 +24,15 @@ retained. These are sequence statistics, never biological binding boundaries.
 successful `context2017` prediction: total, unbound mRNA, spacing, signed standby
 and isolated post-footprint energy. The signed standby term retains its sign.
 The extractor verifies sequence/hash, strand, aSD, temperature, explicit start,
-model identity and finite terms. Missing energy is unsupported, never zero-filled.
+model identity and finite terms. Missing energy is unsupported, never zero-filled. Energy features require all 13 coding-footprint bases;
+shorter contexts are explicitly unsupported.
 The sequence feature module was frozen before fitting any assay outcomes.
 
 Ridge minimizes summed squared log2 residuals plus lambda times squared weights.
 Training population means/scales standardize each feature; the intercept is
 unpenalized. Constant training columns have zero weights and remain inactive at
-inference. The fixed per-observation penalty grid is 0.01, 0.1, 1, 10; the solver
+inference. Changed values in those columns are listed in `unlearned_feature_changes`
+and trigger a warning: their effects were never learned. The fixed per-observation penalty grid is 0.01, 0.1, 1, 10; the solver
 receives that value times the training-row count. Overflow, invalid inputs and
 severely small relative Cholesky pivots fail explicitly. The pivot guard is a
 heuristic, not a general coefficient-accuracy guarantee.
@@ -57,14 +59,20 @@ RBS_CODE_COMMIT=$(git rev-parse HEAD)
   --code-commit "$RBS_CODE_COMMIT"
 .venv/bin/python -m experiments.rbs.standby benchmarks/rbs/standby2014.json \
   .cache/context2017-development.json .cache/standby-models \
-  --code-commit "$RBS_CODE_COMMIT"
+  --code-commit "$RBS_CODE_COMMIT" --predictions-sha256 "<admitted-cache-SHA256>"
 .venv/bin/regsite-learned .cache/standby-models/sequence-v1.json examples/rbs-learned.json
 .venv/bin/regsite-learned .cache/standby-models/context-energy-sequence-v1.json examples/rbs-learned.json
 ```
 
 The collector is local, bounded to 30 minutes by default (one hour maximum), and
 retains failed records. It never downloads data or silently truncates a set.
-Training requires exact source bytes and complete matching cached predictions;
+Training requires exact source bytes, an explicitly admitted cache SHA256,
+matching collection metadata and one consistent model/backend identity. Record
+the collector output hash before training; independently verify a changed hash
+rather than replacing the expected value merely to pass validation. The SHA
+detects edits, not authenticity. The collection/recipe commit arguments are caller
+assertions: run from a clean checkout of those exact commits and verify them.
+Training requires complete matching cached predictions;
 it writes no models until both configurations have fit successfully. No final
 evaluation is performed by these training commands. Recollection on another
 backend build may change provenance and numerical outputs; retain source/data,
@@ -80,16 +88,29 @@ artifact hash, target units, feature values, start anchor, domain warnings and
 explicit failure status. Energy models embed their independent mechanistic
 reference; no learned coefficient is presented as an energy contribution.
 
-Artifacts use the strict `ridge-log2-v1` JSON format: feature names, training
+Artifacts use the strict `ridge-log2-assay-v1` JSON format: feature names, training
 means/scales, coefficients, intercept, penalty, training-input SHA256 and provenance,
 plus a content checksum. The checksum detects accidental changes, not authenticity.
 JSON is the portability boundary; pickle/deepcopy/hashability are unsupported.
 The inference adapter also requires feature kind, assay target/units and explicit
-training host/aSD/temperature domains. Out-of-domain predictions are warned, never
-silently called calibrated. Host text matching is exact, not a synonym inference.
+training host/aSD/temperature domains. Energy artifacts record canonical result, model and backend hashes. Collection
+envelope formatting/budgets do not change weights; sequence-only artifacts do
+not depend on unused folding results. A different inference backend/model digest
+triggers a warning, including a separately built platform binary. Out-of-domain
+predictions are warned, never silently called calibrated. Host text matching is exact, not a synonym inference.
 
 Setup/artifact errors exit 2; any unsuccessful prediction makes the CLI exit 1.
 Missing scores remain null. Scores are log2 assay responses; conversion to a
 positive scale for a separately specified evaluator must retain units, finite
 range checks and development-only calibration. Candidate selection and scientific
 promotion remain governed by the [evaluation contract](rbs-evaluation-protocol.md).
+
+## Native partitioned fitting
+
+`fit_partitioned` uses only the supplied development-training rows for means,
+scales and coefficients. Each candidate's median training log2 residual is the
+explicit calibration offset. Validation selects the minimum calibrated row MAE,
+then RMSE, then stronger penalty. Training and validation IDs and homology groups
+must be disjoint. The selected artifact retains training-only weights: there is
+no refit on validation. Preserve the offset alongside the artifact for independent
+evaluation; it is not silently folded into the raw learned prediction.

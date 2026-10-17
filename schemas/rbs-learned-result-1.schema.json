@@ -19,7 +19,8 @@
     "score_log2",
     "features",
     "mechanistic_reference",
-    "warnings"
+    "warnings",
+    "unlearned_feature_changes"
   ],
   "properties": {
     "schema_version": {
@@ -172,6 +173,13 @@
       "items": {
         "type": "string"
       }
+    },
+    "unlearned_feature_changes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
     }
   },
   "additionalProperties": false,

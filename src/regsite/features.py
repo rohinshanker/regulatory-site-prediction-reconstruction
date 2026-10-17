@@ -65,6 +65,8 @@ def _exact_sd_match(leader: str, target: str) -> tuple[float, float]:
 def _energy_features(
     request: RbsRequest, start: int, prediction: dict | None
 ) -> tuple[float, ...]:
+    if len(request.oriented_sequence) - start < 13:
+        raise FeatureError("coding footprint context is truncated")
     if not isinstance(prediction, dict) or prediction.get("status") != "ok":
         raise FeatureError("energy features require an explicit successful prediction")
     model = prediction.get("model")
