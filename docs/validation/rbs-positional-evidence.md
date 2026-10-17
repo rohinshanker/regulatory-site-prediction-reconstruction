@@ -103,3 +103,46 @@ python -m unittest discover -s tests/benchmarks -p 'test_tis.py'
 Use the isolated openpyxl ingestion environment. Raw labels/output destinations
 must be outside Git (0700 directory/0600 files). Runtime and comparator predictions
 are joined by query ID and candidate start, never by label-bearing source order.
+
+## External candidate and genome-call adapters
+
+`benchmarks.rbs.positional_adapters.expand` converts every frozen candidate into
+a supplied-start request with a reversible query/start identity. `regroup` restores
+every query and marks omitted predictions `not_evaluated`; it rejects unknown
+identities, duplicate starts and invalid successful scores. It does not restrict
+the universe to starts supported by a particular model. Actual rebeca inference
+returned 1,018 successful candidates; OSTIR returned 778. These are input-only
+coverage counts, not positional accuracy, and no unscored competitor is discarded.
+
+Prodigal 2.6.3 commit `004218fbeb2cf54fe12d88ec2eede6a27d70ebf7` ran unmodified
+on all five pinned PCC replicons with `-p single -g 11 -f gff -q`. Mode, genetic
+code and default minimum-gene/edge handling were fixed before comparing labels.
+This uses unsupervised whole-genome sequence training, a broader sequence context
+than the short-window strength models; it uses no source annotation or TIS/RPF
+measurement. Its gene-finder score is never treated as translation strength.
+
+The 5.34-second run produced 3,704 complete calls and nine partial edge calls.
+Executable SHA-256 is
+`2cc7f9eaf90f516ae6a64418eb6bf464a5a964d4afea4a76f6564914293a341d`;
+uncompressed input FASTA SHA-256 is
+`669ce2c26a208e6c07fce3325141fadd977e29372a456b04751786bd91830d9a`;
+GFF SHA-256 is
+`b306acbce4746b3ce192532b7c53ce646951274a8277d578b3cafb458857e662`.
+Build/source notices and retrieval hashes are in `comparator-gates.json`.
+
+The independent GFF parser requires one-based inclusive complete CDS calls and
+converts plus/minus starts and terminal stops explicitly. Partial calls remain
+excluded from complete-stop matching and are counted. A same-replicon/strand/stop
+call selects one frozen candidate with score one and the others zero. No call,
+or a called start outside the universe, marks all candidates unsupported: an
+all-zero singleton must not become an accidental correct prediction. 125 of the
+165 input queries have a same-stop complete genome call; this count includes
+unlabelled queries and is not positive recall. Circular extraction is supported
+by the query adapter, but Prodigal's linear contig-edge handling and default
+short-gene threshold remain limitations; neither was tuned against outcomes.
+
+```sh
+python -m benchmarks.rbs.positional_adapters expand "$TIS_INPUTS" "$EXPANDED" --input-sha256 a82062067f43542c50b1beaa234426aad5dabdffcfaa42abf08047be1e7b9a5e
+python -m benchmarks.rbs.positional_adapters regroup "$TIS_INPUTS" "$PRIVATE/grouped.json" --input-sha256 a82062067f43542c50b1beaa234426aad5dabdffcfaa42abf08047be1e7b9a5e --predictions "$PRIVATE/upstream-candidates.json"
+python -m unittest discover -s tests/benchmarks -p 'test_positional_adapters.py'
+```

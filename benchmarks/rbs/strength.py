@@ -74,6 +74,59 @@ def fit_intercept(records, predictions):
     }
 
 
+def fit_affine(records, predictions):
+    """Fit a train-only OLS log2 slope, then a median residual intercept.
+
+    This fixed two-parameter assay adaptation has no hyperparameter search.
+    It is a separate calibrated comparator, never the unchanged upstream model.
+    """
+    fit_intercept(records, predictions)
+    joined, excluded = pairs(records, predictions)
+    x = [math.log2(r["predicted"]) for r in joined if r["status"] == "ok"]
+    y = [math.log2(r["observed"]) for r in joined if r["status"] == "ok"]
+    mean_x, mean_y = statistics.mean(x), statistics.mean(y)
+    denominator = sum((value - mean_x) ** 2 for value in x)
+    if denominator == 0:
+        raise ValueError("Affine calibration requires nonconstant training scores")
+    slope = (
+        sum((a - mean_x) * (b - mean_y) for a, b in zip(x, y, strict=True))
+        / denominator
+    )
+    intercept = statistics.median(b - slope * a for a, b in zip(x, y, strict=True))
+    return {
+        "method": "development_train_OLS_log2_slope_median_residual_intercept",
+        "slope_log2": slope,
+        "intercept_log2": intercept,
+        "n_training_cases": len(records),
+        "n_fitted": len(x),
+        "assay_exclusions": excluded,
+        "final_refit": False,
+    }
+
+
+def apply_affine(predictions, calibration):
+    """Preserve every original prediction/failure and expose the adapted identity."""
+    slope, intercept = calibration["slope_log2"], calibration["intercept_log2"]
+    if not finite_number(slope) or not finite_number(intercept):
+        raise ValueError("Affine parameters must be finite numbers")
+    summary([{**r, "observed": 1} for r in predictions])
+    output = []
+    for row in predictions:
+        result = {**row, "uncalibrated_prediction": row.get("predicted")}
+        if row["status"] == "ok":
+            try:
+                value = 2 ** (slope * math.log2(row["predicted"]) + intercept)
+                if not finite_number(value) or value <= 0:
+                    raise ValueError("Affine prediction outside positive finite range")
+                result["predicted"] = value
+            except (OverflowError, ValueError):
+                result.update(
+                    status="failed", predicted=None, reason="affine_numeric_range"
+                )
+        output.append(result)
+    return output
+
+
 def evaluate(records, predictions, offset_log2=0.0):
     """Report native-scale coverage and calibrated relative TE errors separately."""
     joined, excluded = pairs(records, predictions, offset_log2)
