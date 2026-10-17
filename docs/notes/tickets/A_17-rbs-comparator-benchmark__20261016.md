@@ -5,7 +5,7 @@
 - Opened: 2026-10-16
 - Updated: 2026-10-17
 - Current State: Genuine scalar rebeca checkpoint and unchanged OSTIR library run in isolated environments; pinned adapters and development-only native comparison complete. Remaining candidate rights audit is complete; Prodigal native genome inference and public OOF audit run. Final locked comparisons remain active.
-- Verification: All 140 owned benchmark tests pass, 100% statement/branch coverage (1839/758); targeted Ruff and scoped documentation validation pass. Actual upstream OSTIR/rebeca inference and synthetic numerical smokes pass; native partitions independently reviewed and reproduced. Source/evaluation details are in rbs-native-data-card.md, rbs-positional-evidence.md and rbs-upstream-comparators.md.
+- Verification: All 161 owned benchmark tests pass, 100% statement/branch coverage (2145/898); scoped Ruff passes. Independent review accepted the evaluator/control/live boundary package through06e9c16; exact-context reuse and learned boundary review is active. Real upstream/native prediction collections and source pins are retained; final labels remain sealed pending the unified freeze.
 - Cleanup: Preserve comparator/source contracts and reproducible reports, update indexes and GitHub issue, then remove the resolved ticket after acceptance.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/17
 - Priority: P0
