@@ -189,7 +189,9 @@ def audit_execution(prediction, row, config, stdout, stderr):
         elif execution == "process_start":
             valid = exit_code is None and empty
         elif execution in {"process_exit", "timeout"}:
-            valid = type(exit_code) is int and exit_code != 0
+            valid = type(exit_code) is int and (
+                execution == "timeout" or exit_code != 0
+            )
             if execution == "timeout":
                 expected = dict(
                     status="timeout", predicted=None, reason=prediction["reason"]
