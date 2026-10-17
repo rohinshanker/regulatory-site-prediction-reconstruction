@@ -31,6 +31,11 @@ class MetricsTest(unittest.TestCase):
         for left, right in [([1], []), ([math.nan], [1]), ([1], [math.inf])]:
             with self.assertRaises(ValueError):
                 correlation(left, right)
+        for value in [True, False, "1", None, math.nan, math.inf]:
+            with self.subTest(value=value), self.assertRaises(ValueError):
+                correlation([value], [1])
+            with self.subTest(value=value), self.assertRaises(ValueError):
+                ranks([value])
 
     def test_metrics_count_failures_and_fold_boundaries(self):
         rows = [
@@ -63,6 +68,10 @@ class MetricsTest(unittest.TestCase):
             [pair("a", 1, 0)],
             [pair("a", 1, math.nan)],
             [pair("a", 1, "1")],
+            [pair("a", True, 1)],
+            [pair("a", False, 1)],
+            [pair("a", 1, True)],
+            [pair("a", 1, False)],
             [pair("a", 1, None, "silent_skip")],
         ]
         for rows in bad:
@@ -80,7 +89,7 @@ class MetricsTest(unittest.TestCase):
         self.assertIsNone(wilson(0, 0))
         self.assertAlmostEqual(wilson(5, 10)[0], 0.236593090512564)
         self.assertAlmostEqual(wilson(5, 10)[1], 0.763406909487436)
-        for values in [(2, 1), (-1, 1), (0, -1)]:
+        for values in [(2, 1), (-1, 1), (0, -1), (True, 1), (0, False), (0.5, 1)]:
             with self.assertRaises(ValueError):
                 wilson(*values)
 
@@ -94,6 +103,9 @@ class MetricsTest(unittest.TestCase):
         self.assertIsNone(cluster_mae_interval(rows[:1]))
         with self.assertRaises(ValueError):
             cluster_mae_interval(rows, 1)
+        for count in [True, 2.5, "100"]:
+            with self.subTest(count=count), self.assertRaises(ValueError):
+                cluster_mae_interval(rows, count)
 
     def test_sequence_overlap(self):
         self.assertEqual(edit_distance("", "AG"), 2)
@@ -105,6 +117,9 @@ class MetricsTest(unittest.TestCase):
         self.assertTrue(cross_partition_overlap(a, a)[0]["exact_sequence"])
         with self.assertRaises(ValueError):
             cross_partition_overlap(a, b, 2)
+        for threshold in [True, None, math.nan]:
+            with self.subTest(threshold=threshold), self.assertRaises(ValueError):
+                cross_partition_overlap(a, b, threshold)
         with self.assertRaises(ValueError):
             cross_partition_overlap(a, [dict(id="b", sequence="", start=0)])
 

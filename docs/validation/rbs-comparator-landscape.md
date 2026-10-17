@@ -3,6 +3,7 @@
 - Purpose: Select strong, task-matched mechanistic and learned comparators before engineering or claiming a better predictor.
 - Scope: Primary-source planning audit on 2026-10-16; entries are candidates, not newly reproduced performance results.
 - Last verified: 2026-10-16
+- Evidence owner: Session B (`9677689a-1792176763`), accepted 2026-10-17; runtime/model implementation stays with Session A.
 
 ## Comparison roster
 
