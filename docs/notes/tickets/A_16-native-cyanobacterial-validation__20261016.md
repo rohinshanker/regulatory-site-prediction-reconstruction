@@ -4,8 +4,8 @@
 - Status: active
 - Opened: 2026-10-16
 - Updated: 2026-10-17
-- Current State: Session B is retrieving primary native-context/TE/reporter sources and freezing eligibility/partitions before exposing outcomes. Tan remains TSS context only; direct TIS evidence is not yet admitted.
-- Verification: Early source ledger pins nine downloaded artifacts; UTEX FASTA/GFF match NCBI MD5 and the exact 2026-05-13 annotation. Seven independent coordinate fixtures and an example batch are prepared; 33 benchmark tests pass at 100% statements/branches. Full source extraction, native eligibility and frozen splits are still in progress.
+- Current State: Portable primary Tan extraction is complete: all 4,808 rows retained with current-annotation conflicts, explicit 16S-tail provenance and output hash. Native TE/reporter/TIS admission and frozen partitions remain active; Tan supplies transcript context only.
+- Verification: Nine primary artifact pins and NCBI MD5s verified. Tan output identity/counts: benchmarks/rbs/native-tan-audit.json. All 49 benchmark tests pass with 100% statements/branches (618/266); targeted Ruff passes. A fresh explicit Python3.14 environment installs existing hash-locked dependencies; no package change needed.
 - Cleanup: Resolve only completed scope, distill reusable dataset/evaluation contracts, update indexes and GitHub issue, then remove the resolved ticket.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/16
 - Priority: P0
