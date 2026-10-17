@@ -4,8 +4,8 @@
 - Status: active
 - Opened: 2026-10-16
 - Updated: 2026-10-17
-- Current State: Deterministic ridge math implemented and repaired after independent review; grouped development selection and frozen sequence/energy features underway. Six-family/eight-ridge-configuration initial plan declared before final outcomes. No model promoted; native development/split admission remains B-owned.
-- Verification: Ridge110tests100% branches with independent exact-solver/regression checks; grouped training23tests100%. Public136-case mechanism ablation complete, learned experiments/final evaluation pending.
+- Current State: Five candidate families are implemented: three mechanistic profiles and sequence/energy-sequence ridge. Public 2014 grouped development fits improve family MAE but are unpromoted. Native development uses frozen train/validation groups and train-only median calibration; eight public plus eight native penalty configurations remain within the declared budget. Final outcomes remain with B.
+- Verification: Independent ridge review accepted numerical repairs. Learned inference/cache-domain review repairs pass 483 focused tests with 100% statement/branch coverage; model coefficients are unchanged after provenance repair. Native training recipe and focused repair review are underway. No independent superiority claim.
 - Cleanup: Owning session records results including negative findings, distills reusable model/evaluation contracts, updates indexes and GitHub issue, then removes the resolved ticket.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/13
 - Priority: P0

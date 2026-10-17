@@ -4,8 +4,8 @@
 - Status: active
 - Opened: 2026-10-16
 - Updated: 2026-10-17
-- Current State: Portable native JSON/GFF3 runtime implemented; B source pipeline integrated. All4808Tan contexts validated:2417 extractable,2375 unresolved starts,16 internal TSS,zero invalid records. Representative real batch succeeds with explicit unsupported cases; full batch and independent review running.
-- Verification: Seven independent coordinate fixtures and exhaustive small-genome path tests pass.90 source/runtime tests100% with real backend after structured-provenance integration. Fresh-wheel and final review remain.
+- Current State: Native JSON/GFF3 adapter and source integration are implemented. All 4,808 Tan rows are retained; 2,417 contexts prepare and 2,212 score successfully. All 2,503 mapped PCC contexts match independent 200-nt sequences/start 100 at 30°C; 27 unresolved rows remain unsupported. Three full PCC profile runs are underway.
+- Verification: Independent coordinate review accepted the core adapter after exhaustive checks; final temperature-alias/unresolved-source delta is in review. Latest 106 source/native/collector tests pass with 100% statement/branch coverage and the real backend. Fresh-wheel eight-case Tan example gives five scores and three explicit leaderless cases. Final integrated gates remain.
 - Cleanup: Distill the final input/coordinate/runtime contract, update indexes and GitHub issue, then remove the resolved ticket after acceptance.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/18
 - Priority: P0

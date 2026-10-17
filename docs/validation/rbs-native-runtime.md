@@ -57,7 +57,7 @@ commands need no network or credentials.
 `supplied_start` scores the declared CDS start. `conditional_scan` searches
 AUG/GUG/UUG only inside that same extracted context and ranks successful scores;
 equal scores receive consecutive ranks ordered by upstream transcript position.
-it is neither transcript discovery nor genome-wide start-site detection. Scores
+It is neither transcript discovery nor genome-wide start-site detection. Scores
 remain relative initiation predictions with the selected model's limitations.
 Host, temperature and nine-base anti-SD sequence are explicit inputs. An annotated
 16S tail used as a host scenario does not establish mature-rRNA processing or
@@ -142,3 +142,31 @@ small-genome path/interval reconstruction on both strands and topologies, real
 backend single/batch execution, GFF origin/strand conversion, schema checks,
 invalid inputs, missing starts/TSSs, source-identity mismatches and both timeouts.
 Run the full [runtime gates](rbs-runtime.md), including fresh-wheel examples.
+
+## Whole-source coverage example
+
+The pinned Tan envelope SHA256 is
+`c442baf07480ddece0956a9ac10aefd5884472ec63ed0c62166e2ad7ef8a03d5`.
+A full `context2017` run at implementation commit
+`a77897df3b92f2b9e74631ebf332d0d73c236c4b`, 60 seconds per record and
+3,600 seconds per batch, retained every row:
+
+| Outcome | Rows |
+| --- | ---: |
+| Successful score | 2,212 |
+| Unsupported before scoring: unresolved start | 2,375 |
+| Unsupported before scoring: internal TSS | 16 |
+| Unsupported during scoring: leaderless / other start codon | 42 / 4 |
+| No interstrand candidate in bounded search | 62 |
+| Failed backend structure/output | 97 |
+
+The 97 failures comprise 85 nonreciprocal CTs, three crossing/inconsistent CTs,
+and nine missing/unreadable outputs. Rejecting these is intentional; silently
+repairing or discarding an unknown fold could change the selected structure.
+The full result SHA256 is
+`4f17041c17cebc0a8cca37e6c76581ed5b73217b914d285801da7d22c0a9af92`.
+Later adapter changes improve stable identities and row-level reasons; this run
+predates those changes and is not presented as a full final-tree rerun. Final
+coordinate/input preparation and fresh-wheel subsets are checked separately.
+These counts establish execution coverage on transcript-context scenarios, not
+translation accuracy. Tan supplies no translation-strength labels for this test.
