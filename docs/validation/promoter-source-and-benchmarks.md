@@ -146,8 +146,12 @@ Johns2018 and PromoterAtlas2026 remain leads, not admitted benchmarks.
 ## Reproduction and release handoff
 
 Recover the pinned seven raw GitHub files and Europe PMC supplementary archive
-from the manifest into an external source directory. Verify the archive hash,
-extract the named workbook to `paper/`, then run:
+from the manifest into an external source directory. The service regenerates ZIP
+timestamps: the recorded archive hash identifies the acquisition, not a stable
+download gate. Extract the named workbook to `paper/` and verify its **member
+hash**; the runner rejects changed workbook/array bytes. An independent fresh
+download had a different ZIP hash but all 31 uncompressed members were identical.
+Then run:
 
 ```sh
 python -m benchmarks.promoter.audit SOURCE_ROOT benchmarks/promoter/source-manifest.json output.json

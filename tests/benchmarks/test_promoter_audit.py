@@ -204,6 +204,36 @@ class PromoterAuditTest(unittest.TestCase):
             / "benchmarks/promoter/source-fixtures.json"
         )
         fixtures = {x["name"]: x for x in json.loads(path.read_text())["fixtures"]}
+        boundaries = fixtures["context_boundaries"]["expected"]
+        upstream_lengths = [
+            24 + 1 + 6 + spacer + 6 + disc
+            for spacer in range(15, 21)
+            for disc in range(6, 11)
+        ]
+        self.assertEqual(
+            boundaries,
+            {
+                "minimum_tss": min(upstream_lengths),
+                "minimum_sequence_length": min(upstream_lengths) + 20,
+                "maximum_context_length": max(upstream_lengths) + 20,
+                "forward_site_count_for_length_200": 200
+                - 20
+                - min(upstream_lengths)
+                + 1,
+                "full_context_states_per_tss": len(upstream_lengths),
+            },
+        )
+
+        # Enumerate only interval feasibility, independent of any scoring code.
+        def states(length, tss):
+            return sum(
+                tss >= before and tss + 20 <= length for before in upstream_lengths
+            )
+
+        self.assertEqual([states(78, tss) for tss in (57, 58, 59)], [0, 1, 0])
+        self.assertEqual(states(77, 58), 0)
+        self.assertEqual(states(87, 67), 30)
+        self.assertEqual(sum(states(200, tss) > 0 for tss in range(200)), 123)
         self.assertAlmostEqual(
             fixtures["spacer_17"]["expected"], 0.1463 * 17**2 - 4.9113 * 17 + 41.119
         )
