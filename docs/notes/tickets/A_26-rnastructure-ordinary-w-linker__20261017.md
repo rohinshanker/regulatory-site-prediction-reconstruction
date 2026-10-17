@@ -4,8 +4,8 @@
 - Status: active
 - Opened: 2026-10-17
 - Updated: 2026-10-17
-- Current State: Session A claimed Wave 4 from planning baseline 73521a6ae3251678073dce76181ee5909b34fe8b. Specification and independent-oracle handshake underway; backend source diagnosis proceeds separately. No reserved outcomes accessed.
-- Verification: Four deterministic reproductions per original/traceback-1/traceback-2 build in independent review; exit0, stderr traceback errors, no CT. Coordinator's real runtime rejects the input with null scores/energies in context2017 and standby2014 on both strands.
+- Current State: Linker-3 source repair, pinned build/runtime identity and missing-receipt integrity guard are implemented and independently reviewed. The original and traceback-2 engines remain unchanged. Scientific candidate a11cb5bd13d3c021eedc98cf451609eb4710bb6a is isolated in reconstruction-rbs-wave4-frozen; final four-platform CI is pending before evaluation admission.
+- Verification: Independent source review DEM-513 approved aaa0532c/945436ed; runtime admission and receipt guard reviews confirmed 0a10d3b/a11cb5b. All 35 three-engine component tests passed in 686.956 s with Python 3.14.7, including source/energy panels, constraint controls and mutation-sensitive harnesses. Full candidate suite: 1,614 tests, 100% of 5,603 statements/2,314 branches. Repaired seed succeeds on both strands in context/standby/joint; original/v2 retain explicit null failures. CI 39080285855 is active.
 - Cleanup: Resolve only after independently reviewed source repair or justified domain contract, real backend/CI checks and durable validation; remove resolved ticket/index row.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/26
 - Owner: Session A (baf5b738-1792172297), wave4/rbs-joint-runtime; backend component may be assigned to one scoped worker.

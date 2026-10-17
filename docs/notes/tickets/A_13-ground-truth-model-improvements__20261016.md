@@ -4,8 +4,8 @@
 - Status: active
 - Opened: 2026-10-16
 - Updated: 2026-10-17
-- Current State: Wave 2 native promotion remains unestablished and its final cohort/weights stay frozen. The joint binding/standby extension is implemented without fitting and is undergoing source/resource review. B’s reviewed Wave 4 protocol specifies one same-backend joint-versus-standby Cambray rank contrast and retains Kuo as exposed secondary. No final collection has been authorized; only public development and synthetic inputs have informed implementation.
-- Verification: Scientific candidate 75d127cc350bcc4dc54be5b980db893da3c41e92 and backend/source/settings were frozen before 680 development predictions. All five declared configurations score 136/136; original/repaired context and standby scores are identical on this panel. Source-based mechanism review, independent structural/analytic fixtures and full software gates pass. See rbs-wave3-results.md and rbs-new-evaluation-data.md for exact pins, metrics, boundaries and next-study requirements.
+- Current State: Wave 2 native promotion remains unestablished and its final cohort/weights stay frozen. Joint binding/standby is implemented without fitting and independently reviewed. B’s reviewed protocol/harness specifies one same-backend Cambray contrast, with Kuo exposed secondary and optional comparators explicitly admitted. Final collection awaits completed CI and mutual receipt acknowledgement; no outcomes informed the candidate.
+- Verification: Candidate a11cb5b and all source/backend reviews are ready; local software/component/resource/fresh-install gates pass. Public development inputs complete 136/136 with three non-greedy binding winners, without changing scores between v2/v3 on that panel. The independent Wave 4 study has not yet run; no advancement, new-study rank gain or native calibration is claimed.
 - Cleanup: Owning session records results including negative findings, distills reusable model/evaluation contracts, updates indexes and GitHub issue, then removes the resolved ticket.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/13
 - Priority: P0
