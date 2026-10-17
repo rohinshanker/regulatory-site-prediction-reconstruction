@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from collections import Counter
 from decimal import Decimal
 import hashlib
 import json
@@ -79,6 +80,38 @@ def identity(structures, energies=None):
     if energies is not None:
         data = {"structures": data, "evaluated": [str(value) for value in energies]}
     return hashlib.sha256(json.dumps(data, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
+
+
+def linker_topology(structure):
+    """Return connectedness and immediate branches in the linker-containing loop.
+
+    Count children of the innermost pair enclosing the three linker bases;
+    nested stems inside a child are not additional branches in that loop.
+    Disconnected structures instead count top-level stems in the exterior.
+    """
+    if "I" not in structure.sequence:
+        return "single", 0
+    linker = structure.sequence.index("I") + 1
+    enclosing = [(i, j) for i, j in structure.pairs if i < linker and j > linker + 2]
+    lo, hi = max(enclosing) if enclosing else (0, len(structure.sequence) + 1)
+    children = [(i, j) for i, j in structure.pairs if lo < i < j < hi]
+    branches = 0
+    end = lo
+    for i, j in children:
+        if i > end:
+            branches += 1
+            end = j
+    return "connected" if enclosing else "disconnected", branches
+
+
+def energy_census(structures, energies):
+    """Count exact efn2-minus-native deltas by connectedness and loop branches."""
+    census = Counter()
+    for structure, energy in zip(structures, energies, strict=True):
+        connected, branches = linker_topology(structure)
+        delta = f"{energy - structure.energy:.1f}" if structure.energy is not None else "missing"
+        census[f"{connected}/{branches}/{delta}"] += 1
+    return dict(sorted(census.items()))
 
 
 def run_engine(root, directory, leader, anti_sd=None, temperature="303.15"):

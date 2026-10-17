@@ -39,6 +39,20 @@ def install(archive, destination, jobs=2, optimize=True):
     require_hash(archive, manifest["upstream"]["archive_sha256"])
     patch = COMPONENT / manifest["patch"]["file"]
     require_hash(patch, manifest["patch"]["sha256"])
+    sdk = None
+    compiler = "g++"
+    if platform.system() == "Darwin":
+        # This probe fails without opening the macOS developer-tools dialog.
+        selected = subprocess.run(["xcode-select", "-p"], capture_output=True, text=True)
+        if selected.returncode:
+            raise RuntimeError(
+                "macOS developer tools are absent. Install/select the Command Line "
+                "Tools separately, then retry into a new destination; this builder "
+                "does not request installation or permissions."
+            )
+        sdk = subprocess.check_output(["xcrun", "--show-sdk-path"], text=True).strip()
+        compiler = "clang++"
+    compiler_version = subprocess.check_output([compiler, "--version"], text=True).strip()
     # The pinned archive contains only directories and regular files. Validate
     # that property before creating anything, rather than following archive links.
     with tarfile.open(archive) as source:
@@ -53,7 +67,11 @@ def install(archive, destination, jobs=2, optimize=True):
             ):
                 raise ValueError(f"Unsafe archive member: {member.name}")
         destination.mkdir(parents=True, exist_ok=False)
-        source.extractall(destination, members=members)
+        # data_filter is also backported to maintained Python 3.11 releases.
+        # Earlier 3.11 uses the same explicit path/type allowlist above; the
+        # new destination and rejection of every link prevent symlink traversal.
+        extraction = {"filter": "data"} if hasattr(tarfile, "data_filter") else {}
+        source.extractall(destination, members=members, **extraction)
     root = destination / "RNAstructure"
     source_file = root / manifest["upstream"]["source_file"]
     require_hash(source_file, manifest["upstream"]["source_sha256"])
@@ -69,8 +87,7 @@ def install(archive, destination, jobs=2, optimize=True):
     command = ["make", f"-j{jobs}", "Fold", "bifold", "efn2"]
     if not optimize:
         command.append("optimize=off")
-    if platform.system() == "Darwin":
-        sdk = subprocess.check_output(["xcrun", "--show-sdk-path"], text=True).strip()
+    if sdk is not None:
         command.append(f"CXX=clang++ -isysroot {sdk} -isystem {sdk}/usr/include/c++/v1")
     # Do not inherit tuning, alternate platforms, parallelism or data-table
     # settings from an interactive shell. Explicit make arguments above govern.
@@ -92,6 +109,11 @@ def install(archive, destination, jobs=2, optimize=True):
         "build_command": command,
         "platform": platform.platform(),
         "machine": platform.machine(),
+        "compiler_version": compiler_version,
+        "executable_architecture": {
+            file.name: subprocess.check_output(["file", "-b", str(file)], text=True).strip()
+            for file in files
+        },
         "executable_sha256": {file.name: sha256(file) for file in files},
         "table_sha256": {file.name: sha256(file) for file in tables if file.is_file()},
     }

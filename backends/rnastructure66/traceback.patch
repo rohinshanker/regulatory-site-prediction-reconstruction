@@ -1,6 +1,6 @@
 --- a/src/algorithm.cpp
 +++ b/src/algorithm.cpp
-@@ -424,6 +424,33 @@
+@@ -424,6 +424,128 @@
  
  	while (stack->pull(&i, &j, &open, &energy, &pair))
  	{
@@ -8,10 +8,12 @@
 +		// two branches. Keep its recurrence distinct from W2 and ordinary WMB.
 +		if (pair == 3) {
 +			found = false;
++			// k == j adds an empty right fragment (INF); it cannot win in a
++			// reachable finite/linker-offset cell. Never push an empty interval.
 +			for (k = i; k < j && !found; k++) {
 +				if (k != number && energy == w2->f(i, k) + w2->f(k + 1, j)) {
-+					stack->push(i, k, 0, w2->f(i, k), 0);
-+					stack->push(k + 1, j, 0, w2->f(k + 1, j), 0);
++					stack->push(i, k, 0, w2->f(i, k), 4);
++					stack->push(k + 1, j, 0, w2->f(k + 1, j), 4);
 +					found = true;
 +				}
 +			}
@@ -31,10 +33,256 @@
 +			}
 +			continue;
 +		}
++		// State 4 is W2. Only W2 strips, stems and WMB2 delegation are legal;
++		// ordinary W/WMB choices have different multiloop penalties.
++		if (pair == 4) {
++			found = false;
++			if (i != number && energy == w2->f(i + 1, j)) {
++				stack->push(i + 1, j, 0, w2->f(i + 1, j), 4);
++				found = true;
++			}
++			if (!found && j != number + 1 && j != 1 && energy == w2->f(i, j - 1)) {
++				stack->push(i, j - 1, 0, w2->f(i, j - 1), 4);
++				found = true;
++			}
++			if (!found && i != number) {
++				if (energy == v->f(i + 1, j)
++						+ ptr_to_erg4(j, i + 1, i, 2, ct, data, lfce[i])
++						+ ptr_to_penalty(i + 1, j, ct, data)) {
++					stack->push(i + 1, j, 0, v->f(i + 1, j), 1);
++					found = true;
++				}
++				else if ((mod[i + 1] || mod[j]) && can_pair(i + 2, j - 1)
++						&& !(fce->f(i + 1, j) & SINGLE)
++						&& energy == v->f(i + 2, j - 1)
++						+ ptr_to_erg4(j, i + 1, i, 2, ct, data, lfce[i])
++						+ ptr_to_penalty(i + 1, j, ct, data)
++						+ ptr_to_erg1(i + 1, j, i + 2, j - 1, ct, data)) {
++					registerbasepair(ct, i + 1, j);
++					stack->push(i + 2, j - 1, 0, v->f(i + 2, j - 1), 1);
++					found = true;
++				}
++			}
++			if (!found && j != number + 1 && j != 1) {
++				if (energy == v->f(i, j - 1)
++						+ ptr_to_erg4(j - 1, i, j, 1, ct, data, lfce[j])
++						+ ptr_to_penalty(i, j - 1, ct, data)) {
++					stack->push(i, j - 1, 0, v->f(i, j - 1), 1);
++					found = true;
++				}
++				else if ((mod[i] || mod[j - 1]) && can_pair(i + 1, j - 2)
++						&& !(fce->f(i, j - 1) & SINGLE)
++						&& energy == v->f(i + 1, j - 2)
++						+ ptr_to_erg4(j - 1, i, j, 1, ct, data, lfce[j])
++						+ ptr_to_penalty(i, j - 1, ct, data)
++						+ ptr_to_erg1(i, j - 1, i + 1, j - 2, ct, data)) {
++					registerbasepair(ct, i, j - 1);
++					stack->push(i + 1, j - 2, 0, v->f(i + 1, j - 2), 1);
++					found = true;
++				}
++			}
++			if (!found && i != number && j != number + 1 && j != 1) {
++				if (energy == v->f(i + 1, j - 1)
++						+ multi_tstkm(j - 1, i + 1, j, i, ct)
++						+ checknp(lfce[i], lfce[j])
++						+ ptr_to_penalty(i + 1, j - 1, ct, data)) {
++					stack->push(i + 1, j - 1, 0, v->f(i + 1, j - 1), 1);
++					found = true;
++				}
++				else if ((mod[i + 1] || mod[j - 1]) && can_pair(i + 2, j - 2)
++						&& !(fce->f(i + 1, j - 1) & SINGLE)
++						&& energy == v->f(i + 2, j - 2)
++						+ multi_tstkm(j - 1, i + 1, j, i, ct)
++						+ checknp(lfce[i], lfce[j])
++						+ ptr_to_penalty(i + 1, j - 1, ct, data)
++						+ ptr_to_erg1(i + 1, j - 1, i + 2, j - 2, ct, data)) {
++					registerbasepair(ct, i + 1, j - 1);
++					stack->push(i + 2, j - 2, 0, v->f(i + 2, j - 2), 1);
++					found = true;
++				}
++			}
++			if (!found && energy == v->f(i, j) + ptr_to_penalty(i, j, ct, data)) {
++				stack->push(i, j, 0, v->f(i, j), 1);
++				found = true;
++			}
++			// Preserve the fill's asymmetric mod[i] || (mod[j] && ...) predicate.
++			if (!found && (mod[i] || (mod[j] && can_pair(i + 1, j - 1)
++					&& !(fce->f(i, j) & SINGLE)))
++					&& energy == v->f(i + 1, j - 1)
++					+ ptr_to_penalty(i, j, ct, data)
++					+ ptr_to_erg1(i, j, i + 1, j - 1, ct, data)) {
++				registerbasepair(ct, i, j);
++				stack->push(i + 1, j - 1, 0, v->f(i + 1, j - 1), 1);
++				found = true;
++			}
++			if (!found && ((j - i - 1) > (2 * minloop + 2) || j > number)
++					&& energy == wmb2->f(i, j)) {
++				stack->push(i, j, 0, wmb2->f(i, j), 3);
++				found = true;
++			}
++			if (!found) {
++				errmsg(100, 2);
++				tracebackerror = 1;
++			}
++			continue;
++		}
  		found = true;
  		// keep taking pairs off the stack until the stack is empty:
  		if (pair == 0) 
-@@ -916,48 +943,6 @@
+@@ -629,152 +751,6 @@
+ 			else 
+ 			{
+ 				//(open==0), a multibranch loop
+-				if (ct->intermolecular) 
+-				{
+-					//intermolcular folding 
+-
+-					//start by removing nucleotides:
+-					while (energy == w2->f(i + 1, j)) 
+-					{
+-						i++;
+-						energy = w2->f(i, j);
+-						if (i == j) break;
+-					}
+-					while (energy == w2->f(i, j - 1)) 
+-					{
+-						j--;
+-						energy = w2->f(i, j);
+-						if (i == j) break;
+-					}
+-
+-					//following commented out by DHM (5/17/08) -- this should be handled by WMB2
+-					//if (fce->f(i,i)&INTER) {
+-					//	if (energy==w2->f(i+1,j)-INFINITE_ENERGY+data->init) {
+-					//		i++;
+-					//		energy = w2->f(i,j);
+-					//	}
+-					//}
+-					//if (fce->f(j,j)&INTER) {
+-					//	if (energy==w2->f(i,j-1)-INFINITE_ENERGY+data->init) {
+-					//		j--;
+-					//		energy = w2->f(i,j);
+-					//	}
+-					//}
+-
+-					while (energy == w2->f(i + 1, j)) 
+-					{
+-						i++;
+-						energy = w2->f(i, j);
+-						if (i == j) break;
+-					}
+-					while (energy == w2->f(i, j - 1)) 
+-					{
+-						j--;
+-						energy = w2->f(i, j);
+-						if (i == j) break;
+-					}
+-
+-					//now check for a stem:					
+-					if (energy == 
+-						v->f(i + 1, j)
+-						+ ptr_to_erg4(j, i + 1, i, 2, ct, data, lfce[i])
+-						+ ptr_to_penalty(i + 1, j, ct, data)
+-						) 
+-					{
+-						i++;
+-						stack->push(i, j, 0, v->f(i, j), 1);
+-						found = true;
+-					}
+-
+-					else if ((mod[i + 1]||mod[j]) && can_pair(i + 1, j)) 
+-					{
+-						if (energy == 
+-							v->f(i + 2, j - 1)
+-							+ ptr_to_erg4(j, i + 1, i, 2, ct, data, lfce[i])
+-							+ ptr_to_penalty(i + 1, j, ct, data)
+-							+ ptr_to_erg1(i + 1, j, i + 2, j - 1, ct, data)
+-							) 
+-						{
+-							registerbasepair(ct, i + 1, j);
+-							stack->push(i + 2, j - 1, 0, v->f(i + 2, j - 1), 1);
+-							found = true;
+-						}
+-					}
+-					if (!found && (energy ==
+-									v->f(i, j - 1)
+-									+ ptr_to_erg4(j - 1, i, j, 1, ct, data, lfce[j])
+-									+ ptr_to_penalty(i, j - 1, ct, data))
+-						) 
+-					{
+-						j--;
+-						stack->push(i, j, 0, v->f(i, j), 1);
+-						found = true;
+-					}
+-					else if (!found && (mod[i] || mod[j - 1]) && can_pair(i, j - 1)) 
+-					{ 
+-						if (!found && (energy == 
+-										v->f(i + 1, j - 2) 
+-										+ ptr_to_erg4(j - 1, i, j, 1, ct, data, lfce[j])
+-										+ ptr_to_penalty(i, j - 1, ct, data)
+-										+ ptr_to_erg1(i, j - 1, i + 1, j - 2, ct, data))
+-							) 
+-						{
+-							registerbasepair(ct, i, j);
+-							stack->push(i + 1, j - 2, 0, v->f(i + 1, j - 2), 1);
+-							found = true;
+-						}
+-					}
+-
+-					if (!found && (energy ==
+-									v->f(i + 1, j - 1)
+-									+ multi_tstkm(j - 1, i + 1, j, i, ct)
+-									+ ct->SHAPEss_give_value(i)
+-									+ ct->SHAPEss_give_value(j) 
+-									+ checknp(lfce[i], lfce[j])
+-									+ ptr_to_penalty(i + 1, j - 1, ct, data))
+-						) 
+-					{
+-						i++;
+-						j--;
+-						stack->push(i, j, 0, v->f(i, j), 1);
+-						found = true;
+-					}
+-					else if (!found && (mod[i + 1] || mod[j-1]) && can_pair(i + 1, j - 1)) 
+-					{
+-						if (!found && (energy == 
+-										v->f(i + 2, j - 2)
+-										+ multi_tstkm(j - 1, i + 1, j, i, ct)
+-										+ ct->SHAPEss_give_value(i) 
+-										+ ct->SHAPEss_give_value(j) 
+-										+ checknp(lfce[i], lfce[j])
+-										+ ptr_to_penalty(i + 1, j - 1, ct, data)
+-										+ ptr_to_erg1(i + 1, j - 1, i + 2, j - 2, ct, data))
+-							) 
+-						{
+-							registerbasepair(ct, i + 1, j - 1);
+-							stack->push(i + 2, j - 2, 0, v->f(i + 2, j - 2), 1);
+-							found = true;
+-						}
+-					}
+-
+-					if (!found && (energy == v->f(i, j) + ptr_to_penalty(i, j, ct, data))) 
+-					{
+-						stack->push(i, j, 0, v->f(i, j), 1);
+-						found = true;
+-					}
+-					else if (!found && (mod[i] || mod[j]) && can_pair(i, j)) 
+-					{
+-						if (!found && (energy == 
+-										v->f(i + 1, j - 1) 
+-										+ ptr_to_penalty(i, j, ct, data)
+-										+ ptr_to_erg1(i, j, i + 1, j - 1, ct, data))) 
+-						{
+-							registerbasepair(ct, i, j);
+-							stack->push(i + 1, j - 1, 0, v->f(i + 1, j - 1), 1);
+-							found = true;
+-						}
+-					}
+-				}
+ 				if (!found) 
+ 				{
+ 					//start by removing nucleotides:
+@@ -916,48 +892,6 @@
  				j--;
  				energy = wmb->f(i, j);
  				if (i == j) break;
@@ -83,7 +331,7 @@
  			}
  		}
  		if(pair == 2 || !found) 
-@@ -2081,51 +2066,10 @@
+@@ -2081,52 +2015,7 @@
  					}
  					k++;
  				}
@@ -132,19 +380,18 @@
 -							found = true;
 -						}
 -					}
-+				if (ct->intermolecular && pair != 2 && !found
-+						&& energy == wmb2->f(i, j)) {
-+					stack->push(i, j, 0, wmb2->f(i, j), 3);
-+					found = true;
- 				}
+-				}
++
  			}
  			if (i==j) found = true;
-@@ -2798,14 +2742,14 @@
+ 			if (!found) 
+@@ -2798,42 +2687,43 @@
  						k++;
  						}
  					}
 -				if (ct->intermolecular) 
-+				if (ct->intermolecular && !found) 
++				if (ct->intermolecular && !found && i != number
++						&& (j - i) > (2 * minloop + 4)) 
  				{
  						if (energy == 
  									wmb2->f(i+1, j-1)
@@ -155,8 +402,10 @@
 +							stack->push(i+1, j-1, 0, wmb2->f(i+1, j-1), 3);
  							found = true;
  						}
- 						else if (energy == 
-@@ -2814,7 +2758,7 @@
+-						else if (energy == 
++						else if (i != number && energy == 
+ 									wmb2->f(i+2, j-1)
+ 									+ ptr_to_penalty(j,i, ct, data)
  									+ ptr_to_erg4(i, j, i+1, 1, ct, data, lfce[i+1])
  									+ INFINITE_ENERGY) 
  						{
@@ -164,8 +413,10 @@
 +							stack->push(i+2, j-1, 0, wmb2->f(i+2, j-1), 3);
  							found = true;
  						}
- 						else if (energy == 
-@@ -2823,7 +2767,7 @@
+-						else if (energy == 
++						else if (j != number + 1 && energy == 
+ 									wmb2->f(i+1, j-2)
+ 									+ ptr_to_penalty(j,i, ct, data)
  									+ ptr_to_erg4(i, j, j-1, 2, ct, data, lfce[j-1])
  									+ INFINITE_ENERGY) 
  						{
@@ -173,8 +424,11 @@
 +							stack->push(i+1, j-2, 0, wmb2->f(i+1, j-2), 3);
  							found = true;
  						}
- 						else if (energy == 
-@@ -2833,7 +2777,7 @@
+-						else if (energy == 
++						else if (i != number && j != number + 1 && energy == 
+ 									wmb2->f(i+2, j-2)
+ 									+ ptr_to_penalty(j,i, ct, data)
+ 									+ INFINITE_ENERGY
  									+ multi_tstkm(i, j, i + 1, j - 1, ct)
  									+ checknp(lfce[i+1], lfce[j-1])) 
  						{
