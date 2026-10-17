@@ -20,6 +20,9 @@ from tempfile import TemporaryDirectory
 from regsite.structures import BackendError, Structure, parse_ct, to_ct
 
 SOURCE_SHA256 = "1bedc62aaab984279055caaa6234d48fca113f4b8e17a8060e0b3784d5a397c3"
+UPSTREAM_SOURCE_SHA256 = (
+    "c024b600aabfad624fa0d4dbcd2297b9aacdb654ad2e491686847b705fa343d8"
+)
 TRACEBACK_COMPONENT = "rnastructure-6.6-traceback-2"
 TRACEBACK_PATCH_SHA256 = (
     "2d599e7fa9f6581b605350508163c4aa14458ebb8f444c096e5f923c8742d671"
@@ -66,6 +69,11 @@ def _build_identity(root: Path, binaries: dict, tables: dict) -> dict:
     """Admit an explicitly pinned separate patch when its build receipt is present."""
     path = root / "traceback-build.json"
     if not path.exists():
+        source = root / "src" / "algorithm.cpp"
+        if source.exists() and _sha256(source) != UPSTREAM_SOURCE_SHA256:
+            raise BackendError(
+                "RNAstructure source requires a recognized build receipt"
+            )
         return {}
     try:
         with path.open("rb") as stream:

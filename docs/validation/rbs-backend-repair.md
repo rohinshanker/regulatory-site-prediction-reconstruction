@@ -74,8 +74,13 @@ inconsistent receipt fails admission; it does not fall back to upstream identity
 Receipt parsing is limited to 500,000 bytes. The result includes variant,
 build_provenance and the exact receipt-byte hash alongside executable/table
 identities. These are reproducibility checks, not a signed build attestation.
-An installation without the receipt retains the original adapter behavior and
-explicit expected-source/binary hashes; binary ancestry is not thereby proven.
+Without a receipt, a retained `src/algorithm.cpp` must match the pinned pristine
+upstream hash; patched or unknown source fails admission. This prevents a lost
+receipt from silently relabelling a source-containing patched installation.
+Binary-only installations retain the legacy expected-source/binary identity
+behavior, and source files/receipts do not prove binary ancestry. A frozen
+experiment must independently pin each actual executable's bytes before and after
+collection, rather than trusting a self-reported receipt or source tree.
 
 Frozen learned models remain unchanged. Their existing backend/model signature
 check warns when energy features come from another installation or model revision.

@@ -202,7 +202,42 @@ def test_runtime_pins_match_the_separate_component(component, manifest):
     assert source["component"] == component
     assert source["license"] == "GPL-2.0-only"
     assert source["upstream"]["archive_sha256"] == backend.SOURCE_SHA256
+    assert source["upstream"]["source_sha256"] == backend.UPSTREAM_SOURCE_SHA256
     assert backend.PATCHED_COMPONENTS[component] == (
         source["patch"]["sha256"],
         source["patch"]["patched_source_sha256"],
     )
+
+
+@pytest.mark.parametrize("source_kind", ["upstream", "patched", "unknown"])
+def test_receiptless_source_cannot_hide_a_patch(installation, source_kind):
+    root, _, hashes = installation
+    source = root / "src/algorithm.cpp"
+    source.parent.mkdir()
+    source.touch()
+    if source_kind == "upstream":
+        hashes["algorithm.cpp"] = backend.UPSTREAM_SOURCE_SHA256
+        assert "variant" not in backend.RnaStructure.open(root).identity
+    else:
+        if source_kind == "unknown":
+            hashes["algorithm.cpp"] = "unknown-source"
+        with pytest.raises(BackendError, match="requires a recognized build receipt"):
+            backend.RnaStructure.open(root)
+
+
+def test_unreadable_receiptless_source_is_an_installation_failure(
+    installation, monkeypatch
+):
+    root, _, hashes = installation
+    source = root / "src/algorithm.cpp"
+    source.parent.mkdir()
+    source.touch()
+
+    def unreadable(path):
+        if path == source:
+            raise PermissionError("source unavailable")
+        return hashes[path.name]
+
+    monkeypatch.setattr(backend, "_sha256", unreadable)
+    with pytest.raises(BackendError, match="installation is incomplete"):
+        backend.RnaStructure.open(root)
