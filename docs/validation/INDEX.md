@@ -12,6 +12,7 @@ Verification dates cover the stated source observations or specification review;
 | cyano-integration | Separate reconstructed engines from downstream native-data admission and UI. | 2026-10-16 | [cyano-integration.md](cyano-integration.md) |
 | benchmark-quality | Assess published benchmark limitations and define stronger evaluation. | 2026-10-16 | [benchmark-quality.md](benchmark-quality.md) |
 | rbs-source-decision | Pinned RBS sources, licences, open-backend decision and scalar fixtures. | 2026-10-16 | [rbs-source-decision.md](rbs-source-decision.md) |
+| rbs-mechanisms | Versioned footprint/context profiles, primary parameter provenance, structures and ablation checks. | 2026-10-16 | [rbs-mechanisms.md](rbs-mechanisms.md) |
 | rbs-runtime | Installation, schemas, equations/deviations, resource bounds and release gates. | 2026-10-16 | [rbs-runtime.md](rbs-runtime.md) |
 | rbs-evaluation-protocol | Frozen experimental split, normalization, eligibility and independent evaluator boundary. | 2026-10-16 | [rbs-evaluation-protocol.md](rbs-evaluation-protocol.md) |
 | rbs-benchmark-card | Independently reproduced metrics, harness defects, leakage and measurement limits. | 2026-10-16 | [rbs-benchmark-card.md](rbs-benchmark-card.md) |

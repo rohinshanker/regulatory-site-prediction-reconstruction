@@ -101,7 +101,7 @@ def test_evaluate_fixed_structure(monkeypatch, folding):
 
     monkeypatch.setattr(FoldingSession, "_call", call)
     assert folding.evaluate("ACGU", (3, 2, 1, 0)).energy == -2.5
-    for seq in ["", "A" * 83]:
+    for seq in ["", "A" * 213]:
         with pytest.raises(BackendError, match="supported window"):
             folding.evaluate(seq, (-1,) * len(seq))
 
@@ -127,7 +127,7 @@ def test_fold_missing_energy_reevaluated(monkeypatch, folding):
     monkeypatch.setattr(FoldingSession, "_call", call)
     assert folding.fold("").energy == 0
     assert folding.fold("AAAA").energy == 0
-    for sequence in ["N", "A" * 71]:
+    for sequence in ["N", "A" * 201]:
         with pytest.raises(BackendError, match="normalized RNA"):
             folding.fold(sequence)
     monkeypatch.setattr(
@@ -153,7 +153,7 @@ def test_cofold_missing_energy_and_limits(monkeypatch, folding):
     assert folding.cofold("AAAA", "ACCUCCUUA")[0].energy == 0
     for leader, asd in [
         ("", "ACCUCCUUA"),
-        ("A" * 36, "ACCUCCUUA"),
+        ("A" * 101, "ACCUCCUUA"),
         ("AAAA", "A"),
         ("N", "ACCUCCUUA"),
     ]:

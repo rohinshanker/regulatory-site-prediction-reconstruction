@@ -7,6 +7,7 @@ from contextlib import nullcontext
 
 from regsite.backend import RnaStructure
 from regsite.io import load_requests, write_csv, write_json
+from regsite.profiles import PROFILES
 from regsite.rbs import predict
 from regsite.sequence import InputError
 from regsite.structures import BackendError
@@ -22,6 +23,9 @@ def main(argv: list[str] | None = None) -> int:
         help="separate RNAstructure 6.6 installation (exe/, data_tables/)",
     )
     parser.add_argument("--format", choices=("json", "csv"), default="json")
+    parser.add_argument(
+        "--profile", choices=[p.name for p in PROFILES], default="historical"
+    )
     parser.add_argument(
         "--seconds-per-record",
         type=float,
@@ -40,13 +44,16 @@ def main(argv: list[str] | None = None) -> int:
             requests = load_requests(stream)
         backend = RnaStructure.open(args.backend_root)
         results = [
-            predict(request, backend, seconds=args.seconds_per_record)
+            predict(
+                request, backend, seconds=args.seconds_per_record, profile=args.profile
+            )
             for request in requests
         ]
         if args.format == "csv":
             write_csv(results, sys.stdout)
         else:
-            write_json({"schema_version": "1.0", "results": results}, sys.stdout)
+            version = "1.0" if args.profile == "historical" else "1.1"
+            write_json({"schema_version": version, "results": results}, sys.stdout)
         return int(any(r["status"] in ("failed", "invalid_input") for r in results))
     except (InputError, BackendError, OSError, UnicodeError) as exc:
         print(f"regsite: {exc}", file=sys.stderr)

@@ -17,6 +17,7 @@ from typing import Any
 from regsite import __version__
 from regsite.backend import MAX_STRUCTURES, RnaStructure
 from regsite.contracts import MAX_EXPLICIT_STARTS, SCHEMA_VERSION, RbsRequest
+from regsite.profiles import Profile, get_profile
 from regsite.sequence import InputError, input_interval
 from regsite.structures import BackendError, Structure
 
@@ -99,10 +100,19 @@ def aligned_spacing(pairs: list[tuple[int, int]], start: int) -> int | None:
 
 
 def _joined_pairs(
-    window: str, anti_sd: str, prefix: Structure, binding: list[tuple[int, int]]
+    window: str,
+    anti_sd: str,
+    prefix: Structure,
+    binding: list[tuple[int, int]],
+    suffix: Structure | None = None,
+    suffix_start: int = 0,
 ) -> tuple[int, ...]:
     pairs = [-1] * (len(window) + 3 + len(anti_sd))
     pairs[: len(prefix.pairs)] = prefix.pairs
+    if suffix is not None:
+        for i, partner in enumerate(suffix.pairs):
+            if partner >= 0:
+                pairs[suffix_start + i] = suffix_start + partner
     for mrna, rrna in binding:
         target = len(window) + 3 + rrna
         pairs[mrna] = target
@@ -135,10 +145,11 @@ def _structure_result(structure: Structure, mrna_length: int) -> dict:
     }
 
 
-def _score_site(request: RbsRequest, start: int, folding) -> dict:
+def _score_site(request: RbsRequest, start: int, folding, profile: Profile) -> dict:
     sequence = request.oriented_sequence
     codon = sequence[start : start + 3]
-    begin, end = max(0, start - 35), min(len(sequence), start + 35)
+    begin = max(0, start - profile.upstream_nt)
+    end = min(len(sequence), start + profile.downstream_nt)
     site: dict[str, Any] = {
         "status": "no_candidate",
         "reason": None,
@@ -164,6 +175,8 @@ def _score_site(request: RbsRequest, start: int, folding) -> dict:
         "standby_interval": None,
         "warnings": [],
     }
+    if not profile.historical:
+        site.update(coding_footprint=None, post_footprint=None)
     if codon not in START_ENERGIES:
         return dict(site, status="unsupported", reason="unsupported_start_codon")
     if start == 0:
@@ -198,14 +211,27 @@ def _score_site(request: RbsRequest, start: int, folding) -> dict:
         )
         first, last = min(i for i, _ in binding), max(i for i, _ in binding)
         prefix = folding.fold(window[:first])
+        suffix_start = min(len(window), len(leader) + profile.footprint_nt)
+        suffix = None if profile.historical else folding.fold(window[suffix_start:])
         joined = window + "III" + request.anti_sd
         before = folding.evaluate(
-            joined, _joined_pairs(window, request.anti_sd, prefix, binding)
+            joined,
+            _joined_pairs(
+                window, request.anti_sd, prefix, binding, suffix, suffix_start
+            ),
         )
         standby_start = max(0, first - 4)
         accessible_prefix = folding.fold(window[:standby_start])
         after = folding.evaluate(
-            joined, _joined_pairs(window, request.anti_sd, accessible_prefix, binding)
+            joined,
+            _joined_pairs(
+                window,
+                request.anti_sd,
+                accessible_prefix,
+                binding,
+                suffix,
+                suffix_start,
+            ),
         )
         standby_signed = min(0.0, before.energy - after.energy)
         total = total_energy(
@@ -234,7 +260,7 @@ def _score_site(request: RbsRequest, start: int, folding) -> dict:
             warnings.append(
                 "historical_scalar_parameters_not_recalibrated_for_temperature"
             )
-        return dict(
+        result = dict(
             site,
             status="ok",
             reason=None,
@@ -280,25 +306,52 @@ def _score_site(request: RbsRequest, start: int, folding) -> dict:
             ),
             warnings=warnings,
         )
+        if suffix is not None:
+            result["energies"]["dG_post_footprint"] = suffix.energy
+            result["coding_footprint"] = asdict(
+                input_interval(
+                    start, begin + suffix_start, len(sequence), request.strand
+                )
+            )
+            result["post_footprint"] = _structure_result(suffix, len(suffix.sequence))
+            result["post_footprint"]["coordinate_space"] = (
+                "zero-based post-footprint sequence, beginning immediately after "
+                "coding_footprint in transcript orientation"
+            )
+            if (
+                suffix.prediction_energy is not None
+                and abs(suffix.prediction_energy - suffix.energy) > 1e-9
+            ):
+                warnings.append("post_footprint_native_energy_differs_from_efn2")
+            if end < start + profile.footprint_nt:
+                warnings.append("coding_footprint_truncated_at_sequence_boundary")
+        return result
     except (BackendError, OSError, UnicodeError) as exc:
         return dict(site, status="failed", reason=str(exc))
 
 
-def predict(value: object, backend: RnaStructure, *, seconds: float = 60) -> dict:
+def predict(
+    value: object,
+    backend: RnaStructure,
+    *,
+    seconds: float = 60,
+    profile: str = "historical",
+) -> dict:
     """Score one request; validation/backend failures never become zero scores.
 
     An overall failed or unsupported status can retain successful sites. Inspect
     each site's status; ok means every selected start was successfully scored.
     """
-    base = {
-        "schema_version": SCHEMA_VERSION,
+    specification = get_profile(profile)
+    base: dict[str, Any] = {
+        "schema_version": SCHEMA_VERSION if specification.historical else "1.1",
         "id": None,
         "status": "invalid_input",
         "reason": None,
         "sites": [],
         "warnings": list(BASE_WARNINGS),
         "model": {
-            "id": MODEL_ID,
+            "id": specification.model_id,
             "source_commit": SOURCE_COMMIT,
             "parameters": deepcopy(MODEL_PARAMETERS),
             "implementation_version": __version__,
@@ -307,6 +360,24 @@ def predict(value: object, backend: RnaStructure, *, seconds: float = 60) -> dic
         "input": None,
         "prediction_id": None,
     }
+    if not specification.historical:
+        parameters = base["model"]["parameters"]
+        del parameters["historical_footprint_nt"]
+        parameters.update(
+            upstream_nt=specification.upstream_nt,
+            downstream_nt=specification.downstream_nt,
+            coding_footprint_nt=specification.footprint_nt,
+            footprint_coordinate="[start, start+13), first coding nucleotide is start",
+            footprint_source="https://doi.org/10.1093/nar/gkx061; Methods equation 3",
+            context_source=(
+                "published 2014/2017 context-inspired bounded reconstruction; "
+                "not a recovered production parameter set"
+            ),
+            standby_model="historical four-base opening; later geometry unimplemented",
+        )
+        base["warnings"].append(
+            "later_standby_geometry_sliding_drafting_stacking_not_implemented"
+        )
     try:
         request = RbsRequest.from_dict(value)
     except InputError as exc:
@@ -337,7 +408,7 @@ def predict(value: object, backend: RnaStructure, *, seconds: float = 60) -> dic
         folding = backend.session(request.temperature_c, seconds)
     except (BackendError, OSError, UnicodeError) as exc:
         return dict(base, status="failed", reason=str(exc))
-    sites = [_score_site(request, start, folding) for start in starts]
+    sites = [_score_site(request, start, folding, specification) for start in starts]
     statuses = {site["status"] for site in sites}
     # Failures take precedence; successful predictions remain individually visible.
     status = next(

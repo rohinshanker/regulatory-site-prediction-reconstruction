@@ -1,7 +1,7 @@
 # RBS runtime and reconstruction profile
 
 - Purpose: Reproduce the implemented RBS contract, installation and validation gates.
-- Scope: `salis-v1-rnastructure-6.6-reconstruction-1`, schema 1.0; sequence-relative prediction.
+- Scope: Historical profile and shared runtime; refined profiles and schema 1.1 are specified in [rbs-mechanisms.md](rbs-mechanisms.md).
 - Last verified: 2026-10-16
 
 ## Identity and equations
@@ -100,8 +100,8 @@ Runtime validation additionally enforces normalized sequence and index bounds.
   the first through last paired mRNA base, not an experimentally established SD
   motif. Standby spans are modeled unpaired prefixes, possibly shorter than 4 nt.
 - Starts at position zero are unsupported leaderless initiation. Circular
-  sequence wrapping, genome projection, kinetic/refined RBS models and design
-  are not implemented. No fabricated feature intervals are emitted for them.
+  sequence wrapping, genome projection, kinetic RBS models and design
+  are not implemented. Refined equilibrium profiles are specified separately. No fabricated feature intervals are emitted for them.
 
 | Status | Meaning |
 | --- | --- |
@@ -203,8 +203,8 @@ real single/batch execution. CI runs the gates and fresh-wheel examples on all
 four Python/platform combinations; its actual run status is authoritative.
 
 Limits: 10,000 normalized bases, 1,000 selected starts, 100 batch records,
-2,000,000 input/output text characters. One process handles at most 70 mRNA
-bases plus 3 linker/9 aSD positions, ≤100 structures and one thread. Process
+2,000,000 input/output text characters. The historical profile handles at most 70 mRNA bases; refined context permits
+200 mRNA bases plus 3 linker/9 aSD positions, ≤100 structures and one thread. Process
 wall-time is capped at 15 s and total folding time at 60 s per record by default,
 configurable up to 120 s. Input-size/window caps bound computational memory;
 there is no operating-system memory quota. The shipped batch provides a reproducible smoke workload; measure wall time and

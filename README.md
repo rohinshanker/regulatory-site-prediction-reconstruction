@@ -32,12 +32,19 @@ local and needs no accounts, coins or network access after installation.
 export REGSITE_RNASTRUCTURE="/absolute/path/to/RNAstructure"
 .venv/bin/regsite examples/rbs-single.json
 .venv/bin/regsite examples/rbs-batch.json --format csv
+.venv/bin/regsite examples/rbs-footprint.json --profile footprint2017
 ```
 
 A request supplies `sequence` and a 9-nt `anti_sd`; optional `start_positions`
 selects starts in transcript orientation. The default scans AUG/GUG/UUG. Host
 labels do not select hidden defaults. See the [input schema](schemas/rbs-request-1.0.schema.json),
 [result schema](schemas/rbs-result-1.0.schema.json), and [model deviations](docs/validation/rbs-runtime.md).
+
+The default historical profile is preserved. The distinct `footprint2017` and
+`context2017` profiles permit RNA beyond the published coding footprint to refold;
+the latter also expands the context window. See their [mechanism contract](docs/validation/rbs-mechanisms.md)
+and [result schema 1.1](schemas/rbs-result-1.1.schema.json). These are explicit
+partial reconstructions of later mechanisms, with experimental comparison pending.
 
 ## Start a new implementation session
 

@@ -4,8 +4,8 @@
 - Status: active
 - Opened: 2026-10-16
 - Updated: 2026-10-16
-- Current State: Wave 2 active from `fc78dee42f934417f2bf905ae71b582903b7a949` on `wave2/rbs-models`. Own worktree created; real backend baseline and dependency-independent implementation underway. Session B owns evidence, held-out evaluation and browser.
-- Verification: Repository setup checked ticket H1/fields, queue membership and local links on 2026-10-16; implementation validation is specified below and has not run.
+- Current State: Historical profile preserved; real footprint-only and longer-context profiles implemented with schema 1.1, primary mechanism provenance and synthetic ablation. Independent B coordinate/parameter review and experimental comparisons pending. Later standby/sliding/drafting/stacking mechanisms remain unresolved; no production-equivalence claim.
+- Verification: 165 tests pass with the real pinned RNAstructure backend; 100% statements/branches, Ruff/mypy and scoped ticket validation pass. Historical shipped batch output is byte-identical to pinned baseline before release-version changes. Exact-patch review and independent experimental evaluation pending.
 - Cleanup: Owning session records final checks and unresolved findings, resolves the ticket, distills reusable guidance into docs/validation/, updates both indexes and linked GitHub issue, then removes the resolved ticket.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/4
 - Priority: P0
