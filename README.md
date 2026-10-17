@@ -44,7 +44,9 @@ The default historical profile is preserved. The distinct `footprint2017` and
 `context2017` profiles permit RNA beyond the published coding footprint to refold;
 the latter also expands the context window. See their [mechanism contract](docs/validation/rbs-mechanisms.md)
 and [result schema 1.1](schemas/rbs-result-1.1.schema.json). These are explicit
-partial reconstructions of later mechanisms, with experimental comparison pending.
+partial reconstructions of later mechanisms. The [mechanism contract](docs/validation/rbs-mechanisms.md)
+records reproducible folding-backend failures; longer context does not guarantee
+better coverage or accuracy.
 
 The transcript-aware adapter accepts pinned genomes and explicit TSS/CDS scenarios:
 
@@ -62,6 +64,17 @@ Experimental sequence-only and energy/sequence ridge models use a separate
 `regsite-learned` command and explicit frozen JSON weights. Their outputs are
 log2 assay responses, with training-domain warnings and no invented energies.
 See the [reproducible training and inference contract](docs/validation/rbs-learning-runtime.md).
+
+```sh
+.venv/bin/regsite-learned models/rbs/karlsen2018/sequence-v1.json examples/rbs-karlsen-native.json
+```
+
+The [PCC 6803 model card](models/rbs/karlsen2018/README.md) reports a small
+development gain over a constant predictor and weak gene-to-gene ranking.
+The energy/sequence variant loses too many cases to pass the coverage gate.
+These models are experimental; neither establishes native UTEX 2973 accuracy.
+The [public reporter model card](models/rbs/standby2014/README.md) describes the
+separate E. coli experiment and its limited sequence diversity.
 
 ## Start a new implementation session
 
