@@ -183,6 +183,106 @@
       "raw_first_retrieval_sha256": "04dd7598aa2aa65b4e4628d7eac898041a04bfcaec4d69a5eb701b16b9921526",
       "canonicalization": "tsv_header_sort_data_lines_v1",
       "identity_note": "ENA row order is unstable; pin header and lexicographically sorted complete data rows; preserve raw bytes and retrieval receipt"
+    },
+    {
+      "id": "thiel2018-article.xml",
+      "name": "thiel2018-article.xml",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC5834881/fullTextXML",
+      "bytes": 121572,
+      "sha256": "aec3a032ebff073cc444b10c19866f30ffa8d55f75f46a235c5b063049a15fdb",
+      "licence": "CC-BY-4.0 article/supplements; Thiel et al.2018",
+      "use": "Reporter construct/context audit; numerical endpoint means not tabulated",
+      "retrieved_utc": "2026-10-17"
+    },
+    {
+      "id": "12934_2018_882_MOESM1_ESM.pdf",
+      "name": "12934_2018_882_MOESM1_ESM.pdf",
+      "url": "https://media.springernature.com/original/springer-static/esm/art%3A10.1186%2Fs12934-018-0882-2/MediaObjects/12934_2018_882_MOESM1_ESM.pdf",
+      "bytes": 10026,
+      "sha256": "b5d28c2a3b418ae7d57799d41b5a1a8cfbf8bc4ea20b02714346d6442e75e235",
+      "licence": "CC-BY-4.0 article/supplements; Thiel et al.2018",
+      "use": "Reporter construct/context audit; numerical endpoint means not tabulated",
+      "retrieved_utc": "2026-10-17"
+    },
+    {
+      "id": "12934_2018_882_MOESM2_ESM.pdf",
+      "name": "12934_2018_882_MOESM2_ESM.pdf",
+      "url": "https://media.springernature.com/original/springer-static/esm/art%3A10.1186%2Fs12934-018-0882-2/MediaObjects/12934_2018_882_MOESM2_ESM.pdf",
+      "bytes": 21550,
+      "sha256": "674b7926175a11d81ed80e15f7a1820eac096352967ab0e11b7c9161837c4692",
+      "licence": "CC-BY-4.0 article/supplements; Thiel et al.2018",
+      "use": "Reporter construct/context audit; numerical endpoint means not tabulated",
+      "retrieved_utc": "2026-10-17"
+    },
+    {
+      "id": "12934_2018_882_MOESM3_ESM.pdf",
+      "name": "12934_2018_882_MOESM3_ESM.pdf",
+      "url": "https://media.springernature.com/original/springer-static/esm/art%3A10.1186%2Fs12934-018-0882-2/MediaObjects/12934_2018_882_MOESM3_ESM.pdf",
+      "bytes": 443438,
+      "sha256": "9e8e52c0fc1e644cbdacfc515eb2c9bc121728b83919b49c3a265289e805613c",
+      "licence": "CC-BY-4.0 article/supplements; Thiel et al.2018",
+      "use": "Reporter construct/context audit; numerical endpoint means not tabulated",
+      "retrieved_utc": "2026-10-17"
+    },
+    {
+      "id": "12934_2018_882_MOESM4_ESM.pdf",
+      "name": "12934_2018_882_MOESM4_ESM.pdf",
+      "url": "https://media.springernature.com/original/springer-static/esm/art%3A10.1186%2Fs12934-018-0882-2/MediaObjects/12934_2018_882_MOESM4_ESM.pdf",
+      "bytes": 786274,
+      "sha256": "d29ab591108f0fd8802a9b9de6f51de4f1521e0d79597394a22027e0635a3878",
+      "licence": "CC-BY-4.0 article/supplements; Thiel et al.2018",
+      "use": "Reporter construct/context audit; numerical endpoint means not tabulated",
+      "retrieved_utc": "2026-10-17"
+    },
+    {
+      "id": "12934_2018_882_MOESM5_ESM.pdf",
+      "name": "12934_2018_882_MOESM5_ESM.pdf",
+      "url": "https://media.springernature.com/original/springer-static/esm/art%3A10.1186%2Fs12934-018-0882-2/MediaObjects/12934_2018_882_MOESM5_ESM.pdf",
+      "bytes": 61843,
+      "sha256": "95d179790b4455b6245eaf7110707c316bc6009492d9fc67bef7966d46a72eee",
+      "licence": "CC-BY-4.0 article/supplements; Thiel et al.2018",
+      "use": "Reporter construct/context audit; numerical endpoint means not tabulated",
+      "retrieved_utc": "2026-10-17"
+    },
+    {
+      "id": "12934_2018_882_MOESM6_ESM.pdf",
+      "name": "12934_2018_882_MOESM6_ESM.pdf",
+      "url": "https://media.springernature.com/original/springer-static/esm/art%3A10.1186%2Fs12934-018-0882-2/MediaObjects/12934_2018_882_MOESM6_ESM.pdf",
+      "bytes": 142613,
+      "sha256": "b35ae080b2c62fddb91a2f16100d6bdda9189c5efa2237350bc7353179facf29",
+      "licence": "CC-BY-4.0 article/supplements; Thiel et al.2018",
+      "use": "Reporter construct/context audit; numerical endpoint means not tabulated",
+      "retrieved_utc": "2026-10-17"
+    },
+    {
+      "id": "12934_2018_882_MOESM7_ESM.pdf",
+      "name": "12934_2018_882_MOESM7_ESM.pdf",
+      "url": "https://media.springernature.com/original/springer-static/esm/art%3A10.1186%2Fs12934-018-0882-2/MediaObjects/12934_2018_882_MOESM7_ESM.pdf",
+      "bytes": 92722,
+      "sha256": "7cc61c0689c7e3e41ad129ccc88cb9d6adff07835ee9d1ed557580d6a516cb29",
+      "licence": "CC-BY-4.0 article/supplements; Thiel et al.2018",
+      "use": "Reporter construct/context audit; numerical endpoint means not tabulated",
+      "retrieved_utc": "2026-10-17"
+    },
+    {
+      "id": "diurnal2021-supp.zip",
+      "name": "diurnal2021-supp.zip",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC8237939/supplementaryFiles",
+      "bytes": 4310291,
+      "sha256": "22dd4987f05686e8f398da11c8688a4c7544c74f620fe94224d37a350c47f248",
+      "licence": "CC-BY-4.0 article supplemental workbook",
+      "use": "Secondary study admission; primary workbook outcomes remain evaluator-private",
+      "retrieved_utc": "2026-10-17"
+    },
+    {
+      "id": "diurnal2021-source-coordinates.tab",
+      "name": "diurnal2021-source-coordinates.tab",
+      "url": "https://raw.githubusercontent.com/J-Karlsen/diurnal-gene-expression/5baf8fc148b511478cf89569e6a6ce167dcd5428/input_data/rnaseq_all_CDS_RPKM_no_filter_orf_scaled.tab",
+      "bytes": 4911296,
+      "sha256": "b627d06bffe454ca365df5e478f129780115adb7fe23903945b401aabe297d34",
+      "licence": "Repository has no recovered standalone licence; external research source only, coordinate facts used; no code or raw table bundled",
+      "use": "Secondary study admission; primary workbook outcomes remain evaluator-private",
+      "retrieved_utc": "2026-10-17"
     }
   ],
   "utex_identity": {

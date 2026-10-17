@@ -4,8 +4,8 @@
 - Status: active
 - Opened: 2026-10-16
 - Updated: 2026-10-17
-- Current State: Tan context and Karlsen relative TE admitted with frozen splits. Direct TIS v3 source yields 91 primary and eight weak supported starts; outcome-blind stop queries contain 1018 candidates. Thiel reporter/context admission, independent secondary-study challenges and final evaluation remain active.
-- Verification: All 107 owned benchmark tests pass, 100% statement/branch coverage (1346/550); targeted Ruff and scoped documentation validation pass. Actual upstream OSTIR/rebeca inference and synthetic numerical smokes pass; native partitions independently reviewed and reproduced. Source/evaluation details are in rbs-native-data-card.md, rbs-positional-evidence.md and rbs-upstream-comparators.md.
+- Current State: Tan context and Karlsen relative TE admitted with frozen splits. Direct TIS v3 source yields 91 primary and eight weak supported starts; outcome-blind stop queries contain 1018 candidates. Thiel reporter/context evidence is admitted with32constructs/13conditionalGFP contexts and no invented numerical means; diurnal secondary challenge admits1000chromosomal genes using inherited splits. Final independent evaluation remains active.
+- Verification: All 120 owned benchmark tests pass, 100% statement/branch coverage (1547/626); targeted Ruff and scoped documentation validation pass. Actual upstream OSTIR/rebeca inference and synthetic numerical smokes pass; native partitions independently reviewed and reproduced. Source/evaluation details are in rbs-native-data-card.md, rbs-positional-evidence.md and rbs-upstream-comparators.md.
 - Cleanup: Resolve only completed scope, distill reusable dataset/evaluation contracts, update indexes and GitHub issue, then remove the resolved ticket.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/16
 - Priority: P0
