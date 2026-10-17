@@ -81,7 +81,7 @@
     "training_only_affine_controls": 2,
     "unique_configurations": 24
   },
-  "frozen_utc": "2026-10-17T03:53:00Z",
+  "frozen_utc": "2026-10-17T03:52:37Z",
   "immutable_checkout_name": "reconstruction-rbs-export-final-review",
   "models": [
     {
@@ -183,10 +183,13 @@
     }
   ],
   "native_primary": {
+    "OSTIR_affine_training_intercept_log2": 0.6021817500748811,
+    "OSTIR_affine_training_slope": 0.037857388829594524,
     "anti_sd": "ACCUCCUUU",
     "confirmatory_simple_control": "training_median_constant",
     "confirmatory_upstream_control": "OSTIR_1.1.3_training_only_affine",
     "constant_rank_rule": "undefined; compare original historical and strongest nonconstant upstream instead",
+    "constant_training_median_log2": 0.8639384504239717,
     "control_development_artifact": "benchmarks/rbs/karlsen2018-control-development.json",
     "control_development_sha256": "b391912409a3063a710f4573342202570e039961b7c36496162c2e7ed7a0b96c",
     "descriptive_controls": [
