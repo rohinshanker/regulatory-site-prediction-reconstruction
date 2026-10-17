@@ -32,7 +32,10 @@ def native_predictions(inputs, result):
         ):
             raise ValueError("Native result source-evidence identity drift")
         core, value, prediction_id = row["prediction"], None, None
+        verified = core is not None and core["input"] is not None
         if core is not None:
+            prediction_id = core["prediction_id"]
+        if verified:
             request = core["input"]
             if (
                 original["sequence"] is None
@@ -50,7 +53,6 @@ def native_predictions(inputs, result):
                 sites and sites[0]["oriented_start"] != original["start_position"]
             ):
                 raise ValueError("Native result changed the supplied start")
-            prediction_id = core["prediction_id"]
             if status == "ok":
                 if len(sites) != 1 or sites[0]["status"] != "ok":
                     raise ValueError(
@@ -66,6 +68,7 @@ def native_predictions(inputs, result):
                 "predicted": value,
                 "source_status": status,
                 "source_prediction_id": prediction_id,
+                "scenario_verified": verified,
                 "reason": row.get("reason"),
             }
         )

@@ -116,6 +116,32 @@ class LiveComparisonTests(unittest.TestCase):
             self.assertEqual(result["counts"]["extra_returned_starts"], 1)
             self.assertEqual(result["declared_targets"]["n_submitted"], 0)
 
+    def test_null_input_failure_preserves_mixed_batch_denominators(self):
+        with tempfile.TemporaryDirectory() as directory:
+            reference = self.references(Path(directory))
+            reference.append({**reference[0], "id": "failure"})
+            failure = {
+                "id": "failure",
+                "status": "invalid_input",
+                "input": None,
+                "sites": [],
+            }
+            self.predictions.append(failure)
+            result = live_compare.compare(reference, self.predictions, self.settings)
+            self.assertEqual(result["all_live_candidates"]["n_submitted"], 2)
+            self.assertEqual(result["all_live_candidates"]["n_success"], 1)
+            self.assertEqual(
+                result["all_live_candidates"]["failures"], {"invalid_input": 1}
+            )
+            self.assertEqual(result["counts"]["scenario_verification_unavailable"], 1)
+            failure["status"] = "ok"
+            with self.assertRaises(ValueError):
+                live_compare.compare(reference, self.predictions, self.settings)
+            failure["status"] = "failed"
+            failure["sites"] = [{"status": "ok"}]
+            with self.assertRaises(ValueError):
+                live_compare.compare(reference, self.predictions, self.settings)
+
     def test_scenario_and_identity_rejection(self):
         with tempfile.TemporaryDirectory() as directory:
             reference = self.references(Path(directory))

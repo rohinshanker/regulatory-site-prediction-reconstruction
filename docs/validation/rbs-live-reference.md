@@ -170,6 +170,8 @@ normalization), aSD and temperature, retains missing sites and extra starts, and
 reports all 17 reference candidates separately from the nine selected targets.
 It imports no runtime scoring implementation. Synthetic tests cover empty results,
 form rejections, missing/extra/duplicate sites, source/scenario drift and CSV pins.
+A failed record with no normalized input retains every reference candidate as a
+failure and records unavailable scenario verification; it cannot supply a score.
 
 ```sh
 python -m benchmarks.rbs.live_compare benchmarks/rbs/live-diagnostic-panel.json benchmarks/rbs/live-acquisition.json "$PRIVATE_WAVE1" "$PRIVATE_WAVE2/live-historical-reconstruction.json" "$PRIVATE_WAVE2/live-historical-aggregate.json"
