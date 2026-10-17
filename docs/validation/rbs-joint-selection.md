@@ -177,6 +177,15 @@ including states, winners, terms and diagnostics, match the pre-batching
 compensated-sum implementation exactly. The tie-tolerance change did not change
 any winner in this panel.
 
+The same 136-input check on linker-3 at `0a10d3b` also completed every search,
+with median 0.870, p95 1.920 and maximum 2.500 seconds (139.94 seconds total).
+All 136 full site outputs match traceback-2 exactly, including the three changed
+binding winners. Maximum child RSS was 85,721,088 bytes. This panel therefore
+shows no scientific difference between these backend versions; the separate
+[structural repair gates](rbs-backend-repair.md) establish the repaired failures.
+The subsequent receipt-presence guard changes admission of inconsistent
+installations, not predictions from either validated engine.
+
 The real two-gene native example completes 187 and 591 bound states (7 and 31
 eligible candidates) in 12.87 seconds total under the unchanged record budgets.
 A separate fixed-energy throughput check evaluates 4,096 copies of the same

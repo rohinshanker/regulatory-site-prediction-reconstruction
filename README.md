@@ -5,8 +5,9 @@ calculators, pursuing the closest demonstrable behavior to the production
 [De Novo DNA tools](https://www.denovodna.com/software/).
 
 **The RBS release candidate, 0.4.0rc1, runs locally.** It includes the historical
-Salis v1 reconstruction, separately named footprint/context/standby refinements, a native
-genome/transcript adapter, and experimental sequence and energy/sequence models.
+Salis v1 reconstruction, footprint/context/standby refinements, joint binding and
+standby selection, a native genome/transcript adapter, and experimental sequence
+and energy/sequence models.
 The mechanistic profiles use separately installed RNAstructure 6.6 executables
 and return energy terms, relative initiation scores, structures, coordinates and
 explicit failure/missingness. Sequence-only inference needs no folding backend.
@@ -38,8 +39,8 @@ separate validation gates.
 Follow the [installation and validation contract](docs/validation/rbs-runtime.md)
 to install the Python package and pinned open folding backend. Inference is
 local and needs no accounts, coins or network access after installation.
-The optional [traceback-repaired backend](docs/validation/rbs-backend-repair.md)
-fixes known malformed/missing folding results and identifies itself separately.
+The optional [traceback/linker-repaired backends](docs/validation/rbs-backend-repair.md)
+fix known malformed/missing folding results and each identify themselves separately.
 
 ```sh
 export REGSITE_RNASTRUCTURE="/absolute/path/to/RNAstructure"

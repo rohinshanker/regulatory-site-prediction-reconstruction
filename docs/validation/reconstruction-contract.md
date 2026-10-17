@@ -105,17 +105,17 @@ be inferred from one reporter panel or website agreement.
   functional acceptance criteria must pass, or the owner must explicitly change
   its scope. Unknowns remain tracked while independent work continues.
 
-## RBS 0.3.0rc1 applicability
+## RBS 0.4.0rc1 applicability
 
-The candidate includes historical, footprint/context and published-standby profiles, a
-transcript-aware native adapter, versioned JSON/CSV/GFF3 exports and frozen
-experimental learned models. The [runtime](rbs-runtime.md),
+The candidate includes historical, footprint/context, published-standby and
+[joint binding/standby](rbs-joint-selection.md) profiles, a transcript-aware native
+adapter, versioned JSON/CSV/GFF3 exports and frozen experimental learned models. The [runtime](rbs-runtime.md),
 [native adapter](rbs-native-runtime.md) and [learned runtime](rbs-learning-runtime.md)
 contracts define their inputs, limits and reproduction commands. Single/batch
 examples and the two-strand PCC 6803 genome example ship with the source release.
 
-The [independent Wave 2 result card](rbs-wave2-results.md) is the scientific
-release gate. It reports a failed model-promotion decision, restricted comparator
+The [independent Wave 2 result card](rbs-wave2-results.md) records the original
+learned-model scientific gate. It reports a failed model-promotion decision, restricted comparator
 roles, backend failure coverage and limits on native transfer. Learned models
 remain experimental; release availability does not imply superiority. The
 immutable [freeze](../../models/rbs/wave2-freeze.json) and
@@ -129,8 +129,14 @@ structural optimization and declared reconstruction choices. The optional
 component, built outside the GPL-3.0-or-later Python runtime and communicated with
 through files/processes. The source distribution preserves its separate licence;
 the wheel contains no backend code or executable. Original profiles, installations
-and Wave 2 artifacts remain available. This new mechanism/backend combination
-requires its own scientific evaluation; the old final cohort is already consumed.
+and Wave 2 artifacts remain available. The separate linker-3 component corrects
+ordinary WMB linker handling and retains its own source/patch/build identity.
+Joint selection uses schema 1.3 with complete-search diagnostics, explicit limits
+and null-score incomplete searches. Its scientific gate is the frozen
+[Wave 4 independent protocol](rbs-wave4-evaluation.md): Cambray ordinary protein
+output is primary, Kuo is exposed secondary, and no native calibration follows.
+The old final cohort is already consumed. A lower optimized energy or a repaired
+folding failure alone cannot satisfy the experimental advancement gate.
 
 Remaining scope includes drafting, kinetics and distinct production stacking,
 backend enumeration differences, design modes, the other three calculators and
