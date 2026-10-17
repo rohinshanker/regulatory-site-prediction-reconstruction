@@ -183,6 +183,42 @@ For overlap reproduction, load each pinned prior input with
 record missing-source-input counts and every returned hit without filtering on
 outcomes. Input-only scoring exports may be shared with A; final outcomes may not.
 
+The [admission audit](../../benchmarks/rbs/new-data-admission-audit.json) records
+freeze commit `55da050fc3543cf9ff61e41eb269c3071d92b9fc`, followed by private
+extraction. Cambray has 332 observed means and three missing among 335 selected
+inputs; Kuo has 253 observed and eight missing among 261. All remain in the
+frozen panels. Selected means agree with available replicates within the declared
+source tolerances; none is nonpositive. The full Cambray table has 229,044 rows
+with all four cleaned replicates and 1,731 with none. These are source-quality
+counts, not model performance. Private output hashes and actual 0700/0600 modes
+are recorded without publishing measurements.
+
+The [overlap audit](../../benchmarks/rbs/new-data-overlap-audit.json) finds no
+threshold hits across **2,800,008 pair comparisons** against 4,698 usable prior
+inputs. Another 139 prior records lack sequence (27 Karlsen, 112 diurnal) and
+cannot be compared. Multiple source records can represent the same biological
+context; comparison counts are not independent sample counts. Unknown upstream
+training exposure and more distant homology remain outside this check.
+
+Ranked tests for the next immutable candidates:
+
+1. **Backend validity:** the archived malformed/native-failure cases and exhaustive
+   tiny controls should pass after #21 repairs; failure coverage must improve
+   without silently deleting structures. Falsified by persistent invalid CTs,
+   missed declared tiny states, or poorer all-case coverage on the frozen panel.
+2. **Explicit standby geometry:** orientation-averaged branched height and joint
+   unfolding/occlusion selection should reproduce the analytic fixtures, then
+   improve ordinary-protein ranking versus an otherwise identical ablation.
+   Falsified by unchanged/worse paired ranking under seed-block uncertainty.
+   The Cambray panel changes coding structures, so it is not a universal test of
+   long upstream standby-site behavior.
+3. **Assay/mechanism separation:** facilitated upstream translation coupling may
+   alter performance differently from ordinary initiation. Treat facilitated
+   outcomes as a separate predeclared mechanistic challenge, never as another
+   replicate of ordinary protein output. Falsified by absence of a reproducible
+   condition-specific advantage after candidate settings are frozen. No native
+   cyanobacterial improvement follows from either condition.
+
 Additional cyanobacterial candidates remain honestly incomplete: Lin2021 UTEX
 and Sebesta2020 PCC7942 have useful construct/condition evidence but no recovered
 complete numerical sequence–measurement panel; published predicted rates are
