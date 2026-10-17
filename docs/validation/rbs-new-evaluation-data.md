@@ -127,9 +127,13 @@ Seed: `wave3-rbs-20261017-v1`. Selection uses sequence/identity fields only.
   The full universe is connected by single-base substitutions, so arbitrary
   row partitions cannot establish remote-family generalization.
 
-Keep failed or missing predictions and unmeasured inputs in denominators. Do
-not select on available outcomes or backend success, trim outliers, fit scale
-on final measurements, or pool studies/conditions into one correlation. Primary
+Keep every selected input in the panel denominator, and report a separate
+measured-outcome denominator. Prediction coverage uses the full panel; correlation
+uses finite measured/predicted pairs with its paired count disclosed. Unmeasured
+cases are not negatives or model failures. A missing prediction still counts
+against coverage and any calibrated all-measured-case accuracy fraction. Do not
+select on available outcomes or backend success, trim outliers, fit scale on
+final measurements, or pool studies/conditions into one correlation. Primary
 comparison is rank and prediction coverage within study. A final log-error claim
 would additionally need an independently frozen, assay-compatible calibration;
 source 1–100 fluorescence is not the runtime's arbitrary initiation-rate unit.
@@ -187,8 +191,10 @@ The [admission audit](../../benchmarks/rbs/new-data-admission-audit.json) record
 freeze commit `55da050fc3543cf9ff61e41eb269c3071d92b9fc`, followed by private
 extraction. Cambray has 332 observed means and three missing among 335 selected
 inputs; Kuo has 253 observed and eight missing among 261. All remain in the
-frozen panels. Selected means agree with available replicates within the declared
-source tolerances; none is nonpositive. The full Cambray table has 229,044 rows
+frozen panels. Selected means agree with available replicates within 0.001 for Kuo rounded
+values and a numerical audit tolerance of 1e-6 for Cambray; none is nonpositive.
+`new_data.selected_completeness(private_outcomes, frozen_inputs)` reproduces
+these counts without returning individual outcomes or changing observations. The full Cambray table has 229,044 rows
 with all four cleaned replicates and 1,731 with none. These are source-quality
 counts, not model performance. Private output hashes and actual 0700/0600 modes
 are recorded without publishing measurements.
