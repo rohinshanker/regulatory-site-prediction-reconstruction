@@ -58,8 +58,8 @@ RBS_CODE_COMMIT=$(git rev-parse HEAD)
 .venv/bin/python -m experiments.rbs.standby benchmarks/rbs/standby2014.json \
   .cache/context2017-development.json .cache/standby-models \
   --code-commit "$RBS_CODE_COMMIT"
-.venv/bin/regsite-learned .cache/standby-models/sequence-v1.json examples/rbs-single.json
-.venv/bin/regsite-learned .cache/standby-models/context-energy-sequence-v1.json examples/rbs-single.json
+.venv/bin/regsite-learned .cache/standby-models/sequence-v1.json examples/rbs-learned.json
+.venv/bin/regsite-learned .cache/standby-models/context-energy-sequence-v1.json examples/rbs-learned.json
 ```
 
 The collector is local, bounded to 30 minutes by default (one hour maximum), and

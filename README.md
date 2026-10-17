@@ -58,6 +58,11 @@ circular origins, and separates supplied-start scoring from conditional candidat
 ranking. See the [native runtime contract](docs/validation/rbs-native-runtime.md).
 The small example validates coordinates; it is not a native accuracy benchmark.
 
+Experimental sequence-only and energy/sequence ridge models use a separate
+`regsite-learned` command and explicit frozen JSON weights. Their outputs are
+log2 assay responses, with training-domain warnings and no invented energies.
+See the [reproducible training and inference contract](docs/validation/rbs-learning-runtime.md).
+
 ## Start a new implementation session
 
 For the next parallel wave, use the complete [Session A prompt](docs/prompts/wave2-session-a.md)

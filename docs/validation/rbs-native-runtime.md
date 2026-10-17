@@ -26,6 +26,34 @@ of native-host accuracy. `context2017` is the default; `--profile historical` an
 `--profile footprint2017` explicitly select the other mechanisms. The Python API
 is `regsite.native.predict_native(value, backend, profile=..., mode=...)`.
 
+For real UTEX 2973 context, first reproduce `tan-contexts.json` with B's pinned
+[Tan extraction commands](rbs-native-validation.md). The full input preserves all
+4,808 source rows. This small demonstration selects eight records from source
+annotation categories, without using translation measurements or score errors:
+
+```sh
+.venv/bin/python - <<'PY'
+import hashlib, json
+from pathlib import Path
+source = Path.home() / '.cache/reg-site-wave2/tan-contexts.json'
+raw = source.read_bytes()
+selection = json.loads(Path('examples/rbs-native-tan-ids.json').read_text())
+assert hashlib.sha256(raw).hexdigest() == selection['source_sha256']
+batch = json.loads(raw)
+by_id = {row['id']: row for row in batch['records']}
+batch['records'] = [by_id[key] for key in selection['record_ids']]
+Path('.cache').mkdir(exist_ok=True)
+Path('.cache/tan-example.json').write_text(json.dumps(batch))
+PY
+regsite-native .cache/tan-example.json > .cache/tan-example-results.json
+regsite-native .cache/tan-example.json --format gff3 > .cache/tan-example.gff3
+```
+
+The selection is a runtime example, not a representative accuracy or coverage
+benchmark. Whole-input admission counts and whole-input prediction coverage must
+be reported separately. Once source files and the backend are installed, these
+commands need no network or credentials.
+
 `supplied_start` scores the declared CDS start. `conditional_scan` searches
 AUG/GUG/UUG only inside that same extracted context and ranks successful scores;
 equal scores receive consecutive ranks ordered by upstream transcript position.
@@ -34,6 +62,10 @@ remain relative initiation predictions with the selected model's limitations.
 Host, temperature and nine-base anti-SD sequence are explicit inputs. An annotated
 16S tail used as a host scenario does not establish mature-rRNA processing or
 experimental host calibration.
+When temperature is absent, the adapter explicitly warns that its default 37°C
+scenario is not native-condition calibration. Tan's multiple-condition metadata
+is preserved; one default-temperature prediction is not an estimate for every
+measured condition.
 
 ## Coordinates and missingness
 

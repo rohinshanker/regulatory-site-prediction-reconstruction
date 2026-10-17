@@ -42,6 +42,9 @@ def test_independently_prepared_coordinates_and_context():
             expected["expected_start_interval"]
         ]
         assert context.request["anti_sd"] == "ACCUCCUUA"
+        assert (
+            "default_37C_scenario_not_native_condition_calibration" in context.warnings
+        )
         assert result["genome"]["sequence_sha256"] == genome.sha256
         assert result["sequence_sha256"] == sequence_hash(context.sequence)
         assert result["path"]["circular"] == (expected["topology"] == "circular")
@@ -179,8 +182,14 @@ def test_declared_circular_leaders_do_not_manufacture_long_transcripts():
 )
 def test_structured_source_metadata_is_preserved(provenance):
     record, genome = inputs()
-    record.update(anti_sd_provenance=provenance, conditions={"control": [3, 4]})
-    assert prepare_context(record, genome).request["anti_sd"] == "ACCUCCUUA"
+    record.update(
+        anti_sd_provenance=provenance, conditions={"control": [3, 4]}, temperature_c=30
+    )
+    context = prepare_context(record, genome)
+    assert context.request["anti_sd"] == "ACCUCCUUA"
+    assert (
+        "default_37C_scenario_not_native_condition_calibration" not in context.warnings
+    )
     batch = dict(EXAMPLE, records=[record])
     result = predict_native(batch, AlgebraBackend(paired=0))
     assert result["results"][0]["evidence"] == record

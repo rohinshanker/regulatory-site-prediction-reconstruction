@@ -188,6 +188,8 @@ def prepare_context(record: object, genome: Genome) -> NativeContext:
         raise UnsupportedContext("unresolved_translation_start")
     _integer(start, "cds_start_zero_based", 0, size - 1)
     warnings = list(record["warnings"])
+    if "temperature_c" not in record:
+        warnings.append("default_37C_scenario_not_native_condition_calibration")
     if tss is None:
         if leader is not None:
             raise InputError("unknown TSS requires null leader_length_nt")

@@ -185,10 +185,10 @@ Run these from the repository root with `REGSITE_RNASTRUCTURE` set. Missing this
 variable skips real-engine fixtures, so that run cannot satisfy release gates.
 
 ```sh
-.venv/bin/ruff check src tests
-.venv/bin/ruff format --check src tests
-.venv/bin/mypy src/regsite
-.venv/bin/python -m pytest --cov=regsite --cov=benchmarks.rbs --cov-report=term-missing
+.venv/bin/ruff check src tests experiments
+.venv/bin/ruff format --check src tests experiments
+.venv/bin/mypy src/regsite experiments
+.venv/bin/python -m pytest --cov=regsite --cov=benchmarks.rbs --cov=experiments.rbs --cov-report=term-missing
 .venv/bin/python -m build --no-isolation
 .venv/bin/python -m venv .cache/fresh
 .cache/fresh/bin/python -m pip install --no-index --no-deps dist/*.whl
