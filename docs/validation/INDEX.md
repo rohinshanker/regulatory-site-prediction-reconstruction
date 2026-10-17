@@ -4,7 +4,16 @@ Verification dates cover the stated source observations or specification review;
 
 | Area | Purpose | Last verified | Document |
 | --- | --- | --- | --- |
+| rbs-wave2-program | Two-session ownership, dependencies, bounded fourteen-hour wave and acceptance. | 2026-10-16 | [rbs-wave2-program.md](rbs-wave2-program.md) |
+| rbs-native-validation | Tan TSS context, native TIS/TE and reporter validation with cyanobacterial claim gates. | 2026-10-16 | [rbs-native-validation.md](rbs-native-validation.md) |
+| rbs-comparator-landscape | Mechanistic/ML comparator roster, artifact gates and specialist improvement strategy. | 2026-10-16 | [rbs-comparator-landscape.md](rbs-comparator-landscape.md) |
 | reconstruction-contract | Define reproducible, fully open calculator reconstruction and release requirements. | 2026-10-16 | [reconstruction-contract.md](reconstruction-contract.md) |
 | source-map | Preserve pinned starting sources and known recovery gaps. | 2026-10-16 | [source-map.md](source-map.md) |
 | cyano-integration | Separate reconstructed engines from downstream native-data admission and UI. | 2026-10-16 | [cyano-integration.md](cyano-integration.md) |
 | benchmark-quality | Assess published benchmark limitations and define stronger evaluation. | 2026-10-16 | [benchmark-quality.md](benchmark-quality.md) |
+| rbs-source-decision | Pinned RBS sources, licences, open-backend decision and scalar fixtures. | 2026-10-16 | [rbs-source-decision.md](rbs-source-decision.md) |
+| rbs-runtime | Installation, schemas, equations/deviations, resource bounds and release gates. | 2026-10-16 | [rbs-runtime.md](rbs-runtime.md) |
+| rbs-evaluation-protocol | Frozen experimental split, normalization, eligibility and independent evaluator boundary. | 2026-10-16 | [rbs-evaluation-protocol.md](rbs-evaluation-protocol.md) |
+| rbs-benchmark-card | Independently reproduced metrics, harness defects, leakage and measurement limits. | 2026-10-16 | [rbs-benchmark-card.md](rbs-benchmark-card.md) |
+| rbs-live-reference | Diagnostic inputs, actual quoted pricing, private ledger and acquisition stop rules. | 2026-10-16 | [rbs-live-reference.md](rbs-live-reference.md) |
+| rbs-improvement-hypotheses | Ranked, falsifiable experiments for ticket 13 without holdout tuning. | 2026-10-16 | [rbs-improvement-hypotheses.md](rbs-improvement-hypotheses.md) |

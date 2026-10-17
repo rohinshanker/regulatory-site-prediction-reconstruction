@@ -1,7 +1,7 @@
 # Reconstruction and release contract
 
 - Purpose: Define reproducible, fully open calculator reconstruction and release requirements.
-- Scope: All four calculators; specification reviewed, implementation not yet verified.
+- Scope: All four calculators; RBS runtime gates are defined in rbs-runtime.md.
 - Last verified: 2026-10-16
 
 ## Target and implementation identity
@@ -55,7 +55,7 @@ invalid structure constraints, overflow/underflow and empty/no-hit results.
 1. **Does the implementation reproduce its specified equations?** Unit tests for
    each term, paper examples, manually checkable cases and preserved historical
    fixtures. Pin folding engines, energy tables, temperature, dangles, constraints,
-   suboptimal enumeration and numerical tolerances. Substituting ViennaRNA for
+   suboptimal enumeration and numerical tolerances. Substituting an open folding backend for
    NUPACK is a model change until equivalence is demonstrated.
 2. **How close is it to the hosted calculator?** Freeze a held-out panel before
    tuning. Compare matching sites/states, per-term energies, log-rate errors,
@@ -75,6 +75,17 @@ and sequence-design modes need separate tests; designed candidates are rescored
 and checked against every stated sequence/structure constraint.
 
 ## Fully usable release
+
+For the RBS wave, apply [native validation](rbs-native-validation.md) and
+[comparator selection](rbs-comparator-landscape.md) in addition to the three
+questions above. Real experimental TSS context, TIS localization and translation
+strength are separate evidence types and require separate claims/metrics.
+Compare suitable mechanistic and learned methods; record pretrained-data overlap,
+code/weight/data permissions and coverage. Preserve the compatibility profile
+when developing a cyanobacterial specialist. A narrowly scoped, independently
+demonstrated improvement is the promotion target; universal superiority cannot
+be inferred from one reporter panel or website agreement.
+
 
 - Source and required model parameters are available under compatible open terms;
   preserve notices and supply a component/dependency inventory. No private

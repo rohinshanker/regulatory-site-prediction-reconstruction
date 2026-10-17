@@ -4,19 +4,25 @@
 - Status: open
 - Opened: 2026-10-16
 - Updated: 2026-10-16
-- Current State: Planned; implementation has not started. See the work and acceptance criteria below.
+- Current State: Wave 1 runtime/CI and initial experimental baseline are implemented; final release and expanded native/comparator validation remain pending. Planned Wave 2 integration owner is Session A.
 - Verification: Repository setup checked ticket H1/fields, queue membership and local links on 2026-10-16; implementation validation is specified below and has not run.
 - Cleanup: Owning session records final checks and unresolved findings, resolves the ticket, distills reusable guidance into docs/validation/, updates both indexes and linked GitHub issue, then removes the resolved ticket.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/6
 - Priority: P0
-- Owner: Unclaimed; the implementing session must claim this ticket before writing its scope.
-- Dependencies: 02–04; RBS evidence from 05 for hosted agreement claims.
+- Owner: Unclaimed; reserved for Session A when Wave 2 is started by the user; Session B remains the independent evaluator.
+- Dependencies: 02–04; 05 for hosted claims; 12/16/17 independent evidence and comparisons; 18 for native-context exports. Scope claims to completed gates.
 
 Deliver the first installable, documented RBS prediction release. This is the milestone before implementation of the other calculators; source discovery for those tools may continue independently.
 
 ## Work
 
 - Use ticket 12 for the relevant benchmark-quality audit and frozen experimental splits. Keep any ticket-13 improved profile distinct from the compatibility profile; assess both against the same held-out data.
+- Apply [native task-specific gates](../../validation/rbs-native-validation.md):
+  TSS context integrity, experimental TIS localization and translation-strength
+  accuracy are separate. Include eligible ML/mechanistic contenders from 17,
+  native TE/context challenges from 16 and full prediction coverage. Unsupported
+  leaderless/native cases remain explicit; they cannot silently disappear from
+  denominators. B owns final metrics and outcomes; A owns release integration.
 
 - Assemble licensed experimental/reference datasets with exact sequences, host, construct context, measured quantity, conditions and model settings. Split by study/sequence family to prevent near-duplicate leakage.
 - Evaluate equation correctness, hosted agreement and experimental predictive accuracy separately under the shared contract. Report site matching/coverage, per-term energy differences, log-rate errors, ranks, failures and uncertainty by domain.

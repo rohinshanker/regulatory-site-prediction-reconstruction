@@ -4,12 +4,12 @@
 - Status: open
 - Opened: 2026-10-16
 - Updated: 2026-10-16
-- Current State: Planned; implementation has not started. See the work and acceptance criteria below.
+- Current State: Wave 1 baseline is runnable; all 12 live diagnostics were attempted by B (11 accepted). Later mechanisms remain unimplemented. Planned Wave 2 owner is Session A.
 - Verification: Repository setup checked ticket H1/fields, queue membership and local links on 2026-10-16; implementation validation is specified below and has not run.
 - Cleanup: Owning session records final checks and unresolved findings, resolves the ticket, distills reusable guidance into docs/validation/, updates both indexes and linked GitHub issue, then removes the resolved ticket.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/4
 - Priority: P0
-- Owner: Unclaimed; the implementing session must claim this ticket before writing its scope.
+- Owner: Unclaimed; reserved for Session A when Wave 2 is started by the user.
 - Dependencies: 03 baseline; 05 supplies hosted evidence as available.
 
 Extend the tested baseline toward the current production RBS Calculator using papers, supplementary equations/data and legitimate reference outputs. A version label or improved fit does not prove a faithful reconstruction.
@@ -21,6 +21,11 @@ Extend the tested baseline toward the current production RBS Calculator using pa
 - Implement documented mechanisms incrementally with explicit versioned profiles and unit fixtures. Preserve the historical baseline to expose which change explains each output difference.
 - Test folding engine/energy parameters, cofold constraints, enumeration and optimization choices before changing fitted coefficients. Never turn unexplained website outputs into undocumented constants.
 - Use development reference cases from 05 for diagnosis; keep the held-out set untouched until the final comparison. Record unidentifiable or unsupported mechanisms as precise gaps.
+- Follow the [Wave 2 program](../../validation/rbs-wave2-program.md). The exposed
+  live diagnostic panel is development evidence. Prioritize explicit footprint,
+  transcript context and supported standby mechanisms; keep backend enumeration
+  differences measurable. Compare independently runnable methods from 17 without
+  importing restricted components or fitting hidden constants to website outputs.
 
 ## Acceptance criteria
 
