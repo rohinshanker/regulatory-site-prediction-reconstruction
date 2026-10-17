@@ -2,7 +2,7 @@
 
 - Purpose: Reproduce the implemented RBS contract, installation and validation gates.
 - Scope: Historical profile and shared runtime; refined profiles and schema 1.1 are specified in [rbs-mechanisms.md](rbs-mechanisms.md).
-- Last verified: 2026-10-16
+- Last verified: 2026-10-17
 
 ## Identity and equations
 
@@ -292,5 +292,16 @@ The public [acquisition manifest](../../benchmarks/rbs/live-acquisition.json)
 records v2.1.1, its 100-nt upstream window, 13-nt footprint, 8-kcal/mol search gap,
 and different energy tables. B's full diagnostic acquisition now contains nine
 CSV exports, two explicit no-candidate results and one pre-execution form rejection;
-the additional reconstruction comparisons are next-wave work. Ticket 04 must implement documented later mechanisms
-as a distinct profile; tickets 05/06 retain live acquisition and release evaluation.
+Wave 2 reused all eleven completed jobs with the frozen historical,
+footprint and context profiles. Coverage agrees on the 17 returned candidates,
+nine declared target starts and two empty jobs, but numerical discrepancies
+remain substantial. No new jobs were purchased for that comparison. See the
+[live-reference contract](rbs-live-reference.md) and
+[public reuse receipt](../../benchmarks/rbs/live-reuse-wave2.json).
+Ticket 04 retains unsupported later mechanisms and backend discrepancies;
+tickets 05/06 retain suite acquisition and release work.
+
+The [Wave 2 result card](rbs-wave2-results.md) reports the separately frozen
+experimental comparisons. Native sequence regression did not pass its promotion
+criteria, and the public reporter model did not generalize to the 2017 challenge.
+These findings do not change the historical equations or establish hosted parity.

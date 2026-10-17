@@ -2,7 +2,7 @@
 
 - Purpose: Define reproducible, fully open calculator reconstruction and release requirements.
 - Scope: All four calculators; RBS runtime gates are defined in rbs-runtime.md.
-- Last verified: 2026-10-16
+- Last verified: 2026-10-17
 
 ## Target and implementation identity
 
@@ -104,6 +104,30 @@ be inferred from one reporter panel or website agreement.
 - No calculator ticket is closed merely because source hunting ended. Its
   functional acceptance criteria must pass, or the owner must explicitly change
   its scope. Unknowns remain tracked while independent work continues.
+
+## RBS 0.2.0rc1 applicability
+
+The candidate includes historical and explicit footprint/context profiles, a
+transcript-aware native adapter, versioned JSON/CSV/GFF3 exports and frozen
+experimental learned models. The [runtime](rbs-runtime.md),
+[native adapter](rbs-native-runtime.md) and [learned runtime](rbs-learning-runtime.md)
+contracts define their inputs, limits and reproduction commands. Single/batch
+examples and the two-strand PCC 6803 genome example ship with the source release.
+
+The [independent Wave 2 result card](rbs-wave2-results.md) is the scientific
+release gate. It reports a failed model-promotion decision, restricted comparator
+roles, backend failure coverage and limits on native transfer. Learned models
+remain experimental; release availability does not imply superiority. The
+immutable [freeze](../../models/rbs/wave2-freeze.json) and
+[prediction receipt](../../models/rbs/wave2-prediction-receipt.json) identify the
+evaluated code, weights, inputs and controls. New scientific changes require a
+new development cycle and untouched evaluation.
+
+Remaining scope includes later standby/sliding/drafting/stacking mechanisms,
+backend enumeration differences, design modes, the other three calculators and
+native UTEX calibration. A draft release candidate does not close those tickets.
+Main merge, a public tag/package and downstream consumer admission are separate
+release actions.
 
 ## Hosted access
 

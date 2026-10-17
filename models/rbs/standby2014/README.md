@@ -59,6 +59,37 @@ and reporter properties as well as translation. The separate PCC 6803 experiment
 must train on its own admitted TE development labels; these weights are not a
 native-host calibration.
 
+## Frozen 2017 reporter challenge
+
+The independently evaluated secondary panel contains 27 constructs, with relative
+TE measurements for 18 and fluorescence for all 27. Every listed method scores all
+27; missing TE remains excluded from that assay denominator. The AEB-1 reference
+was fixed in advance, with no test-set calibration.
+
+| Method | Relative-TE MAE, log2 (18 cases) | TE Spearman |
+| --- | ---: | ---: |
+| Historical reconstruction | 3.017518 | 0.334370 |
+| Footprint2017 | 1.631852 | 0.689087 |
+| Context2017 | 1.302297 | 0.862214 |
+| OSTIR | 2.921691 | 0.414338 |
+| Public2014 energy/sequence model, selected | 3.249006 | 0.834280 |
+| Public2014 sequence model | 3.461848 | Undefined |
+
+The learned finalist's good ordering does not translate to accurate relative
+magnitudes; its development advantage did not generalize to this challenge.
+The sequence model gives constant normalized predictions on these constructs;
+its coding-context features were inactive in the single-reporter training data. No model is reselected or refit
+after these outcomes.
+
+The panel is one shared-template family, was used by the original paper to
+select its footprint, and was partly exposed during source reading. It cannot
+support an independent promotion claim; family-bootstrap uncertainty is
+undefined. Each normalized assay includes one forced-zero control error. Source
+replicate summaries do not identify paired-replicate covariance or a noise
+ceiling. See the [independent result card](../../../docs/validation/rbs-wave2-results.md)
+for full assay results, measurement limits and exact artifact identities. New
+scientific changes require a new development cycle and untouched evaluation.
+
 Run the explicit supplied-start example after installing the package:
 
 ```sh
@@ -68,5 +99,5 @@ regsite-learned models/rbs/standby2014/context-energy-sequence-v1.json examples/
 
 The sequence model is backend-free; the energy model requires the pinned separate
 RNAstructure installation. Neither needs an account or network during inference.
-Independent evaluation and any promotion decision remain with Session B under
-the frozen evaluation contracts.
+Independent evaluation is complete under the frozen contracts; these models
+remain experimental and unpromoted.

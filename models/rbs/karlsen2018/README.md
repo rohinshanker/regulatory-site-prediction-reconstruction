@@ -1,8 +1,8 @@
 # Experimental PCC 6803 supplied-start TE regression
 
 This model predicts a log2 assay response for a supplied translation start. It
-is an experimental development candidate, not an independently promoted RBS
-predictor. It does not establish UTEX 2973 accuracy or a biological initiation
+is a frozen experimental candidate that failed the independent promotion
+criteria. It does not establish UTEX 2973 accuracy or a biological initiation
 rate. Its target is Karlsen et al. (2018) HC relative ribosome-footprint/RNA
 abundance, which also reflects elongation, RNA measurement and annotation effects.
 
@@ -62,6 +62,41 @@ admitted homology groups, with validation MAE 0.937272/0.929931/0.929186. Its
 full 1,293-gene model gives 0.931431. It shows similarly small changes across
 these nested subsets, on a different coverage cohort from the sequence curve.
 
+## Frozen independent result
+
+The final comparison contains 468 genes in 423 held-out homology groups. Model
+weights, training-only offsets, controls and decision gates were frozen before
+Session B evaluated these outcomes. The sequence model remains the selected
+candidate; the hybrid remains a coverage-ineligible ablation.
+
+| Final model | Successful / eligible | MAE, log2 on successful cases | Spearman | Within twofold / all eligible |
+| --- | ---: | ---: | ---: | ---: |
+| Training-median constant | 468/468 | 0.989886 | Undefined | 281/468 |
+| Sequence ridge | 468/468 | 0.957226 | 0.243990 | 284/468 |
+| Training-only OSTIR affine control | 467/468 | 0.973671 | 0.202459 | 287/468 |
+| Energy/sequence ridge ablation | 423/468 | 0.939731 | 0.308246 | 259/468 |
+
+The sequence model's paired MAE gain over the constant is 0.032660 log2, with
+a 97.5% homology-group bootstrap interval [0.010912, 0.053840]. Against OSTIR
+on their 467 common successful cases, the gain is 0.014808 with interval
+[-0.009560, 0.038680]. Both fail the predeclared 0.20 practical-gain threshold;
+the OSTIR interval also includes zero. Coverage, rank and eligible subgroup
+gates pass, but **no promotion or superiority claim passes**.
+
+About 60.7% of all final genes are within twofold, versus 60.0% for the constant.
+This does not mean 60.7% of biological initiation rates were measured correctly:
+the endpoint is an assay-derived relative TE proxy. The hybrid's lower
+conditional error cannot be compared to full-coverage models without accounting
+for its missing cases. Bootstrap intervals describe variation across gene groups,
+not biological replicate noise. The source's primary TE endpoint has no
+independent biological replicate.
+
+See the [independent result card](../../../docs/validation/rbs-wave2-results.md)
+for the full comparator, condition-transfer and localization reports. Models and
+calibration are unchanged after these results. A further improvement attempt needs
+a new development cycle and untouched evaluation; PCC 6803 findings do not
+establish UTEX 2973 calibration.
+
 ## Reproduction and rights
 
 Use [the learning contract](../../../docs/validation/rbs-learning-runtime.md)
@@ -96,5 +131,5 @@ chosen without using its response. It uses 100 nt of genomic flank at 30°C and
 the annotated-tail aSD scenario `ACCUCCUUU`; transcript boundaries are unmeasured.
 Current RefSeq annotation differs from the paper-era annotation for some genes,
 and the source has no independent biological replicate for its primary TE endpoint.
-These limitations and explicit host/domain warnings travel with the model. Any
-final evaluation or promotion decision remains independently controlled by Session B.
+These limitations and explicit host/domain warnings travel with the model.
+The independent final evaluation did not promote this model.

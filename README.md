@@ -4,18 +4,22 @@ Build fully open-source, locally usable RBS, Promoter, Operon, and Riboswitch
 calculators, pursuing the closest demonstrable behavior to the production
 [De Novo DNA tools](https://www.denovodna.com/software/).
 
-**Wave 1: a locally runnable RBS reconstruction is implemented.** The Python
-library/CLI uses published Salis v1 equations and separately installed
-RNAstructure 6.6 executables. It returns energy terms, relative initiation
-scores, structures, coordinates and explicit failure/missingness. It is
-independent of De Novo DNA/Salis Lab; production equivalence and cyanobacterial
-calibration have not been established. The other calculators remain planned.
+**The RBS release candidate, 0.2.0rc1, runs locally.** It includes the historical
+Salis v1 reconstruction, separately named footprint/context refinements, a native
+genome/transcript adapter, and experimental sequence and energy/sequence models.
+The mechanistic profiles use separately installed RNAstructure 6.6 executables
+and return energy terms, relative initiation scores, structures, coordinates and
+explicit failure/missingness. Sequence-only inference needs no folding backend.
 
-**Wave 2 expands the RBS research goal beyond reconstruction.** Compare strong
-mechanistic and ML methods against experimental measurements, reconstruct native
-transcript context, and test whether a cyanobacterial specialist can outperform
-the strongest applicable baselines. “Best available” remains a hypothesis until
-independent evaluation supports it. See the [two-session program](docs/validation/rbs-wave2-program.md),
+**The independent Wave 2 comparison did not establish a superior model.** On
+468 held-out PCC 6803 genes, the sequence model's mean absolute log2 error was
+0.957 versus 0.990 for a constant baseline; its paired advantage over a
+scale-adapted OSTIR comparator was uncertain. The predeclared promotion criteria
+failed. These are experimental models with measured limitations, independent of
+De Novo DNA/Salis Lab. Production equivalence and native UTEX 2973 calibration
+remain unestablished; the other calculators remain planned.
+
+See the [independent results](docs/validation/rbs-wave2-results.md),
 [native validation](docs/validation/rbs-native-validation.md) and
 [comparator roster](docs/validation/rbs-comparator-landscape.md).
 Tan 2018 supplies transcription starts and RNA context, not measured translation
@@ -73,8 +77,8 @@ See the [reproducible training and inference contract](docs/validation/rbs-learn
 .venv/bin/regsite-learned models/rbs/karlsen2018/sequence-v1.json examples/rbs-karlsen-native.json
 ```
 
-The [PCC 6803 model card](models/rbs/karlsen2018/README.md) reports a small
-development gain over a constant predictor and weak gene-to-gene ranking.
+The [PCC 6803 model card](models/rbs/karlsen2018/README.md) reports the frozen
+development and final results, including weak gene-to-gene ranking.
 The energy/sequence variant loses too many cases to pass the coverage gate.
 These models are experimental; neither establishes native UTEX 2973 accuracy.
 The [public reporter model card](models/rbs/standby2014/README.md) describes the
@@ -82,31 +86,27 @@ separate E. coli experiment and its limited sequence diversity.
 
 ## Start a new implementation session
 
-For the next parallel wave, use the complete [Session A prompt](docs/prompts/wave2-session-a.md)
-and [Session B prompt](docs/prompts/wave2-session-b.md). Both start from the same
-final planning commit and create separate Wave 2 worktrees. The fourteen-hour
-budget includes integration and verification; the prompts do not launch themselves.
-
-1. Read [AGENTS.md](AGENTS.md) and the [live ticket queue](docs/notes/tickets/INDEX.md).
+1. Read [AGENTS.md](AGENTS.md), the [live ticket queue](docs/notes/tickets/INDEX.md)
+   and the [independent results](docs/validation/rbs-wave2-results.md). Check current
+   owners and preserve newer branches/worktrees before claiming work.
 2. Read the [source map](docs/validation/source-map.md),
    [reconstruction contract](docs/validation/reconstruction-contract.md), and
    [benchmark-quality assessment](docs/validation/benchmark-quality.md).
-3. Foundation 02 and reconstructed RBS baseline 03 are complete. Wave 2 assigns
-   04/06/13/18 to Session A and the RBS slices of 01/05/12 plus 16/17 to Session B;
-   check current owners before claiming work. Rename a claimed ticket from `O_` to `A_`, update its H1/status and index, and identify
-   the owning session. Work through RBS tickets 03–06 before implementing the
-   other three calculators. Source discovery for those calculators may proceed
-   independently; their incomplete discovery must not block RBS work.
-4. Reuse licensed, complete public implementations where possible; reconstruct
-   missing behavior from primary papers and supplements. Preserve separate
-   historical, reconstructed, and hosted-reference identities.
-5. Ship a reproducible RBS release and coordinate the consumer adapter under
-   ticket 10. Then implement Promoter, Operon, and Riboswitch tickets 07–09 and
-   complete design modes and the suite release under ticket 11.
-6. Run benchmark audit 12 and native/comparator validation 16/17 alongside RBS
-   implementation; 18 adds portable transcript-aware native scoring. Use ticket 13 to test and release
-   improvements against experimental ground truth, while preserving the separately
-   versioned production-compatibility profile.
+3. Foundation 02, historical scoring 03 and portable native adapter 18 are
+   complete. Tickets 04/06/13 retain remaining mechanisms, release work and
+   experimentally justified improvements. Source recovery for other calculators
+   can proceed independently; implement those calculators after the RBS release.
+4. The Wave 2 models, offsets and final comparison are frozen. Any new scientific
+   change needs a new development cycle and untouched evaluation data. Do not
+   tune against these exposed final outcomes. The original
+   [Session A](docs/prompts/wave2-session-a.md) and
+   [Session B](docs/prompts/wave2-session-b.md) prompts document the completed
+   assignment; do not replay them as a new experiment.
+5. Preserve separate historical, reconstructed and hosted-reference identities.
+   Coordinate consumer admission through ticket 10; implement Promoter, Operon
+   and Riboswitch under 07–09, then design modes and suite delivery under 11.
+   The [prospective UTEX proposal](docs/validation/rbs-utex-measurement-proposal.md)
+   describes the new measurement dependency for stronger native claims.
 
 | Calculator | First usable scope | Completion target |
 | --- | --- | --- |

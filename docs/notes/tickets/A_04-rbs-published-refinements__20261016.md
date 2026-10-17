@@ -4,8 +4,8 @@
 - Status: active
 - Opened: 2026-10-16
 - Updated: 2026-10-17
-- Current State: Historical science preserved; footprint/context profiles implemented and independently reviewed. All 136 reporter-development cases score. Native historical/footprint score 2,400/2,530 source cases; context scores 2,234 with 268 explicit backend failures. Representative malformed tracebacks are independently reproduced and documented. Later standby/sliding/drafting/stacking remain unresolved; no production equivalence.
-- Verification: Integrated checkpoint at 02bda0e passes 1,110 tests with the real backend, 100% of 3,382 statements and 1,374 branches; refinement review fixes accepted. Final independent evaluation and release gates remain.
+- Current State: Historical science preserved; footprint/context profiles implemented and independently reviewed. All 136 reporter-development and 27 secondary 2017 inputs score. Native historical/footprint score 2,400/2,530 source cases; context scores 2,234 with 268 explicit backend failures. The 18-case 2017 TE challenge favors context over historical scoring, but is one partly exposed shared family. Live diagnostic candidate coverage agrees while numerical parity fails. Later standby/sliding/drafting/stacking and backend differences remain unresolved.
+- Verification: Integrated code a3b46fa passes 1,383 tests with the real backend, 100% of 4,185 statements and 1,742 branches; Ruff/mypy pass. Scientific runtime/export is frozen at 7547778c508d4a31b4a4f95df370923ce8bd07c3. Later changes are evidence integration and documentation; final report links and exact release CI are recorded on issue #6.
 - Cleanup: Owning session records final checks and unresolved findings, resolves the ticket, distills reusable guidance into docs/validation/, updates both indexes and linked GitHub issue, then removes the resolved ticket.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/4
 - Priority: P0
