@@ -16,7 +16,11 @@ offset is stored in the selection report and tied to the artifact hash. The
 CLI returns the raw score; evaluation applies the separately declared offset.
 
 The sequence-only model selected penalty 1.0 and offset
-`0.04659637563372265` log2. It covers every training and validation case.
+`0.04659637563372265` log2. It covers every training and validation case and is
+the native finalist. The energy/sequence ablation also selects penalty 1.0,
+with offset `0.039102431228718926`, but scores only 1,293/1,465 training and
+439/479 validation genes. It loses 39 historical-valid validation cases, so
+fails the predeclared coverage gate and cannot replace the sequence finalist.
 
 | Development diagnostic | MAE, log2 | RMSE, log2 | Spearman | Within twofold |
 | --- | ---: | ---: | ---: | ---: |
@@ -27,6 +31,15 @@ The small gain over a constant is more informative than a large apparent gain
 over an upstream predictor with an unsuitable response scale. Native gene-to-gene
 ranking remains weak. The independent comparison includes explicit train-only
 scale-adapted upstream controls. No superiority claim follows from this table.
+
+On the same 439 validation genes scored by the hybrid, sequence MAE is
+0.949072, hybrid MAE is 0.931431 and constant MAE is 0.977534 log2. Hybrid
+Spearman is 0.256214 versus sequence 0.218002. This small conditional gain does
+not compensate for missing predictions. On all 2,530 input-only source records,
+context2017 scores 2,234, retains 28 unsupported records and reports 268 backend
+failures: 250 nonreciprocal connectivity tables, 17 missing outputs and one
+crossing/inconsistent table. Direct development-case backend checks reproduce
+invalid traceback output; none is repaired by discarding a structure silently.
 
 A fixed learning-curve diagnostic uses nested subsets ordered by the SHA256 of
 `wave2-learning-curve-20261017:` plus homology-group ID. The selected penalty and
@@ -44,6 +57,11 @@ rows alone would give limited gains with these features on this validation set;
 it does not estimate a noise ceiling or rule out better features or measurements.
 The 75% subset does not replace the full-training model.
 
+The hybrid's fixed curve uses 333/646/964 training genes at 25/50/75% of its
+admitted homology groups, with validation MAE 0.937272/0.929931/0.929186. Its
+full 1,293-gene model gives 0.931431. It shows similarly small changes across
+these nested subsets, on a different coverage cohort from the sequence curve.
+
 ## Reproduction and rights
 
 Use [the learning contract](../../../docs/validation/rbs-learning-runtime.md)
@@ -52,6 +70,12 @@ are fixed at `sequence-v1` (19 columns). Source/recipe commit for the full fit i
 `38d79d039e208935c4cc2e55823844bc87fe426d`; the learning-curve code
 is `870cd59a1f050d88431bd19825652acc46bdd9b3`. The canonical data release is
 `f28c0fc47b6fce5631f8bd5d30730e85cc75c959`.
+The hybrid full fit also uses `870cd59a1f050d88431bd19825652acc46bdd9b3`.
+Its admitted input-only context cache SHA256 is
+`67cfb1a178f17dce71f8efffa35578a9d7f48d620bb7f2c26cbf1ba860c43907`,
+collected at `cde723baa240f4fa301f899b1f152592193bb9e4`, 60 seconds per
+record and 3,600 per batch, with no deadline exclusions. The adjacent artifacts
+record exact backend/model digests and every excluded development/source case.
 
 The [development data](../../../benchmarks/rbs/karlsen2018-development.json)
 SHA256 is `53ba87998de7e3d423fb7d6818db48a1bf93ede98bdb46bb6137b0119cfa39a4`.

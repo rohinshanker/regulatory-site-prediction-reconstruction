@@ -4,8 +4,8 @@
 - Status: active
 - Opened: 2026-10-16
 - Updated: 2026-10-17
-- Current State: Five candidate families are implemented: three mechanistic profiles and sequence/energy-sequence ridge. Public 2014 grouped development fits improve family MAE but are unpromoted. Native development uses frozen train/validation groups and train-only median calibration; eight public plus eight native penalty configurations remain within the declared budget. Final outcomes remain with B.
-- Verification: Independent ridge review accepted numerical repairs. Learned inference/cache-domain review repairs pass 483 focused tests with 100% statement/branch coverage; model coefficients are unchanged after provenance repair. Native training recipe and focused repair review are underway. No independent superiority claim.
+- Current State: Native sequence finalist covers 479/479 validation genes, MAE 0.939394 versus constant 0.966571 log2. Hybrid ablation MAE 0.931431 on 439 genes fails coverage, losing 39 historical-valid cases. Public 2014 selects the separate hybrid reporter candidate. B accepted seven named families and exactly 24 fit configurations: eight public, eight native, two affine controls and six fixed learning-curve points. All A fits are complete; final outcomes remain with B.
+- Verification: Independent ridge, native recipe and learning-curve reviews accepted exact patches; curve tests cover 119 cases at 100% statement/branch coverage. Both native learning curves are nearly flat. Direct development-only backend diagnostics reproduce malformed CT/traceback failures. Frozen prediction export, independent final evaluation and release gates remain; no superiority claim.
 - Cleanup: Owning session records results including negative findings, distills reusable model/evaluation contracts, updates indexes and GitHub issue, then removes the resolved ticket.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/13
 - Priority: P0
