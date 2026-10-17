@@ -8,6 +8,18 @@ ROOT = Path(__file__).resolve().parents[2] / "benchmarks/rbs"
 
 
 class NativeFixtureTest(unittest.TestCase):
+    def test_paper_cds_numbering_and_distinct_footprint_interpretations(self):
+        fixture = json.loads((ROOT / "footprint-coordinate-fixtures.json").read_text())
+        start = fixture["start_zero_based"]
+        self.assertEqual(fixture["sequence"][start : start + 3], "ATG")
+        self.assertEqual(fixture["cds_position_plus4_zero_based"], start + 3)
+        for length, row in zip((13, 16), fixture["interpretations"], strict=True):
+            self.assertEqual(row["first_refold_zero_based"], start + length)
+            self.assertEqual(
+                fixture["sequence"][row["first_refold_zero_based"] :],
+                row["refold_suffix"],
+            )
+
     def test_segments_points_and_strands(self):
         fixture = json.loads((ROOT / "native-coordinate-fixtures.json").read_text())
         complement = str.maketrans("ACGT", "TGCA")

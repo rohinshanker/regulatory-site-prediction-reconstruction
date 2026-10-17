@@ -1,0 +1,48 @@
+{
+  "n_source_genes": 2530,
+  "n_condition_records": 5060,
+  "mapping_status": {
+    "matched_current_annotation": 2501,
+    "unmatched_identifier": 26,
+    "multiple_cds_segments_or_models": 1,
+    "current_pseudogene": 2
+  },
+  "n_primary_chromosomal_contexts": 2412,
+  "measurement_status": {
+    "positive": 5060
+  },
+  "warnings": {
+    "paper_era_annotation_not_recovered": 2530,
+    "source_uniprot_length_differs_from_current_protein": 358,
+    "assumed_downstream_context_extends_beyond_cds": 4,
+    "plasmid_secondary_domain": 89
+  },
+  "no_prediction_dependent_exclusions": true,
+  "source_cell_audit": {
+    "source_sheet": "Table S2",
+    "rows": 2533,
+    "columns": null,
+    "formulas": 0,
+    "error_cells": 0,
+    "outcome_columns": {
+      "I": {
+        "types": {
+          "n": 2530
+        },
+        "number_formats": {
+          "General": 2530
+        },
+        "missing": 0
+      },
+      "J": {
+        "types": {
+          "n": 2530
+        },
+        "number_formats": {
+          "General": 2530
+        },
+        "missing": 0
+      }
+    }
+  }
+}

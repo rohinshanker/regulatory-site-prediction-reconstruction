@@ -120,6 +120,66 @@
       "purpose": "Primary methods/identity evidence",
       "retrieved_utc_date": "2026-10-17",
       "licence": "NCBI public sequence data; no blanket CC licence asserted"
+    },
+    {
+      "id": "pcc6803-report.txt",
+      "name": "pcc6803-report.txt",
+      "url": "https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/009/725/GCF_000009725.1_ASM972v1/GCF_000009725.1_ASM972v1_assembly_report.txt",
+      "bytes": 1509,
+      "sha256": "7f5a161a24d51c03c4a47f3f2c852c473be2f6e32f74abe60ac7a56e758d7ba3",
+      "licence": "NCBI public sequence data; no blanket CC licence asserted",
+      "use": "Exact current PCC6803 reference/annotation input; not measured translation starts",
+      "retrieved_utc": "2026-10-17"
+    },
+    {
+      "id": "pcc6803-genomic.fna.gz",
+      "name": "pcc6803-genomic.fna.gz",
+      "url": "https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/009/725/GCF_000009725.1_ASM972v1/GCF_000009725.1_ASM972v1_genomic.fna.gz",
+      "bytes": 1169667,
+      "sha256": "cfaccf8f61d32314e91d1c6258ecc266f3d458d6dae21c15d2c9b736a0502577",
+      "licence": "NCBI public sequence data; no blanket CC licence asserted",
+      "use": "Exact current PCC6803 reference/annotation input; not measured translation starts",
+      "retrieved_utc": "2026-10-17"
+    },
+    {
+      "id": "pcc6803-genomic.gff.gz",
+      "name": "pcc6803-genomic.gff.gz",
+      "url": "https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/009/725/GCF_000009725.1_ASM972v1/GCF_000009725.1_ASM972v1_genomic.gff.gz",
+      "bytes": 310851,
+      "sha256": "8e220cc9a09d679470dc8036ed8004c4e51903a676316e8fb67a7fc2cb909687",
+      "licence": "NCBI public sequence data; no blanket CC licence asserted",
+      "use": "Exact current PCC6803 reference/annotation input; not measured translation starts",
+      "retrieved_utc": "2026-10-17"
+    },
+    {
+      "id": "pcc6803-protein.faa.gz",
+      "name": "pcc6803-protein.faa.gz",
+      "url": "https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/009/725/GCF_000009725.1_ASM972v1/GCF_000009725.1_ASM972v1_protein.faa.gz",
+      "bytes": 743676,
+      "sha256": "a1d83cd1653ba8e6e97b7d170bbb27f9082833bc6f4268d9eabe51945f65ccc2",
+      "licence": "NCBI public sequence data; no blanket CC licence asserted",
+      "use": "Exact current PCC6803 reference/annotation input; not measured translation starts",
+      "retrieved_utc": "2026-10-17"
+    },
+    {
+      "id": "pcc6803-md5.txt",
+      "name": "pcc6803-md5.txt",
+      "url": "https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/009/725/GCF_000009725.1_ASM972v1/md5checksums.txt",
+      "bytes": 1249,
+      "sha256": "d850258032d1eea604d40406fe6258fb71e3aca5c789d0485c93858498a3e1ba",
+      "licence": "NCBI public sequence data; no blanket CC licence asserted",
+      "use": "Exact current PCC6803 reference/annotation input; not measured translation starts",
+      "retrieved_utc": "2026-10-17"
+    },
+    {
+      "id": "karlsen2018-ena.tsv",
+      "name": "karlsen2018-ena.tsv",
+      "url": "https://www.ebi.ac.uk/ena/portal/api/filereport?accession=PRJEB28203&result=read_run&fields=run_accession,experiment_accession,sample_accession,scientific_name,library_strategy,library_source,library_selection,library_layout,study_title,experiment_title,sample_title&format=tsv",
+      "bytes": 1723,
+      "sha256": "04dd7598aa2aa65b4e4628d7eac898041a04bfcaec4d69a5eb701b16b9921526",
+      "licence": "Public ENA study metadata",
+      "use": "Sequencing sample/replication identity",
+      "retrieved_utc": "2026-10-17"
     }
   ],
   "utex_identity": {
@@ -133,5 +193,18 @@
     },
     "ncbi_md5_verified": true
   },
-  "consumer_provenance": "Inspected read-only; publisher workbook hash independently re-fetched and matched. No sibling checkout is required."
+  "consumer_provenance": "Inspected read-only; publisher workbook hash independently re-fetched and matched. No sibling checkout is required.",
+  "pcc6803_identity": {
+    "assembly": "GCF_000009725.1",
+    "assembly_name": "ASM972v1",
+    "annotation": "NCBI RefSeq GCF_000009725.1-RS_2025_06_29",
+    "paper_reference": "NC_000911.1; paper-era 2017 annotation not recovered",
+    "replicons": {
+      "NC_000911.1": 3573470,
+      "NC_005230.1": 103307,
+      "NC_005231.1": 44343,
+      "NC_005229.1": 119895,
+      "NC_005232.1": 106004
+    }
+  }
 }

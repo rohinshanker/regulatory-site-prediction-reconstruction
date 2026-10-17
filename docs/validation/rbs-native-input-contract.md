@@ -1,5 +1,6 @@
 # Native RBS evidence input contract
 
+- Purpose: Define outcome-free primary-source inputs and independent coordinate expectations.
 - Owner: Session B (`9677689a-1792176763`); Session A owns the runtime adapter.
 - Version: `native-rbs-evidence-1`; planning baseline `fc78dee42f934417f2bf905ae71b582903b7a949`.
 - Scope: Source-specific records and independent coordinate fixtures, without translation outcomes.
@@ -39,6 +40,15 @@ Source/current start differences are retained even when both starts address
 canonical codons. S2's homology-based proposals do not replace current starts or
 become experimental TIS labels. The pipeline needs no consumer checkout.
 
+`conditions` may be an object keyed by condition (Tan uses arrays of replicate counts)
+or an array of declared condition identities. `anti_sd_provenance` may be a
+string, an object, or an array of evidence objects; native extracts use arrays
+with locus, replicon, strand, interval and sequence hash. `source_flags` is an
+array of source evidence objects; `warnings` is an array of strings. Preserve
+these JSON types and null values without flattening. Numbers must be finite.
+An explicit downstream transcript boundary is supplied only when source evidence
+locates it; otherwise downstream genomic context is an assumption.
+
 ## Runtime adapter and comparator windows
 
 A takes the pinned genome plus these records and owns transcript-aware window
@@ -72,8 +82,13 @@ pins the primary inputs.
 
 The 136 public 2014 development records remain available unchanged. Karlsen TE
 and Thiel reporter outcomes are withheld from A until eligibility, repeated-gene/
-reporter-family groups and final partitions are frozen. The 2017 holdout remains
-untouched. Native inputs contain no final outcomes, target-dependent filtering,
+reporter-family groups and final partitions are frozen. The 2017 split remains
+unchanged, but is not wholly unseen: Session A disclosed incidental exposure to
+published fluorescence values for the no-hairpin and +4 constructs while reading
+mechanism text. The published 13-nt parameter was also selected on that study.
+No private outcome table, final prediction errors or study-specific fitted
+parameters were shared. Treat this panel as a secondary, partially exposed
+external check; promotion depends on the newly frozen native cohorts. Native inputs contain no final outcomes, target-dependent filtering,
 hidden-true-start-centered candidate windows or final per-case errors. Public
 download alone does not establish training permission.
 

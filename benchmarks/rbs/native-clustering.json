@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "purpose": "Outcome-independent sequence family partition provenance",
+  "tool": "MMseqs2",
+  "release": "18-8cc5c",
+  "commit": "8cc5ce367b5638c4306c2d7cfc652dd099a4643f",
+  "download_url": "https://github.com/soedinglab/MMseqs2/releases/download/18-8cc5c/mmseqs-osx-universal.tar.gz",
+  "licence": "MIT; bundled LICENSE.md retained in external tool directory",
+  "files": {
+    "mmseqs-osx-universal.tar.gz": {
+      "bytes": 20721149,
+      "sha256": "158102d4c3e3ce721424f455106fac348cd01d424ed5e66cb03eac3de5064eb6"
+    },
+    "mmseqs/bin/mmseqs": {
+      "bytes": 27888744,
+      "sha256": "837eaf6cc9be92ff320c42c4cf56ae0d75f2a53c6ff6b24a577e803e9e3951be"
+    },
+    "mmseqs/LICENSE.md": {
+      "bytes": 1125,
+      "sha256": "adc3ea1f2f5096d2464460495e12a65a94f466edb9ccca50d1f25844ca83792a"
+    },
+    "all-annotated-proteins.faa": {
+      "bytes": 1181847,
+      "sha256": "bfd84d644cdc24976f03856680b96d5f3dc2087c30c84a2e1fd5dd48666a5d45"
+    },
+    "homology.tsv": {
+      "bytes": 327123,
+      "sha256": "f127d52b0260a4f52a2387078d85e235b2fe84f1714cf30bf6eebd4d20ccb315"
+    }
+  },
+  "command": [
+    "mmseqs",
+    "easy-search",
+    "all-annotated-proteins.faa",
+    "all-annotated-proteins.faa",
+    "homology.tsv",
+    "tmp",
+    "--min-seq-id",
+    "0.3",
+    "-c",
+    "0.8",
+    "--cov-mode",
+    "0",
+    "--alignment-mode",
+    "3",
+    "--seq-id-mode",
+    "0",
+    "-e",
+    "0.00001",
+    "-s",
+    "7.5",
+    "--max-seqs",
+    "10000",
+    "--threads",
+    "1",
+    "--split-memory-limit",
+    "2G",
+    "--format-output",
+    "query,target,pident,qcov,tcov,evalue,alnlen",
+    "--remove-tmp-files",
+    "1"
+  ],
+  "input_rule": "One exact current GFF locus per protein; use pinned RefSeq protein_id FASTA, identical repeated segments deduplicated, conflicting proteins rejected; sorted locus headers",
+  "edit_distance_accelerator": {
+    "name": "RapidFuzz",
+    "version": "3.14.1",
+    "licence": "MIT",
+    "function": "Levenshtein.normalized_similarity",
+    "weights": [
+      1,
+      1,
+      1
+    ],
+    "threshold": 0.85
+  },
+  "limits": "Heuristic protein homology, not exhaustive orthology; exact exhaustive window edit distances at200/105/30nt. No experimental outcome values used."
+}

@@ -106,7 +106,7 @@ class NativeTests(unittest.TestCase):
     def test_gff_coordinates_reverse_and_escaped_attributes(self):
         text = (
             "##gff-version 3\n\n"
-            + gff("gene")
+            + gff("exon")
             + "\n"
             + gff(strand="-", attrs="locus_tag=g;product=hello%20world;")
         )
