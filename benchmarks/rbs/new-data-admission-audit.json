@@ -76,5 +76,10 @@
       "source-audit.json": "0o600",
       "outcomes.json": "0o600"
     }
-  }
+  },
+  "replicate_mean_check_tolerance": {
+    "Cambray2018": 1e-06,
+    "Kuo2020": 0.001
+  },
+  "completeness_reproduction": "benchmarks.rbs.new_data.selected_completeness(private_outcomes, frozen_inputs); no values returned, no observations changed"
 }

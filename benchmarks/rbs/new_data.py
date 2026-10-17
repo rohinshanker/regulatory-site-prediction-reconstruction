@@ -20,6 +20,8 @@ from pathlib import Path
 
 from benchmarks.rbs.datasets import digest, dna, write_json
 
+MEAN_TOLERANCE = {"Cambray2018": 1e-6, "Kuo2020": 0.001}
+
 
 def checked(root, asset):
     """Verify the complete source before parsing; stream large archive hashes."""
@@ -371,6 +373,35 @@ def private_write(directory, outcomes, audit):
             stream.write("\n")
 
 
+def selected_completeness(outcomes, frozen):
+    """Summarize extracted source quality without returning individual outcomes.
+
+    Kuo uses a published-rounding tolerance; Cambray uses an explicit numerical
+    check tolerance. Neither tolerance changes observations or panel membership.
+    Call with the validated private output of extract().
+    """
+    index = {row["id"]: row for row in frozen["records"]}
+    if len(outcomes) != len(index) or {r["id"] for r in outcomes} != set(index):
+        raise ValueError("selected completeness identity mismatch")
+    result = defaultdict(Counter)
+    for row in outcomes:
+        study = index[row["id"]]["study"]
+        counts = result[study]
+        observed = row["observed"]
+        available = [v for v in row["replicates"] if v is not None]
+        counts["selected_inputs"] += 1
+        counts["observed_mean_present"] += observed is not None
+        counts["mean_missing"] += observed is None
+        counts["mean_nonpositive"] += observed is not None and observed <= 0
+        counts["replicate_count_" + str(len(available))] += 1
+        counts["mean_rounding_mismatch"] += bool(
+            available
+            and observed is not None
+            and abs(statistics.mean(available) - observed) > MEAN_TOLERANCE[study]
+        )
+    return dict(result)
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("mode", choices=("freeze", "extract"))
@@ -382,6 +413,11 @@ def main(argv=None):
     args = parser.parse_args(argv)
     manifest = json.loads(args.manifest.read_text())
     if args.mode == "freeze":
+        if (
+            args.split_output is not None
+            and args.inputs.resolve() == args.split_output.resolve()
+        ):
+            raise ValueError("input and split output paths must be distinct")
         if args.inputs.exists() or (
             args.split_output is not None and args.split_output.exists()
         ):

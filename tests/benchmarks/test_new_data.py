@@ -54,6 +54,37 @@ def cambray_designs():
 
 
 class NewDataTest(unittest.TestCase):
+    def test_selected_source_completeness_without_outcome_release(self):
+        frozen = {"records": [{"id": str(i), "study": "Cambray2018"} for i in range(5)]}
+        outcomes = [
+            {"id": str(i), "observed": mean, "replicates": reps}
+            for i, (mean, reps) in enumerate(
+                (
+                    (2, [1, 3]),
+                    (None, [None, None]),
+                    (0, [0, 0]),
+                    (4, [1, 3]),
+                    (None, [1, None]),
+                )
+            )
+        ]
+        result = n.selected_completeness(outcomes, frozen)["Cambray2018"]
+        self.assertEqual(
+            result,
+            {
+                "selected_inputs": 5,
+                "observed_mean_present": 3,
+                "mean_missing": 2,
+                "mean_nonpositive": 1,
+                "replicate_count_2": 3,
+                "replicate_count_0": 1,
+                "replicate_count_1": 1,
+                "mean_rounding_mismatch": 1,
+            },
+        )
+        with self.assertRaisesRegex(ValueError, "identity"):
+            n.selected_completeness(outcomes[:-1], frozen)
+
     def test_committed_split_and_audit_identities(self):
         root = Path(__file__).resolve().parents[2] / "benchmarks/rbs"
         split_bytes = (root / "new-evaluation-split.json").read_bytes()
@@ -355,6 +386,23 @@ class NewDataTest(unittest.TestCase):
                     with self.assertRaisesRegex(ValueError, "identity set"):
                         n.extract(root, manifest, n.freeze(root, manifest))
                 n.main(["freeze", str(root), str(manifest_path), str(input_path)])
+                collision = root / "collision.json"
+                for alias in (
+                    collision,
+                    root / "unused-parent" / ".." / "collision.json",
+                ):
+                    with self.assertRaisesRegex(ValueError, "distinct"):
+                        n.main(
+                            [
+                                "freeze",
+                                str(root),
+                                str(manifest_path),
+                                str(collision),
+                                "--split-output",
+                                str(alias),
+                            ]
+                        )
+                    self.assertFalse(collision.exists())
                 split_path = root / "split.json"
                 n.main(
                     [
