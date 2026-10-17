@@ -1,0 +1,78 @@
+{
+  "schema_version": "rbs-live-reuse-1",
+  "verified_utc_date": "2026-10-17",
+  "runtime_commit": "5d9fed16004be23536dafa844543ce40d9f87d1a",
+  "panel_sha256": "dd58758467b242b8e0c9f9feaacce7aac639200b5cac700d73514cbd7bb0f038",
+  "n_export_artifacts_rehashed": 20,
+  "n_reference_candidates": 17,
+  "n_exported_queries": 9,
+  "n_accepted_empty_queries": 2,
+  "n_form_rejected_queries": 1,
+  "budgeted_existing_coins": 11,
+  "new_jobs": 0,
+  "new_coin_commitment": 0,
+  "actual_debit": "unreconciled; no fresh balance observation",
+  "balance_recheck": "CUA unavailable: CUA_REPL_ENABLED_SURFACES is required; no credential accessed",
+  "profiles": {
+    "historical": {
+      "counts": {
+        "finished_exported": 9,
+        "extra_returned_starts": 0,
+        "returned_start_set_matches": 11,
+        "scored_start_set_matches": 11,
+        "finished_empty": 2,
+        "explicit_empty_agreements": 2,
+        "form_rejected": 1
+      },
+      "n_scored_reference_candidates": 17,
+      "n_scored_declared_targets": 9,
+      "reconstruction_sha256": "b20fc294d8cfc8cac14792ff1cfa1b4293c3e18b986bcd751c9edd4bfec99434",
+      "private_aggregate_file": "live-historical-aggregate.json",
+      "private_aggregate_sha256": "e72f20a419a64d494c8cfa7d2ddb68ab34a0fa2343ab917f0cb7a40101eed731",
+      "numerical_parity_established": false
+    },
+    "footprint2017": {
+      "counts": {
+        "finished_exported": 9,
+        "extra_returned_starts": 0,
+        "returned_start_set_matches": 11,
+        "scored_start_set_matches": 11,
+        "finished_empty": 2,
+        "explicit_empty_agreements": 2,
+        "form_rejected": 1
+      },
+      "n_scored_reference_candidates": 17,
+      "n_scored_declared_targets": 9,
+      "reconstruction_sha256": "cef1a4686bcd316a0cb0e840daf14876d5d6729e3a7e49326c7fd4929d5a2a2a",
+      "private_aggregate_file": "live-footprint2017-aggregate.json",
+      "private_aggregate_sha256": "7131b2868f81f4867ccbaff93a2dd79f196e945e1ce3a91ea6021efbcbd81617",
+      "numerical_parity_established": false
+    },
+    "context2017": {
+      "counts": {
+        "finished_exported": 9,
+        "extra_returned_starts": 0,
+        "returned_start_set_matches": 11,
+        "scored_start_set_matches": 11,
+        "finished_empty": 2,
+        "explicit_empty_agreements": 2,
+        "form_rejected": 1
+      },
+      "n_scored_reference_candidates": 17,
+      "n_scored_declared_targets": 9,
+      "reconstruction_sha256": "6b5d20bae231eb38c4d6fb765e72f9c6a51138b36870ee47b7242540ecbb53e8",
+      "private_aggregate_file": "live-context2017-aggregate.json",
+      "private_aggregate_sha256": "b64bdc39f259b84b4461c3e03d3914eaab6430553e886b80108799d43a635a22",
+      "numerical_parity_established": false
+    }
+  },
+  "numeric_aggregates": "private internal-research artifacts; no raw service numerical exports redistributed",
+  "experimental_overlap": {
+    "n_constructs": 2,
+    "n_normalization_controls": 1,
+    "n_noncontrol_ratios": 1,
+    "private_aggregate_file": "live-experimental-overlap-aggregate.json",
+    "private_aggregate_sha256": "a3829445df95bcdb2ec32651eb9d59f66b26fa75ed32e93e178308d3daef2406",
+    "accuracy_inference": "insufficient; shared reporter, exposed cases and host-configuration mismatch"
+  }
+}
