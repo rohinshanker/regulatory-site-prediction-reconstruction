@@ -1,0 +1,128 @@
+{
+  "biological_accuracy_evaluated": false,
+  "cases": [
+    {
+      "fork_public_all_states": 1,
+      "id": "A200",
+      "states_checked": 30,
+      "winner": [
+        6,
+        17
+      ]
+    },
+    {
+      "fork_public_all_states": 1,
+      "id": "mixed200",
+      "states_checked": 30,
+      "winner": [
+        8,
+        17
+      ]
+    },
+    {
+      "fork_public_all_states": 0,
+      "id": "short77",
+      "states_checked": 0,
+      "winner": null
+    },
+    {
+      "fork_public_all_states": 1,
+      "id": "minimum78",
+      "states_checked": 1,
+      "winner": [
+        6,
+        15
+      ]
+    },
+    {
+      "fork_public_all_states": 1,
+      "id": "full87",
+      "states_checked": 30,
+      "winner": [
+        7,
+        16
+      ]
+    },
+    {
+      "fork_public_all_states": 1,
+      "id": "left58",
+      "states_checked": 1,
+      "winner": [
+        6,
+        15
+      ]
+    },
+    {
+      "fork_public_all_states": 1,
+      "id": "right180",
+      "states_checked": 30,
+      "winner": [
+        8,
+        17
+      ]
+    },
+    {
+      "fork_public_all_states": 0,
+      "id": "right181",
+      "states_checked": 0,
+      "winner": null
+    },
+    {
+      "fork_public_all_states": 1,
+      "id": "window350",
+      "states_checked": 30,
+      "winner": [
+        10,
+        16
+      ]
+    },
+    {
+      "fork_public_all_states": 1,
+      "id": "unknown-host",
+      "states_checked": 30,
+      "winner": [
+        8,
+        17
+      ]
+    },
+    {
+      "fork_public_all_states": 1,
+      "id": "in-vitro",
+      "states_checked": 30,
+      "winner": [
+        8,
+        17
+      ]
+    }
+  ],
+  "compatibility_sha256": {
+    "Promoter_Calculator_v1_0.py": "142823781d1ef70eaf3a1fe6be9e4e005c73edf78b9f8bef9a3e12b86d9849ff",
+    "util.py": "f80c4bec9b0922e9ed92645bc68343f811ac713e6107343463a1747c16345b74"
+  },
+  "environment_sha256": "7e77fbc382d8bdec0bf757e4a13c5b9909c212b443f060626188ea5c376b97ad",
+  "fixture_sha256": "8ba1cafe98736b723c7ee2148dbf24a345d0c12ec5f5bb233ecbfb808b6aef44",
+  "parameter_sha256": "f45bda817d1a0db323964b1ab8f37cb5d2e071dc9e09adf0ef5d791f2415f15e",
+  "runner_sha256": "b6ab8e79509fb2bee57562dd638944a0435b2393164dac6da9a972095278b952",
+  "schema_version": "promoter-executed-reference-1",
+  "source_behaviors": {
+    "barrick_unmodified": {
+      "arbitrary_corrected_tss": 58,
+      "arbitrary_legacy_tss": 57,
+      "corrected_forward_base": 100,
+      "forward_key": 100,
+      "reverse_legacy_key": 101,
+      "reverse_oriented_tss": 99,
+      "sigma_zero_ignored": true
+    },
+    "historical_compat": {
+      "arbitrary_corrected_tss": 58,
+      "arbitrary_legacy_tss": 57,
+      "corrected_forward_base": 100,
+      "forward_key": 100,
+      "reverse_legacy_key": 101,
+      "reverse_oriented_tss": 99,
+      "sigma_zero_ignored": true
+    }
+  },
+  "stdout_sha256": "e6be05f846951de20374e9539f94569480771bd88e4b900b12272f67ddca6dc2"
+}

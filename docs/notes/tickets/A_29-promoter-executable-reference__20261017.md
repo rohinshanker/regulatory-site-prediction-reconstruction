@@ -4,8 +4,8 @@
 - Status: active
 - Opened: 2026-10-17
 - Updated: 2026-10-17
-- Current State: Session B started Wave 4. The optional Claude worker terminated with a provider biology-adjacent safeguard flag before producing changes; that provider request is not being retried. Source execution remains incomplete while independent evaluator/oracle work proceeds. Source/weights and seven analytic fixtures are pinned; published supplied prediction columns were audited, but upstream inference has not been executed by this project.
-- Verification: Existing source/parameter and published-column audit passes; modern isolated installation, executed parity and new inference fixtures remain to be verified.
+- Current State: Session B executed the pinned Barrick fork and minimally adapted historical source in an isolated Python3.9 environment. All212 independently derived states across11 synthetic cases agree; both-strand, missing-gap and ignored-sigma behaviors reproduced. Python3.14 annotation failure and fork All_States loss recorded. The failed optional worker remains inactive; coordinator implementation and focused artifact review own completion.
+- Verification: Ten offline tests pass with100%209 statements/76 branches; exact source/array/dependency/notice pins and repeated identical wheel builds verified. Final source receipt and independent review precede closure.
 - Cleanup: Session B distills executable source/dependency identities, fixture semantics and discrepancies into validation contracts; resolves/removes this scoped ticket while #1/#7/#12 retain unfinished work.
 - Owner: Session B (9677689a-1792176763), wave4/b-independent-evaluation at baseline 73521a6ae3251678073dce76181ee5909b34fe8b.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/29

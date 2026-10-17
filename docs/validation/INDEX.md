@@ -37,3 +37,4 @@ Verification dates cover the stated source observations or specification review;
 | rbs-wave3-results | Structural, software and development-only validation of standby scoring and traceback repair. | 2026-10-17 | [rbs-wave3-results.md](rbs-wave3-results.md) |
 | rbs-new-evaluation-data | New Cambray final and Kuo secondary inputs, exact local context, frozen selection and independent evaluation gates. | 2026-10-17 | [rbs-new-evaluation-data.md](rbs-new-evaluation-data.md) |
 | rbs-wave4-evaluation | Frozen independent rank protocol, paired block uncertainty, synthetic joint oracle and evaluation boundaries. | 2026-10-17 | [rbs-wave4-evaluation.md](rbs-wave4-evaluation.md) |
+| promoter-executed-reference | Pinned optional source execution, independent finite-state fixtures, compatibility failures and corrected coordinate semantics. | 2026-10-17 | [promoter-executed-reference.md](promoter-executed-reference.md) |
