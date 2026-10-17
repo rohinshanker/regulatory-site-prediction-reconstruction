@@ -307,6 +307,31 @@ def _project_sites(prediction: dict, path: GenomicPath) -> list[dict]:
                 site["window"]["oriented_start"], site["window"]["oriented_end"]
             )
         ]
+        if "standby" in site:
+            module = site["standby"]
+            mapped["standby_module"] = None
+            if module is not None:
+                projected: dict[str, Any] = {}
+                for field in ("original_hairpin", "hairpin", "distal", "proximal"):
+                    interval = module[field]
+                    projected[field] = (
+                        [
+                            asdict(p)
+                            for p in path.project(interval["start"], interval["end"])
+                        ]
+                        if interval is not None
+                        else None
+                    )
+                projected["downstream_hairpins"] = [
+                    [
+                        asdict(p)
+                        for p in path.project(
+                            hairpin["interval"]["start"], hairpin["interval"]["end"]
+                        )
+                    ]
+                    for hairpin in module["downstream_hairpins"]
+                ]
+                mapped["standby_module"] = projected
         sites.append(mapped)
     return sites
 

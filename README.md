@@ -4,8 +4,8 @@ Build fully open-source, locally usable RBS, Promoter, Operon, and Riboswitch
 calculators, pursuing the closest demonstrable behavior to the production
 [De Novo DNA tools](https://www.denovodna.com/software/).
 
-**The RBS release candidate, 0.2.0rc1, runs locally.** It includes the historical
-Salis v1 reconstruction, separately named footprint/context refinements, a native
+**The RBS release candidate, 0.3.0rc1, runs locally.** It includes the historical
+Salis v1 reconstruction, separately named footprint/context/standby refinements, a native
 genome/transcript adapter, and experimental sequence and energy/sequence models.
 The mechanistic profiles use separately installed RNAstructure 6.6 executables
 and return energy terms, relative initiation scores, structures, coordinates and
@@ -37,6 +37,7 @@ export REGSITE_RNASTRUCTURE="/absolute/path/to/RNAstructure"
 .venv/bin/regsite examples/rbs-single.json
 .venv/bin/regsite examples/rbs-batch.json --format csv
 .venv/bin/regsite examples/rbs-footprint.json --profile footprint2017
+.venv/bin/regsite examples/rbs-single.json --profile standby2014
 ```
 
 A request supplies `sequence` and a 9-nt `anti_sd`; optional `start_positions`
@@ -51,6 +52,13 @@ and [result schema 1.1](schemas/rbs-result-1.1.schema.json). These are explicit
 partial reconstructions of later mechanisms. The [mechanism contract](docs/validation/rbs-mechanisms.md)
 records reproducible folding-backend failures; longer context does not guarantee
 better coverage or accuracy.
+
+The new `standby2014` profile calculates accessibility, selective RNA unfolding
+and sliding using the published 2014 relationships. It returns separate penalties,
+selected structures and explicit search limits in [schema 1.2](schemas/rbs-result-1.2.schema.json).
+Read the [standby contract](docs/validation/rbs-standby.md) for source pins and
+reconstruction choices. This implements additional mechanisms; it does not by
+itself establish better experimental accuracy.
 
 The transcript-aware adapter accepts pinned genomes and explicit TSS/CDS scenarios:
 
@@ -120,6 +128,7 @@ is a downstream consumer, not the home for reconstructed model internals.
 Its release/admission rules still govern any displayed prediction. See the
 [consumer boundary](docs/validation/cyano-integration.md).
 
+New website collection and coin purchases are deferred for this wave.
 Live-reference validation uses coin-funded website runs under ticket 05. The owner
 can supply additional authorized lab logins if coins are exhausted and can request
 lab funding for a justified larger panel. Reference spending is separate from the

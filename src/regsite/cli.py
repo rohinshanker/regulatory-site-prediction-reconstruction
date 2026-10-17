@@ -7,7 +7,7 @@ from contextlib import nullcontext
 
 from regsite.backend import RnaStructure
 from regsite.io import load_requests, write_csv, write_json
-from regsite.profiles import PROFILES
+from regsite.profiles import PROFILES, get_profile
 from regsite.rbs import predict
 from regsite.sequence import InputError
 from regsite.structures import BackendError
@@ -54,7 +54,7 @@ def main(argv: list[str] | None = None) -> int:
                 results, sys.stdout, include_identity=args.profile != "historical"
             )
         else:
-            version = "1.0" if args.profile == "historical" else "1.1"
+            version = get_profile(args.profile).schema_version
             write_json({"schema_version": version, "results": results}, sys.stdout)
         return int(any(r["status"] in ("failed", "invalid_input") for r in results))
     except (InputError, BackendError, OSError, UnicodeError) as exc:

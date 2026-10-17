@@ -4,8 +4,8 @@
 - Status: active
 - Opened: 2026-10-17
 - Updated: 2026-10-17
-- Current State: Primary specification and structural optimization semantics are being checked; no model parameters are fitted and frozen Wave2 artifacts remain unchanged.
-- Verification: Starting baseline 0a9fbd03326afc1baa918e85eb2dd7709f666b63 has 1,383 real-backend tests and four passing CI environments. New implementation checks are required below.
+- Current State: Primary paper/supplement independently checked; versioned standby scorer, complete bounded opening search, schema1.2 and native projections implemented. Exact-patch review and frozen development evaluation remain. No parameters fitted; Wave2 artifacts unchanged.
+- Verification: Starting baseline 0a9fbd03326afc1baa918e85eb2dd7709f666b63 has 1,383 real-backend tests and four passing CI environments. New standby/source fixtures and real-backend integration pass; full suite before native projection addition: 1,416 passed, 100% statement/branch coverage. Final reviewed gates remain.
 - Cleanup: Owner records final validation, distills reusable contracts, resolves/removes this ticket and its index row; broader #4 remains open where incomplete.
 - Owner: Session A (baf5b738-1792172297), wave3/rbs-mechanisms.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/22
