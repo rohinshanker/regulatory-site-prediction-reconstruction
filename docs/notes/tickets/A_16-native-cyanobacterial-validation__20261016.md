@@ -4,8 +4,8 @@
 - Status: active
 - Opened: 2026-10-16
 - Updated: 2026-10-17
-- Current State: Portable primary Tan extraction is complete: all 4,808 rows retained with current-annotation conflicts, explicit 16S-tail provenance and output hash. Karlsen HC TE is admitted: 2,412 primary current chromosomal contexts; frozen train/validation/final counts 1,465/479/468. Only development labels released. Reporter/TIS admission and final independent evaluation remain active; Tan supplies transcript context only.
-- Verification: Nine primary artifact pins and NCBI MD5s verified. Tan output identity/counts: benchmarks/rbs/native-tan-audit.json. All 76 benchmark tests pass with 100% statements/branches (933/400); targeted Ruff passes. Native source, clustering, split and development hashes are in rbs-native-data-card.md. A fresh explicit Python3.14 environment installs existing hash-locked dependencies; no package change needed.
+- Current State: Tan context and Karlsen relative TE admitted with frozen splits. Direct TIS v3 source yields 91 primary and eight weak supported starts; outcome-blind stop queries contain 1018 candidates. Thiel reporter/context admission, independent secondary-study challenges and final evaluation remain active.
+- Verification: All 107 owned benchmark tests pass, 100% statement/branch coverage (1346/550); targeted Ruff and scoped documentation validation pass. Actual upstream OSTIR/rebeca inference and synthetic numerical smokes pass; native partitions independently reviewed and reproduced. Source/evaluation details are in rbs-native-data-card.md, rbs-positional-evidence.md and rbs-upstream-comparators.md.
 - Cleanup: Resolve only completed scope, distill reusable dataset/evaluation contracts, update indexes and GitHub issue, then remove the resolved ticket.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/16
 - Priority: P0
