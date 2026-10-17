@@ -299,7 +299,11 @@ def infer(
                     "energy_backend_or_model_differs_from_training"
                 )
             if parent["status"] != "ok":
-                result.update(status=parent["status"], reason=parent["reason"])
+                reasons = [parent["reason"], *(s["reason"] for s in parent["sites"])]
+                reason = next(
+                    (r for r in reasons if _text(r)), "mechanistic_feature_unavailable"
+                )
+                result.update(status=parent["status"], reason=reason)
                 continue
         try:
             values = extract_features(request, kind=kind, prediction=parent)

@@ -227,9 +227,23 @@ def test_preserve_source_order_and_failed_cache_reason(tmp_path):
     rows = files.infer()["records"]
     assert [row["id"] for row in rows] == ["z", "missing", "a"]
     assert rows[-1]["status"] == failed["status"]
-    assert rows[-1]["reason"] == failed["reason"]
+    assert failed["reason"] is None
+    assert rows[-1]["reason"] == "deliberate folding failure"
     assert rows[-1]["score"] is None and rows[-1]["features"] is None
     assert rows[-1]["parent_provenance"]["prediction_id"] == failed["prediction_id"]
+
+
+@pytest.mark.parametrize("site_reason", ["CT pairs are not reciprocal", None])
+def test_failed_core_preserves_site_reason_or_explicit_missingness(
+    tmp_path, site_reason
+):
+    files = Files(tmp_path, KIND)
+    parent = files.cached["records"][0]["prediction"]
+    parent.update(status="failed", reason=None)
+    parent["sites"][0].update(status="failed", reason=site_reason)
+    row = files.infer()["records"][0]
+    assert row["reason"] == (site_reason or "mechanistic_feature_unavailable")
+    assert row["score"] is None and row["status"] == "failed"
 
 
 @pytest.mark.parametrize("status", ["no_candidate", "unsupported", "invalid_input"])
