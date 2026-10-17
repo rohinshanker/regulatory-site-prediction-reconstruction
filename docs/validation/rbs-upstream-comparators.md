@@ -274,3 +274,20 @@ python -m benchmarks.rbs.context_reuse prepare "$DIURNAL_INPUT" "$KARLSEN_INPUT"
 python -m benchmarks.rbs.comparators ostir "$NOVEL_INPUT" "$NOVEL_PREDICTIONS"
 python -m benchmarks.rbs.context_reuse combine "$DIURNAL_INPUT" "$KARLSEN_INPUT" "$COMBINED" --target-sha256 c4a049cc1374d3db304a42efad596ee973f2eb05d1d1e53659fd059b21a246c4 --parent-sha256 9957f10416cd00dd2f5dae086db657d2d4eab22c119d4e2f955facd1eaca65d3 --parent-predictions "$PARENT_PREDICTIONS" --new-predictions "$NOVEL_PREDICTIONS"
 ```
+
+## Secondary condition transfer
+
+`python -m benchmarks.rbs.secondary MANIFEST OUTPUT` evaluates the frozen final
+families separately for LC or each of the five diurnal phases. The private
+manifest pins cases, prediction files, the original HC training offsets and the
+unified roster freeze. Every phase must contain the same admitted identity and
+family/partition assignments; a family crossing partitions is rejected.
+
+Each model has two explicitly separate outputs: unchanged scores with their
+frozen HC scale, and a descriptive per-condition median intercept fitted only
+on that condition's development-training families. No coefficients, slopes,
+features or contender selections change. Final labels cannot change either
+calibration. Coverage and all-case denominators remain explicit. Descriptive
+95% homology-group MAE intervals use 2,000 resamples and seed20261016, are not
+simultaneous across phases/models, and do not estimate biological replicate
+noise. Repeated genes/phases are never pooled as independent observations.
