@@ -4,6 +4,7 @@ Verification dates cover the stated source observations or specification review;
 
 | Area | Purpose | Last verified | Document |
 | --- | --- | --- | --- |
+| rbs-wave4-program | Two-session runtime/evaluation ownership, joint-state scoring, candidate freeze, reserved-study tests and release boundaries. | 2026-10-17 | [rbs-wave4-program.md](rbs-wave4-program.md) |
 | rbs-wave2-program | Two-session ownership, dependencies, bounded fourteen-hour wave and acceptance. | 2026-10-17 | [rbs-wave2-program.md](rbs-wave2-program.md) |
 | rbs-native-validation | Tan TSS context, native TIS/TE and reporter validation with cyanobacterial claim gates. | 2026-10-17 | [rbs-native-validation.md](rbs-native-validation.md) |
 | rbs-comparator-landscape | Mechanistic/ML comparator roster, artifact gates and specialist improvement strategy. | 2026-10-17 | [rbs-comparator-landscape.md](rbs-comparator-landscape.md) |

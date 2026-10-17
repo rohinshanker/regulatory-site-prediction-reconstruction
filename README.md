@@ -103,6 +103,13 @@ separate E. coli experiment and its limited sequence diversity.
 
 ## Start a new implementation session
 
+For the planned next wave, use the [Session A implementation prompt](docs/prompts/wave4-session-a.md)
+or [Session B evaluation/reference prompt](docs/prompts/wave4-session-b.md), with
+the same exact planning commit supplied in their launch messages. The
+[shared Wave 4 program](docs/validation/rbs-wave4-program.md) defines ownership,
+the final-evaluation freeze and publication boundaries. These are planned
+deliverables, not additional implemented features.
+
 1. Read [AGENTS.md](AGENTS.md), the [live ticket queue](docs/notes/tickets/INDEX.md)
    and the [Wave 3 validation](docs/validation/rbs-wave3-results.md). Check current
    owners and preserve newer branches/worktrees before claiming work.
