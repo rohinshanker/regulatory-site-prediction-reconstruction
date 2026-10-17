@@ -31,3 +31,4 @@ Verification dates cover the stated source observations or specification review;
 | rbs-utex-measurement-proposal | Optional staged UTEX matched RNA/protein design, family-level power assumptions and costed funding proposal. | 2026-10-17 | [rbs-utex-measurement-proposal.md](rbs-utex-measurement-proposal.md) |
 | rbs-wave2-results | Frozen primary/secondary experimental results, reproducible aggregate artifacts and next-cycle hypotheses. | 2026-10-17 | [rbs-wave2-results.md](rbs-wave2-results.md) |
 | rbs-structural-fixtures | Independent folding diagnostics, exhaustive tiny topology controls and repair acceptance. | 2026-10-17 | [rbs-structural-fixtures.md](rbs-structural-fixtures.md) |
+| promoter-source-and-benchmarks | Open historical source/weights, coordinate fixtures and independently reproduced published-column metrics. | 2026-10-17 | [promoter-source-and-benchmarks.md](promoter-source-and-benchmarks.md) |

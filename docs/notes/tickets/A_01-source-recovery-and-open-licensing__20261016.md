@@ -4,7 +4,7 @@
 - Status: active
 - Opened: 2026-10-16
 - Updated: 2026-10-17
-- Current State: RBS open-backend and component/code/weight/data rights decisions are delivered, including executed OSTIR/rebeca/Prodigal comparators and explicit excluded candidates. Broader calculator source/licence recovery remains active.
+- Current State: Promoter historical inference and weights recovered with open reuse decision; original and packaged fork pinned, compatibility/training gaps explicit. RBS structural package independently reviewed. Broader suite recovery remains active.
 - Verification: RBS 161 owned tests, 100% statement/branch coverage (2149/900); independent final audit 9759 aggregate/pin assertions, zero numerical mismatches. Result/source/model identities and scope limits are in rbs-wave2-results.md and benchmarks/rbs/results/wave2-results-manifest.json.
 - Cleanup: Owning session records final checks and unresolved findings, resolves the ticket, distills reusable guidance into docs/validation/, updates both indexes and linked GitHub issue, then removes the resolved ticket.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/1

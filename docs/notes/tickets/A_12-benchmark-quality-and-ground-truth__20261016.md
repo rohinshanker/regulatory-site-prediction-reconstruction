@@ -4,7 +4,7 @@
 - Status: active
 - Opened: 2026-10-16
 - Updated: 2026-10-17
-- Current State: RBS frozen primary and secondary experimental evaluation is complete with independently reproduced metrics and no native promotion. Source/assay/overlap/uncertainty limits and reviewer handling exception are explicit in rbs-wave2-results.md. Wider-suite benchmark/ground-truth audit remains active.
+- Current State: Promoter published-column metrics and active parameters independently reproduced; new RBS dataset admission and outcome-blind panels in progress. Old Wave2 results remain consumed; no promotion claim.
 - Verification: RBS 161 owned tests, 100% statement/branch coverage (2149/900); independent final audit 9759 aggregate/pin assertions, zero numerical mismatches. Result/source/model identities and scope limits are in rbs-wave2-results.md and benchmarks/rbs/results/wave2-results-manifest.json.
 - Cleanup: Owning session records final checks and unresolved findings, distills reusable benchmark guidance, updates indexes and GitHub issue, then removes the resolved ticket.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/12
