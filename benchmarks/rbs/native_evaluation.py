@@ -7,6 +7,7 @@ from pathlib import Path
 from benchmarks.rbs import strength
 from benchmarks.rbs.datasets import digest, write_json
 from benchmarks.rbs.development import PARTITIONS
+from benchmarks.rbs.metrics import summary
 from benchmarks.rbs.positional_adapters import unique
 
 
@@ -69,6 +70,28 @@ def native_cases(input_bytes, outcomes, splits, condition="HC"):
             }
         )
     return records
+
+
+def _coverage_diagnostics(reference, contender):
+    """Describe already joined cases; never select a reference from these values."""
+    ref, con = {r["id"]: r for r in reference}, {r["id"]: r for r in contender}
+    common = [key for key in ref if ref[key]["status"] == con[key]["status"] == "ok"]
+    n_ref = sum(r["status"] == "ok" for r in reference)
+    n_con = sum(r["status"] == "ok" for r in contender)
+    dropped = n_ref - len(common)
+    return {
+        "n_all_log_eligible": len(ref),
+        "n_historical_success": n_ref,
+        "n_contender_success": n_con,
+        "n_common_success": len(common),
+        "historical_valid_cases_dropped": dropped,
+        "historical_common_metrics": summary([ref[key] for key in common]),
+        "contender_common_metrics": summary([con[key] for key in common]),
+        "reference_selection_coverage_eligible": bool(ref)
+        and dropped == 0
+        and n_con >= n_ref
+        and n_con / len(ref) >= 0.95,
+    }
 
 
 def report(records, models, configuration, stage="development_validation"):
@@ -185,13 +208,17 @@ def report(records, models, configuration, stage="development_validation"):
         "n_evaluated": len(target),
         "n_evaluation_groups": len({r["group"] for r in target}),
         "models": output,
+        "historical_common_case_diagnostics": {
+            name: _coverage_diagnostics(joined[historical], rows)
+            for name, rows in joined.items()
+        },
         "champion_contrasts": {
             name: value for name, value in contrasts.items() if value["confirmatory"]
         },
         "descriptive_champion_contrasts": {
             name: contrasts[name]
             for name in (historical, original_upstream)
-            if name in contrasts
+            if name in contrasts and not contrasts[name]["confirmatory"]
         },
         "multiplicity": "two prespecified contrasts; individual 97.5% intervals",
         "uncertainty_scope": "homology-group sampling, not biological replicate noise",
