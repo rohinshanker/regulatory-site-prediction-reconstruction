@@ -69,15 +69,38 @@ def write_gff3(result: dict, stream: TextIO) -> None:
         raise InputError("GFF3 export requires native-rbs-result-1")
     stream.write("##gff-version 3\n")
     stream.write("# Model predictions; binding spans are not measured SD boundaries.\n")
+    landmarks = {}
+    for record in result["results"]:
+        if record["context"] is not None:
+            landmarks[record["evidence"]["genome_id"]] = record["context"]
+    for key, context in landmarks.items():
+        seqid = quote(key, safe=".:^*$@!+_?-|").replace("~", "%7E")
+        length = context["path"]["contig_length"]
+        stream.write(f"##sequence-region {seqid} 1 {length}\n")
+        attributes = {
+            "ID": f"regsite:{result['batch_id']}:landmark:{key}",
+            "Name": context["genome"]["accession"],
+            "assembly": context["genome"]["assembly"],
+            "annotation": context["genome"]["annotation"],
+            "sequence_sha256": context["genome"]["sequence_sha256"],
+            "Is_circular": str(context["path"]["circular"]).lower(),
+        }
+        stream.write(
+            f"{seqid}\tregsite\tregion\t1\t{length}\t.\t+\t.\t"
+            + ";".join(f"{k}={_attribute(v)}" for k, v in attributes.items())
+            + "\n"
+        )
     for row_index, record in enumerate(result["results"]):
         stream.write(
             f"# record={_attribute(record['id'])};status={record['status']};"
-            f"reason={_attribute(record['reason'])}\n"
+            f"reason={_attribute(record['reason'] or '')}\n"
         )
         if record["prediction"] is None:
             continue
         context = record["context"]
-        seqid = quote(context["genome"]["accession"], safe=".:^*$@!+_?-|")
+        seqid = quote(record["evidence"]["genome_id"], safe=".:^*$@!+_?-|").replace(
+            "~", "%7E"
+        )
         length = context["path"]["contig_length"]
         for site_index, (site, projected) in enumerate(
             zip(record["prediction"]["sites"], record["genomic_sites"], strict=True)

@@ -336,11 +336,14 @@ def predict(
     *,
     seconds: float = 60,
     profile: str = "historical",
+    execution_seconds: float | None = None,
 ) -> dict:
     """Score one request; validation/backend failures never become zero scores.
 
     An overall failed or unsupported status can retain successful sites. Inspect
     each site's status; ok means every selected start was successfully scored.
+    execution_seconds may shorten an enclosing batch's remaining execution time;
+    the declared seconds budget, not elapsed wall time, defines prediction identity.
     """
     specification = get_profile(profile)
     base: dict[str, Any] = {
@@ -405,7 +408,15 @@ def predict(
             base, status="unsupported", reason="scanned_start_count_exceeds_1000"
         )
     try:
-        folding = backend.session(request.temperature_c, seconds)
+        if execution_seconds is not None and (
+            type(execution_seconds) not in (int, float)
+            or not 0 < execution_seconds <= seconds
+        ):
+            raise BackendError("invalid enclosing execution budget")
+        folding = backend.session(
+            request.temperature_c,
+            seconds if execution_seconds is None else execution_seconds,
+        )
     except (BackendError, OSError, UnicodeError) as exc:
         return dict(base, status="failed", reason=str(exc))
     sites = [_score_site(request, start, folding, specification) for start in starts]

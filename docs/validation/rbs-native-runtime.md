@@ -28,6 +28,7 @@ is `regsite.native.predict_native(value, backend, profile=..., mode=...)`.
 
 `supplied_start` scores the declared CDS start. `conditional_scan` searches
 AUG/GUG/UUG only inside that same extracted context and ranks successful scores;
+equal scores receive consecutive ranks ordered by upstream transcript position.
 it is neither transcript discovery nor genome-wide start-site detection. Scores
 remain relative initiation predictions with the selected model's limitations.
 Host, temperature and nine-base anti-SD sequence are explicit inputs. An annotated
@@ -50,7 +51,13 @@ genomic-flank scenario. Negative leaders from internal TSSs are unsupported and
 never wrap into chromosome-sized leaders. Circular topology alone does not grant
 permission to cross the origin: the record must set `origin_crossing`. Linear or
 undeclared-origin contexts clip at contig boundaries. Contexts never traverse a
-replicon twice. The adapter does not infer downstream transcript ends or operon
+replicon twice. Negative leaders remain unsupported even when their coordinates
+cross the origin. A declared positive circular leader longer than half the
+replicon is conservatively unsupported (`ambiguous_long_circular_leader`), rather
+than interpreting a nearby internal TSS as a chromosome-sized leader. This is an
+admission rule, not a biological maximum; such transcripts need a richer evidence
+contract. A crossing declaration must correspond to the source TSS-to-start path
+or the extracted downstream/flank context. The adapter does not infer downstream transcript ends or operon
 coupling. Leaderless and insufficient-context cases retain the core model's
 explicit unsupported result.
 
@@ -66,6 +73,10 @@ The JSON output is authoritative for evidence, structures and failures. GFF3 use
 one-based inclusive intervals; circular features have an unwrapped end greater
 than the replicon length, following the
 [GFF3 specification](https://github.com/The-Sequence-Ontology/Specifications/blob/master/gff3.md).
+GFF `seqid` is the input `genome_id`, avoiding collisions when versioned genomes
+share an accession. Each represented genome has a `sequence-region` directive and
+landmark `region` with explicit `Is_circular`, original accession, annotation and
+sequence hash. Genome IDs and attributes use the specification's escaping rules.
 Start codons are anchors, and binding/standby/footprint spans are model features,
 not experimentally observed regulatory boundaries. Empty intervals emit no
 feature. Score and phase columns are `.`; relative TIR is an explicit attribute,
@@ -82,6 +93,10 @@ limited to 10,000 records, 100 genomes, 20 million total genome bases and 40 mil
 encoded JSON bytes. Duplicate JSON keys and nonfinite numbers are rejected.
 The batch identity includes the full input, model/backend, implementation version,
 mode and time budgets. Elapsed wall time is not part of that identity.
+Core prediction IDs use the declared per-record budget; the enclosing batch's
+remaining deadline separately limits execution. Repeated runs can differ in
+timeout coverage, but elapsed scheduling time does not change the identity of
+the requested calculation.
 
 Required checks include B's independent seven-case coordinate fixtures, exhaustive
 small-genome path/interval reconstruction on both strands and topologies, real

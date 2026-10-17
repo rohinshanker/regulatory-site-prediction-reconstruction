@@ -47,15 +47,28 @@ def test_gff_retains_missingness_and_escapes_attributes():
     batch["records"][0]["id"] = "gene;name=one&two,%quoted"
     source = batch["genomes"][batch["records"][0]["genome_id"]]
     source["accession"] = "replicon with space"
+    old_key = batch["records"][0]["genome_id"]
+    batch["genomes"]["replicon with space~"] = batch["genomes"].pop(old_key)
+    for record in batch["records"]:
+        if record["genome_id"] == old_key:
+            record["genome_id"] = "replicon with space~"
     result = predict_native(batch, AlgebraBackend(paired=0))
     output = io.StringIO()
     write_gff3(result, output)
     text = output.getvalue()
     assert text.startswith("##gff-version 3\n")
     assert "record=internal-tss;status=unsupported" in text
-    lines = [x.split("\t") for x in text.splitlines() if not x.startswith("#")]
+    lines = [
+        x.split("\t")
+        for x in text.splitlines()
+        if not x.startswith("#") and "\tregion\t" not in x
+    ]
     assert all(len(line) == 9 for line in lines)
-    assert lines[0][0] == "replicon%20with%20space"
+    assert lines[0][0] == "replicon%20with%20space%7E"
+    assert "##sequence-region replicon%20with%20space%7E 1 20" in text
+    assert "Is_circular=true" in text and "Is_circular=false" in text
+    assert "reason=leaderless_initiation_not_modeled" in text
+    assert "reason=None" not in text
     attributes = dict(item.split("=", 1) for item in lines[0][8].split(";"))
     assert unquote(attributes["Name"]) == batch["records"][0]["id"]
     assert lines[0][3:8] == ["8", "10", ".", "+", "."]
@@ -86,7 +99,7 @@ def test_origin_start_codon_export_uses_unrolled_gff_end():
     assert result["results"][0]["prediction"]["sites"][0]["codon"] == "AUG"
     output = io.StringIO()
     write_gff3(result, output)
-    first = next(x for x in output.getvalue().splitlines() if not x.startswith("#"))
+    first = next(x for x in output.getvalue().splitlines() if "\tstart_codon\t" in x)
     assert first.split("\t")[3:5] == ["20", "22"]
 
 

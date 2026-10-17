@@ -134,7 +134,44 @@ def test_missing_and_unsupported_contexts():
     with pytest.raises(InputError, match="more than once"):
         prepare_context(dict(record, downstream_length_nt=100), genome)
     with pytest.raises(InputError, match="disagrees"):
-        prepare_context(dict(record, tss_zero_based=8, leader_length_nt=-1), genome)
+        prepare_context(dict(record, tss_zero_based=8, leader_length_nt=-2), genome)
+
+
+def test_declared_circular_leaders_do_not_manufacture_long_transcripts():
+    record, genome = inputs(2)
+    with pytest.raises(UnsupportedContext, match="ambiguous_long_circular_leader"):
+        prepare_context(dict(record, tss_zero_based=8, leader_length_nt=19), genome)
+    for crossing in (False, True):
+        with pytest.raises(UnsupportedContext, match="tss_inside_current_cds"):
+            prepare_context(
+                dict(
+                    record,
+                    tss_zero_based=8,
+                    leader_length_nt=-1,
+                    origin_crossing=crossing,
+                ),
+                genome,
+            )
+        with pytest.raises(UnsupportedContext, match="tss_inside_current_cds"):
+            prepare_context(
+                dict(
+                    record,
+                    cds_start_zero_based=18,
+                    tss_zero_based=1,
+                    leader_length_nt=-3,
+                    origin_crossing=crossing,
+                ),
+                genome,
+            )
+    with pytest.raises(InputError, match="origin crossing is absent"):
+        prepare_context(dict(record, tss_zero_based=3, leader_length_nt=4), genome)
+    with pytest.raises(InputError, match="origin crossing is absent"):
+        prepare_context(
+            dict(
+                record, tss_zero_based=None, leader_length_nt=None, upstream_limit_nt=2
+            ),
+            genome,
+        )
 
 
 @pytest.mark.parametrize(
@@ -233,7 +270,7 @@ def test_conditional_scan_and_failure_projection():
 
 def test_total_batch_budget_expiry(monkeypatch):
     clock = iter((0.0, 301.0, 302.0))
-    monkeypatch.setattr(native.time, "monotonic", lambda: next(clock))
+    monkeypatch.setattr(native.time, "monotonic", lambda clock=clock: next(clock))
     result = predict_native(
         dict(EXAMPLE, records=EXAMPLE["records"][:2]), AlgebraBackend()
     )
@@ -241,6 +278,24 @@ def test_total_batch_budget_expiry(monkeypatch):
         r["reason"] == "native_batch_time_budget_exhausted" for r in result["results"]
     )
     assert all(r["context"] and r["prediction"] is None for r in result["results"])
+
+
+def test_prediction_identity_uses_declared_not_remaining_budget(monkeypatch):
+    batch = dict(EXAMPLE, records=EXAMPLE["records"][:1])
+    outputs, budgets = [], []
+    for elapsed in (1, 2):
+        clock = iter((0.0, float(elapsed)))
+        monkeypatch.setattr(native.time, "monotonic", lambda clock=clock: next(clock))
+        backend = AlgebraBackend(paired=0)
+
+        def session(temperature, seconds, backend=backend):
+            budgets.append(seconds)
+            return backend
+
+        backend.session = session
+        outputs.append(predict_native(batch, backend, seconds_per_batch=30))
+    assert budgets == [29, 28]
+    assert outputs[0] == outputs[1]
 
 
 @pytest.mark.parametrize(

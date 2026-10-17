@@ -196,13 +196,19 @@ def prepare_context(record: object, genome: Genome) -> NativeContext:
     else:
         _integer(leader, "leader_length_nt", -size + 1, size - 1)
         distance = (start - tss) * step
+        if leader < 0:
+            if leader != distance and not (
+                genome.circular and leader % size == distance % size
+            ):
+                raise InputError("negative leader disagrees with TSS/start/strand")
+            raise UnsupportedContext("tss_inside_current_cds")
         expected = distance % size if crossing else distance
         if leader != expected:
             raise InputError(
                 "leader_length_nt disagrees with TSS/start/strand/topology"
             )
-        if leader < 0:
-            raise UnsupportedContext("tss_inside_current_cds")
+        if crossing and leader > size // 2:
+            raise UnsupportedContext("ambiguous_long_circular_leader")
     count_up = min(leader, upstream)
     # Circular topology alone is not authority to cross the origin.
     if not crossing:
@@ -219,6 +225,12 @@ def prepare_context(record: object, genome: Genome) -> NativeContext:
         strand,
         genome.circular,
     )
+    if (
+        crossing
+        and len(path.project(0, path.length)) == 1
+        and (tss is None or (start - tss) * step == leader)
+    ):
+        raise InputError("declared origin crossing is absent from transcript context")
     sequence = path.extract(genome.rna)
     request = {
         "id": identifier,
@@ -381,7 +393,8 @@ def predict_native(
                 prediction = predict(
                     request,
                     backend,
-                    seconds=min(seconds_per_record, remaining),
+                    seconds=seconds_per_record,
+                    execution_seconds=min(seconds_per_record, remaining),
                     profile=profile,
                 )
                 result.update(
@@ -390,6 +403,19 @@ def predict_native(
                     prediction=prediction,
                     genomic_sites=_project_sites(prediction, context.path),
                 )
+                if prediction["status"] != "ok" and prediction["reason"] is None:
+                    result["reason"] = (
+                        "; ".join(
+                            sorted(
+                                {
+                                    s["reason"]
+                                    for s in prediction["sites"]
+                                    if s["reason"]
+                                }
+                            )
+                        )
+                        or None
+                    )
         except UnsupportedContext as exc:
             result.update(status="unsupported", reason=str(exc))
         except InputError as exc:

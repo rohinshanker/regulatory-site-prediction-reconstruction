@@ -334,6 +334,13 @@ def test_equivalent_budget_representations_have_same_identity():
     )
 
 
+@pytest.mark.parametrize("allowance", [0, 61, True, float("nan")])
+def test_invalid_enclosing_execution_allowance(allowance):
+    result = predict(request(), AlgebraBackend(), execution_seconds=allowance)
+    assert result["status"] == "failed"
+    assert result["reason"] == "invalid enclosing execution budget"
+
+
 def test_real_connected_energy_band_regression(real_backend):
     # Review reproducer: unbound structures lack bimolecular initiation energy
     # and must not set the suboptimal band for connected complexes.
