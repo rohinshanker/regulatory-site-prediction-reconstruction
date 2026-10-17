@@ -39,7 +39,10 @@ Scores/energies are not rounded; the selected energy can exceed the computed
 minimum by at most this tolerance. This pre-final policy was checked against the
 independent decimal/sliding tie, without experimental outcomes.
 
-The exact-float module/state tie policy inside each candidate is unchanged.
+The module/state tie policy inside each candidate is unchanged: comparisons use
+exact binary floating-point equality. Decimal-equal terms may therefore select
+different internal states through representation error; the new candidate-level
+tolerance does not alter that legacy policy.
 The greedy counterfactual uses
 (cofold energy + spacing, original enumeration index) over the exact same set,
 and reports its *complete* energy after its own standby optimization. Neither
@@ -91,7 +94,8 @@ stable candidate ID and index, preliminary score, complete total and standby
 cost, and selected/greedy identities with the greedy complete energy. An empty
 eligible set is a complete empty search, with no selected or greedy candidate.
 `failed` includes a candidate halted by an unsupported search limit as well as
-a computation error. `state_attempts` counts structures submitted in each batch;
+a computation error. `state_attempts` counts structures passed to each batch evaluation request,
+including a request rejected before process launch by an exhausted deadline;
 `states_evaluated` counts accepted finite energies from fully validated batches.
 If a batch fails, its submitted states remain attempted and none are accepted.
 The three candidate counts partition `eligible`; selected/greedy IDs and indices
@@ -120,11 +124,13 @@ they do not establish species-specific calibration. The historical scalar
 parameters are based on 37 C conditions and are not refitted at other temperatures.
 
 The independent [finite-state fixture](../../benchmarks/rbs/joint-selection-fixtures.json)
-checks a greedy loser, singleton and exact candidate/state ties. Its expected
+contains a greedy loser, singleton and exact candidate/state ties. Its expected
 values are derived with Decimal arithmetic independently of the runtime.
 [The runtime bridge](../../tests/test_joint_reference.py) checks candidate
 selection/total accounting and forward/reverse/circular projection against those
 unchanged values, plus the independent reviewer's non-dyadic sliding-cost tie.
+The bridge supplies already-optimized abstract standby costs; its Decimal stub
+does not validate runtime opening-state selection or internal state ties.
 These abstract costs are not folding measurements: full
 geometry, state enumeration, deadlines, missingness and real engines are checked
 separately in the runtime tests. Compensated totals and the declared numerical
