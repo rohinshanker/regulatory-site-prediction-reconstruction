@@ -222,6 +222,34 @@ def test_closed_energy_admission_precedes_all_output(tmp_path, change):
 
 
 @pytest.mark.parametrize(
+    "status", ["failed", "no_candidate", "unsupported", "invalid_input"]
+)
+def test_unsuccessful_last_parent_cannot_carry_nonnull_energies(tmp_path, status):
+    files = Files(tmp_path, KIND)
+    files.data["records"].append(source_row("last"))
+    parent = predict(
+        request(id="last"), AlgebraBackend(fail=True), profile="context2017"
+    )
+    parent["status"] = status
+    parent["sites"][0].update(
+        status=status, energies={"observed": {"synthetic_outcome": 123.0}}
+    )
+    files.cached["records"].append({"id": "last", "prediction": parent})
+    files.output.write_text("existing output")
+    assert inference.main(files.argv()) == 2
+    assert files.output.read_text() == "existing output"
+
+
+def test_successful_site_under_failed_parent_still_checks_units(tmp_path):
+    files = Files(tmp_path, KIND)
+    parent = files.cached["records"][0]["prediction"]
+    parent["status"] = "failed"
+    parent["sites"][0]["energies"]["units"] = "kJ/mol"
+    with pytest.raises(ValueError, match="kcal/mol"):
+        files.infer()
+
+
+@pytest.mark.parametrize(
     "field", sorted(inference._ENERGY_NUMBERS | inference._ENERGY_NULLABLE)
 )
 @pytest.mark.parametrize("bad", [True, "0", 10**400])
@@ -283,7 +311,7 @@ def test_failed_core_preserves_site_reason_or_explicit_missingness(
     files = Files(tmp_path, KIND)
     parent = files.cached["records"][0]["prediction"]
     parent.update(status="failed", reason=None)
-    parent["sites"][0].update(status="failed", reason=site_reason)
+    parent["sites"][0].update(status="failed", reason=site_reason, energies=None)
     row = files.infer()["records"][0]
     assert row["reason"] == (site_reason or "mechanistic_feature_unavailable")
     assert row["score"] is None and row["status"] == "failed"

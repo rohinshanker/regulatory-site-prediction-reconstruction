@@ -208,18 +208,15 @@ def _core(prediction: object, request: RbsRequest) -> dict[str, str]:
             ]
         ):
             raise ValueError("cache parent site/start mismatch")
-    if prediction["status"] == "ok":
-        sites = prediction["sites"]
+        energies = site["energies"]
+        if site["status"] != "ok":
+            if energies is not None:
+                raise ValueError("unsuccessful cache site requires null energies")
+            continue
+        # Admit every site's energy contract independently of its parent status.
         if (
-            len(sites) != 1
-            or sites[0]["status"] != "ok"
-            or not isinstance(sites[0]["energies"], dict)
-        ):
-            raise ValueError("successful cache parent site/start mismatch")
-        # Admit the closed result-v1.1 energy contract, not only learned columns.
-        energies = sites[0]["energies"]
-        if (
-            energies.keys() != _ENERGY_NUMBERS | _ENERGY_NULLABLE | {"units"}
+            not isinstance(energies, dict)
+            or energies.keys() != _ENERGY_NUMBERS | _ENERGY_NULLABLE | {"units"}
             or energies["units"] != "kcal/mol"
         ):
             raise ValueError("cache energy contract requires closed kcal/mol fields")
@@ -235,6 +232,10 @@ def _core(prediction: object, request: RbsRequest) -> dict[str, str]:
                 raise ValueError("successful cache energy exceeds float range") from exc
             if not finite:
                 raise ValueError("successful cache energy features must be finite")
+    if prediction["status"] == "ok":
+        sites = prediction["sites"]
+        if len(sites) != 1 or sites[0]["status"] != "ok":
+            raise ValueError("successful cache parent site/start mismatch")
     return signature
 
 
