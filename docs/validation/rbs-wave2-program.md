@@ -2,7 +2,7 @@
 
 - Purpose: Coordinate two long-running sessions toward tested RBS refinements and an evidence-based cyanobacterial improvement decision.
 - Scope: Up to fourteen hours per session after the user starts the supplied prompts; this document does not launch work or promise a scientific breakthrough.
-- Last verified: 2026-10-16
+- Last verified: 2026-10-17
 
 ## Objective and boundaries
 
@@ -103,6 +103,17 @@ selected stochastic finalists). B can approve a justified revised budget before
 final outcomes are seen. Check available CPU/RAM/disk and share resource bounds;
 do not launch competing full-scale jobs or multi-GB downloads blindly. No paid
 GPU/cloud instance, coin purchase or wet-lab spending is authorized.
+
+The accepted pre-final amendment uses seven named model/calibration families
+and exactly 24 fit configurations: eight public-2014 ridge configurations,
+eight native ridge configurations, two training-only affine controls, and six
+fixed native learning-curve points. The affine historical/OSTIR controls separate
+native response-scale adaptation from improved biological ranking. The curves
+reuse each selected penalty on nested 25/50/75% training groups; they never choose
+a replacement finalist. Deterministic ridge fits need no artificial seed repeats.
+The strongest validation-selected simple and eligible upstream controls are the
+two confirmatory comparisons. Their full gates and the constant-correlation
+corner case belong to the independent native evaluation contract.
 
 Final-test boundaries are recorded per candidate cohort. Choose the champion on
 development validation and predeclare final contrasts/multiplicity treatment.

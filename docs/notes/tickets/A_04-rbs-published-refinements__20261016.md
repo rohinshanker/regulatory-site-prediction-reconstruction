@@ -4,8 +4,8 @@
 - Status: active
 - Opened: 2026-10-16
 - Updated: 2026-10-17
-- Current State: Historical science preserved; footprint/context profiles implemented and independently reviewed. All136 development cases score; footprint relative metrics unchanged, longer context has mixed accuracy. Later standby/sliding/drafting/stacking remain unresolved; no production equivalence.
-- Verification: 263-test integrated native checkpoint passed with real backend at100% statements/branches; refinement review low findings fixed in85fd8a5. Final evaluation and integrated release gates pending.
+- Current State: Historical science preserved; footprint/context profiles implemented and independently reviewed. All 136 reporter-development cases score. Native historical/footprint score 2,400/2,530 source cases; context scores 2,234 with 268 explicit backend failures. Representative malformed tracebacks are independently reproduced and documented. Later standby/sliding/drafting/stacking remain unresolved; no production equivalence.
+- Verification: Integrated checkpoint at 02bda0e passes 1,110 tests with the real backend, 100% of 3,382 statements and 1,374 branches; refinement review fixes accepted. Final independent evaluation and release gates remain.
 - Cleanup: Owning session records final checks and unresolved findings, resolves the ticket, distills reusable guidance into docs/validation/, updates both indexes and linked GitHub issue, then removes the resolved ticket.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/4
 - Priority: P0

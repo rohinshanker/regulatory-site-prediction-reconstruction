@@ -120,3 +120,27 @@ Longer leaders can spend the bounded 100 tracebacks on alternative upstream
 folds rather than distinct SD sites. Expanded context therefore does not imply
 more complete binding-site discovery. Coverage and SD-strength subgroups must
 remain visible in comparison reports.
+
+## Reproducible backend failure diagnostics
+
+The longer-context native collection exposes malformed RNAstructure 6.6
+tracebacks. Reproduce without fitting or reading final measurements using the
+public development sequences in `benchmarks/rbs/karlsen2018-development.json`:
+take the first 100 nt as the leader, use `ACCUCCUUU`, and run `bifold` with
+`--maximum 100 --percent 100 --window 0 --loop 30 --temperature 303.15 --alphabet rna`.
+Use the pinned tables and source archive from the installation contract.
+
+- `karlsen2018:SGL_RS10810`: structure 75 of 100 has nonreciprocal pairs.
+  Positions 37 and 62 both point to 109, while 109 points only to 62; analogous
+  conflicts occur for the adjacent pairs. Raw CT SHA256 on the admitted arm64
+  build is `5e1442afa77382fcc9d0cb1dbe6ca8c7632fba0c9b1bb5f7032f74acf2428891`.
+- `karlsen2018:sll0085`: bifold returns exit code zero but reports traceback
+  error 2 on stderr and writes no CT file. Exit status alone cannot establish
+  a successful fold.
+
+Both are development-only diagnostic cases, selected by failure category.
+The parser correctly rejects the first and the missing-output check rejects
+the second. Discarding invalid structures would change the search and might
+discard the best candidate; it is not an equivalent repair. A future backend
+repair needs its own version, independent structural tests and a fresh
+evaluation cycle. The current release retains these failures in coverage.
