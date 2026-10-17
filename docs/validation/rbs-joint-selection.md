@@ -144,6 +144,48 @@ against real original/traceback-2 engines and preserve earlier-profile numerical
 outputs. Measure work/time on synthetic and public development inputs before
 freezing this profile for B; final outcomes cannot change limits or parameters.
 
+### Pre-final resource and compatibility evidence
+
+On arm64 macOS with Python 3.14.7 and traceback-2, scientific commit
+`cd6cb3a62cdd560b226f6cbae3d152f103afa606` completed all 136 public
+[2014 development inputs](../../benchmarks/rbs/standby2014.json)
+(SHA-256 `d74967eb964f1797138076ed12a35ef5f44c0ac3e87241e5186505503fd698f4`).
+Requests used the supplied sequence/start, explicit `ACCUCCUUA`, 37 C,
+`joint_standby` and 60 seconds per record, serially; no measured outcomes were
+used in this work/resource check.
+
+| Quantity | Observed value |
+| --- | --- |
+| Complete searches / supplied inputs | 136 / 136 |
+| Total elapsed time | 124.88 seconds |
+| Median / nearest-rank p95 / maximum per record | 0.823 / 1.569 / 2.068 seconds |
+| Maximum eligible candidates / bound-state attempts | 6 / 252 |
+| Different winner from greedy | 3 / 136 |
+| Largest child-process peak RSS | 85,671,936 bytes |
+| Python process peak RSS | 38,780,928 bytes |
+
+These are measurements on a shared host, not latency or memory guarantees.
+The child RSS is the largest child's peak, not summed process-tree memory;
+there is no operating-system memory quota. All 136 complete site outputs,
+including states, winners, terms and diagnostics, match the pre-batching
+compensated-sum implementation exactly. The tie-tolerance change did not change
+any winner in this panel.
+
+The real two-gene native example completes 187 and 591 bound states (7 and 31
+eligible candidates) in 12.87 seconds total under the unchanged record budgets.
+A separate fixed-energy throughput check evaluates 4,096 copies of the same
+small duplex in 41 batches in 11.71 seconds; this isolates process overhead and
+does not imply that an arbitrary 4,096-state search takes the same time.
+Single/batch energy equality is enforced in `tests/test_joint_runtime.py`.
+
+Earlier-profile compatibility was checked against the Wave 3 implementation
+using 32 full outputs spanning all four prior profiles, supplied starts,
+no-start/leaderless boundaries and both strands on the original engine. Every
+output matched byte-for-byte after excluding only `implementation_version` and
+its derived `prediction_id`. The independent reviewer also checked the shipped
+examples on both original and traceback-2. A new backend may change structures
+and scores and therefore must carry a new backend identity.
+
 The optimization is complete only over the declared filtered returned candidates
 and their declared opening states. Native cofold enumeration is incomplete and
 the energy band excludes other bindings. Refolding into new pairings, simultaneous
