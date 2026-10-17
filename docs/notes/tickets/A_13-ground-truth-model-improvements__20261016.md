@@ -1,15 +1,15 @@
-# O_13-ground-truth-model-improvements__20261016 — Open
+# A_13-ground-truth-model-improvements__20261016 — Active
 
 - Scope: Pursue a leading fully open experimental predictor through falsifiable comparisons, prioritizing cyanobacterial RBS prediction while preserving compatibility.
-- Status: open
+- Status: active
 - Opened: 2026-10-16
 - Updated: 2026-10-16
-- Current State: Wave 1 baseline evaluated without tuning; no improved model demonstrated. Scope expanded to strong mechanistic/ML comparisons and a cyanobacterial specialist decision. Planned Wave 2 RBS owner is Session A.
+- Current State: Wave 2 active from `fc78dee42f934417f2bf905ae71b582903b7a949` on `wave2/rbs-models`. Own worktree created; real backend baseline and dependency-independent implementation underway. Session B owns evidence, held-out evaluation and browser.
 - Verification: Acceptance protocol specified below; all improvement experiments and software checks are pending.
 - Cleanup: Owning session records results including negative findings, distills reusable model/evaluation contracts, updates indexes and GitHub issue, then removes the resolved ticket.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/13
 - Priority: P0
-- Owner: Unclaimed; reserved for Session A's RBS slice when Wave 2 starts. Other calculator slices remain unassigned.
+- Owner: Session A (`baf5b738-1792172297`), Wave 2 implementation/integration; suite-wide scope remains open where applicable.
 - Dependencies: Frozen data/splits and audit 12/16; competitor/source decisions 01/17; transcript-aware runtime 18; relevant calculator 03/06–09; 05 for optional hosted comparisons.
 
 Preserve a compatibility profile while building a separately named improved

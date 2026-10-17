@@ -1,15 +1,15 @@
-# O_04-rbs-published-refinements__20261016 — Open
+# A_04-rbs-published-refinements__20261016 — Active
 
 - Scope: Reconstruct later published RBS mechanisms and production behavior.
-- Status: open
+- Status: active
 - Opened: 2026-10-16
 - Updated: 2026-10-16
-- Current State: Wave 1 baseline is runnable; all 12 live diagnostics were attempted by B (11 accepted). Later mechanisms remain unimplemented. Planned Wave 2 owner is Session A.
+- Current State: Wave 2 active from `fc78dee42f934417f2bf905ae71b582903b7a949` on `wave2/rbs-models`. Own worktree created; real backend baseline and dependency-independent implementation underway. Session B owns evidence, held-out evaluation and browser.
 - Verification: Repository setup checked ticket H1/fields, queue membership and local links on 2026-10-16; implementation validation is specified below and has not run.
 - Cleanup: Owning session records final checks and unresolved findings, resolves the ticket, distills reusable guidance into docs/validation/, updates both indexes and linked GitHub issue, then removes the resolved ticket.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/4
 - Priority: P0
-- Owner: Unclaimed; reserved for Session A when Wave 2 is started by the user.
+- Owner: Session A (`baf5b738-1792172297`), Wave 2 implementation/integration; suite-wide scope remains open where applicable.
 - Dependencies: 03 baseline; 05 supplies hosted evidence as available.
 
 Extend the tested baseline toward the current production RBS Calculator using papers, supplementary equations/data and legitimate reference outputs. A version label or improved fit does not prove a faithful reconstruction.

@@ -1,15 +1,15 @@
-# O_18-transcript-aware-native-rbs-scoring__20261016 — Open
+# A_18-transcript-aware-native-rbs-scoring__20261016 — Active
 
 - Scope: Implement portable transcript-aware native RBS scoring and coordinate export in the reconstruction repository.
-- Status: open
+- Status: active
 - Opened: 2026-10-16
 - Updated: 2026-10-16
-- Current State: Contract planned; the current scorer accepts sequence-relative inputs only. Planned Wave 2 owner is Session A.
+- Current State: Wave 2 active from `fc78dee42f934417f2bf905ae71b582903b7a949` on `wave2/rbs-models`. Own worktree created; real backend baseline and dependency-independent implementation underway. Session B owns evidence, held-out evaluation and browser.
 - Verification: Existing runtime baseline is tested; new extraction/selection/export branches remain unimplemented.
 - Cleanup: Distill the final input/coordinate/runtime contract, update indexes and GitHub issue, then remove the resolved ticket after acceptance.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/18
 - Priority: P0
-- Owner: Unclaimed; reserved for Session A when Wave 2 is started by the user.
+- Owner: Session A (`baf5b738-1792172297`), Wave 2 implementation/integration; suite-wide scope remains open where applicable.
 - Dependencies: Existing runtime 02/03; 16 supplies admitted manifests and mappings; refinements 04 as available. Consumer UI/admission remains ticket 10.
 
 Read [native validation](../../validation/rbs-native-validation.md) and

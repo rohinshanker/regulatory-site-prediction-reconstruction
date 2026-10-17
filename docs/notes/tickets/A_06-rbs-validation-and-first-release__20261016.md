@@ -1,15 +1,15 @@
-# O_06-rbs-validation-and-first-release__20261016 — Open
+# A_06-rbs-validation-and-first-release__20261016 — Active
 
 - Scope: Validate and release the first fully usable open RBS calculator.
-- Status: open
+- Status: active
 - Opened: 2026-10-16
 - Updated: 2026-10-16
-- Current State: Wave 1 runtime/CI and initial experimental baseline are implemented; final release and expanded native/comparator validation remain pending. Planned Wave 2 integration owner is Session A.
+- Current State: Wave 2 active from `fc78dee42f934417f2bf905ae71b582903b7a949` on `wave2/rbs-models`. Own worktree created; real backend baseline and dependency-independent implementation underway. Session B owns evidence, held-out evaluation and browser.
 - Verification: Repository setup checked ticket H1/fields, queue membership and local links on 2026-10-16; implementation validation is specified below and has not run.
 - Cleanup: Owning session records final checks and unresolved findings, resolves the ticket, distills reusable guidance into docs/validation/, updates both indexes and linked GitHub issue, then removes the resolved ticket.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/6
 - Priority: P0
-- Owner: Unclaimed; reserved for Session A when Wave 2 is started by the user; Session B remains the independent evaluator.
+- Owner: Session A (`baf5b738-1792172297`), Wave 2 implementation/integration; suite-wide scope remains open where applicable.
 - Dependencies: 02–04; 05 for hosted claims; 12/16/17 independent evidence and comparisons; 18 for native-context exports. Scope claims to completed gates.
 
 Deliver the first installable, documented RBS prediction release. This is the milestone before implementation of the other calculators; source discovery for those tools may continue independently.
