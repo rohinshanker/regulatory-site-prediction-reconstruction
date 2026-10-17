@@ -186,6 +186,9 @@ def test_structured_source_metadata_is_preserved(provenance):
     assert result["results"][0]["evidence"] == record
     schema = json.loads(Path("schemas/native-rbs-evidence-1.schema.json").read_text())
     jsonschema.validate(batch, schema)
+    record["anti_sd_provenance"] = "source\n"
+    with pytest.raises(jsonschema.ValidationError):
+        jsonschema.validate(batch, schema)
 
 
 @pytest.mark.parametrize(

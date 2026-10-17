@@ -52,7 +52,7 @@ never wrap into chromosome-sized leaders. Circular topology alone does not grant
 permission to cross the origin: the record must set `origin_crossing`. Linear or
 undeclared-origin contexts clip at contig boundaries. Contexts never traverse a
 replicon twice. Negative leaders remain unsupported even when their coordinates
-cross the origin. A declared positive circular leader longer than half the
+cross the origin. A declared positive origin-spanning circular leader longer than half the
 replicon is conservatively unsupported (`ambiguous_long_circular_leader`), rather
 than interpreting a nearby internal TSS as a chromosome-sized leader. This is an
 admission rule, not a biological maximum; such transcripts need a richer evidence

@@ -171,7 +171,10 @@
               {
                 "type": "string",
                 "minLength": 1,
-                "maxLength": 2048
+                "maxLength": 2048,
+                "not": {
+                  "pattern": "[\\u0000-\\u001f\\u007f]"
+                }
               },
               {
                 "type": "array",
