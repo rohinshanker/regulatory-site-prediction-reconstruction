@@ -2,7 +2,7 @@
 
 - Purpose: Acquire bounded, provenance-preserving live-reference outputs.
 - Scope: Session B alone owns the isolated Chrome session and acquisition ledger.
-- Last verified: 2026-10-16
+- Last verified: 2026-10-17
 - Panel: [12 exact diagnostic inputs](../../benchmarks/rbs/live-diagnostic-panel.json).
 
 ## Price, panel and stopping rules
@@ -139,3 +139,61 @@ on those sequences does not create independent experimental evidence. If biologi
 accuracy is the question, obtaining a new openly reusable study with independent
 families, mRNA measurements and day-level replicates is more valuable than simply
 scaling this same-family panel to hundreds of paid predictions.
+
+## Wave 2 reuse and compatibility
+
+All 20 recorded export artifacts were rehashed and all nine CSVs revalidated on
+2026-10-17. No new job was submitted and the ledger still reserves 11 advertised
+coins. The browser-control entry point was unavailable in this session
+(`CUA_REPL_ENABLED_SURFACES is required`), so no fresh account balance was observed
+and no credential was accessed. The last actual billing observation remains the
+Wave 1 timestamp; a zero displayed debit is still unreconciled, not free service.
+
+Historical, footprint2017 and context2017 ran from an immutable Git snapshot of
+`5d9fed16004be23536dafa844543ce40d9f87d1a`, with the real pinned RNAstructure
+backend, 60-second per-record limit, 37°C and explicit `ACCUCCUUA`. All 12 frozen
+inputs were passed to the offline CLI, including the separate form-boundary case.
+The 11 server-completed cases have exact returned-start-set agreement in all three
+profiles: all 17 exported candidates score, all nine declared targets score, and
+both empty server results agree. The 99-base form rejection remains outside the
+algorithm comparison. Equal candidate sets do not establish numerical agreement.
+
+Uncalibrated log-rate errors differ substantially across profiles; context2017's
+high rank correlation does not imply small numerical errors, especially across
+the additional starts in the two experimental constructs. No hosted scale or
+hidden parameter was fitted. Numerical parity with hosted v2.1.1 is not established.
+The different folding/parameter implementations remain declared model differences.
+
+`benchmarks/rbs/live_compare.py` checks every source hash and acquisition status,
+verifies the reconstruction's exact oriented sequence (including explicit DNA/RNA
+normalization), aSD and temperature, retains missing sites and extra starts, and
+reports all 17 reference candidates separately from the nine selected targets.
+It imports no runtime scoring implementation. Synthetic tests cover empty results,
+form rejections, missing/extra/duplicate sites, source/scenario drift and CSV pins.
+
+```sh
+python -m benchmarks.rbs.live_compare benchmarks/rbs/live-diagnostic-panel.json benchmarks/rbs/live-acquisition.json "$PRIVATE_WAVE1" "$PRIVATE_WAVE2/live-historical-reconstruction.json" "$PRIVATE_WAVE2/live-historical-aggregate.json"
+python -m unittest discover -s tests/benchmarks -p 'test_live_compare.py'
+```
+
+The machine-readable reuse receipt `benchmarks/rbs/live-reuse-wave2.json` records
+public counts, exact code/output hashes and private aggregate filenames. Raw
+service values and numerical derived internal-research reports remain in
+`~/.local/share/reg-site-reference/wave2/`; no new redistribution permission for
+service exports is inferred. The offline CLI reproduction uses the public frozen
+panel, supplied aSD/temperature/host metadata, explicit profile and backend root.
+
+The two experimental inputs are 2014 constructs 136 and 1. Using the already
+predeclared 136 normalization control leaves **one non-control ratio**, not two
+independent accuracy observations. Hosted-versus-experiment and each
+reconstruction-versus-experiment calculation are kept separately in the private
+`live-experimental-overlap-aggregate.json`. Including the forced-zero control
+halves the reported two-row MAE; the non-control log-ratio error is reported
+explicitly instead. Correlation or a population confidence interval from this
+pair would be misleading. Shared reporter, exposed development cases and DH10B
+measurements versus MG1655 live configuration further limit interpretation.
+
+The next biological-data option is the separately costed
+[UTEX proposal](rbs-utex-measurement-proposal.md). A new compatibility panel still
+requires exact inputs/settings frozen before acquisition, a bounded coin stage
+and the existing price/debit stop rules; no such larger stage was executed here.

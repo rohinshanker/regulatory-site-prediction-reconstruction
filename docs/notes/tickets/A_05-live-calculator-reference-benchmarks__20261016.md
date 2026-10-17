@@ -4,8 +4,8 @@
 - Status: active
 - Opened: 2026-10-16
 - Updated: 2026-10-17
-- Current State: All twelve frozen RBS cases attempted: eleven accepted jobs finished (nine CSV exports, two explicit no-candidate results); the 99-base leaderless case was form-rejected below the 100-base minimum. Owner authorized one coin/job budgeting despite unchanged balance. Eleven coins reserved; actual charging remains unreconciled. No duplicates, replacements or purchases. Other calculators and larger-panel acquisition remain open.
-- Verification: Nine CSVs contain seventeen candidates; all nine declared targets are present, all candidate coordinates match their input starts, and energy component sums agree within 1e-8 kcal/mol. All eleven jobs report v2.1.1 and matching displayed settings. Private export hashes/ledger and final account balance (100, unchanged) verified. Public manifest: benchmarks/rbs/live-acquisition.json. Live-versus-experiment and reconstruction comparisons remain uncomputed.
+- Current State: Wave 1 exports rehashed and reused against three immutable mechanistic profiles; all 17 candidates and both empty results retained. Numerical compatibility is incomplete. No new jobs/coins; fresh balance unavailable because browser-control surface is disabled.
+- Verification: 145 owned benchmark tests pass with 100% statements/branches (1924/798); actual three-profile live reuse runs, 20 artifact hashes and nine CSV integrity checks pass. Public receipt live-reuse-wave2.json; numeric internal-research aggregates remain private.
 - Cleanup: Owning session records final checks and unresolved findings, resolves the ticket, distills reusable guidance into docs/validation/, updates both indexes and linked GitHub issue, then removes the resolved ticket.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/5
 - Priority: P0
