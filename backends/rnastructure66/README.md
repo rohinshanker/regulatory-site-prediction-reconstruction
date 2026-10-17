@@ -8,12 +8,13 @@ to communicate through standalone executables and sequence/CT files; no engine
 source or library is copied into `src/regsite`.
 
 `manifest.json` pins the upstream archive, original source file, patch and
-patched source by SHA-256. The included `LICENSE` is upstream `gpl.txt`.
+patched source of version 2 by SHA-256; `manifest-linker-3.json` pins the
+cumulative version-3 patch described below. The included `LICENSE` is upstream `gpl.txt`.
 The full upstream source, `ReadMe.txt`, `gpl.txt`, attribution headers and data
 tables remain in each independently built installation. Preserve that source
 and its notices when distributing binaries. The component scripts and fixtures
 are also GPL-2.0-only, an explicit exception to the repository-wide default.
-The RNAstructure authors retain their original copyrights; the patch changes
+The RNAstructure authors retain their original copyrights; both patches change
 only `src/algorithm.cpp`.
 
 ## Source diagnosis and contract
@@ -118,9 +119,10 @@ and anti-SD `ACCUCCUUU`. Both original and repaired engines print five
 `error # 2` messages, report `A traceback error occurred`, exit **0**, and
 write **no CT**. The public structural review traced it to unchanged tag-0
 ordinary `W` fragments containing the linker centre; the cause of their finite
-fill values remains unresolved. This component does not repair that recurrence.
-The independent runner rejects the result, and the gate requires both engines
-to fail closed on this exact input. Callers must inspect errors and CT presence
+fill values is resolved in version 3 below; the traceback-2 engine does not
+repair that recurrence. The independent runner rejects the result, and the
+gate requires the original and traceback-2 engines to fail closed on this
+exact input while linker-3 returns 100 valid structures. Callers must inspect errors and CT presence
 rather than accepting exit status alone. Passing the 60-input panel below does
 not establish total coverage: the review's separate 70-input probe had 69 valid
 repaired searches versus 66 original (correcting its earlier 40/40 claim to
@@ -156,6 +158,99 @@ optimal search. Every emitted structure is reevaluated;
 the simple controls agree exactly between DP and `efn2`. Fixture hashes exclude
 machine paths and CT labels while retaining all ordered structures and energies.
 
+## Version 3: ordinary `WMB` linker-centre guard
+
+Component identity: **rnastructure-6.6-linker-3**. Its cumulative
+`linker.patch` contains every traceback-2 hunk verbatim plus one fill hunk;
+`manifest-linker-3.json` pins the patch, the post-image
+(`b19a9ad1634f7e8f7669410b1eb7f5e8c27542f073054acb65647891e62ddbc7`) and the
+predecessor identities. The traceback-2 component, its manifest and its
+fixtures are unchanged and remain the builder default. Version 3 is a new
+backend identity: the runtime adapter rejects its build receipt with
+"build receipt identity/hash mismatch" until admission is reviewed, and the
+frozen models were not trained with it.
+
+### Root cause
+
+bifold folds strand one, the linker `III` and strand two as one sequence;
+only the linker centre `c = ct->inter[1]` carries `fce(c,c) & INTER`. The
+ordinary multibranch recurrence `W` refuses to leave that centre unpaired: its
+single-nucleotide strips `e[4]`/`e[5]` add `INFINITE_ENERGY` when the stripped
+base is the centre (upstream `src/algorithm.cpp` lines 4980–4994 and
+5019–5027). A loop containing the linker is instead an intermolecular exterior
+loop, represented only by `W2`/`WMB2` with the `data->init - INFINITE_ENERGY`
+marker and closed by `V` through `wmb2(i+1,j-1) + penalty + INFINITE_ENERGY`
+(lines 4766–4808, "don't add the multiloop penalties").
+
+The ordinary `WMB` recurrence breaks that invariant. Its nucleotide-addition
+terms, added "for the sake of coaxial stacking" (lines 5217–5222), strip `i` or
+`j` at `mbl_nucleotide` cost with no `INTER` test. `WMB(c,j) = WMB(c+1,j)` and
+`WMB(i,c) = WMB(i,c-1)` therefore stay finite, and `W = min(W, WMB)` inherits
+them. The ordinary multiloop closure and coaxial terms of `V` (lines
+4497–4765) then price a loop containing the linker as a penalised multibranch
+loop, which can beat the intermolecular closure. The traceback has no matching
+transition: the tag-0 `W` handler strips `i` only when
+`energy == W(i+1,j) + mbl_nucleotide` (lines 780–795), and the bifurcation
+search tests `W` splits, coaxial pairs and `W2`/`WMB2` (lines 965–2136), never
+`WMB(i+1,j)`.
+
+Instrumented reproduction of seed 484/index 17 (N = 72, c = 62): the
+`V(43,90)` closure pushes `W(61,88) = −154` through a coaxial term; the handler
+strips 61 and fails at `W(62,88) = WMB(62,88) = WMB(63,88) = −154` because
+`W(63,88) = −155`. The remaining errors are `W(35,62) = WMB(35,61) = −79` with
+`W(35,61) = −84`, and `W(62,84) = WMB(63,84) = −144` with `W(63,84) = −155`.
+`mbl_nucleotide` is 0 at 303.15 K, so the strip and the addition tie exactly.
+
+### Repair, invariant and evidence
+
+The hunk adds the identical marker to both `WMB` nucleotide-addition terms,
+`+ ((fce.f(x, x) & INTER) ? INFINITE_ENERGY : 0)`, and changes no handler:
+every finite ordinary `W`/`WMB` cell is again produced by a transition the
+existing handlers test. The resulting fill invariant is that `W(i,j)` and
+`WMB(i,j)` lie at least `INFINITE_ENERGY` above normal scale whenever
+`i ∈ {c−1, c}` or `j ∈ {c, c+1}` (modulo N on the wrapped side), because
+linker bases cannot pair and the centre may not be stripped. A scratch
+instrumented build checked every fill cell of the 60-input panel, the 12
+development leaders and seed 484/17: 0 violations with the guard, 21,758
+finite centre-edge cells without it, and in both builds 0 offset-scale values
+in intervals that exclude the centre and 0 offset-scale `V` cells. `W2`/`WMB2`
+still strip the centre for free as upstream designed; such cells can only be
+closed through the `+ INFINITE_ENERGY` closure and are never traced.
+
+Real-engine evidence, all with `efn2 --simple` reevaluation:
+
+- Seed 484/17 returns 100 valid structures (MFE −23.3 kcal/mol in both DP and
+  efn2, 33 native/efn2 mismatches, no connected multibranch delta above +0.2).
+- All eight traceback-2 fixtures are byte-identical on linker-3.
+- 60-input 6603 panel: 60/60 valid, 54 identical to traceback-2, 6 changed
+  (indices 20, 38, 40, 43, 44, 58). Development panel: 12/12, 1 changed
+  (index 8). Fresh seed-26003 panel of 40: original 38/40, traceback-2 40/40,
+  linker-3 40/40, 2 changed (indices 23, 37). The MFE never changes. Every
+  structure that disappears is a connected linker loop with at least three
+  branches whose native energy exceeds efn2's by 1.9–3.3 kcal/mol, i.e. a
+  multibranch-penalised loop wrapped around the linker; its replacement is a
+  structure whose native energy matches its topology. Two inputs keep a
+  structure whose native energy rises (−31.8→−30.0, −29.7→−29.0, −23.5→−23.3)
+  because the cheaper path was the invalid one.
+- Five hand-checkable boundary strands (tiny and pure duplexes, no possible
+  pairs, a duplex adjacent to the linker, SD/anti-SD at strand ends), five
+  ordinary `Fold` controls (MFE and suboptimal), two `Fold` constraint files
+  (forced single/double strand and a forbidden pair) and three
+  `bifold --intramolecular` runs are identical across the original,
+  traceback-2 and linker-3 engines.
+- A compiled harness extracts the ordinary `W` strips and the guarded `WMB`
+  terms from the installed source and checks on 40,000 synthetic cells that
+  both apply exactly the same marker, including forced-double-strand and
+  strand-boundary cases; removing or misplacing the guard is rejected. The
+  traceback-2 `W2`/`WMB2` harness passes unchanged on the version-3 source.
+
+Remaining limits: the known negative connected-loop deltas (efn2 coaxial
+stacking versus the coax-free `W2`/`WMB2` fill) and the small positive
+one-branch deltas remain; the bounded candidate search is still not
+exhaustive; constraint, SHAPE and modified-base combinations other than those
+listed are not exercised in bifold; and structural validity does not imply
+biological accuracy.
+
 ## Reproducible installation
 
 Prerequisites: Python 3.11+, an already installed C++ compiler, `make`, `patch`
@@ -172,11 +267,20 @@ python3 backends/rnastructure66/build.py \
   --archive /path/to/RNAstructureSource.tgz \
   --destination /new/user-owned/rnastructure66-traceback-2 \
   --jobs 2
+python3 backends/rnastructure66/build.py \
+  --archive /path/to/RNAstructureSource.tgz \
+  --destination /new/user-owned/rnastructure66-linker-3 \
+  --jobs 2 --component rnastructure-6.6-linker-3
 ```
+
+`--component` selects the pinned cumulative patch; the default remains
+traceback-2 and unknown names are refused before anything is created.
 
 The archive SHA-256 must be
 `1bedc62aaab984279055caaa6234d48fca113f4b8e17a8060e0b3784d5a397c3`.
-The builder refuses an existing destination and a mismatched archive/patch,
+The builder refuses an existing destination and a mismatched archive/patch
+(the version-3 patch SHA-256 is
+`2ef6ef61496b034110f4151e2fc1aec77cbd011c88a36bcef574be0dfecebb2d`),
 validates archive paths/types and explicitly uses the `data` extraction filter,
 applies with zero fuzz, checks the patched source and
 builds serial `Fold`, `bifold` and `efn2`. Failed builds remain for diagnosis;
@@ -199,7 +303,7 @@ build. Every independently compiled executable has its own binary identity.
 ## Component gate
 
 Run from the repository root with an installed C++ compiler; no third-party Python packages or application
-imports are used. Both engine variables are mandatory and missing engines fail
+imports are used. All three engine variables are mandatory and missing engines fail
 the gate instead of skipping it. Before running predictions, the gate compares
 `traceback-build.json` component, source-archive, patch and patched-source pins
 with the manifest, hashes the actual patched source and all three executables
@@ -209,6 +313,7 @@ not independent proof of binary provenance. Keep the original installation read-
 
 ```sh
 RNASTRUCTURE66_PATCHED=/new/user-owned/rnastructure66-traceback-2/RNAstructure \
+RNASTRUCTURE66_LINKER3=/new/user-owned/rnastructure66-linker-3/RNAstructure \
 RNASTRUCTURE66_ORIGINAL=/path/to/unmodified/RNAstructure \
 python3 -m unittest discover -s backends/rnastructure66/tests -v
 git diff --check
@@ -226,6 +331,11 @@ censuses are in `tests/fixtures-traceback2.json`, pinned to the new patch identi
 `tests/fixtures.json` is preserved byte-for-byte from commit `52809e1` as the
 version-1 baseline; its hash is checked by the gate. All eight ordered outputs
 remain identical in version 2. New census metadata is attributed separately.
+
+`tests/test_linker3.py` and `tests/test_linker_fill.py` add the version-3
+checks listed above against `tests/fixtures-linker3.json`, which also pins the
+traceback-2 manifest and fixture hashes; the version-2 modules and snapshots
+are unchanged.
 
 The gate also extracts the actual handlers and unchanged fill from the pinned
 source and compiles a small deterministic DP-table harness with UBSan. It checks
