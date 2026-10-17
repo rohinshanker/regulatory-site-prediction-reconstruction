@@ -135,8 +135,13 @@ def energy_census(structures, energies):
     return dict(sorted(census.items()))
 
 
-def run_engine(root, directory, leader, anti_sd=None, temperature="303.15"):
-    """Run all requested tracebacks and independently reevaluate every structure."""
+def run_engine(root, directory, leader, anti_sd=None, temperature="303.15",
+               fold_arguments=("--MFE",), bifold_arguments=(), constraint=None):
+    """Run all requested tracebacks and independently reevaluate every structure.
+
+    ``constraint`` is folding-constraint file text, applied with Fold only.
+    ``bifold_arguments`` adds flags such as ``--intramolecular`` to bifold.
+    """
     root = Path(root).resolve()
     directory = Path(directory)
     directory.mkdir(parents=True, exist_ok=True)
@@ -145,12 +150,19 @@ def run_engine(root, directory, leader, anti_sd=None, temperature="303.15"):
     output = directory / "output.ct"
     environment = dict(os.environ, DATAPATH=str(root / "data_tables"))
     if anti_sd is None:
-        command = [str(root / "exe/Fold"), str(first), str(output), "--MFE"]
+        command = [str(root / "exe/Fold"), str(first), str(output), *fold_arguments]
+        if constraint is not None:
+            constraints = directory / "constraints.con"
+            constraints.write_text(constraint)
+            command.extend(["--constraint", str(constraints)])
     else:
+        if constraint is not None:
+            raise ValueError("Constraint files apply to Fold only")
         second = directory / "asd.fa"
         second.write_text(">asd\n" + anti_sd + "\n")
         command = [str(root / "exe/bifold"), str(first), str(second), str(output),
-                   "--maximum", "100", "--percent", "100", "--window", "0", "--loop", "30"]
+                   "--maximum", "100", "--percent", "100", "--window", "0", "--loop", "30",
+                   *bifold_arguments]
     command.extend(["--temperature", temperature, "--alphabet", "rna"])
     result = subprocess.run(command, env=environment, capture_output=True, text=True, timeout=30)
     if result.returncode or result.stderr.strip() or not output.exists():
