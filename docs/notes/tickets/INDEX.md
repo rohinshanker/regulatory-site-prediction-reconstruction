@@ -2,7 +2,7 @@
 
 Live queue of open and active tickets. Markdown is canonical; GitHub issues mirror scope and discussion.
 
-**Wave 1 foundation 02, reconstructed RBS baseline 03 and portable native adapter 18 are complete. Follow the [Wave 2 program](../../validation/rbs-wave2-program.md): A owns 04/13/06; B owns the RBS slices of 01/05/12 and 16/17 once launched.** Native context, TIS localization and strength validation remain separate. Ticket 13 pursues experimentally justified superiority, with cyanobacteria prioritized, while preserving compatibility. Implement other calculators after the first RBS release; source discovery may continue independently. Ticket 10 admits each released calculator; 11 completes design modes and suite delivery.
+**Foundation 02, historical scoring 03, native/comparator evaluation 16/17 and portable native adapter 18 are complete. The [Wave 2 results](../../validation/rbs-wave2-results.md) do not pass model promotion. A retains 04/13/06; B retains the suite-wide scope of 01/05/12.** Native context, TIS localization and strength validation remain separate. Ticket 13 pursues experimentally justified superiority, with cyanobacteria prioritized, while preserving compatibility. Implement other calculators after the first RBS release; source discovery may continue independently. Ticket 10 admits each released calculator; 11 completes design modes and suite delivery.
 
 | Status | Updated | Ticket | Priority | Scope |
 | --- | --- | --- | --- | --- |
