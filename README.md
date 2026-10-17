@@ -11,6 +11,13 @@ The mechanistic profiles use separately installed RNAstructure 6.6 executables
 and return energy terms, relative initiation scores, structures, coordinates and
 explicit failure/missingness. Sequence-only inference needs no folding backend.
 
+**The standby reconstruction improves the public 2014 development panel:**
+106/136 predictions are within twofold of measured expression, versus 52/136
+for historical scoring; mean absolute log2 error falls from 1.56 to 0.66. This
+E. coli dataset helped establish the published model, so the result does not
+establish performance on new studies or cyanobacteria. See the
+[Wave 3 validation and reproduction](docs/validation/rbs-wave3-results.md).
+
 **The independent Wave 2 comparison did not establish a superior model.** On
 468 held-out PCC 6803 genes, the sequence model's mean absolute log2 error was
 0.957 versus 0.990 for a constant baseline; its paired advantage over a
@@ -97,7 +104,7 @@ separate E. coli experiment and its limited sequence diversity.
 ## Start a new implementation session
 
 1. Read [AGENTS.md](AGENTS.md), the [live ticket queue](docs/notes/tickets/INDEX.md)
-   and the [independent results](docs/validation/rbs-wave2-results.md). Check current
+   and the [Wave 3 validation](docs/validation/rbs-wave3-results.md). Check current
    owners and preserve newer branches/worktrees before claiming work.
 2. Read the [source map](docs/validation/source-map.md),
    [reconstruction contract](docs/validation/reconstruction-contract.md), and

@@ -4,12 +4,12 @@
 - Status: active
 - Opened: 2026-10-16
 - Updated: 2026-10-17
-- Current State: Wave 3 now isolates backend repair (#21) and complete standby reconstruction (#22); website collection is deferred. Historical science preserved; footprint/context profiles implemented and independently reviewed. All 136 reporter-development and 27 secondary 2017 inputs score. Native historical/footprint score 2,400/2,530 source cases; context scores 2,234 with 268 explicit backend failures. The 18-case 2017 TE challenge favors context over historical scoring, but is one partly exposed shared family. Live diagnostic candidate coverage agrees while numerical parity fails. Later standby/sliding/drafting/stacking and backend differences remain unresolved.
-- Verification: Integrated code a3b46fa passes 1,383 tests with the real backend, 100% of 4,185 statements and 1,742 branches; Ruff/mypy pass. Scientific runtime/export is frozen at 7547778c508d4a31b4a4f95df370923ce8bd07c3. Later changes are evidence integration and documentation; final report links and exact release CI are recorded on issue #6.
+- Current State: Historical, footprint/context and standby2014 profiles are implemented with separate identities. Standby geometry, selective unfolding and sliding are reviewed; the optional traceback-2 backend fixes the two original failures. On the public 2014 development panel, standby MAE is 0.659250 log2 versus historical 1.555669, with 136/136 coverage; this is not an independent or native-host result. Drafting, kinetics, distinct production stacking, joint binding-state optimization and hosted parity remain open. Residual ordinary-W traceback failure is tracked in #26.
+- Verification: Scientific code 75d127cc350bcc4dc54be5b980db893da3c41e92, frozen before outcomes, passes four-platform CI. Complete current integration passes 1,481 tests with 100% of 4,927 statements/2,058 branches. Component source review accepted; 19 component tests pass. Independent fixture integration and reproducible five-configuration results are in docs/validation/rbs-wave3-results.md. Final integrated CI is tracked in PR25.
 - Cleanup: Owning session records final checks and unresolved findings, resolves the ticket, distills reusable guidance into docs/validation/, updates both indexes and linked GitHub issue, then removes the resolved ticket.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/4
 - Priority: P0
-- Owner: Session A (`baf5b738-1792172297`), Wave 2 implementation/integration; suite-wide scope remains open where applicable.
+- Owner: Session A (`baf5b738-1792172297`), implementation/integration; suite-wide scope remains open where applicable.
 - Dependencies: 03 baseline; 05 supplies hosted evidence as available.
 
 Extend the tested baseline toward the current production RBS Calculator using papers, supplementary equations/data and legitimate reference outputs. A version label or improved fit does not prove a faithful reconstruction.

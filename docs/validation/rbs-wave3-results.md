@@ -57,7 +57,12 @@ component, runtime and fresh-wheel gates. The fresh wheel runs single/batch,
 refined, standby, native JSON/GFF3 and learned examples offline. The source archive
 preserves all 126 component/raw-structural-fixture files byte-for-byte, including
 the separate GPL-2.0-only licence; the wheel contains no backend source or binary.
-Later evidence-only integration has its own test counts and CI identity in the PR.
+The complete integration with B's reviewed evidence through
+`87d6dd8646b1536339bdeceeba8c16db195af7ba` passes 1,481 tests with each
+engine and 100% coverage of 4,927 statements and 2,058 branches. This includes
+the new-data freeze and Promoter audit tools. Fresh offline wheel checks also
+exercise standby CSV and both-strand native JSON. The final integrated CI
+identity and packaging checks are recorded in [PR25](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/pull/25).
 
 ## Public 2014 development comparison
 
