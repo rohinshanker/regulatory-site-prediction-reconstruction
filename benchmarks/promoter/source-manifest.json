@@ -304,7 +304,8 @@
     "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC9440211/supplementaryFiles",
     "sha256": "d339e3c9cb132a2b0edcafdf0f0f929f6c164ae8c186931fd835e9c361c7c53c",
     "member": "41467_2022_32829_MOESM5_ESM.xlsx",
-    "destination": "paper/41467_2022_32829_MOESM5_ESM.xlsx"
+    "destination": "paper/41467_2022_32829_MOESM5_ESM.xlsx",
+    "hash_role": "Acquisition provenance only; Europe PMC ZIP timestamps change. Gate reproduction on the extracted member hash in audit_assets.workbook."
   },
   "primary_xml": {
     "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC9440211/fullTextXML",
