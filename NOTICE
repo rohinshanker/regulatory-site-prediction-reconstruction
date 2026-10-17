@@ -27,4 +27,11 @@ including Supplementary Figure S3. The source article is CC BY 3.0. See
 docs/validation/rbs-standby.md for attribution, source pins and reconstruction
 choices. No source measurements or private model parameters are embedded.
 
+The optional benchmarks/promoter reference tools and parameter conversions derive
+from the GPL-3.0-or-later Promoter Calculator by Travis La Fleur, Ayaan Hossain
+and Howard Salis (Copyright 2021). The source distribution preserves that scope's
+NOTICE, ORIGINAL-NOTICE, COPYING and explicit historical compatibility patch.
+These reference artifacts are not included in the required Python runtime wheel;
+see docs/validation/promoter-executed-reference.md for source/environment pins.
+
 No iDOG wrapper, ViennaRNA, NUPACK or private DNAc code is included.
