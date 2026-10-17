@@ -177,6 +177,11 @@ python -m benchmarks.rbs.new_data extract SOURCE_ROOT benchmarks/rbs/new-data-ma
 python -m unittest discover -s tests/benchmarks -p test_new_data.py
 ```
 
+The freeze command reserves both output files exclusively before writing. It
+rejects existing files and filesystem aliases, including case-only aliases on
+case-insensitive volumes. A write or buffered-close failure removes only files
+created by that invocation; existing artifacts are preserved.
+
 The extractor rederives the entire input envelope and rejects any changed
 manifest/selection/source. Its output directory must not exist; it is created
 0700, with outcomes and source-completeness audit 0600. It prints no outcomes.
@@ -191,11 +196,13 @@ The [admission audit](../../benchmarks/rbs/new-data-admission-audit.json) record
 freeze commit `55da050fc3543cf9ff61e41eb269c3071d92b9fc`, followed by private
 extraction. Cambray has 332 observed means and three missing among 335 selected
 inputs; Kuo has 253 observed and eight missing among 261. All remain in the
-frozen panels. Selected means agree with available replicates within 0.001 for Kuo rounded
-values and a numerical audit tolerance of 1e-6 for Cambray; none is nonpositive.
+frozen panels. Selected means agree with available replicates within 0.001 for
+Kuo rounded values and a numerical audit tolerance of 1e-6 for Cambray; none is
+nonpositive.
 `new_data.selected_completeness(private_outcomes, frozen_inputs)` reproduces
-these counts without returning individual outcomes or changing observations. The full Cambray table has 229,044 rows
-with all four cleaned replicates and 1,731 with none. These are source-quality
+these counts without returning individual outcomes or changing observations.
+The full Cambray table has 229,044 rows with all four cleaned replicates and
+1,731 with none. These are source-quality
 counts, not model performance. Private output hashes and actual 0700/0600 modes
 are recorded without publishing measurements.
 
