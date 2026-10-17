@@ -1,0 +1,277 @@
+{
+  "schema_version": "rbs-structural-panel-1",
+  "source_archive_sha256": "1bedc62aaab984279055caaa6234d48fca113f4b8e17a8060e0b3784d5a397c3",
+  "table_manifest": "rnastructure-tables.json",
+  "table_manifest_sha256": "ece4c4b535783cb4e03c7ce8f243d09be84a165ecd113b1d20941b5ed8b69501",
+  "cases": [
+    {
+      "id": "unpaired",
+      "sequences": [
+        "AAAAAAAAA"
+      ],
+      "executable": "Fold",
+      "options": [
+        "--MFE"
+      ],
+      "temperature_kelvin": 310.15,
+      "scope": "synthetic topology/energy control"
+    },
+    {
+      "id": "hairpin37",
+      "sequences": [
+        "GGGAAACCC"
+      ],
+      "executable": "Fold",
+      "options": [
+        "--MFE"
+      ],
+      "temperature_kelvin": 310.15,
+      "scope": "synthetic topology/energy control"
+    },
+    {
+      "id": "hairpin30",
+      "sequences": [
+        "GGGAAACCC"
+      ],
+      "executable": "Fold",
+      "options": [
+        "--MFE"
+      ],
+      "temperature_kelvin": 303.15,
+      "scope": "synthetic topology/energy control"
+    },
+    {
+      "id": "hairpin-masked",
+      "sequences": [
+        "gggAAACCC"
+      ],
+      "executable": "Fold",
+      "options": [
+        "--MFE"
+      ],
+      "temperature_kelvin": 310.15,
+      "scope": "synthetic topology/energy control"
+    },
+    {
+      "id": "hairpin-allsub",
+      "sequences": [
+        "GGGAAACCC"
+      ],
+      "executable": "AllSub",
+      "options": [
+        "--absolute",
+        "3",
+        "--percent",
+        "1000"
+      ],
+      "temperature_kelvin": 310.15,
+      "scope": "synthetic topology/energy control"
+    },
+    {
+      "id": "gc-duplex",
+      "sequences": [
+        "GGGG",
+        "CCCC"
+      ],
+      "executable": "bifold",
+      "options": [
+        "--maximum",
+        "100",
+        "--percent",
+        "100",
+        "--window",
+        "0",
+        "--loop",
+        "30",
+        "--alphabet",
+        "rna"
+      ],
+      "temperature_kelvin": 310.15,
+      "scope": "synthetic topology/energy control"
+    },
+    {
+      "id": "duplex-unpaired",
+      "sequences": [
+        "AAAA",
+        "AAAA"
+      ],
+      "executable": "bifold",
+      "options": [
+        "--maximum",
+        "100",
+        "--percent",
+        "100",
+        "--window",
+        "0",
+        "--loop",
+        "30",
+        "--alphabet",
+        "rna"
+      ],
+      "temperature_kelvin": 310.15,
+      "scope": "synthetic topology/energy control"
+    },
+    {
+      "id": "sd-ecoli",
+      "sequences": [
+        "AAAGGAGGAAAAAA",
+        "ACCUCCUUA"
+      ],
+      "executable": "bifold",
+      "options": [
+        "--maximum",
+        "100",
+        "--percent",
+        "100",
+        "--window",
+        "0",
+        "--loop",
+        "30",
+        "--alphabet",
+        "rna"
+      ],
+      "temperature_kelvin": 310.15,
+      "scope": "synthetic topology/energy control"
+    },
+    {
+      "id": "mixed-intra-inter",
+      "sequences": [
+        "GGGAAACCCAAAGGAGGAAAAAA",
+        "ACCUCCUUA"
+      ],
+      "executable": "bifold",
+      "options": [
+        "--maximum",
+        "100",
+        "--percent",
+        "100",
+        "--window",
+        "0",
+        "--loop",
+        "30",
+        "--alphabet",
+        "rna"
+      ],
+      "temperature_kelvin": 310.15,
+      "scope": "synthetic topology/energy control"
+    },
+    {
+      "id": "gc-duplex-inter-only",
+      "sequences": [
+        "GGGG",
+        "CCCC"
+      ],
+      "executable": "bifold",
+      "options": [
+        "--maximum",
+        "100",
+        "--percent",
+        "100",
+        "--window",
+        "0",
+        "--loop",
+        "30",
+        "--alphabet",
+        "rna",
+        "--intramolecular"
+      ],
+      "temperature_kelvin": 310.15,
+      "scope": "synthetic topology/energy control"
+    },
+    {
+      "id": "sd-cyano",
+      "sequences": [
+        "AAAGGAGGAAAAAA",
+        "ACCUCCUUU"
+      ],
+      "executable": "bifold",
+      "options": [
+        "--maximum",
+        "100",
+        "--percent",
+        "100",
+        "--window",
+        "0",
+        "--loop",
+        "30",
+        "--alphabet",
+        "rna"
+      ],
+      "temperature_kelvin": 303.15,
+      "scope": "synthetic topology/energy control"
+    },
+    {
+      "id": "short-traceback-regression",
+      "sequences": [
+        "UGGCUUGACGGCGUCAUUCCUAUUAUCAAAGCAAU",
+        "ACCUCCUUA"
+      ],
+      "executable": "bifold",
+      "options": [
+        "--maximum",
+        "100",
+        "--percent",
+        "100",
+        "--window",
+        "0",
+        "--loop",
+        "30",
+        "--alphabet",
+        "rna"
+      ],
+      "temperature_kelvin": 310.15,
+      "scope": "Previously public development-only backend failure diagnostic; no outcomes"
+    },
+    {
+      "id": "nonreciprocal-native",
+      "sequences": [
+        "CGUUAUGUGGCUGUUUUUCCCAUGACCACUACCACUGGAACAGCGAAAGUACUUAGUGCUUGGAUAAUCCGCCCCGGGGAGACCUAUCCUCGACUAACCA",
+        "ACCUCCUUU"
+      ],
+      "executable": "bifold",
+      "options": [
+        "--maximum",
+        "100",
+        "--percent",
+        "100",
+        "--window",
+        "0",
+        "--loop",
+        "30",
+        "--alphabet",
+        "rna"
+      ],
+      "temperature_kelvin": 303.15,
+      "scope": "Karlsen2018 development input karlsen2018:SGL_RS10810; CC-BY-4.0, measurement not included"
+    },
+    {
+      "id": "missing-native",
+      "sequences": [
+        "GCCAACAGUUGGAUAAGUUUAGGUUGCAAUUAGCUGGGCCAAUUCCCGUCUUUGCCAAUCUGGGGGAAACUGUUAGUCUGCUGGCUUCCCUUUCAAGCAA",
+        "ACCUCCUUU"
+      ],
+      "executable": "bifold",
+      "options": [
+        "--maximum",
+        "100",
+        "--percent",
+        "100",
+        "--window",
+        "0",
+        "--loop",
+        "30",
+        "--alphabet",
+        "rna"
+      ],
+      "temperature_kelvin": 303.15,
+      "scope": "Karlsen2018 development input karlsen2018:sll0085; CC-BY-4.0, measurement not included"
+    }
+  ],
+  "notes": [
+    "Structural diagnostics only, not experimental RBS accuracy.",
+    "No reconstruction imports or scoring internals used.",
+    "AllSub and bifold are distinct enumeration algorithms; repeated topology is retained.",
+    "Failed baseline results are observations, not acceptable repaired-backend outputs."
+  ],
+  "rights": "Original synthetic inputs/compilation GPL-3.0-or-later; two native leaders attributed to Karlsen et al. 2018 Figshare6743276.v1 CC-BY-4.0, sequence extraction only."
+}

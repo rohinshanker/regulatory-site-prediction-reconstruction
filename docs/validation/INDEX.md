@@ -28,3 +28,4 @@ Verification dates cover the stated source observations or specification review;
 | rbs-secondary-native-studies | Diurnal normalization, frozen cross-study challenge and explicit unavailable stress TE. | 2026-10-17 | [rbs-secondary-native-studies.md](rbs-secondary-native-studies.md) |
 | rbs-utex-measurement-proposal | Optional staged UTEX matched RNA/protein design, family-level power assumptions and costed funding proposal. | 2026-10-17 | [rbs-utex-measurement-proposal.md](rbs-utex-measurement-proposal.md) |
 | rbs-wave2-results | Frozen primary/secondary experimental results, reproducible aggregate artifacts and next-cycle hypotheses. | 2026-10-17 | [rbs-wave2-results.md](rbs-wave2-results.md) |
+| rbs-structural-fixtures | Independent folding diagnostics, exhaustive tiny topology controls and repair acceptance. | 2026-10-17 | [rbs-structural-fixtures.md](rbs-structural-fixtures.md) |
