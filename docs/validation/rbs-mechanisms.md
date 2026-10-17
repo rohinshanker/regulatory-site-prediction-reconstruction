@@ -38,7 +38,8 @@ coordinates; the joint structures retain window-relative coordinates.
 Historical result schema 1.0 remains unchanged. Refined results use
 [schema 1.1](../../schemas/rbs-result-1.1.schema.json), adding `coding_footprint`,
 `post_footprint` and `dG_post_footprint`. Non-successful sites keep these null.
-Requests retain [schema 1.0](../../schemas/rbs-request-1.0.schema.json); the profile
+Refined CSV summaries include schema, model and prediction identity columns;
+historical CSV output remains byte-compatible. Requests retain [schema 1.0](../../schemas/rbs-request-1.0.schema.json); the profile
 is an explicit execution setting included in model/prediction identity.
 
 ## Primary provenance and reconstruction choices
@@ -114,3 +115,8 @@ at 200 single-strand bases, 100 leader bases and 212 CT positions, with the same
 Experimental ablations and independently evaluated claims belong to tickets
 12/13/16/17. No parameter was fitted to website outputs, published held-out
 measurements or final evaluator feedback to implement these profiles.
+
+Longer leaders can spend the bounded 100 tracebacks on alternative upstream
+folds rather than distinct SD sites. Expanded context therefore does not imply
+more complete binding-site discovery. Coverage and SD-strength subgroups must
+remain visible in comparison reports.

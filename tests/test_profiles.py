@@ -70,16 +70,31 @@ def test_long_context_and_precise_post_footprint_pair_projection():
 
 
 @pytest.mark.parametrize("extra", [0, 10, 11])
-def test_short_coding_context_and_exact_footprint_boundary(extra):
+@pytest.mark.parametrize("strand", ["+", "-"])
+def test_short_coding_context_and_exact_footprint_boundary(extra, strand):
     value = request(sequence="A" * 20 + "ATG" + "A" * extra)
+    if strand == "-":
+        value.update(
+            sequence=reverse_complement(value["sequence"].replace("T", "U")), strand="-"
+        )
     backend = AlgebraBackend()
-    site = predict(value, backend, profile="footprint2017")["sites"][0]
+    result = predict(value, backend, profile="footprint2017")
+    site = result["sites"][0]
     assert site["status"] == "ok"
-    assert site["coding_footprint"]["end"] == min(33, 23 + extra)
+    if strand == "+":
+        assert site["coding_footprint"]["end"] == min(33, 23 + extra)
+    else:
+        assert site["coding_footprint"] == {
+            "start": max(0, extra - 10),
+            "end": 3 + extra,
+            "strand": "-",
+        }
     assert len(backend.folded[2]) == max(0, extra - 10)
     assert ("coding_footprint_truncated_at_sequence_boundary" in site["warnings"]) == (
         extra < 10
     )
+    schema = json.loads(Path("schemas/rbs-result-1.1.schema.json").read_text())
+    jsonschema.validate({"schema_version": "1.1", "results": [result]}, schema)
 
 
 def test_refined_missingness_and_schema():
@@ -114,6 +129,18 @@ def test_real_footprint_ablation_preserves_downstream_hairpin(real_backend):
     assert old["energies"]["dG_mRNA"] == new["energies"]["dG_mRNA"]
     assert new["energies"]["dG_post_footprint"] == pytest.approx(-1.2)
     assert new["energies"]["dG_total"] < old["energies"]["dG_total"]
+    terms = new["energies"]
+    assert terms["dG_total"] == pytest.approx(
+        terms["dG_complex"]
+        + terms["dG_spacing"]
+        + terms["dG_start"]
+        - terms["dG_mRNA"]
+        - terms["dG_standby_signed"]
+    )
+    # Isolated suffix -1.2 is already included; whole-state dangles yield -1.4.
+    assert new["energies"]["dG_total"] - old["energies"]["dG_total"] == pytest.approx(
+        -1.4
+    )
     assert new["tir"] > old["tir"]
     pairs = new["structures"]["bound_after_standby"]["mrna_intramolecular_pairs"]
     assert pairs == [[27, 35], [28, 34], [29, 33]]

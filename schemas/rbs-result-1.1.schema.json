@@ -280,7 +280,15 @@
               "source_commit",
               "parameters",
               "implementation_version"
-            ]
+            ],
+            "properties": {
+              "id": {
+                "enum": [
+                  "footprint2017-rnastructure-6.6-reconstruction-1",
+                  "context2017-rnastructure-6.6-reconstruction-1"
+                ]
+              }
+            }
           },
           "backend": {
             "type": "object"

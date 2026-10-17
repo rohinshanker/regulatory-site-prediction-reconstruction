@@ -85,3 +85,20 @@ def test_refined_profile_cli_schema(tmp_path, capsys, monkeypatch):
     output = json.loads(capsys.readouterr().out)
     assert output["schema_version"] == "1.1"
     assert output["results"][0]["model"]["parameters"]["coding_footprint_nt"] == 13
+    assert (
+        main(
+            [
+                str(path),
+                "--backend-root",
+                "/unused",
+                "--profile",
+                "footprint2017",
+                "--format",
+                "csv",
+            ]
+        )
+        == 0
+    )
+    csv_output = capsys.readouterr().out
+    assert "schema_version,model_id,prediction_id" in csv_output.splitlines()[0]
+    assert "footprint2017-rnastructure-6.6-reconstruction-1" in csv_output

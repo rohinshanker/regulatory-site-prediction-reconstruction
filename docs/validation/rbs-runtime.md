@@ -101,7 +101,9 @@ Runtime validation additionally enforces normalized sequence and index bounds.
   motif. Standby spans are modeled unpaired prefixes, possibly shorter than 4 nt.
 - Starts at position zero are unsupported leaderless initiation. Circular
   sequence wrapping, genome projection, kinetic RBS models and design
-  are not implemented. Refined equilibrium profiles are specified separately. No fabricated feature intervals are emitted for them.
+  are not implemented. Unsupported configurations emit no fabricated feature
+  intervals. Refined equilibrium profiles and their coding-footprint intervals
+  are specified separately.
 
 | Status | Meaning |
 | --- | --- |

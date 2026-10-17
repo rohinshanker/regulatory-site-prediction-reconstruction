@@ -229,3 +229,14 @@ def test_real_mfe_only_short_prefix_regression(real_backend):
     structure = real_backend.session(37).fold("UUAAGUUCUUUGCAAG")
     assert structure.energy == 0
     assert set(structure.pairs) == {-1}
+
+
+def test_real_expanded_window_exact_limits(real_backend):
+    session = real_backend.session(37)
+    folded = session.fold("A" * 200)
+    assert folded.energy == 0
+    assert len(folded.pairs) == 200
+    joined = "A" * 200 + "III" + "ACCUCCUUA"
+    evaluated = session.evaluate(joined, (-1,) * 212)
+    assert len(evaluated.pairs) == 212
+    assert evaluated.energy is not None

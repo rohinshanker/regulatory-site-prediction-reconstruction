@@ -50,7 +50,9 @@ def main(argv: list[str] | None = None) -> int:
             for request in requests
         ]
         if args.format == "csv":
-            write_csv(results, sys.stdout)
+            write_csv(
+                results, sys.stdout, include_identity=args.profile != "historical"
+            )
         else:
             version = "1.0" if args.profile == "historical" else "1.1"
             write_json({"schema_version": version, "results": results}, sys.stdout)
