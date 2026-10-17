@@ -110,6 +110,8 @@ def test_unmeasured_flank_clipping_and_preserved_evidence():
         {"anti_sd": "AAA"},
         {"temperature_c": True},
         {"temperature_c": float("nan")},
+        {"temperature_celsius": True},
+        {"temperature_c": 37, "temperature_celsius": 30},
     ],
 )
 def test_invalid_record_contract(change):
@@ -198,6 +200,32 @@ def test_structured_source_metadata_is_preserved(provenance):
     record["anti_sd_provenance"] = "source\n"
     with pytest.raises(jsonschema.ValidationError):
         jsonschema.validate(batch, schema)
+
+
+def test_source_temperature_alias_and_unresolved_replicon():
+    record, genome = inputs()
+    record["temperature_celsius"] = 30
+    context = prepare_context(record, genome)
+    assert context.request["temperature_c"] == 30
+    assert (
+        "default_37C_scenario_not_native_condition_calibration" not in context.warnings
+    )
+    record["temperature_c"] = 30
+    assert prepare_context(record, genome).request["temperature_c"] == 30
+    del record["genome_id"], record["strand"]
+    record["cds_start_zero_based"] = None
+    batch = dict(EXAMPLE, records=[record])
+    schema = json.loads(Path("schemas/native-rbs-evidence-1.schema.json").read_text())
+    jsonschema.validate(batch, schema)
+    result = predict_native(batch, AlgebraBackend())["results"][0]
+    assert result["status"] == "unsupported"
+    assert result["reason"] == "unresolved_translation_start_and_replicon"
+    assert result["context"] is None and result["evidence"] == record
+    record["anti_sd"] = None
+    assert (
+        predict_native(batch, AlgebraBackend())["results"][0]["status"]
+        == "invalid_input"
+    )
 
 
 @pytest.mark.parametrize(

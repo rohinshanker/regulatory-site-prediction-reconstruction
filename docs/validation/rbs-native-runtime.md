@@ -66,6 +66,9 @@ When temperature is absent, the adapter explicitly warns that its default 37°C
 scenario is not native-condition calibration. Tan's multiple-condition metadata
 is preserved; one default-temperature prediction is not an estimate for every
 measured condition.
+The source alias `temperature_celsius` is accepted explicitly; if both temperature
+fields are supplied they must agree and both must be valid. This preserves the
+frozen Karlsen envelope's 30°C setting without rewriting its evidence hash.
 
 ## Coordinates and missingness
 
@@ -100,6 +103,10 @@ exit 1 if any row failed or is invalid, otherwise 0, including scientifically
 unsupported rows. Inspect statuses, reasons and coverage rather than treating a
 zero exit code as complete biological coverage. Missing values are null, never
 zero-energy or zero-score substitutes.
+When the source explicitly sets `cds_start_zero_based` to null and cannot assign
+a replicon, `genome_id`/strand may be absent or null. The adapter validates the
+common metadata/settings and retains an unsupported unresolved-start/replicon
+row with its complete source evidence; it never guesses a genomic association.
 
 The JSON output is authoritative for evidence, structures and failures. GFF3 uses
 one-based inclusive intervals; circular features have an unwrapped end greater

@@ -120,17 +120,9 @@ class NativeContext:
         }
 
 
-def prepare_context(record: object, genome: Genome) -> NativeContext:
-    """Validate the native evidence boundary and extract up to 100/100 nt.
-
-    Measured TSSs clip leaders. Missing TSSs use an explicitly unmeasured genomic
-    flank. Origin-crossing must be declared; a negative leader never wraps into
-    a chromosome-long leader. Unresolved starts/internal TSSs stay unsupported.
-    """
-    if not isinstance(record, dict):
-        raise InputError("native record must be an object")
+def _record_settings(record: dict) -> tuple[str, str, str, float]:
+    """Validate source metadata/settings even when no replicon can be assigned."""
     identifier = _text(record.get("id"), "id", 128)
-    _text(record.get("genome_id"), "genome_id")
     for key in (
         "mapping_status",
         "transcript_start_evidence",
@@ -146,15 +138,32 @@ def prepare_context(record: object, genome: Genome) -> NativeContext:
     anti_sd = normalize_rna(record.get("anti_sd"), "anti_sd", max_length=9)
     if len(anti_sd) != 9:
         raise InputError("native anti_sd must contain exactly nine nucleotides")
-    temperature = record.get("temperature_c", 37.0)
-    if type(temperature) not in (int, float) or not 0 <= temperature <= 100:
-        raise InputError("native temperature_c must be finite and between 0 and 100")
+    temperature = record.get("temperature_c", record.get("temperature_celsius", 37.0))
+    for value in (temperature, record.get("temperature_celsius", temperature)):
+        if type(value) not in (int, float) or not 0 <= value <= 100:
+            raise InputError("native temperature must be finite and between 0 and 100")
+    if record.get("temperature_celsius", temperature) != temperature:
+        raise InputError("conflicting native temperature fields")
     if not isinstance(record.get("conditions"), (list, dict)):
         raise InputError("conditions must be explicit source metadata (list/object)")
     if not isinstance(record.get("warnings"), list):
         raise InputError("warnings must be an explicit list")
     if any(not isinstance(item, str) for item in record["warnings"]):
         raise InputError("warnings must contain strings")
+    return identifier, host, anti_sd, float(temperature)
+
+
+def prepare_context(record: object, genome: Genome) -> NativeContext:
+    """Validate the native evidence boundary and extract up to 100/100 nt.
+
+    Measured TSSs clip leaders. Missing TSSs use an explicitly unmeasured genomic
+    flank. Origin-crossing must be declared; a negative leader never wraps into
+    a chromosome-long leader. Unresolved starts/internal TSSs stay unsupported.
+    """
+    if not isinstance(record, dict):
+        raise InputError("native record must be an object")
+    identifier, host, anti_sd, temperature = _record_settings(record)
+    _text(record.get("genome_id"), "genome_id")
     for key, expected in (
         ("assembly", genome.assembly),
         ("annotation", genome.annotation),
@@ -188,7 +197,7 @@ def prepare_context(record: object, genome: Genome) -> NativeContext:
         raise UnsupportedContext("unresolved_translation_start")
     _integer(start, "cds_start_zero_based", 0, size - 1)
     warnings = list(record["warnings"])
-    if "temperature_c" not in record:
+    if "temperature_c" not in record and "temperature_celsius" not in record:
         warnings.append("default_37C_scenario_not_native_condition_calibration")
     if tss is None:
         if leader is not None:
@@ -375,6 +384,13 @@ def predict_native(
             if identifier in seen:
                 raise InputError("duplicate native record id")
             seen.add(identifier)
+            if (
+                "cds_start_zero_based" in record
+                and record["cds_start_zero_based"] is None
+                and record.get("genome_id") is None
+            ):
+                _record_settings(record)
+                raise UnsupportedContext("unresolved_translation_start_and_replicon")
             genome_id = _text(record.get("genome_id"), "genome_id")
             if genome_id not in genomes:
                 raise InputError("record references unknown genome_id")

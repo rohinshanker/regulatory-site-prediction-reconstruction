@@ -71,7 +71,10 @@
             "pattern": "^[^\\x00-\\x1f\\x7f]+$"
           },
           "genome_id": {
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "minLength": 1,
             "maxLength": 256,
             "pattern": "^[^\\x00-\\x1f\\x7f]+$"
@@ -79,7 +82,8 @@
           "strand": {
             "enum": [
               "+",
-              "-"
+              "-",
+              null
             ]
           },
           "tss_zero_based": {
@@ -218,12 +222,15 @@
           "genome_sha256": {
             "type": "string",
             "pattern": "^[0-9a-f]{64}$"
+          },
+          "temperature_celsius": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
           }
         },
         "required": [
           "id",
-          "genome_id",
-          "strand",
           "tss_zero_based",
           "cds_start_zero_based",
           "leader_length_nt",
@@ -239,7 +246,35 @@
           "anti_sd_provenance",
           "warnings"
         ],
-        "additionalProperties": true
+        "additionalProperties": true,
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "cds_start_zero_based": {
+                  "type": "integer"
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "genome_id",
+                "strand"
+              ],
+              "properties": {
+                "genome_id": {
+                  "type": "string"
+                },
+                "strand": {
+                  "enum": [
+                    "+",
+                    "-"
+                  ]
+                }
+              }
+            }
+          }
+        ]
       }
     }
   },
