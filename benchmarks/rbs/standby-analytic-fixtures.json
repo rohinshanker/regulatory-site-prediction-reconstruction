@@ -1,0 +1,147 @@
+{
+  "schema_version": "standby-analytic-fixtures-1",
+  "scope": "Source-equation and hand-specified synthetic energy landscapes; not measured outcomes or a complete standby implementation.",
+  "sources": [
+    {
+      "doi": "10.1093/nar/gkt1139",
+      "xml_sha256": "3410c14d94f74845fe5ffa8d879bd33144909c0fc72e439bc91e9ca032333a39",
+      "locations": [
+        "Methods: Biophysical model",
+        "Equation3",
+        "Results: single-stranded sliding",
+        "SupplementaryText pages6\u20137 / FigureS3"
+      ]
+    },
+    {
+      "supplement_pdf_sha256": "a36ae7d252442865f4dc813ceb34022e2c0e01899c02fca61012d97c6558ffaf"
+    }
+  ],
+  "polynomial_coefficients": [
+    "0.038",
+    "-1.629",
+    "17.359"
+  ],
+  "raw_polynomial": [
+    {
+      "surface_area": "0",
+      "energy": "17.359"
+    },
+    {
+      "surface_area": "5",
+      "energy": "10.164"
+    },
+    {
+      "surface_area": "15.5",
+      "energy": "1.239"
+    },
+    {
+      "surface_area": "20",
+      "energy": "-0.021"
+    },
+    {
+      "surface_area": "20.5",
+      "energy": "-0.066"
+    },
+    {
+      "surface_area": "24",
+      "energy": "0.151"
+    },
+    {
+      "surface_area": "30",
+      "energy": "2.689"
+    }
+  ],
+  "geometry": [
+    {
+      "id": "single-symmetric-hairpin",
+      "stem_pairs": 3,
+      "loop_bases": 3,
+      "height": "4.5",
+      "distal": 2,
+      "proximal": 3,
+      "surface_area": "15.5"
+    },
+    {
+      "id": "surface-height-cap",
+      "raw_height": "18",
+      "height_for_area": "15",
+      "distal": 2,
+      "proximal": 3,
+      "surface_area": "5"
+    },
+    {
+      "id": "two-branched-orientations",
+      "orientation_heights": [
+        "12",
+        "6",
+        "15"
+      ],
+      "expected_mean_height": "11",
+      "note": "Central/base-stem orientation counts, alongside both leaf orientations."
+    }
+  ],
+  "sliding": [
+    {
+      "downstream_heights": [],
+      "expected_energy": "0"
+    },
+    {
+      "downstream_heights": [
+        "15"
+      ],
+      "expected_energy": "3.0"
+    },
+    {
+      "downstream_heights": [
+        "24"
+      ],
+      "expected_energy": "4.8"
+    },
+    {
+      "downstream_heights": [
+        "15",
+        "24"
+      ],
+      "expected_energy": "7.8"
+    }
+  ],
+  "synthetic_unfolding_landscape": {
+    "note": "Unfolding costs are explicitly assigned test inputs, not engine energies or measurements. Original H12 D1 P1; opening each outer pair increments D/P and reduces H by1.",
+    "candidates": [
+      {
+        "opened_pairs": 0,
+        "surface_area": "5",
+        "unfolding_cost": "0",
+        "distortion": "10.164",
+        "total": "10.164"
+      },
+      {
+        "opened_pairs": 1,
+        "surface_area": "8",
+        "unfolding_cost": "1.2",
+        "distortion": "6.759",
+        "total": "7.959"
+      },
+      {
+        "opened_pairs": 2,
+        "surface_area": "11",
+        "unfolding_cost": "2.4",
+        "distortion": "4.038",
+        "total": "6.438"
+      },
+      {
+        "opened_pairs": 3,
+        "surface_area": "14",
+        "unfolding_cost": "5",
+        "distortion": "2.001",
+        "total": "7.001"
+      }
+    ],
+    "expected_selected_opened_pairs": 2
+  },
+  "unresolved": [
+    "Printed coefficients give -0.066 atAs20.5 while paperexample says0.02; they give0.151 at24 while paperexample says0. No unknown precision/saturation rule is silently inferred.",
+    "Nested/asymmetric branch geometry, saturation policy and unfolding search domain need explicit reconstruction specifications beyond these elementary fixtures."
+  ],
+  "rights": "Original factual compilation and synthetic fixture inputs GPL-3.0-or-later; source attribution retained."
+}

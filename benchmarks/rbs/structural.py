@@ -93,6 +93,11 @@ def read_ct(text: str, expected_sequence: str) -> list[Structure]:
         if structure.sequence != expected_sequence.upper():
             raise ValueError("CT sequence mismatch")
         validate(structure)
+        if any(
+            base.islower() and partner
+            for base, partner in zip(expected_sequence, structure.partners, strict=True)
+        ):
+            raise ValueError("paired lowercase-constrained nucleotide")
         result.append(structure)
         cursor += n + 1
     return result
@@ -195,7 +200,7 @@ def collect(manifest_path: Path, backend: Path, output: Path) -> dict:
         sequences = case["sequences"]
         for index, sequence in enumerate(sequences):
             (directory / f"s{index}.fa").write_text(f">s{index}\n{sequence}\n")
-        expected = "III".join(sequences).upper()
+        expected = "III".join(sequences)
         executable = case["executable"]
         arguments = [f"s{i}.fa" for i in range(len(sequences))] + ["output.ct"]
         arguments += case["options"] + [
@@ -204,6 +209,7 @@ def collect(manifest_path: Path, backend: Path, output: Path) -> dict:
         ]
         command = [str(backend / "exe" / executable), *arguments]
         record = {"id": case["id"], "command": [executable, *arguments]}
+        diagnostic_prefix = ""
         try:
             process = subprocess.run(
                 command,
@@ -222,6 +228,18 @@ def collect(manifest_path: Path, backend: Path, output: Path) -> dict:
             if not (directory / "output.ct").is_file():
                 raise ValueError("missing CT output")
             structures = read_ct((directory / "output.ct").read_text(), expected)
+            if "--intramolecular" in case["options"]:
+                boundary = len(sequences[0])
+                if any(
+                    partner
+                    and (
+                        (i < boundary and partner <= boundary)
+                        or (i >= boundary + 3 and partner > boundary + 3)
+                    )
+                    for structure in structures
+                    for i, partner in enumerate(structure.partners)
+                ):
+                    raise ValueError("forbidden intramolecular pair")
             fixed = directory / "checked.ct"
             fixed.write_text(to_ct(structures))
             energy_command = [
@@ -233,6 +251,7 @@ def collect(manifest_path: Path, backend: Path, output: Path) -> dict:
                 "--temperature",
                 str(case["temperature_kelvin"]),
             ]
+            diagnostic_prefix = "efn2-"
             energy_run = subprocess.run(
                 energy_command,
                 cwd=directory,
@@ -260,7 +279,16 @@ def collect(manifest_path: Path, backend: Path, output: Path) -> dict:
                     for s, energy in zip(structures, energies, strict=True)
                 ],
             )
-        except (ValueError, subprocess.TimeoutExpired) as error:
+        except subprocess.TimeoutExpired as error:
+            for name, captured in (("stdout", error.stdout), ("stderr", error.stderr)):
+                raw = (
+                    captured
+                    if isinstance(captured, bytes)
+                    else (captured or "").encode()
+                )
+                (directory / f"{diagnostic_prefix}{name}.txt").write_bytes(raw)
+            record.update(status="failed", failure=str(error))
+        except ValueError as error:
             record.update(status="failed", failure=str(error))
         record["files"] = {p.name: sha256(p) for p in sorted(directory.iterdir())}
         records.append(record)

@@ -11,8 +11,13 @@ The [14-case panel](../../benchmarks/rbs/structural-panel.json),
 [independent audit](../../benchmarks/rbs/structural.py) do not import or inspect
 the reconstruction's runtime or scoring implementation. Synthetic inputs were
 chosen from structural properties. Two native leaders come from the already
-public Karlsen 2018 development collection, with CC-BY-4.0 attribution; their
-measurements are not copied into this panel. No consumed final data selected the
+public Karlsen 2018 development collection. Study attribution/selection follows
+its CC-BY-4.0 deposit; the actual leaders are extracted NCBI genomic sequence
+facts, not Figshare nucleotide data. The corrected panel separately pins
+GCF_000009725.1 / annotation RS_2025_06_29, FASTA/GFF hashes and both minus-strand
+intervals. No blanket Creative Commons licence is asserted for NCBI. These are
+assumed 100-nt genomic flanks, not measured transcript boundaries; measurements
+are not copied into this panel. No consumed final data selected the
 fixtures.
 
 RNAstructure source archive SHA-256 is
@@ -121,7 +126,7 @@ The collector requires independently installed `Fold`, `bifold`, `AllSub` and
 `efn2`; the original runtime installation may build only the first, second and
 fourth. It caps each subprocess at 30 seconds and refuses an existing output
 directory, preventing stale CT reuse. Offline tests need no backend, account or
-network. Nine tests cover all 185 statements and 88 branches, including malformed
+network. Focused tests cover all new statements and branches, including malformed
 outputs, table drift, process errors, missing files and timeouts. A source-only
 patch changing accepted syntax must update these expectations explicitly.
 
@@ -130,3 +135,43 @@ For exhaustive reproduction, call `enumerate_small` for `GGGAAACCC` and
 --simple --ne --temperature 310.15`. The archived oracle CT files and energies
 are byte-pinned. No fixture implies hosted equivalence, NUPACK equivalence,
 standby-model correctness or better experimental translation prediction.
+
+## Standby equation and geometry handoff
+
+[Analytic fixtures](../../benchmarks/rbs/standby-analytic-fixtures.json) preserve
+facts from Espah Borujeni et al. 2014, DOI `10.1093/nar/gkt1139`, independently of
+Session A's implementation. Primary XML SHA-256 is
+`3410c14d94f74845fe5ffa8d879bd33144909c0fc72e439bc91e9ca032333a39`;
+supplement `gkt1139_nar-02492-r-2013-File009.pdf` SHA-256 is
+`a36ae7d252442865f4dc813ceb34022e2c0e01899c02fca61012d97c6558ffaf`.
+Supplement pages 6–7 / Figure S3 were rendered and visually checked.
+
+A two-branched hairpin has **three** orientations in this construction, including
+the base-stem orientation with both branches collapsed. A three-branched hairpin
+has four. An unused branch contributes one extra nucleotide to the collapsed
+multibranch loop. Averaging only leaf-arm heights misses the central orientation.
+The paper explicitly caps H at 15 in the surface-area equation; that cap must not
+silently propagate into sliding. Its reported sliding penalties 0, 3.0, 4.8 and
+7.8 correspond to downstream height sums 0, 15, 24 and 39 with coefficient 0.2.
+
+The printed quadratic coefficients yield **−0.021 at surface area 20**, **−0.066
+at 20.5**, and **0.151 at 24**. The paper's separate example says 0.02 at 20.5
+and zero at 24. Keep raw polynomial arithmetic distinct from physically motivated
+nonnegative/saturating reconstruction rules; the exact hidden precision or
+piecewise policy has not been recovered from these passages. Do not silently
+fit that missing policy to the already consumed experimental panel.
+
+The analytic fixture includes a hand-specified unfolding landscape where opening
+two pairs minimizes distortion plus unfolding cost, while minimizing distortion
+alone selects a different state. The unfolding costs are explicitly **synthetic
+test inputs**, not measurements or folding results. These checks establish scalar
+arithmetic and elementary geometry only; nested/asymmetric branch extraction and
+an exhaustive selective-unfolding domain require a separate explicit model
+specification. Run `python -m unittest discover -s tests/benchmarks
+-p test_standby_analytic.py` for exact Decimal checks.
+
+Raw CT/energy files are unchanged by the provenance correction; both original
+and corrected panel hashes remain in observations. A scoped Git attribute permits
+trailing spaces only in byte-preserved executable progress captures. It does not
+relax source/test/document whitespace checks. Timeout diagnostics are retained as
+captured bytes under the correct prediction/energy stage filenames.

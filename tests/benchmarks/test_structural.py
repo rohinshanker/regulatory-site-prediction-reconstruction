@@ -98,6 +98,11 @@ class TopologyTest(unittest.TestCase):
             with self.subTest(value=value), self.assertRaises(ValueError):
                 s.read_ct(value, "AAAAA")
 
+    def test_lowercase_constraints(self):
+        raw = (ARCHIVE / "baseline/hairpin37/output.ct").read_text()
+        with self.assertRaisesRegex(ValueError, "lowercase-constrained"):
+            s.read_ct(raw, "gggAAACCC")
+
     def test_energy_records(self):
         self.assertEqual(
             s.read_energies("Structure: 1 Energy = 2\nStructure: 2 Energy = -3\n", 2),
@@ -210,6 +215,8 @@ class CollectorTest(unittest.TestCase):
                 "exit",
                 "missing",
                 "timeout",
+                "timeout-text",
+                "efn-timeout",
                 "efn-exit",
                 "efn-missing",
                 "malformed",
@@ -217,8 +224,24 @@ class CollectorTest(unittest.TestCase):
 
                 def run(command, *, cwd, failure=failure, **kwargs):
                     tool = Path(command[0]).name
-                    if failure == "timeout":
-                        raise subprocess.TimeoutExpired(command, 30)
+                    if failure in ("timeout", "timeout-text"):
+                        raise subprocess.TimeoutExpired(
+                            command,
+                            30,
+                            output=b"partial stdout"
+                            if failure == "timeout"
+                            else "partial stdout",
+                            stderr=b"traceback diagnostic"
+                            if failure == "timeout"
+                            else None,
+                        )
+                    if failure == "efn-timeout" and tool == "efn2":
+                        raise subprocess.TimeoutExpired(
+                            command,
+                            30,
+                            output=b"energy partial",
+                            stderr=b"energy error",
+                        )
                     if tool == "Fold":
                         if failure not in ("missing", "exit"):
                             (cwd / "output.ct").write_text(
@@ -244,6 +267,65 @@ class CollectorTest(unittest.TestCase):
                         report["records"][0]["status"],
                         "ok" if failure is None else "failed",
                     )
+            case["sequences"] = ["GGGAAACCC", "GGGAAACCC"]
+            case["options"] = ["--intramolecular"]
+            manifest.write_text(
+                json.dumps(
+                    {
+                        "table_manifest": "tables.json",
+                        "table_manifest_sha256": s.sha256(root / "tables.json"),
+                        "cases": [case],
+                    }
+                )
+            )
+            for paired_strand in (None, 0, 1):
+                partners = [0] * 21
+                if paired_strand is not None:
+                    offset = 12 * paired_strand
+                    for left, right in [(1, 9), (2, 8), (3, 7)]:
+                        partners[offset + left - 1], partners[offset + right - 1] = (
+                            offset + right,
+                            offset + left,
+                        )
+                raw_ct = s.to_ct(
+                    [s.Structure("GGGAAACCCIIIGGGAAACCC", tuple(partners))]
+                )
+
+                def run_intra(command, *, cwd, raw_ct=raw_ct, **kwargs):
+                    if Path(command[0]).name == "Fold":
+                        (cwd / "output.ct").write_text(raw_ct)
+                    else:
+                        (cwd / "energies.txt").write_text("Structure: 1 Energy = 0\n")
+                    return subprocess.CompletedProcess(command, 0, "", "")
+
+                with patch.object(s.subprocess, "run", side_effect=run_intra):
+                    report = s.collect(
+                        manifest, backend, root / f"intramolecular-{paired_strand}"
+                    )
+                self.assertEqual(
+                    report["records"][0]["status"],
+                    "ok" if paired_strand is None else "failed",
+                )
+                if paired_strand is not None:
+                    self.assertEqual(
+                        report["records"][0]["failure"], "forbidden intramolecular pair"
+                    )
+            self.assertEqual(
+                (root / "timeout/one/stdout.txt").read_bytes(), b"partial stdout"
+            )
+            self.assertEqual(
+                (root / "timeout/one/stderr.txt").read_bytes(), b"traceback diagnostic"
+            )
+            self.assertEqual(
+                (root / "timeout-text/one/stdout.txt").read_text(), "partial stdout"
+            )
+            self.assertEqual((root / "timeout-text/one/stderr.txt").read_text(), "")
+            self.assertEqual(
+                (root / "efn-timeout/one/efn2-stdout.txt").read_bytes(), b"energy partial"
+            )
+            self.assertEqual(
+                (root / "efn-timeout/one/efn2-stderr.txt").read_bytes(), b"energy error"
+            )
             with self.assertRaises(FileExistsError):
                 s.collect(manifest, backend, root / "None")
             table.write_text("changed")
