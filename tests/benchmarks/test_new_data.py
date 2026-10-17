@@ -10,6 +10,7 @@ import runpy
 import tempfile
 import unittest
 import zipfile
+from contextlib import contextmanager
 from pathlib import Path
 from unittest.mock import patch
 
@@ -63,6 +64,19 @@ class NewDataTest(unittest.TestCase):
             self.assertFalse(first.exists())
             with self.assertRaises(ValueError):
                 n.write_new_outputs([(first, {"bad": float("nan")}), (second, {})])
+            self.assertFalse(first.exists())
+            self.assertFalse(second.exists())
+            original_open = Path.open
+
+            @contextmanager
+            def fail_on_close(path, *args, **kwargs):
+                with original_open(path, *args, **kwargs) as stream:
+                    yield stream
+                raise OSError("buffered close failure")
+
+            with patch.object(Path, "open", fail_on_close):
+                with self.assertRaisesRegex(OSError, "buffered close"):
+                    n.write_new_outputs([(first, {}), (second, {})])
             self.assertFalse(first.exists())
             self.assertFalse(second.exists())
             first.write_text("preexisting data")
