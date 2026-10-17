@@ -273,6 +273,31 @@
                 }
               }
             }
+          },
+          {
+            "if": {
+              "required": [
+                "genome_id"
+              ],
+              "properties": {
+                "genome_id": {
+                  "type": "string"
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "strand"
+              ],
+              "properties": {
+                "strand": {
+                  "enum": [
+                    "+",
+                    "-"
+                  ]
+                }
+              }
+            }
           }
         ]
       }

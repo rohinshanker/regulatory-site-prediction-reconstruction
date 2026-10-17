@@ -412,3 +412,56 @@ def test_native_schemas_separate_evidence_from_predictions():
     result["results"][0]["context"] = None
     with pytest.raises(jsonschema.ValidationError):
         jsonschema.validate(result, output_schema)
+
+
+@pytest.mark.parametrize(
+    "field,value",
+    [
+        ("strand", "?"),
+        ("upstream_limit_nt", -5),
+        ("downstream_length_nt", True),
+        ("tss_zero_based", "x"),
+        ("leader_length_nt", False),
+        ("leader_length_nt", 20000000),
+    ],
+)
+def test_unresolved_replicon_still_validates_structural_fields(field, value):
+    record, _ = inputs()
+    record.update(genome_id=None, strand=None, cds_start_zero_based=None)
+    record[field] = value
+    batch = dict(EXAMPLE, records=[record])
+    assert (
+        predict_native(batch, AlgebraBackend())["results"][0]["status"]
+        == "invalid_input"
+    )
+    schema = json.loads(Path("schemas/native-rbs-evidence-1.schema.json").read_text())
+    with pytest.raises(jsonschema.ValidationError):
+        jsonschema.validate(batch, schema)
+
+
+@pytest.mark.parametrize(
+    "field", ["origin_crossing", "tss_zero_based", "leader_length_nt"]
+)
+def test_unresolved_replicon_requires_explicit_structure(field):
+    record, _ = inputs()
+    record.update(genome_id=None, strand=None, cds_start_zero_based=None)
+    del record[field]
+    assert (
+        predict_native(dict(EXAMPLE, records=[record]), AlgebraBackend())["results"][0][
+            "status"
+        ]
+        == "invalid_input"
+    )
+
+
+def test_known_replicon_requires_strand_in_schema_and_runtime():
+    record, _ = inputs()
+    record.update(cds_start_zero_based=None, strand=None)
+    batch = dict(EXAMPLE, records=[record])
+    schema = json.loads(Path("schemas/native-rbs-evidence-1.schema.json").read_text())
+    with pytest.raises(jsonschema.ValidationError):
+        jsonschema.validate(batch, schema)
+    assert (
+        predict_native(batch, AlgebraBackend())["results"][0]["status"]
+        == "invalid_input"
+    )

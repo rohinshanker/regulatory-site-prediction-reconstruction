@@ -123,6 +123,18 @@ class NativeContext:
 def _record_settings(record: dict) -> tuple[str, str, str, float]:
     """Validate source metadata/settings even when no replicon can be assigned."""
     identifier = _text(record.get("id"), "id", 128)
+    if record.get("strand") not in ("+", "-", None):
+        raise InputError("native strand must be +/- or null when unresolved")
+    if type(record.get("origin_crossing")) is not bool:
+        raise InputError("record requires boolean origin_crossing")
+    _integer(record.get("upstream_limit_nt"), "upstream_limit_nt", 0, 100)
+    _integer(record.get("downstream_length_nt"), "downstream_length_nt", 3, 100)
+    for field in ("tss_zero_based", "cds_start_zero_based", "leader_length_nt"):
+        if field not in record:
+            raise InputError(f"missing explicit {field} (use null if unknown)")
+        if record[field] is not None:
+            low = -19_999_999 if field == "leader_length_nt" else 0
+            _integer(record[field], field, low, 19_999_999)
     for key in (
         "mapping_status",
         "transcript_start_evidence",
@@ -174,8 +186,8 @@ def prepare_context(record: object, genome: Genome) -> NativeContext:
             raise InputError(f"record {key} disagrees with pinned genome")
     strand = record.get("strand")
     crossing = record.get("origin_crossing")
-    if strand not in ("+", "-") or type(crossing) is not bool:
-        raise InputError("record requires strand +/- and boolean origin_crossing")
+    if strand not in ("+", "-"):
+        raise InputError("record with a known replicon requires strand +/-")
     if crossing and not genome.circular:
         raise InputError("origin_crossing requires a circular genome")
     size, step = len(genome.rna), 1 if strand == "+" else -1
@@ -184,9 +196,6 @@ def prepare_context(record: object, genome: Genome) -> NativeContext:
         record.get("downstream_length_nt"), "downstream_length_nt", 3, 100
     )
     requested_downstream = downstream
-    for field in ("tss_zero_based", "cds_start_zero_based", "leader_length_nt"):
-        if field not in record:
-            raise InputError(f"missing explicit {field} (use null if unknown)")
     tss, start, leader = (
         record[k]
         for k in ("tss_zero_based", "cds_start_zero_based", "leader_length_nt")
