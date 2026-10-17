@@ -1,15 +1,15 @@
-# O_13-ground-truth-model-improvements__20261016 — Open
+# A_13-ground-truth-model-improvements__20261016 — Active
 
 - Scope: Pursue a leading fully open experimental predictor through falsifiable comparisons, prioritizing cyanobacterial RBS prediction while preserving compatibility.
-- Status: open
+- Status: active
 - Opened: 2026-10-16
-- Updated: 2026-10-16
-- Current State: Wave 1 baseline evaluated without tuning; no improved model demonstrated. Scope expanded to strong mechanistic/ML comparisons and a cyanobacterial specialist decision. Planned Wave 2 RBS owner is Session A.
-- Verification: Acceptance protocol specified below; all improvement experiments and software checks are pending.
+- Updated: 2026-10-17
+- Current State: The frozen native sequence finalist scores 468/468 final genes: MAE 0.957226 log2, Spearman 0.243990. Paired gains are 0.032660 versus constant and 0.014808 versus train-only OSTIR affine; neither reaches the predeclared 0.20 gain and the OSTIR interval includes zero. No model is promoted. Hybrid remains coverage-ineligible (423/468). All seven named families and exactly 24 configurations are complete; no scientific changes follow exposed final outcomes.
+- Verification: Independent ridge, native recipe, learning-curve and frozen-export reviews accepted exact patches. Model/data/calibration/gates are pinned in models/rbs/wave2-freeze.json (commit dab5fb5956d12b57e0f8207bfded60dda370ec1c); final output hashes are in wave2-prediction-receipt.json. Native learning curves are nearly flat; 2017 reporter transfer fails and positional ranking is inferior to Prodigal on the positive-only panel. B's final aggregate audit is integrated in d062b95; reusable results/model cards retain denominators, overlap and uncertainty. A new improvement cycle requires untouched evaluation and stronger independent measurements.
 - Cleanup: Owning session records results including negative findings, distills reusable model/evaluation contracts, updates indexes and GitHub issue, then removes the resolved ticket.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/13
 - Priority: P0
-- Owner: Unclaimed; reserved for Session A's RBS slice when Wave 2 starts. Other calculator slices remain unassigned.
+- Owner: Session A (`baf5b738-1792172297`), Wave 2 implementation/integration; suite-wide scope remains open where applicable.
 - Dependencies: Frozen data/splits and audit 12/16; competitor/source decisions 01/17; transcript-aware runtime 18; relevant calculator 03/06–09; 05 for optional hosted comparisons.
 
 Preserve a compatibility profile while building a separately named improved

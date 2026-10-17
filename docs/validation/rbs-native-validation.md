@@ -2,7 +2,11 @@
 
 - Purpose: Evaluate native transcript context, translation-start localization and translation strength as separate tasks.
 - Scope: Wave 2 RBS evidence and evaluation, with cyanobacteria prioritized; no native accuracy has yet been established.
-- Last verified: 2026-10-16
+- Last verified: 2026-10-17
+- Evidence owner: Session B (`9677689a-1792176763`), accepted 2026-10-17; runtime adapter stays with Session A.
+
+Wave 2's source-record boundary and independent coordinate fixtures are in
+[the native input contract](rbs-native-input-contract.md).
 
 ## What counts as a measurement
 
@@ -131,3 +135,62 @@ sampling. Keep adaptive development measurements separate from a locked final
 panel. Price the assay and use pilot variance to size it; more website coins do
 not supply missing biological measurements. No purchases or laboratory execution
 are authorized by this planning document.
+
+## Reproducing the admitted Tan transcript contexts
+
+The portable extractor uses the nine file pins in
+[`native-sources.json`](../../benchmarks/rbs/native-sources.json). Raw files and
+large derived envelopes stay outside Git. With Python >=3.11 and optional
+`openpyxl==3.1.5` installed in an isolated ingestion environment:
+
+```sh
+python -m benchmarks.rbs.native fetch /absolute/external/raw
+python -m benchmarks.rbs.native prepare-tan /absolute/external/raw /absolute/external/tan-contexts.json
+python -m unittest discover -s tests/benchmarks -p 'test_native*.py'
+```
+
+The source download command verifies expected size and SHA-256 before saving,
+rechecks existing files and rejects a cache inside the repository. The output
+contains the three versioned genomes once, every S1 row, exact source-row links,
+S2 proposal flags, and current-annotation mapping status. It needs no consumer
+checkout. The [audited output identity and counts](../../benchmarks/rbs/native-tan-audit.json)
+permit independent reproduction without committing the 16.2 MB envelope.
+
+The pinned RefSeq annotation is `GCF_000817325.1-RS_2026_05_13`, distinct from
+the paper's historical annotation. Exact locus/replicon/strand matching retains
+4,808 TSS rows: 2,475 gTSS, 1,380 aTSS, 724 iTSS and 229 nTSS. Of the gTSS rows,
+2,416 map to a non-pseudogene current CDS with a nonnegative leader, 15 lie inside
+the current CDS, 41 lack a current CDS locus, two map to current pseudogenes and
+one has multiple CDS segments/models. No nearest-name repair is applied. There
+are 236 source/current start disagreements and two source/reference nucleotide
+disagreements. These denominators differ from a protein-coding-only consumer
+join because this pipeline preserves GFF pseudogenes and multi-segment ambiguity.
+
+The 127 S2 rows are homology-based reannotation/leaderless proposals, not
+experimentally verified translation starts. Both opposite-strand S1 rows at
+one-based position 523393 have a reported nucleotide inconsistent with the pinned
+reference; both original values remain intact. The multiple-CDS case is
+`M744_RS00920`; pseudogene cases are `M744_RS03250` and `M744_RS11290`.
+
+GFF origin-spanning coordinates may exceed replicon length. For example,
+`M744_RS13290` occupies one-based 45877..48876 on the 46366-base plasmid's minus
+strand; its first translated genomic point is zero-based 2509. The parser keeps
+the source interval and transcript-ordered circular segments. It never turns a
+negative TSS-to-current-start distance into a whole-genome leader. No joined
+Tan context crosses the origin in this source/annotation pair; synthetic fixtures
+exercise that boundary independently.
+
+Two annotated 16S copies, `M744_RS03180` (+, 603902..605390) and `M744_RS13280`
+(−, 2688678..2690166), have identical 1489-base oriented sequences, SHA-256
+`62b6eb0227c38d8521281584d0ea1e012587d8cc8f118017bf3401742d95cde5`.
+Their terminal nine bases give RNA `ACCUCCUUU`. This is an explicit annotated-tail
+scenario, not evidence of mature-rRNA processing or host-specific calibration.
+It must not be silently replaced by the E. coli/live-reference `ACCUCCUUA`.
+
+Tan's two cultures per condition and source raw counts are preserved. Control is
+33°C, 50 µmol photons m⁻² s⁻¹ and 3% CO₂. High-light duration differs between
+Results (2 h) and Methods (30 min); the high-temperature light level also differs
+between source passages. These conflicts prohibit a silently harmonized condition
+label. TSS counts are not isoform mixture weights or translation-strength outcomes.
+The publisher's article/data notices are retained in the source ledger; NCBI's
+public sequence availability is recorded without inventing a blanket CC licence.

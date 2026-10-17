@@ -1,15 +1,15 @@
-# O_06-rbs-validation-and-first-release__20261016 — Open
+# A_06-rbs-validation-and-first-release__20261016 — Active
 
 - Scope: Validate and release the first fully usable open RBS calculator.
-- Status: open
+- Status: active
 - Opened: 2026-10-16
-- Updated: 2026-10-16
-- Current State: Wave 1 runtime/CI and initial experimental baseline are implemented; final release and expanded native/comparator validation remain pending. Planned Wave 2 integration owner is Session A.
-- Verification: Repository setup checked ticket H1/fields, queue membership and local links on 2026-10-16; implementation validation is specified below and has not run.
+- Updated: 2026-10-17
+- Current State: Release candidate 0.2.0rc1 on wave2/rbs-models, stacked draft PR20. Real mechanistic/refined/native/learned scoring, development recipes and independent frozen comparisons are implemented. Native sequence fails the promotion rule; reporter generalization and backend coverage remain limited. Reviewed B evaluator commits through 9bb479f and the final report package 4b2f582 are integrated (d062b95). The independent arithmetic audit reports 9,759 checks and no numerical mismatches; its private-review transcript handling exception is disclosed in the result provenance. A public tag/package and main merge are separate, unauthorized release actions.
+- Verification: Integrated a3b46fa passes 1,383 real-backend tests at 100% statement/branch coverage (4,185/1,742), plus Ruff/mypy. Cached inference review accepted immutable 7547778 including independent arithmetic checks. Fresh wheel single/batch/native/GFF3/learned and real Tan subset checks pass; four Linux/macOS Python 3.11/3.14 jobs pass at 62981a6, including the shipped real two-strand native example. Final report hashes and exact freeze copy verify; the final source-package and CI status are linked from draft PR20.
 - Cleanup: Owning session records final checks and unresolved findings, resolves the ticket, distills reusable guidance into docs/validation/, updates both indexes and linked GitHub issue, then removes the resolved ticket.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/6
 - Priority: P0
-- Owner: Unclaimed; reserved for Session A when Wave 2 is started by the user; Session B remains the independent evaluator.
+- Owner: Session A (`baf5b738-1792172297`), Wave 2 implementation/integration; suite-wide scope remains open where applicable.
 - Dependencies: 02–04; 05 for hosted claims; 12/16/17 independent evidence and comparisons; 18 for native-context exports. Scope claims to completed gates.
 
 Deliver the first installable, documented RBS prediction release. This is the milestone before implementation of the other calculators; source discovery for those tools may continue independently.

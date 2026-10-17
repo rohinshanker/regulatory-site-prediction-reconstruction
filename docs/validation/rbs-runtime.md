@@ -1,8 +1,8 @@
 # RBS runtime and reconstruction profile
 
 - Purpose: Reproduce the implemented RBS contract, installation and validation gates.
-- Scope: `salis-v1-rnastructure-6.6-reconstruction-1`, schema 1.0; sequence-relative prediction.
-- Last verified: 2026-10-16
+- Scope: Historical profile and shared runtime; refined profiles and schema 1.1 are specified in [rbs-mechanisms.md](rbs-mechanisms.md).
+- Last verified: 2026-10-17
 
 ## Identity and equations
 
@@ -100,8 +100,10 @@ Runtime validation additionally enforces normalized sequence and index bounds.
   the first through last paired mRNA base, not an experimentally established SD
   motif. Standby spans are modeled unpaired prefixes, possibly shorter than 4 nt.
 - Starts at position zero are unsupported leaderless initiation. Circular
-  sequence wrapping, genome projection, kinetic/refined RBS models and design
-  are not implemented. No fabricated feature intervals are emitted for them.
+  sequence wrapping, genome projection, kinetic RBS models and design
+  are not implemented. Unsupported configurations emit no fabricated feature
+  intervals. Refined equilibrium profiles and their coding-footprint intervals
+  are specified separately.
 
 | Status | Meaning |
 | --- | --- |
@@ -183,10 +185,10 @@ Run these from the repository root with `REGSITE_RNASTRUCTURE` set. Missing this
 variable skips real-engine fixtures, so that run cannot satisfy release gates.
 
 ```sh
-.venv/bin/ruff check src tests
-.venv/bin/ruff format --check src tests
-.venv/bin/mypy src/regsite
-.venv/bin/python -m pytest --cov=regsite --cov=benchmarks.rbs --cov-report=term-missing
+.venv/bin/ruff check src tests experiments
+.venv/bin/ruff format --check src tests experiments
+.venv/bin/mypy src/regsite experiments
+.venv/bin/python -m pytest --cov=regsite --cov=benchmarks.rbs --cov=experiments.rbs --cov-report=term-missing
 .venv/bin/python -m build --no-isolation
 .venv/bin/python -m venv .cache/fresh
 .cache/fresh/bin/python -m pip install --no-index --no-deps dist/*.whl
@@ -203,8 +205,8 @@ real single/batch execution. CI runs the gates and fresh-wheel examples on all
 four Python/platform combinations; its actual run status is authoritative.
 
 Limits: 10,000 normalized bases, 1,000 selected starts, 100 batch records,
-2,000,000 input/output text characters. One process handles at most 70 mRNA
-bases plus 3 linker/9 aSD positions, ≤100 structures and one thread. Process
+2,000,000 input/output text characters. The historical profile handles at most 70 mRNA bases; refined context permits
+200 mRNA bases plus 3 linker/9 aSD positions, ≤100 structures and one thread. Process
 wall-time is capped at 15 s and total folding time at 60 s per record by default,
 configurable up to 120 s. Input-size/window caps bound computational memory;
 there is no operating-system memory quota. The shipped batch provides a reproducible smoke workload; measure wall time and
@@ -230,7 +232,11 @@ prepared data/evaluator are from `bf77ce33df2883965df0d5ea81285717b07bc123`.
 Use explicit `ACCUCCUUA`, 37°C, supplied starts, the original full source windows,
 a 60-second per-record budget and the predeclared `standby2014:5'UTR_136`
 normalization. No parameters, slope, intercept or exclusions were fitted.
-The 2017 held-out outcomes remain unexamined by the implementation session.
+The Wave 1 evaluation did not use 2017 held-out outcomes. During Wave 2, a
+public primary-paper retrieval exposed some 2017 aggregate Results values; this
+was disclosed to the evaluator. Treat that panel as partially exposed external
+evidence, never wholly untouched evaluation. Private final outcomes remain with
+Session B.
 
 | Metric | Reconstruction | Constant relative-rate baseline |
 | --- | ---: | ---: |
@@ -286,5 +292,16 @@ The public [acquisition manifest](../../benchmarks/rbs/live-acquisition.json)
 records v2.1.1, its 100-nt upstream window, 13-nt footprint, 8-kcal/mol search gap,
 and different energy tables. B's full diagnostic acquisition now contains nine
 CSV exports, two explicit no-candidate results and one pre-execution form rejection;
-the additional reconstruction comparisons are next-wave work. Ticket 04 must implement documented later mechanisms
-as a distinct profile; tickets 05/06 retain live acquisition and release evaluation.
+Wave 2 reused all eleven completed jobs with the frozen historical,
+footprint and context profiles. Coverage agrees on the 17 returned candidates,
+nine declared target starts and two empty jobs, but numerical discrepancies
+remain substantial. No new jobs were purchased for that comparison. See the
+[live-reference contract](rbs-live-reference.md) and
+[public reuse receipt](../../benchmarks/rbs/live-reuse-wave2.json).
+Ticket 04 retains unsupported later mechanisms and backend discrepancies;
+tickets 05/06 retain suite acquisition and release work.
+
+The [Wave 2 result card](rbs-wave2-results.md) reports the separately frozen
+experimental comparisons. Native sequence regression did not pass its promotion
+criteria, and the public reporter model did not generalize to the 2017 challenge.
+These findings do not change the historical equations or establish hosted parity.

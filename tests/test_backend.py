@@ -101,7 +101,7 @@ def test_evaluate_fixed_structure(monkeypatch, folding):
 
     monkeypatch.setattr(FoldingSession, "_call", call)
     assert folding.evaluate("ACGU", (3, 2, 1, 0)).energy == -2.5
-    for seq in ["", "A" * 83]:
+    for seq in ["", "A" * 213]:
         with pytest.raises(BackendError, match="supported window"):
             folding.evaluate(seq, (-1,) * len(seq))
 
@@ -127,7 +127,7 @@ def test_fold_missing_energy_reevaluated(monkeypatch, folding):
     monkeypatch.setattr(FoldingSession, "_call", call)
     assert folding.fold("").energy == 0
     assert folding.fold("AAAA").energy == 0
-    for sequence in ["N", "A" * 71]:
+    for sequence in ["N", "A" * 201]:
         with pytest.raises(BackendError, match="normalized RNA"):
             folding.fold(sequence)
     monkeypatch.setattr(
@@ -153,7 +153,7 @@ def test_cofold_missing_energy_and_limits(monkeypatch, folding):
     assert folding.cofold("AAAA", "ACCUCCUUA")[0].energy == 0
     for leader, asd in [
         ("", "ACCUCCUUA"),
-        ("A" * 36, "ACCUCCUUA"),
+        ("A" * 101, "ACCUCCUUA"),
         ("AAAA", "A"),
         ("N", "ACCUCCUUA"),
     ]:
@@ -229,3 +229,14 @@ def test_real_mfe_only_short_prefix_regression(real_backend):
     structure = real_backend.session(37).fold("UUAAGUUCUUUGCAAG")
     assert structure.energy == 0
     assert set(structure.pairs) == {-1}
+
+
+def test_real_expanded_window_exact_limits(real_backend):
+    session = real_backend.session(37)
+    folded = session.fold("A" * 200)
+    assert folded.energy == 0
+    assert len(folded.pairs) == 200
+    joined = "A" * 200 + "III" + "ACCUCCUUA"
+    evaluated = session.evaluate(joined, (-1,) * 212)
+    assert len(evaluated.pairs) == 212
+    assert evaluated.energy is not None

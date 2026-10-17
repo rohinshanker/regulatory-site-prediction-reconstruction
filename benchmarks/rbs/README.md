@@ -122,3 +122,27 @@ coverage, warnings and the byte-preserving CSV hash; it does not assess biologic
 accuracy. A header-only CSV is a valid empty result. A form rejection or server
 failure is recorded separately and is never converted into an invented empty CSV
 or a zero translation rate. An empty candidate set cannot verify energy arithmetic.
+
+## Wave 2 native interface
+
+The [native input contract](../../docs/validation/rbs-native-input-contract.md)
+provides a genome-once batch example, independent strand/origin fixtures and
+primary-source pins. Native translation outcomes remain private until eligibility
+and grouped partitions are frozen; Tan TSS evidence is context only.
+
+## Frozen Wave 2 results
+
+The [result card](../../docs/validation/rbs-wave2-results.md) and
+[result manifest](results/wave2-results-manifest.json) report the completed
+native primary evaluation, LC/diurnal transfer, conditional TIS benchmark and
+2017 reporter check. No native model passes the prespecified promotion rule.
+The consumed final panels must not be reused as untouched tests after tuning.
+
+Native report reproduction uses `python -m benchmarks.rbs.native_evaluation`
+with a pinned private manifest and `--stage final`. Separate condition transfer
+uses `python -m benchmarks.rbs.secondary`; fixed HC calibration and per-condition
+training-only intercepts remain separately named. Positional and reporter
+reproduction use `position.evaluate` and `evaluation.evaluate` as described in
+the result card. Every raw private manifest binds cases and predictions by SHA-256.
+Published JSON contains aggregate results only; no final per-case labels,
+residuals, upstream weights or service exports are redistributed.

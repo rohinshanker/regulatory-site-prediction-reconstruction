@@ -1,15 +1,15 @@
-# O_04-rbs-published-refinements__20261016 — Open
+# A_04-rbs-published-refinements__20261016 — Active
 
 - Scope: Reconstruct later published RBS mechanisms and production behavior.
-- Status: open
+- Status: active
 - Opened: 2026-10-16
-- Updated: 2026-10-16
-- Current State: Wave 1 baseline is runnable; all 12 live diagnostics were attempted by B (11 accepted). Later mechanisms remain unimplemented. Planned Wave 2 owner is Session A.
-- Verification: Repository setup checked ticket H1/fields, queue membership and local links on 2026-10-16; implementation validation is specified below and has not run.
+- Updated: 2026-10-17
+- Current State: Historical science preserved; footprint/context profiles implemented and independently reviewed. All 136 reporter-development and 27 secondary 2017 inputs score. Native historical/footprint score 2,400/2,530 source cases; context scores 2,234 with 268 explicit backend failures. The 18-case 2017 TE challenge favors context over historical scoring, but is one partly exposed shared family. Live diagnostic candidate coverage agrees while numerical parity fails. Later standby/sliding/drafting/stacking and backend differences remain unresolved.
+- Verification: Integrated code a3b46fa passes 1,383 tests with the real backend, 100% of 4,185 statements and 1,742 branches; Ruff/mypy pass. Scientific runtime/export is frozen at 7547778c508d4a31b4a4f95df370923ce8bd07c3. Later changes are evidence integration and documentation; final report links and exact release CI are recorded on issue #6.
 - Cleanup: Owning session records final checks and unresolved findings, resolves the ticket, distills reusable guidance into docs/validation/, updates both indexes and linked GitHub issue, then removes the resolved ticket.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/4
 - Priority: P0
-- Owner: Unclaimed; reserved for Session A when Wave 2 is started by the user.
+- Owner: Session A (`baf5b738-1792172297`), Wave 2 implementation/integration; suite-wide scope remains open where applicable.
 - Dependencies: 03 baseline; 05 supplies hosted evidence as available.
 
 Extend the tested baseline toward the current production RBS Calculator using papers, supplementary equations/data and legitimate reference outputs. A version label or improved fit does not prove a faithful reconstruction.

@@ -51,30 +51,40 @@ def write_json(value: object, stream: TextIO) -> None:
     stream.write("\n")
 
 
-def write_csv(records: list[dict], stream: TextIO) -> None:
+def write_csv(
+    records: list[dict], stream: TextIO, *, include_identity: bool = False
+) -> None:
     """Write one row per site, retaining a row for records without any site.
 
     CSV is a compact summary. JSON is the complete provenance/energy/structure
     format. Coordinates use the normalized input sequence orientation.
     """
-    writer = csv.DictWriter(stream, fieldnames=CSV_FIELDS, lineterminator="\n")
+    fields = CSV_FIELDS + (
+        ("schema_version", "model_id", "prediction_id") if include_identity else ()
+    )
+    writer = csv.DictWriter(stream, fieldnames=fields, lineterminator="\n")
     writer.writeheader()
     for record in records:
         sites = record.get("sites", [])
         for site in sites or [{}]:
             interval = site.get("start_codon", {})
             energies = site.get("energies") or {}
-            writer.writerow(
-                {
-                    "id": record.get("id", ""),
-                    "status": record["status"],
-                    "site_status": site.get("status", ""),
-                    "start": interval.get("start", ""),
-                    "end": interval.get("end", ""),
-                    "strand": interval.get("strand", ""),
-                    "codon": site.get("codon", ""),
-                    "tir": site.get("tir", ""),
-                    "dG_total": energies.get("dG_total", ""),
-                    "reason": site.get("reason", record.get("reason", "")),
-                }
-            )
+            row = {
+                "id": record.get("id", ""),
+                "status": record["status"],
+                "site_status": site.get("status", ""),
+                "start": interval.get("start", ""),
+                "end": interval.get("end", ""),
+                "strand": interval.get("strand", ""),
+                "codon": site.get("codon", ""),
+                "tir": site.get("tir", ""),
+                "dG_total": energies.get("dG_total", ""),
+                "reason": site.get("reason", record.get("reason", "")),
+            }
+            if include_identity:
+                row.update(
+                    schema_version=record["schema_version"],
+                    model_id=record["model"]["id"],
+                    prediction_id=record["prediction_id"],
+                )
+            writer.writerow(row)

@@ -1,0 +1,10 @@
+{
+  "id": "synthetic-post-footprint-hairpin",
+  "sequence": "AAAGGAGGAAAAAAATGAAAAAAAAAAGGGAAACCC",
+  "anti_sd": "ACCUCCUUA",
+  "start_positions": [
+    14
+  ],
+  "temperature_c": 37,
+  "host": "synthetic mechanism fixture; not host-calibrated"
+}

@@ -2,7 +2,11 @@
 
 - Purpose: Keep experimental accuracy separate from implementation and hosted agreement.
 - Scope: Wave 1 RBS scoring at supplied starts; no site-discovery or native-cyano validation.
-- Last verified: 2026-10-16
+- Last verified: 2026-10-17
+
+Wave 2 native and secondary final results are recorded in the
+[frozen evaluation](rbs-wave2-results.md). Its primary native protocol is distinct
+from this historical/reporting-study scope; the 2017 panel remains secondary.
 
 ## Partitions and evaluator boundary
 
@@ -100,3 +104,14 @@ independent study before promotion. No automatic parameter search on the holdout
 Never substitute one comparison for another. Live acquisition is optional to
 offline execution; no account, paid backend or restricted measurement file is
 required for public fixture tests.
+
+## Recorded 2017 exposure boundary
+
+The original 2017 partition and its private outcomes remain fixed. During Wave 2
+mechanism retrieval, Session A incidentally saw the published no-hairpin and +4
+construct fluorescence values; no private table or final prediction errors were
+opened or used for fitting. The paper itself selected its 13-nt footprint using
+these constructs. Therefore the full panel is not wholly unseen, and a refined
+profile has original-model exposure. Report it as a secondary external check,
+not independent evidence for promoting the model. Native final outcomes remain
+blinded under the frozen family partitions.

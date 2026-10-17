@@ -1,5 +1,8 @@
-include NOTICE requirements-dev.in requirements-dev.lock
+include AGENTS.md NOTICE requirements-dev.in requirements-dev.lock
 recursive-include schemas *.json
 recursive-include examples *.json
 recursive-include docs *.md
 recursive-include benchmarks *.py *.json *.md
+recursive-include experiments *.py
+recursive-include tests *.py
+recursive-include models *.json *.md

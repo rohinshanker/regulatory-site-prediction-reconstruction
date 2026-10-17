@@ -21,6 +21,9 @@ from regsite.structures import BackendError, Structure, parse_ct, to_ct
 
 SOURCE_SHA256 = "1bedc62aaab984279055caaa6234d48fca113f4b8e17a8060e0b3784d5a397c3"
 MAX_STRUCTURES = 100
+MAX_FOLD_NT = 200
+MAX_LEADER_NT = 100
+MAX_CT_NT = MAX_FOLD_NT + 12
 SETTINGS = {
     "alphabet": "rna",
     "fold_maximum": 1,
@@ -118,7 +121,7 @@ class RnaStructure:
 
 @dataclass(frozen=True)
 class FoldingSession:
-    """Bounded request-local engine operations on at most 82 CT positions."""
+    """Bounded request-local engine operations on at most 212 CT positions."""
 
     root: Path
     kelvin: float
@@ -152,7 +155,7 @@ class FoldingSession:
         """Use one explicit energy evaluator for folded and constructed states."""
         if not 1 <= len(structures) <= MAX_STRUCTURES:
             raise BackendError("invalid fixed-structure count")
-        if any(not 1 <= len(s.sequence) <= 82 for s in structures):
+        if any(not 1 <= len(s.sequence) <= MAX_CT_NT for s in structures):
             raise BackendError("fixed structure exceeds the supported window")
         with TemporaryDirectory(prefix="regsite-") as directory:
             ct, output = Path(directory) / "input.ct", Path(directory) / "energy.txt"
@@ -183,8 +186,8 @@ class FoldingSession:
         """Fold an RNA window; an empty mathematical prefix has energy zero."""
         if not sequence:
             return Structure("", (), 0.0)
-        if len(sequence) > 70 or set(sequence) - set("ACGU"):
-            raise BackendError("fold expects at most 70 normalized RNA bases")
+        if len(sequence) > MAX_FOLD_NT or set(sequence) - set("ACGU"):
+            raise BackendError("fold expects at most 200 normalized RNA bases")
         with TemporaryDirectory(prefix="regsite-") as directory:
             fasta, ct = Path(directory) / "input.fa", Path(directory) / "output.ct"
             fasta.write_text(f">regsite\n{sequence}\n")
@@ -210,11 +213,11 @@ class FoldingSession:
     def cofold(self, leader: str, anti_sd: str) -> tuple[Structure, ...]:
         """Bounded cofold search with intramolecular pairing, not exhaustive subopt."""
         if (
-            not 1 <= len(leader) <= 35
+            not 1 <= len(leader) <= MAX_LEADER_NT
             or len(anti_sd) != 9
             or set(leader + anti_sd) - set("ACGU")
         ):
-            raise BackendError("cofold expects a 1–35 nt leader and 9 nt aSD")
+            raise BackendError("cofold expects a 1–100 nt leader and 9 nt aSD")
         sequence = leader + "III" + anti_sd
         with TemporaryDirectory(prefix="regsite-") as directory:
             first, second, ct = [
