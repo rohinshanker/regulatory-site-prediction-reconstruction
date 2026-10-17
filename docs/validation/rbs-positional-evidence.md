@@ -82,7 +82,9 @@ labels is authorized. Keep primary and weak-tier reports separate.
 
 ## Metrics and reproduction
 
-`benchmarks.rbs.position.evaluate` reports candidate-universe truth coverage,
+`benchmarks.rbs.position.evaluate` defaults to `source_tier="plain"` and explicitly
+counts excluded weak evidence. `source_tier="weak"` gives the secondary report;
+only an explicit `source_tier="combined"` pools supported tiers. It reports candidate-universe truth coverage,
 positive scoring recall, complete-candidate coverage, exact top1, secondary
 ±3-nt top1 and MRR. With tied highest scores, strict top1 requires every tied
 candidate to match; uniform-tie expected top1 is separate. MRR uses the worst

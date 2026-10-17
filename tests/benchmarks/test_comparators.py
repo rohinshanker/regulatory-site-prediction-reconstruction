@@ -107,6 +107,36 @@ class ComparatorTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 comparators.verify_files(root, {"fixture.py": "wrong"})
 
+    def test_native_asd_required_and_temperature_alias_preserved(self):
+        engine = MagicMock(return_value=[{"start_position": 5, "expression": 8}])
+        missing = {key: value for key, value in self.row.items() if key != "anti_sd"}
+        self.assertEqual(
+            comparators.predict(missing, "ostir", engine)["status"], "failed"
+        )
+        engine.assert_not_called()
+        row = {
+            key: value
+            for key, value in self.row.items()
+            if key != "temperature_celsius"
+        }
+        row["temperature_c"] = 30
+        result = comparators.predict(row, "ostir", engine)
+        self.assertEqual(result["requested_temperature_celsius"], 30)
+        self.assertEqual(result["anti_sd"], "ACCUCCUUU")
+        for extra in (
+            {"temperature_celsius": 37},
+            {"temperature_c": True},
+            {"temperature_c": float("nan")},
+        ):
+            self.assertEqual(
+                comparators.predict({**row, **extra}, "ostir", engine)["status"],
+                "failed",
+            )
+        row.pop("temperature_c")
+        self.assertIsNone(
+            comparators.predict(row, "ostir", engine)["requested_temperature_celsius"]
+        )
+
     def test_ostir_version_gate(self):
         upstream = types.SimpleNamespace(run_ostir=object())
         with (

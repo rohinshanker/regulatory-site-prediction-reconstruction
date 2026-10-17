@@ -147,6 +147,29 @@ class PositionTests(unittest.TestCase):
         self.assertIsNone(result["candidate_count_range"])
         self.assertEqual(position.evaluate([], [], [])["n_queries"], 0)
 
+    def test_source_tiers_do_not_pool_by_default(self):
+        self.labels[0]["source_tier"] = "plain"
+        self.labels[1]["source_tier"] = "weak"
+        result = position.evaluate(self.queries, self.labels, self.predictions)
+        self.assertEqual(result["n_positive"], 1)
+        self.assertEqual(result["n_excluded_evidence_tier"], 1)
+        self.assertEqual(result["top1_exact_fraction"], 1)
+        weak = position.evaluate(
+            self.queries, self.labels, self.predictions, source_tier="weak"
+        )
+        self.assertEqual(weak["n_positive"], 1)
+        self.assertEqual(weak["top1_exact_fraction"], 0)
+        combined = position.evaluate(
+            self.queries, self.labels, self.predictions, source_tier="combined"
+        )
+        self.assertEqual(combined["n_positive"], 2)
+        self.assertEqual(combined["n_excluded_evidence_tier"], 0)
+        with self.assertRaises(ValueError):
+            position.evaluate(self.queries, self.labels, [], source_tier="other")
+        self.labels[0]["source_tier"] = "unknown"
+        with self.assertRaisesRegex(ValueError, "tier"):
+            position.evaluate(self.queries, self.labels, [])
+
     def test_identity_label_and_tolerance_validation(self):
         for which in (
             "query",

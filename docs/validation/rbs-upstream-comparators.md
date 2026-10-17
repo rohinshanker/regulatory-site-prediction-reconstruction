@@ -20,7 +20,10 @@ ViennaRNA's fee-bearing redistribution limits and NAVIEW's noncommercial notice
 remain; OSTIR's licence does not override them. Keep this stack outside the
 required open runtime. The smoke did not invoke plotting.
 
-The released library API fixes temperature at **37°C**. Native PCC 6803 assay
+The adapter requires an explicit nine-base aSD; missing aSD is rejected, never
+filled with an E. coli default. It preserves `temperature_celsius` and
+`temperature_c` aliases and rejects conflicts. The released library API fixes
+temperature at **37°C**. Native PCC 6803 assay
 metadata says 30°C; the adapter reports the mismatch and does not monkey-patch
 upstream constants. It supplies the exact declared aSD, sequence and one-based
 start to upstream, converting zero-based input only at this boundary. The library

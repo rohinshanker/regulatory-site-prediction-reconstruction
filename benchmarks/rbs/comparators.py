@@ -140,13 +140,22 @@ def predict(row, name, engine):
                 temperature_mode="not an input feature",
             )
         else:
-            asd = row.get("anti_sd", "ACCUCCUUA")
+            asd = row.get("anti_sd")
             if (
                 not isinstance(asd, str)
                 or len(asd) != 9
                 or set(asd.upper()) - set("ACGTU")
             ):
                 raise ValueError("Invalid nine-base anti-SD")
+            requested = row.get("temperature_celsius", row.get("temperature_c"))
+            if (requested is not None and not finite_number(requested)) or (
+                "temperature_celsius" in row
+                and "temperature_c" in row
+                and row["temperature_celsius"] != row["temperature_c"]
+            ):
+                raise ValueError(
+                    "Invalid or conflicting requested temperature metadata"
+                )
             output = engine(
                 sequence,
                 start=start + 1,
@@ -170,7 +179,8 @@ def predict(row, name, engine):
                 native_output=output[0],
                 predicted_unit="upstream_relative_expression",
                 temperature_celsius=37.0,
-                requested_temperature_celsius=row.get("temperature_celsius"),
+                requested_temperature_celsius=requested,
+                anti_sd=asd.upper().replace("T", "U"),
                 temperature_mode="upstream API fixed37C",
             )
         if not finite_number(value) or value <= 0:
@@ -207,6 +217,7 @@ def main(argv=None):
         "schema_version": "rbs-upstream-predictions-1",
         "model": args.model,
         "input_sha256": digest(raw),
+        "adapter_sha256": digest(Path(__file__).read_bytes()),
         "records": results,
         "elapsed_seconds": time.perf_counter() - started,
         "upstream_artifacts": REBECA_FILES
