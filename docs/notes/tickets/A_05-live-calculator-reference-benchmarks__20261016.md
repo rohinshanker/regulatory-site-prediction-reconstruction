@@ -4,8 +4,8 @@
 - Status: active
 - Opened: 2026-10-16
 - Updated: 2026-10-17
-- Current State: Wave 1 exports rehashed and reused against three immutable mechanistic profiles; all 17 candidates and both empty results retained. Numerical compatibility is incomplete. No new jobs/coins; fresh balance unavailable because browser-control surface is disabled.
-- Verification: 145 owned benchmark tests pass with 100% statements/branches (1924/798); actual three-profile live reuse runs, 20 artifact hashes and nine CSV integrity checks pass. Public receipt live-reuse-wave2.json; numeric internal-research aggregates remain private.
+- Current State: RBS live panel and Wave 2 reuse are complete: 11 accepted jobs, 17 candidates, 2 empty results, 1 form rejection. Numerical parity is not established. Eleven coins remain budgeted at one/job; actual debit and a fresh balance check are unresolved because no browser surface was available. Broader calculator acquisition remains active.
+- Verification: RBS 161 owned tests, 100% statement/branch coverage (2149/900); independent final audit 9759 aggregate/pin assertions, zero numerical mismatches. Result/source/model identities and scope limits are in rbs-wave2-results.md and benchmarks/rbs/results/wave2-results-manifest.json.
 - Cleanup: Owning session records final checks and unresolved findings, resolves the ticket, distills reusable guidance into docs/validation/, updates both indexes and linked GitHub issue, then removes the resolved ticket.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/5
 - Priority: P0
