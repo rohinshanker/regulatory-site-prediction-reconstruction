@@ -381,6 +381,80 @@ class CollectionTest(unittest.TestCase):
         time.sleep(1)
         self.assertFalse(marker.exists())
 
+    def test_parent_exit_cleans_silent_descendants(self):
+        for exit_code in (0, 2):
+            marker = self.root / f"silent-descendant-{exit_code}"
+            child = (
+                "import time;from pathlib import Path;time.sleep(1);"
+                f"Path({str(marker)!r}).touch()"
+            )
+            self.script.write_text(
+                "import subprocess,sys,json,hashlib\n"
+                f"subprocess.Popen([sys.executable,'-c',{child!r}],"
+                "stdin=subprocess.DEVNULL,stdout=subprocess.DEVNULL,"
+                "stderr=subprocess.DEVNULL)\n"
+                "raw=sys.stdin.buffer.read();r=json.loads(raw)\n"
+                "print(json.dumps(dict(id=r['id'],"
+                "input_sha256=hashlib.sha256(raw).hexdigest(),"
+                "status='ok',predicted=2.5,reason='')))\n"
+                f"raise SystemExit({exit_code})\n"
+            )
+            result = c.execute(
+                self.inputs["records"][0],
+                self.receipt["configurations"][0],
+                2,
+                time.monotonic() + 5,
+                self.root,
+                100 + exit_code,
+            )
+            self.assertEqual(result["exit_code"], exit_code)
+            self.assertEqual(
+                result["execution"], "returned" if exit_code == 0 else "process_exit"
+            )
+            time.sleep(1.1)
+            self.assertFalse(marker.exists())
+
+    def test_numeric_overflow_preserves_full_failed_roster(self):
+        self.script.write_text(
+            self.script.read_text().replace("predicted=2.5", "predicted=10**400")
+        )
+        for config in self.receipt["configurations"]:
+            config["artifacts"] = [self.pin(self.script)]
+        self.save()
+        directory = self.root / "overflow"
+        result = c.collect(self.receipt_path, directory)
+        self.assertTrue(result["complete"])
+        rows = [
+            r for group in result["records_by_configuration"].values() for r in group
+        ]
+        self.assertEqual(len(rows), 12)
+        self.assertTrue(
+            all(
+                r["reason"] == "invalid_output" and r["predicted"] is None for r in rows
+            )
+        )
+        self.assertEqual(len(list(directory.glob("job-*.json"))), 12)
+
+    def test_checked_bytes_returns_the_same_buffer_it_hashes(self):
+        path = self.root / "replace.json"
+        original = b'{"synthetic":1}'
+        path.write_bytes(original)
+        spec = self.pin(path)
+        actual_read = Path.read_bytes
+
+        def replace_after_read(selected):
+            raw = actual_read(selected)
+            selected.write_bytes(b'{"synthetic":2}')
+            return raw
+
+        with patch.object(
+            Path, "read_bytes", autospec=True, side_effect=replace_after_read
+        ) as read:
+            self.assertEqual(c.checked_bytes(spec), original)
+        self.assertEqual(read.call_count, 1)
+        with self.assertRaises(ValueError):
+            c.checked_bytes(spec)
+
     def test_cli_summary_only(self):
         self.protocol["collection"]["total_seconds"] = 1e-9
         self.save()

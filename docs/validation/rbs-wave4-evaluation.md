@@ -194,6 +194,14 @@ the ordinary `observed` field. Raw observations and per-record residuals never
 appear in its output. Source row/block/context denominators are enforced, and
 the report carries exact input/prediction/protocol/code identities.
 
+Pre-label checks validate prediction status, score, reason and elapsed time,
+re-normalize returned raw stdout, recompute controls and verify execution/exit
+categories and the frozen collector identity. Hash checks return the same bytes
+they hash. Oversized numeric output becomes an explicit failed job. Process-group
+cleanup also runs after a parent exits successfully, so silent descendants cannot
+outlive a released worker slot. These conditions have independent synthetic
+reproductions and regression tests.
+
 ```sh
 python -m benchmarks.rbs.wave4_collect ACKNOWLEDGED_RECEIPT.json NEW_PRIVATE_DIRECTORY
 python -m benchmarks.rbs.wave4_evaluate HASH_LOCKED_EVALUATION_MANIFEST.json NEW_AGGREGATE.json

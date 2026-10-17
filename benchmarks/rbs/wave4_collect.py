@@ -6,7 +6,6 @@ This module never reads experimental measurements or imports a scoring model.
 
 import argparse
 import concurrent.futures as futures
-import hashlib
 import json
 import os
 import signal
@@ -41,12 +40,10 @@ def encoded(value):
 
 def checked_bytes(spec):
     """Check exact bytes without parsing or printing artifact contents."""
-    path = Path(spec["path"])
-    with path.open("rb") as stream:
-        actual = hashlib.file_digest(stream, "sha256").hexdigest()
-    if actual != spec["sha256"]:
+    raw = Path(spec["path"]).read_bytes()
+    if digest(raw) != spec["sha256"]:
         raise ValueError("Artifact hash mismatch")
-    return path.read_bytes()
+    return raw
 
 
 def private_bytes(path, raw):
@@ -209,6 +206,12 @@ def stop_process(process):
         pass
 
 
+def control_score(row, kind):
+    """Fixed outcome-independent controls, also rechecked during evidence audit."""
+    seq = row["sequence"][max(0, row["start"] - 35) : row["start"] + 70]
+    return 1.0 if kind == "constant" else sum(b in "GC" for b in seq) / len(seq)
+
+
 def execute(row, config, seconds, deadline, directory, number):
     """Run one input, preserve raw evidence and never retry a failed prediction."""
     began = time.monotonic()
@@ -222,17 +225,18 @@ def execute(row, config, seconds, deadline, directory, number):
         "predicted": None,
         "reason": "collection_deadline",
         "seconds": 0,
+        "execution": "not_run",
+        "exit_code": None,
     }
     stdout, stderr = b"", b""
     if remaining > 0:
         if config["kind"] in {"constant", "gc_content"}:
-            seq = row["sequence"][max(0, row["start"] - 35) : row["start"] + 70]
-            score = (
-                1.0
-                if config["kind"] == "constant"
-                else sum(b in "GC" for b in seq) / len(seq)
+            result.update(
+                status="ok",
+                predicted=control_score(row, config["kind"]),
+                reason="",
+                execution="control",
             )
-            result.update(status="ok", predicted=score, reason="")
         else:
             env = {
                 "PATH": os.defpath,
@@ -255,12 +259,21 @@ def execute(row, config, seconds, deadline, directory, number):
                         packet, timeout=min(seconds, remaining)
                     )
                     if process.returncode:
-                        result.update(status="failed", reason="process_exit")
+                        result.update(
+                            status="failed",
+                            reason="process_exit",
+                            execution="process_exit",
+                        )
                     else:
                         try:
                             result.update(normalized(stdout, packet))
-                        except (ValueError, KeyError, TypeError):
-                            result.update(status="failed", reason="invalid_output")
+                            result["execution"] = "returned"
+                        except (ValueError, KeyError, TypeError, OverflowError):
+                            result.update(
+                                status="failed",
+                                reason="invalid_output",
+                                execution="invalid_output",
+                            )
                 except subprocess.TimeoutExpired:
                     stop_process(process)
                     stdout, stderr = process.communicate()
@@ -269,9 +282,17 @@ def execute(row, config, seconds, deadline, directory, number):
                         reason="record_deadline"
                         if seconds < remaining
                         else "collection_deadline",
+                        execution="timeout",
                     )
+                finally:
+                    # A successful parent can leave silent same-group descendants.
+                    # Clear the group before releasing this bounded worker slot.
+                    stop_process(process)
+                result["exit_code"] = process.returncode
             except OSError:
-                result.update(status="failed", reason="process_start")
+                result.update(
+                    status="failed", reason="process_start", execution="process_start"
+                )
         result["seconds"] = time.monotonic() - began
     result.update(stdout_sha256=digest(stdout), stderr_sha256=digest(stderr))
     stem = directory / f"job-{number:06d}"
