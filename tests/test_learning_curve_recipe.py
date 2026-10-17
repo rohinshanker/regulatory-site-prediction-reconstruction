@@ -648,3 +648,8 @@ def test_unselected_cache_inputs_do_not_change_diagnostics(panel, monkeypatch):
         result.pop("admitted_cache_sha256")
         result.pop("selection_report_sha256")
     assert before == after
+
+
+def test_huge_integer_is_not_a_finite_binary64_diagnostic_value():
+    assert not recipe._finite(10**400)
+    assert not recipe._finite(-(10**400))

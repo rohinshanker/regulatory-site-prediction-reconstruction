@@ -11,6 +11,7 @@ import hashlib
 import json
 import math
 import re
+import sys
 from pathlib import Path
 from statistics import median
 from typing import Any
@@ -36,7 +37,7 @@ def _finite(value: object) -> bool:
     return (
         isinstance(value, (int, float))
         and not isinstance(value, bool)
-        and -math.inf < value < math.inf
+        and -sys.float_info.max <= value <= sys.float_info.max
     )
 
 
