@@ -153,3 +153,55 @@ or private measurements. Optional comparator environments remain outside require
 runtime/package dependencies. No website jobs, coins or release actions belong to
 this experiment. A acknowledges this protocol before final candidate execution;
 review corrections must be visibly committed before any real-label join.
+
+## Executable collection and evaluation
+
+The input-only [collector](../../benchmarks/rbs/wave4_collect.py) takes a JSON
+receipt and a **new** private directory. The receipt schema is
+`rbs-wave4-receipt-1`: `evaluation_authorized: true`, nonempty `A_protocol` and
+`B_candidate` acknowledgement references, SHA256/path pairs for `protocol`,
+`inputs`, `split` and A's `candidate_receipt`, the exact `collector_sha256`,
+`primary` reference/contender/mode, optional admitted `new_backend`, the bounded
+`configurations` array and the acknowledged `software_resource_gates` boolean.
+The acknowledgement is a human coordination boundary; a string is not an
+authentication signature. B verifies it against A's immutable handoff.
+
+Each external configuration names `id`, `kind`, absolute executable/argument
+`command`, `cwd`, explicit allowed `environment` and SHA256/path `artifacts`.
+Mechanistic entries also name `profile` and `backend`. Freeze the executable,
+bridge, adapters, public runtime/model and backend/parameter identities as
+applicable; the collector checks all supplied pins before and after execution.
+Constant/GC controls need only `id` and `kind`. Each subprocess receives one
+canonical JSON request on stdin; its output must echo the exact ID and request
+SHA256 with a finite native score on success or null on failure. The
+[bridge](../../benchmarks/rbs/wave4_predict.py) calls public runtime interfaces
+and unchanged upstream adapters; it implements no scoring or learned features.
+Its raw upstream output stays in the private per-job stdout receipt.
+
+Collection creates its directory with0700 and every file exclusively with0600.
+It preserves raw stdout/stderr and normalized JSON for every scheduled job,
+including failures and unstarted jobs. A POSIX process-group kill applies the
+deadline to folding descendants. The sorted, rotated schedule, two-process cap,
+single numeric thread per process and global deadline are independent of labels.
+Collection cannot resume into or overwrite an existing directory. Changed
+artifacts or a global deadline mark it incomplete, precluding advancement.
+
+The [aggregate evaluator](../../benchmarks/rbs/wave4_evaluate.py) takes a manifest
+of SHA256/path pairs for `protocol`, `inputs`, `split`, `receipt`, `collection`
+and private `outcomes`. It checks roster/IDs, every request/configuration hash,
+per-job JSON and raw-output hashes **before** reading measurements. It uses only
+the ordinary `observed` field. Raw observations and per-record residuals never
+appear in its output. Source row/block/context denominators are enforced, and
+the report carries exact input/prediction/protocol/code identities.
+
+```sh
+python -m benchmarks.rbs.wave4_collect ACKNOWLEDGED_RECEIPT.json NEW_PRIVATE_DIRECTORY
+python -m benchmarks.rbs.wave4_evaluate HASH_LOCKED_EVALUATION_MANIFEST.json NEW_AGGREGATE.json
+```
+
+Synthetic tests exercise real subprocess exits, malformed output, deadlines,
+descendant termination, exclusive creation, private modes, artifact drift,
+pre-label rejection, missing measurements and full aggregate gates. Optional
+source environments are unnecessary for these offline tests. Existing manifest
+toy inputs separately verify all four public bridge paths; they do not consume
+the new experimental panel.
