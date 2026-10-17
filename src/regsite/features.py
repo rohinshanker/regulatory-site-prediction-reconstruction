@@ -111,6 +111,8 @@ def _energy_features(
     energies = site.get("energies")
     if not isinstance(energies, dict):
         raise FeatureError("prediction energy terms are missing")
+    if energies.get("units") != "kcal/mol":
+        raise FeatureError("prediction energy units must be kcal/mol")
     result = []
     for name in _ENERGY_NAMES:
         value = energies.get(name)

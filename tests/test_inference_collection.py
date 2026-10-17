@@ -201,6 +201,49 @@ def test_private_core_validation_also_rejects_nonfinite_feature_terms():
         inference._core(parent, RbsRequest.from_dict(request()))
 
 
+@pytest.mark.parametrize("change", ["units", "missing", "extra"])
+def test_closed_energy_admission_precedes_all_output(tmp_path, change):
+    files = Files(tmp_path, KIND)
+    files.data["records"].append(source_row("last"))
+    final = core(id="last")
+    energies = final["sites"][0]["energies"]
+    if change == "units":
+        energies["units"] = "kJ/mol"
+        for key in inference._ENERGY_NUMBERS:
+            energies[key] *= 4.184
+    elif change == "missing":
+        del energies["dG_start"]
+    else:
+        energies["observed"] = {"assay": 1}
+    files.cached["records"].append({"id": "last", "prediction": final})
+    files.output.write_text("existing output")
+    assert inference.main(files.argv()) == 2
+    assert files.output.read_text() == "existing output"
+
+
+@pytest.mark.parametrize(
+    "field", sorted(inference._ENERGY_NUMBERS | inference._ENERGY_NULLABLE)
+)
+@pytest.mark.parametrize("bad", [True, "0", 10**400])
+def test_all_energy_fields_are_finite_numbers(tmp_path, field, bad):
+    files = Files(tmp_path, KIND)
+    files.cached["records"][0]["prediction"]["sites"][0]["energies"][field] = bad
+    with pytest.raises(ValueError, match="energy"):
+        files.infer()
+
+
+def test_energy_contract_matches_shipped_schema():
+    from pathlib import Path
+
+    schema = json.loads(Path("schemas/rbs-result-1.1.schema.json").read_text())
+    contract = schema["$defs"]["energies"]
+    assert set(contract["required"]) == (
+        inference._ENERGY_NUMBERS | inference._ENERGY_NULLABLE | {"units"}
+    )
+    assert set(contract["properties"]) == set(contract["required"])
+    assert contract["properties"]["units"] == {"const": "kcal/mol"}
+
+
 @pytest.mark.parametrize("kind", ["sequence-v1", KIND])
 def test_all_unsupported_and_empty_collections(tmp_path, kind):
     files = Files(tmp_path, kind)

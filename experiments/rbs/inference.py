@@ -16,7 +16,7 @@ from pathlib import Path
 from typing import Any
 
 from regsite.contracts import RbsRequest
-from regsite.features import FeatureError, extract_features, feature_names
+from regsite.features import FeatureError, extract_features
 from regsite.learned import validate_model
 from regsite.learning import RidgeModel
 from regsite.provenance import canonical_hash, energy_signature
@@ -62,6 +62,19 @@ _SITE_FIELDS = {
     "coding_footprint",
     "post_footprint",
 }
+_ENERGY_NUMBERS = {
+    "dG_mRNA",
+    "dG_cofold_search",
+    "dG_search_with_spacing",
+    "dG_complex",
+    "dG_spacing",
+    "dG_start",
+    "dG_standby_signed",
+    "dG_accessible_complex",
+    "dG_total",
+    "dG_post_footprint",
+}
+_ENERGY_NULLABLE = {"dG_mRNA_native_prediction", "dG_cofold_native_prediction"}
 
 
 def _hex(value: object, length: int, label: str) -> None:
@@ -203,9 +216,17 @@ def _core(prediction: object, request: RbsRequest) -> dict[str, str]:
             or not isinstance(sites[0]["energies"], dict)
         ):
             raise ValueError("successful cache parent site/start mismatch")
-        # Validate successful feature terms even when input coverage is unsupported.
-        for name in feature_names(ENERGY_KIND)[len(feature_names("sequence-v1")) :]:
-            term = sites[0]["energies"].get(name)
+        # Admit the closed result-v1.1 energy contract, not only learned columns.
+        energies = sites[0]["energies"]
+        if (
+            energies.keys() != _ENERGY_NUMBERS | _ENERGY_NULLABLE | {"units"}
+            or energies["units"] != "kcal/mol"
+        ):
+            raise ValueError("cache energy contract requires closed kcal/mol fields")
+        for name in sorted(_ENERGY_NUMBERS | _ENERGY_NULLABLE):
+            term = energies[name]
+            if term is None and name in _ENERGY_NULLABLE:
+                continue
             if isinstance(term, bool) or not isinstance(term, (int, float)):
                 raise ValueError("successful cache energy features must be finite")
             try:

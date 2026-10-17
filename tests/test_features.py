@@ -49,9 +49,10 @@ def prediction_for(value):
                 "codon": value.oriented_sequence[
                     value.start_positions[0] : value.start_positions[0] + 3
                 ],
-                "energies": dict(
-                    zip(ENERGY_NAMES, (-8.25, -4, 0.5, -2, -1.2), strict=True)
-                ),
+                "energies": {
+                    **dict(zip(ENERGY_NAMES, (-8.25, -4, 0.5, -2, -1.2), strict=True)),
+                    "units": "kcal/mol",
+                },
             }
         ],
     }
@@ -525,8 +526,20 @@ def test_missing_term_is_never_replaced_with_zero(field):
 def test_explicit_zero_energy_is_valid():
     value = request()
     prediction = prediction_for(value)
-    prediction["sites"][0]["energies"] = dict.fromkeys(ENERGY_NAMES, 0)
+    prediction["sites"][0]["energies"] = {
+        **dict.fromkeys(ENERGY_NAMES, 0),
+        "units": "kcal/mol",
+    }
     assert extract_features(value, kind=ENERGY, prediction=prediction)[-5:] == (0,) * 5
+
+
+@pytest.mark.parametrize("units", [None, "kJ/mol", "", 1])
+def test_energy_features_require_canonical_units(units):
+    value = request()
+    prediction = prediction_for(value)
+    prediction["sites"][0]["energies"]["units"] = units
+    with pytest.raises(FeatureError, match="units must be kcal/mol"):
+        extract_features(value, kind=ENERGY, prediction=prediction)
 
 
 @pytest.mark.parametrize("coding_length", [3, 12, 13, 14])
