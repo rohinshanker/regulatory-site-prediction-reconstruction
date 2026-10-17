@@ -164,7 +164,10 @@ temperature must match, including failed parents. DNA/RNA spelling and source
 ID/host-label differences can be legitimate reuse: original IDs/hashes remain
 intact and host differences produce warnings. One consistent model/backend is
 required; a different digest from training remains explicitly warned. Invalid
-cache identity or successful energy terms reject admission before output.
+cache identity or energy terms reject admission before output. Each successful
+site requires the complete closed v1.1 energy object in `kcal/mol`; each
+unsuccessful site requires null energies, regardless of its parent's status.
+The shared feature extractor also rejects noncanonical declared energy units.
 
 The `rbs-learned-inference-collection-1` result retains every source row, exact
 pins, parent provenance, domain/constant-feature warnings and explicit failures.
