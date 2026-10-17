@@ -100,6 +100,8 @@ def main(argv=None):
     parser.add_argument("--parent-sha256", required=True)
     parser.add_argument("--parent-predictions", type=Path)
     parser.add_argument("--new-predictions", type=Path)
+    parser.add_argument("--parent-prediction-sha256")
+    parser.add_argument("--new-prediction-sha256")
     args = parser.parse_args(argv)
     target_raw, parent_raw = args.targets.read_bytes(), args.parents.read_bytes()
     if (
@@ -119,16 +121,37 @@ def main(argv=None):
         "parent_sha256": digest(parent_raw),
     }
     if args.operation == "prepare":
-        if args.parent_predictions is not None or args.new_predictions is not None:
+        if any(
+            value is not None
+            for value in (
+                args.parent_predictions,
+                args.new_predictions,
+                args.parent_prediction_sha256,
+                args.new_prediction_sha256,
+            )
+        ):
             parser.error("prepare does not accept predictions")
         write_json(args.output, prepared)
         return
-    if args.parent_predictions is None or args.new_predictions is None:
-        parser.error("combine requires both prediction files")
+    if any(
+        value is None
+        for value in (
+            args.parent_predictions,
+            args.new_predictions,
+            args.parent_prediction_sha256,
+            args.new_prediction_sha256,
+        )
+    ):
+        parser.error("combine requires both prediction files and frozen SHA-256 pins")
     old_raw, new_raw = (
         args.parent_predictions.read_bytes(),
         args.new_predictions.read_bytes(),
     )
+    if (
+        digest(old_raw) != args.parent_prediction_sha256
+        or digest(new_raw) != args.new_prediction_sha256
+    ):
+        raise ValueError("Frozen upstream prediction hash mismatch")
     old, fresh = json.loads(old_raw), json.loads(new_raw)
     prepared_raw = (
         json.dumps(prepared, indent=2, ensure_ascii=False, allow_nan=False) + "\n"

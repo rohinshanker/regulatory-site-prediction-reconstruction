@@ -118,6 +118,10 @@ class ContextReuseTests(unittest.TestCase):
                 str(paths["old"]),
                 "--new-predictions",
                 str(paths["new"]),
+                "--parent-prediction-sha256",
+                digest(paths["old"].read_bytes()),
+                "--new-prediction-sha256",
+                digest(paths["new"].read_bytes()),
             ]
             with (
                 patch.object(sys, "argv", ["context_reuse", *combine]),
@@ -125,6 +129,13 @@ class ContextReuseTests(unittest.TestCase):
             ):
                 runpy.run_module("benchmarks.rbs.context_reuse", run_name="__main__")
             self.assertEqual(len(json.loads(paths["output"].read_text())["records"]), 3)
+            for name, value in (("old", old), ("new", new)):
+                changed = deepcopy(value)
+                changed["records"][-1]["predicted"] = 1024
+                write_json(paths[name], changed)
+                with self.assertRaisesRegex(ValueError, "prediction hash mismatch"):
+                    context_reuse.main(combine)
+                write_json(paths[name], value)
             for key in (
                 "input_sha256",
                 "model",
@@ -134,12 +145,15 @@ class ContextReuseTests(unittest.TestCase):
                 changed = deepcopy(new)
                 changed[key] = "wrong"
                 write_json(paths["new"], changed)
+                combine[-1] = digest(paths["new"].read_bytes())
                 with self.assertRaises(ValueError):
                     context_reuse.main(combine)
             write_json(paths["new"], new)
+            combine[-1] = digest(paths["new"].read_bytes())
             changed = deepcopy(old)
             changed["input_sha256"] = "wrong"
             write_json(paths["old"], changed)
+            combine[-3] = digest(paths["old"].read_bytes())
             with self.assertRaises(ValueError):
                 context_reuse.main(combine)
             for index in (4, 6):
