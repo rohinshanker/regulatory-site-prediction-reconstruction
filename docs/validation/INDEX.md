@@ -22,3 +22,5 @@ Verification dates cover the stated source observations or specification review;
 | rbs-native-runtime | Portable context extraction, explicit missingness, genomic/GFF3 conversion and resource bounds. | 2026-10-17 | [rbs-native-runtime.md](rbs-native-runtime.md) |
 | rbs-learning-runtime | Frozen interpretable features, grouped development fitting, strict artifacts and local learned inference. | 2026-10-17 | [rbs-learning-runtime.md](rbs-learning-runtime.md) |
 | rbs-native-data-card | Pinned native TE admission, frozen homology-aware splits and permitted development release. | 2026-10-17 | [rbs-native-data-card.md](rbs-native-data-card.md) |
+| rbs-positional-evidence | Source-tiered TIS labels, stop-bounded candidate universe and conditional ranking metrics. | 2026-10-17 | [rbs-positional-evidence.md](rbs-positional-evidence.md) |
+| rbs-upstream-comparators | Pinned upstream inference, native output semantics and independent comparison runners. | 2026-10-17 | [rbs-upstream-comparators.md](rbs-upstream-comparators.md) |
