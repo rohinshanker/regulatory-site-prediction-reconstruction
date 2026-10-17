@@ -408,9 +408,9 @@ def write_new_outputs(outputs):
     Filesystem exclusivity also detects case/Unicode aliases and dangling
     symlinks that lexical path comparison cannot reliably identify.
     """
-    with ExitStack() as stack:
-        created = []
-        try:
+    created = []
+    try:
+        with ExitStack() as stack:
             for path, value in outputs:
                 path.parent.mkdir(parents=True, exist_ok=True)
                 stream = stack.enter_context(path.open("x", encoding="utf-8"))
@@ -418,11 +418,10 @@ def write_new_outputs(outputs):
             for _, stream, value in created:
                 json.dump(value, stream, indent=2, ensure_ascii=False, allow_nan=False)
                 stream.write("\n")
-        except BaseException:
-            stack.close()
-            for path, _, _ in created:
-                path.unlink()
-            raise
+    except BaseException:
+        for path, _, _ in created:
+            path.unlink()
+        raise
 
 
 def main(argv=None):
