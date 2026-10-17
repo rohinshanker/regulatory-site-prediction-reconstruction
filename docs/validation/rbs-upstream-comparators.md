@@ -94,6 +94,31 @@ contrast. Entire-source inference retained all 2,530 rows: OSTIR scored 2,499,
 rebeca 2,503; unresolved input rows remain unsupported. The primary admission
 set and every failure are assessed separately from this full-source denominator.
 
+The subsequently agreed affine controls change that provisional reference choice.
+`karlsen2018-control-development.json` records all 479 validation cases and the
+449 common successes with original historical. Training-only historical affine
+uses slope 0.008532512795122694/intercept 0.8488194872841746 (1,418 training pairs);
+OSTIR affine uses 0.037857388829594524/0.6021817500748811 (1,463 pairs). No final
+measurement enters either fit.
+
+| Control | Validation success / 479 | All-success MAE log2 | MAE on historical's 449 successes | Reference coverage eligible |
+| --- | ---: | ---: | ---: | --- |
+| Historical, intercept only | 449 | 5.245763 | 5.245763 | No: below 95% |
+| Historical, affine | 449 | 0.950214 | 0.950214 | No: below 95% |
+| Training-median constant | 479 | 0.966571 | 0.957629 | Yes |
+| OSTIR, intercept only | 479 | 2.917893 | 2.902905 | Yes |
+| OSTIR, affine | 479 | 0.953219 | 0.943610 | Yes |
+| rebeca, intercept only | 479 | 3.566328 | 3.604077 | Yes |
+
+All listed controls retain every original-historical-valid case. The original
+historical and footprint profiles nevertheless score only 93.74% of validation
+cases; affine transformation cannot repair their missing predictions. Thus the
+pre-final selected eligible simple reference is the **training-median constant**,
+and the eligible upstream reference is **OSTIR affine**. Historical's slightly
+smaller conditional affine MAE cannot win by excluding the other 30 cases.
+Most of the raw-scale error reduction is compression; OSTIR's rank correlation
+is unchanged. Native champion selection and final evaluation remain separate.
+
 ## Reproduction
 
 Use isolated environments satisfying the exact versions and component terms;
@@ -152,6 +177,19 @@ hashes fail before evaluation. This is a reproducibility boundary, not an
 adversarial access-control mechanism: the independent owner retains final labels,
 records the agreed roster freeze and does not rerun selection after final results.
 Native TE scale calibration does not convert a proxy into an absolute rate.
+
+`benchmarks.rbs.prediction_io` normalizes the runtime's public native-result
+envelope, checking exact input/result hashes, complete row identity, supplied-start
+mode, source evidence, oriented sequence, aSD, temperature and selected site.
+The wrapper's unsuccessful status remains a failure even if a nested value exists;
+successful records require one positive finite score at the exact declared start.
+No runtime scoring code is read or imported by this adapter. Validation reports
+include all/common success counts, historical-valid cases dropped, common-case
+errors and explicit coverage eligibility **before** reference selection.
+
+```sh
+python -m benchmarks.rbs.prediction_io "$INPUTS" "$NATIVE_RESULTS" "$PRIVATE/normalized.json" --input-sha256 "$INPUT_SHA256" --prediction-sha256 "$RESULT_SHA256"
+```
 
 Before final outcomes, A/B agreed on two additional fixed affine controls and six
 learning-curve fits, bringing the total budget to **24 fits/seven named model or
