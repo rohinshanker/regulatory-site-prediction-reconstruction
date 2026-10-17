@@ -53,6 +53,7 @@ BASE_WARNINGS = [
 MAX_JOINT_STATES = 4096
 JOINT_PARAMETERS = {
     "objective": "minimum complete initiation energy over eligible returned candidates",
+    "energy_summation": "math.fsum(complex, spacing, start, -unbound, standby)",
     "tie_rule": "complete energy, original backend enumeration index",
     "candidate_deduplication": "none; each returned traceback retains its index",
     "maximum_bound_state_attempts_per_site": MAX_JOINT_STATES,
@@ -208,14 +209,13 @@ def _joint_selection(
             state = _bound_state(
                 window, leader, request.anti_sd, binding, folding, profile, evaluate
             )
-            total = total_energy(
-                cast(float, state.before.energy) + penalty,
+            total = _joint_total_energy(
+                cast(float, state.before.energy),
+                penalty,
                 START_ENERGIES[codon],
                 cast(float, unbound.energy),
                 state.standby_signed,
             )
-            if not math.isfinite(total):
-                raise BackendError("nonfinite joint candidate total energy")
             row.update(
                 status="ok",
                 total_energy=total,
@@ -249,6 +249,23 @@ def _joint_selection(
         greedy_total_energy=greedy[0],
     )
     return selected[2], selected[3]
+
+
+def _joint_total_energy(
+    complex_energy: float,
+    spacing: float,
+    start: float,
+    unbound: float,
+    standby_signed: float,
+) -> float:
+    """Sum the five signed terms without order-dependent intermediate rounding."""
+    try:
+        result = math.fsum((complex_energy, spacing, start, -unbound, -standby_signed))
+    except (OverflowError, ValueError) as exc:
+        raise BackendError("nonfinite joint candidate total energy") from exc
+    if not math.isfinite(result):
+        raise BackendError("nonfinite joint candidate total energy")
+    return result
 
 
 def spacing_energy(aligned_spacing: int) -> float:
@@ -494,11 +511,21 @@ def _score_site(request: RbsRequest, start: int, folding, profile: Profile) -> d
         suffix, suffix_start = bound.suffix, bound.suffix_start
         standby, standby_signed = bound.standby, bound.standby_signed
         standby_start = max(0, first - 4)
-        total = total_energy(
-            cast(float, before.energy) + penalty,
-            START_ENERGIES[codon],
-            unbound.energy,
-            standby_signed,
+        total = (
+            _joint_total_energy(
+                cast(float, before.energy),
+                penalty,
+                START_ENERGIES[codon],
+                unbound.energy,
+                standby_signed,
+            )
+            if profile.joint
+            else total_energy(
+                cast(float, before.energy) + penalty,
+                START_ENERGIES[codon],
+                unbound.energy,
+                standby_signed,
+            )
         )
         rate = initiation_rate(total)
         warnings = []

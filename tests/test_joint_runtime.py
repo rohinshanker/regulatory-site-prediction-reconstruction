@@ -150,6 +150,13 @@ def test_single_candidate_matches_complete_standby(backend_factory, request_fact
         previous.candidates = previous.candidates[:1]
     old = predict(request_factory(), previous, profile="standby2014")["sites"][0]
     search = joint.pop("joint_search")
+    # The new five-term compensated sum may differ in the last binary digits;
+    # all structural choices and individual energy terms remain exactly equal.
+    for key in ("tir", "log_tir"):
+        assert joint.pop(key) == pytest.approx(old.pop(key), rel=1e-12)
+    assert joint["energies"].pop("dG_total") == pytest.approx(
+        old["energies"].pop("dG_total"), abs=1e-12
+    )
     assert joint == old
     assert search["selected_index"] == search["greedy_index"] == 0
     assert search["states_evaluated"] == old["standby"]["evaluated_states"]
@@ -483,3 +490,21 @@ def test_real_candidates_share_whole_record_deadline(real_backend, monkeypatch):
     assert search["candidates"][1]["state_attempts"] == 0
     assert search["selected_index"] is search["greedy_total_energy"] is None
     assert site["tir"] is site["structures"] is None
+
+
+@pytest.mark.parametrize(
+    "terms", [(1e308, 1e308, 0, 0, 0), (math.inf, -math.inf, 0, 0, 0)]
+)
+def test_compensated_sum_failure_is_explicit(terms):
+    with pytest.raises(BackendError, match="nonfinite joint candidate total energy"):
+        rbs._joint_total_energy(*terms)
+
+
+def test_independent_decimal_tie_survives_intermediate_rounding():
+    # B's unmodified fixture at2e252bf supplies these terms. Ordinary chained
+    # addition orders the mathematical tie differently by about1e-15.
+    a = rbs._joint_total_energy(-9, 2.5, -1.194, -4, -0.5)
+    b = rbs._joint_total_energy(-10, 0, -1.194, -4, -4)
+    assert a == b == -3.194
+    # A representable unequal total is not rounded into the same tie bin.
+    assert rbs._joint_total_energy(math.nextafter(-10, math.inf), 0, -1.194, -4, -4) > b

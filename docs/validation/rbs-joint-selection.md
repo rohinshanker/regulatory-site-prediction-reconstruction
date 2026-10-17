@@ -23,9 +23,12 @@ standby2014. Enumerate eligible candidates in original backend order. For each:
 2. Assemble and evaluate the full complex with the candidate's intermolecular
    pairs, prefix and suffix. Do not substitute its preliminary cofold energy.
 3. Evaluate the complete existing standby opening search for this complex.
-4. Calculate `total = (complex + spacing) + start - unbound + standby`, using
-   the existing signed-term arithmetic order internally. Complex is the original
-   assembled state; the changed energy is not added a second time.
+4. Calculate `total = complex + spacing + start - unbound + standby`, using
+   `math.fsum` over the five signed terms. Complex is the original assembled
+   state; the changed energy is not added a second time. Compensated summation
+   avoids spurious ordering from intermediate-addition rounding. No tolerance
+   bin or energy rounding is used in candidate selection. Earlier profiles keep
+   their original arithmetic; singleton totals can differ in the last binary digits.
 
 Select by (complete total energy, original enumeration index). The module/state
 tie policy inside each candidate is unchanged. The greedy counterfactual uses

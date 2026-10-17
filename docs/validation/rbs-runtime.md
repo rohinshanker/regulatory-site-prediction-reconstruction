@@ -219,7 +219,9 @@ real single/batch execution. CI runs the gates and fresh-wheel examples on all
 four Python/platform combinations; its actual run status is authoritative.
 
 Limits: 10,000 normalized bases, 1,000 selected starts, 100 batch records,
-2,000,000 input/output text characters. The historical profile handles at most 70 mRNA bases; refined context permits
+2,000,000 input or individual backend-output text characters. Prediction JSON can
+be larger because it preserves all requested sites and their diagnostics. The
+historical profile handles at most 70 mRNA bases; refined context permits
 200 mRNA bases plus 3 linker/9 aSD positions, ≤100 structures and one thread. Process
 wall-time is capped at 15 s and total folding time at 60 s per record by default,
 configurable up to 120 s. Input-size/window caps bound computational memory;
