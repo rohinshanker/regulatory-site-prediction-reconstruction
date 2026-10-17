@@ -5,7 +5,7 @@
 - Opened: 2026-10-17
 - Updated: 2026-10-17
 - Current State: Started from integrated 0a9fbd03326afc1baa918e85eb2dd7709f666b63 on wave3/b-evidence. Fourteen-case structural panel and two exhaustive tiny oracles completed; source checks for new RBS data and Promoter proceed independently.
-- Verification: Baseline/ownership/worktree and current GitHub state inspected; 9 structural tests, 100% statements/branches (185/88), direct pinned-backend collection, 679 source/header byte comparisons pass; wider deliverables pending.
+- Verification: Baseline/ownership/worktree and current GitHub state inspected; 10 structural tests, 100% statements/branches (198/96), plus analytic source fixtures, direct pinned-backend collection, 679 source/header byte comparisons pass; wider deliverables pending.
 - Cleanup: Distill reproducible evidence/contracts, record final checks, resolve and remove this ticket and row; keep broad suite tickets open.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/23
 - Owner: Session B (9677689a-1792176763); A retains runtime and integration.

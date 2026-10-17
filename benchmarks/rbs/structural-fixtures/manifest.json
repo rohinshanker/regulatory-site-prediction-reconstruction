@@ -79,7 +79,7 @@
     "baseline/nonreciprocal-native/s1.fa": "5ef8aa8cdfa3c344a58c2faf89cb2092fa28dffd4deb56da4e7cbf1421bc6de9",
     "baseline/nonreciprocal-native/stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     "baseline/nonreciprocal-native/stdout.txt": "6620f39ad662a4141e5f09516cb80af9302557002d4353f146f048bd76e3a08c",
-    "baseline/observations.json": "36ffbdf9de82d41820f2424ab7066486892f579a998f662af94dee60f195595a",
+    "baseline/observations.json": "93cb14b5d906b86aecbd564acf7c0346ee4a8f5f38dbc80a6b1c2865555423cf",
     "baseline/sd-cyano/checked.ct": "86543a813b4bda603fc7822f5981681667695c247e97290b02e6659f92763f2b",
     "baseline/sd-cyano/efn2-stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     "baseline/sd-cyano/efn2-stdout.txt": "d3bda45c2ccaff377676bc071f8cd707359b0a9a717ca3e5bad6ea80db5ec9ec",
@@ -147,5 +147,5 @@
       "topologies_within_3": 5
     }
   ],
-  "rights": "Generated scientific observations and original synthetic sequences GPL-3.0-or-later. Native diagnostic sequence attribution/CC-BY-4.0 in structural-panel.json. No RNAstructure implementation or energy tables vendored."
+  "rights": "Generated observations and original synthetic sequences GPL-3.0-or-later. Native sequences originate from pinned NCBI FASTA/GFF; Karlsen CC-BY-4.0 study selection attribution is separate. See corrected structural-panel.json. No RNAstructure code or energy tables vendored."
 }

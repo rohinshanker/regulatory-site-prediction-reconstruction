@@ -1,6 +1,6 @@
 {
   "schema_version": "rbs-structural-observations-1",
-  "manifest_sha256": "8b4b5e1b15048209df909020e2f148aad826865bced08dc0aafaf12a14a38ca6",
+  "manifest_sha256": "b8eb7835be96d83a81f21b6c1bb5ca4d94c524584b49ef585edc26f75b938782",
   "binaries": {
     "Fold": "803a5322799779df276282601a393b3d31ea35fffc4359f6d609134643ade0f6",
     "bifold": "2fdd2fa46ab54924fd630225cf53c35a8e78aee836fd164972bd572b9d867385",
@@ -3621,5 +3621,7 @@
         "stdout.txt": "82003a57a9cd7a39b67744cadf5779172a17a8bedac4036285861904b278c194"
       }
     }
-  ]
+  ],
+  "original_manifest_sha256": "8b4b5e1b15048209df909020e2f148aad826865bced08dc0aafaf12a14a38ca6",
+  "manifest_correction": "Provenance metadata only; scientific inputs/settings and raw output files unchanged."
 }
