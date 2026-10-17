@@ -1,0 +1,107 @@
+{
+  "budget_usd": {
+    "both_stages_with_contingency": [
+      66720,
+      118320
+    ],
+    "confirmatory": {
+      "subtotal_allowance": [
+        45500,
+        80500
+      ],
+      "synthesis": 10500,
+      "with_20_percent_contingency": [
+        54600,
+        96600
+      ]
+    },
+    "pilot": {
+      "subtotal_allowance": [
+        10100,
+        18100
+      ],
+      "synthesis": 2100,
+      "with_20_percent_contingency": [
+        12120,
+        21720
+      ]
+    }
+  },
+  "confirmatory": {
+    "cds_contexts": 6,
+    "contexts_per_leader": 2,
+    "control_constructs": 12,
+    "independent_cultures_per_construct": 3,
+    "new_leader_families": 144,
+    "pilot_families_reused": false,
+    "test_constructs": 288,
+    "total_constructs": 300,
+    "total_cultures": 900
+  },
+  "nonvendor_allowances": {
+    "assembly_and_sequence_qc_per_construct": [
+      40,
+      80
+    ],
+    "confirmatory_shared_setup_instrument_allowance": [
+      5000,
+      10000
+    ],
+    "contingency_fraction": 0.2,
+    "culture_matched_RNA_protein_consumables_per_culture": [
+      20,
+      40
+    ],
+    "labour_shipping_tax_and_capital_instruments_included": false,
+    "pilot_shared_setup_instrument_allowance": [
+      2000,
+      4000
+    ]
+  },
+  "pilot": {
+    "cds_contexts": 6,
+    "contexts_per_leader": 2,
+    "control_constructs": 12,
+    "independent_cultures_per_construct": 3,
+    "new_leader_families": 24,
+    "test_constructs": 48,
+    "total_constructs": 60,
+    "total_cultures": 180
+  },
+  "power": {
+    "critical_z": 2.2414027276049464,
+    "individual_confidence": 0.975,
+    "limitation": "normal approximation conditional on six fixed CDS contexts; assumed SD not measured; biological days and shared reporter effects may reduce effective n; practical-gain gate power is not this significance power",
+    "scenarios": [
+      {
+        "assumed_effect_log2": 0.2,
+        "family_difference_sd_log2": 0.5,
+        "minimum_families_normal_approx": 60,
+        "power_target": 0.8
+      },
+      {
+        "assumed_effect_log2": 0.2,
+        "family_difference_sd_log2": 0.75,
+        "minimum_families_normal_approx": 134,
+        "power_target": 0.8
+      },
+      {
+        "assumed_effect_log2": 0.2,
+        "family_difference_sd_log2": 1.0,
+        "minimum_families_normal_approx": 238,
+        "power_target": 0.8
+      }
+    ],
+    "two_confirmatory_comparisons": true
+  },
+  "schema_version": "utex-prospective-plan-1",
+  "status": "proposal only; no order, wet-lab work or contacts authorized/executed",
+  "synthesis_basis": {
+    "catalog_price_300_to_500_bp_fragment": 35,
+    "not_a_quote": true,
+    "page_sha256": "21c40f8c5d00b25795d56794eb2d22931da861cd18eabddd97709bd2bec592ad",
+    "retrieved_utc": "2026-10-17",
+    "source_bytes_redistributed": false,
+    "url": "https://www.twistbioscience.com/products/genes?tab=overview"
+  }
+}

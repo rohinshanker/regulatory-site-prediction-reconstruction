@@ -1,0 +1,1774 @@
+{
+  "manifest_sha256": "190f12828ce24a57801f9e1d721ea23ebcb4e3adfb20336ab24eec815d8a84cc",
+  "n_source_annotated_queries": 165,
+  "source_evidence_admission": {
+    "plain_source": 92,
+    "plain_sequence_frame_verified": 91,
+    "weak_secondary": 8,
+    "unlabelled_source": 65,
+    "plain_not_sequence_frame_verified": 1
+  },
+  "evaluator_sha256": "bbc2b299bd5d32e1169e76889b917d061af335035cb430fbcace85b9534693fa",
+  "models": {
+    "sequence_v1": {
+      "primary_plain": {
+        "n_queries": 165,
+        "n_positive": 91,
+        "n_unlabelled": 66,
+        "n_excluded_evidence_tier": 8,
+        "source_evidence_tier": "plain",
+        "counts": {
+          "unlabelled": 66,
+          "positive": 91,
+          "truth_in_universe": 91,
+          "query_with_any_score": 91,
+          "all_candidates_scored": 91,
+          "positive_scored": 91,
+          "top1_exact": 68,
+          "top1_tolerant": 68,
+          "top1_uniform_tie_expected": 68.0,
+          "excluded_evidence_tier": 8
+        },
+        "tolerance_nt": 3,
+        "candidate_count_range": [
+          1,
+          17
+        ],
+        "mrr_worst_tie_all_positive": 0.8514652014652014,
+        "precision": null,
+        "pr_auc": null,
+        "scope": "conditional supplied-stop start selection; no genome-wide discovery or negative labels",
+        "truth_in_universe_fraction": 1.0,
+        "query_with_any_score_fraction": 1.0,
+        "all_candidates_scored_fraction": 1.0,
+        "positive_scored_fraction": 1.0,
+        "top1_exact_fraction": 0.7472527472527473,
+        "top1_tolerant_fraction": 0.7472527472527473,
+        "top1_uniform_tie_expected_fraction": 0.7472527472527473
+      },
+      "secondary_weak": {
+        "n_queries": 165,
+        "n_positive": 8,
+        "n_unlabelled": 66,
+        "n_excluded_evidence_tier": 91,
+        "source_evidence_tier": "weak",
+        "counts": {
+          "unlabelled": 66,
+          "excluded_evidence_tier": 91,
+          "positive": 8,
+          "truth_in_universe": 8,
+          "query_with_any_score": 8,
+          "all_candidates_scored": 8,
+          "positive_scored": 8,
+          "top1_exact": 5,
+          "top1_tolerant": 5,
+          "top1_uniform_tie_expected": 5.0
+        },
+        "tolerance_nt": 3,
+        "candidate_count_range": [
+          5,
+          12
+        ],
+        "mrr_worst_tie_all_positive": 0.8125,
+        "precision": null,
+        "pr_auc": null,
+        "scope": "conditional supplied-stop start selection; no genome-wide discovery or negative labels",
+        "truth_in_universe_fraction": 1.0,
+        "query_with_any_score_fraction": 1.0,
+        "all_candidates_scored_fraction": 1.0,
+        "positive_scored_fraction": 1.0,
+        "top1_exact_fraction": 0.625,
+        "top1_tolerant_fraction": 0.625,
+        "top1_uniform_tie_expected_fraction": 0.625
+      }
+    },
+    "hybrid": {
+      "primary_plain": {
+        "n_queries": 165,
+        "n_positive": 91,
+        "n_unlabelled": 66,
+        "n_excluded_evidence_tier": 8,
+        "source_evidence_tier": "plain",
+        "counts": {
+          "unlabelled": 66,
+          "positive": 91,
+          "truth_in_universe": 91,
+          "query_with_any_score": 91,
+          "all_candidates_scored": 48,
+          "positive_scored": 87,
+          "top1_exact": 28,
+          "top1_tolerant": 28,
+          "top1_uniform_tie_expected": 28.0,
+          "excluded_evidence_tier": 8
+        },
+        "tolerance_nt": 3,
+        "candidate_count_range": [
+          1,
+          17
+        ],
+        "mrr_worst_tie_all_positive": 0.39487179487179486,
+        "precision": null,
+        "pr_auc": null,
+        "scope": "conditional supplied-stop start selection; no genome-wide discovery or negative labels",
+        "truth_in_universe_fraction": 1.0,
+        "query_with_any_score_fraction": 1.0,
+        "all_candidates_scored_fraction": 0.5274725274725275,
+        "positive_scored_fraction": 0.9560439560439561,
+        "top1_exact_fraction": 0.3076923076923077,
+        "top1_tolerant_fraction": 0.3076923076923077,
+        "top1_uniform_tie_expected_fraction": 0.3076923076923077
+      },
+      "secondary_weak": {
+        "n_queries": 165,
+        "n_positive": 8,
+        "n_unlabelled": 66,
+        "n_excluded_evidence_tier": 91,
+        "source_evidence_tier": "weak",
+        "counts": {
+          "unlabelled": 66,
+          "excluded_evidence_tier": 91,
+          "positive": 8,
+          "truth_in_universe": 8,
+          "query_with_any_score": 8,
+          "all_candidates_scored": 3,
+          "positive_scored": 8,
+          "top1_exact": 2,
+          "top1_tolerant": 2,
+          "top1_uniform_tie_expected": 2.0
+        },
+        "tolerance_nt": 3,
+        "candidate_count_range": [
+          5,
+          12
+        ],
+        "mrr_worst_tie_all_positive": 0.2916666666666667,
+        "precision": null,
+        "pr_auc": null,
+        "scope": "conditional supplied-stop start selection; no genome-wide discovery or negative labels",
+        "truth_in_universe_fraction": 1.0,
+        "query_with_any_score_fraction": 1.0,
+        "all_candidates_scored_fraction": 0.375,
+        "positive_scored_fraction": 1.0,
+        "top1_exact_fraction": 0.25,
+        "top1_tolerant_fraction": 0.25,
+        "top1_uniform_tie_expected_fraction": 0.25
+      }
+    },
+    "historical": {
+      "primary_plain": {
+        "n_queries": 165,
+        "n_positive": 91,
+        "n_unlabelled": 66,
+        "n_excluded_evidence_tier": 8,
+        "source_evidence_tier": "plain",
+        "counts": {
+          "unlabelled": 66,
+          "positive": 91,
+          "truth_in_universe": 91,
+          "query_with_any_score": 91,
+          "all_candidates_scored": 87,
+          "positive_scored": 89,
+          "top1_exact": 54,
+          "top1_tolerant": 55,
+          "top1_uniform_tie_expected": 54.0,
+          "excluded_evidence_tier": 8
+        },
+        "tolerance_nt": 3,
+        "candidate_count_range": [
+          1,
+          17
+        ],
+        "mrr_worst_tie_all_positive": 0.7077184720041862,
+        "precision": null,
+        "pr_auc": null,
+        "scope": "conditional supplied-stop start selection; no genome-wide discovery or negative labels",
+        "truth_in_universe_fraction": 1.0,
+        "query_with_any_score_fraction": 1.0,
+        "all_candidates_scored_fraction": 0.9560439560439561,
+        "positive_scored_fraction": 0.978021978021978,
+        "top1_exact_fraction": 0.5934065934065934,
+        "top1_tolerant_fraction": 0.6043956043956044,
+        "top1_uniform_tie_expected_fraction": 0.5934065934065934
+      },
+      "secondary_weak": {
+        "n_queries": 165,
+        "n_positive": 8,
+        "n_unlabelled": 66,
+        "n_excluded_evidence_tier": 91,
+        "source_evidence_tier": "weak",
+        "counts": {
+          "unlabelled": 66,
+          "excluded_evidence_tier": 91,
+          "positive": 8,
+          "truth_in_universe": 8,
+          "query_with_any_score": 8,
+          "all_candidates_scored": 8,
+          "positive_scored": 8,
+          "top1_exact": 4,
+          "top1_tolerant": 4,
+          "top1_uniform_tie_expected": 4.0
+        },
+        "tolerance_nt": 3,
+        "candidate_count_range": [
+          5,
+          12
+        ],
+        "mrr_worst_tie_all_positive": 0.6303571428571428,
+        "precision": null,
+        "pr_auc": null,
+        "scope": "conditional supplied-stop start selection; no genome-wide discovery or negative labels",
+        "truth_in_universe_fraction": 1.0,
+        "query_with_any_score_fraction": 1.0,
+        "all_candidates_scored_fraction": 1.0,
+        "positive_scored_fraction": 1.0,
+        "top1_exact_fraction": 0.5,
+        "top1_tolerant_fraction": 0.5,
+        "top1_uniform_tie_expected_fraction": 0.5
+      }
+    },
+    "footprint2017": {
+      "primary_plain": {
+        "n_queries": 165,
+        "n_positive": 91,
+        "n_unlabelled": 66,
+        "n_excluded_evidence_tier": 8,
+        "source_evidence_tier": "plain",
+        "counts": {
+          "unlabelled": 66,
+          "positive": 91,
+          "truth_in_universe": 91,
+          "query_with_any_score": 91,
+          "all_candidates_scored": 87,
+          "positive_scored": 89,
+          "top1_exact": 56,
+          "top1_tolerant": 56,
+          "top1_uniform_tie_expected": 56.0,
+          "excluded_evidence_tier": 8
+        },
+        "tolerance_nt": 3,
+        "candidate_count_range": [
+          1,
+          17
+        ],
+        "mrr_worst_tie_all_positive": 0.7176085818942962,
+        "precision": null,
+        "pr_auc": null,
+        "scope": "conditional supplied-stop start selection; no genome-wide discovery or negative labels",
+        "truth_in_universe_fraction": 1.0,
+        "query_with_any_score_fraction": 1.0,
+        "all_candidates_scored_fraction": 0.9560439560439561,
+        "positive_scored_fraction": 0.978021978021978,
+        "top1_exact_fraction": 0.6153846153846154,
+        "top1_tolerant_fraction": 0.6153846153846154,
+        "top1_uniform_tie_expected_fraction": 0.6153846153846154
+      },
+      "secondary_weak": {
+        "n_queries": 165,
+        "n_positive": 8,
+        "n_unlabelled": 66,
+        "n_excluded_evidence_tier": 91,
+        "source_evidence_tier": "weak",
+        "counts": {
+          "unlabelled": 66,
+          "excluded_evidence_tier": 91,
+          "positive": 8,
+          "truth_in_universe": 8,
+          "query_with_any_score": 8,
+          "all_candidates_scored": 8,
+          "positive_scored": 8,
+          "top1_exact": 3,
+          "top1_tolerant": 3,
+          "top1_uniform_tie_expected": 3.0
+        },
+        "tolerance_nt": 3,
+        "candidate_count_range": [
+          5,
+          12
+        ],
+        "mrr_worst_tie_all_positive": 0.5741071428571428,
+        "precision": null,
+        "pr_auc": null,
+        "scope": "conditional supplied-stop start selection; no genome-wide discovery or negative labels",
+        "truth_in_universe_fraction": 1.0,
+        "query_with_any_score_fraction": 1.0,
+        "all_candidates_scored_fraction": 1.0,
+        "positive_scored_fraction": 1.0,
+        "top1_exact_fraction": 0.375,
+        "top1_tolerant_fraction": 0.375,
+        "top1_uniform_tie_expected_fraction": 0.375
+      }
+    },
+    "context2017": {
+      "primary_plain": {
+        "n_queries": 165,
+        "n_positive": 91,
+        "n_unlabelled": 66,
+        "n_excluded_evidence_tier": 8,
+        "source_evidence_tier": "plain",
+        "counts": {
+          "unlabelled": 66,
+          "positive": 91,
+          "truth_in_universe": 91,
+          "query_with_any_score": 91,
+          "all_candidates_scored": 48,
+          "positive_scored": 87,
+          "top1_exact": 31,
+          "top1_tolerant": 31,
+          "top1_uniform_tie_expected": 31.0,
+          "excluded_evidence_tier": 8
+        },
+        "tolerance_nt": 3,
+        "candidate_count_range": [
+          1,
+          17
+        ],
+        "mrr_worst_tie_all_positive": 0.39587912087912086,
+        "precision": null,
+        "pr_auc": null,
+        "scope": "conditional supplied-stop start selection; no genome-wide discovery or negative labels",
+        "truth_in_universe_fraction": 1.0,
+        "query_with_any_score_fraction": 1.0,
+        "all_candidates_scored_fraction": 0.5274725274725275,
+        "positive_scored_fraction": 0.9560439560439561,
+        "top1_exact_fraction": 0.34065934065934067,
+        "top1_tolerant_fraction": 0.34065934065934067,
+        "top1_uniform_tie_expected_fraction": 0.34065934065934067
+      },
+      "secondary_weak": {
+        "n_queries": 165,
+        "n_positive": 8,
+        "n_unlabelled": 66,
+        "n_excluded_evidence_tier": 91,
+        "source_evidence_tier": "weak",
+        "counts": {
+          "unlabelled": 66,
+          "excluded_evidence_tier": 91,
+          "positive": 8,
+          "truth_in_universe": 8,
+          "query_with_any_score": 8,
+          "all_candidates_scored": 3,
+          "positive_scored": 8,
+          "top1_exact": 1,
+          "top1_tolerant": 1,
+          "top1_uniform_tie_expected": 1.0
+        },
+        "tolerance_nt": 3,
+        "candidate_count_range": [
+          5,
+          12
+        ],
+        "mrr_worst_tie_all_positive": 0.17708333333333334,
+        "precision": null,
+        "pr_auc": null,
+        "scope": "conditional supplied-stop start selection; no genome-wide discovery or negative labels",
+        "truth_in_universe_fraction": 1.0,
+        "query_with_any_score_fraction": 1.0,
+        "all_candidates_scored_fraction": 0.375,
+        "positive_scored_fraction": 1.0,
+        "top1_exact_fraction": 0.125,
+        "top1_tolerant_fraction": 0.125,
+        "top1_uniform_tie_expected_fraction": 0.125
+      }
+    },
+    "ostir": {
+      "primary_plain": {
+        "n_queries": 165,
+        "n_positive": 91,
+        "n_unlabelled": 66,
+        "n_excluded_evidence_tier": 8,
+        "source_evidence_tier": "plain",
+        "counts": {
+          "unlabelled": 66,
+          "positive": 91,
+          "truth_in_universe": 91,
+          "query_with_any_score": 91,
+          "all_candidates_scored": 21,
+          "positive_scored": 91,
+          "top1_exact": 19,
+          "top1_tolerant": 19,
+          "top1_uniform_tie_expected": 19.0,
+          "excluded_evidence_tier": 8
+        },
+        "tolerance_nt": 3,
+        "candidate_count_range": [
+          1,
+          17
+        ],
+        "mrr_worst_tie_all_positive": 0.21611721611721613,
+        "precision": null,
+        "pr_auc": null,
+        "scope": "conditional supplied-stop start selection; no genome-wide discovery or negative labels",
+        "truth_in_universe_fraction": 1.0,
+        "query_with_any_score_fraction": 1.0,
+        "all_candidates_scored_fraction": 0.23076923076923078,
+        "positive_scored_fraction": 1.0,
+        "top1_exact_fraction": 0.2087912087912088,
+        "top1_tolerant_fraction": 0.2087912087912088,
+        "top1_uniform_tie_expected_fraction": 0.2087912087912088
+      },
+      "secondary_weak": {
+        "n_queries": 165,
+        "n_positive": 8,
+        "n_unlabelled": 66,
+        "n_excluded_evidence_tier": 91,
+        "source_evidence_tier": "weak",
+        "counts": {
+          "unlabelled": 66,
+          "excluded_evidence_tier": 91,
+          "positive": 8,
+          "truth_in_universe": 8,
+          "query_with_any_score": 8,
+          "all_candidates_scored": 1,
+          "positive_scored": 8,
+          "top1_exact": 1,
+          "top1_tolerant": 1,
+          "top1_uniform_tie_expected": 1.0
+        },
+        "tolerance_nt": 3,
+        "candidate_count_range": [
+          5,
+          12
+        ],
+        "mrr_worst_tie_all_positive": 0.125,
+        "precision": null,
+        "pr_auc": null,
+        "scope": "conditional supplied-stop start selection; no genome-wide discovery or negative labels",
+        "truth_in_universe_fraction": 1.0,
+        "query_with_any_score_fraction": 1.0,
+        "all_candidates_scored_fraction": 0.125,
+        "positive_scored_fraction": 1.0,
+        "top1_exact_fraction": 0.125,
+        "top1_tolerant_fraction": 0.125,
+        "top1_uniform_tie_expected_fraction": 0.125
+      }
+    },
+    "rebeca": {
+      "primary_plain": {
+        "n_queries": 165,
+        "n_positive": 91,
+        "n_unlabelled": 66,
+        "n_excluded_evidence_tier": 8,
+        "source_evidence_tier": "plain",
+        "counts": {
+          "unlabelled": 66,
+          "positive": 91,
+          "truth_in_universe": 91,
+          "query_with_any_score": 91,
+          "all_candidates_scored": 91,
+          "positive_scored": 91,
+          "top1_exact": 48,
+          "top1_tolerant": 49,
+          "top1_uniform_tie_expected": 48.0,
+          "excluded_evidence_tier": 8
+        },
+        "tolerance_nt": 3,
+        "candidate_count_range": [
+          1,
+          17
+        ],
+        "mrr_worst_tie_all_positive": 0.6757286364429221,
+        "precision": null,
+        "pr_auc": null,
+        "scope": "conditional supplied-stop start selection; no genome-wide discovery or negative labels",
+        "truth_in_universe_fraction": 1.0,
+        "query_with_any_score_fraction": 1.0,
+        "all_candidates_scored_fraction": 1.0,
+        "positive_scored_fraction": 1.0,
+        "top1_exact_fraction": 0.5274725274725275,
+        "top1_tolerant_fraction": 0.5384615384615384,
+        "top1_uniform_tie_expected_fraction": 0.5274725274725275
+      },
+      "secondary_weak": {
+        "n_queries": 165,
+        "n_positive": 8,
+        "n_unlabelled": 66,
+        "n_excluded_evidence_tier": 91,
+        "source_evidence_tier": "weak",
+        "counts": {
+          "unlabelled": 66,
+          "excluded_evidence_tier": 91,
+          "positive": 8,
+          "truth_in_universe": 8,
+          "query_with_any_score": 8,
+          "all_candidates_scored": 8,
+          "positive_scored": 8,
+          "top1_exact": 3,
+          "top1_tolerant": 3,
+          "top1_uniform_tie_expected": 3.0
+        },
+        "tolerance_nt": 3,
+        "candidate_count_range": [
+          5,
+          12
+        ],
+        "mrr_worst_tie_all_positive": 0.5261904761904762,
+        "precision": null,
+        "pr_auc": null,
+        "scope": "conditional supplied-stop start selection; no genome-wide discovery or negative labels",
+        "truth_in_universe_fraction": 1.0,
+        "query_with_any_score_fraction": 1.0,
+        "all_candidates_scored_fraction": 1.0,
+        "positive_scored_fraction": 1.0,
+        "top1_exact_fraction": 0.375,
+        "top1_tolerant_fraction": 0.375,
+        "top1_uniform_tie_expected_fraction": 0.375
+      }
+    },
+    "prodigal": {
+      "primary_plain": {
+        "n_queries": 165,
+        "n_positive": 91,
+        "n_unlabelled": 66,
+        "n_excluded_evidence_tier": 8,
+        "source_evidence_tier": "plain",
+        "counts": {
+          "unlabelled": 66,
+          "positive": 91,
+          "truth_in_universe": 91,
+          "query_with_any_score": 88,
+          "all_candidates_scored": 88,
+          "positive_scored": 88,
+          "top1_exact": 84,
+          "top1_tolerant": 84,
+          "top1_uniform_tie_expected": 84.0,
+          "excluded_evidence_tier": 8
+        },
+        "tolerance_nt": 3,
+        "candidate_count_range": [
+          1,
+          17
+        ],
+        "mrr_worst_tie_all_positive": 0.9277389277389277,
+        "precision": null,
+        "pr_auc": null,
+        "scope": "conditional supplied-stop start selection; no genome-wide discovery or negative labels",
+        "truth_in_universe_fraction": 1.0,
+        "query_with_any_score_fraction": 0.967032967032967,
+        "all_candidates_scored_fraction": 0.967032967032967,
+        "positive_scored_fraction": 0.967032967032967,
+        "top1_exact_fraction": 0.9230769230769231,
+        "top1_tolerant_fraction": 0.9230769230769231,
+        "top1_uniform_tie_expected_fraction": 0.9230769230769231
+      },
+      "secondary_weak": {
+        "n_queries": 165,
+        "n_positive": 8,
+        "n_unlabelled": 66,
+        "n_excluded_evidence_tier": 91,
+        "source_evidence_tier": "weak",
+        "counts": {
+          "unlabelled": 66,
+          "excluded_evidence_tier": 91,
+          "positive": 8,
+          "truth_in_universe": 8,
+          "query_with_any_score": 7,
+          "all_candidates_scored": 7,
+          "positive_scored": 7,
+          "top1_exact": 6,
+          "top1_tolerant": 6,
+          "top1_uniform_tie_expected": 6.0
+        },
+        "tolerance_nt": 3,
+        "candidate_count_range": [
+          5,
+          12
+        ],
+        "mrr_worst_tie_all_positive": 0.765625,
+        "precision": null,
+        "pr_auc": null,
+        "scope": "conditional supplied-stop start selection; no genome-wide discovery or negative labels",
+        "truth_in_universe_fraction": 1.0,
+        "query_with_any_score_fraction": 0.875,
+        "all_candidates_scored_fraction": 0.875,
+        "positive_scored_fraction": 0.875,
+        "top1_exact_fraction": 0.75,
+        "top1_tolerant_fraction": 0.75,
+        "top1_uniform_tie_expected_fraction": 0.75
+      }
+    }
+  },
+  "uncertainty_limit": "Positive-ascertained annotated sORFs from one study; no independent population-sampling or biological-noise confidence interval inferred. Weak n=8 is descriptive.",
+  "native_TE_context_exposure": {
+    "input_only_overlap": {
+      "scope": "Input-only exact-window overlap with primary native TE cohort; not a TIS accuracy result",
+      "n_queries": 165,
+      "n_candidates": 1018,
+      "source_input_sha256": "9957f10416cd00dd2f5dae086db657d2d4eab22c119d4e2f955facd1eaca65d3",
+      "query_input_sha256": "a82062067f43542c50b1beaa234426aad5dabdffcfaa42abf08047be1e7b9a5e",
+      "split_sha256": "d989341afcb3e463112e85134a322086d968a4cea6ad4b9cb4fa8cc893312409",
+      "candidate_partition_matches": {
+        "context_200": {
+          "development_validation": 14,
+          "development_train": 28,
+          "final": 14
+        },
+        "regulatory_105": {
+          "development_validation": 14,
+          "development_train": 28,
+          "final": 14
+        },
+        "leader_30": {
+          "development_validation": 14,
+          "development_train": 28,
+          "final": 14
+        }
+      },
+      "query_partition_matches": {
+        "context_200": {
+          "development_validation": 14,
+          "development_train": 28,
+          "final": 14
+        },
+        "regulatory_105": {
+          "development_validation": 14,
+          "development_train": 28,
+          "final": 14
+        },
+        "leader_30": {
+          "development_validation": 14,
+          "development_train": 28,
+          "final": 14
+        }
+      },
+      "limits": "A query may contain candidates matching several partitions; counts are not disjoint. TIS labels were not read. Window similarity outside exact equality is not certified."
+    },
+    "primary_positive_query_strata": {
+      "no_exact_primary_context": 41,
+      "development_validation": 13,
+      "development_train": 26,
+      "final": 11
+    },
+    "primary_true_start_exact_matches": {
+      "development_validation": 13,
+      "development_train": 26,
+      "final": 11
+    },
+    "interpretation": "TE training used response labels, not TIS labels; overlapping input sequences prevent a wholly unseen-sequence claim. These strata are descriptive, not alternative primary endpoints.",
+    "models": {
+      "sequence_v1": {
+        "no_exact_primary_context": {
+          "n_queries": 109,
+          "n_positive": 41,
+          "n_unlabelled": 64,
+          "n_excluded_evidence_tier": 4,
+          "source_evidence_tier": "plain",
+          "counts": {
+            "unlabelled": 64,
+            "positive": 41,
+            "truth_in_universe": 41,
+            "query_with_any_score": 41,
+            "all_candidates_scored": 41,
+            "positive_scored": 41,
+            "top1_exact": 27,
+            "top1_tolerant": 27,
+            "top1_uniform_tie_expected": 27.0,
+            "excluded_evidence_tier": 4
+          },
+          "tolerance_nt": 3,
+          "candidate_count_range": [
+            1,
+            17
+          ],
+          "mrr_worst_tie_all_positive": 0.7995934959349593,
+          "precision": null,
+          "pr_auc": null,
+          "scope": "conditional supplied-stop start selection; no genome-wide discovery or negative labels",
+          "truth_in_universe_fraction": 1.0,
+          "query_with_any_score_fraction": 1.0,
+          "all_candidates_scored_fraction": 1.0,
+          "positive_scored_fraction": 1.0,
+          "top1_exact_fraction": 0.6585365853658537,
+          "top1_tolerant_fraction": 0.6585365853658537,
+          "top1_uniform_tie_expected_fraction": 0.6585365853658537
+        },
+        "development_validation": {
+          "n_queries": 14,
+          "n_positive": 13,
+          "n_unlabelled": 1,
+          "n_excluded_evidence_tier": 0,
+          "source_evidence_tier": "plain",
+          "counts": {
+            "positive": 13,
+            "truth_in_universe": 13,
+            "query_with_any_score": 13,
+            "all_candidates_scored": 13,
+            "positive_scored": 13,
+            "top1_exact": 11,
+            "top1_tolerant": 11,
+            "top1_uniform_tie_expected": 11.0,
+            "unlabelled": 1
+          },
+          "tolerance_nt": 3,
+          "candidate_count_range": [
+            1,
+            11
+          ],
+          "mrr_worst_tie_all_positive": 0.9102564102564102,
+          "precision": null,
+          "pr_auc": null,
+          "scope": "conditional supplied-stop start selection; no genome-wide discovery or negative labels",
+          "truth_in_universe_fraction": 1.0,
+          "query_with_any_score_fraction": 1.0,
+          "all_candidates_scored_fraction": 1.0,
+          "positive_scored_fraction": 1.0,
+          "top1_exact_fraction": 0.8461538461538461,
+          "top1_tolerant_fraction": 0.8461538461538461,
+          "top1_uniform_tie_expected_fraction": 0.8461538461538461
+        },
+        "development_train": {
+          "n_queries": 28,
+          "n_positive": 26,
+          "n_unlabelled": 0,
+          "n_excluded_evidence_tier": 2,
+          "source_evidence_tier": "plain",
+          "counts": {
+            "positive": 26,
+            "truth_in_universe": 26,
+            "query_with_any_score": 26,
+            "all_candidates_scored": 26,
+            "positive_scored": 26,
+            "top1_exact": 22,
+            "top1_tolerant": 22,
+            "top1_uniform_tie_expected": 22.0,
+            "excluded_evidence_tier": 2
+          },
+          "tolerance_nt": 3,
+          "candidate_count_range": [
+            2,
+            13
+          ],
+          "mrr_worst_tie_all_positive": 0.9051282051282051,
+          "precision": null,
+          "pr_auc": null,
+          "scope": "conditional supplied-stop start selection; no genome-wide discovery or negative labels",
+          "truth_in_universe_fraction": 1.0,
+          "query_with_any_score_fraction": 1.0,
+          "all_candidates_scored_fraction": 1.0,
+          "positive_scored_fraction": 1.0,
+          "top1_exact_fraction": 0.8461538461538461,
+          "top1_tolerant_fraction": 0.8461538461538461,
+          "top1_uniform_tie_expected_fraction": 0.8461538461538461
+        },
+        "final": {
+          "n_queries": 14,
+          "n_positive": 11,
+          "n_unlabelled": 1,
+          "n_excluded_evidence_tier": 2,
+          "source_evidence_tier": "plain",
+          "counts": {
+            "positive": 11,
+            "truth_in_universe": 11,
+            "query_with_any_score": 11,
+            "all_candidates_scored": 11,
+            "positive_scored": 11,
+            "top1_exact": 8,
+            "top1_tolerant": 8,
+            "top1_uniform_tie_expected": 8.0,
+            "excluded_evidence_tier": 2,
+            "unlabelled": 1
+          },
+          "tolerance_nt": 3,
+          "candidate_count_range": [
+            4,
+            12
+          ],
+          "mrr_worst_tie_all_positive": 0.8484848484848485,
+          "precision": null,
+          "pr_auc": null,
+          "scope": "conditional supplied-stop start selection; no genome-wide discovery or negative labels",
+          "truth_in_universe_fraction": 1.0,
+          "query_with_any_score_fraction": 1.0,
+          "all_candidates_scored_fraction": 1.0,
+          "positive_scored_fraction": 1.0,
+          "top1_exact_fraction": 0.7272727272727273,
+          "top1_tolerant_fraction": 0.7272727272727273,
+          "top1_uniform_tie_expected_fraction": 0.7272727272727273
+        }
+      },
+      "hybrid": {
+        "no_exact_primary_context": {
+          "n_queries": 109,
+          "n_positive": 41,
+          "n_unlabelled": 64,
+          "n_excluded_evidence_tier": 4,
+          "source_evidence_tier": "plain",
+          "counts": {
+            "unlabelled": 64,
+            "positive": 41,
+            "truth_in_universe": 41,
+            "query_with_any_score": 41,
+            "all_candidates_scored": 27,
+            "positive_scored": 40,
+            "top1_exact": 13,
+            "top1_tolerant": 13,
+            "top1_uniform_tie_expected": 13.0,
+            "excluded_evidence_tier": 4
+          },
+          "tolerance_nt": 3,
+          "candidate_count_range": [
+            1,
+            17
+          ],
+          "mrr_worst_tie_all_positive": 0.4548780487804878,
+          "precision": null,
+          "pr_auc": null,
+          "scope": "conditional supplied-stop start selection; no genome-wide discovery or negative labels",
+          "truth_in_universe_fraction": 1.0,
+          "query_with_any_score_fraction": 1.0,
+          "all_candidates_scored_fraction": 0.6585365853658537,
+          "positive_scored_fraction": 0.975609756097561,
+          "top1_exact_fraction": 0.3170731707317073,
+          "top1_tolerant_fraction": 0.3170731707317073,
+          "top1_uniform_tie_expected_fraction": 0.3170731707317073
+        },
+        "development_validation": {
+          "n_queries": 14,
+          "n_positive": 13,
+          "n_unlabelled": 1,
+          "n_excluded_evidence_tier": 0,
+          "source_evidence_tier": "plain",
+          "counts": {
+            "positive": 13,
+            "truth_in_universe": 13,
+            "query_with_any_score": 13,
+            "all_candidates_scored": 8,
+            "positive_scored": 13,
+            "top1_exact": 8,
+            "top1_tolerant": 8,
+            "top1_uniform_tie_expected": 8.0,
+            "unlabelled": 1
+          },
+          "tolerance_nt": 3,
+          "candidate_count_range": [
+            1,
+            11
+          ],
+          "mrr_worst_tie_all_positive": 0.6153846153846154,
+          "precision": null,
+          "pr_auc": null,
+          "scope": "conditional supplied-stop start selection; no genome-wide discovery or negative labels",
+          "truth_in_universe_fraction": 1.0,
+          "query_with_any_score_fraction": 1.0,
+          "all_candidates_scored_fraction": 0.6153846153846154,
+          "positive_scored_fraction": 1.0,
+          "top1_exact_fraction": 0.6153846153846154,
+          "top1_tolerant_fraction": 0.6153846153846154,
+          "top1_uniform_tie_expected_fraction": 0.6153846153846154
+        },
+        "development_train": {
+          "n_queries": 28,
+          "n_positive": 26,
+          "n_unlabelled": 0,
+          "n_excluded_evidence_tier": 2,
+          "source_evidence_tier": "plain",
+          "counts": {
+            "positive": 26,
+            "truth_in_universe": 26,
+            "query_with_any_score": 26,
+            "all_candidates_scored": 10,
+            "positive_scored": 24,
+            "top1_exact": 6,
+            "top1_tolerant": 6,
+            "top1_uniform_tie_expected": 6.0,
+            "excluded_evidence_tier": 2
+          },
+          "tolerance_nt": 3,
+          "candidate_count_range": [
+            2,
+            13
+          ],
+          "mrr_worst_tie_all_positive": 0.28974358974358977,
+          "precision": null,
+          "pr_auc": null,
+          "scope": "conditional supplied-stop start selection; no genome-wide discovery or negative labels",
+          "truth_in_universe_fraction": 1.0,
+          "query_with_any_score_fraction": 1.0,
+          "all_candidates_scored_fraction": 0.38461538461538464,
+          "positive_scored_fraction": 0.9230769230769231,
+          "top1_exact_fraction": 0.23076923076923078,
+          "top1_tolerant_fraction": 0.23076923076923078,
+          "top1_uniform_tie_expected_fraction": 0.23076923076923078
+        },
+        "final": {
+          "n_queries": 14,
+          "n_positive": 11,
+          "n_unlabelled": 1,
+          "n_excluded_evidence_tier": 2,
+          "source_evidence_tier": "plain",
+          "counts": {
+            "positive": 11,
+            "truth_in_universe": 11,
+            "query_with_any_score": 11,
+            "all_candidates_scored": 3,
+            "positive_scored": 10,
+            "top1_exact": 1,
+            "top1_tolerant": 1,
+            "top1_uniform_tie_expected": 1.0,
+            "excluded_evidence_tier": 2,
+            "unlabelled": 1
+          },
+          "tolerance_nt": 3,
+          "candidate_count_range": [
+            4,
+            12
+          ],
+          "mrr_worst_tie_all_positive": 0.1590909090909091,
+          "precision": null,
+          "pr_auc": null,
+          "scope": "conditional supplied-stop start selection; no genome-wide discovery or negative labels",
+          "truth_in_universe_fraction": 1.0,
+          "query_with_any_score_fraction": 1.0,
+          "all_candidates_scored_fraction": 0.2727272727272727,
+          "positive_scored_fraction": 0.9090909090909091,
+          "top1_exact_fraction": 0.09090909090909091,
+          "top1_tolerant_fraction": 0.09090909090909091,
+          "top1_uniform_tie_expected_fraction": 0.09090909090909091
+        }
+      },
+      "historical": {
+        "no_exact_primary_context": {
+          "n_queries": 109,
+          "n_positive": 41,
+          "n_unlabelled": 64,
+          "n_excluded_evidence_tier": 4,
+          "source_evidence_tier": "plain",
+          "counts": {
+            "unlabelled": 64,
+            "positive": 41,
+            "truth_in_universe": 41,
+            "query_with_any_score": 41,
+            "all_candidates_scored": 40,
+            "positive_scored": 40,
+            "top1_exact": 23,
+            "top1_tolerant": 23,
+            "top1_uniform_tie_expected": 23.0,
+            "excluded_evidence_tier": 4
+          },
+          "tolerance_nt": 3,
+          "candidate_count_range": [
+            1,
+            17
+          ],
+          "mrr_worst_tie_all_positive": 0.6996515679442509,
+          "precision": null,
+          "pr_auc": null,
+          "scope": "conditional supplied-stop start selection; no genome-wide discovery or negative labels",
+          "truth_in_universe_fraction": 1.0,
+          "query_with_any_score_fraction": 1.0,
+          "all_candidates_scored_fraction": 0.975609756097561,
+          "positive_scored_fraction": 0.975609756097561,
+          "top1_exact_fraction": 0.5609756097560976,
+          "top1_tolerant_fraction": 0.5609756097560976,
+          "top1_uniform_tie_expected_fraction": 0.5609756097560976
+        },
+        "development_validation": {
+          "n_queries": 14,
+          "n_positive": 13,
+          "n_unlabelled": 1,
+          "n_excluded_evidence_tier": 0,
+          "source_evidence_tier": "plain",
+          "counts": {
+            "positive": 13,
+            "truth_in_universe": 13,
+            "query_with_any_score": 13,
+            "all_candidates_scored": 13,
+            "positive_scored": 13,
+            "top1_exact": 7,
+            "top1_tolerant": 8,
+            "top1_uniform_tie_expected": 7.0,
+            "unlabelled": 1
+          },
+          "tolerance_nt": 3,
+          "candidate_count_range": [
+            1,
+            11
+          ],
+          "mrr_worst_tie_all_positive": 0.6794871794871795,
+          "precision": null,
+          "pr_auc": null,
+          "scope": "conditional supplied-stop start selection; no genome-wide discovery or negative labels",
+          "truth_in_universe_fraction": 1.0,
+          "query_with_any_score_fraction": 1.0,
+          "all_candidates_scored_fraction": 1.0,
+          "positive_scored_fraction": 1.0,
+          "top1_exact_fraction": 0.5384615384615384,
+          "top1_tolerant_fraction": 0.6153846153846154,
+          "top1_uniform_tie_expected_fraction": 0.5384615384615384
+        },
+        "development_train": {
+          "n_queries": 28,
+          "n_positive": 26,
+          "n_unlabelled": 0,
+          "n_excluded_evidence_tier": 2,
+          "source_evidence_tier": "plain",
+          "counts": {
+            "positive": 26,
+            "truth_in_universe": 26,
+            "query_with_any_score": 26,
+            "all_candidates_scored": 25,
+            "positive_scored": 25,
+            "top1_exact": 15,
+            "top1_tolerant": 15,
+            "top1_uniform_tie_expected": 15.0,
+            "excluded_evidence_tier": 2
+          },
+          "tolerance_nt": 3,
+          "candidate_count_range": [
+            2,
+            13
+          ],
+          "mrr_worst_tie_all_positive": 0.6878205128205128,
+          "precision": null,
+          "pr_auc": null,
+          "scope": "conditional supplied-stop start selection; no genome-wide discovery or negative labels",
+          "truth_in_universe_fraction": 1.0,
+          "query_with_any_score_fraction": 1.0,
+          "all_candidates_scored_fraction": 0.9615384615384616,
+          "positive_scored_fraction": 0.9615384615384616,
+          "top1_exact_fraction": 0.5769230769230769,
+          "top1_tolerant_fraction": 0.5769230769230769,
+          "top1_uniform_tie_expected_fraction": 0.5769230769230769
+        },
+        "final": {
+          "n_queries": 14,
+          "n_positive": 11,
+          "n_unlabelled": 1,
+          "n_excluded_evidence_tier": 2,
+          "source_evidence_tier": "plain",
+          "counts": {
+            "positive": 11,
+            "truth_in_universe": 11,
+            "query_with_any_score": 11,
+            "all_candidates_scored": 9,
+            "positive_scored": 11,
+            "top1_exact": 9,
+            "top1_tolerant": 9,
+            "top1_uniform_tie_expected": 9.0,
+            "excluded_evidence_tier": 2,
+            "unlabelled": 1
+          },
+          "tolerance_nt": 3,
+          "candidate_count_range": [
+            4,
+            12
+          ],
+          "mrr_worst_tie_all_positive": 0.8181818181818182,
+          "precision": null,
+          "pr_auc": null,
+          "scope": "conditional supplied-stop start selection; no genome-wide discovery or negative labels",
+          "truth_in_universe_fraction": 1.0,
+          "query_with_any_score_fraction": 1.0,
+          "all_candidates_scored_fraction": 0.8181818181818182,
+          "positive_scored_fraction": 1.0,
+          "top1_exact_fraction": 0.8181818181818182,
+          "top1_tolerant_fraction": 0.8181818181818182,
+          "top1_uniform_tie_expected_fraction": 0.8181818181818182
+        }
+      },
+      "footprint2017": {
+        "no_exact_primary_context": {
+          "n_queries": 109,
+          "n_positive": 41,
+          "n_unlabelled": 64,
+          "n_excluded_evidence_tier": 4,
+          "source_evidence_tier": "plain",
+          "counts": {
+            "unlabelled": 64,
+            "positive": 41,
+            "truth_in_universe": 41,
+            "query_with_any_score": 41,
+            "all_candidates_scored": 40,
+            "positive_scored": 40,
+            "top1_exact": 23,
+            "top1_tolerant": 23,
+            "top1_uniform_tie_expected": 23.0,
+            "excluded_evidence_tier": 4
+          },
+          "tolerance_nt": 3,
+          "candidate_count_range": [
+            1,
+            17
+          ],
+          "mrr_worst_tie_all_positive": 0.6874564459930314,
+          "precision": null,
+          "pr_auc": null,
+          "scope": "conditional supplied-stop start selection; no genome-wide discovery or negative labels",
+          "truth_in_universe_fraction": 1.0,
+          "query_with_any_score_fraction": 1.0,
+          "all_candidates_scored_fraction": 0.975609756097561,
+          "positive_scored_fraction": 0.975609756097561,
+          "top1_exact_fraction": 0.5609756097560976,
+          "top1_tolerant_fraction": 0.5609756097560976,
+          "top1_uniform_tie_expected_fraction": 0.5609756097560976
+        },
+        "development_validation": {
+          "n_queries": 14,
+          "n_positive": 13,
+          "n_unlabelled": 1,
+          "n_excluded_evidence_tier": 0,
+          "source_evidence_tier": "plain",
+          "counts": {
+            "positive": 13,
+            "truth_in_universe": 13,
+            "query_with_any_score": 13,
+            "all_candidates_scored": 13,
+            "positive_scored": 13,
+            "top1_exact": 9,
+            "top1_tolerant": 9,
+            "top1_uniform_tie_expected": 9.0,
+            "unlabelled": 1
+          },
+          "tolerance_nt": 3,
+          "candidate_count_range": [
+            1,
+            11
+          ],
+          "mrr_worst_tie_all_positive": 0.7756410256410257,
+          "precision": null,
+          "pr_auc": null,
+          "scope": "conditional supplied-stop start selection; no genome-wide discovery or negative labels",
+          "truth_in_universe_fraction": 1.0,
+          "query_with_any_score_fraction": 1.0,
+          "all_candidates_scored_fraction": 1.0,
+          "positive_scored_fraction": 1.0,
+          "top1_exact_fraction": 0.6923076923076923,
+          "top1_tolerant_fraction": 0.6923076923076923,
+          "top1_uniform_tie_expected_fraction": 0.6923076923076923
+        },
+        "development_train": {
+          "n_queries": 28,
+          "n_positive": 26,
+          "n_unlabelled": 0,
+          "n_excluded_evidence_tier": 2,
+          "source_evidence_tier": "plain",
+          "counts": {
+            "positive": 26,
+            "truth_in_universe": 26,
+            "query_with_any_score": 26,
+            "all_candidates_scored": 25,
+            "positive_scored": 25,
+            "top1_exact": 16,
+            "top1_tolerant": 16,
+            "top1_uniform_tie_expected": 16.0,
+            "excluded_evidence_tier": 2
+          },
+          "tolerance_nt": 3,
+          "candidate_count_range": [
+            2,
+            13
+          ],
+          "mrr_worst_tie_all_positive": 0.7128205128205128,
+          "precision": null,
+          "pr_auc": null,
+          "scope": "conditional supplied-stop start selection; no genome-wide discovery or negative labels",
+          "truth_in_universe_fraction": 1.0,
+          "query_with_any_score_fraction": 1.0,
+          "all_candidates_scored_fraction": 0.9615384615384616,
+          "positive_scored_fraction": 0.9615384615384616,
+          "top1_exact_fraction": 0.6153846153846154,
+          "top1_tolerant_fraction": 0.6153846153846154,
+          "top1_uniform_tie_expected_fraction": 0.6153846153846154
+        },
+        "final": {
+          "n_queries": 14,
+          "n_positive": 11,
+          "n_unlabelled": 1,
+          "n_excluded_evidence_tier": 2,
+          "source_evidence_tier": "plain",
+          "counts": {
+            "positive": 11,
+            "truth_in_universe": 11,
+            "query_with_any_score": 11,
+            "all_candidates_scored": 9,
+            "positive_scored": 11,
+            "top1_exact": 8,
+            "top1_tolerant": 8,
+            "top1_uniform_tie_expected": 8.0,
+            "excluded_evidence_tier": 2,
+            "unlabelled": 1
+          },
+          "tolerance_nt": 3,
+          "candidate_count_range": [
+            4,
+            12
+          ],
+          "mrr_worst_tie_all_positive": 0.7727272727272727,
+          "precision": null,
+          "pr_auc": null,
+          "scope": "conditional supplied-stop start selection; no genome-wide discovery or negative labels",
+          "truth_in_universe_fraction": 1.0,
+          "query_with_any_score_fraction": 1.0,
+          "all_candidates_scored_fraction": 0.8181818181818182,
+          "positive_scored_fraction": 1.0,
+          "top1_exact_fraction": 0.7272727272727273,
+          "top1_tolerant_fraction": 0.7272727272727273,
+          "top1_uniform_tie_expected_fraction": 0.7272727272727273
+        }
+      },
+      "context2017": {
+        "no_exact_primary_context": {
+          "n_queries": 109,
+          "n_positive": 41,
+          "n_unlabelled": 64,
+          "n_excluded_evidence_tier": 4,
+          "source_evidence_tier": "plain",
+          "counts": {
+            "unlabelled": 64,
+            "positive": 41,
+            "truth_in_universe": 41,
+            "query_with_any_score": 41,
+            "all_candidates_scored": 27,
+            "positive_scored": 40,
+            "top1_exact": 19,
+            "top1_tolerant": 19,
+            "top1_uniform_tie_expected": 19.0,
+            "excluded_evidence_tier": 4
+          },
+          "tolerance_nt": 3,
+          "candidate_count_range": [
+            1,
+            17
+          ],
+          "mrr_worst_tie_all_positive": 0.5272357723577236,
+          "precision": null,
+          "pr_auc": null,
+          "scope": "conditional supplied-stop start selection; no genome-wide discovery or negative labels",
+          "truth_in_universe_fraction": 1.0,
+          "query_with_any_score_fraction": 1.0,
+          "all_candidates_scored_fraction": 0.6585365853658537,
+          "positive_scored_fraction": 0.975609756097561,
+          "top1_exact_fraction": 0.4634146341463415,
+          "top1_tolerant_fraction": 0.4634146341463415,
+          "top1_uniform_tie_expected_fraction": 0.4634146341463415
+        },
+        "development_validation": {
+          "n_queries": 14,
+          "n_positive": 13,
+          "n_unlabelled": 1,
+          "n_excluded_evidence_tier": 0,
+          "source_evidence_tier": "plain",
+          "counts": {
+            "positive": 13,
+            "truth_in_universe": 13,
+            "query_with_any_score": 13,
+            "all_candidates_scored": 8,
+            "positive_scored": 13,
+            "top1_exact": 5,
+            "top1_tolerant": 5,
+            "top1_uniform_tie_expected": 5.0,
+            "unlabelled": 1
+          },
+          "tolerance_nt": 3,
+          "candidate_count_range": [
+            1,
+            11
+          ],
+          "mrr_worst_tie_all_positive": 0.4326923076923077,
+          "precision": null,
+          "pr_auc": null,
+          "scope": "conditional supplied-stop start selection; no genome-wide discovery or negative labels",
+          "truth_in_universe_fraction": 1.0,
+          "query_with_any_score_fraction": 1.0,
+          "all_candidates_scored_fraction": 0.6153846153846154,
+          "positive_scored_fraction": 1.0,
+          "top1_exact_fraction": 0.38461538461538464,
+          "top1_tolerant_fraction": 0.38461538461538464,
+          "top1_uniform_tie_expected_fraction": 0.38461538461538464
+        },
+        "development_train": {
+          "n_queries": 28,
+          "n_positive": 26,
+          "n_unlabelled": 0,
+          "n_excluded_evidence_tier": 2,
+          "source_evidence_tier": "plain",
+          "counts": {
+            "positive": 26,
+            "truth_in_universe": 26,
+            "query_with_any_score": 26,
+            "all_candidates_scored": 10,
+            "positive_scored": 24,
+            "top1_exact": 5,
+            "top1_tolerant": 5,
+            "top1_uniform_tie_expected": 5.0,
+            "excluded_evidence_tier": 2
+          },
+          "tolerance_nt": 3,
+          "candidate_count_range": [
+            2,
+            13
+          ],
+          "mrr_worst_tie_all_positive": 0.2532051282051282,
+          "precision": null,
+          "pr_auc": null,
+          "scope": "conditional supplied-stop start selection; no genome-wide discovery or negative labels",
+          "truth_in_universe_fraction": 1.0,
+          "query_with_any_score_fraction": 1.0,
+          "all_candidates_scored_fraction": 0.38461538461538464,
+          "positive_scored_fraction": 0.9230769230769231,
+          "top1_exact_fraction": 0.19230769230769232,
+          "top1_tolerant_fraction": 0.19230769230769232,
+          "top1_uniform_tie_expected_fraction": 0.19230769230769232
+        },
+        "final": {
+          "n_queries": 14,
+          "n_positive": 11,
+          "n_unlabelled": 1,
+          "n_excluded_evidence_tier": 2,
+          "source_evidence_tier": "plain",
+          "counts": {
+            "positive": 11,
+            "truth_in_universe": 11,
+            "query_with_any_score": 11,
+            "all_candidates_scored": 3,
+            "positive_scored": 10,
+            "top1_exact": 2,
+            "top1_tolerant": 2,
+            "top1_uniform_tie_expected": 2.0,
+            "excluded_evidence_tier": 2,
+            "unlabelled": 1
+          },
+          "tolerance_nt": 3,
+          "candidate_count_range": [
+            4,
+            12
+          ],
+          "mrr_worst_tie_all_positive": 0.2,
+          "precision": null,
+          "pr_auc": null,
+          "scope": "conditional supplied-stop start selection; no genome-wide discovery or negative labels",
+          "truth_in_universe_fraction": 1.0,
+          "query_with_any_score_fraction": 1.0,
+          "all_candidates_scored_fraction": 0.2727272727272727,
+          "positive_scored_fraction": 0.9090909090909091,
+          "top1_exact_fraction": 0.18181818181818182,
+          "top1_tolerant_fraction": 0.18181818181818182,
+          "top1_uniform_tie_expected_fraction": 0.18181818181818182
+        }
+      },
+      "ostir": {
+        "no_exact_primary_context": {
+          "n_queries": 109,
+          "n_positive": 41,
+          "n_unlabelled": 64,
+          "n_excluded_evidence_tier": 4,
+          "source_evidence_tier": "plain",
+          "counts": {
+            "unlabelled": 64,
+            "positive": 41,
+            "truth_in_universe": 41,
+            "query_with_any_score": 41,
+            "all_candidates_scored": 11,
+            "positive_scored": 41,
+            "top1_exact": 9,
+            "top1_tolerant": 9,
+            "top1_uniform_tie_expected": 9.0,
+            "excluded_evidence_tier": 4
+          },
+          "tolerance_nt": 3,
+          "candidate_count_range": [
+            1,
+            17
+          ],
+          "mrr_worst_tie_all_positive": 0.23577235772357724,
+          "precision": null,
+          "pr_auc": null,
+          "scope": "conditional supplied-stop start selection; no genome-wide discovery or negative labels",
+          "truth_in_universe_fraction": 1.0,
+          "query_with_any_score_fraction": 1.0,
+          "all_candidates_scored_fraction": 0.2682926829268293,
+          "positive_scored_fraction": 1.0,
+          "top1_exact_fraction": 0.21951219512195122,
+          "top1_tolerant_fraction": 0.21951219512195122,
+          "top1_uniform_tie_expected_fraction": 0.21951219512195122
+        },
+        "development_validation": {
+          "n_queries": 14,
+          "n_positive": 13,
+          "n_unlabelled": 1,
+          "n_excluded_evidence_tier": 0,
+          "source_evidence_tier": "plain",
+          "counts": {
+            "positive": 13,
+            "truth_in_universe": 13,
+            "query_with_any_score": 13,
+            "all_candidates_scored": 2,
+            "positive_scored": 13,
+            "top1_exact": 2,
+            "top1_tolerant": 2,
+            "top1_uniform_tie_expected": 2.0,
+            "unlabelled": 1
+          },
+          "tolerance_nt": 3,
+          "candidate_count_range": [
+            1,
+            11
+          ],
+          "mrr_worst_tie_all_positive": 0.15384615384615385,
+          "precision": null,
+          "pr_auc": null,
+          "scope": "conditional supplied-stop start selection; no genome-wide discovery or negative labels",
+          "truth_in_universe_fraction": 1.0,
+          "query_with_any_score_fraction": 1.0,
+          "all_candidates_scored_fraction": 0.15384615384615385,
+          "positive_scored_fraction": 1.0,
+          "top1_exact_fraction": 0.15384615384615385,
+          "top1_tolerant_fraction": 0.15384615384615385,
+          "top1_uniform_tie_expected_fraction": 0.15384615384615385
+        },
+        "development_train": {
+          "n_queries": 28,
+          "n_positive": 26,
+          "n_unlabelled": 0,
+          "n_excluded_evidence_tier": 2,
+          "source_evidence_tier": "plain",
+          "counts": {
+            "positive": 26,
+            "truth_in_universe": 26,
+            "query_with_any_score": 26,
+            "all_candidates_scored": 4,
+            "positive_scored": 26,
+            "top1_exact": 4,
+            "top1_tolerant": 4,
+            "top1_uniform_tie_expected": 4.0,
+            "excluded_evidence_tier": 2
+          },
+          "tolerance_nt": 3,
+          "candidate_count_range": [
+            2,
+            13
+          ],
+          "mrr_worst_tie_all_positive": 0.15384615384615385,
+          "precision": null,
+          "pr_auc": null,
+          "scope": "conditional supplied-stop start selection; no genome-wide discovery or negative labels",
+          "truth_in_universe_fraction": 1.0,
+          "query_with_any_score_fraction": 1.0,
+          "all_candidates_scored_fraction": 0.15384615384615385,
+          "positive_scored_fraction": 1.0,
+          "top1_exact_fraction": 0.15384615384615385,
+          "top1_tolerant_fraction": 0.15384615384615385,
+          "top1_uniform_tie_expected_fraction": 0.15384615384615385
+        },
+        "final": {
+          "n_queries": 14,
+          "n_positive": 11,
+          "n_unlabelled": 1,
+          "n_excluded_evidence_tier": 2,
+          "source_evidence_tier": "plain",
+          "counts": {
+            "positive": 11,
+            "truth_in_universe": 11,
+            "query_with_any_score": 11,
+            "all_candidates_scored": 4,
+            "positive_scored": 11,
+            "excluded_evidence_tier": 2,
+            "top1_exact": 4,
+            "top1_tolerant": 4,
+            "top1_uniform_tie_expected": 4.0,
+            "unlabelled": 1
+          },
+          "tolerance_nt": 3,
+          "candidate_count_range": [
+            4,
+            12
+          ],
+          "mrr_worst_tie_all_positive": 0.36363636363636365,
+          "precision": null,
+          "pr_auc": null,
+          "scope": "conditional supplied-stop start selection; no genome-wide discovery or negative labels",
+          "truth_in_universe_fraction": 1.0,
+          "query_with_any_score_fraction": 1.0,
+          "all_candidates_scored_fraction": 0.36363636363636365,
+          "positive_scored_fraction": 1.0,
+          "top1_exact_fraction": 0.36363636363636365,
+          "top1_tolerant_fraction": 0.36363636363636365,
+          "top1_uniform_tie_expected_fraction": 0.36363636363636365
+        }
+      },
+      "rebeca": {
+        "no_exact_primary_context": {
+          "n_queries": 109,
+          "n_positive": 41,
+          "n_unlabelled": 64,
+          "n_excluded_evidence_tier": 4,
+          "source_evidence_tier": "plain",
+          "counts": {
+            "unlabelled": 64,
+            "positive": 41,
+            "truth_in_universe": 41,
+            "query_with_any_score": 41,
+            "all_candidates_scored": 41,
+            "positive_scored": 41,
+            "top1_exact": 23,
+            "top1_tolerant": 24,
+            "top1_uniform_tie_expected": 23.0,
+            "excluded_evidence_tier": 4
+          },
+          "tolerance_nt": 3,
+          "candidate_count_range": [
+            1,
+            17
+          ],
+          "mrr_worst_tie_all_positive": 0.6957713018688628,
+          "precision": null,
+          "pr_auc": null,
+          "scope": "conditional supplied-stop start selection; no genome-wide discovery or negative labels",
+          "truth_in_universe_fraction": 1.0,
+          "query_with_any_score_fraction": 1.0,
+          "all_candidates_scored_fraction": 1.0,
+          "positive_scored_fraction": 1.0,
+          "top1_exact_fraction": 0.5609756097560976,
+          "top1_tolerant_fraction": 0.5853658536585366,
+          "top1_uniform_tie_expected_fraction": 0.5609756097560976
+        },
+        "development_validation": {
+          "n_queries": 14,
+          "n_positive": 13,
+          "n_unlabelled": 1,
+          "n_excluded_evidence_tier": 0,
+          "source_evidence_tier": "plain",
+          "counts": {
+            "positive": 13,
+            "truth_in_universe": 13,
+            "query_with_any_score": 13,
+            "all_candidates_scored": 13,
+            "positive_scored": 13,
+            "top1_exact": 5,
+            "top1_tolerant": 5,
+            "top1_uniform_tie_expected": 5.0,
+            "unlabelled": 1
+          },
+          "tolerance_nt": 3,
+          "candidate_count_range": [
+            1,
+            11
+          ],
+          "mrr_worst_tie_all_positive": 0.5860805860805861,
+          "precision": null,
+          "pr_auc": null,
+          "scope": "conditional supplied-stop start selection; no genome-wide discovery or negative labels",
+          "truth_in_universe_fraction": 1.0,
+          "query_with_any_score_fraction": 1.0,
+          "all_candidates_scored_fraction": 1.0,
+          "positive_scored_fraction": 1.0,
+          "top1_exact_fraction": 0.38461538461538464,
+          "top1_tolerant_fraction": 0.38461538461538464,
+          "top1_uniform_tie_expected_fraction": 0.38461538461538464
+        },
+        "development_train": {
+          "n_queries": 28,
+          "n_positive": 26,
+          "n_unlabelled": 0,
+          "n_excluded_evidence_tier": 2,
+          "source_evidence_tier": "plain",
+          "counts": {
+            "positive": 26,
+            "truth_in_universe": 26,
+            "query_with_any_score": 26,
+            "all_candidates_scored": 26,
+            "positive_scored": 26,
+            "top1_exact": 12,
+            "top1_tolerant": 12,
+            "top1_uniform_tie_expected": 12.0,
+            "excluded_evidence_tier": 2
+          },
+          "tolerance_nt": 3,
+          "candidate_count_range": [
+            2,
+            13
+          ],
+          "mrr_worst_tie_all_positive": 0.6308150183150183,
+          "precision": null,
+          "pr_auc": null,
+          "scope": "conditional supplied-stop start selection; no genome-wide discovery or negative labels",
+          "truth_in_universe_fraction": 1.0,
+          "query_with_any_score_fraction": 1.0,
+          "all_candidates_scored_fraction": 1.0,
+          "positive_scored_fraction": 1.0,
+          "top1_exact_fraction": 0.46153846153846156,
+          "top1_tolerant_fraction": 0.46153846153846156,
+          "top1_uniform_tie_expected_fraction": 0.46153846153846156
+        },
+        "final": {
+          "n_queries": 14,
+          "n_positive": 11,
+          "n_unlabelled": 1,
+          "n_excluded_evidence_tier": 2,
+          "source_evidence_tier": "plain",
+          "counts": {
+            "positive": 11,
+            "truth_in_universe": 11,
+            "query_with_any_score": 11,
+            "all_candidates_scored": 11,
+            "positive_scored": 11,
+            "top1_exact": 8,
+            "top1_tolerant": 8,
+            "top1_uniform_tie_expected": 8.0,
+            "excluded_evidence_tier": 2,
+            "unlabelled": 1
+          },
+          "tolerance_nt": 3,
+          "candidate_count_range": [
+            4,
+            12
+          ],
+          "mrr_worst_tie_all_positive": 0.8131313131313131,
+          "precision": null,
+          "pr_auc": null,
+          "scope": "conditional supplied-stop start selection; no genome-wide discovery or negative labels",
+          "truth_in_universe_fraction": 1.0,
+          "query_with_any_score_fraction": 1.0,
+          "all_candidates_scored_fraction": 1.0,
+          "positive_scored_fraction": 1.0,
+          "top1_exact_fraction": 0.7272727272727273,
+          "top1_tolerant_fraction": 0.7272727272727273,
+          "top1_uniform_tie_expected_fraction": 0.7272727272727273
+        }
+      },
+      "prodigal": {
+        "no_exact_primary_context": {
+          "n_queries": 109,
+          "n_positive": 41,
+          "n_unlabelled": 64,
+          "n_excluded_evidence_tier": 4,
+          "source_evidence_tier": "plain",
+          "counts": {
+            "unlabelled": 64,
+            "positive": 41,
+            "truth_in_universe": 41,
+            "query_with_any_score": 41,
+            "all_candidates_scored": 41,
+            "positive_scored": 41,
+            "top1_exact": 39,
+            "top1_tolerant": 39,
+            "top1_uniform_tie_expected": 39.0,
+            "excluded_evidence_tier": 4
+          },
+          "tolerance_nt": 3,
+          "candidate_count_range": [
+            1,
+            17
+          ],
+          "mrr_worst_tie_all_positive": 0.9561468341956146,
+          "precision": null,
+          "pr_auc": null,
+          "scope": "conditional supplied-stop start selection; no genome-wide discovery or negative labels",
+          "truth_in_universe_fraction": 1.0,
+          "query_with_any_score_fraction": 1.0,
+          "all_candidates_scored_fraction": 1.0,
+          "positive_scored_fraction": 1.0,
+          "top1_exact_fraction": 0.9512195121951219,
+          "top1_tolerant_fraction": 0.9512195121951219,
+          "top1_uniform_tie_expected_fraction": 0.9512195121951219
+        },
+        "development_validation": {
+          "n_queries": 14,
+          "n_positive": 13,
+          "n_unlabelled": 1,
+          "n_excluded_evidence_tier": 0,
+          "source_evidence_tier": "plain",
+          "counts": {
+            "positive": 13,
+            "truth_in_universe": 13,
+            "query_with_any_score": 11,
+            "all_candidates_scored": 11,
+            "positive_scored": 11,
+            "top1_exact": 10,
+            "top1_tolerant": 10,
+            "top1_uniform_tie_expected": 10.0,
+            "unlabelled": 1
+          },
+          "tolerance_nt": 3,
+          "candidate_count_range": [
+            1,
+            11
+          ],
+          "mrr_worst_tie_all_positive": 0.7777777777777778,
+          "precision": null,
+          "pr_auc": null,
+          "scope": "conditional supplied-stop start selection; no genome-wide discovery or negative labels",
+          "truth_in_universe_fraction": 1.0,
+          "query_with_any_score_fraction": 0.8461538461538461,
+          "all_candidates_scored_fraction": 0.8461538461538461,
+          "positive_scored_fraction": 0.8461538461538461,
+          "top1_exact_fraction": 0.7692307692307693,
+          "top1_tolerant_fraction": 0.7692307692307693,
+          "top1_uniform_tie_expected_fraction": 0.7692307692307693
+        },
+        "development_train": {
+          "n_queries": 28,
+          "n_positive": 26,
+          "n_unlabelled": 0,
+          "n_excluded_evidence_tier": 2,
+          "source_evidence_tier": "plain",
+          "counts": {
+            "positive": 26,
+            "truth_in_universe": 26,
+            "query_with_any_score": 25,
+            "all_candidates_scored": 25,
+            "positive_scored": 25,
+            "top1_exact": 24,
+            "top1_tolerant": 24,
+            "top1_uniform_tie_expected": 24.0,
+            "excluded_evidence_tier": 2
+          },
+          "tolerance_nt": 3,
+          "candidate_count_range": [
+            2,
+            13
+          ],
+          "mrr_worst_tie_all_positive": 0.9273504273504274,
+          "precision": null,
+          "pr_auc": null,
+          "scope": "conditional supplied-stop start selection; no genome-wide discovery or negative labels",
+          "truth_in_universe_fraction": 1.0,
+          "query_with_any_score_fraction": 0.9615384615384616,
+          "all_candidates_scored_fraction": 0.9615384615384616,
+          "positive_scored_fraction": 0.9615384615384616,
+          "top1_exact_fraction": 0.9230769230769231,
+          "top1_tolerant_fraction": 0.9230769230769231,
+          "top1_uniform_tie_expected_fraction": 0.9230769230769231
+        },
+        "final": {
+          "n_queries": 14,
+          "n_positive": 11,
+          "n_unlabelled": 1,
+          "n_excluded_evidence_tier": 2,
+          "source_evidence_tier": "plain",
+          "counts": {
+            "positive": 11,
+            "truth_in_universe": 11,
+            "query_with_any_score": 11,
+            "all_candidates_scored": 11,
+            "positive_scored": 11,
+            "top1_exact": 11,
+            "top1_tolerant": 11,
+            "top1_uniform_tie_expected": 11.0,
+            "excluded_evidence_tier": 2,
+            "unlabelled": 1
+          },
+          "tolerance_nt": 3,
+          "candidate_count_range": [
+            4,
+            12
+          ],
+          "mrr_worst_tie_all_positive": 1.0,
+          "precision": null,
+          "pr_auc": null,
+          "scope": "conditional supplied-stop start selection; no genome-wide discovery or negative labels",
+          "truth_in_universe_fraction": 1.0,
+          "query_with_any_score_fraction": 1.0,
+          "all_candidates_scored_fraction": 1.0,
+          "positive_scored_fraction": 1.0,
+          "top1_exact_fraction": 1.0,
+          "top1_tolerant_fraction": 1.0,
+          "top1_uniform_tie_expected_fraction": 1.0
+        }
+      }
+    }
+  },
+  "public_export": {
+    "private_report_sha256": "2cb7c5d3d65b02fa3c47394e46ba5646fde98b00b83ce420bbd7a5886c2f9df0",
+    "policy": "Aggregate performance/provenance only; raw outcomes, per-case errors and private service exports excluded"
+  }
+}
