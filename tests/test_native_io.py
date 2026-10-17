@@ -7,7 +7,7 @@ from copy import deepcopy
 from urllib.parse import unquote
 
 import pytest
-from test_native import EXAMPLE
+from test_native_runtime import EXAMPLE
 from test_rbs import AlgebraBackend
 
 from regsite import native_io

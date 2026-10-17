@@ -82,6 +82,8 @@ def test_unmeasured_flank_clipping_and_preserved_evidence():
         {"transcript_start_evidence": None},
         {"translation_start_evidence": None},
         {"anti_sd_provenance": None},
+        {"anti_sd_provenance": []},
+        {"anti_sd_provenance": ""},
         {"conditions": None},
         {"warnings": None},
         {"warnings": [1]},
@@ -133,6 +135,20 @@ def test_missing_and_unsupported_contexts():
         prepare_context(dict(record, downstream_length_nt=100), genome)
     with pytest.raises(InputError, match="disagrees"):
         prepare_context(dict(record, tss_zero_based=8, leader_length_nt=-1), genome)
+
+
+@pytest.mark.parametrize(
+    "provenance", [[{"source": "annotated 16S"}], {"source": "16S"}]
+)
+def test_structured_source_metadata_is_preserved(provenance):
+    record, genome = inputs()
+    record.update(anti_sd_provenance=provenance, conditions={"control": [3, 4]})
+    assert prepare_context(record, genome).request["anti_sd"] == "ACCUCCUUA"
+    batch = dict(EXAMPLE, records=[record])
+    result = predict_native(batch, AlgebraBackend(paired=0))
+    assert result["results"][0]["evidence"] == record
+    schema = json.loads(Path("schemas/native-rbs-evidence-1.schema.json").read_text())
+    jsonschema.validate(batch, schema)
 
 
 @pytest.mark.parametrize(

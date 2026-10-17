@@ -156,7 +156,10 @@
             "pattern": "^[^\\x00-\\x1f\\x7f]+$"
           },
           "conditions": {
-            "type": "array"
+            "type": [
+              "array",
+              "object"
+            ]
           },
           "anti_sd": {
             "type": "string",
@@ -164,10 +167,21 @@
             "maxLength": 90
           },
           "anti_sd_provenance": {
-            "type": "string",
-            "minLength": 1,
-            "maxLength": 2048,
-            "pattern": "^[^\\x00-\\x1f\\x7f]+$"
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 2048
+              },
+              {
+                "type": "array",
+                "minItems": 1
+              },
+              {
+                "type": "object",
+                "minProperties": 1
+              }
+            ]
           },
           "warnings": {
             "type": "array",

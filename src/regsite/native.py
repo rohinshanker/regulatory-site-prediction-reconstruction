@@ -137,7 +137,11 @@ def prepare_context(record: object, genome: Genome) -> NativeContext:
         "translation_start_evidence",
     ):
         _text(record.get(key), key)
-    _text(record.get("anti_sd_provenance"), "anti_sd_provenance", 2048)
+    provenance = record.get("anti_sd_provenance")
+    if isinstance(provenance, str):
+        _text(provenance, "anti_sd_provenance", 2048)
+    elif not isinstance(provenance, (dict, list)) or not provenance:
+        raise InputError("anti_sd_provenance requires text or nonempty source metadata")
     host = _text(record.get("host"), "host", 128)
     anti_sd = normalize_rna(record.get("anti_sd"), "anti_sd", max_length=9)
     if len(anti_sd) != 9:
@@ -145,9 +149,10 @@ def prepare_context(record: object, genome: Genome) -> NativeContext:
     temperature = record.get("temperature_c", 37.0)
     if type(temperature) not in (int, float) or not 0 <= temperature <= 100:
         raise InputError("native temperature_c must be finite and between 0 and 100")
-    for key in ("conditions", "warnings"):
-        if not isinstance(record.get(key), list):
-            raise InputError(f"{key} must be an explicit list")
+    if not isinstance(record.get("conditions"), (list, dict)):
+        raise InputError("conditions must be explicit source metadata (list/object)")
+    if not isinstance(record.get("warnings"), list):
+        raise InputError("warnings must be an explicit list")
     if any(not isinstance(item, str) for item in record["warnings"]):
         raise InputError("warnings must contain strings")
     for key, expected in (
