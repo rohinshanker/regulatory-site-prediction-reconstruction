@@ -113,6 +113,7 @@ class DiurnalTests(unittest.TestCase):
         self.assertEqual(row["partition"], "final")
         self.assertEqual(row["group"], "family")
         self.assertEqual(row["sequence"][100:103], "ATG")
+        self.assertEqual((row["strand"], row["genomic_strand"]), ("+", "+"))
         direct = diurnal.input_records(
             ["g"],
             {"g": self.coordinates["old"]},
@@ -131,6 +132,16 @@ class DiurnalTests(unittest.TestCase):
             self.splits,
         )[0]
         self.assertFalse(row["primary_eligible"])
+        features = deepcopy(self.features)
+        features[1].update(strand="-", start_zero_based=159)
+        row = diurnal.input_records(
+            ["old"],
+            {"old": ("NC_000911.1", 101, 160, "-", 60)},
+            self.genomes,
+            features,
+            self.splits,
+        )[0]
+        self.assertEqual((row["strand"], row["genomic_strand"]), ("+", "-"))
 
     def test_mapping_failures_are_retained(self):
         self.assertEqual(
@@ -219,6 +230,8 @@ class DiurnalTests(unittest.TestCase):
                 result = diurnal.prepare(root, inputs, splits, output)
                 self.assertEqual(result["n_primary_genes"], 1)
                 self.assertEqual(result["n_condition_records"], 5)
+                envelope = json.loads((output / "diurnal-inputs.json").read_text())
+                self.assertEqual(envelope["schema_version"], "rbs-diurnal-contexts-1")
                 self.assertEqual(
                     (output / "diurnal-outcomes-private.json").stat().st_mode & 0o777,
                     0o600,
