@@ -4,8 +4,8 @@
 - Status: active
 - Opened: 2026-10-16
 - Updated: 2026-10-17
-- Current State: Wave2 release candidate0.2.0rc1 on wave2/rbs-models, stacked draft PR. Native/refinement/runtime and B source evidence integrated; learned experiments, independent review and final release gates in progress.
-- Verification: Native checkpoint263tests100% realbackend; source integration90focusedtests100%; ridge110tests100%; full unchanged final tree, fresh wheel and CI pending.
+- Current State: Release candidate 0.2.0rc1 on wave2/rbs-models, stacked draft PR20. Native/refinement runtime, interpretable learned models, complete development fits/curves and frozen-weight prediction exports are implemented. Native sequence finalist and constant/OSTIR affine references are fixed before final outcomes. B evaluator review/integration and final scientific evaluation remain.
+- Verification: Checkpoint 0824e92 passes 1,110 real-backend tests at 100% statement/branch coverage and four Linux/macOS Python 3.11/3.14 CI jobs. Fresh wheel single/batch/native/GFF3/learned and real Tan subset checks pass. Cached inference exporter adds 185 tests at 100% coverage and is under independent review; final unchanged-tree gates follow B integration.
 - Cleanup: Owning session records final checks and unresolved findings, resolves the ticket, distills reusable guidance into docs/validation/, updates both indexes and linked GitHub issue, then removes the resolved ticket.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/6
 - Priority: P0

@@ -4,8 +4,8 @@
 - Status: active
 - Opened: 2026-10-16
 - Updated: 2026-10-17
-- Current State: Native JSON/GFF3 adapter and source integration are implemented. All 4,808 Tan rows are retained; 2,417 contexts prepare and 2,212 score successfully. All 2,503 mapped PCC contexts match independent 200-nt sequences/start 100 at 30°C; 27 unresolved rows remain unsupported. Three full PCC profile runs are underway.
-- Verification: Independent coordinate review accepted the core adapter after exhaustive checks; final temperature-alias/unresolved-source delta is in review. Latest 106 source/native/collector tests pass with 100% statement/branch coverage and the real backend. Fresh-wheel eight-case Tan example gives five scores and three explicit leaderless cases. Final integrated gates remain.
+- Current State: Portable native JSON/GFF3 adapter and source integration are complete. All 4,808 Tan source rows are retained; 2,417 prepare and 2,212 score. All 2,503 mapped PCC contexts independently match 200-nt source sequences/start 100 at 30°C; 27 unresolved rows remain unsupported. Complete historical/footprint/context runs score 2,400/2,400/2,234 of all 2,530 rows, with every failure retained.
+- Verification: Independent coordinate and final metadata reviews accepted all repairs. Checkpoint 0824e92 has 1,110 tests at 100% statement/branch coverage, real backend and four green Linux/macOS Python 3.11/3.14 CI jobs. Fresh 0.2.0rc1 wheel runs native/GFF3 examples and the eight-case Tan subset with five scores and three unsupported leaderless cases. Final integrated release gates remain before ticket cleanup.
 - Cleanup: Distill the final input/coordinate/runtime contract, update indexes and GitHub issue, then remove the resolved ticket after acceptance.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/18
 - Priority: P0
