@@ -8,7 +8,7 @@
     "license": "CC-BY-4.0",
     "license_location": "PDF page38 Copyright; annotation https://creativecommons.org/licenses/by/4.0/",
     "located_methods": {
-      "genomic_splits": "page30, Data processing",
+      "genomic_splits": "page28, Data processing",
       "growth_and_replicates": "page25, Library growth and harvest for expression measurements; RNA and DNA sequencing library preparation",
       "strain_and_library_design": "page21, Strains and TSS library design"
     },
@@ -20,6 +20,7 @@
     "visually_inspected_pages": [
       21,
       25,
+      28,
       38
     ]
   },
