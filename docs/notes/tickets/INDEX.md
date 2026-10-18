@@ -2,6 +2,10 @@
 
 Live queue of open and active tickets. Markdown is canonical; GitHub issues mirror scope and discussion.
 
+The [continuing delivery program](../../validation/calculator-delivery-program.md)
+orders current/recoded prediction and portable consumer outputs after the
+Promoter runtime, then admitted supplied-operon and conditional aptamer slices.
+
 Wave 5 is governed by the [two-phase program](../../validation/wave5-program.md) and [A](../../prompts/wave5-session-a.md)/[B](../../prompts/wave5-session-b.md) prompts. A owns the active release parent #6 and scoped runtime #33; B owns evaluation #34. Reuse the cyano visualizer annotation-discrepancy decisions read-only. The owner authorized isolated calculator implementation alongside release preparation on 2026-10-18. Phase 2 proceeds under source-parity, candidate-freeze and independent-collection gates; publication and cyano admission remain separate.
 
 The reviewed RBS 0.4.0rc1 candidate is in [PR31](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/pull/31). Read the [release guide](../../validation/rbs-0.4-release.md) and [independent Wave 4 results](../../validation/rbs-wave4-results.md): joint selection did not pass the advancement gate, and the selected Cambray panel is consumed. Preserve all frozen models, protocols and private-outcome boundaries.
@@ -23,3 +27,4 @@ A owns remaining runtime/release/improvement scopes 04/06/13; B owns broader sou
 | A | 2026-10-17 | [A_13-ground-truth-model-improvements__20261016.md](A_13-ground-truth-model-improvements__20261016.md) | P0 | Joint advancement failed on the independent panel; new-cycle improvement/native promotion remain; [issue #13](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/13) |
 | A | 2026-10-18 | [A_33-promoter-local-runtime__20261018.md](A_33-promoter-local-runtime__20261018.md) | P0 | Session A: Core/interface implementation authorized; reviewed public contracts and B adapter integrated; [issue #33](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/33) |
 | A | 2026-10-18 | [A_34-promoter-independent-native-validation__20261018.md](A_34-promoter-independent-native-validation__20261018.md) | P0 | Session B: Outcome-free adapter and complete-roster metrics reviewed at public contract 5b890a3; Phase 2 awaits candidate and release gate; [issue #34](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/34) |
+| O | 2026-10-18 | [O_41-paired-regulatory-recoding__20261018.md](O_41-paired-regulatory-recoding__20261018.md) | P1 | Session A: Paired supplied-sequence prediction, explicit edit-map comparison and portable consumer outputs; [issue #41](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/41) |
