@@ -431,6 +431,84 @@ def test_projection_conflicts_and_rejected_field_nulls():
     assert b["sites"][0]["genomic"]["strand"] == "-"
 
 
+@pytest.mark.parametrize(
+    "changes,code",
+    [
+        ({"sequence": "AA\ud800"}, "invalid_character"),
+        ({"projection": projection(contig="chr\ud800")}, "invalid_projection"),
+        ({"host": {"name": "host\ud800"}}, "invalid_host"),
+    ],
+)
+def test_unpaired_surrogates_are_isolated_record_errors(changes, code):
+    value = {"records": [request(**changes), request(id="good")]}
+    # Explicit escaped JSON input proves this is reachable through the strict loader.
+    result = pio.predict_batch(pio.load_requests(io.StringIO(json.dumps(value))))
+    bad, good = result["results"]
+    assert code in bad["reasons"] and bad["status"] == "invalid_input"
+    assert good["status"] == "ok"
+    assert bad["errors"][0]["character"] == "\ud800"
+    if "sequence" in changes:
+        assert bad["input"]["raw_sha256"] is None
+    for export in (pio.write_json, pio.write_csv, pio.write_gff3):
+        stream = io.StringIO()
+        export(result, stream)
+        stream.getvalue().encode("utf-8")
+
+
+def test_unknown_sequence_extent_does_not_invent_projection_errors():
+    record = one(
+        sequence="ACGTN" * 40,
+        projection=projection(origin=950, topology="circular", origin_crossing=True),
+    )
+    assert record["reasons"] == ["ambiguous_base"]
+    assert record["projection"] is None
+
+
+@pytest.mark.parametrize(
+    "changes",
+    [
+        {"extra": 1},
+        {"contig": None},
+        {"contig_length": True},
+        {"contig_length": 0},
+        {"origin": -1},
+        {"origin": 1000},
+        {"sequence_strand": []},
+        {"topology": "wrong"},
+        {"origin_crossing": 1},
+        {"origin_crossing": True},
+    ],
+)
+def test_projection_shape_is_checked_even_when_sequence_length_is_unknown(changes):
+    record = one(sequence="?", projection=projection(**changes))
+    assert record["reasons"] == ["invalid_character", "invalid_projection"]
+
+
+def test_gff3_ids_are_record_unique_and_seqids_escape_tilde():
+    result = pio.predict_batch(
+        {
+            "records": [
+                request(projection=projection(contig="chr~1")),
+                request(id="overlap", projection=projection(contig="chr~1")),
+            ]
+        }
+    )
+    assert (
+        result["results"][0]["sites"][0]["site_id"]
+        == result["results"][1]["sites"][0]["site_id"]
+    )
+    stream = io.StringIO()
+    pio.write_gff3(result, stream)
+    rows = [
+        line.split("\t")
+        for line in stream.getvalue().splitlines()
+        if not line.startswith("#")
+    ]
+    ids = [row[8].split(";")[0] for row in rows]
+    assert len(ids) == len(set(ids))
+    assert all(row[0] == "chr%7E1" for row in rows)
+
+
 def test_limit_accounting_and_empty_noop(monkeypatch):
     assert pio.predict_batch({"records": []})["batch"]["record_count"] == 0
     monkeypatch.setitem(pio.LIMITS, "max_normalized_bases_per_batch", 200)

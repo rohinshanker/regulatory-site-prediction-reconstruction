@@ -69,19 +69,6 @@ FIELDS = frozenset(
 )
 OUTPUT_DEFAULTS = {"states": "selected", "legacy_keys": False, "elements": True}
 NORMALIZATION = "ascii-whitespace-uppercase-u-to-t-1"
-TERM_NAMES = {
-    "hex10": "dG_10",
-    "hex35": "dG_35",
-    "discriminator": "dG_disc",
-    "extended10": "dG_ext10",
-    "itr": "dG_ITR",
-    "up": "dG_UP",
-    "spacer": "dG_spacer",
-    "intercept": "intercept",
-    "total": "dG_total",
-    "binding": "dG_bind",
-    "source_apparent": "dG_apparent",
-}
 SOURCE_QUIRKS = {
     "reverse_key_l_minus_t": "Corrected local base L-1-t; legacy L-t diagnostic only.",
     "arbitrary_scan_gap_omitted": "Always retain the one-base UP/hex35 gap.",
@@ -183,10 +170,9 @@ def model_identity(params: promoter.PromoterParameters) -> tuple[dict, dict]:
             "intercept_count": 1,
             "unused_coefficient_indices": list(params.unused_indices),
         },
-        "term_source_names": dict(TERM_NAMES),
-        "terms_unit": "source_dG_units",
-        "terms_semantics": "learned regression score contributions; not independently "
-        "established free energies",
+        "term_source_names": dict(promoter.TERM_SOURCE_NAMES),
+        "terms_unit": promoter.TERMS_UNIT,
+        "terms_semantics": promoter.TERMS_SEMANTICS,
         "source_quirks": [
             {"id": key, "behavior": value} for key, value in SOURCE_QUIRKS.items()
         ],
@@ -307,19 +293,58 @@ def _metadata(value: object) -> dict:
     return value
 
 
-def _projection(value: object, length: int) -> dict:
-    if not isinstance(value, dict) or not {
+def _utf8(value: str, code: str, field: str) -> bytes:
+    """Reject unpaired surrogate text locally, preserving valid sibling records."""
+    try:
+        return value.encode("utf-8")
+    except UnicodeEncodeError as exc:
+        raise promoter.InputError(code, field, exc.start, value[exc.start]) from exc
+
+
+def _calibration(profile: Any, host: Any) -> promoter.Calibration:
+    if isinstance(host, dict) and isinstance(host.get("name"), str):
+        if len(host["name"]) > LIMITS["max_host_name_chars"]:
+            raise promoter.InputError("invalid_host", "host.name")
+        _utf8(host["name"], "invalid_host", "host.name")
+    return promoter.resolve_calibration(profile, host)
+
+
+def _projection(value: object, length: int | None) -> dict | None:
+    required = {
         "contig",
         "origin",
         "contig_length",
         "topology",
         "origin_crossing",
-    }.issubset(value):
+    }
+    if (
+        not isinstance(value, dict)
+        or not required.issubset(value)
+        or set(value) - required - {"sequence_strand"}
+    ):
         raise promoter.InputError("invalid_projection", "projection")
-    resolved = promoter.check_projection(value, length)
-    if len(resolved["contig"]) > LIMITS["max_contig_chars"]:
+    contig = value["contig"]
+    if (
+        not isinstance(contig, str)
+        or not 1 <= len(contig) <= LIMITS["max_contig_chars"]
+    ):
         raise promoter.InputError("invalid_projection", "projection.contig")
-    return resolved
+    _utf8(contig, "invalid_projection", "projection.contig")
+    size = _integer(
+        value["contig_length"], "invalid_projection", "projection.contig_length"
+    )
+    origin = _integer(value["origin"], "invalid_projection", "projection.origin")
+    if (
+        size < 1
+        or not 0 <= origin < size
+        or value.get("sequence_strand", "+") not in ("+", "-")
+        or value["topology"] not in ("linear", "circular")
+        or type(value["origin_crossing"]) is not bool
+        or (value["topology"] == "linear" and value["origin_crossing"])
+    ):
+        raise promoter.InputError("invalid_projection", "projection")
+    # With unknown sequence length, no extent/crossing decision is justified.
+    return None if length is None else promoter.check_projection(value, length)
 
 
 def _error(exc: promoter.InputError) -> dict:
@@ -399,7 +424,9 @@ def _prepare(
         value = raw["sequence"]
         if not isinstance(value, str):
             raise promoter.InputError("invalid_type", "sequence")
-        result["input"]["raw_sha256"] = hashlib.sha256(value.encode()).hexdigest()
+        result["input"]["raw_sha256"] = hashlib.sha256(
+            _utf8(value, "invalid_character", "sequence")
+        ).hexdigest()
         _limit("max_raw_sequence_chars_per_record", len(value), "sequence")
         normalized = promoter.normalize_dna(value, max_length=len(value))
         _limit("max_normalized_bases_per_record", len(normalized), "sequence")
@@ -418,19 +445,10 @@ def _prepare(
         errors.append(
             _error(promoter.InputError("calibration_required", "calibration"))
         )
-    elif "host" in raw and (
-        raw["host"] is None
-        or (
-            isinstance(raw["host"], dict)
-            and isinstance(raw["host"].get("name"), str)
-            and len(raw["host"]["name"]) > LIMITS["max_host_name_chars"]
-        )
-    ):
+    elif "host" in raw and raw["host"] is None:
         errors.append(_error(promoter.InputError("invalid_host", "host")))
     else:
-        item.calibration = check(
-            promoter.resolve_calibration, raw["calibration"], raw.get("host")
-        )
+        item.calibration = check(_calibration, raw["calibration"], raw.get("host"))
         if item.calibration is not None:
             result["calibration"] = item.calibration.to_dict()
             result["warnings"].extend(item.calibration.warnings)
@@ -450,11 +468,7 @@ def _prepare(
         if scan is not None and length is not None:
             result["scan"], item.planned = scan
     if "projection" in raw:
-        if length is not None:
-            result["projection"] = check(_projection, raw["projection"], length)
-        else:
-            # Validate shape where possible, but never retain an unverified map.
-            check(_projection, raw["projection"], 1)
+        result["projection"] = check(_projection, raw["projection"], length)
     projection = result["projection"]
     if projection is not None:
         contig = projection["contig"]
@@ -648,9 +662,7 @@ def _envelope(value: object) -> tuple[list, dict]:
             if "host" in defaults and defaults["host"] is None:
                 raise promoter.InputError("invalid_host", "defaults.host")
             # This profile validates host shape only; it never supplies a default.
-            promoter.resolve_calibration(
-                defaults.get("calibration", "in_vitro"), defaults.get("host")
-            )
+            _calibration(defaults.get("calibration", "in_vitro"), defaults.get("host"))
         if "output" in defaults:
             _output(defaults["output"])
     except promoter.InputError as exc:
@@ -868,7 +880,8 @@ def write_csv(result: dict, stream: TextIO) -> None:
 
 
 def _escape(value: object) -> str:
-    return quote(str(value), safe=".:^*$@!+_?-|")
+    # urllib always leaves '~' unescaped, but it is not in GFF3's seqid alphabet.
+    return quote(str(value), safe=".:^*$@!+_?-|").replace("~", "%7E")
 
 
 def write_gff3(result: dict, stream: TextIO) -> None:
@@ -920,11 +933,12 @@ def write_gff3(result: dict, stream: TextIO) -> None:
                     start = max(run[0] for run in runs)
                     end = min(run[1] for run in runs) + size
                 attrs = {
-                    "ID": f"{site['site_id']}:{name}",
+                    "ID": f"{site['site_id']}:record:{record['id']}:{name}",
                     "Name": name,
                     "model_window": "true",
                     "model_element": name,
                     "site_id": site["site_id"],
+                    "record_id": record["id"],
                     "local_strand": site["strand"],
                     "sequence_strand": genomic["sequence_strand"],
                     "log_relative_transcription_score": selected[
