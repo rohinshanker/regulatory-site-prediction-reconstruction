@@ -148,3 +148,10 @@ An approved main merge, version tag and package/release publication remain
 separate actions under ticket 06. Do not imply that a candidate artifact clears
 that milestone. Promoter runtime ticket 07 and consumer admission ticket 10
 retain their release dependencies; no cyano checkout changes are included here.
+
+PR31 is an incremental Wave 4 review against `planning/wave4`, which already
+contains the earlier implementation waves. The default `main` branch remains
+at planning commit `b77982875f3823fc50fbe918a129a4a4ada2e9d1`. Before publication,
+review and reconcile the complete candidate tree against the then-current main,
+including the integrated evidence commits. This cumulative integration is part
+of ticket 06; the incremental Wave 4 diff alone is not the complete calculator.
