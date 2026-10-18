@@ -188,6 +188,11 @@ Duplicate JSON keys and `NaN`/`Infinity` are setup errors. Unknown keys are
 `invalid_input`/`unknown_field`. `defaults` may hold only `calibration`, `host` and
 `output`; precedence is record > `defaults`; a conflicting CLI flag (below) is a
 setup error rather than an override.
+Defaults merge at the top level: a record's `host` or `output` object replaces
+the whole corresponding defaults object. Missing keys within the winning
+`output` object then receive the documented output defaults. An empty `records`
+envelope is a valid no-op batch with empty results, zero status counts and exit 0;
+a bare array remains invalid.
 
 | Field | Type | Meaning |
 | --- | --- | --- |
@@ -198,7 +203,7 @@ setup error rather than an override.
 | `scan` | object | Required; no default. |
 | `projection` | object | Optional genomic mapping (below). |
 | `output` | object | Optional `{"states":"selected"\|"all","legacy_keys":bool,"elements":bool}`; defaults `selected`, `false`, `true`. |
-| `model` | object | Optional pin `{"id":…,"parameter_json_sha256":…}`; mismatch is `unsupported`/`model_unavailable`. |
+| `model` | object | Optional pin requiring both `id` and `parameter_json_sha256`; mismatch is `unsupported`/`model_unavailable`. |
 | `metadata` | object | Optional ≤4096 canonical-JSON bytes, depth ≤4; echoed verbatim, excluded from identity and computation. |
 
 **Normalization.** Keep only characters after removing ASCII whitespace
@@ -235,6 +240,9 @@ insufficient-context and deadline-unattempted sites. The runtime never samples,
 deduplicates, reorders or drops candidates; grids and chunking belong to the
 caller. Integers must be JSON integers or integral floats (`20.0`); booleans and
 fractions fail. Planned sites are counted before scoring and checked against limits.
+Accepted integral floats are normalized to integers before resolved coordinates,
+scan settings and per-prediction IDs are computed; `batch_id` still binds the
+original parsed input.
 
 *Transcript-oriented grid.* For `C` candidate bases supplied as 67 upstream
 bases + `C` candidates + 19 downstream bases, `L = C + 86` and
