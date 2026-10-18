@@ -14,6 +14,12 @@ checks return no authoritative object, so its byte/count metrics stay null.
 Only generated A/C/G/T and fixed-seed GC draws are used. No fixtures, benchmark
 outcomes, network, folding process or runtime-limit mutation is involved. Finite
 samples cannot establish a worst-case output bound or multi-platform admission.
+
+Candidate capacity: --suite candidate --repetitions 3 --budget-seconds 1200 --admit.
+Diagnostics: --scenario tight-deadline (expected incomplete, separate receipt),
+or --suite diagnostic (immutable original ceilings, often rejected by new caps).
+Recheck an existing artifact with --check-receipt PATH; exit 1 means admission
+failed. Generation/measurement and the public check_receipt gate are separate.
 """
 
 from __future__ import annotations
@@ -24,6 +30,7 @@ import json
 import math
 import platform
 import random
+import re
 import resource
 import subprocess
 import sys
@@ -35,9 +42,52 @@ from regsite import promoter
 from regsite import promoter_io as pio
 
 ROOT = Path(__file__).resolve().parents[1]
-GENERATOR = "synthetic-promoter-resources-2"
+GENERATOR = "synthetic-promoter-resources-3"
 SEED = 1729
 MAX_SECONDS = 1800.0
+SOURCE_PATHS = (
+    "src/regsite/promoter.py",
+    "src/regsite/promoter_io.py",
+    "src/regsite/data/promoter-parameters-1.json",
+    "tools/measure_promoter_resources.py",
+)
+CANDIDATE_SCENARIOS = (
+    *(
+        f"effective-record-{dna}"
+        for dna in ("A", "C", "G", "T", "gc20", "gc50", "gc80")
+    ),
+    "effective-scan",
+    "batch-records-bases",
+    "effective-selected-batch",
+    "all-2000",
+    "mixed-4000-2000",
+    "effective-all-sites",
+    "effective-mixed",
+)
+ORIGINAL_SCENARIOS = (
+    *(f"record-{dna}" for dna in ("A", "C", "G", "T", "gc20", "gc50", "gc80")),
+    "batch-records-bases",
+    *(f"verbose-{n}" for n in (2000, 4000, 8000, 20000)),
+    "all-record",
+    "all-batch",
+    "scan-record",
+    "mixed-ceiling",
+    *(f"all-{n}" for n in (1000, 2000, 3000)),
+    *(f"mixed-4000-{n}" for n in (1000, 2000, 3000)),
+)
+
+
+def api_call(limits: dict, **deadlines: float) -> dict:
+    """Explicit public API options, including resolved actual deadlines."""
+    return {
+        "function": "regsite.promoter_io.predict_batch",
+        "seconds_per_record": limits["default_seconds_per_record"],
+        "seconds_per_batch": limits["default_seconds_per_batch"],
+        "cli_calibration": None,
+        "cli_states": None,
+        "output_format": "json",
+        **deadlines,
+    }
 
 
 def digest(data: bytes) -> str:
@@ -104,6 +154,68 @@ def scenarios(limits: dict) -> dict[str, dict]:
     length = min(5000, int(limits["max_normalized_bases_per_record"]))
     count = min(5000, int(limits["max_planned_sites_per_record"]), 2 * length)
     add("effective-record", [length], [count], verbose=True)
+    for dna in ("A", "C", "G", "T", "gc20", "gc50", "gc80"):
+        add(f"effective-record-{dna}", [length], [count], dna=dna, verbose=True)
+    # A symmetric scan cannot represent an odd number of sites: expose that
+    # count explicitly, never change the effective runtime limit identity.
+    add("effective-scan", [length], [count - count % 2], verbose=True)
+    specs["effective-scan"]["scan_mode"] = "scan"
+    total = int(limits["max_planned_sites_per_batch"])
+    per_record = int(limits["max_planned_sites_per_record"])
+    selected_counts = [min(per_record, total - i) for i in range(0, total, per_record)]
+    add(
+        "effective-selected-batch",
+        [length] * len(selected_counts),
+        selected_counts,
+        verbose=True,
+    )
+    state_budget = min(
+        int(limits["max_all_states_per_record"]),
+        int(limits["max_all_states_per_batch"]),
+        30 * int(limits["max_all_state_sites_per_record"]),
+    )
+    full, remainder = divmod(state_budget, 30)
+    # Greedy partial states at distinct left-edge TSSs; all remaining sites
+    # have full context. Settings preserve requested budget and actual positions.
+    partial = []
+    for t in range(66, 57, -1):
+        size = len(promoter.eligible_states(length, t))
+        for strand in ("+", "-"):
+            if size and size <= remainder:
+                partial.append(
+                    {"strand": strand, "tss": t if strand == "+" else length - 1 - t}
+                )
+                remainder -= size
+    all_count = full + len(partial)
+    add("effective-all-sites", [length], [all_count], states="all", verbose=True)
+    specs["effective-all-sites"].update(
+        partial_positions=partial,
+        extra_empty_sites=max(
+            0, int(limits["max_all_state_sites_per_record"]) - all_count
+        ),
+        requested_state_budget=state_budget,
+    )
+    mixed_total = total - all_count
+    mixed_counts = [
+        min(per_record, mixed_total - i) for i in range(0, mixed_total, per_record)
+    ]
+    add(
+        "effective-mixed",
+        [length] * (len(mixed_counts) + 1),
+        mixed_counts + [all_count],
+        states="mixed",
+        verbose=True,
+    )
+    specs["effective-mixed"].update(
+        output_modes=["selected"] * len(mixed_counts) + ["all"],
+        partial_positions=partial,
+        requested_state_budget=state_budget,
+    )
+    add("tight-deadline", [length], [count], verbose=True)
+    specs["tight-deadline"]["deadlines"] = {
+        "seconds_per_record": 1e-9,
+        "seconds_per_batch": 1e-9,
+    }
     return specs
 
 
@@ -149,6 +261,17 @@ def generate(spec: dict, limits: dict) -> dict:
         points = points[:count]
         if spec["edge_tss"] is not None and index == len(spec["sites"]) - 1:
             points[-1] = ("+", spec["edge_tss"])
+        if mode == "all" and "partial_positions" in spec:
+            partial = [(p["strand"], p["tss"]) for p in spec["partial_positions"]]
+            points = points[: count - len(partial)] + partial
+            points += [
+                (s, f)
+                for f in range(length)
+                for s in ("+", "-")
+                if not promoter.eligible_states(
+                    length, f if s == "+" else length - 1 - f
+                )
+            ][: spec.get("extra_empty_sites", 0)]
         record: dict[str, Any] = {
             "id": f"synthetic-{index}",
             "sequence": dna,
@@ -286,26 +409,13 @@ def runtime_identity() -> dict:
         text=True,
         check=True,
     ).stdout.strip()
-    paths = [
-        "src/regsite/promoter.py",
-        "src/regsite/promoter_io.py",
-        "src/regsite/data/promoter-parameters-1.json",
-        "tools/measure_promoter_resources.py",
-    ]
     return {
         "git_head": head,
         "model": model,
         "identity_model": identity,
-        "source_sha256": {p: digest((ROOT / p).read_bytes()) for p in paths},
+        "source_sha256": {p: digest((ROOT / p).read_bytes()) for p in SOURCE_PATHS},
         "limits": dict(pio.LIMITS),
-        "api_call": {
-            "function": "regsite.promoter_io.predict_batch",
-            "seconds_per_record": pio.LIMITS["default_seconds_per_record"],
-            "seconds_per_batch": pio.LIMITS["default_seconds_per_batch"],
-            "cli_calibration": None,
-            "cli_states": None,
-            "output_format": "json",
-        },
+        "api_call": api_call(pio.LIMITS),
         "python": sys.version,
         "executable": sys.executable,
         "platform": platform.platform(),
@@ -326,10 +436,12 @@ def peak_rss() -> dict:
     }
 
 
-def measure(request: dict) -> dict:
+def measure(request: dict, **deadlines: float) -> dict:
     """Retain size-cap/setup exceptions instead of inventing lost result metrics."""
     started = time.perf_counter()
+    call = api_call(pio.LIMITS, **deadlines)
     metrics: dict = {
+        "api_call": call,
         "status": "setup_error",
         "error": None,
         "authoritative_bytes": None,
@@ -338,7 +450,11 @@ def measure(request: dict) -> dict:
         "serialization_seconds": None,
     }
     try:
-        result = pio.predict_batch(request)
+        result = pio.predict_batch(
+            request,
+            seconds_per_record=call["seconds_per_record"],
+            seconds_per_batch=call["seconds_per_batch"],
+        )
         metrics["api_seconds"] = time.perf_counter() - started
         encoded_at = time.perf_counter()
         encoded = pio.result_bytes(result)
@@ -359,12 +475,21 @@ def measure(request: dict) -> dict:
             and (r["coverage"] or {}).get("complete", False)
             for r in records
         )
+        overrun = metrics["api_seconds"] > call["seconds_per_batch"] or (
+            len(records) == 1 and metrics["api_seconds"] > call["seconds_per_record"]
+        )
         metrics.update(
-            status="ok" if complete else "incomplete",
+            status="elapsed_overrun"
+            if complete and overrun
+            else "ok"
+            if complete
+            else "incomplete",
+            elapsed_overrun=overrun,
+            model=result["model"],
             authoritative_bytes=len(encoded),
             authoritative_sha256=digest(encoded),
             coverage=coverage,
-            complete=complete,
+            complete=complete and not overrun,
             batch=result["batch"],
             record_statuses=[r["status"] for r in records],
             record_reasons=[r["reasons"] for r in records],
@@ -505,6 +630,7 @@ def collect(names: list[str], repetitions: int, budget: float) -> dict:
             "request": request,
             "limits": identity["limits"],
             "identity_model": identity["identity_model"],
+            "deadlines": spec.get("deadlines", {}),
         }
         for repetition in range(1, repetitions + 1):
             remaining = budget - (time.monotonic() - started)
@@ -536,6 +662,260 @@ def collect(names: list[str], repetitions: int, budget: float) -> dict:
     }
 
 
+def positive(value: object) -> bool:
+    """A finite positive JSON number, excluding booleans."""
+    return (
+        isinstance(value, (int, float))
+        and not isinstance(value, bool)
+        and math.isfinite(value)
+        and value > 0
+    )
+
+
+def check_receipt(
+    receipt: object,
+    *,
+    repetitions: int = 3,
+    required_scenarios: tuple[str, ...] = CANDIDATE_SCENARIOS,
+    expected_runtime: dict | None = None,
+) -> dict:
+    """Check measured evidence without running/generating inputs or lowering caps.
+
+    Returns concrete failures and global N*c safety arithmetic. Every included
+    sample must be admitted and complete, with measured RSS and default actual
+    deadlines. Tight-deadline/old-ceiling failures belong in separate diagnostic
+    receipts. Required names and exact repetition IDs prevent partial suites from
+    being admitted. expected_runtime optionally binds the evidence to a build;
+    Python/platform/executable remain the measured platform's identity.
+
+    This is an evidence consistency gate, not authentication of timing claims or
+    a proof that finite synthetic samples bound every possible request.
+    """
+    failures: list[str] = []
+    costs: list[float] = []
+    safety: dict = {}
+    try:
+        if not isinstance(receipt, dict):
+            raise ValueError("receipt must be an object")
+        identity = receipt["runtime"]
+        limits = identity["limits"]
+        if set(limits) != set(pio.LIMITS) or any(
+            not positive(v)
+            or (
+                not k.startswith(("default_seconds_", "max_seconds_"))
+                and type(v) is not int
+            )
+            for k, v in limits.items()
+        ):
+            raise ValueError("runtime must pin all 20 finite positive effective limits")
+        if set(identity["model"]) != {
+            "id",
+            "implementation_version",
+            "kind",
+            "source",
+            "licence",
+            "parameters",
+            "term_source_names",
+            "terms_unit",
+            "terms_semantics",
+            "source_quirks",
+            "not_modeled",
+            "claims",
+        }:
+            failures.append("complete emitted model fields are missing/unknown")
+        if (
+            not positive(receipt["budget_seconds"])
+            or not positive(receipt["elapsed_seconds"])
+            or receipt["elapsed_seconds"] > receipt["budget_seconds"]
+        ):
+            failures.append("measurement elapsed time exceeds budget or is unmeasured")
+        expected_identity = {
+            "id": identity["model"]["id"],
+            "implementation_version": identity["model"]["implementation_version"],
+            "source_commit": identity["model"]["source"]["commit"],
+            "parameter_json_sha256": identity["model"]["parameters"][
+                "parameter_json_sha256"
+            ],
+            "coefficient_array_sha256": identity["model"]["parameters"]["array_sha256"][
+                "coefficients"
+            ],
+            "intercept_array_sha256": identity["model"]["parameters"]["array_sha256"][
+                "intercept"
+            ],
+        }
+        if identity["identity_model"] != expected_identity:
+            failures.append("six-key identity does not match complete emitted model")
+        if identity["api_call"] != api_call(limits):
+            failures.append(
+                "runtime actual API options must pin the effective defaults"
+            )
+        hashes = identity["source_sha256"]
+        if set(hashes) != set(SOURCE_PATHS) or any(
+            not isinstance(v, str) or re.fullmatch("[0-9a-f]{64}", v) is None
+            for v in hashes.values()
+        ):
+            failures.append("missing/invalid runtime or tool source SHA256")
+        for key in ("git_head", "python", "platform", "executable"):
+            if not isinstance(identity[key], str) or not identity[key]:
+                failures.append(f"missing runtime {key}")
+        if expected_runtime is not None:
+            for key in (
+                "limits",
+                "model",
+                "identity_model",
+                "source_sha256",
+                "api_call",
+            ):
+                if identity[key] != expected_runtime[key]:
+                    failures.append(f"runtime {key} differs from expected build")
+        if (
+            type(receipt["repetitions"]) is not int
+            or receipt["repetitions"] != repetitions
+        ):
+            failures.append(f"receipt repetitions must equal {repetitions}")
+        rows = receipt["measurements"]
+        groups: dict[str, list] = {}
+        for row in rows:
+            name, repetition = row["scenario"], row["repetition"]
+            label = f"{name} #{repetition}"
+            groups.setdefault(name, []).append(repetition)
+            plan = row["preflight"]
+            planned = plan["planned_sites"]
+            if (
+                not plan["admitted_dimensions"]
+                or plan["violations"]
+                or type(planned) is not int
+                or planned <= 0
+            ):
+                failures.append(f"{label}: preflight rejected dimensions")
+            coverage = row.get("coverage") or {}
+            complete = (
+                row.get("status") == "ok"
+                and row.get("complete") is True
+                and not row.get("elapsed_overrun", False)
+                and coverage.get("planned_sites") == planned
+                and coverage.get("failed_sites") == 0
+                and coverage.get("unattempted_sites") == 0
+                and coverage.get("scored_sites", 0)
+                + coverage.get("insufficient_context_sites", 0)
+                == planned
+            )
+            if not complete:
+                failures.append(
+                    f"{label}: incomplete/rejected sample ({row.get('status')})"
+                )
+            rss = row.get("peak_rss") or {}
+            factor = {"bytes": 1, "KiB": 1024}.get(rss.get("unit", ""))
+            if (
+                not positive(rss.get("bytes"))
+                or not positive(rss.get("raw"))
+                or factor is None
+                or rss["bytes"] != rss["raw"] * factor
+            ):
+                failures.append(f"{label}: RSS not measured with a known matching unit")
+            size = row.get("authoritative_bytes")
+            if (
+                type(size) is not int
+                or not 0
+                < size
+                <= min(64 * 1024**2, limits["max_result_json_bytes"]) / 2
+            ):
+                failures.append(
+                    f"{label}: authoritative bytes missing or exceed "
+                    f"half output cap ({size})"
+                )
+            wall = row.get("wall_seconds")
+            valid_wall = positive(wall)
+            if not valid_wall:
+                failures.append(f"{label}: missing/nonfinite wall time")
+            call = row.get("api_call")
+            if call != identity["api_call"]:
+                failures.append(
+                    f"{label}: actual API deadlines/options differ from defaults"
+                )
+            batch = row.get("batch") or {}
+            if (
+                row.get("model") != identity["model"]
+                or batch.get("limits") != limits
+                or batch.get("seconds_per_record")
+                != identity["api_call"]["seconds_per_record"]
+                or batch.get("seconds_per_batch")
+                != identity["api_call"]["seconds_per_batch"]
+            ):
+                failures.append(f"{label}: emitted runtime identity/deadlines differ")
+            if (
+                row.get("emitted_states") != plan["planned_emitted_states"]
+                or any(
+                    s not in ("ok", "no_candidate")
+                    for s in row.get("record_statuses", [])
+                )
+                or len(row.get("record_statuses", [])) != len(plan["records"])
+                or batch.get("record_count") != len(plan["records"])
+                or batch.get("complete") is not True
+            ):
+                failures.append(
+                    f"{label}: rejected records or missing planned result counts"
+                )
+            if valid_wall and (
+                wall > limits["default_seconds_per_batch"]
+                or (
+                    len(plan["records"]) == 1
+                    and wall > limits["default_seconds_per_record"]
+                )
+            ):
+                failures.append(
+                    f"{label}: elapsed wall time exceeds actual default deadline"
+                )
+            if (
+                complete
+                and valid_wall
+                and positive(planned)
+                and row["settings"]["states"] != "mixed"
+            ):
+                costs.append(wall / planned)
+        for name in required_scenarios:
+            if name not in groups:
+                failures.append(f"missing required scenario: {name}")
+        for name, ids in groups.items():
+            if any(type(i) is not int for i in ids) or sorted(ids) != list(
+                range(1, repetitions + 1)
+            ):
+                failures.append(
+                    f"{name}: repetitions must be exactly 1..{repetitions}, once each"
+                )
+        if not costs:
+            failures.append("no complete nonmixed samples for per-site wall cost")
+        else:
+            c = max(costs)
+            safety["worst_complete_nonmixed_wall_seconds_per_site"] = c
+            for scope, key in (
+                ("record", "max_planned_sites_per_record"),
+                ("batch", "max_planned_sites_per_batch"),
+            ):
+                scaled, half = (
+                    limits[key] * c,
+                    limits[f"default_seconds_per_{scope}"] / 2,
+                )
+                safety[scope] = {
+                    "sites": limits[key],
+                    "scaled_seconds": scaled,
+                    "half_deadline_seconds": half,
+                }
+                if scaled > half:
+                    failures.append(
+                        f"{scope}: N*c={scaled} exceeds half deadline {half}"
+                    )
+    except (KeyError, TypeError, ValueError, AttributeError) as exc:
+        failures.append(f"malformed receipt: {type(exc).__name__}: {exc}")
+    return {
+        "passed": not failures,
+        "failures": failures,
+        "time_safety": safety,
+        "caveat": "Finite synthetic samples do not prove "
+        "worst possible input capacity.",
+    }
+
+
 def main(argv: list[str] | None = None) -> int:
     """Write reusable receipts only inside the ignored repository .cache tree."""
     parser = argparse.ArgumentParser(description=__doc__)
@@ -547,8 +927,26 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument(
         "--output", type=Path, default=ROOT / ".cache/promoter-resources/receipt.json"
     )
+    parser.add_argument(
+        "--suite", choices=("all", "candidate", "diagnostic"), default="all"
+    )
+    parser.add_argument(
+        "--admit",
+        action="store_true",
+        help="Fail unless the candidate receipt passes admission",
+    )
+    parser.add_argument(
+        "--check-receipt", type=Path, help="Check a saved receipt without measuring"
+    )
     parser.add_argument("--worker", action="store_true", help=argparse.SUPPRESS)
     args = parser.parse_args(argv)
+    if args.check_receipt:
+        gate = check_receipt(
+            json.loads(args.check_receipt.read_bytes()),
+            expected_runtime=runtime_identity(),
+        )
+        print(json.dumps(gate, sort_keys=True))
+        return 0 if gate["passed"] else 1
     if args.worker:
         payload = json.load(sys.stdin)
         if (
@@ -557,18 +955,30 @@ def main(argv: list[str] | None = None) -> int:
             != pio.model_identity(promoter.load_parameters())[1]
         ):
             raise ValueError("worker runtime identity differs from parent")
-        print(json.dumps(measure(payload["request"]), allow_nan=False))
+        print(
+            json.dumps(
+                measure(payload["request"], **payload.get("deadlines", {})),
+                allow_nan=False,
+            )
+        )
         return 0
     if not 1 <= args.repetitions <= 10 or not 0 < args.budget_seconds <= MAX_SECONDS:
         parser.error("repetitions must be 1..10 and budget must be finite in (0,1800]")
     output = args.output.resolve()
     if not output.is_relative_to((ROOT / ".cache").resolve()):
         parser.error("receipt output must be inside repository .cache")
+    suites = {
+        "all": list(scenarios(pio.LIMITS)),
+        "candidate": list(CANDIDATE_SCENARIOS),
+        "diagnostic": [*ORIGINAL_SCENARIOS, "tight-deadline"],
+    }
     receipt = collect(
-        args.scenario or list(scenarios(pio.LIMITS)),
+        args.scenario or suites[args.suite],
         args.repetitions,
         args.budget_seconds,
     )
+    if args.admit:
+        receipt["admission"] = check_receipt(receipt)
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_bytes(pio.result_bytes(receipt))
     print(f"receipt={output} sha256={digest(output.read_bytes())}")
@@ -577,6 +987,9 @@ def main(argv: list[str] | None = None) -> int:
             f"{row['scenario']} #{row['repetition']}: {row['status']} "
             f"wall={row.get('wall_seconds')} bytes={row.get('authoritative_bytes')}"
         )
+    if args.admit:
+        print(json.dumps(receipt["admission"], sort_keys=True))
+        return 0 if receipt["admission"]["passed"] else 1
     return 0
 
 
