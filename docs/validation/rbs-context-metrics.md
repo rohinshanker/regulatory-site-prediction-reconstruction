@@ -85,14 +85,30 @@ scope and batch hash format. Every panel scenario appears exactly once with
 evidence equal to its panel record. Every prepared context has an RNA sequence
 matching its hash, an in-range start and the panel genome identity.
 
-A successful row needs a prepared context and a 1.0/1.1 prediction whose `id`,
-`status`, `model.id` and `backend` (equal to `execution.backend`) agree with the
-run. It has exactly one core and one genomic site, both `ok` at the context start,
-a finite `log_tir`, the schema's complete energy set in kcal/mol with finite
-required terms, and finite-or-null `dG_mRNA_native_prediction` and
-`dG_cofold_native_prediction`. One run may not mix prediction schemas. A non-ok row
-may not carry an `ok` prediction. Its status, reason and context presence are
-retained, never converted to a missing row or zero.
+Each profile has a declared result schema, following [rbs-runtime](rbs-runtime.md):
+`historical` emits 1.0 and `context2017` emits 1.1 (adding `dG_post_footprint`).
+Every successful prediction must use its profile's schema. The report keeps the
+expected schema separate from the observed one, which is null when a run has no
+success. The expected term roster applies to all-failed and uncollected profiles.
+
+A successful row needs a prepared context and a prediction whose `id`, `status`,
+`model.id`, `model.implementation_version` and `backend` agree with the run's
+model ID and `execution`. Its public core request (`input`) must restate the
+prepared context and scenario. `oriented_sequence` (T read as U) equals the
+context sequence, with `oriented_sha256` its hash. `strand` is `+`, and
+`start_positions` is exactly `[context.start]`. `temperature_c` and `anti_sd`
+equal the panel scenario. Field names follow the public `native_predictions`
+check in [`prediction_io`](../../benchmarks/rbs/prediction_io.py). The row has
+exactly one core and one genomic site, both `ok` at the context start. It needs a
+finite `log_tir` and the schema's complete energy set in kcal/mol, with finite
+required terms and finite-or-null `dG_mRNA_native_prediction` and
+`dG_cofold_native_prediction`.
+
+A non-ok row may not carry an `ok` prediction. A non-null core request on it gets
+the same check, and needs a prepared context. Absent predictions or requests are
+not invented. Status, reason and context presence are retained, never converted
+to a missing row or zero. This tool does not re-extract genomic contexts; B's
+independent input-expectation checks cover that before collection.
 
 Accepted numbers have magnitude at most 1e9. JSON is strict UTF-8 with duplicate
 keys and non-finite numbers rejected. Inputs are bounded: 64 MiB per panel and
@@ -113,7 +129,12 @@ eligible pair set of each profile/anchor. Rank change is measured rank minus
 flank rank, so a negative value ranks the measured context higher.
 
 Each profile/anchor/context reports status and prepared-context counts, plus
-status/reason counts. Pair accounting lists eligible and ineligible pairs, status
+counts by status and `reason_sha256`. That hash covers the exact UTF-8 reason, and
+is null when no reason is given. Whole-profile run reasons appear only as
+`run_reason_sha256`. Raw reasons can name cases, sequences or values, so they stay
+in the private collection. The tool neither redacts nor classifies their prose.
+Any public interpretation of error categories needs a separately reviewed claim
+from the private raw evidence. Pair accounting lists eligible and ineligible pairs, status
 combinations and pairs with identical prepared contexts. Prepared contexts are
 grouped by RNA hash, start, aSD, temperature, model ID and execution identity,
 never by filename. The report omits per-case IDs, scores and residuals. Source
@@ -134,7 +155,9 @@ python -m coverage report -m
 ```
 
 Run from the repository root with `PYTHONPATH=src:.`. Exit 1 means a rejected
-input or an existing output; the previous report is never overwritten. Before
-final collection, confirm against one real native output that each prediction's
-`backend` equals the output's `execution.backend`. This identity rule is part of
-the declared interface.
+input or an existing output; the previous report is never overwritten.
+[rbs-native-runtime](rbs-native-runtime.md) states that extracted-context hashes
+are over RNA. One feasibility check remains before final collection: that each
+core prediction's `backend` equals the output's `execution.backend`. Confirm it
+with A's interface/example receipt or a synthetic candidate smoke run; this tool
+runs no folding.

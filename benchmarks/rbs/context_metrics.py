@@ -66,6 +66,8 @@ ENERGY_TERMS = (
     "dG_total",
 )
 TERMS_BY_SCHEMA = {"1.0": ENERGY_TERMS, "1.1": ENERGY_TERMS + ("dG_post_footprint",)}
+# rbs-runtime.md: the historical profile emits result 1.0; context2017 emits 1.1.
+PROFILE_SCHEMAS = {"historical": "1.0", "context2017": "1.1"}
 AUDIT_TERMS = ("dG_mRNA_native_prediction", "dG_cofold_native_prediction")
 PANEL_KEYS = (
     "schema_version",
@@ -370,21 +372,42 @@ def _context_key(context, record, genomes, model_id, execution):
     )
 
 
-def _score(prediction, sites, identity, start, model_id, execution, versions):
+def _check_request(request, context, record):
+    """A public core request must restate its prepared context and scenario."""
+    sequence = request.get("oriented_sequence") if isinstance(request, dict) else None
+    positions = request.get("start_positions") if isinstance(request, dict) else None
+    temperature = request.get("temperature_c") if isinstance(request, dict) else None
+    if (
+        context is None
+        or not isinstance(sequence, str)
+        or sequence.replace("T", "U") != context["sequence"]
+        or request.get("oriented_sha256") != digest(sequence)
+        or request.get("strand") != "+"
+        or not isinstance(positions, list)
+        or len(positions) != 1
+        or not _same_int(positions[0], context["start"])
+        or type(temperature) not in (int, float)
+        or temperature != record["temperature_c"]
+        or request.get("anti_sd") != record["anti_sd"]
+    ):
+        raise ValueError("Core request differs from its prepared context or scenario")
+
+
+def _score(prediction, sites, identity, context, record, run):
+    model_id, execution, schema = run
     if not isinstance(prediction, dict):
         raise ValueError("A successful row needs a prediction object")
-    version = prediction.get("schema_version")
-    if not isinstance(version, str) or version not in TERMS_BY_SCHEMA:
-        raise ValueError("Prediction schema must be 1.0 or 1.1")
-    versions.add(version)
-    if len(versions) > 1:
-        raise ValueError("Mixed prediction schemas within one profile run")
+    if prediction.get("schema_version") != schema:
+        raise ValueError(f"This profile's predictions must use result schema {schema}")
+    _check_request(prediction.get("input"), context, record)
     model = prediction.get("model")
+    start = context["start"]
     if (
         prediction.get("id") != identity
         or prediction.get("status") != "ok"
         or not isinstance(model, dict)
         or model.get("id") != model_id
+        or model.get("implementation_version") != execution["implementation_version"]
         or prediction.get("backend") != execution["backend"]
     ):
         raise ValueError("Prediction identity differs from the declared run")
@@ -403,7 +426,7 @@ def _score(prediction, sites, identity, start, model_id, execution, versions):
     ):
         raise ValueError("Successful site differs from the supplied start")
     energies = site.get("energies")
-    terms = TERMS_BY_SCHEMA[version]
+    terms = TERMS_BY_SCHEMA[schema]
     _exact_keys(energies, terms + AUDIT_TERMS + ("units",), "energies")
     if energies["units"] != "kcal/mol":
         raise ValueError("Energy units must be kcal/mol")
@@ -416,7 +439,8 @@ def _score(prediction, sites, identity, start, model_id, execution, versions):
     return values, audit
 
 
-def _row(row, record, genomes, model_id, execution, versions):
+def _row(row, record, genomes, run):
+    model_id, execution, _ = run
     status, reason = row["status"], row["reason"]
     if status not in STATUSES:
         raise ValueError("Unknown result status")
@@ -439,23 +463,19 @@ def _row(row, record, genomes, model_id, execution, versions):
             not isinstance(prediction, dict) or prediction.get("status") == "ok"
         ):
             raise ValueError("A non-ok row carries a successful or invalid prediction")
+        if prediction is not None and prediction.get("input") is not None:
+            _check_request(prediction["input"], context, record)
         return parsed
     if context is None:
         raise ValueError("A successful row lacks its prepared context")
     parsed["values"], parsed["audit"] = _score(
-        prediction,
-        row["genomic_sites"],
-        row["id"],
-        context["start"],
-        model_id,
-        execution,
-        versions,
+        prediction, row["genomic_sites"], row["id"], context, record, run
     )
     return parsed
 
 
-def _output_rows(output, model_id, settings, panel):
-    """Validate one completed native output; return rows and prediction schema."""
+def _output_rows(output, profile, model_id, settings, panel):
+    """Validate one completed native output; return rows and observed schema."""
     _exact_keys(output, OUTPUT_KEYS, "native output")
     if (
         output["schema_version"] != RESULT_SCHEMA
@@ -471,7 +491,7 @@ def _output_rows(output, model_id, settings, panel):
     results = output["results"]
     if not isinstance(results, list) or len(results) != len(records):
         raise ValueError("Native output must contain every panel scenario")
-    rows, versions = {}, set()
+    rows, run = {}, (model_id, settings["execution"], PROFILE_SCHEMAS[profile])
     for row in results:
         _exact_keys(row, ROW_KEYS, "result row")
         identity = row["id"]
@@ -479,15 +499,9 @@ def _output_rows(output, model_id, settings, panel):
             raise ValueError("Result IDs must cover panel scenarios exactly once")
         if row["evidence"] != records[identity]:
             raise ValueError("Result evidence differs from its panel record")
-        rows[identity] = _row(
-            row,
-            records[identity],
-            panel["genomes"],
-            model_id,
-            settings["execution"],
-            versions,
-        )
-    return rows, next(iter(versions), None)
+        rows[identity] = _row(row, records[identity], panel["genomes"], run)
+    observed = any(row["status"] == "ok" for row in rows.values())
+    return rows, PROFILE_SCHEMAS[profile] if observed else None
 
 
 def load_collection(raw, expected_sha256, panel, panel_sha256, commit, model_ids):
@@ -515,7 +529,7 @@ def load_collection(raw, expected_sha256, panel, panel_sha256, commit, model_ids
             if run["reason"] is not None:
                 raise ValueError("A completed run has a null reason")
             parsed[profile] = _output_rows(
-                run["output"], model_ids[profile], settings, panel
+                run["output"], profile, model_ids[profile], settings, panel
             )
         elif run["status"] in ("failed", "not_run"):
             _text(run["reason"], f"{profile} run reason")
@@ -573,6 +587,11 @@ def midranks(values):
     return ranks
 
 
+def _reason_sha256(reason):
+    """Raw reasons may name cases or values; aggregates carry only their hash."""
+    return None if reason is None else digest(reason)
+
+
 def _coverage(rows):
     statuses = {
         status: {"rows": 0, "with_prepared_context": 0}
@@ -583,12 +602,12 @@ def _coverage(rows):
         statuses[row["status"]]["rows"] += 1
         statuses[row["status"]]["with_prepared_context"] += row["context"] is not None
         if row["status"] not in ("ok", NOT_COLLECTED):
-            reasons[(row["status"], row["reason"])] += 1
+            reasons[(row["status"], _reason_sha256(row["reason"]))] += 1
     return {
         "requested": len(rows),
         "statuses": statuses,
         "reasons": [
-            {"status": status, "reason": reason, "count": count}
+            {"status": status, "reason_sha256": reason, "count": count}
             for (status, reason), count in sorted(
                 reasons.items(),
                 key=lambda item: (item[0][0], item[0][1] is not None, item[0][1] or ""),
@@ -665,15 +684,16 @@ def build_report(panel, panel_sha256, collection, collection_sha256, parsed):
         rows, version = parsed.get(
             profile, ({r["id"]: UNCOLLECTED_ROW for r in panel["records"]}, None)
         )
-        terms = TERMS_BY_SCHEMA.get(version, ENERGY_TERMS)
+        terms = TERMS_BY_SCHEMA[PROFILE_SCHEMAS[profile]]
         output = run["output"]
         profiles[profile] = {
             "expected_model_id": run["expected_model_id"],
             "run_status": run["status"],
-            "run_reason": run["reason"],
+            "run_reason_sha256": _reason_sha256(run["reason"]),
             "output_sha256": None if output is None else document_sha256(output),
             "batch_id": None if output is None else output["batch_id"],
-            "prediction_schema_version": version,
+            "expected_prediction_schema_version": PROFILE_SCHEMAS[profile],
+            "observed_prediction_schema_version": version,
             "requested_scenarios": len(rows),
             "collected_scenarios": len(rows) if output is not None else 0,
             "repeated_contexts": _repeated_contexts(rows),
@@ -717,6 +737,10 @@ def build_report(panel, panel_sha256, collection, collection_sha256, parsed):
                 "eligible pair set; change is measured rank minus flank rank"
             ),
             NOT_COLLECTED: "requested scenario of a failed or not_run profile",
+            "reason_sha256": (
+                "SHA-256 of the exact UTF-8 reason; raw text stays in the private "
+                "collection, and error categories need separately reviewed claims"
+            ),
         },
         "interpretation": (
             "Descriptive input sensitivity of unchanged profiles. Source "

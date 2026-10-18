@@ -126,9 +126,24 @@ def context(tag):
     }
 
 
+def request(prepared):
+    """The public core request restating a prepared context and fixed scenario."""
+    return {
+        "id": "synthetic",
+        "oriented_sequence": prepared["sequence"],
+        "oriented_sha256": prepared["sequence_sha256"],
+        "strand": "+",
+        "start_positions": [prepared["start"]],
+        "temperature_c": 37.0,
+        "anti_sd": "ACCUCCUUU",
+        "host": "synthetic",
+    }
+
+
 def ok_row(identity, model, log_tir=0.0, energy=-1.0, audit=(None, None), **opts):
     """Every energy term is energy + its index, so paired offsets cancel."""
-    version = opts.get("version", "1.1")
+    version = opts.get("version", metrics.PROFILE_SCHEMAS[profile_of(model)])
+    prepared = context(opts.get("tag", identity))
     terms = metrics.TERMS_BY_SCHEMA[version]
     energies = {term: energy + i for i, term in enumerate(terms)}
     energies.update(
@@ -146,9 +161,9 @@ def ok_row(identity, model, log_tir=0.0, energy=-1.0, audit=(None, None), **opts
         "id": identity,
         "status": "ok",
         "reason": None,
-        "context": context(opts.get("tag", identity)),
+        "context": prepared,
         "prediction": {
-            **core(identity, model, "ok", None, [site]),
+            **core(identity, model, "ok", None, [site], request(prepared)),
             "schema_version": version,
         },
         "genomic_sites": [
@@ -169,9 +184,13 @@ def ok_row(identity, model, log_tir=0.0, energy=-1.0, audit=(None, None), **opts
     }
 
 
-def core(identity, model, status, reason, sites):
+def profile_of(model):
+    return next(name for name, value in MODELS.items() if value == model)
+
+
+def core(identity, model, status, reason, sites, core_request):
     return {
-        "schema_version": "1.1",
+        "schema_version": metrics.PROFILE_SCHEMAS[profile_of(model)],
         "id": identity,
         "status": status,
         "reason": reason,
@@ -184,18 +203,25 @@ def core(identity, model, status, reason, sites):
             "implementation_version": "0.4.0rc1",
         },
         "backend": copy.deepcopy(BACKEND),
-        "input": {},
+        "input": core_request,
         "prediction_id": "e" * 64,
     }
 
 
 def other_row(identity, model, status, reason, prepared=False, prediction=False):
+    """A prediction restates its request only when a context was prepared."""
+    prepared = context(identity) if prepared else None
+    core_request = None if prepared is None else request(prepared)
     return {
         "id": identity,
         "status": status,
         "reason": reason,
-        "context": context(identity) if prepared else None,
-        "prediction": core(identity, model, status, reason, []) if prediction else None,
+        "context": prepared,
+        "prediction": (
+            core(identity, model, status, reason, [], core_request)
+            if prediction
+            else None
+        ),
         "genomic_sites": [],
         "warnings": ["synthetic"],
         "evidence": copy.deepcopy(RECORDS[identity]),
@@ -345,7 +371,13 @@ class ContextMetricsTests(unittest.TestCase):
         )
         refined = report["profiles"]["context2017"]
         self.assertEqual(refined["run_status"], "completed")
-        self.assertEqual(refined["prediction_schema_version"], "1.1")
+        self.assertEqual(
+            (
+                refined["expected_prediction_schema_version"],
+                refined["observed_prediction_schema_version"],
+            ),
+            ("1.1", "1.1"),
+        )
         self.assertEqual(
             refined["output_sha256"],
             document_sha256(collection()["runs"]["context2017"]["output"]),
@@ -442,32 +474,42 @@ class ContextMetricsTests(unittest.TestCase):
                     "reasons": [
                         {
                             "status": "no_candidate",
-                            "reason": "no interstrand candidate",
+                            "reason_sha256": sha("no interstrand candidate"),
                             "count": 1,
                         },
-                        {"status": "unsupported", "reason": "leaderless", "count": 1},
+                        {
+                            "status": "unsupported",
+                            "reason_sha256": sha("leaderless"),
+                            "count": 1,
+                        },
                     ],
                 },
                 "genomic_flank": {
                     "requested": 4,
                     "statuses": status_counts(ok=(3, 3), failed=(1, 0)),
-                    "reasons": [{"status": "failed", "reason": None, "count": 1}],
+                    "reasons": [
+                        {"status": "failed", "reason_sha256": None, "count": 1}
+                    ],
                 },
             },
         )
         skipped = report["profiles"]["historical"]
         self.assertEqual(
-            {key: skipped[key] for key in ("run_status", "run_reason", "batch_id")},
+            {
+                key: skipped[key]
+                for key in ("run_status", "run_reason_sha256", "batch_id")
+            },
             {
                 "run_status": "not_run",
-                "run_reason": "folding slot unavailable",
+                "run_reason_sha256": sha("folding slot unavailable"),
                 "batch_id": None,
             },
         )
         self.assertEqual(
             (skipped["requested_scenarios"], skipped["collected_scenarios"]), (16, 0)
         )
-        self.assertIsNone(skipped["prediction_schema_version"])
+        self.assertEqual(skipped["expected_prediction_schema_version"], "1.0")
+        self.assertIsNone(skipped["observed_prediction_schema_version"])
         self.assertEqual(skipped["repeated_contexts"]["rows_with_prepared_context"], 0)
         for anchor in metrics.ANCHORS:
             summary = skipped["anchors"][anchor]
@@ -493,14 +535,9 @@ class ContextMetricsTests(unittest.TestCase):
         self.assertNotIn("src-", text)  # No per-case identities or scores.
 
     def test_all_tied_schema_1_0_profile_and_completed_run_without_pairs(self):
-        tied = {
-            f"{source}:current:measured_tss": ok(1.0, -1.0, version="1.0")
-            for source in SOURCES
-        }
+        tied = {f"{source}:current:measured_tss": ok(1.0, -1.0) for source in SOURCES}
         for value, source in enumerate(SOURCES, start=1):
-            tied[f"{source}:current:genomic_flank"] = ok(
-                float(value), -1.0, version="1.0"
-            )
+            tied[f"{source}:current:genomic_flank"] = ok(float(value), -1.0)
             for context_name in metrics.CONTEXTS:
                 tied[f"{source}:historical:{context_name}"] = other("failed", "timeout")
         runs = {
@@ -519,7 +556,7 @@ class ContextMetricsTests(unittest.TestCase):
         }
         report = run(collection(runs))
         profile = report["profiles"]["historical"]
-        self.assertEqual(profile["prediction_schema_version"], "1.0")
+        self.assertEqual(profile["observed_prediction_schema_version"], "1.0")
         current = profile["anchors"]["current"]
         self.assertEqual(
             set(current["changes"]), {"log_tir", *metrics.TERMS_BY_SCHEMA["1.0"]}
@@ -535,19 +572,61 @@ class ContextMetricsTests(unittest.TestCase):
         self.assertEqual(empty["log_tir_rank_changes"], EMPTY)
         self.assertEqual(
             empty["coverage"]["measured_tss"]["reasons"],
-            [{"status": "failed", "reason": "timeout", "count": 4}],
+            [{"status": "failed", "reason_sha256": sha("timeout"), "count": 4}],
         )
         self.assertEqual(report["profiles"]["context2017"]["run_status"], "failed")
 
-    def test_completed_run_without_successes_has_no_schema_version(self):
+    def test_completed_run_without_successes_keeps_expected_term_roster(self):
         rows = {
             record_id: other("unsupported", "unresolved start") for record_id in RECORDS
         }
         value = collection()
         value["runs"]["context2017"]["output"] = output(MODELS["context2017"], rows)
         profile = run(value)["profiles"]["context2017"]
-        self.assertIsNone(profile["prediction_schema_version"])
+        self.assertEqual(profile["expected_prediction_schema_version"], "1.1")
+        self.assertIsNone(profile["observed_prediction_schema_version"])
         self.assertEqual(profile["collected_scenarios"], 16)
+        changes = profile["anchors"]["current"]["changes"]
+        self.assertEqual(set(changes), {"log_tir", *metrics.TERMS_BY_SCHEMA["1.1"]})
+        self.assertTrue(all(value == EMPTY for value in changes.values()))
+
+    def test_unsuccessful_prediction_without_core_request_is_retained(self):
+        value = collection()
+        replace_row(
+            "src-0:historical:measured_tss",
+            lambda i, m: {
+                **other_row(i, m, "unsupported", "leaderless", True, True),
+                "prediction": core(i, m, "unsupported", "leaderless", [], None),
+            },
+        )(value)
+        counts = run(value)["profiles"]["context2017"]["anchors"]["historical"]
+        statuses = counts["coverage"]["measured_tss"]["statuses"]
+        self.assertEqual(
+            statuses["unsupported"], {"rows": 1, "with_prepared_context": 1}
+        )
+
+    def test_raw_reasons_never_reach_the_aggregate_report(self):
+        private = (
+            "failed for private source src-1 with residual 123",
+            "context ACGUACGUACGUACGU log_tir 4.5 for locus-2",
+        )
+        value = collection()
+        replace_row("src-1:historical:genomic_flank", other("failed", private[0]))(
+            value
+        )
+        replace_row(
+            "src-2:historical:measured_tss",
+            other("no_candidate", private[1], prepared=True, prediction=True),
+        )(value)
+        value["runs"]["historical"]["reason"] = "not run for src-3 residual 0.5"
+        report = run(value)
+        text = json.dumps(report)
+        for reason in private + ("not run for src-3 residual 0.5",):
+            self.assertNotIn(reason, text)
+            self.assertIn(sha(reason), text)
+        for fragment in ("src-", "residual", "locus-", "ACGUACGUACGU"):
+            self.assertNotIn(fragment, text)
+        self.assertIn("reviewed claims", report["definitions"]["reason_sha256"])
 
 
 def panel_case(mutate):
@@ -702,6 +781,56 @@ def mixed_versions(value):
     replace_row("src-0:current:measured_tss", ok(0.0, -1.0, version="1.0"))(value)
 
 
+def all_refined_as_1_0(value):
+    """Every successful context2017 row converted to 1.0 without footprint."""
+    for identity in RECORDS:
+        row = result(value, identity)
+        if row["status"] == "ok":
+            row["prediction"]["schema_version"] = "1.0"
+            row["prediction"]["sites"][0]["energies"].pop("dG_post_footprint")
+
+
+def historical_as_1_1(value):
+    """A completed historical profile emitting refined 1.1 predictions."""
+    value["runs"]["historical"] = {
+        "expected_model_id": MODELS["historical"],
+        "status": "completed",
+        "reason": None,
+        "output": output(
+            MODELS["historical"],
+            {"src-0:current:measured_tss": ok(0.0, -1.0, version="1.1")},
+        ),
+    }
+
+
+def core_request(value):
+    return prediction(value)["input"]
+
+
+def failed_request(value):
+    return result(value, "src-0:historical:measured_tss")["prediction"]["input"]
+
+
+def wrong_request(value):
+    """The reviewer's combined mismatch on a successful row."""
+    prediction(value)["input"] = {
+        "oriented_sequence": "A" * 38,
+        "oriented_sha256": "0" * 64,
+        "strand": "-",
+        "start_positions": [0],
+        "temperature_c": 0,
+        "anti_sd": "AAAAAAAAA",
+    }
+
+
+def unprepared_request(value):
+    row = result(value, "src-1:historical:genomic_flank")
+    request_copy = copy.deepcopy(core_request(value))
+    row["prediction"] = core(
+        row["id"], MODELS["context2017"], "failed", None, [], request_copy
+    )
+
+
 COLLECTION_TAMPERING = [
     lambda value: value.update(extra=1),
     lambda value: value.update(schema_version="x"),
@@ -770,6 +899,30 @@ COLLECTION_TAMPERING = [
     put(prediction, schema_version="1.3"),
     put(prediction, schema_version=["1.1"]),
     mixed_versions,
+    all_refined_as_1_0,
+    historical_as_1_1,
+    wrong_request,
+    put(prediction, input=None),
+    put(prediction, input={}),
+    put(prediction, input="x"),
+    lambda value: core_request(value).pop("oriented_sequence"),
+    put(core_request, oriented_sequence=5),
+    put(core_request, oriented_sequence="A" * 38),
+    put(core_request, oriented_sha256="0" * 64),
+    put(core_request, strand="-"),
+    put(core_request, start_positions=START),
+    put(core_request, start_positions=[]),
+    put(core_request, start_positions=[START, START]),
+    put(core_request, start_positions=[0]),
+    put(core_request, start_positions=[float(START)]),
+    put(core_request, temperature_c=0.0),
+    put(core_request, temperature_c="37"),
+    put(core_request, anti_sd="AAAAAAAAA"),
+    put(failed_request, strand="-"),
+    put(failed_request, oriented_sha256="0" * 64),
+    unprepared_request,
+    lambda value: prediction(value)["model"].update(implementation_version="0.3"),
+    lambda value: prediction(value)["model"].pop("implementation_version"),
     put(prediction, id="other"),
     put(prediction, status="unsupported"),
     put(prediction, model="x"),
