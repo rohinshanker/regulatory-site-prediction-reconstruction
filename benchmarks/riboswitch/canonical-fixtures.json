@@ -1,0 +1,119 @@
+{
+  "schema_version": "riboswitch-canonical-constraint-fixtures-1",
+  "scope": "Synthetic canonical secondary-structure constraint feasibility for original RNAstructure 6.6 Fold/efn2. Positions are one-based and inclusive; pairs list the 5' position first. Not ligand binding, occupancy, kinetics, pseudoknot, aptamer discovery or biological-accuracy evidence.",
+  "sequence_provenance": "Hand-designed synthetic sequences: S1 GGGAGC-GAAA-GCUCCC hairpin; S2 appends AAAAAAAA and a second GCUCCC arm; S3 GGG, 32 A, GGGGAAAACCCC, CCC; poly(A) has no canonical pair. No genomic or experimental sequence or outcome.",
+  "backend_pins": {
+    "fold_sha256": "803a5322799779df276282601a393b3d31ea35fffc4359f6d609134643ade0f6",
+    "efn2_sha256": "1084934450523428af0ef15258f16c3f1fa174cb4949cf62e78b4581190dd8aa",
+    "table_manifest_sha256": "5ff86be816a614c729a3d0a6e0ce50dcc277b3f156439e5aecf762d41f59fa0a",
+    "source_archive_sha256": "1bedc62aaab984279055caaa6234d48fca113f4b8e17a8060e0b3784d5a397c3",
+    "algorithm_cpp_sha256": "c024b600aabfad624fa0d4dbcd2297b9aacdb654ad2e491686847b705fa343d8",
+    "readme_sha256": "68fd4a4e44b76f23f68920372a4d8d72d44eef7254463e46cf5d9510a6aadb88",
+    "gpl_sha256": "e6d6a009505e345fe949e1310334fcb0747f28dae2856759de102ab66b722cb4"
+  },
+  "executed": [
+    {
+      "id": "hairpin_unconstrained",
+      "purpose": "Known six-pair GNRA hairpin control without a constraint flag.",
+      "sequence": "GGGAGCGAAAGCUCCC",
+      "mode": "unconstrained",
+      "expected_status": "ok",
+      "expected_pairs": [[1, 16], [2, 15], [3, 14], [4, 13], [5, 12], [6, 11]]
+    },
+    {
+      "id": "hairpin_noop",
+      "purpose": "Empty constraint file passed with --constraint; must equal the unconstrained result.",
+      "sequence": "GGGAGCGAAAGCUCCC",
+      "mode": "partial",
+      "forced_pairs": [],
+      "forced_unpaired": [],
+      "expected_status": "ok"
+    },
+    {
+      "id": "hairpin_full",
+      "purpose": "Full specified hairpin: every pair forced and every loop base forced unpaired.",
+      "sequence": "GGGAGCGAAAGCUCCC",
+      "mode": "full",
+      "structure": "((((((....))))))",
+      "expected_status": "ok"
+    },
+    {
+      "id": "hairpin_forced_open",
+      "purpose": "Zero-pair control: every position of the hairpin sequence forced unpaired.",
+      "sequence": "GGGAGCGAAAGCUCCC",
+      "mode": "full",
+      "structure": "................",
+      "expected_status": "ok",
+      "expected_pairs": []
+    },
+    {
+      "id": "poly_a_unconstrained",
+      "purpose": "All-unpaired control: poly(A) has no canonical pair.",
+      "sequence": "AAAAAAAAAAAAAAAA",
+      "mode": "unconstrained",
+      "expected_status": "ok",
+      "expected_pairs": []
+    },
+    {
+      "id": "switch_unconstrained",
+      "purpose": "Two-arm reference: the 5' arm can pair with either 3' arm.",
+      "sequence": "GGGAGCGAAAGCUCCCAAAAAAAAGCUCCC",
+      "mode": "unconstrained",
+      "expected_status": "ok"
+    },
+    {
+      "id": "switch_forced_pair",
+      "purpose": "Partial paired-state demand: only pair 1-30 is forced; all other positions remain free.",
+      "sequence": "GGGAGCGAAAGCUCCCAAAAAAAAGCUCCC",
+      "mode": "partial",
+      "forced_pairs": [[1, 30]],
+      "forced_unpaired": [],
+      "expected_status": "ok"
+    },
+    {
+      "id": "switch_forced_unpaired",
+      "purpose": "Partial forced-unpaired demand on the first 3' arm; a hard constraint, not omission of a pair.",
+      "sequence": "GGGAGCGAAAGCUCCCAAAAAAAAGCUCCC",
+      "mode": "partial",
+      "forced_pairs": [],
+      "forced_unpaired": [11, 12, 13, 14, 15, 16],
+      "expected_status": "ok"
+    },
+    {
+      "id": "bulge_over_loop_cap",
+      "purpose": "Contract-valid full structure that needs a 32-nt bulge, beyond the fixed --loop 30 cap; failure must propagate.",
+      "sequence": "GGGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGGGGAAAACCCCCCC",
+      "mode": "full",
+      "structure": "(((................................((((....)))))))",
+      "expected_status": "not_ok"
+    }
+  ],
+  "relations": [
+    {"kind": "same_structure_and_energy", "cases": ["hairpin_unconstrained", "hairpin_noop"]},
+    {"kind": "same_structure_and_energy", "cases": ["hairpin_unconstrained", "hairpin_full"]},
+    {"kind": "different_pairs", "cases": ["switch_unconstrained", "switch_forced_pair"]},
+    {"kind": "different_pairs", "cases": ["switch_unconstrained", "switch_forced_unpaired"]},
+    {"kind": "energy_not_below", "cases": ["switch_forced_pair", "switch_unconstrained"]},
+    {"kind": "energy_not_below", "cases": ["switch_forced_unpaired", "switch_unconstrained"]},
+    {"kind": "energy_not_below", "cases": ["hairpin_forced_open", "hairpin_unconstrained"]}
+  ],
+  "rejected": [
+    {"id": "crossing", "sequence": "GGGAGCGAAAGCUCCCAAAAAAAAGCUCCC", "mode": "partial", "forced_pairs": [[1, 16], [11, 30]], "expected_error": "crossing_pairs"},
+    {"id": "pseudoknot_symbol", "sequence": "GGGAGCGAAAGCUCCC", "mode": "full", "structure": "((((..[[..))))]]", "expected_error": "unsupported_structure_symbol"},
+    {"id": "duplicate_pair", "sequence": "GGGAGCGAAAGCUCCC", "mode": "partial", "forced_pairs": [[1, 16], [1, 16]], "expected_error": "duplicate_pair"},
+    {"id": "conflicting_partner", "sequence": "GGGAGCGAAAGCUCCCAAAAAAAAGCUCCC", "mode": "partial", "forced_pairs": [[1, 16], [1, 30]], "expected_error": "position_in_multiple_pairs"},
+    {"id": "paired_and_unpaired", "sequence": "GGGAGCGAAAGCUCCC", "mode": "partial", "forced_pairs": [[1, 16]], "forced_unpaired": [16], "expected_error": "paired_and_unpaired"},
+    {"id": "duplicate_unpaired", "sequence": "GGGAGCGAAAGCUCCC", "mode": "partial", "forced_unpaired": [3, 3], "expected_error": "duplicate_unpaired"},
+    {"id": "noncanonical", "sequence": "GGGAGCGAAAGCUCCC", "mode": "partial", "forced_pairs": [[4, 10]], "expected_error": "noncanonical_pair"},
+    {"id": "short_hairpin", "sequence": "GGGAGCGAAAGCUCCC", "mode": "partial", "forced_pairs": [[6, 7]], "expected_error": "hairpin_too_short"},
+    {"id": "out_of_range", "sequence": "GGGAGCGAAAGCUCCC", "mode": "partial", "forced_pairs": [[1, 17]], "expected_error": "position_out_of_range"},
+    {"id": "reversed_pair", "sequence": "GGGAGCGAAAGCUCCC", "mode": "partial", "forced_pairs": [[16, 1]], "expected_error": "pair_not_5prime_first"},
+    {"id": "boolean_position", "sequence": "GGGAGCGAAAGCUCCC", "mode": "partial", "forced_unpaired": [true], "expected_error": "invalid_position"},
+    {"id": "dna_base", "sequence": "GGGAGCGAAAGCTCCC", "mode": "unconstrained", "expected_error": "unsupported_base"},
+    {"id": "ambiguous_base", "sequence": "GGGAGCGAAAGCNCCC", "mode": "unconstrained", "expected_error": "unsupported_base"},
+    {"id": "unbalanced", "sequence": "GGGAGCGAAAGCUCCC", "mode": "full", "structure": "(((((((...))))))", "expected_error": "unbalanced_structure"},
+    {"id": "length_mismatch", "sequence": "GGGAGCGAAAGCUCCC", "mode": "full", "structure": "((((((....)))))", "expected_error": "structure_length_mismatch"},
+    {"id": "constraint_on_unconstrained", "sequence": "GGGAGCGAAAGCUCCC", "mode": "unconstrained", "forced_pairs": [[1, 16]], "expected_error": "unexpected_field"},
+    {"id": "unknown_mode", "sequence": "GGGAGCGAAAGCUCCC", "mode": "soft", "expected_error": "invalid_mode"}
+  ]
+}
