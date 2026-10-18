@@ -4,15 +4,15 @@
 - Status: active
 - Opened: 2026-10-18
 - Updated: 2026-10-18
-- Current State: Owner authorized sustained calculator implementation on 2026-10-18. Parent #10 consumer admission stays separate. The proposed public contract is docs/validation/paired-regulatory-runtime.md, adopting B's exact paired-edit-input-1 geometry and independent candidate universes. Dependency-independent edit geometry is implemented at dba6b1c in its separate worktree and under exact-patch Claude review DEM-535 against B's literal fixtures. Predictor integration follows the frozen Promoter runtime and also works independently with existing RBS scoring.
-- Verification: Edit geometry has 48 tests at 100% of 123 statements/44 branches, plus clean Ruff/format/mypy. Predictor orchestration remains unimplemented; no biological improvement result claimed.
+- Current State: Owner authorized sustained calculator implementation on 2026-10-18. Parent #10 consumer admission stays separate. The proposed public contract is docs/validation/paired-regulatory-runtime.md, adopting B's exact paired-edit-input-1 geometry and independent candidate universes. Dependency-independent edit geometry is implemented at dba6b1c in its separate worktree and accepted by exact-patch Claude review DEM-535 at 7f5cfee after strengthening five guard tests. Predictor orchestration proceeds in isolation against the reviewed public API; it preserves the earlier Promoter evaluation candidate and freezes its own package before B comparison.
+- Verification: Edit geometry has 57 tests at 100% of 123 statements/44 branches, plus clean Ruff/format/mypy. Predictor orchestration remains unimplemented; no biological improvement result claimed.
 - Cleanup: Session A alone resolves this scoped ticket after tested implementation, reusable contract distillation and index cleanup.
 
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/41
 - Priority: P1
 - Dependencies: RBS runtime; Promoter #33 for its adapter; independent synthetic comparison fixtures #39.
 
-Owner: Session A (baf5b738-1792172297). Session B owns independent synthetic comparison fixtures and scientific evaluation. Implement independent edit geometry in a separate producer worktree while the Promoter candidate is reviewed. Bind predictor integration to the frozen candidate; preserve existing runtime profiles and all consumed benchmark panels.
+Owner: Session A (baf5b738-1792172297). Session B owns independent synthetic comparison fixtures and scientific evaluation. Implement independent edit geometry in a separate producer worktree while the Promoter candidate is reviewed. Bind final predictor integration/evaluation to an immutable candidate; preserve existing runtime profiles and all consumed benchmark panels.
 
 Deliver a local library/CLI accepting both supplied sequences, explicit host/model/backend settings, reference and recoded identities, scan/candidate universe and an explicit edit/alignment map. Support substitution-only recoding first and indels with validated maps; do not guess an alignment when ambiguity changes site identity. Preserve transcript orientation, genomic mappings, circular boundaries and original/recoded coordinates independently. Hash both exact sequences and all effective settings.
 

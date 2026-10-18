@@ -1,7 +1,7 @@
 # Paired regulatory prediction runtime contract
 
 - Purpose: Compare supplied current and recoded sequences without confusing geometric changes, model scores and measured regulation.
-- Scope: A ticket #41; producer library/CLI and portable results. Independent edit geometry proceeds in isolation; predictor integration follows the Promoter candidate freeze.
+- Scope: A ticket #41; producer library/CLI and portable results. Edit geometry and predictor orchestration proceed in an isolated branch against the reviewed public runtime; evaluation and release bind an immutable candidate.
 - Last verified: 2026-10-18
 
 This is an implementation contract, not an executed comparator. B's independent
@@ -118,9 +118,11 @@ comparison version; raw scores and missingness remain available to callers.
 
 ## Verification and execution order
 
-Implement dependency-independent edit geometry in a separate worktree while the
-Promoter review runs. Freeze the Promoter candidate before integrating its
-predictor, so B can evaluate that immutable earlier candidate. Reproduce all B
+Implement the comparator in a separate worktree against the reviewed public
+RBS/Promoter interfaces. Preserve the Promoter candidate branch and artifacts
+while its resource/CI receipt completes; comparator development cannot mutate
+that earlier evaluation candidate. Final comparator evaluation binds its own
+immutable package/settings receipt. Reproduce all B
 literal edit fixtures and compare every interval/base path on both strands,
 including circular boundaries. Test unchanged-sequence controls, no-change edits,
 substitutions, insertion/deletion, unequal replacements, overlaps and malformed
@@ -133,3 +135,51 @@ modules require full statement/branch coverage and an independent exact-patch
 review. B evaluates the frozen public result contract against its independent
 synthetic fixtures before this scope closes. Biological validation of recoding
 effects remains a separate experimental task.
+
+
+## First executable integration boundary
+
+The library entry point is `regsite.paired.predict_pair(document, backend=None)`;
+`PairError` reports atomic setup failures. It takes raw JSON-compatible documents,
+never a caller-constructed edit map or cached prediction. The pure edit factory
+is the sole geometry validation entry point. A separately verified `RnaStructure`
+object is required for RBS inference; Promoter needs no folding backend.
+
+The exact required outer keys are the six shown above. An optional `projections`
+object is permitted only for RBS, with exactly `current` and `recoded` keys, each
+null or a complete public projection. Promoter projections remain inside its
+existing side requests; supplying both representations is rejected. A missing
+RBS projections object resolves to two explicit nulls. RBS side requests require
+explicit `id`, `sequence`, `strand`, `anti_sd`, `temperature_c` and `host` (which
+may be null). Promoter requires its existing explicit calibration and scan.
+
+`settings.seconds_per_side` is required and finite in `(0,120]`. RBS additionally
+requires an existing `profile`; Promoter rejects that setting. Both side requests
+are retained. Candidate policies/positions may differ and are not coerced; they
+belong to the independent candidate universes, not the numerical model identity.
+Resource settings and deadline-induced failures remain visible separately.
+
+A comparison's four separate SHA256 identities bind the complete model and
+parameters, effective scoring settings, verified backend (or explicit no-backend
+identity), and calibration/host configuration. For RBS, anti-SD and temperature
+are effective settings, and profile is bound by the model/setting identity.
+For Promoter, the complete resolved calibration including host is retained.
+Request IDs, sequence hashes, candidate positions, output verbosity and genomic
+projection do not make otherwise identical scoring settings incomparable.
+Every such omitted field remains bound in the full pair/prediction identity.
+
+For RBS, enumerate the complete explicit or standard scanned start roster before
+executing the backend. Retain a requested but unreturned candidate as unavailable
+rather than erasing it. For either calculator, an invalid request with an
+unresolvable scan has an explicitly unknown roster, never an empty one. Opposite
+candidates then have an unavailable-counterpart reason rather than an assertion
+that the opposite candidate is absent. Malformed pair/sequence binding is an
+atomic setup error; predictor-level invalid, unsupported, failed and no-candidate
+records retain their original semantics and complete diagnostic results.
+
+The initial portable export is JSON plus a flat CSV comparison view. The JSON
+retains both full predictions, candidate rosters, four-part identities, mapped
+features, coverage and scalar differences. Existing per-side GFF3 is available
+through the original projected predictors; a difference row is not itself a
+new biological feature. A single RBS comparison uses the explicitly supplied
+strand on each side; callers request the other strand separately.
