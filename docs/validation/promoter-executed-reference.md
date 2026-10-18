@@ -166,3 +166,29 @@ checks, not contained in these candidate-independent expected score fields.
 Retain no-candidate cases in the 22-record denominator. A failed, missing or
 partial source-parity record cannot be credited as a pass. Do not consume native
 outcomes to repair a source discrepancy.
+
+The [public-result checker](../../benchmarks/promoter/source_parity_check.py)
+accepts exact CLI result bytes and a separately frozen adapter-format identity/
+settings manifest. Both CLI defaults must be null because this panel explicitly
+requests mixed profiles and all states. It binds model/source/array identity,
+full model object, limits/deadlines, batch/prediction/site/state IDs, input hashes,
+complete record/state rosters, numerical terms, selection, coordinates, elements
+and coverage. Missing, failed, reordered or partial records fail parity. Received
+and authoritative pretty JSON sizes are independently bounded. Additional warning
+text cannot replace the required legacy-key warning. The successful audit records
+candidate/wheel/manifest, input/expectation/result and both checker/adapter hashes.
+
+```python
+from benchmarks.promoter.source_parity_check import check
+# result_bytes came from the frozen candidate's public CLI; manifest is the
+# reviewed candidate/settings receipt, never inferred from the observed result.
+audit = check(result_bytes, manifest)
+```
+
+This function neither launches inference nor proves that the asserted wheel was
+used; the collection receipt must independently bind that execution. Synthetic
+mutation tests check the validator, not source parity of an unexecuted candidate:
+
+```sh
+PYTHONPATH=src:. python -m pytest -q tests/benchmarks/test_promoter_source_parity_check.py
+```
