@@ -9,6 +9,7 @@ from pathlib import Path
 from benchmarks.promoter.native_inputs import (
     MAX_ENVELOPE_BYTES,
     canonical_bytes,
+    checked_hash,
     document_sha256,
     load_envelope,
     read_bounded,
@@ -26,6 +27,7 @@ STRATA = (
 )
 SEED = "wave5-tan-context-v1"
 PROFILES = ("historical", "context2017")
+ANTI_SD = "ACCUCCUUU"
 MAX_SELECTED_ROWS = 1024
 # Preserve supplied coordinate evidence, not expression/count fields.
 FIELDS = (
@@ -84,11 +86,80 @@ def stratum(rows):
 
 def selection_key(genome_id, locus):
     """Hash the declared compact UTF-8 JSON tuple, with no trailing newline."""
-    value = json.dumps([SEED, genome_id, locus], separators=(",", ":"))
+    value = json.dumps(
+        [SEED, genome_id, locus], separators=(",", ":"), ensure_ascii=False
+    )
     return digest(value.encode())
 
 
-def scenarios(row):
+def _text(value, limit, name):
+    if (
+        not isinstance(value, str)
+        or not 0 < len(value) <= limit
+        or any(ord(c) < 32 or ord(c) == 127 for c in value)
+    ):
+        raise ValueError(f"Invalid {name}")
+
+
+def _source_metadata(row):
+    for name in (
+        "mapping_status",
+        "transcript_start_evidence",
+        "translation_start_evidence",
+    ):
+        _text(row.get(name), 256, name)
+    _text(row.get("host"), 128, "host")
+    if "replicon" in row:
+        _text(row["replicon"], 256, "replicon")
+    if row.get("anti_sd") != ANTI_SD:
+        raise ValueError("Source anti-SD differs from the fixed diagnostic scenario")
+    provenance = row.get("anti_sd_provenance")
+    if not isinstance(provenance, (str, list, dict)) or not provenance:
+        raise ValueError("Missing anti-SD provenance")
+    if isinstance(provenance, str):
+        _text(provenance, 2048, "anti_sd_provenance")
+    entries = provenance if isinstance(provenance, list) else [provenance]
+    for entry in entries:
+        if (
+            isinstance(entry, dict)
+            and "anti_sd" in entry
+            and entry["anti_sd"] != ANTI_SD
+        ):
+            raise ValueError("Provenance anti-SD contradicts the declared sequence")
+
+
+def _crossing(record, genome):
+    """Declare each scenario's actual circular path and extracted-window crossing."""
+    start = record["cds_start_zero_based"]
+    leader = record["leader_length_nt"]
+    tss = record["tss_zero_based"]
+    if start is None:
+        return False
+    length = len(genome["sequence"])
+    sign = 1 if record["strand"] == "+" else -1
+    path_crosses = False
+    if tss is not None:
+        if leader is None:
+            raise ValueError("A measured anchor needs an explicit signed leader")
+        delta = sign * (start - tss)
+        path_crosses = (
+            genome["topology"] == "circular"
+            and leader >= 0
+            and leader < length
+            and delta + length == leader
+        )
+        if delta != leader and not path_crosses:
+            raise ValueError("Declared leader contradicts supplied anchor coordinates")
+        if leader < 0:
+            return False  # Retained unsupported internal TSS, never origin-wrapped.
+    upstream = 100 if tss is None else min(100, leader)
+    first, last = start - sign * upstream, start + sign * 99
+    return genome["topology"] == "circular" and (
+        path_crosses or min(first, last) < 0 or max(first, last) >= length
+    )
+
+
+def scenarios(row, genome):
     """Retain all four coordinate/context alternatives for a source association."""
     conditions = row.get("conditions", {})
     if not isinstance(conditions, (dict, list)):
@@ -97,7 +168,7 @@ def scenarios(row):
         raise ValueError("conditions must have nonempty string identities")
     for anchor in ("current", "historical"):
         for context in ("measured_tss", "genomic_flank"):
-            record = {key: copy.deepcopy(row.get(key)) for key in FIELDS}
+            record = {key: copy.deepcopy(row[key]) for key in FIELDS if key in row}
             record.update(
                 id=f"{row['id']}:{anchor}:{context}",
                 source_record_id=row["id"],
@@ -110,8 +181,10 @@ def scenarios(row):
                 upstream_limit_nt=100,
                 downstream_length_nt=100,
                 temperature_c=37.0,
-                anti_sd="ACCUCCUUU",
+                anti_sd=ANTI_SD,
+                source_origin_crossing=row.get("origin_crossing"),
             )
+            _text(record["id"], 128, "scenario id")
             warnings = row.get("warnings", [])
             if not isinstance(warnings, list) or any(
                 not isinstance(v, str) for v in warnings
@@ -135,6 +208,7 @@ def scenarios(row):
                 record["transcript_start_evidence"] = (
                     "unmeasured 100-nt genomic-flank assumption"
                 )
+            record["origin_crossing"] = _crossing(record, genome)
             yield record
 
 
@@ -142,6 +216,9 @@ def build_panel(envelope, source_sha256, per_stratum=4):
     """Build a portable input envelope; no scoring or read-count weighting."""
     if type(per_stratum) is not int or not 1 <= per_stratum <= 4:
         raise ValueError("per_stratum must be an integer in 1..4")
+    checked_hash(source_sha256)
+    raw = canonical_bytes(envelope)
+    load_envelope(raw, digest(raw))  # Also enforce API-call genome/ID preconditions.
     loci, excluded, gtss_count = {}, [], 0
     for row in envelope["records"]:
         if row.get("tss_type") != "gTSS":
@@ -154,6 +231,13 @@ def build_panel(envelope, source_sha256, per_stratum=4):
         genome_id = row.get("genome_id")
         if genome_id not in envelope["genomes"] or row.get("strand") not in {"+", "-"}:
             raise ValueError("gTSS association needs an explicit genome and strand")
+        _source_metadata(row)
+        if row.get("tss_zero_based") is None:
+            raise ValueError("gTSS association needs a measured TSS point")
+        if "cds_start_zero_based" not in row or "leader_length_nt" not in row:
+            raise ValueError(
+                "Current anchor and leader must be explicit, including nulls"
+            )
         length = len(envelope["genomes"][genome_id]["sequence"])
         for field in (
             "tss_zero_based",
@@ -184,6 +268,8 @@ def build_panel(envelope, source_sha256, per_stratum=4):
                 }
             )
     selected_rows = sum(len(row["record_ids"]) for row in selected)
+    if not selected_rows:
+        raise ValueError("No eligible gTSS loci selected")
     if selected_rows > MAX_SELECTED_ROWS:
         raise ValueError("Selected alternatives exceed row cap; no truncation allowed")
     records = [
@@ -192,7 +278,7 @@ def build_panel(envelope, source_sha256, per_stratum=4):
         for row in sorted(
             loci[(item["genome_id"], item["source_locus_tag"])], key=lambda r: r["id"]
         )
-        for scenario in scenarios(row)
+        for scenario in scenarios(row, envelope["genomes"][row["genome_id"]])
     ]
     settings = {
         "seed": SEED,
@@ -201,11 +287,16 @@ def build_panel(envelope, source_sha256, per_stratum=4):
         "upstream_limit_nt": 100,
         "downstream_length_nt": 100,
         "temperature_c": 37.0,
-        "anti_sd": "ACCUCCUUU",
+        "anti_sd": ANTI_SD,
         "profiles": list(PROFILES),
         "maximum_selected_source_rows": MAX_SELECTED_ROWS,
     }
     return {
+        **{
+            key: copy.deepcopy(envelope[key])
+            for key in ("licence", "attribution", "conditions_note")
+            if key in envelope
+        },
         "schema_version": "native-rbs-evidence-1",
         "genomes": copy.deepcopy(envelope["genomes"]),
         "records": records,
@@ -225,7 +316,7 @@ def build_panel(envelope, source_sha256, per_stratum=4):
                 "selected_loci": len(selected),
                 "selected_source_rows": selected_rows,
                 "input_scenarios": len(records),
-                "profile_jobs": len(records) * 2,
+                "profile_jobs": len(records) * len(PROFILES),
             },
             "excluded_without_locus_record_ids": sorted(excluded),
             "interpretation": (

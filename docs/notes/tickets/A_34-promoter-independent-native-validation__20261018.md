@@ -4,7 +4,7 @@
 - Status: active
 - Opened: 2026-10-18
 - Updated: 2026-10-18
-- Current State: Phase 1 input/metric tooling from DEM-520 integrated after B review (8626232; 42 synthetic tests, 100% statement/branch coverage). B's context-panel builder passes 6 tests/17 subtests with full coverage. DEM-522 owns isolated grouping/uncertainty tools. Consumer authority is pinned read-only at 0861119 with 15 committed files verified despite unrelated dirty docs. Phase 2 awaits reviewed candidate and recorded release gate. Claude protocol review DEM-521 terminal-failed at its provider safeguard; no retry/rerouting or completed review claimed.
+- Current State: Phase 1 input/metric tooling from DEM-520 integrated after B review (8626232; 42 synthetic tests, 100% statement/branch coverage). B's context-panel builder passes 9 tests/40 subtests with full coverage after fixing DEM-523's scenario-origin, metadata and provenance findings; fix confirmation is pending. DEM-522 owns isolated grouping/uncertainty tools. Consumer authority is pinned read-only at 0861119 with 15 committed files verified despite unrelated dirty docs. Phase 2 awaits reviewed candidate and recorded release gate. Claude protocol review DEM-521 terminal-failed at its provider safeguard; no retry/rerouting or completed review claimed.
 - Verification: Verify source/annotation/policy identities; use synthetic labels to test tools; separate source parity, positive TSS localization, transcript-context sensitivity and measured strength. Audit final aggregates independently.
 - Cleanup: The owning session alone resolves the scoped ticket, records unresolved findings, distills reusable contracts, removes the resolved file/index row and closes this issue with the exact result commit.
 

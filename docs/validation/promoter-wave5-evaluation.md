@@ -178,7 +178,12 @@ profiles, with four named coordinate/context scenarios per selected source row.
 Condition identities are retained; replicate counts and source quality fields
 are omitted from runtime inputs. Missing anchors stay null. Outputs are created
 exclusively with mode 0600; a selection exceeding 1,024 source alternatives fails
-without truncation. Reproduce from the pinned external Tan envelope:
+without truncation, and an empty selection cannot produce a runtime envelope.
+Source metadata and fixed anti-SD/provenance agreement are validated. Each
+scenario derives its own circular crossing declaration from its explicit signed
+leader and actual 100-nt flank/downstream bounds; the source crossing flag remains
+separate provenance. Internal TSSs never become origin-spanning leaders.
+Reproduce from the pinned external Tan envelope:
 
 ```sh
 python -m benchmarks.rbs.context_panel ENVELOPE PANEL.json \

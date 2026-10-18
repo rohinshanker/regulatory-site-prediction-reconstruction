@@ -12,6 +12,8 @@ import unittest
 from pathlib import Path
 from unittest.mock import patch
 
+import jsonschema
+
 from benchmarks.promoter.native_inputs import canonical_bytes, document_sha256
 from benchmarks.rbs import context_panel as panel
 
@@ -38,6 +40,12 @@ def envelope():
                 "warnings": ["source warning"],
                 "origin_crossing": False,
                 "source_flags": [],
+                "mapping_status": "synthetic",
+                "transcript_start_evidence": "synthetic TSS",
+                "translation_start_evidence": "synthetic annotation",
+                "host": "synthetic",
+                "anti_sd": "ACCUCCUUU",
+                "anti_sd_provenance": "synthetic tail",
             }
         )
     alternate = copy.deepcopy(rows[0])
@@ -62,6 +70,108 @@ def envelope():
 
 
 class ContextPanelTests(unittest.TestCase):
+    def test_output_schema_and_optional_field_preservation(self):
+        source = envelope()
+        source.update(
+            licence="synthetic",
+            attribution={"author": "test"},
+            conditions_note="Synthetic condition identities",
+        )
+        source["records"][0]["replicon"] = "g"
+        source["records"][0]["anti_sd_provenance"] = [{"anti_sd": "ACCUCCUUU"}]
+        source["records"][1]["anti_sd_provenance"] = {"anti_sd": "ACCUCCUUU"}
+        with patch.object(panel, "MAX_SELECTED_ROWS", 7):
+            result = panel.build_panel(source, "f" * 64)
+        schema = json.loads(
+            (
+                Path(__file__).resolve().parents[2]
+                / "schemas/native-rbs-evidence-1.schema.json"
+            ).read_text()
+        )
+        jsonschema.validate(result, schema)
+        for key in ("licence", "attribution", "conditions_note"):
+            self.assertEqual(result[key], source[key])
+        self.assertNotIn(
+            "replicon",
+            next(
+                row for row in result["records"] if row["source_record_id"] == "row-1"
+            ),
+        )
+
+    def test_circular_crossing_is_scenario_specific(self):
+        source = envelope()
+        genome = source["genomes"]["g"]
+        genome["topology"] = "circular"
+        # strand, TSS, current anchor, current leader, old anchor, old distance,
+        # source flag; expected current/measured, current/flank, old/measured,
+        # old/flank crossing flags.
+        cases = [
+            ("+", 390, None, None, 10, 20, False, [False, False, True, True]),
+            ("-", 5, None, None, 385, 20, False, [False, False, True, True]),
+            ("+", 5, 30, 25, 30, 25, False, [False, True, False, True]),
+            ("+", 250, 50, 200, 270, 20, True, [True, True, False, False]),
+            ("-", 149, 349, 200, 129, 20, True, [True, True, False, False]),
+            ("+", 300, 350, 50, 350, 50, False, [True] * 4),
+            ("-", 90, 40, 50, 40, 50, False, [True] * 4),
+        ]
+        for strand, tss, start, leader, old, distance, flag, expected in cases:
+            row = copy.deepcopy(source["records"][0])
+            row.update(
+                strand=strand,
+                tss_zero_based=tss,
+                cds_start_zero_based=start,
+                leader_length_nt=leader,
+                source_start_zero_based=old,
+                source_start_distance_nt=distance,
+                origin_crossing=flag,
+            )
+            with self.subTest(strand=strand, tss=tss):
+                rows = list(panel.scenarios(row, genome))
+                self.assertEqual([r["origin_crossing"] for r in rows], expected)
+                self.assertTrue(all(r["source_origin_crossing"] == flag for r in rows))
+        internal = copy.deepcopy(source["records"][0])
+        internal["origin_crossing"] = True
+        self.assertFalse(list(panel.scenarios(internal, genome))[0]["origin_crossing"])
+
+    def test_fail_closed_for_metadata_and_coordinate_contradictions(self):
+        for field, value in [
+            ("host", None),
+            ("host", ""),
+            ("host", "x" * 129),
+            ("host", "bad\x7f"),
+            ("host", "bad\n"),
+            ("mapping_status", None),
+            ("replicon", None),
+            ("anti_sd", "CCUCCUUUA"),
+            ("anti_sd_provenance", []),
+            ("anti_sd_provenance", 1),
+            ("anti_sd_provenance", {"anti_sd": "wrong"}),
+            ("anti_sd_provenance", [{"anti_sd": "wrong"}]),
+            ("tss_zero_based", None),
+            ("leader_length_nt", None),
+            ("source_start_distance_nt", 70),
+            ("id", "x" * 128),
+        ]:
+            source = envelope()
+            source["records"][0][field] = value
+            with self.subTest(field=field, value=value), self.assertRaises(ValueError):
+                panel.build_panel(source, "f" * 64)
+        for field in ["cds_start_zero_based", "leader_length_nt"]:
+            source = envelope()
+            del source["records"][0][field]
+            with self.assertRaises(ValueError):
+                panel.build_panel(source, "f" * 64)
+        source = envelope()
+        source["records"].append(copy.deepcopy(source["records"][0]))
+        with self.assertRaises(ValueError):
+            panel.build_panel(source, "f" * 64)
+        with self.assertRaises(ValueError):
+            panel.build_panel(envelope(), "bad-hash")
+        self.assertEqual(
+            panel.selection_key("g", "locus-é"),
+            "881082f7c0770b5dc6a822145d97891a0e1460a2312df1682a6bcb3eb5a99acd",
+        )
+
     def test_selection_and_all_alternatives(self):
         source = envelope()
         original = copy.deepcopy(source)
@@ -127,7 +237,7 @@ class ContextPanelTests(unittest.TestCase):
 
     def test_scenarios_keep_anchor_and_context_distinct(self):
         row = envelope()["records"][3]
-        rows = list(panel.scenarios(row))
+        rows = list(panel.scenarios(row, envelope()["genomes"]["g"]))
         self.assertEqual(
             [r["cds_start_zero_based"] for r in rows], [130, 130, 150, 150]
         )
@@ -136,10 +246,16 @@ class ContextPanelTests(unittest.TestCase):
         self.assertTrue(all(r["measured_tss_zero_based"] == 100 for r in rows))
         row["source_start_zero_based"] = None
         row["conditions"] = ["control"]
-        self.assertIsNone(list(panel.scenarios(row))[2]["leader_length_nt"])
+        self.assertIsNone(
+            list(panel.scenarios(row, envelope()["genomes"]["g"]))[2][
+                "leader_length_nt"
+            ]
+        )
         del row["conditions"]
         del row["warnings"]
-        self.assertEqual(list(panel.scenarios(row))[0]["conditions"], [])
+        self.assertEqual(
+            list(panel.scenarios(row, envelope()["genomes"]["g"]))[0]["conditions"], []
+        )
 
     def test_explicit_invalid_inputs(self):
         for value in [True, 0, 5, "4"]:
@@ -170,15 +286,13 @@ class ContextPanelTests(unittest.TestCase):
     def test_empty_source_and_nonempty_condition_list(self):
         source = envelope()
         source["records"] = []
-        result = panel.build_panel(source, "f" * 64)
-        self.assertEqual(result["records"], [])
-        self.assertEqual(
-            result["panel"]["counts"]["loci_by_stratum"], dict.fromkeys(panel.STRATA, 0)
-        )
+        with self.assertRaisesRegex(ValueError, "No eligible"):
+            panel.build_panel(source, "f" * 64)
         row = envelope()["records"][0]
         row["conditions"] = ["dark", "control"]
         self.assertEqual(
-            list(panel.scenarios(row))[0]["conditions"], ["dark", "control"]
+            list(panel.scenarios(row, envelope()["genomes"]["g"]))[0]["conditions"],
+            ["dark", "control"],
         )
 
     def test_cli_hash_binding_exclusive_permissions_and_entrypoint(self):
