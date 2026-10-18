@@ -88,8 +88,8 @@ The paper's calibration is three-hour, 37 °C *in vitro* *E. coli* RNA polymeras
 holoenzyme measurement. `host` is metadata and never selects a profile. Result
 `calibration.host_status` is `calibration_native`, `in_vitro_reference`,
 `unspecified` (warning `host_unspecified`) or `extrapolated` (warning
-`host_extrapolation`). Any other host, including a cyanobacterium, receives the
-*E. coli* profile unchanged with an extrapolation warning: no host-specific
+`host_extrapolation`). Any other host, including a cyanobacterium, retains the
+explicitly selected profile with an extrapolation warning: no host-specific
 calibration, sigma factor, temperature, growth condition or in vivo context is
 modelled (`model.not_modeled`). The `claims` object in every result keeps
 `native_accuracy_evaluated` and `hosted_parity` false.
@@ -112,8 +112,7 @@ independent of the calibration profile.
 
 Selection keeps the finite state with the strictly smallest `total`, visiting
 discriminator ascending then spacer ascending; the first of equal states wins and
-`tie_count` reports exact ties. The state set is complete and finite, so
-selection is deterministic. Ranking candidates uses the log score (a lower `total` gives a higher score).
+`tie_count` reports exact ties. Selection among the available finite states is deterministic. Ranking candidates uses the log score (a lower `total` gives a higher score).
 
 Scores are comparable across candidates and sequences only under the same
 calibration profile and model identity. An *in vitro* and an *E. coli* result for
@@ -215,7 +214,7 @@ Missingness is explicit and never filled with zero:
   that partial set (`complete_state_set: false`).
 - Record status precedence `invalid_input` > `unsupported` > `failed` > `ok` >
   `no_candidate`. `no_candidate` is not evidence of no promoter. A record that
-  `ok` may still contain unscored sites: check `coverage` (`complete_context`,
+  is `ok` may still contain unscored sites: check `coverage` (`complete_context`,
   `insufficient_context_sites`, `failed_sites`, `unattempted_sites`).
 - Deadlines are checked between sites. A tight deadline yields `failed` with
   every unfinished site listed, never a partial `ok`. Deadline outcomes are not
@@ -234,8 +233,9 @@ promoters are.
 
 For a current sequence and a recoded sequence:
 
-- Each side is scored independently under identical model, calibration and
-  scan/candidate rules. A score difference is a difference in model score for
+- Each side is scored independently under explicit model and calibration
+  settings and its own candidate rules. Compatible model/calibration identities
+  are required for numerical differences. A score difference is a difference in model score for
   corresponding supplied positions, not a measured change in expression or
   transcription.
 - Correspondence between current and recoded candidates comes from an explicit

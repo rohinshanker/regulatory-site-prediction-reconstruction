@@ -150,8 +150,9 @@ separate E. coli experiment and its limited sequence diversity.
 
 Supply a sequence, explicit candidate positions or range, and either the
 `ecoli_mg1655` or `in_vitro` calibration profile. Host labels describe applicability;
-they do not calibrate the model: a cyanobacterial sequence receives the *E. coli*
-profile with an extrapolation warning. Every requested position is retained,
+they do not calibrate the model. A supplied cyanobacterial host label retains
+the explicitly selected profile and adds an extrapolation warning. Every
+requested position is retained,
 including positions lacking enough flanking sequence and unfinished computations.
 Predicted windows are model features, not experimentally measured regulatory
 boundaries. A score difference between current and recoded sequences is a model
