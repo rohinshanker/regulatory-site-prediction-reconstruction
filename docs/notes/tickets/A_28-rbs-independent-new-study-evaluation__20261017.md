@@ -4,8 +4,8 @@
 - Status: active
 - Opened: 2026-10-17
 - Updated: 2026-10-17
-- Current State: Session B started Wave 4; protocol/tooling precedes final outcome joins. All prior input/source/private-output hashes and modes reverified without printing measurements. The protocol and finite-state oracle passed independent exact-patch review at 2e7401d and were acknowledged by A. The collector, public inference bridge and aggregate evaluator are implemented and tested on synthetic data; their review and A’s final candidate receipt precede collection. No new panel predictions or label joins have occurred.
-- Verification: Wave 3 admission preserves 335 Cambray inputs/332 means and 261 Kuo inputs/253 means, source hashes and overlap audits. Candidate freeze, evaluator implementation and new final comparison are pending.
+- Current State: Session B is collecting the single authorized 6,556-job evaluation after A confirmed the exact full receipt (issue comment 6243651142). Scientific candidate a11cb5b and protocol d8eb48c4 are immutable. Every configuration must finish before the private ordinary-outcome join; no results or tuning feedback have been released.
+- Verification: Independent protocol, comparator and collector/evaluator reviews are complete. The full benchmark suite passes 235 tests with 100% statement/branch coverage; all four B CI jobs pass. All 18,481 frozen artifact pins and 11 synthetic command checks pass. Final collection/aggregate verification remains pending.
 - Cleanup: Session B distills the protocol, aggregate results, exposure boundary and reproduction contract; resolves/removes this ticket only after a complete validated evaluation, retaining broad #12 and any incomplete stage.
 - Owner: Session B (9677689a-1792176763), wave4/b-independent-evaluation at baseline 73521a6ae3251678073dce76181ee5909b34fe8b.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/28
