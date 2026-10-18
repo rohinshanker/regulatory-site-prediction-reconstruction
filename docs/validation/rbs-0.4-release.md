@@ -60,8 +60,12 @@ python3.14 -m venv .cache/fresh
 ```
 
 For an existing environment, use its Python executable with
-`pip install --no-index --no-deps --upgrade PATH_TO_WHEEL`. Keep any prior engine
-installation intact. Follow the [backend source recipe](rbs-backend-repair.md)
+`pip install --no-index --no-deps --upgrade PATH_TO_WHEEL`. If it already has an
+earlier unpublished `0.4.0rc1` development build, use a fresh environment or add
+`--force-reinstall` with the exact reviewed wheel: equal version strings do not
+identify equal development artifacts. Verify the wheel against its accompanying
+`SHA256SUMS`. Keep any prior engine installation intact.
+Follow the [backend source recipe](rbs-backend-repair.md)
 to build linker-3 from the pinned archive into a separate user-writable directory:
 
 ```sh
