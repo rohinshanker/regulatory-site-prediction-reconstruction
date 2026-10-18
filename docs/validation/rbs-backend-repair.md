@@ -164,3 +164,9 @@ The fix does not establish exhaustive enumeration, NUPACK/hosted equivalence or
 experimental accuracy. Broader SHAPE, modified-base and constraint combinations
 remain outside this scoped validation. Required gate commands above must pass
 for each admitted build; the receipt is not a cryptographic provenance signature.
+
+The frozen runtime admission at `a11cb5bd13d3c021eedc98cf451609eb4710bb6a`
+passed all 35 three-engine component checks and all four jobs in
+[CI39080285855](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/actions/runs/39080285855),
+including fresh offline installation. The [candidate receipt](../../models/rbs/wave4-candidate.json)
+pins the accepted source, patch, actual binaries/tables and completed gate evidence.
