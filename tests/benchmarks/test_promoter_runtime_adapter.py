@@ -1723,6 +1723,45 @@ class CollectionRejectionTest(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "effective 1000 bytes"):
             lowered.adapt(collection, files)
 
+    def test_authoritative_result_size_and_wire_boundaries(self):
+        def sample(cap):
+            fixture = Fixture(
+                queries=empty_range_document(),
+                runtime={"max_result_json_bytes": cap},
+            )
+            result = fixture.result(0)
+            result["results"][0]["warnings"] = [{"message": "é𐀀"}]
+            pretty = (
+                json.dumps(
+                    result, sort_keys=True, indent=2, ensure_ascii=True, allow_nan=False
+                )
+                + "\n"
+            ).encode("utf-8")
+            return fixture, result, pretty
+
+        # The limit itself occurs in the result. Resolve its decimal width
+        # before exercising the exact byte boundary.
+        cap = len(sample(10000)[2])
+        cap = len(sample(cap)[2])
+        fixture, result, pretty = sample(cap)
+        self.assertEqual(len(pretty), cap)
+        self.assertTrue(pretty.endswith(b"\n"))
+        self.assertIn(b"\\u00e9\\ud800\\udc00", pretty)
+        compact = json.dumps(result, ensure_ascii=False, separators=(",", ":")).encode(
+            "utf-8"
+        )
+        self.assertLess(len(compact), cap)
+        for raw in (pretty, compact, compact + b" " * (cap - len(compact))):
+            a.check_result(raw, fixture.plan["batches"][0], fixture.plan)
+        with self.assertRaisesRegex(ValueError, "Result exceeds the effective"):
+            a.check_result(pretty + b" ", fixture.plan["batches"][0], fixture.plan)
+        smaller, result, pretty = sample(cap - 1)
+        self.assertEqual(len(pretty), cap)
+        compact = json.dumps(result, separators=(",", ":")).encode("utf-8")
+        self.assertLess(len(compact), cap - 1)
+        with self.assertRaisesRegex(ValueError, "Authoritative result exceeds"):
+            a.check_result(compact, smaller.plan["batches"][0], smaller.plan)
+
     def test_invalid_and_unsupported_records(self):
         first = self.fixture.plan["batches"][0]["records"][0]["request_id"]
 

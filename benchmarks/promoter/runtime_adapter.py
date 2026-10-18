@@ -6,7 +6,7 @@ explicit collection of public `promoter-result-1.0` documents against that plan
 and emits `promoter-native-scores-2` rows plus an aggregate audit. The adapter
 never runs the runtime, computes scores or model terms, or reads labels.
 Coordinates are zero-based half-open, following docs/validation/promoter-runtime.md
-at a986722d770f947502a49f273a6aaf1446f70172. Candidate commit and wheel hash are
+at 5b890a3c307d366a828d95812f22a2b9975e6cfe. Candidate commit and wheel hash are
 caller assertions: matching result identities does not prove which binary ran.
 """
 
@@ -1206,6 +1206,12 @@ def check_result(raw, batch, plan):
     if len(raw) > limit:
         raise ValueError(f"Result exceeds the effective {limit} bytes")
     result = _exact_keys(strict_json(raw), RESULT_KEYS, "result")
+    authoritative = (
+        json.dumps(result, sort_keys=True, indent=2, ensure_ascii=True, allow_nan=False)
+        + "\n"
+    ).encode("utf-8")
+    if len(authoritative) > limit:
+        raise ValueError(f"Authoritative result exceeds the effective {limit} bytes")
     if result["schema_version"] != CONTRACT_VERSION:
         raise ValueError("Result schema_version must be " + CONTRACT_VERSION)
     check_model(result["model"], plan["manifest"]["identity"])

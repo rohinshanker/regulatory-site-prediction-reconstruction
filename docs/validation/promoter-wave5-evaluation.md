@@ -218,21 +218,23 @@ source/annotation policies, queries/labels/groups, tool hashes, candidate commit
 parameters and full backend/runtime settings before the first real prediction.
 Record any owner-approved release-gate exception; elapsed time is not approval.
 The reviewed public interface is `docs/validation/promoter-runtime.md` at
-`21cab40908cdc850735b41d1c84430e3ee0b14d9`. Interface preparation and synthetic
+`5b890a3c307d366a828d95812f22a2b9975e6cfe`. Interface preparation and synthetic
 adapter tests may proceed while the gate is pending. They do not authorize a
 runtime implementation, a real input collection or a label/outcome join.
 
 The final receipt must bind these separately checkable items before collection:
 
 - The recorded release dependency or owner exception, immutable candidate commit,
-  wheel hash, implementation version, model/parameter/source hashes and the
-  exact reviewed public interface. A version string alone is insufficient.
+  wheel hash, implementation version, complete emitted model object, six-key
+  `identity_model`, model/parameter/source hashes and the exact reviewed public
+  interface. A version string alone is insufficient.
 - The unchanged input manifest and query/label/group/context-panel hashes,
   adapter/evaluator hashes and explicit metric settings. Query construction does
   not read labels; no labels enter runtime requests.
 - Calibration and target-host metadata, deterministic request order and batch
-  membership, exact serialized request hashes, resource limits and both record
-  and batch deadlines. All settings come from the candidate's synthetic
+  membership, exact serialized request hashes, the complete twenty-key effective
+  runtime limits, separate evaluator packing limits, float record/batch deadlines
+  and explicit CLI defaults. All settings come from the candidate's synthetic
   feasibility receipt, within this protocol's whole-stage ceilings.
 - Every requested batch and case, with an explicit completed, failed or not-run
   receipt. Missing, extra, duplicate or mismatched results fail validation.
@@ -248,8 +250,8 @@ The final receipt must bind these separately checkable items before collection:
   Exceeding the total deadline leaves all unstarted work explicit; there is no
   automatic retry, batch shrinking or settings change after outcomes.
 
-The runtime/evaluator adapter never invokes inference. Its synthetic feasibility
-checks establish serialization, identity and denominator behavior only. CPU,
+The [runtime/evaluator adapter](promoter-runtime-adapter.md) never invokes
+inference. Its synthetic feasibility checks establish serialization, identity and denominator behavior only. CPU,
 wall-time and memory capacity require A's actual synthetic runtime measurements;
 packing a valid request is not evidence that it will finish within a deadline.
 

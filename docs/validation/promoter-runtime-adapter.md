@@ -6,7 +6,7 @@
 
 [`runtime_adapter.py`](../../benchmarks/promoter/runtime_adapter.py) implements
 the [runtime contract](promoter-runtime.md) at public interface
-`ae59a06fa9c4471f64eb0c06e2a8b3b28461ba1f` (task baseline
+`5b890a3c307d366a828d95812f22a2b9975e6cfe` (task baseline
 `21cab40908cdc850735b41d1c84430e3ee0b14d9`). It sits
 between the [native queries](promoter-native-tooling.md) and
 [`native_metrics.py`](../../benchmarks/promoter/native_metrics.py), following
@@ -111,8 +111,12 @@ rejects the collection; it never becomes `execution_failed`. `adapt` takes the
 exact collection bytes and their SHA-256, rebuilds the plan from the queries and
 manifest, and requires the pinned plan hash.
 
-For a completed result (strict JSON within the effective
-`max_result_json_bytes`), the adapter checks:
+For a completed result, the adapter bounds received bytes before strict JSON
+parsing, then reserializes the complete parsed value with sorted keys, two-space
+indentation, ASCII escaping and one trailing LF, exactly as the runtime contract
+specifies. Both lengths must fit the effective `max_result_json_bytes`; equality
+is allowed. Compact output cannot evade the authoritative size limit, and extra
+wire whitespace cannot evade the received-byte limit. It then checks:
 
 - schema `1.0` and a `model` equal to `expected_model` (no partial or anywhere-in-object matching);
 - the planned `batch_id`, `limits` equal to `runtime_limits`, and float deadlines equal to the manifest;
@@ -233,12 +237,18 @@ Tests cover the following, all on synthetic outcome-free cases:
 - schema validity of every generated request;
 - metrics integration on synthetic labels.
 
-## Open contract questions
+## Validation scope
 
-a986722 settles host, metadata, normalization, canonical bytes, ID payloads and
-limits; ae59a06 settles empty-scan precedence. These points remain open. The
-adapter fails closed on each stated assumption and invents no receipt value.
+This adapter validates the native-grid selected-state interface. It accepts
+omitted zero entries in `status_counts` and checks `truncation.attempted_sites`
+against the number of sites marked `attempted:true`. Rejected records may have
+null calibration, scan or projection; any non-null value must match the plan.
+Warnings must be a list, but warning objects are not interpreted or copied into
+metrics. Runtime scoring, all-state parity and the runtime's own deadline
+execution remain separate acceptance checks.
 
-1. Zero `status_counts` entries may be omitted. `truncation.attempted_sites` is assumed to count `attempted: true` sites.
-2. A rejected record's `calibration`, `scan` and `projection` may be `null` or the planned value. The contract does not say whether `unsupported` records must echo them.
-3. The warning objects are not checked.
+The independent synthetic regression in
+[`test_promoter_native_v2_independent.py`](../../tests/benchmarks/test_promoter_native_v2_independent.py)
+compares 1,000 fixed-seed complete-roster scenarios against exhaustive bipartite
+matching. It checks primary and conditional recovery across ties, all eight raw
+statuses, four top-k values and three tolerances without native outcomes.
