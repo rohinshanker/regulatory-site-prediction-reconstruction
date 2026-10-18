@@ -466,6 +466,12 @@ failed. Hashes or interpreted settings must never be fabricated for rejected
 values. The complete original input is bound by `batch_id`, not copied blindly
 into these validated result fields.
 
+`warnings` is an array of objects with `code` and `message` strings, not an
+array of bare codes. Current codes are `host_unspecified`, `host_extrapolation`
+and `legacy_key_not_coordinate`. Messages explain applicability and are not
+identity keys. Consumers select warning codes from each object's `code`; CSV
+joins those codes. Required extrapolation wording is supplied in the message.
+
 `coverage`: `planned_sites`, `scored_sites`, `partial_state_sites` (a subset of
 scored sites with fewer than 30 states), `insufficient_context_sites`, `failed_sites`
 (attempted but failed),
