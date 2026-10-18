@@ -4,6 +4,7 @@ Verification dates cover the stated source observations or specification review;
 
 | Area | Purpose | Last verified | Document |
 | --- | --- | --- | --- |
+| riboswitch-constrained-reference | Pinned canonical forced-pair/unpaired feasibility, immutable synthetic execution and offline integrity audit. | 2026-10-18 | [riboswitch-constrained-reference.md](riboswitch-constrained-reference.md) |
 | current-recoded-validation | Independent synthetic edit maps, candidate universes and failure-preserving comparison rules. | 2026-10-18 | [current-recoded-validation.md](current-recoded-validation.md) |
 | promoter-runtime | Specified request/result shapes, exact hash payloads/effective-limit keys, coordinate projection and calibration; isolated implementation authorized. | 2026-10-18 | [promoter-runtime.md](promoter-runtime.md) |
 | rbs-context-metrics | Hash-bound unchanged-profile context comparisons, complete status accounting and private failure identities. | 2026-10-18 | [rbs-context-metrics.md](rbs-context-metrics.md) |

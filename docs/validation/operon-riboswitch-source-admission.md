@@ -23,7 +23,7 @@ operon-discovery algorithm. Adjacent CDSs cannot silently become a transcript.
 | Component | Reusable evidence | Missing deployment requirement |
 | --- | --- | --- |
 | Translation initiation | Existing historical/footprint/context/standby RBS profiles, explicit RNAstructure backend and notices. | Coupled downstream initiation, drafting, kinetic and production-version equivalence remain separate. |
-| Internal promoters | Admitted GPL-3.0-or-later Promoter source, 343 coefficients and executed synthetic fixtures. | A's runtime/release gate and explicit context/calibration contract. |
+| Internal promoters | Admitted GPL-3.0-or-later Promoter source, 343 coefficients and executed synthetic fixtures. | A's runtime/source-parity acceptance and explicit context/calibration contract. |
 | mRNA stability | MIT `mRNA_Stability_Calculator/ModelTrainingTesting.py`, hyperparameters and precomputed train/test features. | Complete sequence featurizer, frozen six-model artifacts, categorical feature/order contract and reproducible dependency lock. |
 | Elongation, pausing, RNase protection | Official interface and cited study descriptions. | Executable integrated equations, host-specific parameters and independent fixtures. |
 | Termination and genetic instability | Documented outputs and benchmark/parts leads. | Admitted inference source/weights, applicable conditions and false-positive validation. |
@@ -114,8 +114,12 @@ from a canonical secondary-structure backend or those references alone.
 The 2015 paper/supplement grant is CC-BY-NC-4.0. It is not a permissive software
 grant or authority to bundle those data into the required open runtime. Scalar
 relationships are independently expressed here; original supplements stay in
-the external evidence cache. Complete standalone constrained-state inference
-source and its released parameter/runtime identity remain unrecovered.
+the external evidence cache. The complete published constrained-RBS/ligand-state inference path remains
+unrecovered. The separately admitted [canonical constrained-folding component](riboswitch-constrained-reference.md)
+now supplies exact nested pair/unpaired demands, pinned RNAstructure 6.6
+identities, nine executed synthetic cases and offline output re-auditing. It is
+a different backend from the published ViennaRNA configurations, and does not
+supply constrained intermolecular RBS cofolding or ligand occupancy.
 
 ## Protein-binding extension and benchmark exposure
 
@@ -136,8 +140,8 @@ steric inhibition is not supplied as a complete general steric-hindrance model.
 
 ## Ordered implementation contract
 
-1. Release the existing RBS component and implement the admitted Promoter path
-   under their separate gates. Preserve transcript/part organization and null
+1. Continue RBS release preparation and owner-authorized isolated Promoter
+   implementation under their separate publication and evaluation gates. Preserve transcript/part organization and null
    outputs for unsupported submodels in any future supplied-operon contract.
 2. Recover or explicitly reconstruct stability featurization, categorical schema
    and all six artifact identities before promising sequence-to-decay inference.
@@ -147,8 +151,8 @@ steric inhibition is not supplied as a complete general steric-hindrance model.
    submodel with its own parameter/dependency pins. Integration must report which
    components ran; an annotated parts diagram is not a completed Operon Calculator.
 4. Implement Riboswitch scalar/occupancy relationships only with explicit input
-   units, conservation and limiting-case tests; then admit canonical constrained
-   folding with paired state fixtures. General pseudoknot and protein-steric
+   units, conservation and limiting-case tests; use the admitted canonical constrained
+   folding fixtures without implying published-backend parity. General pseudoknot and protein-steric
    support remain separate gates with explicit unsupported results.
 5. Freeze supplied-aptamer assay panels by aptamer/construct family and study.
    Keep source-equation, hosted-reference and experiment comparisons separate.
