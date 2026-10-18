@@ -157,7 +157,17 @@ python -m coverage report -m
 Run from the repository root with `PYTHONPATH=src:.`. Exit 1 means a rejected
 input or an existing output; the previous report is never overwritten.
 [rbs-native-runtime](rbs-native-runtime.md) states that extracted-context hashes
-are over RNA. One feasibility check remains before final collection: that each
-core prediction's `backend` equals the output's `execution.backend`. Confirm it
-with A's interface/example receipt or a synthetic candidate smoke run; this tool
-runs no folding.
+are over RNA. Core prediction `backend` equality with `execution.backend` is supported by
+[A's original-output receipt](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/34#issuecomment-6255218509)
+for exact archive commit `9edb989fbfa6d252d0c1b7b12c1a4d0a7d0ce923`:
+
+| Original public/synthetic output | SHA-256 | Non-null predictions |
+| --- | --- | ---: |
+| `native.json` (context2017) | `0b71c34e1abdc91c0cd8f142e72ee7deacb24bbb84077d626440473a71e2349e` | 6 |
+| `native-real.json` (context2017) | `086b8c6858b8b6494b06453fc0b46ee81acfcb01c2b9a41afa8d8ec5698205c6` | 2 |
+| `native-joint-linker.json` | `c1524c609e06e09068a244d2154e814242dd6959e3a30e8691b17729a7a38c6c` | 2 |
+
+A verified exact backend and implementation-version equality on every non-null
+prediction. B did not re-run folding or independently reopen those outputs for
+this receipt. Final collection still verifies equality on each actual row; this
+interface evidence does not supply candidate authorization or native outcomes.

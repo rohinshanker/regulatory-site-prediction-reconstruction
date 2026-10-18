@@ -217,6 +217,41 @@ labels. B independently reviews Claude's exact tool patch. Freeze protocol,
 source/annotation policies, queries/labels/groups, tool hashes, candidate commit,
 parameters and full backend/runtime settings before the first real prediction.
 Record any owner-approved release-gate exception; elapsed time is not approval.
+The reviewed public interface is `docs/validation/promoter-runtime.md` at
+`21cab40908cdc850735b41d1c84430e3ee0b14d9`. Interface preparation and synthetic
+adapter tests may proceed while the gate is pending. They do not authorize a
+runtime implementation, a real input collection or a label/outcome join.
+
+The final receipt must bind these separately checkable items before collection:
+
+- The recorded release dependency or owner exception, immutable candidate commit,
+  wheel hash, implementation version, model/parameter/source hashes and the
+  exact reviewed public interface. A version string alone is insufficient.
+- The unchanged input manifest and query/label/group/context-panel hashes,
+  adapter/evaluator hashes and explicit metric settings. Query construction does
+  not read labels; no labels enter runtime requests.
+- Calibration and target-host metadata, deterministic request order and batch
+  membership, exact serialized request hashes, resource limits and both record
+  and batch deadlines. All settings come from the candidate's synthetic
+  feasibility receipt, within this protocol's whole-stage ceilings.
+- Every requested batch and case, with an explicit completed, failed or not-run
+  receipt. Missing, extra, duplicate or mismatched results fail validation.
+  A setup failure has no invented prediction; it still retains the complete
+  planned candidate roster with null scores in the evaluation representation.
+- Any completed sites in a failed record remain failed-record observations.
+  They may enter the separately named successful-position diagnostics but never
+  an all-case endpoint. Coordinate-eligible partial state sets are distinct from
+  missing candidate scores: the runtime may score 1–29 valid states at an edge,
+  and the report preserves that context limitation.
+- Private output storage and hashes, exact CLI invocations, collection stop
+  conditions and the independent reviewer for final arithmetic/public claims.
+  Exceeding the total deadline leaves all unstarted work explicit; there is no
+  automatic retry, batch shrinking or settings change after outcomes.
+
+The runtime/evaluator adapter never invokes inference. Its synthetic feasibility
+checks establish serialization, identity and denominator behavior only. CPU,
+wall-time and memory capacity require A's actual synthetic runtime measurements;
+packing a valid request is not evidence that it will finish within a deadline.
 
 Choose finite per-record and whole-stage deadlines using synthetic feasibility
 only. Initial ceilings are 3,600 seconds for native Promoter scanning and 7,200
