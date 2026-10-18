@@ -121,6 +121,13 @@ identities, nine executed synthetic cases and offline output re-auditing. It is
 a different backend from the published ViennaRNA configurations, and does not
 supply constrained intermolecular RBS cofolding or ligand occupancy.
 
+The [conditional-state contract](conditional-aptamer-contract.md) separates
+that structural component from independently expressed supplied-energy response
+algebra. It explicitly declares the Kd standard, zero-cost branch and literal
+volume-model conventions, with hand-computable synthetic fixtures. This admits
+bounded mathematical components; it does not fill the missing sequence-derived
+ligand-constrained ribosome state or establish a physical occupancy calibration.
+
 ## Protein-binding extension and benchmark exposure
 
 [The 2023 study](https://doi.org/10.1038/s41467-023-38098-0) supplies a CC-BY-4.0
