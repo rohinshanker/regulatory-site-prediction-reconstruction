@@ -113,6 +113,8 @@ class ContextPanelTests(unittest.TestCase):
             ("-", 149, 349, 200, 129, 20, True, [True, True, False, False]),
             ("+", 300, 350, 50, 350, 50, False, [True] * 4),
             ("-", 90, 40, 50, 40, 50, False, [True] * 4),
+            ("+", 5, 395, -10, 15, 10, False, [False, True, False, True]),
+            ("-", 394, 4, -10, 384, 10, False, [False, True, False, True]),
         ]
         for strand, tss, start, leader, old, distance, flag, expected in cases:
             row = copy.deepcopy(source["records"][0])

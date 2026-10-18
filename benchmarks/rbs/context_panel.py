@@ -148,7 +148,12 @@ def _crossing(record, genome):
             and leader < length
             and delta + length == leader
         )
-        if delta != leader and not path_crosses:
+        internal_across_origin = (
+            genome["topology"] == "circular"
+            and -length < leader < 0
+            and delta - length == leader
+        )
+        if delta != leader and not path_crosses and not internal_across_origin:
             raise ValueError("Declared leader contradicts supplied anchor coordinates")
         if leader < 0:
             return False  # Retained unsupported internal TSS, never origin-wrapped.
