@@ -6,7 +6,7 @@
 
 [`runtime_adapter.py`](../../benchmarks/promoter/runtime_adapter.py) implements
 the [runtime contract](promoter-runtime.md) at public interface
-`b8ef835e4faddb02ae47ee6450710b5eaf9158bd` (task baseline
+`ae59a06fa9c4471f64eb0c06e2a8b3b28461ba1f` (task baseline
 `21cab40908cdc850735b41d1c84430e3ee0b14d9`). It sits
 between the [native queries](promoter-native-tooling.md) and
 [`native_metrics.py`](../../benchmarks/promoter/native_metrics.py), following
@@ -25,13 +25,14 @@ canonical.
 
 | Field | Rule |
 | --- | --- |
-| `identity` | `candidate_commit`, `public_contract_commit`, `wheel_sha256`, `implementation_version`, `model_id`, `parameter_json_sha256`, `expected_model` |
-| `identity.expected_model` | The receipt's exact result `model` object. It has the contract's twelve keys, restates `id`, `implementation_version` and `parameters.parameter_json_sha256`, has a nonempty `source` and at least one parameter identity besides the JSON hash, and keeps the public kind, unit, `not_modeled` and all-false `claims` |
+| `identity` | `candidate_commit`, `public_contract_commit`, `wheel_sha256`, `identity_model`, `expected_model` |
+| `identity.identity_model` | The receipt's exact six-key object: `id`, `implementation_version`, `parameter_json_sha256`, `coefficient_array_sha256`, `intercept_array_sha256` (64-hex) and `source_commit` (40-hex) |
+| `identity.expected_model` | The receipt's exact emitted `model` object with the contract's twelve keys. Its `id`, `implementation_version` and `parameters.parameter_json_sha256` equal `identity_model`, and it keeps the public kind, unit, `not_modeled` and all-false `claims`. No other nested key is read |
 | `settings.calibration` | `ecoli_mg1655` or `in_vitro` |
-| `settings.host` | `null` or `{name (1..200, NFC), taxon_id (int > 0 or null)}`; metadata only |
-| `settings.limits` | `request_bytes` ≤ 4,000,000; `records_per_batch` ≤ 100; `bases_per_record` ≤ 5,000; `bases_per_batch` ≤ 100,000; `sites_per_record` ≤ 5,000; `sites_per_batch` ≤ 20,000 |
-| `settings.runtime_limits` | The receipt's exact effective `batch.limits` object (nonempty), separate from B's packing limits |
-| `settings.seconds_per_record` / `seconds_per_batch` | positive, ≤ 120 / ≤ 3,600 |
+| `settings.host` | `null` or `{name (NFC, ≤ max_host_name_chars), taxon_id (int > 0 or null)}`; metadata only |
+| `settings.runtime_limits` | The receipt's complete effective `batch.limits` object with exactly the 20 public keys: positive integer counts and float deadline defaults/maxima, each no greater than the published ceiling, and each default no greater than its maximum. The published ceiling object is not a receipt |
+| `settings.limits` | B packing limits `request_bytes`, `records_per_batch`, `bases_per_record`, `bases_per_batch`, `sites_per_record`, `sites_per_batch`. Each is no greater than the corresponding effective limit. `bases_per_record` also fits `max_raw_sequence_chars_per_record`, because requests are uppercase DNA |
+| `settings.seconds_per_record` / `seconds_per_batch` | The actual deadlines: positive floats (`30.0`, never `30`) no greater than the effective maxima. The CLI converts integers to floats |
 | `settings.cli_calibration` / `cli_states` | The runtime CLI defaults actually passed: `null`, the record calibration / `selected` |
 
 ## Plan (`promoter-runtime-plan-1`)
@@ -53,6 +54,7 @@ contract's map of its local run, so each base maps to its query coordinate.
 Linear crossing and circular repeats fail.
 
 Each query becomes record `q000000`, `q000001`, … with its sequence unchanged.
+Record IDs and contigs must fit `max_id_chars` and `max_contig_chars`.
 Clipped linear queries stay unpadded. The record has:
 
 - the query's exact `candidate_local_range` as `{"mode":"scan","strands":["+"]}`;
@@ -74,9 +76,11 @@ The plan stores:
 - totals;
 - per batch: its request document, SHA-256 and byte count, the request-to-query map, and the expected public `batch_id`.
 
-`batch_id` is SHA-256 of compact sorted-key JSON of `input` (the exact request
-document), `model` (`id`, `implementation_version`, `parameter_json_sha256`),
-`limits` (`runtime_limits`), both deadlines, `cli_calibration` and `cli_states`.
+Hashes use the public runtime canonical bytes: sorted keys, compact separators,
+`ensure_ascii=True`, `allow_nan=False`, UTF-8, no trailing newline. `batch_id`
+hashes `input` (the exact request document), `model` (the `identity_model` `id`,
+`implementation_version` and `parameter_json_sha256`), `limits` (the full
+`runtime_limits`), both float deadlines, `cli_calibration` and `cli_states`.
 Every generated request validates against A's
 [request schema](../../schemas/promoter-request-1.0.schema.json) in the tests.
 
@@ -107,27 +111,32 @@ rejects the collection; it never becomes `execution_failed`. `adapt` takes the
 exact collection bytes and their SHA-256, rebuilds the plan from the queries and
 manifest, and requires the pinned plan hash.
 
-For a completed result (strict JSON, ≤ 64 MiB), the adapter checks:
+For a completed result (strict JSON within the effective
+`max_result_json_bytes`), the adapter checks:
 
 - schema `1.0` and a `model` equal to `expected_model` (no partial or anywhere-in-object matching);
-- the planned `batch_id`, `limits` equal to `runtime_limits`, and deadlines equal to the manifest;
+- the planned `batch_id`, `limits` equal to `runtime_limits`, and float deadlines equal to the manifest;
 - batch counts, completeness and the exit code.
 
 Each record must be present in order. For `ok`, `no_candidate` and `failed`
 records it checks:
 
-- the exact input hashes/length, calibration, scan and projection, and null metadata;
-- every planned site, in order, with `psite1:` IDs sharing one scope;
+- the exact input hashes/length and `normalization` `ascii-whitespace-uppercase-u-to-t-1`, calibration (host `null` when absent, `taxon_id` `null` when omitted), scan and projection, and null metadata;
+- `prediction_id` recomputed from the literal payloads, with `scope_id` built over schema `1.0`, `identity_model`, calibration profile/host, normalized-DNA hash and projection, and `prediction_id` over the full 64-hex `scope_id`, resolved scan and output;
+- every planned site, in order, whose `psite1:` prefix is the first 32 hex of that `scope_id`;
 - each site's local `+` TSS, genomic point/strand, context and coordinate state count;
 - the selected state's complete `(d, s)`, state ID, finite terms/log score, score status and its local/oriented/genomic intervals;
 - status/reason/attempted consistency: unattempted sites are `failed`/`deadline_exceeded`, `no_candidate` sites are attempted, and `nonfinite_arithmetic` needs an eligible state;
 - an `ok` relative score that is finite and at least the smallest normal binary64 (never zero, negative or subnormal);
-- record-status precedence and exact coverage, with the truncation reason drawn from actual failed sites.
+- record-status precedence and exact coverage, with the truncation reason drawn from actual failed sites;
+- for an empty scan, preflight `no_candidate` with exactly `reasons:["empty_scan"]`, `errors:[]`, the recomputed `prediction_id`, zero counts, true completeness and null truncation, whatever the batch clock. A `failed` zero-site record is rejected.
 
-`invalid_input` and `unsupported` records need empty `sites` and null
-`prediction_id` and `coverage`. Each non-null `calibration`, `scan`,
-`projection` and `input` field must equal the planned value. Any disagreement
-rejects the whole collection.
+`invalid_input` and `unsupported` records need empty `sites`, null
+`prediction_id`, `coverage` and `metadata`, and each non-null `calibration`,
+`scan` or `projection` must equal the planned value. Their `input` object must
+be complete. A planned sequence is a valid uppercase ACGT string within limits,
+so the public rules leave no null raw hash or normalization triplet for it. Any
+disagreement rejects the whole collection.
 It never becomes a missing or failed row. Only `selected.terms.total` is copied,
 as a lower-better finite scalar. There is no log/relative conversion, and the
 terms are not recomputed.
@@ -192,8 +201,8 @@ overwriting.
 
 ```sh
 python -m benchmarks.promoter.runtime_adapter manifest MANIFEST.json --candidate-commit C \
-  --public-contract-commit P --wheel-sha256 W --implementation-version V --model-id M \
-  --parameter-json-sha256 H --expected-model MODEL.json --runtime-limits LIMITS.json \
+  --public-contract-commit P --wheel-sha256 W --identity-model IDENTITY_MODEL.json \
+  --expected-model MODEL.json --runtime-limits LIMITS.json \
   --calibration ecoli_mg1655 (--host-name NAME [--host-taxon-id N] | --no-host) \
   --cli-calibration none --cli-states none \
   --max-request-bytes N --max-records-per-batch N --max-bases-per-record N \
@@ -219,18 +228,17 @@ Tests cover the following, all on synthetic outcome-free cases:
 - every manifest, query, collection, result, site and CLI rejection;
 - batching at each limit's exact boundary and one past it;
 - partial, setup and execution failures, and the reviewed model/limits/`batch_id` probes;
+- independently built scope/prediction/site IDs: record ID and metadata excluded; scan/output change only `prediction_id`; host, taxon, projection, model and sequence change both; ASCII escaping and the full 64-hex scope digest;
+- effective field, packing, deadline and result-byte limits;
 - schema validity of every generated request;
 - metrics integration on synthetic labels.
 
 ## Open contract questions
 
-These b8ef835 result details are still open (asked of A in GH34). The adapter
-fails closed on each stated assumption, and none is invented as a receipt value.
+a986722 settles host, metadata, normalization, canonical bytes, ID payloads and
+limits; ae59a06 settles empty-scan precedence. These points remain open. The
+adapter fails closed on each stated assumption and invents no receipt value.
 
-1. With no request `host`, the result `calibration.host` is assumed `null`. With no `metadata`, the record `metadata` is assumed `null`.
-2. `input.normalization` text is only checked as a nonempty string.
-3. Zero `status_counts` entries may be omitted. `seconds_per_record`/`seconds_per_batch` are `batch` fields.
-4. `truncation.attempted_sites` is assumed to count `attempted: true` sites.
-5. A `failed` record must list a failed site. An empty-scan record failed only by the batch deadline would be rejected.
-6. Site scope and `prediction_id` hash payloads are not recomputed. Sites must share one scope, and `prediction_id` must be 64-hex.
-7. The warning objects are not checked.
+1. Zero `status_counts` entries may be omitted. `truncation.attempted_sites` is assumed to count `attempted: true` sites.
+2. A rejected record's `calibration`, `scan` and `projection` may be `null` or the planned value. The contract does not say whether `unsupported` records must echo them.
+3. The warning objects are not checked.

@@ -6,7 +6,7 @@ explicit collection of public `promoter-result-1.0` documents against that plan
 and emits `promoter-native-scores-2` rows plus an aggregate audit. The adapter
 never runs the runtime, computes scores or model terms, or reads labels.
 Coordinates are zero-based half-open, following docs/validation/promoter-runtime.md
-at b8ef835e4faddb02ae47ee6450710b5eaf9158bd. Candidate commit and wheel hash are
+at a986722d770f947502a49f273a6aaf1446f70172. Candidate commit and wheel hash are
 caller assertions: matching result identities does not prove which binary ran.
 """
 
@@ -57,8 +57,47 @@ LIMIT_CEILINGS = {
     "sites_per_record": 5_000,
     "sites_per_batch": 20_000,
 }
-MAX_SECONDS_PER_RECORD = 120
-MAX_SECONDS_PER_BATCH = 3600
+# Published effective-limit ceilings (a986722): the receipt supplies the exact
+# object, which may lower any value. This table is not a candidate receipt.
+RUNTIME_LIMIT_CEILINGS = {
+    "max_input_json_bytes": 4_000_000,
+    "max_records_per_batch": 100,
+    "max_id_chars": 128,
+    "max_host_name_chars": 200,
+    "max_contig_chars": 128,
+    "max_raw_sequence_chars_per_record": 50_000,
+    "max_normalized_bases_per_record": 5_000,
+    "max_normalized_bases_per_batch": 100_000,
+    "max_planned_sites_per_record": 5_000,
+    "max_planned_sites_per_batch": 20_000,
+    "max_all_state_sites_per_record": 100,
+    "max_all_states_per_record": 3_000,
+    "max_all_states_per_batch": 10_000,
+    "max_result_json_bytes": 67_108_864,
+    "max_metadata_json_bytes": 4_096,
+    "max_metadata_depth": 4,
+    "default_seconds_per_record": 30.0,
+    "max_seconds_per_record": 120.0,
+    "default_seconds_per_batch": 300.0,
+    "max_seconds_per_batch": 3600.0,
+}
+DEADLINES = (
+    ("seconds_per_record", "default_seconds_per_record", "max_seconds_per_record"),
+    ("seconds_per_batch", "default_seconds_per_batch", "max_seconds_per_batch"),
+)
+# Each packing limit must fit within these runtime effective limits.
+PACKING_RUNTIME_LIMITS = {
+    "request_bytes": ("max_input_json_bytes",),
+    "records_per_batch": ("max_records_per_batch",),
+    "bases_per_record": (
+        "max_normalized_bases_per_record",
+        "max_raw_sequence_chars_per_record",
+    ),
+    "bases_per_batch": ("max_normalized_bases_per_batch",),
+    "sites_per_record": ("max_planned_sites_per_record",),
+    "sites_per_batch": ("max_planned_sites_per_batch",),
+}
+NORMALIZATION = "ascii-whitespace-uppercase-u-to-t-1"
 MAX_MANIFEST_BYTES = 64 * 1024
 MAX_PLAN_BYTES = 512 * 1024 * 1024
 MAX_COLLECTION_BYTES = 64 * 1024 * 1024
@@ -122,10 +161,16 @@ IDENTITY_KEYS = (
     "candidate_commit",
     "public_contract_commit",
     "wheel_sha256",
-    "implementation_version",
-    "model_id",
-    "parameter_json_sha256",
+    "identity_model",
     "expected_model",
+)
+IDENTITY_MODEL_KEYS = (
+    "id",
+    "implementation_version",
+    "parameter_json_sha256",
+    "coefficient_array_sha256",
+    "intercept_array_sha256",
+    "source_commit",
 )
 SETTINGS_KEYS = (
     "calibration",
@@ -315,9 +360,21 @@ def _commit(value, name):
 
 
 def _seconds(value, name, ceiling):
-    if not finite_number(value) or not 0 < value <= ceiling:
-        raise ValueError(f"{name} must be a positive number of at most {ceiling}")
+    if type(value) is not float or not 0 < value <= ceiling:
+        raise ValueError(f"{name} must be a positive float of at most {ceiling}")
     return value
+
+
+def runtime_canonical_bytes(value):
+    """Public runtime hash encoding: sorted, compact, ASCII-escaped, no newline."""
+    return json.dumps(
+        value, sort_keys=True, separators=(",", ":"), ensure_ascii=True, allow_nan=False
+    ).encode("utf-8")
+
+
+def runtime_sha256(value):
+    """Lowercase SHA-256 of the public runtime canonical bytes."""
+    return hashlib.sha256(runtime_canonical_bytes(value)).hexdigest()
 
 
 def _same(observed, expected, name):
@@ -345,27 +402,22 @@ def check_manifest(manifest):
     identity = _exact_keys(manifest["identity"], IDENTITY_KEYS, "identity")
     for field in ("candidate_commit", "public_contract_commit"):
         _commit(identity[field], field)
-    for field in ("wheel_sha256", "parameter_json_sha256"):
-        checked_hash(identity[field])
-    _text(identity["implementation_version"], "implementation_version", 64)
-    _text(identity["model_id"], "model_id", 128)
-    check_expected_model(identity)
+    checked_hash(identity["wheel_sha256"])
+    check_identity_model(identity["identity_model"])
+    check_expected_model(identity["expected_model"], identity["identity_model"])
     settings = _exact_keys(manifest["settings"], SETTINGS_KEYS, "settings")
     if settings["calibration"] not in CALIBRATIONS:
         raise ValueError("calibration must be explicitly ecoli_mg1655 or in_vitro")
-    _host(settings["host"])
+    runtime = check_runtime_limits(settings["runtime_limits"])
+    host = _host(settings["host"])
+    if host is not None and len(host["name"]) > runtime["max_host_name_chars"]:
+        raise ValueError("host.name exceeds the effective max_host_name_chars")
     limits = _exact_keys(settings["limits"], LIMIT_CEILINGS, "limits")
     for field, ceiling in LIMIT_CEILINGS.items():
-        _int(limits[field], f"limits.{field}", 1, ceiling)
-    if (
-        not isinstance(settings["runtime_limits"], dict)
-        or not settings["runtime_limits"]
-    ):
-        raise ValueError("runtime_limits must be the exact effective limits object")
-    _seconds(
-        settings["seconds_per_record"], "seconds_per_record", MAX_SECONDS_PER_RECORD
-    )
-    _seconds(settings["seconds_per_batch"], "seconds_per_batch", MAX_SECONDS_PER_BATCH)
+        bound = min([ceiling, *(runtime[key] for key in PACKING_RUNTIME_LIMITS[field])])
+        _int(limits[field], f"limits.{field}", 1, bound)
+    for field, _, maximum in DEADLINES:
+        _seconds(settings[field], field, runtime[maximum])
     if settings["cli_calibration"] not in (None, settings["calibration"]):
         raise ValueError("cli_calibration must be null or the record calibration")
     if settings["cli_states"] not in (None, OUTPUT_OPTIONS["states"]):
@@ -373,19 +425,33 @@ def check_manifest(manifest):
     return manifest
 
 
-def check_expected_model(identity):
-    """Receipt-supplied exact result model object with its named public pins."""
-    model = _exact_keys(identity["expected_model"], MODEL_KEYS, "expected_model")
-    parameters, source = model["parameters"], model["source"]
+def check_identity_model(model):
+    """The receipt's exact six-key identity_model used in scope and batch IDs."""
+    _exact_keys(model, IDENTITY_MODEL_KEYS, "identity_model")
+    _text(model["id"], "identity_model.id", 128)
+    _text(model["implementation_version"], "identity_model.implementation_version")
+    for field in (
+        "parameter_json_sha256",
+        "coefficient_array_sha256",
+        "intercept_array_sha256",
+    ):
+        checked_hash(model[field])
+    _commit(model["source_commit"], "identity_model.source_commit")
+    return model
+
+
+def check_expected_model(model, identity_model):
+    """Receipt's exact emitted model object; only public named fields are read."""
+    _exact_keys(model, MODEL_KEYS, "expected_model")
+    parameters = model["parameters"]
     if (
-        model["id"] != identity["model_id"]
-        or model["implementation_version"] != identity["implementation_version"]
+        model["id"] != identity_model["id"]
+        or model["implementation_version"] != identity_model["implementation_version"]
         or not isinstance(parameters, dict)
-        or parameters.get("parameter_json_sha256") != identity["parameter_json_sha256"]
+        or parameters.get("parameter_json_sha256")
+        != identity_model["parameter_json_sha256"]
     ):
         raise ValueError("expected_model id/version/parameter hash disagree")
-    if not isinstance(source, dict) or not source or len(parameters) < 2:
-        raise ValueError("expected_model needs source and parameter-array identities")
     if (
         model["kind"] != MODEL_KIND
         or model["terms_unit"] != TERMS_UNIT
@@ -393,6 +459,20 @@ def check_expected_model(identity):
         or canonical_bytes(model["claims"]) != canonical_bytes(CLAIMS)
     ):
         raise ValueError("expected_model public kind/unit/claims disagree")
+
+
+def check_runtime_limits(limits):
+    """The receipt's complete effective batch.limits object (20 public keys)."""
+    _exact_keys(limits, RUNTIME_LIMIT_CEILINGS, "runtime_limits")
+    for field, ceiling in RUNTIME_LIMIT_CEILINGS.items():
+        if isinstance(ceiling, float):
+            _seconds(limits[field], f"runtime_limits.{field}", ceiling)
+        else:
+            _int(limits[field], f"runtime_limits.{field}", 1, ceiling)
+    for _, default, maximum in DEADLINES:
+        if limits[default] > limits[maximum]:
+            raise ValueError(f"runtime_limits.{default} exceeds {maximum}")
+    return limits
 
 
 def build_manifest(identity, settings):
@@ -665,8 +745,10 @@ def request_record(index, query, projection, manifest):
         "projection": projection,
         "output": dict(OUTPUT_OPTIONS),
         "model": {
-            "id": identity["model_id"],
-            "parameter_json_sha256": identity["parameter_json_sha256"],
+            "id": identity["identity_model"]["id"],
+            "parameter_json_sha256": identity["identity_model"][
+                "parameter_json_sha256"
+            ],
         },
     }
     host = settings["host"]
@@ -721,13 +803,14 @@ def pack(records, limits):
 
 
 def batch_id(document, settings, identity):
-    """Public batch_id: SHA-256 of canonical JSON of the hashed batch payload."""
+    """Public batch_id over the exact parsed request and runtime settings."""
+    model = identity["identity_model"]
     payload = {
         "input": document,
         "model": {
-            "id": identity["model_id"],
-            "implementation_version": identity["implementation_version"],
-            "parameter_json_sha256": identity["parameter_json_sha256"],
+            "id": model["id"],
+            "implementation_version": model["implementation_version"],
+            "parameter_json_sha256": model["parameter_json_sha256"],
         },
         "limits": settings["runtime_limits"],
         "seconds_per_record": settings["seconds_per_record"],
@@ -735,11 +818,27 @@ def batch_id(document, settings, identity):
         "cli_calibration": settings["cli_calibration"],
         "cli_states": settings["cli_states"],
     }
-    return hashlib.sha256(
-        json.dumps(
-            payload, sort_keys=True, separators=(",", ":"), allow_nan=False
-        ).encode()
-    ).hexdigest()
+    return runtime_sha256(payload)
+
+
+def prediction_identity(record, calibration, identity_model):
+    """(scope_id, prediction_id) from the literal public payloads of a request."""
+    scope_id = runtime_sha256(
+        {
+            "schema_version": CONTRACT_VERSION,
+            "model": identity_model,
+            "calibration": {
+                "profile": calibration["profile"],
+                "host": calibration["host"],
+            },
+            "normalized_dna_sha256": digest(record["sequence"]),
+            "projection": record["projection"],
+        }
+    )
+    prediction_id = runtime_sha256(
+        {"scope_id": scope_id, "scan": record["scan"], "output": record["output"]}
+    )
+    return scope_id, prediction_id
 
 
 def request_document(records):
@@ -751,12 +850,17 @@ def prepare(queries, manifest):
     """Immutable request plan from label-free queries and an explicit manifest."""
     manifest = check_manifest(manifest)
     genomes = check_query_document(queries)
+    runtime = manifest["settings"]["runtime_limits"]
     entries, query_ids = [], []
     for index, query in enumerate(queries["queries"]):
         projection = check_query(query, genomes)
         if query["query_id"] in query_ids:
             raise ValueError(f"Duplicate query identity: {query['query_id']}")
         record = request_record(index, query, projection, manifest)
+        if len(record["id"]) > runtime["max_id_chars"] or (
+            len(projection["contig"]) > runtime["max_contig_chars"]
+        ):
+            raise ValueError("Request ID or contig exceeds the effective field limits")
         entries.append((record, len(query["sequence"]), query["n_candidates"]))
         query_ids.append(query["query_id"])
     packed = pack(entries, manifest["settings"]["limits"])
@@ -993,17 +1097,18 @@ def check_coverage(coverage, status, sites):
     )
 
 
-def _check_input(value, sequence, nullable):
+def _check_input(value, sequence):
+    # Planned sequences are strings of valid uppercase ACGT within limits, so
+    # the public rules leave no null raw hash or normalization triplet.
     _exact_keys(value, INPUT_KEYS, "record input")
-    expected = [digest(sequence), digest(sequence), len(sequence)]
-    for key, wanted in zip(INPUT_KEYS[:3], expected, strict=True):
-        if not (nullable and value[key] is None):
-            _same(value[key], wanted, "Record input identity")
-    if not (nullable and value["normalization"] is None):
-        _text(value["normalization"], "input.normalization", 1024)
+    _same(
+        [value[key] for key in INPUT_KEYS],
+        [digest(sequence), digest(sequence), len(sequence), NORMALIZATION],
+        "Record input identity",
+    )
 
 
-def check_record(record, request, calibration):
+def check_record(record, request, calibration, identity_model):
     """Validate one result record against its exact planned request."""
     _exact_keys(record, RECORD_KEYS, "result record")
     if record["id"] != request["id"]:
@@ -1035,11 +1140,12 @@ def check_record(record, request, calibration):
         for field, expected in echoes.items():
             if record[field] is not None:
                 _same(record[field], expected, f"Record {field}")
-        if record["input"] is not None:
-            _check_input(record["input"], sequence, nullable=True)
+        _check_input(record["input"], sequence)
         return {"status": status, "sites": None}
-    checked_hash(record["prediction_id"])
-    _check_input(record["input"], sequence, nullable=False)
+    scope_id, prediction_id = prediction_identity(request, calibration, identity_model)
+    if record["prediction_id"] != prediction_id:
+        raise ValueError("Record prediction_id disagrees with its public payload")
+    _check_input(record["input"], sequence)
     for field, expected in echoes.items():
         _same(record[field], expected, f"Record {field}")
     lower, upper = request["scan"]["range"]
@@ -1049,8 +1155,8 @@ def check_record(record, request, calibration):
         check_site(site, lower + offset, len(sequence), request["projection"])
         for offset, site in enumerate(record["sites"])
     ]
-    if len({site["scope"] for site in sites}) > 1:
-        raise ValueError("Sites of one record must share one scope identity")
+    if any(site["scope"] != scope_id[:32] for site in sites):
+        raise ValueError("Site IDs disagree with the record scope_id")
     implied = (
         "failed"
         if any(site["status"] == "failed" for site in sites)
@@ -1060,10 +1166,12 @@ def check_record(record, request, calibration):
     )
     if status != implied:
         raise ValueError(f"Record status {status!r} disagrees with its sites")
-    if status == "no_candidate" and (
-        ("empty_scan" if not sites else "insufficient_context") not in record["reasons"]
-    ):
-        raise ValueError("no_candidate records need empty_scan/insufficient_context")
+    # Valid empty scans finalize in preflight, before any deadline handling.
+    if not sites and (record["reasons"] != ["empty_scan"] or record["errors"]):
+        raise ValueError("Empty scans need exactly reasons [empty_scan], no errors")
+    if sites and status == "no_candidate":
+        if "insufficient_context" not in record["reasons"]:
+            raise ValueError("no_candidate records need insufficient_context")
     check_coverage(record["coverage"], status, sites)
     return {"status": status, "sites": sites}
 
@@ -1088,14 +1196,15 @@ def check_batch_summary(summary, outcomes, settings, planned_batch_id):
     )
     _same(summary["limits"], settings["runtime_limits"], "Result batch limits")
     for field in ("seconds_per_record", "seconds_per_batch"):
-        if not finite_number(summary[field]) or summary[field] != settings[field]:
+        if type(summary[field]) is not float or summary[field] != settings[field]:
             raise ValueError(f"Result {field} disagrees with the manifest")
 
 
 def check_result(raw, batch, plan):
     """Validate one completed batch's exact result bytes; returns record outcomes."""
-    if len(raw) > MAX_RESULT_BYTES:
-        raise ValueError(f"Result exceeds {MAX_RESULT_BYTES} bytes")
+    limit = plan["manifest"]["settings"]["runtime_limits"]["max_result_json_bytes"]
+    if len(raw) > limit:
+        raise ValueError(f"Result exceeds the effective {limit} bytes")
     result = _exact_keys(strict_json(raw), RESULT_KEYS, "result")
     if result["schema_version"] != CONTRACT_VERSION:
         raise ValueError("Result schema_version must be " + CONTRACT_VERSION)
@@ -1104,7 +1213,12 @@ def check_result(raw, batch, plan):
     if not isinstance(records, list) or len(records) != len(requests):
         raise ValueError("Result records are missing, extra or reordered")
     outcomes = [
-        check_record(record, request, plan["expected_calibration"])
+        check_record(
+            record,
+            request,
+            plan["expected_calibration"],
+            plan["manifest"]["identity"]["identity_model"],
+        )
         for record, request in zip(records, requests, strict=True)
     ]
     check_batch_summary(
@@ -1307,11 +1421,11 @@ def _pinned(path, limit, expected, name):
     return _canonical_document(raw, name)
 
 
-def _seconds_argument(text):
-    try:
-        return int(text)
-    except ValueError:
-        return float(text)
+RECEIPT_OBJECTS = ("identity_model", "expected_model", "runtime_limits")
+
+
+def _receipt_object(path):
+    return strict_json(read_bounded(path, MAX_MANIFEST_BYTES))
 
 
 def _manifest_from_args(args):
@@ -1322,10 +1436,9 @@ def _manifest_from_args(args):
         if args.no_host
         else {"name": args.host_name, "taxon_id": args.host_taxon_id}
     )
-    identity = {field: getattr(args, field) for field in IDENTITY_KEYS[:-1]}
-    identity["expected_model"] = strict_json(
-        read_bounded(args.expected_model, MAX_MANIFEST_BYTES)
-    )
+    identity = {field: getattr(args, field) for field in IDENTITY_KEYS[:3]}
+    for field in RECEIPT_OBJECTS[:2]:
+        identity[field] = _receipt_object(getattr(args, field))
     return build_manifest(
         identity,
         {
@@ -1334,9 +1447,7 @@ def _manifest_from_args(args):
             "limits": {
                 field: getattr(args, f"max_{field}") for field in LIMIT_CEILINGS
             },
-            "runtime_limits": strict_json(
-                read_bounded(args.runtime_limits, MAX_MANIFEST_BYTES)
-            ),
+            "runtime_limits": _receipt_object(args.runtime_limits),
             "seconds_per_record": args.seconds_per_record,
             "seconds_per_batch": args.seconds_per_batch,
             "cli_calibration": _none(args.cli_calibration),
@@ -1386,10 +1497,10 @@ def _parser():
     commands = parser.add_subparsers(dest="command", required=True)
     manifest = commands.add_parser("manifest")
     manifest.add_argument("output", type=Path)
-    for field in IDENTITY_KEYS[:-1]:
+    for field in IDENTITY_KEYS[:3]:
         manifest.add_argument("--" + field.replace("_", "-"), required=True)
-    for field in ("--expected-model", "--runtime-limits"):
-        manifest.add_argument(field, type=Path, required=True)
+    for field in RECEIPT_OBJECTS:
+        manifest.add_argument("--" + field.replace("_", "-"), type=Path, required=True)
     manifest.add_argument("--calibration", choices=tuple(CALIBRATIONS), required=True)
     manifest.add_argument(
         "--cli-calibration", choices=("none", *CALIBRATIONS), required=True
@@ -1404,9 +1515,7 @@ def _parser():
             "--max-" + field.replace("_", "-"), type=int, required=True
         )
     for field in ("seconds_per_record", "seconds_per_batch"):
-        manifest.add_argument(
-            "--" + field.replace("_", "-"), type=_seconds_argument, required=True
-        )
+        manifest.add_argument("--" + field.replace("_", "-"), type=float, required=True)
     prepare_command = commands.add_parser("prepare")
     adapt_command = commands.add_parser("adapt")
     for command in (prepare_command, adapt_command):

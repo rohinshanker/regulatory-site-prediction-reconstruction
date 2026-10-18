@@ -61,16 +61,45 @@ MODEL = {
         "hosted_parity": False,
     },
 }
+IDENTITY_MODEL = {
+    "id": "synthetic-promoter-model",
+    "implementation_version": "0.0.0+synthetic",
+    "parameter_json_sha256": "4" * 64,
+    "coefficient_array_sha256": "5" * 64,
+    "intercept_array_sha256": "6" * 64,
+    "source_commit": "7" * 40,
+}
 IDENTITY = {
     "candidate_commit": "1" * 40,
     "public_contract_commit": "2" * 40,
     "wheel_sha256": "3" * 64,
-    "implementation_version": "0.0.0+synthetic",
-    "model_id": "synthetic-promoter-model",
-    "parameter_json_sha256": "4" * 64,
+    "identity_model": IDENTITY_MODEL,
     "expected_model": MODEL,
 }
-RUNTIME_LIMITS = {"synthetic_effective": {"sites_per_batch": 20_000}}
+NORMALIZATION = "ascii-whitespace-uppercase-u-to-t-1"
+# Synthetic copy of the published a986722 ceiling object; not a receipt.
+RUNTIME_LIMITS = {
+    "max_input_json_bytes": 4000000,
+    "max_records_per_batch": 100,
+    "max_id_chars": 128,
+    "max_host_name_chars": 200,
+    "max_contig_chars": 128,
+    "max_raw_sequence_chars_per_record": 50000,
+    "max_normalized_bases_per_record": 5000,
+    "max_normalized_bases_per_batch": 100000,
+    "max_planned_sites_per_record": 5000,
+    "max_planned_sites_per_batch": 20000,
+    "max_all_state_sites_per_record": 100,
+    "max_all_states_per_record": 3000,
+    "max_all_states_per_batch": 10000,
+    "max_result_json_bytes": 67108864,
+    "max_metadata_json_bytes": 4096,
+    "max_metadata_depth": 4,
+    "default_seconds_per_record": 30.0,
+    "max_seconds_per_record": 120.0,
+    "default_seconds_per_batch": 300.0,
+    "max_seconds_per_batch": 3600.0,
+}
 CEILINGS = {
     "request_bytes": 4_000_000,
     "records_per_batch": 100,
@@ -127,23 +156,55 @@ def manifest(calibration="ecoli_mg1655", host=HOST, limits=None, **settings):
             "calibration": calibration,
             "host": host,
             "limits": dict(limits or CEILINGS),
-            "runtime_limits": copy.deepcopy(RUNTIME_LIMITS),
-            "seconds_per_record": settings.get("seconds_per_record", 30),
-            "seconds_per_batch": settings.get("seconds_per_batch", 300),
+            "runtime_limits": dict(RUNTIME_LIMITS, **settings.get("runtime", {})),
+            "seconds_per_record": settings.get("seconds_per_record", 30.0),
+            "seconds_per_batch": settings.get("seconds_per_batch", 300.0),
             "cli_calibration": settings.get("cli_calibration"),
             "cli_states": settings.get("cli_states"),
         },
     )
 
 
+def public_hash(payload):
+    """Runtime canonical bytes written out from the a986722 contract text."""
+    text = json.dumps(
+        payload,
+        sort_keys=True,
+        separators=(",", ":"),
+        ensure_ascii=True,
+        allow_nan=False,
+    )
+    return hashlib.sha256(text.encode("utf-8")).hexdigest()
+
+
+def public_ids(request, calibration, model=IDENTITY_MODEL):
+    """(scope_id, prediction_id) from the literal contract payloads."""
+    scope = public_hash(
+        {
+            "schema_version": "1.0",
+            "model": model,
+            "calibration": {
+                "profile": calibration["profile"],
+                "host": calibration["host"],
+            },
+            "normalized_dna_sha256": n.digest(request["sequence"]),
+            "projection": request["projection"],
+        }
+    )
+    prediction = public_hash(
+        {"scope_id": scope, "scan": request["scan"], "output": request["output"]}
+    )
+    return scope, prediction
+
+
 def public_batch_id(request, settings):
-    """batch_id payload written out from the b8ef835 contract text."""
+    """batch_id payload written out from the a986722 contract text."""
     payload = {
         "input": request,
         "model": {
-            "id": MODEL["id"],
-            "implementation_version": MODEL["implementation_version"],
-            "parameter_json_sha256": MODEL["parameters"]["parameter_json_sha256"],
+            "id": IDENTITY_MODEL["id"],
+            "implementation_version": IDENTITY_MODEL["implementation_version"],
+            "parameter_json_sha256": IDENTITY_MODEL["parameter_json_sha256"],
         },
         "limits": settings["runtime_limits"],
         "seconds_per_record": settings["seconds_per_record"],
@@ -151,8 +212,7 @@ def public_batch_id(request, settings):
         "cli_calibration": settings["cli_calibration"],
         "cli_states": settings["cli_states"],
     }
-    text = json.dumps(payload, sort_keys=True, separators=(",", ":"), allow_nan=False)
-    return hashlib.sha256(text.encode()).hexdigest()
+    return public_hash(payload)
 
 
 def rehash(document):
@@ -296,8 +356,8 @@ def fake_record(request, query, calibration, behavior=None):
     behavior = behavior or {}
     digest = n.digest(request["sequence"])
     if behavior.get("status") in ("invalid_input", "unsupported"):
-        # Rejected records: null prediction/coverage; invalid input keeps only
-        # the raw hash, unsupported echoes the fields that passed validation.
+        # Rejected records: null prediction/coverage; the valid sequence keeps
+        # its input hashes, and invalid input nulls the other rejected fields.
         invalid = behavior["status"] == "invalid_input"
         return {
             "id": request["id"],
@@ -306,9 +366,9 @@ def fake_record(request, query, calibration, behavior=None):
             "prediction_id": None,
             "input": {
                 "raw_sha256": digest,
-                "normalized_dna_sha256": None if invalid else digest,
-                "length": None if invalid else len(request["sequence"]),
-                "normalization": "remove ASCII whitespace; uppercase; U->T",
+                "normalized_dna_sha256": digest,
+                "length": len(request["sequence"]),
+                "normalization": NORMALIZATION,
             },
             "calibration": None if invalid else calibration,
             "scan": None if invalid else request["scan"],
@@ -319,7 +379,8 @@ def fake_record(request, query, calibration, behavior=None):
             "errors": [{"code": "x", "field": "$", "message": "private text"}],
             "metadata": None,
         }
-    scope = hashlib.sha256(request["id"].encode()).hexdigest()[:32]
+    scope_id, prediction_id = public_ids(request, calibration)
+    scope = scope_id[:32]
     lower, upper = request["scan"]["range"]
     sites = []
     for offset, local in enumerate(range(lower, upper)):
@@ -344,12 +405,12 @@ def fake_record(request, query, calibration, behavior=None):
         "id": request["id"],
         "status": status,
         "reasons": reasons,
-        "prediction_id": hashlib.sha256(request["id"].encode()).hexdigest(),
+        "prediction_id": prediction_id,
         "input": {
             "raw_sha256": digest,
             "normalized_dna_sha256": digest,
             "length": len(request["sequence"]),
-            "normalization": "remove ASCII whitespace; uppercase; U->T",
+            "normalization": NORMALIZATION,
         },
         "calibration": calibration,
         "scan": request["scan"],
@@ -554,13 +615,163 @@ class CoordinateTest(unittest.TestCase):
         self.assertEqual((evaluable[0], evaluable[-1], len(evaluable)), (58, 180, 123))
 
 
+class IdentityHashTest(unittest.TestCase):
+    """Public scope/prediction/site IDs, built here without adapter helpers."""
+
+    def setUp(self):
+        self.plan = Fixture().plan
+        self.record = copy.deepcopy(self.plan["batches"][0]["request"]["records"][0])
+        self.calibration = copy.deepcopy(EXTRAPOLATED_CALIBRATION)
+
+    def ids(self, record=None, calibration=None, model=IDENTITY_MODEL):
+        record = record or self.record
+        calibration = calibration or self.calibration
+        observed = a.prediction_identity(record, calibration, model)
+        self.assertEqual(observed, public_ids(record, calibration, model))
+        return observed
+
+    def test_canonical_encoding(self):
+        value = {"b": "é", "a": [1, 2.0]}
+        raw = a.runtime_canonical_bytes(value)
+        self.assertEqual(raw, b'{"a":[1,2.0],"b":"\\u00e9"}')
+        self.assertFalse(raw.endswith(b"\n"))
+        self.assertEqual(a.runtime_sha256(value), hashlib.sha256(raw).hexdigest())
+        self.assertNotEqual(raw, n.canonical_bytes(value))
+
+    def test_input_only_invariants_and_sensitivity(self):
+        scope, prediction = self.ids()
+        self.assertRegex(scope, "^[0-9a-f]{64}$")
+        relabelled = dict(self.record, id="q999999", metadata={"note": "x"})
+        self.assertEqual(self.ids(relabelled), (scope, prediction))
+        for change in (
+            {"scan": dict(self.record["scan"], range=[68, 167])},
+            {"output": dict(self.record["output"], elements=True)},
+        ):
+            with self.subTest(change=change):
+                other = self.ids(dict(self.record, **change))
+                self.assertEqual(other[0], scope)
+                self.assertNotEqual(other[1], prediction)
+        projection = dict(self.record["projection"], origin=0)
+        host = dict(self.calibration, host={"name": "other", "taxon_id": None})
+        taxon = dict(self.calibration, host=dict(HOST, taxon_id=7))
+        for name, other in (
+            ("projection", self.ids(dict(self.record, projection=projection))),
+            ("no projection", self.ids(dict(self.record, projection=None))),
+            ("host", self.ids(calibration=host)),
+            ("taxon", self.ids(calibration=taxon)),
+            ("no host", self.ids(calibration=dict(self.calibration, host=None))),
+            ("model", self.ids(model=dict(IDENTITY_MODEL, source_commit="8" * 40))),
+            ("sequence", self.ids(dict(self.record, sequence="ACGT" * 30))),
+        ):
+            with self.subTest(name=name):
+                self.assertNotEqual(other[0], scope)
+                self.assertNotEqual(other[1], prediction)
+
+    def test_unicode_host_and_full_scope_digest(self):
+        host = {"name": "Synechococcus \u00e9longatus", "taxon_id": None}
+        calibration = dict(self.calibration, host=host)
+        scope, prediction = self.ids(calibration=calibration)
+        payload = {
+            "schema_version": "1.0",
+            "model": IDENTITY_MODEL,
+            "calibration": {"profile": "ecoli_mg1655", "host": host},
+            "normalized_dna_sha256": n.digest(self.record["sequence"]),
+            "projection": self.record["projection"],
+        }
+        unescaped = json.dumps(
+            payload, sort_keys=True, separators=(",", ":"), ensure_ascii=False
+        )
+        self.assertNotEqual(hashlib.sha256(unescaped.encode()).hexdigest(), scope)
+        truncated = public_hash(
+            {
+                "scope_id": scope[:32],
+                "scan": self.record["scan"],
+                "output": self.record["output"],
+            }
+        )
+        self.assertNotEqual(truncated, prediction)
+
+    def test_result_ids_bind_the_public_payload(self):
+        fixture = Fixture()
+        collection, files = fixture.collection(
+            mutate=lambda r: r["results"][0].update(
+                prediction_id=public_ids(
+                    dict(fixture.plan["batches"][0]["request"]["records"][0], id="x"),
+                    dict(EXTRAPOLATED_CALIBRATION, host=None),
+                )[1]
+            )
+        )
+        with self.assertRaisesRegex(ValueError, "prediction_id disagrees"):
+            fixture.adapt(collection, files)
+
+        def wrong_scope(r):
+            for site in r["results"][0]["sites"]:
+                base = site["site_id"].rsplit(":", 2)
+                site["site_id"] = ":".join(["psite1", "0" * 32, *base[1:]])
+                if site["selected"]:
+                    selected = site["selected"]
+                    selected["state_id"] = (
+                        f"{site['site_id']}:d{selected['discriminator_length']}"
+                        f"s{selected['spacer_length']}"
+                    )
+
+        collection, files = fixture.collection(mutate=wrong_scope)
+        with self.assertRaisesRegex(ValueError, "record scope_id"):
+            fixture.adapt(collection, files)
+
+    def test_field_limits(self):
+        long_contig = query_document({"g" * 20: (120, "circular")})
+        manifest_limits = {"max_contig_chars": 19}
+        with self.assertRaisesRegex(ValueError, "effective field limits"):
+            a.prepare(long_contig, manifest(runtime=manifest_limits))
+        with self.assertRaisesRegex(ValueError, "effective field limits"):
+            a.prepare(long_contig, manifest(runtime={"max_id_chars": 6}))
+        a.prepare(long_contig, manifest(runtime={"max_id_chars": 7}))
+
+
 class ManifestTest(unittest.TestCase):
     def test_valid_boundaries(self):
-        document = manifest(seconds_per_record=120, seconds_per_batch=3600.0)
+        document = manifest(seconds_per_record=120.0, seconds_per_batch=3600.0)
         self.assertEqual(document["settings"]["limits"], CEILINGS)
         self.assertEqual(a.check_manifest(copy.deepcopy(document)), document)
         manifest(host=None, limits=dict.fromkeys(CEILINGS, 1), seconds_per_record=0.5)
         manifest(host={"name": "h", "taxon_id": 1})
+        # Lowered effective limits (a hypothetical receipt) bound packing.
+        lowered = {
+            "max_input_json_bytes": 1000,
+            "max_records_per_batch": 2,
+            "max_normalized_bases_per_record": 300,
+            "max_raw_sequence_chars_per_record": 300,
+            "max_normalized_bases_per_batch": 600,
+            "max_planned_sites_per_record": 200,
+            "max_planned_sites_per_batch": 400,
+            "default_seconds_per_record": 1.0,
+            "max_seconds_per_record": 1.0,
+        }
+        packing = {
+            "request_bytes": 1000,
+            "records_per_batch": 2,
+            "bases_per_record": 300,
+            "bases_per_batch": 600,
+            "sites_per_record": 200,
+            "sites_per_batch": 400,
+        }
+        manifest(limits=packing, runtime=lowered, seconds_per_record=1.0)
+        for field, value in packing.items():
+            with self.subTest(field=field):
+                with self.assertRaisesRegex(ValueError, f"limits.{field}"):
+                    manifest(
+                        limits=dict(packing, **{field: value + 1}),
+                        runtime=lowered,
+                        seconds_per_record=1.0,
+                    )
+        raw_only = dict(lowered, max_raw_sequence_chars_per_record=299)
+        with self.assertRaisesRegex(ValueError, "limits.bases_per_record"):
+            manifest(limits=packing, runtime=raw_only, seconds_per_record=1.0)
+        with self.assertRaisesRegex(ValueError, "seconds_per_record"):
+            manifest(limits=packing, runtime=lowered, seconds_per_record=1.5)
+        with self.assertRaisesRegex(ValueError, "max_host_name_chars"):
+            manifest(runtime={"max_host_name_chars": len(HOST["name"]) - 1})
 
     def test_rejections(self):
         def broken(path, value):
@@ -580,6 +791,24 @@ class ManifestTest(unittest.TestCase):
             (("identity", "extra"), 1, "identity needs"),
             (("identity", "candidate_commit"), "A" * 40, "40-hex"),
             (("identity", "public_contract_commit"), "1" * 39, "40-hex"),
+            (("identity", "wheel_sha256"), "x", "64-hex"),
+            (("identity", "identity_model"), [], "identity_model needs"),
+            (("identity", "identity_model", "extra"), 1, "identity_model needs"),
+            (("identity", "identity_model", "source_commit"), KeyError, "needs"),
+            (("identity", "identity_model", "id"), "", "identity_model.id"),
+            (
+                ("identity", "identity_model", "implementation_version"),
+                1,
+                "implementation_version",
+            ),
+            (
+                ("identity", "identity_model", "parameter_json_sha256"),
+                "F" * 64,
+                "64-hex",
+            ),
+            (("identity", "identity_model", "coefficient_array_sha256"), "x", "64-hex"),
+            (("identity", "identity_model", "intercept_array_sha256"), None, "64-hex"),
+            (("identity", "identity_model", "source_commit"), "7" * 64, "40-hex"),
             (("identity", "expected_model"), [], "expected_model needs"),
             (("identity", "expected_model", "backend"), {}, "expected_model needs"),
             (("identity", "expected_model", "id"), "other", "id/version"),
@@ -594,12 +823,6 @@ class ManifestTest(unittest.TestCase):
                 "0" * 64,
                 "id/version",
             ),
-            (("identity", "expected_model", "source"), {}, "source and parameter"),
-            (
-                ("identity", "expected_model", "parameters"),
-                {"parameter_json_sha256": "4" * 64},
-                "source and parameter",
-            ),
             (("identity", "expected_model", "kind"), "retrained", "public kind"),
             (("identity", "expected_model", "terms_unit"), "kcal/mol", "public kind"),
             (("identity", "expected_model", "not_modeled"), [], "public kind"),
@@ -608,19 +831,40 @@ class ManifestTest(unittest.TestCase):
                 True,
                 "public kind",
             ),
-            (("settings", "runtime_limits"), {}, "runtime_limits"),
-            (("settings", "runtime_limits"), [1], "runtime_limits"),
+            (("settings", "runtime_limits"), {}, "runtime_limits needs"),
+            (("settings", "runtime_limits"), [1], "runtime_limits needs"),
+            (("settings", "runtime_limits", "extra"), 1, "runtime_limits needs"),
+            (("settings", "runtime_limits", "max_id_chars"), KeyError, "needs"),
+            (("settings", "runtime_limits", "max_id_chars"), 129, "max_id_chars"),
+            (("settings", "runtime_limits", "max_id_chars"), 0, "max_id_chars"),
+            (("settings", "runtime_limits", "max_metadata_depth"), 4.0, "depth"),
+            (
+                ("settings", "runtime_limits", "max_result_json_bytes"),
+                True,
+                "max_result_json_bytes",
+            ),
+            (
+                ("settings", "runtime_limits", "max_seconds_per_record"),
+                120,
+                "max_seconds_per_record",
+            ),
+            (
+                ("settings", "runtime_limits", "max_seconds_per_batch"),
+                3600.5,
+                "max_seconds_per_batch",
+            ),
+            (
+                ("settings", "runtime_limits", "default_seconds_per_batch"),
+                0.0,
+                "default_seconds_per_batch",
+            ),
+            (
+                ("settings", "runtime_limits", "max_seconds_per_record"),
+                20.0,
+                "default_seconds_per_record exceeds",
+            ),
             (("settings", "cli_calibration"), "in_vitro", "cli_calibration"),
             (("settings", "cli_states"), "all", "cli_states"),
-            (("identity", "wheel_sha256"), "x", "64-hex"),
-            (("identity", "parameter_json_sha256"), "F" * 64, "64-hex"),
-            (("identity", "implementation_version"), "", "implementation_version"),
-            (
-                ("identity", "implementation_version"),
-                "v" * 65,
-                "implementation_version",
-            ),
-            (("identity", "model_id"), 1, "model_id"),
             (("settings", "calibration"), None, "explicitly"),
             (("settings", "calibration"), "auto", "explicitly"),
             (("settings", "host"), {"name": "h"}, "host needs"),
@@ -634,11 +878,12 @@ class ManifestTest(unittest.TestCase):
             (("settings", "limits", "sites_per_batch"), 20_001, "sites_per_batch"),
             (("settings", "limits", "bases_per_record"), True, "bases_per_record"),
             (("settings", "limits", "request_bytes"), 4_000_001, "request_bytes"),
-            (("settings", "seconds_per_record"), 0, "seconds_per_record"),
+            (("settings", "seconds_per_record"), 0.0, "seconds_per_record"),
+            (("settings", "seconds_per_record"), 30, "positive float"),
             (("settings", "seconds_per_record"), 120.5, "seconds_per_record"),
             (("settings", "seconds_per_record"), True, "seconds_per_record"),
             (("settings", "seconds_per_record"), float("nan"), "seconds_per_record"),
-            (("settings", "seconds_per_batch"), 3601, "seconds_per_batch"),
+            (("settings", "seconds_per_batch"), 3601.0, "seconds_per_batch"),
             (("settings", "seconds_per_batch"), None, "seconds_per_batch"),
             (("settings", "extra"), 1, "settings needs"),
         ]
@@ -1266,7 +1511,7 @@ class CollectionRejectionTest(unittest.TestCase):
                 files.get,
             )
         other = manifest(
-            seconds_per_record=31, limits=dict(CEILINGS, records_per_batch=4)
+            seconds_per_record=31.0, limits=dict(CEILINGS, records_per_batch=4)
         )
         with self.assertRaisesRegex(ValueError, "Rebuilt plan differs"):
             a.adapt(
@@ -1342,8 +1587,6 @@ class CollectionRejectionTest(unittest.TestCase):
         )
         self.reject("Non-finite", collection_mutate=raw_override(b'{"a":NaN}'))
         self.reject("result needs", collection_mutate=raw_override(b"[]"))
-        with mock.patch.object(a, "MAX_RESULT_BYTES", 10):
-            self.reject("exceeds 10 bytes")
         records = lambda r: r["results"]  # noqa: E731
         model = lambda r: r["model"]  # noqa: E731
         summary = lambda r: r["batch"]  # noqa: E731
@@ -1388,11 +1631,25 @@ class CollectionRejectionTest(unittest.TestCase):
             ("reasons must be a list", lambda r: records(r)[0].update(reasons="x")),
             ("warnings must be a list", lambda r: records(r)[0].update(warnings=None)),
             ("stable code", lambda r: records(r)[0].update(reasons=[1])),
-            ("64-hex", lambda r: records(r)[0].update(prediction_id=None)),
+            (
+                "prediction_id disagrees",
+                lambda r: records(r)[0].update(prediction_id=None),
+            ),
             ("record input needs", lambda r: records(r)[0]["input"].update(extra=1)),
             (
-                "input.normalization",
+                "input identity",
                 lambda r: records(r)[0]["input"].update(normalization=""),
+            ),
+            (
+                "input identity",
+                lambda r: records(r)[0]["input"].update(
+                    normalization="remove ASCII whitespace; uppercase; U->T"
+                ),
+            ),
+            ("record input needs", lambda r: records(r)[0].update(input=None)),
+            (
+                "prediction_id disagrees",
+                lambda r: records(r)[0].update(prediction_id="0" * 64),
             ),
             ("input identity", lambda r: records(r)[0]["input"].update(length=1)),
             (
@@ -1443,23 +1700,28 @@ class CollectionRejectionTest(unittest.TestCase):
             ("batch limits", lambda r: summary(r).update(limits=None)),
             (
                 "batch limits",
-                lambda r: summary(r)["limits"]["synthetic_effective"].update(
-                    sites_per_batch=19_999
+                lambda r: summary(r)["limits"].update(
+                    max_planned_sites_per_batch=19_999
                 ),
             ),
             ("batch_id disagrees", lambda r: summary(r).update(batch_id="not a hash")),
             ("batch_id disagrees", lambda r: summary(r).update(batch_id="0" * 64)),
-            ("seconds_per_record", lambda r: summary(r).update(seconds_per_record=31)),
+            (
+                "seconds_per_record",
+                lambda r: summary(r).update(seconds_per_record=31.0),
+            ),
+            # The equal integer is not the public float representation.
+            ("seconds_per_record", lambda r: summary(r).update(seconds_per_record=30)),
             ("seconds_per_batch", lambda r: summary(r).update(seconds_per_batch=True)),
         ]
         for message, mutate in cases:
             with self.subTest(message=message):
                 self.reject(message, mutate)
-        # Equal numeric echo of the deadline is accepted (30 == 30.0).
-        collection, files = self.fixture.collection(
-            mutate=lambda r: summary(r).update(seconds_per_record=30.0)
-        )
-        self.fixture.adapt(collection, files)
+        with mock.patch.dict(RUNTIME_LIMITS, max_result_json_bytes=1000):
+            lowered = Fixture()
+        collection, files = lowered.collection()
+        with self.assertRaisesRegex(ValueError, "effective 1000 bytes"):
+            lowered.adapt(collection, files)
 
     def test_invalid_and_unsupported_records(self):
         first = self.fixture.plan["batches"][0]["records"][0]["request_id"]
@@ -1483,7 +1745,17 @@ class CollectionRejectionTest(unittest.TestCase):
             ("invalid_input", record(scan={"mode": "scan"}), "Record scan"),
             ("invalid_input", field("input", raw_sha256="0" * 64), "input identity"),
             ("unsupported", field("input", length=1), "input identity"),
-            ("invalid_input", field("input", normalization=""), "normalization"),
+            ("invalid_input", field("input", normalization=""), "input identity"),
+            # A valid planned sequence always normalizes: no null triplet.
+            (
+                "invalid_input",
+                field(
+                    "input", normalized_dna_sha256=None, length=None, normalization=None
+                ),
+                "input identity",
+            ),
+            ("unsupported", field("input", raw_sha256=None), "input identity"),
+            ("invalid_input", record(input=None), "record input needs"),
             ("invalid_input", field("input", extra=1), "record input needs"),
             ("invalid_input", record(metadata={}), "Record metadata"),
         ]
@@ -1491,7 +1763,7 @@ class CollectionRejectionTest(unittest.TestCase):
             with self.subTest(status=status, message=message):
                 self.reject(message, mutate, behaviors={first: {"status": status}})
         # Nullable echoes are accepted when the field failed validation.
-        nulls = record(input=None, calibration=None, scan=None, projection=None)
+        nulls = record(calibration=None, scan=None, projection=None)
         for status in ("invalid_input", "unsupported"):
             collection, files = self.fixture.collection(
                 behaviors={first: {"status": status}}, mutate=nulls
@@ -1500,11 +1772,6 @@ class CollectionRejectionTest(unittest.TestCase):
                 self.fixture.adapt(collection, files)[0]["results"][0]["status"],
                 "failed" if status == "invalid_input" else "unsupported",
             )
-        collection, files = self.fixture.collection(
-            behaviors={first: {"status": "invalid_input"}},
-            mutate=field("input", raw_sha256=None, normalization=None),
-        )
-        self.fixture.adapt(collection, files)
 
     def test_execution_failed_batches(self):
         collection, files = self.fixture.collection({1: "execution_failed"})
@@ -1593,7 +1860,7 @@ class CollectionRejectionTest(unittest.TestCase):
             ("planned base", set_site(ok, "site_id", None)),
             ("planned base", set_site(ok, "site_id", "psite1:x:+:1")),
             ("planned base", set_site(ok, "site_id", "psite1:" + "a" * 32 + ":+:0")),
-            ("one scope", scope),
+            ("record scope_id", scope),
             ("Site strand", set_site(ok, "strand", "-")),
             ("Site TSS", at(ok, "tss", oriented_base=-1)),
             ("genomic point", at(ok, "genomic", base=-1)),
@@ -1712,11 +1979,45 @@ class CollectionRejectionTest(unittest.TestCase):
 
     def test_no_candidate_and_failed_records(self):
         fixture = Fixture(queries=empty_range_document())
-        collection, files = fixture.collection(
-            mutate=lambda r: r["results"][0].update(reasons=[])
-        )
-        with self.assertRaisesRegex(ValueError, "empty_scan"):
-            fixture.adapt(collection, files)
+        # A valid empty scan is preflight no_candidate even after the batch
+        # clock expires; a failed zero-site record contradicts the contract.
+        failed_empty = {
+            "status": "failed",
+            "reasons": ["deadline_exceeded"],
+            "coverage": {
+                **fake_coverage("no_candidate", []),
+                "complete": False,
+                "truncation": {
+                    "reason": "deadline_exceeded",
+                    "attempted_sites": 0,
+                    "planned_sites": 0,
+                },
+            },
+        }
+        for values, message in (
+            ({"reasons": []}, "empty_scan"),
+            ({"reasons": ["empty_scan", "insufficient_context"]}, "empty_scan"),
+            ({"errors": [{"code": "x"}]}, "no errors"),
+            (failed_empty, "disagrees with its sites"),
+        ):
+            with self.subTest(values=values):
+                collection, files = fixture.collection(
+                    mutate=lambda r, values=values: r["results"][0].update(values)
+                )
+                with self.assertRaisesRegex(ValueError, message):
+                    fixture.adapt(collection, files)
+        request = fixture.plan["batches"][0]["records"][0]["request_id"]
+        for status, row in (
+            ("invalid_input", ("failed", "invalid_input")),
+            ("unsupported", ("unsupported", "unsupported")),
+        ):
+            with self.subTest(status=status):
+                scores, _ = fixture.adapt(
+                    *fixture.collection(behaviors={request: {"status": status}})
+                )
+                result = scores["results"][0]
+                self.assertEqual((result["status"], result["runtime_status"]), row)
+                self.assertEqual(result["candidates"], [])
         first = self.fixture.plan["batches"][0]["records"][0]["request_id"]
         deadline = {first: {"deadline_after": 10}}
 
@@ -1771,6 +2072,7 @@ class CliTest(unittest.TestCase):
         self.path = Path(self.root.name)
         self.fixture = Fixture()
         (self.path / "model.json").write_text(json.dumps(MODEL, indent=2))
+        (self.path / "identity.json").write_text(json.dumps(IDENTITY_MODEL))
         (self.path / "limits.json").write_text(json.dumps(RUNTIME_LIMITS))
         queries = n.canonical_bytes(self.fixture.queries)
         (self.path / "queries.json").write_bytes(queries)
@@ -1787,7 +2089,7 @@ class CliTest(unittest.TestCase):
             **{
                 key.replace("_", "-"): value
                 for key, value in IDENTITY.items()
-                if key != "expected_model"
+                if key not in ("identity_model", "expected_model")
             },
             "calibration": "ecoli_mg1655",
             "host-name": HOST["name"],
@@ -1798,6 +2100,7 @@ class CliTest(unittest.TestCase):
             "seconds-per-record": "30",
             "seconds-per-batch": "300",
             "expected-model": self.path / "model.json",
+            "identity-model": self.path / "identity.json",
             "runtime-limits": self.path / "limits.json",
             "cli-calibration": "none",
             "cli-states": "none",
@@ -1863,6 +2166,9 @@ class CliTest(unittest.TestCase):
         self.assertEqual(code, 0)
         document = json.loads((self.path / "d.json").read_bytes())
         self.assertEqual(document["settings"]["seconds_per_batch"], 0.5)
+        # CLI integers resolve to the public float deadline representation.
+        self.assertIs(type(document["settings"]["seconds_per_record"]), float)
+        self.assertIn(b'"seconds_per_record":30.0', (self.path / "d.json").read_bytes())
         self.assertIsNone(document["settings"]["host"])
         code, _, err = self.run_main(
             self.manifest_argv("e.json", **{"host-taxon-id": "5"})
