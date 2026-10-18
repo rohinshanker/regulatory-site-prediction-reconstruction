@@ -729,6 +729,292 @@ class RejectionTest(unittest.TestCase):
         self.check(lambda q, s, lab, g: s["results"].pop(), "exactly one explicit")
 
 
+# Canonical v1 outputs (tool_sha256 removed) recorded before scores-2 existed.
+V1_OUTPUT_SHA256 = {
+    ("documents", True): (
+        "29cbb5a530d55e716e8ce72b8b91702fad8b843f0266f690b32c37a807508d99"
+    ),
+    ("documents", False): (
+        "592b02b968a36f2817fe69efa764d45936405cd813230d4886a15ff751044bda"
+    ),
+    ("complete", True): (
+        "ba0b0113f3c363cccacfdf3a14496c7d3618e1926826997952454f3680514979"
+    ),
+    ("complete", False): (
+        "efe076e72cf5214a834cd4571a52e5ae94acaa2d9e85c95ada261f883b661e2d"
+    ),
+}
+
+
+def v2_row(request, query_id, status, runtime, candidates):
+    return {
+        "request_id": request,
+        "query_id": query_id,
+        "status": status,
+        "runtime_status": runtime,
+        "candidates": [
+            {"local_index": local, "status": state, "score": score}
+            for local, (state, score) in candidates.items()
+        ],
+    }
+
+
+def v2_documents():
+    """Q1 failed by deadline at local 7; Q3 failed during runtime setup."""
+    queries, _, labels, groups = documents()
+    q1 = {0: 5, 1: 1.0, 2: 3, 3: 2, 4: 2, 5: 0.5, 6: 9, 7: None, 8: 4, 9: 8}
+    scores = {
+        "schema_version": m.SCORE_SCHEMA_V2,
+        "query_document_sha256": n.document_sha256(queries),
+        "provenance": {"synthetic": True},
+        "results": [
+            v2_row(
+                "r1",
+                "Q1",
+                "failed",
+                "failed",
+                {
+                    k: ("failed", None) if v is None else ("ok", v)
+                    for k, v in q1.items()
+                },
+            ),
+            v2_row("r2", "Q2", "ok", "ok", {i: ("ok", 1.0) for i in range(2, 8)}),
+            v2_row(
+                "r3",
+                "Q3",
+                "failed",
+                "setup_failed",
+                {i: ("failed", None) for i in range(4)},
+            ),
+        ],
+    }
+    return queries, scores, labels, groups
+
+
+class ScoresV2Test(unittest.TestCase):
+    def test_v1_output_bytes_unchanged(self):
+        for name, docs in (("documents", documents), ("complete", complete_documents)):
+            for lower in (True, False):
+                with self.subTest(name=name, lower=lower):
+                    result = m.evaluate(*docs(), m.metric_settings(lower))
+                    self.assertNotIn("score_schema", result["coverage"])
+                    result.pop("tool_sha256")
+                    self.assertEqual(
+                        n.digest(n.canonical_bytes(result)),
+                        V1_OUTPUT_SHA256[(name, lower)],
+                    )
+
+    def test_failed_request_scores_are_conditional_only(self):
+        settings = m.metric_settings(True)
+        v1 = m.evaluate(*documents(), settings)
+        v2 = m.evaluate(*v2_documents(), settings)
+        # Same scored candidates: identical endpoints even though Q1 is now a
+        # failed request rather than an incomplete ok one.
+        for key in ("overall", "groups", "subgroups"):
+            self.assertEqual(v2[key], v1[key])
+        self.assertEqual(v2["overall"]["n_in_complete_query"], 1)
+        self.assertEqual(v2["overall"]["n_label_candidate_scored"], 3)
+        coverage = v2["coverage"]
+        self.assertEqual(coverage["request_status"]["failed"], 2)
+        self.assertEqual(
+            (coverage["n_complete_queries"], coverage["n_incomplete_ok_queries"]),
+            (1, 0),
+        )
+        self.assertEqual(coverage["candidate_status_in_ok_requests"]["ok"], 6)
+        self.assertEqual(
+            coverage["candidate_status_all_requests"],
+            {"ok": 15, "failed": 5, "not_run": 0, "unsupported": 0, "no_candidate": 0},
+        )
+        self.assertEqual(
+            coverage["runtime_status"],
+            {
+                "ok": 1,
+                "no_candidate": 0,
+                "unsupported": 0,
+                "invalid_input": 0,
+                "failed": 1,
+                "setup_failed": 1,
+                "execution_failed": 0,
+                "not_run": 0,
+            },
+        )
+        self.assertEqual(coverage["n_non_ok_queries_with_scored_candidates"], 1)
+        self.assertEqual(coverage["score_schema"], m.SCORE_SCHEMA_V2)
+
+    def test_non_ok_requests_never_succeed(self):
+        queries, scores, labels, groups = v2_documents()
+        scores["results"][1] = v2_row(
+            "r2",
+            "Q2",
+            "unsupported",
+            "unsupported",
+            {i: ("unsupported", None) for i in range(2, 8)},
+        )
+        scores["results"][0] = v2_row(
+            "r1", "Q1", "not_run", "not_run", {i: ("not_run", None) for i in range(10)}
+        )
+        result = m.evaluate(queries, scores, labels, groups, m.metric_settings(True))
+        overall = result["overall"]
+        self.assertEqual(set(recovery(overall).values()), {0})
+        self.assertEqual(overall["n_label_candidate_scored"], 0)
+        self.assertEqual(result["coverage"]["n_complete_queries"], 0)
+        self.assertEqual(result["coverage"]["request_status"]["unsupported"], 1)
+
+    def test_no_candidate_and_ok_rosters(self):
+        queries, scores, labels, groups = v2_documents()
+        scores["results"][2] = v2_row(
+            "r3",
+            "Q3",
+            "no_candidate",
+            "no_candidate",
+            {i: ("no_candidate", None) for i in range(4)},
+        )
+        scores["results"][0] = v2_row(
+            "r1",
+            "Q1",
+            "ok",
+            "ok",
+            {
+                i: ("no_candidate", None) if i == 7 else ("ok", float(i))
+                for i in range(10)
+            },
+        )
+        result = m.evaluate(queries, scores, labels, groups, m.metric_settings(True))
+        self.assertEqual(result["coverage"]["n_incomplete_ok_queries"], 1)
+        self.assertEqual(result["overall"]["n_in_complete_query"], 1)
+
+    def check(self, mutate, message):
+        queries, scores, labels, groups = v2_documents()
+        mutate(scores)
+        with self.assertRaisesRegex(ValueError, message):
+            m.evaluate(queries, scores, labels, groups, m.metric_settings(True))
+
+    def test_rejections(self):
+        def row(index):
+            return lambda s: s["results"][index]
+
+        def candidate(index, local):
+            return lambda s: s["results"][index]["candidates"][local]
+
+        def roster(index, status, runtime, states):
+            def mutate(s):
+                query, lower = (
+                    s["results"][index]["query_id"],
+                    {0: 0, 1: 2, 2: 0}[index],
+                )
+                s["results"][index] = v2_row(
+                    s["results"][index]["request_id"],
+                    query,
+                    status,
+                    runtime,
+                    {
+                        lower + i: (state, 1.0 if state == "ok" else None)
+                        for i, state in enumerate(states)
+                    },
+                )
+
+            return mutate
+
+        cases = [
+            (
+                lambda s: s.update(schema_version="promoter-native-scores-3"),
+                "scores-1 or",
+            ),
+            (lambda s: s.update(extra=1), "v2 needs exactly"),
+            (lambda s: s.update(provenance=None), "v2 needs exactly"),
+            (lambda s: s.update(query_document_sha256="0" * 64), "different query"),
+            (lambda s: s.update(results={}), "exactly one explicit"),
+            (lambda s: s["results"].pop(), "exactly one explicit"),
+            (lambda s: s["results"].reverse(), "in order"),
+            (lambda s: s["results"].__setitem__(0, []), "v2 needs exactly"),
+            (lambda s: row(0)(s).pop("runtime_status"), "v2 needs exactly"),
+            (lambda s: row(1)(s).update(request_id="r1"), "duplicate request"),
+            (lambda s: row(1)(s).update(request_id=""), "duplicate request"),
+            (lambda s: row(1)(s).update(runtime_status="invalid_input"), "disagree"),
+            (lambda s: row(1)(s).update(runtime_status=["ok"]), "disagree"),
+            (lambda s: row(1)(s).update(status="failed"), "disagree"),
+            (lambda s: row(1)(s)["candidates"].pop(), "declared universe"),
+            (lambda s: row(1)(s).update(candidates=None), "declared universe"),
+            (lambda s: row(1)(s)["candidates"].reverse(), "in order"),
+            (lambda s: candidate(1, 0)(s).update(local_index=True), "in order"),
+            (lambda s: candidate(1, 0)(s).update(extra=1), "exactly local_index"),
+            (
+                lambda s: row(1)(s)["candidates"].__setitem__(0, 1),
+                "exactly local_index",
+            ),
+            (lambda s: candidate(1, 0)(s).update(score=None), "finite scores"),
+            (lambda s: candidate(1, 0)(s).update(status="skipped"), "finite scores"),
+            (lambda s: candidate(2, 0)(s).update(score=0.0), "finite scores"),
+            (
+                roster(1, "ok", "ok", ["ok"] * 5 + ["failed"]),
+                "disagree with request ok",
+            ),
+            (roster(1, "ok", "ok", ["no_candidate"] * 6), "disagree with request ok"),
+            (roster(0, "failed", "failed", ["ok"] * 10), "request failed"),
+            (
+                roster(0, "failed", "failed", ["ok"] * 9 + ["unsupported"]),
+                "request failed",
+            ),
+            (
+                roster(
+                    2, "failed", "setup_failed", ["ok", "failed", "failed", "failed"]
+                ),
+                "request failed",
+            ),
+            (
+                roster(2, "failed", "invalid_input", ["no_candidate"] + ["failed"] * 3),
+                "request failed",
+            ),
+            (
+                roster(2, "failed", "execution_failed", ["ok"] + ["failed"] * 3),
+                "request failed",
+            ),
+            (roster(2, "not_run", "execution_failed", ["not_run"] * 4), "disagree"),
+            (
+                roster(
+                    2, "no_candidate", "no_candidate", ["no_candidate"] * 3 + ["ok"]
+                ),
+                "request no_candidate",
+            ),
+            (
+                roster(2, "unsupported", "unsupported", ["not_run"] * 4),
+                "request unsupported",
+            ),
+            (roster(2, "not_run", "not_run", ["failed"] * 4), "request not_run"),
+        ]
+        for index, (mutate, message) in enumerate(cases):
+            with self.subTest(index=index, message=message):
+                self.check(mutate, message)
+
+    def test_empty_roster_statuses(self):
+        queries, scores, labels, groups = v2_documents()
+        queries["queries"][2]["candidate_local_range"] = [0, 0]
+        query_sha = n.document_sha256(queries)
+        labels["labels"] = [row for row in labels["labels"] if row["query_id"] != "Q3"]
+        labels["query_document_sha256"] = query_sha
+        scores["query_document_sha256"] = query_sha
+        mapping = {row["label_id"]: "g" for row in labels["labels"]}
+        for status, runtime in (
+            ("failed", "invalid_input"),
+            ("failed", "execution_failed"),
+            ("no_candidate", "no_candidate"),
+            ("not_run", "not_run"),
+        ):
+            with self.subTest(status=status):
+                scores["results"][2] = v2_row("r3", "Q3", status, runtime, {})
+                result = m.evaluate(
+                    queries,
+                    scores,
+                    labels,
+                    groups_document(labels, mapping),
+                    m.metric_settings(True),
+                )
+                self.assertEqual(
+                    result["coverage"]["request_status"][status],
+                    1 + (status == "failed"),
+                )
+
+
 class CliTest(unittest.TestCase):
     def setUp(self):
         self.root = tempfile.TemporaryDirectory()

@@ -29,9 +29,23 @@ from benchmarks.rbs.datasets import digest
 from benchmarks.rbs.metrics import finite_number
 
 SCORE_SCHEMA = "promoter-native-scores-1"
+SCORE_SCHEMA_V2 = "promoter-native-scores-2"
 GROUP_SCHEMA = "promoter-native-groups-1"
 METRIC_SCHEMA = "promoter-native-metrics-1"
 STATUSES = ("ok", "failed", "not_run", "unsupported", "no_candidate")
+# v2 retains the raw runtime/collection status beside its request status.
+RUNTIME_STATUS_TO_REQUEST = {
+    "ok": "ok",
+    "no_candidate": "no_candidate",
+    "unsupported": "unsupported",
+    "invalid_input": "failed",
+    "failed": "failed",
+    "setup_failed": "failed",
+    "execution_failed": "failed",
+    "not_run": "not_run",
+}
+V2_KEYS = ("schema_version", "query_document_sha256", "provenance", "results")
+V2_ROW_KEYS = ("request_id", "query_id", "status", "runtime_status", "candidates")
 DEFAULT_TOP_K = (1, 5, 10)
 DEFAULT_TOLERANCES = (0, 3)
 SOURCE_CATEGORIES = ("gTSS", "aTSS", "iTSS", "nTSS", "unclassified")
@@ -166,9 +180,96 @@ def _groups(groups, labels_sha256, label_ids):
     return mapping
 
 
+def _roster_v2(status, runtime_status, states):
+    """Whether a full v2 candidate roster agrees with its request status.
+
+    ok: at least one ok, the rest no_candidate. failed: ok/no_candidate/failed
+    with a failed candidate in any nonempty roster, and only failed candidates
+    when nothing usable ran (invalid_input/setup_failed/execution_failed).
+    no_candidate, unsupported and
+    not_run: every candidate carries the request status.
+    """
+    present = set(states)
+    if status == "ok":
+        return "ok" in present and present <= {"ok", "no_candidate"}
+    if status == "failed":
+        allowed = (
+            {"ok", "no_candidate", "failed"}
+            if runtime_status == "failed"
+            else {"failed"}
+        )
+        return present <= allowed and (not states or "failed" in present)
+    return present <= {status}
+
+
+def _scores_v2(scores, query_sha256, universe):
+    if set(scores) != set(V2_KEYS) or not isinstance(scores["provenance"], dict):
+        raise ValueError("Score document v2 needs exactly: " + ", ".join(V2_KEYS))
+    if scores["query_document_sha256"] != query_sha256:
+        raise ValueError("Scores are bound to a different query document")
+    rows = scores["results"]
+    if not isinstance(rows, list) or len(rows) != len(universe):
+        raise ValueError("Every query needs exactly one explicit score result")
+    results, requests = {}, set()
+    for row, (query_id, query) in zip(rows, universe.items(), strict=True):
+        if not isinstance(row, dict) or set(row) != set(V2_ROW_KEYS):
+            raise ValueError("Score result v2 needs exactly " + "/".join(V2_ROW_KEYS))
+        request, status, runtime = (
+            row["request_id"],
+            row["status"],
+            row["runtime_status"],
+        )
+        if not isinstance(request, str) or not request or request in requests:
+            raise ValueError("Invalid or duplicate request identity")
+        if row["query_id"] != query_id:
+            raise ValueError("Score results must list every query once, in order")
+        if (
+            not isinstance(runtime, str)
+            or RUNTIME_STATUS_TO_REQUEST.get(runtime) != status
+        ):
+            raise ValueError(f"Runtime/request status disagree: {runtime!r}/{status!r}")
+        requests.add(request)
+        lower, upper = query["candidate_local_range"]
+        listed = row["candidates"]
+        if not isinstance(listed, list) or len(listed) != upper - lower:
+            raise ValueError(
+                f"Candidates differ from the declared universe: {query_id}"
+            )
+        candidates = {}
+        for local, candidate in zip(range(lower, upper), listed, strict=True):
+            if not isinstance(candidate, dict) or set(candidate) != {
+                "local_index",
+                "status",
+                "score",
+            }:
+                raise ValueError("Candidate needs exactly local_index/status/score")
+            state, score = candidate["status"], candidate["score"]
+            if type(candidate["local_index"]) is not int or (
+                candidate["local_index"] != local
+            ):
+                raise ValueError(
+                    f"Candidates must list every local index in order: {query_id}"
+                )
+            if state not in STATUSES or (
+                not finite_number(score) if state == "ok" else score is not None
+            ):
+                raise ValueError("ok candidates need finite scores; others null")
+            candidates[local] = (state, score)
+        if not _roster_v2(status, runtime, [s for s, _ in candidates.values()]):
+            raise ValueError(
+                f"Candidate statuses disagree with request {status}: {query_id}"
+            )
+        results[query_id] = (status, candidates)
+    return results
+
+
 def _scores(scores, query_sha256, universe):
+    if isinstance(scores, dict) and scores.get("schema_version") == SCORE_SCHEMA_V2:
+        return _scores_v2(scores, query_sha256, universe)
     if scores.get("schema_version") != SCORE_SCHEMA:
-        raise ValueError("Score document schema must be " + SCORE_SCHEMA)
+        raise ValueError(
+            f"Score document schema must be {SCORE_SCHEMA} or {SCORE_SCHEMA_V2}"
+        )
     if scores.get("query_document_sha256") != query_sha256:
         raise ValueError("Scores are bound to a different query document")
     results, requests = {}, set()
@@ -273,8 +374,10 @@ def evaluate(queries, scores, labels, groups, settings):
     only complete queries (ok request, every candidate ok): out-of-window
     labels, failed requests and partially scored queries count as unrecovered.
     `conditional_successful_positions` separately ranks labels whose own
-    candidate scored, including partially scored queries. Group counts are
-    sufficient statistics for an external group-level uncertainty tool.
+    candidate scored, including partially scored queries and, for
+    `promoter-native-scores-2`, scored candidates of failed requests. Group
+    counts are sufficient statistics for an external group-level uncertainty
+    tool. Scores-1 output is unchanged; scores-2 adds coverage fields.
     """
     query_sha = document_sha256(queries)
     universe, index, lengths = _query_universe(queries)
@@ -290,21 +393,28 @@ def evaluate(queries, scores, labels, groups, settings):
     matched = {pair: set() for pair in pairs}
     conditional = {pair: set() for pair in pairs}
     ranks, scored, complete = {}, set(), set()
-    n_complete = n_incomplete = 0
-    request_status, candidate_status = (
+    n_complete = n_incomplete = n_non_ok_scored = 0
+    request_status, candidate_status, candidate_status_all = (
+        {s: 0 for s in STATUSES},
         {s: 0 for s in STATUSES},
         {s: 0 for s in STATUSES},
     )
     for query_id, query in universe.items():
         status, candidates = results[query_id]
         request_status[status] += 1
-        for candidate, _ in candidates.values():
-            candidate_status[candidate] += 1
-        if status != "ok":
+        states = [state for state, _ in candidates.values()]
+        for state in states:
+            candidate_status_all[state] += 1
+            if status == "ok":
+                candidate_status[state] += 1
+        is_complete = status == "ok" and all(state == "ok" for state in states)
+        if status == "ok":
+            n_complete += is_complete
+            n_incomplete += not is_complete
+        elif "ok" in states:
+            n_non_ok_scored += 1
+        if "ok" not in states:
             continue
-        is_complete = all(state == "ok" for state, _ in candidates.values())
-        n_complete += is_complete
-        n_incomplete += not is_complete
         positives = [
             (local, label_id)
             for local, label_id in by_query.get(query_id, [])
@@ -396,6 +506,28 @@ def evaluate(queries, scores, labels, groups, settings):
         multiple_categories += len(categories) > 1
         for category in categories:
             category_ids[category].append(identity)
+    coverage = {
+        "n_queries": len(universe),
+        "request_status": request_status,
+        "n_complete_queries": n_complete,
+        "n_incomplete_ok_queries": n_incomplete,
+        "n_candidates": sum(
+            b - a for a, b in (q["candidate_local_range"] for q in universe.values())
+        ),
+        "candidate_status_in_ok_requests": candidate_status,
+        "n_queries_with_labels": len(by_query),
+        "n_queries_with_labels_ok": sum(results[q][0] == "ok" for q in by_query),
+    }
+    if scores["schema_version"] == SCORE_SCHEMA_V2:
+        runtime_status = dict.fromkeys(RUNTIME_STATUS_TO_REQUEST, 0)
+        for row in scores["results"]:
+            runtime_status[row["runtime_status"]] += 1
+        coverage.update(
+            score_schema=SCORE_SCHEMA_V2,
+            runtime_status=runtime_status,
+            candidate_status_all_requests=candidate_status_all,
+            n_non_ok_queries_with_scored_candidates=n_non_ok_scored,
+        )
     return {
         "schema_version": METRIC_SCHEMA,
         "scope": (
@@ -411,19 +543,7 @@ def evaluate(queries, scores, labels, groups, settings):
             "groups_sha256": document_sha256(groups),
         },
         "tool_sha256": tool_sha256(),
-        "coverage": {
-            "n_queries": len(universe),
-            "request_status": request_status,
-            "n_complete_queries": n_complete,
-            "n_incomplete_ok_queries": n_incomplete,
-            "n_candidates": sum(
-                b - a
-                for a, b in (q["candidate_local_range"] for q in universe.values())
-            ),
-            "candidate_status_in_ok_requests": candidate_status,
-            "n_queries_with_labels": len(by_query),
-            "n_queries_with_labels_ok": sum(results[q][0] == "ok" for q in by_query),
-        },
+        "coverage": coverage,
         "overall": summary(membership),
         "n_groups": len(group_ids),
         "groups": {g: summary(ids) for g, ids in sorted(group_ids.items())},
