@@ -37,6 +37,7 @@ separate validation gates.
 ## Run the RBS calculator
 
 Follow the [installation and validation contract](docs/validation/rbs-runtime.md)
+and [0.4.0rc1 release/upgrade guide](docs/validation/rbs-0.4-release.md)
 to install the Python package and pinned open folding backend. Inference is
 local and needs no accounts, coins or network access after installation.
 The optional [traceback/linker-repaired backends](docs/validation/rbs-backend-repair.md)
@@ -110,6 +111,11 @@ The energy/sequence variant loses too many cases to pass the coverage gate.
 These models are experimental; neither establishes native UTEX 2973 accuracy.
 The [public reporter model card](models/rbs/standby2014/README.md) describes the
 separate E. coli experiment and its limited sequence diversity.
+
+The [executed Promoter reference](docs/validation/promoter-executed-reference.md)
+checks 212 synthetic states against two pinned upstream versions and an independent
+numerical oracle. It prepares source, parameter and coordinate fixtures for the
+future Promoter runtime; it does not establish experimental accuracy.
 
 ## Start a new implementation session
 

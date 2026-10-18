@@ -4,8 +4,8 @@
 - Status: active
 - Opened: 2026-10-16
 - Updated: 2026-10-17
-- Current State: Historical, footprint/context and standby2014 profiles remain unchanged. Joint binding/standby and separately identified linker-3 are implemented and reviewed; scoped backend ticket26 is complete. Scientific candidate a11cb5b is frozen and one independent study evaluation authorized under27/28. Drafting, kinetics, distinct production stacking, folding-search completeness and hosted parity remain open.
-- Verification: Reviewed scientific candidate passes1,614 tests at100% Python coverage,35 three-engine checks and all four CI39080285855 jobs. Earlier-profile compatibility, both-strand repair cases and136/136 public development resource cases are verified. Durable contracts:rbs-joint-selection.md and rbs-backend-repair.md. No experimental advancement follows from these software gates.
+- Current State: Historical, footprint/context and standby2014 profiles remain unchanged. Joint binding/standby and separately identified linker-3 are implemented and reviewed; scoped backend ticket 26 is complete. Scientific candidate a11cb5b is frozen and one independent study evaluation authorized under 27/28. Drafting, kinetics, distinct production stacking, folding-search completeness and hosted parity remain open.
+- Verification: Reviewed scientific candidate passes 1,614 tests at 100% Python coverage, 35 three-engine checks and all four CI 39080285855 jobs. Earlier-profile compatibility, both-strand repair cases and 136/136 public development resource cases are verified. Durable contracts: rbs-joint-selection.md and rbs-backend-repair.md. No experimental advancement follows from these software gates.
 - Cleanup: Owning session records final checks and unresolved findings, resolves the ticket, distills reusable guidance into docs/validation/, updates both indexes and linked GitHub issue, then removes the resolved ticket.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/4
 - Priority: P0

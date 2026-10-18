@@ -4,8 +4,8 @@
 - Status: active
 - Opened: 2026-10-16
 - Updated: 2026-10-17
-- Current State: Wave2 final cohort/weights remain frozen and native promotion unestablished. Joint binding/standby is implemented without fitting, reviewed and frozen at a11cb5b. B acknowledged candidate/collector receipts; A authorized one Cambray primary/Kuo exposed-secondary run under the unchanged protocol. Await reviewed aggregates; no scientific change may use those outcomes.
-- Verification: Software/resource/fresh-install gates and four-platform CI39080285855 pass. Public development inputs complete136/136 with three non-greedy winners and identical v2/v3 site outputs. Input-only collector verification checked all18,481 unique artifact pins and six exact mechanistic commands; no private outcomes accessed. No new-study rank gain or native calibration is claimed before the aggregate result.
+- Current State: Wave 2 final cohort/weights remain frozen and native promotion unestablished. Joint binding/standby is implemented without fitting, reviewed and frozen at a11cb5b. B acknowledged candidate/collector receipts; A authorized one Cambray primary/Kuo exposed-secondary run under the unchanged protocol. Await reviewed aggregates; no scientific change may use those outcomes.
+- Verification: Software/resource/fresh-install gates and four-platform CI 39080285855 pass. Public development inputs complete 136/136 with three non-greedy winners and identical v2/v3 site outputs. Input-only collector verification checked all 18,481 unique artifact pins and six exact mechanistic commands; no private outcomes accessed. No new-study rank gain or native calibration is claimed before the aggregate result.
 - Cleanup: Owning session records results including negative findings, distills reusable model/evaluation contracts, updates indexes and GitHub issue, then removes the resolved ticket.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/13
 - Priority: P0
