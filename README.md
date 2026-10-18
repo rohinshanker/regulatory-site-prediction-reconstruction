@@ -45,10 +45,13 @@ remain unestablished.
 **The 0.5.0rc1 development branch also runs the historical Promoter model.**
 It scores explicitly requested transcription-start candidates on either strand,
 returns the model's sequence windows and score contributions, and exports JSON,
-CSV or projected GFF3. It requires only Python's standard library. Independent
-review, final resource limits and biological evaluation are in progress; this
-is not a released or cyanobacteria-calibrated predictor. Operon and Riboswitch
-runtime work remains pending admission of their component models.
+CSV or projected GFF3. It requires only Python's standard library. Its
+arithmetic reproduces the pinned historical source on synthetic states; that is
+fidelity, not demonstrated biological accuracy. Calibration is *E. coli* only,
+and independent native and measured-strength evaluation has not produced a result.
+This is not a released or cyanobacteria-calibrated predictor. See the
+[Promoter model card](docs/validation/promoter-model-card.md). Operon and
+Riboswitch runtime work remains pending admission of their component models.
 
 See the [independent results](docs/validation/rbs-wave2-results.md),
 [native validation](docs/validation/rbs-native-validation.md) and
@@ -147,10 +150,15 @@ separate E. coli experiment and its limited sequence diversity.
 
 Supply a sequence, explicit candidate positions or range, and either the
 `ecoli_mg1655` or `in_vitro` calibration profile. Host labels describe applicability;
-they do not calibrate the model. Every requested position is retained, including
-positions lacking enough flanking sequence and unfinished computations. Predicted
-windows are model features, not experimentally measured regulatory boundaries.
-See the [runtime contract](docs/validation/promoter-runtime.md),
+they do not calibrate the model. A supplied cyanobacterial host label retains
+the explicitly selected profile and adds an extrapolation warning. Every
+requested position is retained,
+including positions lacking enough flanking sequence and unfinished computations.
+Predicted windows are model features, not experimentally measured regulatory
+boundaries. A score difference between current and recoded sequences is a model
+difference at supplied positions, not measured site gain or loss. See the
+[model card](docs/validation/promoter-model-card.md),
+[runtime contract](docs/validation/promoter-runtime.md),
 [request schema](schemas/promoter-request-1.0.schema.json) and
 [result schema](schemas/promoter-result-1.0.schema.json).
 
