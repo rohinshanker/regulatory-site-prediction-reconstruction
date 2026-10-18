@@ -1,0 +1,346 @@
+{
+  "schema_version": "wave5-phase1-input-manifest-1",
+  "state": "Prepared before model scoring; final collection additionally requires reviewed groups/tools, immutable candidate/settings and recorded release-gate decision.",
+  "planning_commit": "d37ebd7d8eb2422389d003e3fc2ebab2aa5c6466",
+  "source_envelope_sha256": "c442baf07480ddece0956a9ac10aefd5884472ec63ed0c62166e2ad7ef8a03d5",
+  "source_s1_sha256": "098ecbd204cd1042a6edee1d2a500eaeca4efe034c503e2ade3db1c605e79b00",
+  "consumer_authority_commit": "086111949f5039782d1ed8f2fa4a4a647c0fc956",
+  "consumer_policy_manifest_sha256": "8cbb662e98d834d28103ab624dd8599bf8dc73d7324241a5b3643caa42e4825f",
+  "native_queries": {
+    "file": "tan-grid-queries.json",
+    "sha256": "f71f7d82f9ebf8b1f58c40851436000fbff9e139d07210794961e82720e251f5",
+    "tool_sha256": "a1625e4206bdd39587bba9f0691d5048e9bc2522037e886b4f8a38472d06013a",
+    "settings": {
+      "downstream_nt": 19,
+      "max_tiles_per_genome_strand": 128,
+      "seed": "wave5-tan-grid-v1",
+      "selection": "sha256(canonical [seed, genome_sha256, strand, tile]) ascending",
+      "strands": [
+        "+",
+        "-"
+      ],
+      "tile_width": 1000,
+      "upstream_nt": 67
+    },
+    "settings_sha256": "cb40bb489a5e7ed5f63bf8b796bca773e1a6392a38ee9d6c67369aecc2b05e04",
+    "grid_totals": {
+      "n_grid_points": 5489252,
+      "n_grid_tiles": 5492,
+      "n_not_selected_points": 5124836,
+      "n_not_selected_tiles": 5126,
+      "n_selected_points": 364416,
+      "n_selected_tiles": 366
+    },
+    "context_status_counts": {
+      "complete": 366
+    }
+  },
+  "native_labels": {
+    "file": "tan-grid-labels.json",
+    "sha256": "e7aebffef5771334c40550cc78a6e547aada3aef12d952770a67df81addceea6",
+    "counts": {
+      "n_labels": 4808,
+      "n_labels_in_selected_query": 292,
+      "n_labels_out_of_window": 4516,
+      "n_records": 4808,
+      "row_window_status": {
+        "in_selected_query": 292,
+        "out_of_window": 4516
+      }
+    },
+    "storage": "External B-only evaluation cache; no model outcomes joined."
+  },
+  "rbs_context_panel": {
+    "file": "tan-context-panel.json",
+    "sha256": "ab48dcede8dc64f3870d8e5f3c89e55524685d1f8afa1932a6ea26f57049a997",
+    "tool_sha256": "a14d65291fc86afd1e61f1cae13732fb49f0935eb4c078e14f97244cfea2ba32",
+    "settings": {
+      "anti_sd": "ACCUCCUUU",
+      "downstream_length_nt": 100,
+      "maximum_selected_source_rows": 1024,
+      "per_stratum": 4,
+      "profiles": [
+        "historical",
+        "context2017"
+      ],
+      "seed": "wave5-tan-context-v1",
+      "stratum_priority": [
+        "internal",
+        "leaderless",
+        "short_leader",
+        "start_disagreement",
+        "ordinary",
+        "unresolved"
+      ],
+      "temperature_c": 37.0,
+      "upstream_limit_nt": 100
+    },
+    "settings_sha256": "4a2bca021e1e28965c359dc00d6707c0ba77274b57efd79dc29358d5dc8001b1",
+    "counts": {
+      "gtss_rows_without_locus": 0,
+      "input_scenarios": 124,
+      "loci_by_stratum": {
+        "internal": 16,
+        "leaderless": 42,
+        "ordinary": 1288,
+        "short_leader": 304,
+        "start_disagreement": 140,
+        "unresolved": 30
+      },
+      "profile_jobs": 248,
+      "selected_loci": 24,
+      "selected_source_rows": 31,
+      "source_gtss_rows": 2475,
+      "source_loci": 1820,
+      "source_rows": 4808
+    },
+    "selected_loci": [
+      {
+        "genome_id": "NZ_CP006471.1",
+        "record_ids": [
+          "tan2018:gTSS+1428984"
+        ],
+        "selection_key": "00dfe40eb353d465b7159b66fdda70a9674f25e190613ff8a1af4facd0edf224",
+        "source_locus_tag": "M744_RS07315",
+        "stratum": "internal"
+      },
+      {
+        "genome_id": "NZ_CP006471.1",
+        "record_ids": [
+          "tan2018:gTSS-2354728"
+        ],
+        "selection_key": "1a4b9845ee92af90286c865fdba2777acf540e6d77aff78813a37405a0f146e1",
+        "source_locus_tag": "M744_RS11645",
+        "stratum": "internal"
+      },
+      {
+        "genome_id": "NZ_CP006471.1",
+        "record_ids": [
+          "tan2018:gTSS+849362"
+        ],
+        "selection_key": "1e63a2608d1127cfb96c496aaef1845f5eeae5c769c1ad91bb8b900e601f5d84",
+        "source_locus_tag": "M744_RS04380",
+        "stratum": "internal"
+      },
+      {
+        "genome_id": "NZ_CP006471.1",
+        "record_ids": [
+          "tan2018:gTSS-187956",
+          "tan2018:gTSS-188231",
+          "tan2018:gTSS-188526"
+        ],
+        "selection_key": "29f2d64ad30ffe05190426693e2a3ccfd98a5191b1a9e8a443aa8b446da5ff29",
+        "source_locus_tag": "M744_RS01005",
+        "stratum": "internal"
+      },
+      {
+        "genome_id": "NZ_CP006471.1",
+        "record_ids": [
+          "tan2018:gTSS-31744"
+        ],
+        "selection_key": "03fba9ee1ffca66576a7957f1f9b7ac0ffc0b88e0fbebeb85804cd40384e0240",
+        "source_locus_tag": "M744_RS00165",
+        "stratum": "leaderless"
+      },
+      {
+        "genome_id": "NZ_CP006471.1",
+        "record_ids": [
+          "tan2018:gTSS+2386564"
+        ],
+        "selection_key": "16784a2768c06153404cc28de045930801bebbceb9eebdb679e5c993d6ee0bf3",
+        "source_locus_tag": "M744_RS11780",
+        "stratum": "leaderless"
+      },
+      {
+        "genome_id": "NZ_CP006471.1",
+        "record_ids": [
+          "tan2018:gTSS-1521958"
+        ],
+        "selection_key": "1b29b02424a6790b03b0fe55bed73e40197490451d8a236cfbbf019ccf0e293f",
+        "source_locus_tag": "M744_RS07775",
+        "stratum": "leaderless"
+      },
+      {
+        "genome_id": "NZ_CP006471.1",
+        "record_ids": [
+          "tan2018:gTSS-2529579"
+        ],
+        "selection_key": "24aa91bffddaf3dd9c3e3d8d9a4691e2fc370865213257b369f006fdf076fed9",
+        "source_locus_tag": "M744_RS12470",
+        "stratum": "leaderless"
+      },
+      {
+        "genome_id": "NZ_CP006471.1",
+        "record_ids": [
+          "tan2018:gTSS-756835"
+        ],
+        "selection_key": "006e4d4a90d261a2232e3919098484279e190d8a21dd593322dc9d5761c73cea",
+        "source_locus_tag": "M744_RS03940",
+        "stratum": "short_leader"
+      },
+      {
+        "genome_id": "NZ_CP006471.1",
+        "record_ids": [
+          "tan2018:gTSS-1249810"
+        ],
+        "selection_key": "00e0930fc1a6c62835467f58d0072b559e330ffdd0dd951774d574bdb325a9d5",
+        "source_locus_tag": "M744_RS06440",
+        "stratum": "short_leader"
+      },
+      {
+        "genome_id": "NZ_CP006471.1",
+        "record_ids": [
+          "tan2018:gTSS-1957192"
+        ],
+        "selection_key": "02c1be7bd17d72cdb68feafcabc00b7c41d8aef63b3d4e4aff5a31a6a81ff41e",
+        "source_locus_tag": "M744_RS09705",
+        "stratum": "short_leader"
+      },
+      {
+        "genome_id": "NZ_CP006471.1",
+        "record_ids": [
+          "tan2018:gTSS+164750"
+        ],
+        "selection_key": "04e1edfecc5937703ebe3f13f5811c57012780be7e2bece778072f0aea6ae726",
+        "source_locus_tag": "M744_RS00875",
+        "stratum": "short_leader"
+      },
+      {
+        "genome_id": "NZ_CP006471.1",
+        "record_ids": [
+          "tan2018:gTSS-1902692"
+        ],
+        "selection_key": "0055ef6595fcf837a52fdbbdf9f3b9b0c6ed4ca68d0cf476e5fcb77ebfc95da6",
+        "source_locus_tag": "M744_RS09495",
+        "stratum": "start_disagreement"
+      },
+      {
+        "genome_id": "NZ_CP006471.1",
+        "record_ids": [
+          "tan2018:gTSS+222650"
+        ],
+        "selection_key": "036c10faef50276ec68e14d526e43992aac3aa715bdfb1b685c70e7d599dc1fd",
+        "source_locus_tag": "M744_RS01190",
+        "stratum": "start_disagreement"
+      },
+      {
+        "genome_id": "NZ_CP006471.1",
+        "record_ids": [
+          "tan2018:gTSS+69031",
+          "tan2018:gTSS+69418",
+          "tan2018:gTSS+69530"
+        ],
+        "selection_key": "085b29a41f98dbcb4f9f6210e007b2302bd620d294f8ad80aba0ff6f3df16acc",
+        "source_locus_tag": "M744_RS00380",
+        "stratum": "start_disagreement"
+      },
+      {
+        "genome_id": "NZ_CP006471.1",
+        "record_ids": [
+          "tan2018:gTSS+1667591"
+        ],
+        "selection_key": "09b53a55a81b75a47b42a431708dfec1e9c5e155a9c97f995bfd7e22c678e541",
+        "source_locus_tag": "M744_RS08470",
+        "stratum": "start_disagreement"
+      },
+      {
+        "genome_id": "NZ_CP006471.1",
+        "record_ids": [
+          "tan2018:gTSS+844255"
+        ],
+        "selection_key": "006bf8ca03696125b64aec7f282807c02113996b61e17bab34d555d3f080a5e7",
+        "source_locus_tag": "M744_RS04355",
+        "stratum": "ordinary"
+      },
+      {
+        "genome_id": "NZ_CP006471.1",
+        "record_ids": [
+          "tan2018:gTSS+1727317"
+        ],
+        "selection_key": "00a05e050f233afeeef3ea986e5ffabe15a848cfe51fe27071ccc1d61a957a4e",
+        "source_locus_tag": "M744_RS08710",
+        "stratum": "ordinary"
+      },
+      {
+        "genome_id": "NZ_CP006472.1",
+        "record_ids": [
+          "tan2018:gTSS+31155"
+        ],
+        "selection_key": "00c765ca1d5b0d02ad31ba6fb05fecd9e7057bc551f8e195f1feb57f1ce50ef8",
+        "source_locus_tag": "M744_RS13480",
+        "stratum": "ordinary"
+      },
+      {
+        "genome_id": "NZ_CP006471.1",
+        "record_ids": [
+          "tan2018:gTSS+57981"
+        ],
+        "selection_key": "01a3000dc722d0e4941deb649295ae348d350161effd478782e4e04c2c819917",
+        "source_locus_tag": "M744_RS00315",
+        "stratum": "ordinary"
+      },
+      {
+        "genome_id": "NZ_CP006471.1",
+        "record_ids": [
+          "tan2018:gTSS+717215"
+        ],
+        "selection_key": "00fd0aa2b4be55df9f4a12d40195bb67fed22e5a54e53fa081aaa405caf78091",
+        "source_locus_tag": "M744_RS03760",
+        "stratum": "unresolved"
+      },
+      {
+        "genome_id": "NZ_CP006471.1",
+        "record_ids": [
+          "tan2018:gTSS-703878",
+          "tan2018:gTSS-703979",
+          "tan2018:gTSS-704053"
+        ],
+        "selection_key": "0e5e6a92f07ceec57ff99f33d831f4ed450acffe59aaec07cadc025e52578b01",
+        "source_locus_tag": "M744_RS13670",
+        "stratum": "unresolved"
+      },
+      {
+        "genome_id": "NZ_CP006471.1",
+        "record_ids": [
+          "tan2018:gTSS+2085568"
+        ],
+        "selection_key": "0feb79e5a37b2b61b8009eb705d5ffdc557b671c2a1c96234139b62aaf029638",
+        "source_locus_tag": "M744_RS10385",
+        "stratum": "unresolved"
+      },
+      {
+        "genome_id": "NZ_CP006471.1",
+        "record_ids": [
+          "tan2018:gTSS-2347784",
+          "tan2018:gTSS-2348214"
+        ],
+        "selection_key": "1959b6ce0d0350f2db68166320b75bd28b52a245b14ce53daabac8517c0080a4",
+        "source_locus_tag": "M744_RS11620",
+        "stratum": "unresolved"
+      }
+    ],
+    "storage": "External input-only native envelope; no outcome fields or replicate counts."
+  },
+  "input_only_examples": {
+    "path": "benchmarks/promoter/native-query-examples.json",
+    "sha256": "9bb55dd13a65e437c96692f57324b6555d5e12762b0aa146cd283f6f5559fad9",
+    "count": 4
+  },
+  "independent_input_checks": {
+    "native_queries": 366,
+    "method": "Direct modular genomic-base extraction on both strands, independent of builder helpers; full strings, hashes, candidate ranges and full-state support agree.",
+    "signed_leader_scenarios_checked": 55,
+    "missing_anchor_measured_scenarios_retained": 7,
+    "native_schema": "native-rbs-evidence-1.schema.json validated for124scenarios"
+  },
+  "collection": {
+    "performed": false,
+    "outcome_join_performed": false,
+    "expensive_folding_processes_started": 0
+  },
+  "interpretation": [
+    "292in-window and4516out-of-window positive TSSs are coverage counts, not prediction results.",
+    "RBS248profile jobs measure input sensitivity, not accuracy or translation improvement.",
+    "Four query examples include plus/minus and circular-origin contexts, with no labels."
+  ]
+}

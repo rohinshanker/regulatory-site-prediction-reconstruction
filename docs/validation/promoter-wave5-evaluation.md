@@ -68,6 +68,11 @@ metadata. Rank positions by the raw learned score, lower first; do not interpret
 it as a physical free energy or calibrated native rate. Freeze the runtime's
 selected-state contract before converting results. No data-dependent score
 threshold, local-max suppression or candidate filtering is allowed.
+Query DNA is already in transcript orientation on each genomic strand. Native
+collection requests only the runtime's forward strand on that DNA, then maps
+its local TSS points through the query's declared segments. It must not scan
+both runtime strands and count the opposite orientation as the same query.
+The separate source-parity stage tests the runtime's own reverse-strand contract.
 
 Report all 4,808 source rows, unique point/strand positives, selected-window
 positives, out-of-window positives, full/partial-state support, positions
