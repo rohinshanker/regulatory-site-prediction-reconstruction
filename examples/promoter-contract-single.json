@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0",
+  "id": "synthetic-both-strands",
+  "sequence": "ACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT",
+  "calibration": "ecoli_mg1655",
+  "scan": {
+    "mode": "positions",
+    "positions": [
+      {
+        "strand": "+",
+        "tss": 100
+      },
+      {
+        "strand": "-",
+        "tss": 129
+      }
+    ]
+  },
+  "output": {
+    "states": "selected",
+    "legacy_keys": false,
+    "elements": true
+  },
+  "metadata": {
+    "purpose": "Contract example only; deterministic ACGT repeat, not prediction output.",
+    "sequence_recipe": "ACGT repeated 50 times (200 bases)."
+  }
+}
