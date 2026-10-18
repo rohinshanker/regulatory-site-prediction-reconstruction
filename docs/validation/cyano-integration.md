@@ -2,7 +2,10 @@
 
 - Purpose: Separate reconstructed engines from downstream native-data admission and UI.
 - Scope: Versioned producer/consumer boundaries and conditional dependencies.
-- Last verified: 2026-10-18 (ownership/implementation boundary; consumer baseline below remains historical)
+- Last verified: 2026-10-18
+
+This verification date covers the ownership/implementation boundary; the consumer
+baseline below remains historical.
 
 The canonical consumer is
 [isaacs-cyano-gene-selection](https://github.com/rohinshanker/isaacs-cyano-gene-selection),
