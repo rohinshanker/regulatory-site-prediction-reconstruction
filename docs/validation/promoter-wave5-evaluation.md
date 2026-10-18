@@ -87,27 +87,61 @@ Separate gTSS, aTSS, iTSS and nTSS aggregates without treating source categories
 as independently validated full promoter classes.
 
 Repeated conditions share one positional label; alternate TSSs remain separate.
-Freeze uncertainty groups from adjacent/overlapping sampled contexts, shared
-source loci, and sequence-family checks before scoring. Use 10,000 cluster
+Freeze uncertainty groups before scoring as connected components of the following
+input-only graph (including out-of-window positives):
+
+- All labels competing in one selected query share a group. Selected queries
+  whose padded genomic intervals overlap or touch on the same replicon share a
+  group across strands; circular-origin segments use actual genomic intervals.
+- Labels sharing an exact nonempty source locus tag on the same replicon share a
+  group. Labels within 86 nt of one another on the same replicon also share a
+  group, across strands, using the minimum circular distance where applicable.
+- For every label, extract its 87-base oriented context (67 bases upstream,
+  the TSS base and 19 downstream), with explicit circular topology. Canonicalize
+  each distinct 15-mer against its reverse complement. Connect labels when the
+  Jaccard similarity of their nonempty 15-mer sets is at least 0.5. This is a
+  fixed near-duplicate screen, not exhaustive homology detection. Linear clips
+  remain explicit; absent or shorter-than-15 contexts have an unavailable screen.
+
+Use the lexicographically smallest constituent label ID as the stable component
+ID. Publish edge counts by rule, group counts/sizes and missing screens before
+scores; never weaken grouping to obtain narrower intervals. Unlabelled-only
+queries have coverage counts but no positive-recovery denominator. Use 10,000 cluster
 resamples, seed 20261018, percentile 95% intervals when at least 20 groups are
 available; otherwise retain descriptive counts and an explicit insufficient-group
-status. The grouping receipt must state the exact near-family rule and all
-unsupported checks. Intervals condition on this source's ascertainment and do
+status. Resample complete groups with replacement and recompute the ratio of
+summed recovered positives to summed eligible positives, retaining zero-recovery
+and out-of-window groups. Report all-positive and in-window intervals separately;
+if a resample has a zero denominator, report its count and omit only that undefined
+ratio. Intervals condition on this source's ascertainment and do
 not propagate raw-read mapping or biological replicate uncertainty.
 
 ### 3. Unchanged-RBS transcript-context sensitivity
 
 Prepare an input-only bounded diagnostic panel from Tan associations before
-scoring. Preserve all selected loci's alternate source TSSs; choose loci by a
-fixed hash rule within declared input strata (internal TSS, leaderless,
-short leader, historical/current start disagreement and ordinary context).
+scoring. Consider exact nonempty source locus tags on gTSS rows only; do not turn
+an antisense/intragenic association into an inferred upstream transcript. Preserve
+all selected loci's gTSS alternatives. Assign each locus to the first applicable
+stratum, using any of its source rows: internal current leader (<0), leaderless
+(0), short leader (1–20), historical/current start disagreement (nonzero declared
+delta), ordinary current context (>20), or unresolved current start. Choose at
+most four loci in each stratum by ascending SHA256 of compact UTF-8 JSON
+`["wave5-tan-context-v1", genome_id, source_locus_tag]`, with locus ID as tie-break.
+No response, read count, codon or model score affects selection; empty strata are
+reported without replacement. The six-stratum source/locus counts stay visible.
 Commit the precise selected IDs and resulting job count before execution.
 Historical/current starts are separate scenarios, never silently substituted.
 
 Compare measured-TSS-clipped leaders against the explicit 100-nt genomic-flank
 assumption, with 100 nt from the supplied start into the CDS. Keep explicit
 annotated-tail aSD `ACCUCCUUU`, declared temperature and unchanged `historical`
-and `context2017` profiles. Source conditions do not create calibrated alternate
+and `context2017` profiles. The diagnostic temperature is explicitly 37°C for
+every job, isolating context changes; it is not an estimate for all four source
+conditions. Each retained source row has current and historical anchor scenarios,
+each with measured-TSS and unmeasured-flank input, under both profiles. Missing
+anchor scenarios remain explicit unsupported rows rather than being dropped.
+Identical contexts are identified in the receipt; all source associations remain
+represented. Source conditions do not create calibrated alternate
 host models. Report leader lengths, input hashes, all failures/unsupported cases,
 paired raw-term and log-score changes, and within-panel rank changes. These are
 input-sensitivity results, never demonstrated translation improvements. No TSS
