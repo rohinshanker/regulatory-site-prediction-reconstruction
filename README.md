@@ -40,7 +40,15 @@ an advantage on this new study.
 scale-adapted OSTIR comparator was uncertain. The predeclared promotion criteria
 failed. These are experimental models with measured limitations, independent of
 De Novo DNA/Salis Lab. Production equivalence and native UTEX 2973 calibration
-remain unestablished; the other calculators remain planned.
+remain unestablished.
+
+**The 0.5.0rc1 development branch also runs the historical Promoter model.**
+It scores explicitly requested transcription-start candidates on either strand,
+returns the model's sequence windows and score contributions, and exports JSON,
+CSV or projected GFF3. It requires only Python's standard library. Independent
+review, final resource limits and biological evaluation are in progress; this
+is not a released or cyanobacteria-calibrated predictor. Operon and Riboswitch
+runtime work remains pending admission of their component models.
 
 See the [independent results](docs/validation/rbs-wave2-results.md),
 [native validation](docs/validation/rbs-native-validation.md) and
@@ -128,10 +136,34 @@ These models are experimental; neither establishes native UTEX 2973 accuracy.
 The [public reporter model card](models/rbs/standby2014/README.md) describes the
 separate E. coli experiment and its limited sequence diversity.
 
+## Run the Promoter calculator
+
+```sh
+.venv/bin/regsite-promoter examples/promoter-contract-single.json
+.venv/bin/regsite-promoter examples/promoter-contract-batch.json
+.venv/bin/regsite-promoter examples/promoter-projected.json --format csv
+.venv/bin/regsite-promoter examples/promoter-projected.json --format gff3
+```
+
+Supply a sequence, explicit candidate positions or range, and either the
+`ecoli_mg1655` or `in_vitro` calibration profile. Host labels describe applicability;
+they do not calibrate the model. Every requested position is retained, including
+positions lacking enough flanking sequence and unfinished computations. Predicted
+windows are model features, not experimentally measured regulatory boundaries.
+See the [runtime contract](docs/validation/promoter-runtime.md),
+[request schema](schemas/promoter-request-1.0.schema.json) and
+[result schema](schemas/promoter-result-1.0.schema.json).
+
 The [executed Promoter reference](docs/validation/promoter-executed-reference.md)
 checks 212 synthetic states against two pinned upstream versions and an independent
-numerical oracle. It prepares source, parameter and coordinate fixtures for the
-future Promoter runtime; it does not establish experimental accuracy.
+numerical oracle. This checks reconstruction fidelity separately from experimental
+accuracy. The relative transcription score is not a probability or an absolute
+transcription rate. No native cyanobacterial accuracy or hosted parity is claimed.
+
+The [continuing delivery program](docs/validation/calculator-delivery-program.md)
+next connects RBS and Promoter outputs to comparisons of supplied original and
+recoded sequences, followed by admitted supplied-operon and specified-aptamer
+components. The visualizer remains a downstream consumer of versioned predictions.
 
 ## Start a new implementation session
 
@@ -154,7 +186,8 @@ reserved evidence. Preserve newer work, immutable candidate identities and owner
 3. Foundation 02, historical scoring 03 and portable native adapter 18 are
    complete. Tickets 04/06/13 retain remaining mechanisms, release work and
    experimentally justified improvements. Source recovery for other calculators
-   can proceed independently; implement those calculators after the RBS release.
+   can proceed independently. The owner authorizes isolated calculator implementation
+   alongside RBS release preparation; publication and consumer admission stay separate.
 4. The Wave 2 models, offsets and final comparison are frozen. Any new scientific
    change needs a new development cycle and untouched evaluation data. Do not
    tune against these exposed final outcomes. The original

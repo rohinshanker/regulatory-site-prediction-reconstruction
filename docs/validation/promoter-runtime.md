@@ -1,11 +1,14 @@
 # Promoter runtime contract
 
 - Purpose: Fix the public request, result, coordinate, calibration, limit and acceptance contract for the local Promoter runtime before independent writers start.
-- Scope: Ticket #33 (parent #7). Specified implementation contract for `regsite-promoter`; not an executed runtime, a hosted-parity claim or a scientific accuracy claim.
+- Scope: Ticket #33 (parent #7). Local `regsite-promoter` implementation and acceptance contract; no hosted-parity or scientific accuracy claim.
 - Last verified: 2026-10-18
 
-**Status.** The scoring runtime and CLI are not yet implemented. On 2026-10-18
-the owner authorized isolated implementation alongside RBS release preparation,
+**Status.** The scoring core, batch interface, CLI and result schema are implemented
+on the 0.5.0rc1 development branch. Fresh offline single/batch/CSV/GFF3 execution
+passes. Independent review, measured limits, final CI and independent evaluation
+remain candidate-admission gates; the ceiling values below are not a frozen receipt.
+On 2026-10-18 the owner authorized isolated implementation alongside RBS release preparation,
 as recorded in the [Wave 5 program](wave5-program.md). Equations,
 parameters and 212-state expectations come from the pinned
 [source and benchmark audit](promoter-source-and-benchmarks.md) and
@@ -21,14 +24,15 @@ synthetic examples are implemented structural contracts. With the locked
 development environment, run `python -m pytest tests/test_promoter_request_schema.py`.
 Schema acceptance does not run a prediction or replace parser, cross-field,
 normalized-coordinate, effective-limit or installed-model validation. Those
-semantic checks remain runtime requirements, explicitly listed in the schema's
-`$comment`. No result-schema execution or scientific accuracy is claimed here.
+semantic checks are implemented in the runtime and explicitly listed in the schema's
+`$comment`. The [result schema](../../schemas/promoter-result-1.0.schema.json)
+also has independent synthetic tests; neither schema proves scientific accuracy.
 
 ## Decisions
 
 | Topic | Decision |
 | --- | --- |
-| Model | Prospective identity `promoter-lafleur2022-historical-1`: the admitted historical equations with the fixed GPL-3.0-or-later arrays. Not the hosted tool, not a retrained model. |
+| Model | `promoter-lafleur2022-historical-1`: the admitted historical equations with the fixed GPL-3.0-or-later arrays. Not the hosted tool, not a retrained model. |
 | Engine | Standard-library direct inference in the existing `regsite` package; no NumPy, SciPy, scikit-learn or Biopython. Adoption requires independent source parity (see acceptance checks); on failure stop and report, never add the legacy stack to required dependencies. |
 | Interface | Console script `regsite-promoter`; JSON single/batch input; JSON or compact CSV output; optional GFF3 only with explicit projection metadata. Same wheel as RBS. |
 | Scores | Learned regression score terms (source `dG_*` notation), never new kcal/mol. Primary output is `log_relative_transcription_score`. |
@@ -213,6 +217,8 @@ the whole corresponding defaults object. Missing keys within the winning
 `output` object then receive the documented output defaults. An empty `records`
 envelope is a valid no-op batch with empty results, zero status counts and exit 0;
 a bare array remains invalid.
+Malformed envelope defaults are setup errors even when there are no records or
+a record would override them. Valid host defaults alone never supply a calibration.
 
 | Field | Type | Meaning |
 | --- | --- | --- |
@@ -609,6 +615,8 @@ Record precedence: invalid_input → unsupported → failed → ok → no_candid
 statuses are authoritative: a consumer that needs full context checks
 `coverage.complete_context`, and one that needs every candidate scored checks that
 `insufficient_context_sites`, `failed_sites` and `unattempted_sites` are zero.
+An `ok` record has empty record-level `reasons`; insufficient-context reasons
+remain on its individual sites and in coverage counts.
 
 Stable error/reason codes: `schema_version_unsupported`, `invalid_type`,
 `missing_field`, `unknown_field`, `invalid_id`, `duplicate_id`, `empty_sequence`,
@@ -829,6 +837,10 @@ inform any limit.
   text and original 2021 copyright line. The wheel must contain no experimental
   measurement table.
 - Preserve every RBS profile, schema, model and frozen artifact byte-for-byte.
+  The shared package version advances to 0.5.0rc1 for this development candidate;
+  this changes implementation identities, as designed, while leaving the RBS
+  equations and immutable 0.4.0rc1 release artifacts intact. `src/regsite/__init__.py`
+  is the sole shared RBS-imported version-metadata change.
 
 ## Public Python surface and writer partition
 
@@ -878,7 +890,7 @@ In addition, the Promoter candidate passes the following before freeze.
 | 9 | Calibration | Required, no silent default; profiles K/beta; `host_status` matrix; extrapolation warning text present; no `sigma`/temperature field accepted or emitted; `claims` all false. |
 | 10 | Projection | The eight worked examples reproduced exactly (both local strands, both `sequence_strand` values, linear and circular crossing); brute-force per-base agreement for all combinations over small `L`, `contig_length`, `origin`; linear out-of-bounds, circular `L > contig_length`, undeclared and mismatched crossing, contig conflict; genomic strand composition; IDs change with `sequence_strand`/`origin`; GFF3 one-based inclusive, genomic strand column, unwrapped circular end, escaping and order along transcription. |
 | 11 | Exports | Identical JSON bytes across repeated runs on one platform/runtime using the literal authoritative serializer; numeric parity within 1e-12 across the CI platforms; CSV header, `genomic_strand` and null cells; schemas validate every example and test output; `states:"all"` bounded as limits state; exact-cap and one-byte-over checks for wire and authoritative JSON, compact-below/pretty-above rejection, whitespace inflation, Unicode escaping and trailing LF. |
-| 12 | RBS preservation | `git diff` against the baseline shows no change to RBS modules, schemas, models, examples or frozen artifacts; the unchanged RBS suite passes in A's single final full matrix. |
+| 12 | RBS preservation | `git diff` against the baseline shows no change to RBS model/runtime modules, schemas, models, examples or frozen artifacts, apart from shared package-version metadata above; the unchanged RBS suite passes in A's single final full matrix. |
 | 13 | Fresh offline | Wheel installed with `--no-index --no-deps` into a new venv; `regsite-promoter` runs the single, batch, CSV and GFF3 examples; importing and running loads no `numpy`, `scipy`, `sklearn` or `Bio`; a test that blocks sockets and subprocess passes. |
 | 14 | Source parity adoption | Independent source parity (2, plus B's separately executed pinned historical/fork inference on a B-frozen synthetic panel, compared through the public CLI/JSON only) passes before the stdlib engine is adopted. No expected values are copied from runtime output. |
 | 15 | Freeze receipt | Exact commit, wheel and parameter hashes, complete emitted model plus six-key identity model, full effective limits and measurements, resolved deadlines/CLI defaults and invocations, input manifest hash, test receipts; B acknowledges the frozen protocol before final collection. Never repair against final outcomes and call the rerun held out. |
