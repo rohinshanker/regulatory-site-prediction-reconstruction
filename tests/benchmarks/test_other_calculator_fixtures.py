@@ -2,9 +2,8 @@
 
 import json
 import math
-from pathlib import Path
 import unittest
-
+from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2] / "benchmarks" / "other-calculators"
 
@@ -35,7 +34,9 @@ class OtherCalculatorFixturesTest(unittest.TestCase):
                 ("concentration_ratio", concentration_ratio),
                 ("actual_ratio", actual),
             ):
-                self.assertTrue(math.isclose(float(row[field]), expected, rel_tol=1e-13))
+                self.assertTrue(
+                    math.isclose(float(row[field]), expected, rel_tol=1e-13)
+                )
         self.assertEqual(float(cases["equal_states"]["actual_ratio"]), 1)
         self.assertEqual(float(cases["no_bound"]["actual_ratio"]), 1)
         self.assertEqual(

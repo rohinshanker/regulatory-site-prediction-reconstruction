@@ -48,7 +48,33 @@
         "out_of_window": 4516
       }
     },
-    "storage": "External B-only evaluation cache; no model outcomes joined."
+    "storage": "External B-only evaluation cache; no model outcomes joined.",
+    "source_quality": {
+      "source_classes": {
+        "aTSS": 1380,
+        "gTSS": 2475,
+        "iTSS": 724,
+        "nTSS": 229
+      },
+      "source_vs_reference_tss_nucleotide_disagreements": 2,
+      "policy": "Retained as source labels with source/reference nucleotide fields; no coordinate repair or outcome-driven exclusion.",
+      "condition_identities": [
+        "control",
+        "dark",
+        "high_light",
+        "high_temperature"
+      ],
+      "condition_handling": "One positive point/strand, not four independent labels; source replicate counts are not weights."
+    },
+    "counts_by_replicon": {
+      "NZ_CP006471.1": {
+        "out_of_window": 4516,
+        "in_selected_query": 228
+      },
+      "NZ_CP006472.1": {
+        "in_selected_query": 64
+      }
+    }
   },
   "rbs_context_panel": {
     "file": "tan-context-panel.json",
@@ -331,7 +357,7 @@
     "method": "Direct modular genomic-base extraction on both strands, independent of builder helpers; full strings, hashes, candidate ranges and full-state support agree.",
     "signed_leader_scenarios_checked": 55,
     "missing_anchor_measured_scenarios_retained": 7,
-    "native_schema": "native-rbs-evidence-1.schema.json validated for124scenarios"
+    "native_schema": "native-rbs-evidence-1.schema.json validated for 124 scenarios"
   },
   "collection": {
     "performed": false,
@@ -339,8 +365,8 @@
     "expensive_folding_processes_started": 0
   },
   "interpretation": [
-    "292in-window and4516out-of-window positive TSSs are coverage counts, not prediction results.",
-    "RBS248profile jobs measure input sensitivity, not accuracy or translation improvement.",
+    "292 in-window and 4516 out-of-window positive TSSs are coverage counts, not prediction results.",
+    "RBS 248 profile jobs measure input sensitivity, not accuracy or translation improvement.",
     "Four query examples include plus/minus and circular-origin contexts, with no labels."
   ]
 }

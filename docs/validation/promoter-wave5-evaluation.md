@@ -90,6 +90,13 @@ uninformative ranking baseline, not another biological predictor. No precision,
 PR-AUC, specificity or false-discovery claim is admissible from unlabelled sites.
 Separate gTSS, aTSS, iTSS and nTSS aggregates without treating source categories
 as independently validated full promoter classes.
+Also report replicons separately: the fixed cap samples chromosome tiles while
+retaining all small-replicon tiles. The in-window aggregate therefore has a
+different replicon mix from the complete source population. It is conditional
+sample performance, not an unweighted estimate of whole-genome sensitivity.
+Replicons or categories without positives have an undefined recovery denominator;
+their unlabelled queries do not supply negative controls. Subgroup summaries are
+descriptive; the predeclared cluster intervals apply to the overall endpoints.
 
 Repeated conditions share one positional label; alternate TSSs remain separate.
 Freeze uncertainty groups before scoring as connected components of the following
@@ -152,6 +159,17 @@ paired raw-term and log-score changes, and within-panel rank changes. These are
 input-sensitivity results, never demonstrated translation improvements. No TSS
 read count is joined as a strength label; leaderless/internal cases stay in
 coverage even when a profile cannot score them.
+
+Summarize each profile and anchor scenario separately. A paired comparison needs
+successful measured-TSS and flank results for the same source association.
+Report every other status in coverage, and never substitute a missing score with
+zero. Define changes as measured-TSS minus flank for each raw term and emitted
+log-score. Report paired count, minimum, quartiles, median, maximum and the count
+with absolute change greater than 1e-12; retain all finite pairs without outlier
+removal. Within each fixed paired subset, rank higher log-scores first using
+midranks for exact ties and report paired rank changes. Do not compare physical
+units or fitted scales across profiles. Repeated loci are descriptive scenarios,
+not independent samples; no translation-accuracy significance test is made.
 
 The standard-library input builder is
 [`benchmarks/rbs/context_panel.py`](../../benchmarks/rbs/context_panel.py).
