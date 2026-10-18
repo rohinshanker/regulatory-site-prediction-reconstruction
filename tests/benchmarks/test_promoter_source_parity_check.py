@@ -103,7 +103,13 @@ def fixture():
                     "truncation": None,
                 },
                 "sites": [site],
-                "warnings": ["legacy_key_not_coordinate"],
+                "warnings": [
+                    {"code": code, "message": "Synthetic applicability explanation"}
+                    for code in (
+                        ["host_unspecified"] if profile == "ecoli_mg1655" else []
+                    )
+                    + ["legacy_key_not_coordinate"]
+                ],
                 "errors": [],
                 "metadata": None,
             }
@@ -165,6 +171,16 @@ class SourceParityCheckTest(unittest.TestCase):
             lambda r: r["results"][0].update(status="failed"),
             lambda r: r["results"][0].update(prediction_id="0" * 64),
             lambda r: r["results"][0].update(warnings=[]),
+            lambda r: r["results"][0].update(warnings=["legacy_key_not_coordinate"]),
+            lambda r: r["results"][0].update(
+                warnings=[{"code": "legacy_key_not_coordinate", "message": "x"}]
+            ),
+            lambda r: r["results"][0]["warnings"][0].update(message=1),
+            lambda r: r["results"][0]["warnings"][0].update(message=""),
+            lambda r: r["results"][0]["warnings"][0].update(code="host_extrapolation"),
+            lambda r: r["results"][0]["warnings"].append(
+                r["results"][0]["warnings"][0]
+            ),
             lambda r: r["results"][0].update(
                 warnings={"legacy_key_not_coordinate": True}
             ),

@@ -153,10 +153,22 @@ def check(raw, manifest):
             or (not count and "insufficient_context" not in record["reasons"])
         ):
             raise ValueError(f"Source parity reasons: {name}")
-        if not isinstance(record["warnings"], list) or (
-            "legacy_key_not_coordinate" not in record["warnings"]
+        warnings = record["warnings"]
+        if not isinstance(warnings, list) or not all(
+            isinstance(warning, dict)
+            and all(
+                isinstance(warning.get(key), str) and warning[key]
+                for key in ("code", "message")
+            )
+            for warning in warnings
         ):
-            raise ValueError(f"Source parity legacy warning: {name}")
+            raise ValueError(f"Source parity warning objects: {name}")
+        codes = [warning["code"] for warning in warnings]
+        required = {"legacy_key_not_coordinate"}
+        if req["calibration"] == "ecoli_mg1655":
+            required.add("host_unspecified")
+        if set(codes) != required or len(codes) != len(required):
+            raise ValueError(f"Source parity warning applicability: {name}")
         site_id = (
             f"psite1:{scope[:32]}:{expected['strand']}:"
             f"{expected['tss']['forward_base']}"

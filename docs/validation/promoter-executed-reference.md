@@ -175,8 +175,9 @@ binds model/source/array identity,
 full model object, limits/deadlines, batch/prediction/site/state IDs, input hashes,
 complete record/state rosters, numerical terms, selection, coordinates, elements
 and coverage. Missing, failed, reordered or partial records fail parity. Received
-and authoritative pretty JSON sizes are independently bounded. Additional warning
-text cannot replace the required legacy-key warning. The successful audit records
+and authoritative pretty JSON sizes are independently bounded. Warnings must be code/message objects; the panel requires the legacy-key code
+and, for its host-absent E. coli records, host_unspecified. Missing, duplicate
+or inapplicable codes fail; explanatory wording is not an identity key. The successful audit records
 candidate/wheel/manifest, input/expectation/result and both checker/adapter hashes.
 
 ```python
