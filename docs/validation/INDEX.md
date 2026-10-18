@@ -4,6 +4,11 @@ Verification dates cover the stated source observations or specification review;
 
 | Area | Purpose | Last verified | Document |
 | --- | --- | --- | --- |
+| rbs-context-metrics | Hash-bound unchanged-profile context comparisons, complete status accounting and private failure identities. | 2026-10-18 | [rbs-context-metrics.md](rbs-context-metrics.md) |
+| promoter-native-grouping | Fixed input-only label groups and validated cluster-bootstrap intervals from group sufficient statistics. | 2026-10-18 | [promoter-native-grouping.md](promoter-native-grouping.md) |
+| promoter-native-tooling | Outcome-free genomic queries, separate source-label projection and status-aware positional metrics with synthetic verification. | 2026-10-18 | [promoter-native-tooling.md](promoter-native-tooling.md) |
+| operon-riboswitch-source-admission | Pinned open components, isolated schema smoke, independent scalar fixtures and exact missing inference/dependency paths. | 2026-10-18 | [operon-riboswitch-source-admission.md](operon-riboswitch-source-admission.md) |
+| promoter-wave5-evaluation | Independent source parity, fixed-grid native localization, RBS context sensitivity and measured-strength admission. | 2026-10-18 | [promoter-wave5-evaluation.md](promoter-wave5-evaluation.md) |
 | wave5-program | Two-phase Promoter implementation, reused native evidence, independent evaluation, Claude delegation and release boundaries. | 2026-10-18 | [wave5-program.md](wave5-program.md) |
 | rbs-publication | Immutable archive identities, cumulative integration, corrected release body and explicit publication procedure. | 2026-10-18 | [rbs-publication.md](rbs-publication.md) |
 | rbs-0.4-release | Candidate scope, upgrade recipe, component inventory and publication boundary. | 2026-10-18 | [rbs-0.4-release.md](rbs-0.4-release.md) |
