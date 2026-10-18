@@ -28,6 +28,12 @@ remains an opt-in research profile. See the
 [independent report](docs/validation/rbs-wave4-results.md) and
 [joint model card](docs/validation/rbs-joint-selection.md).
 
+On that same independent panel, the historical default ranked descriptively
+higher (Spearman 0.50189) than standby or joint. The historical-minus-standby
+difference was 0.06564, with a 95% interval of [-0.07807, 0.20110]; this does
+not establish superiority. The development-panel standby gain did not establish
+an advantage on this new study.
+
 **The independent Wave 2 comparison did not establish a superior model.** On
 468 held-out PCC 6803 genes, the sequence model's mean absolute log2 error was
 0.957 versus 0.990 for a constant baseline; its paired advantage over a
