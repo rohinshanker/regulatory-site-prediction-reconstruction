@@ -8,6 +8,11 @@ The protocol was reviewed on synthetic arithmetic and input integrity before
 experimental evaluation. The [acknowledged execution freeze](../../benchmarks/rbs/results/wave4-freeze.json)
 pins the candidate, full roster, source/software gates and A/B confirmation
 references. It contains no experimental measurements or per-case predictions.
+The [completed results](rbs-wave4-results.md) and
+[independent review receipt](../../benchmarks/rbs/results/wave4-review.json)
+record the negative advancement decision and subsequent consumption of the
+selected Cambray panel. Original protocol, candidate and input/split hashes remain
+unchanged; later use cannot be described as an untouched evaluation.
 
 The executable [protocol](../../benchmarks/rbs/wave4-protocol.json) binds the
 Wave 3 input, split and private-outcome hashes. Selection freeze
