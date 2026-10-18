@@ -123,6 +123,14 @@ All subgroup credits use the same global matches and ranks. The tool never
 rematches after excluding competing labels from other categories. These are
 descriptive summaries without subgroup confidence intervals; zero denominators
 remain null.
+Categories match exact source strings without case folding or whitespace repair.
+A label with both a known type and an untyped/unknown row belongs to both the
+known category and `unclassified`, and counts toward the overlap total. Original
+type values remain in the separate label document. Tolerance-based category
+credit can depend on nearby competing labels of another category because the
+global matching assigns the earliest eligible label first, even when a later
+label is an exact hit. The category summaries are descriptive attribution of
+global recovery, not independent category-specific detection experiments.
 
 ## Resource limits
 

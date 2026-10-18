@@ -3,13 +3,13 @@
 - Scope: Recover complete sources and establish an open dependency path.
 - Status: active
 - Opened: 2026-10-16
-- Updated: 2026-10-17
-- Current State: RBS structural oracles and open backend/source evidence delivered. Pinned Promoter historical inference and public fork execute with independent finite-state agreement; source, parameter and dependency notices are retained, with legacy API/Python limitations documented. Operon/Riboswitch source recovery remains active.
-- Verification: The benchmark suite passes 235 tests with 100% statement/branch coverage. Independent source execution, fixture and compatibility review is recorded in promoter-executed-reference.md; frozen input/source identities and evaluation rules are in rbs-new-evaluation-data.md and rbs-wave4-evaluation.md. Earlier results remain unchanged.
+- Updated: 2026-10-18
+- Current State: RBS structural oracles and open backend/source evidence delivered. Pinned Promoter historical inference and public fork execute with independent finite-state agreement; source, parameter and dependency notices are retained, with legacy API/Python limitations documented. The bounded Wave 5 source-admission slice (#35) is complete: 27 source files, isolated Stability feature-list smoke and five independent Riboswitch scalar fixtures are pinned in [the component contract](../../validation/operon-riboswitch-source-admission.md). Complete Operon/Riboswitch inference and their missing submodels remain unresolved; this parent stays active.
+- Verification: The prior Wave 4 benchmark suite passed 235 tests with 100% statement/branch coverage. Independent source execution, fixture and compatibility review is recorded in promoter-executed-reference.md; frozen input/source identities and evaluation rules are in rbs-new-evaluation-data.md and rbs-wave4-evaluation.md. Earlier results remain unchanged.
 - Cleanup: Owning session records final checks and unresolved findings, resolves the ticket, distills reusable guidance into docs/validation/, updates both indexes and linked GitHub issue, then removes the resolved ticket.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/1
 - Priority: P0
-- Owner: Session B (`9677689a-1792176763`), Wave 4 evidence; branch `wave4/b-independent-evaluation`, baseline `73521a6ae3251678073dce76181ee5909b34fe8b`.
+- Owner: Session B (`9677689a-1792176763`), Wave 5 evidence; branch `wave5/promoter-evidence`, baseline `d37ebd7d8eb2422389d003e3fc2ebab2aa5c6466`.
 - Dependencies: None; complete the RBS slice first.
 
 Search public repositories, historical releases, papers, supplements and permitted website downloads for complete implementations of all four calculators. Distinguish a runnable model from wrappers, UI assets and bytecode. Select reuse versus reconstruction per component.

@@ -193,6 +193,10 @@ python -m pytest tests/benchmarks/test_context_panel.py
 
 This prepares inputs only. Collection still requires the candidate/settings
 receipt and folding-slot agreement below.
+After collection, use the [paired-context metric tool](rbs-context-metrics.md)
+with explicit panel, collection, candidate and model identities. It verifies
+core-request/profile consistency and retains unsuccessful scenarios; failure
+text and reason hashes remain private rather than entering aggregate reports.
 
 ### 4. Measured Promoter strength
 

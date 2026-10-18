@@ -179,8 +179,12 @@ class SubgroupTest(unittest.TestCase):
         self.assertEqual(empty["n_labels"], 0)
         self.assertIsNone(empty["recovery"][0]["fraction_of_all_labels"])
         categories = subgroups["source_categories"]
-        self.assertEqual(categories["gTSS"]["n_labels"], 2)
-        self.assertEqual(categories["unclassified"]["n_labels"], 2)
+        self.assertEqual(
+            {category: row["n_labels"] for category, row in categories.items()},
+            {"gTSS": 2, "aTSS": 1, "iTSS": 1, "nTSS": 1, "unclassified": 2},
+        )
+        self.assertEqual(categories["iTSS"]["n_in_complete_query"], 1)
+        self.assertEqual(categories["nTSS"]["n_in_complete_query"], 0)
         self.assertEqual(recovery(categories["gTSS"]), {(1, 1): 1})
         # A takes the one top prediction before B in the global matching.
         # Evaluating the aTSS subset alone would incorrectly give B a hit.
