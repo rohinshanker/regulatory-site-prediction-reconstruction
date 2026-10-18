@@ -343,11 +343,27 @@ unused indices, `parameter_json_sha256`), `term_source_names`, `terms_unit`,
 
 `batch`: `batch_id`, `record_count`, `status_counts`, `complete` (false if any record
 has status `failed`), effective `limits` and `seconds_per_record`/`seconds_per_batch`.
+`batch_id` is SHA256 of canonical JSON containing the exact parsed input value,
+model `id`/`implementation_version`/`parameter_json_sha256`, effective limit values,
+both deadlines, and explicit CLI calibration/states defaults (null if absent).
+Use keys `input`, `model`, `limits`, `seconds_per_record`, `seconds_per_batch`,
+`cli_calibration`, `cli_states` in that hashed object; sorted keys, compact
+separators and `allow_nan=False`. Output format and elapsed time are excluded.
+Thus the batch identity binds invalid records and metadata too; per-site IDs
+remain independent of record labels and output completeness as specified below.
 
 Per record: `id`, `status`, `reasons` (stable codes), `prediction_id`, `input`
 (`raw_sha256`, `normalized_dna_sha256`, `length`, `normalization`), `calibration`
 (`profile`, `K`, `beta`, `native_host`, `host`, `host_status`), `scan` (resolved),
 `coverage`, `sites`, `projection`, `warnings`, `errors`, `metadata`.
+For `invalid_input` or `unsupported`, `sites` is empty, `prediction_id` and
+`coverage` are null. Preserve `id` only when it is a valid ID string; otherwise
+null. `calibration`, `scan`, `projection` and `metadata` are null unless their
+respective field passed validation. In `input`, retain the raw-sequence hash
+only for a string value; normalized-DNA hash/length are null if normalization
+failed. Hashes or interpreted settings must never be fabricated for rejected
+values. The complete original input is bound by `batch_id`, not copied blindly
+into these validated result fields.
 
 `coverage`: `planned_sites`, `scored_sites`, `partial_state_sites` (a subset of
 scored sites with fewer than 30 states), `insufficient_context_sites`, `failed_sites`
