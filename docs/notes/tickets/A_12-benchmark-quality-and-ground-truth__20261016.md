@@ -3,9 +3,9 @@
 - Scope: Audit and reproduce the actual benchmark quality of all four calculators, with RBS first.
 - Status: active
 - Opened: 2026-10-16
-- Updated: 2026-10-17
-- Current State: Promoter published-column correlations, active parameters and 212 executed reference states independently reproduced. New Cambray335 final and Kuo261 exposed-secondary panels frozen before extraction, with source completeness and prior-input overlap audits. Reviewed Wave 4 protocol and evaluator are ready; candidate evaluation awaits A's final receipt and roster acknowledgement; broader suite audit remains active.
-- Verification: The benchmark suite passes 235 tests with 100% statement/branch coverage. Independent source execution, fixture and compatibility review is recorded in promoter-executed-reference.md; frozen input/source identities and evaluation rules are in rbs-new-evaluation-data.md and rbs-wave4-evaluation.md. Earlier results remain unchanged.
+- Updated: 2026-10-18
+- Current State: Promoter published-column correlations, active parameters and 212 executed reference states independently reproduced. The single frozen Wave 4 evaluation completed all 6,556 jobs across Cambray335 and Kuo261; independent arithmetic/publication review confirms no joint-selection advancement (paired gain -0.0001661354, interval crossing zero). Cambray's selected panel is consumed; Kuo remains exposed secondary. Broader suite and native benchmark admission remain active.
+- Verification: The benchmark suite passes 235 tests with 100% statement/branch coverage. DEM-516 independently matched all 464 floating and 659 exact aggregate fields and accepted both reporting corrections. Exact results, hashes, limitations and future-cycle hypotheses are in rbs-wave4-results.md; Promoter execution/review is in promoter-executed-reference.md. Original frozen artifacts and earlier results remain unchanged.
 - Cleanup: Owning session records final checks and unresolved findings, distills reusable benchmark guidance, updates indexes and GitHub issue, then removes the resolved ticket.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/12
 - Priority: P0
