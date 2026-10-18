@@ -2,9 +2,12 @@
 
 - Purpose: Freeze rank-based experimental evaluation before candidate predictions meet reserved labels.
 - Scope: Cambray ordinary protein output; Kuo exposed secondary; bounded fixed comparators and controls.
-- Last verified: 2026-10-17
+- Last verified: 2026-10-18
 
-Verification covers synthetic arithmetic and input integrity, not a new experimental comparison.
+The protocol was reviewed on synthetic arithmetic and input integrity before
+experimental evaluation. The [acknowledged execution freeze](../../benchmarks/rbs/results/wave4-freeze.json)
+pins the candidate, full roster, source/software gates and A/B confirmation
+references. It contains no experimental measurements or per-case predictions.
 
 The executable [protocol](../../benchmarks/rbs/wave4-protocol.json) binds the
 Wave 3 input, split and private-outcome hashes. Selection freeze
