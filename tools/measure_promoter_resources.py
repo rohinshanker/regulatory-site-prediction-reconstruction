@@ -35,7 +35,7 @@ from regsite import promoter
 from regsite import promoter_io as pio
 
 ROOT = Path(__file__).resolve().parents[1]
-GENERATOR = "synthetic-promoter-resources-1"
+GENERATOR = "synthetic-promoter-resources-2"
 SEED = 1729
 MAX_SECONDS = 1800.0
 
@@ -74,6 +74,33 @@ def scenarios(limits: dict) -> dict[str, dict]:
     add("all-batch", [5000] * 4, [100, 100, 100, 34], states="all", verbose=True)
     # 333 full sites * 30 + one partial site * 10 == 10,000 states.
     specs["all-batch"]["edge_tss"] = 61
+    add("scan-record", [5000], [5000], verbose=True)
+    specs["scan-record"]["scan_mode"] = "scan"
+    add(
+        "mixed-ceiling",
+        [1000] * 100,
+        [204 + (i < 82) for i in range(96)] + [100, 100, 100, 34],
+        states="mixed",
+        verbose=True,
+    )
+    specs["mixed-ceiling"].update(
+        output_modes=["selected"] * 96 + ["all"] * 4, edge_tss=61
+    )
+    for states, edge in ((1000, 61), (2000, 63), (3000, None)):
+        all_sites = math.ceil(states / 30)
+        add(f"all-{states}", [5000], [all_sites], states="all", verbose=True)
+        specs[f"all-{states}"]["edge_tss"] = edge
+        selected, extra = divmod(4000 - all_sites, 99)
+        add(
+            f"mixed-4000-{states}",
+            [1000] * 100,
+            [selected + (i < extra) for i in range(99)] + [all_sites],
+            states="mixed",
+            verbose=True,
+        )
+        specs[f"mixed-4000-{states}"].update(
+            output_modes=["selected"] * 99 + ["all"], edge_tss=edge
+        )
     length = min(5000, int(limits["max_normalized_bases_per_record"]))
     count = min(5000, int(limits["max_planned_sites_per_record"]), 2 * length)
     add("effective-record", [length], [count], verbose=True)
@@ -108,7 +135,8 @@ def generate(spec: dict, limits: dict) -> dict:
         zip(spec["lengths"], spec["sites"], strict=True)
     ):
         dna = sequence(spec["dna"], length, spec["seed"] + index)
-        if spec["states"] == "all":
+        mode = spec.get("output_modes", [spec["states"]] * len(spec["sites"]))[index]
+        if mode == "all":
             points = [(s, f) for f in range(67, length - 67) for s in ("+", "-")]
         else:
             # Centered range includes both strands, exactly count entries.
@@ -130,11 +158,17 @@ def generate(spec: dict, limits: dict) -> dict:
                 "positions": [{"strand": s, "tss": f} for s, f in points],
             },
             "output": {
-                "states": spec["states"],
+                "states": mode,
                 "elements": True,
                 "legacy_keys": spec["verbose"],
             },
         }
+        if spec.get("scan_mode") == "scan":
+            record["scan"] = {
+                "mode": "scan",
+                "range": [start, start + count // 2],
+                "strands": ["+", "-"],
+            }
         if spec["verbose"]:
             record["id"] += "x" * max(
                 0, int(limits["max_id_chars"]) - len(record["id"])
@@ -186,7 +220,16 @@ def preflight(request: dict, limits: dict) -> dict:
         check(key, value)
     for record in request["records"]:
         dna = record["sequence"]
-        points = record["scan"]["positions"]
+        scan = record["scan"]
+        points = (
+            scan["positions"]
+            if scan["mode"] == "positions"
+            else [
+                {"strand": strand, "tss": f}
+                for strand in scan["strands"]
+                for f in range(*scan["range"])
+            ]
+        )
         states = sum(
             len(
                 promoter.eligible_states(
@@ -382,7 +425,7 @@ def recommend(measurements: list[dict], limits: dict) -> dict:
     bytes_per_site: dict[str, list[float]] = {"selected": [], "all": []}
     for row in measurements:
         count = row["preflight"]["planned_sites"]
-        if row["status"] == "ok" and count:
+        if row["status"] == "ok" and count and row["settings"]["states"] != "mixed":
             mode = row["settings"]["states"]
             costs[mode].append(row["wall_seconds"] / count)
             bytes_per_site[mode].append(row["authoritative_bytes"] / count)
@@ -420,7 +463,22 @@ def recommend(measurements: list[dict], limits: dict) -> dict:
         }
     return {
         "candidates": candidates,
+        "joint_samples": [
+            {
+                "scenario": row["scenario"],
+                "repetition": row["repetition"],
+                "planned_sites": row["preflight"]["planned_sites"],
+                "planned_emitted_states": row["preflight"]["planned_emitted_states"],
+                "half_output_compliant": row["status"] == "ok"
+                and row["authoritative_bytes"]
+                <= min(64 * 1024**2, limits["max_result_json_bytes"]) / 2,
+            }
+            for row in measurements
+            if row["settings"]["states"] == "mixed"
+        ],
         "caveats": [
+            "Independent selected/all candidates cannot be combined without a mixed "
+            "batch receipt: both consume the same output budget.",
             "Finite synthetic samples do not bound all inputs; "
             "no exhaustive maximum claim.",
             "Includes process and serialization overhead; "

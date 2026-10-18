@@ -70,7 +70,9 @@ def test_exact_ceiling_preflights_without_scoring():
         assert all(
             p["strand"] in ("+", "-")
             for r in value["records"]
-            for p in r["scan"]["positions"]
+            for p in r["scan"].get(
+                "positions", [{"strand": s} for s in r["scan"].get("strands", [])]
+            )
         )
     for name in (
         "record-A",
@@ -352,3 +354,59 @@ def test_script_entry_point(monkeypatch, capsys):
         )
     assert result.value.code == 0
     assert json.loads(capsys.readouterr().out)["status"] == "ok"
+
+
+def test_scan_and_mixed_exact_counts_and_tiny_execution():
+    settings = tool.scenarios(tool.pio.LIMITS)
+    scan = tool.generate(settings["scan-record"], tool.pio.LIMITS)
+    assert scan["records"][0]["scan"] == {
+        "mode": "scan",
+        "range": [1250, 3750],
+        "strands": ["+", "-"],
+    }
+    ceiling = tool.preflight(
+        tool.generate(settings["mixed-ceiling"], tool.pio.LIMITS), tool.pio.LIMITS
+    )
+    assert ceiling["planned_sites"] == 20000
+    assert ceiling["planned_emitted_states"] == 10000
+    assert {
+        "max_records_per_batch",
+        "max_normalized_bases_per_batch",
+        "max_planned_sites_per_batch",
+        "max_all_states_per_batch",
+    } <= set(ceiling["equalities"])
+    for states in (1000, 2000, 3000):
+        for name in (f"all-{states}", f"mixed-4000-{states}"):
+            plan = tool.preflight(
+                tool.generate(settings[name], tool.pio.LIMITS), tool.pio.LIMITS
+            )
+            assert plan["planned_emitted_states"] == states
+            assert plan["admitted_dimensions"]
+            if name.startswith("mixed"):
+                assert plan["planned_sites"] == 4000
+    assert tool.measure(request(scan_mode="scan"))["coverage"]["scored_sites"] == 2
+    tiny = request(
+        lengths=[200, 200],
+        sites=[2, 2],
+        states="mixed",
+        output_modes=["selected", "all"],
+    )
+    assert tool.measure(tiny)["emitted_states"] == 60
+
+
+def test_mixed_recommendations_are_joint_evidence_not_independent_admission():
+    mixed = row(mode="mixed")
+    mixed.update(scenario="mixed", repetition=1)
+    mixed["preflight"]["planned_emitted_states"] = 30
+    result = tool.recommend([mixed], tool.pio.LIMITS)
+    assert result["candidates"] == {"selected": None, "all": None}
+    assert result["joint_samples"][0]["half_output_compliant"]
+    mixed["authoritative_bytes"] = tool.pio.LIMITS["max_result_json_bytes"] // 2 + 1
+    assert not tool.recommend([mixed], tool.pio.LIMITS)["joint_samples"][0][
+        "half_output_compliant"
+    ]
+    mixed["status"] = "setup_error"
+    mixed["authoritative_bytes"] = None
+    assert not tool.recommend([mixed], tool.pio.LIMITS)["joint_samples"][0][
+        "half_output_compliant"
+    ]
