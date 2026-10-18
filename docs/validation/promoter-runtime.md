@@ -24,7 +24,8 @@ the [RBS runtime](rbs-runtime.md) and [native adapter](rbs-native-runtime.md).
 | Scores | Learned regression score terms (source `dG_*` notation), never new kcal/mol. Primary output is `log_relative_transcription_score`. |
 | Calibration | Explicit and required per record: `ecoli_mg1655` or `in_vitro`. Host is metadata. Unknown host plus E. coli profile is allowed only with an extrapolation warning. |
 | Controls | No sigma, temperature, design or custom K/beta controls. Recognized-but-unmodeled controls yield `unsupported`. |
-| Coordinates | Sequence-relative, zero-based, forward-reference; half-open feature intervals; TSS is a base index. Genomic coordinates only through explicit `projection`. |
+| Coordinates | Zero-based half-open coordinates on the **supplied local reference**, which may be contig-forward or transcript-oriented; TSS is a base index. Local `strand`/`forward_base` are never genomic. Genomic strand/base only through explicit `projection` (`sequence_strand`, `origin`). The runtime never reverse-complements implicitly. |
+| Scan | Required explicit candidate range and strands; padding is context, never implicit candidates; every requested candidate is retained as a site. |
 
 ## Model identity and parameters
 
@@ -39,7 +40,8 @@ the [RBS runtime](rbs-runtime.md) and [native adapter](rbs-native-runtime.md).
 | Licence | GPL-3.0-or-later; the original 2021 La Fleur/Hossain/Salis copyright line (see `benchmarks/promoter/ORIGINAL-NOTICE`) must ship with the wheel, not only the fork's short notice |
 
 Runtime parameter data is `src/regsite/data/promoter-parameters-1.json`. A derives it
-by a committed deterministic script from the two hash-verified `.npy` arrays
+with the committed deterministic script `tools/derive_promoter_parameters.py`
+(included in the sdist, not in the wheel, never imported or required at inference) from the two hash-verified `.npy` arrays
 (stdlib reader: verify hash, parse header, read little-endian float64) and the
 utility tables parsed with `ast.literal_eval` from the hash-verified pinned
 `util.py`/module source, never executed. The derivation must not copy B's
@@ -55,7 +57,7 @@ Source differences that stay visible in `model.source_quirks` (static list of
 
 | id | Source behavior | Runtime behavior |
 | --- | --- | --- |
-| `reverse_key_l_minus_t` | Reverse output keyed `L-t` with reverse-oriented nested TSS/intervals | Reports corrected forward base `L-1-t`; legacy key only on request |
+| `reverse_key_l_minus_t` | Reverse output keyed `L-t` with reverse-oriented nested TSS/intervals | Reports the corrected local base `L-1-t`; legacy key only on request |
 | `arbitrary_scan_gap_omitted` | `scan_arbitrary` omits the one-base UP/hex35 gap in its TSS distance sum | Not reproduced; the gap is always present |
 | `sigma_levels_ignored` | `sigmaLevels` metadata never changes the score | No sigma field accepted or emitted |
 | `unknown_organism_default_beta` | Any unrecognized organism string uses the E. coli beta | Never inferred; calibration is explicit |
@@ -65,8 +67,8 @@ Source differences that stay visible in `model.source_quirks` (static list of
 
 ## State definition and arithmetic
 
-All arithmetic is on the **oriented DNA sequence** (the forward reference for
-`+`; its reverse complement for `-`) with zero-based half-open slices. A *state*
+All arithmetic is on the **oriented DNA sequence** (the supplied local reference for
+local `+`; its reverse complement for local `-`) with zero-based half-open slices. A *state*
 is an oriented TSS `t` with discriminator length `d` in 6..10 and spacer length
 `s` in 15..20. Windows derive backward from the first ITR base:
 
@@ -79,7 +81,16 @@ ITR   = [t, t+20)        extended10 = [spacer.end-3, spacer.end-1)
 
 A state is **complete** iff `UP.start >= 0` and `ITR.end <= L`. A TSS is
 *evaluable* iff it has at least one complete state. Minimum context is 78 bases
-(`t=58`), maximum 87; a full interior TSS has 30 states. Edge TSSs have 1..29.
+(`t=58`), maximum 87; a full interior TSS has 30 states. Edge TSSs have 0..29.
+
+**Padding.** The 30-state maximum extent is 67 oriented bases upstream of `t`
+(discriminator 10, spacer 20) and 19 downstream (ITR). A candidate has all 30
+states iff `67 <= t` and `t + 20 <= L`, i.e. local `+` base `f` with
+`67 <= f <= L-20`, and local `-` base `f` with `19 <= f <= L-68`. Padding is
+asymmetric by strand. Padding bases supply context only; they are candidates
+only if the explicit scan range includes them. The runtime never fabricates,
+extends or wraps context: where the supplied reference ends, states needing
+absent bases are not complete.
 
 Score terms (`c` = coefficients, `idx` = A,C,G,T → 0..3 read as a base-four
 number, most significant base first):
@@ -102,9 +113,12 @@ Numeric features use **non-overlapping stride-two dimers** (`seq[i:i+2]`,
 `i = 0,2,4,…`) with the pinned tables: `r0` = groove sum over `UP[0:12]`; `r1` =
 groove sum over `UP[12:24]`; `r2` = DNA_DNA sum minus RNA_DNA sum over `ITR[0:14]`
 (seven dimers); `r3` = persistence sum over `UP + hex35 + spacer[0:14]` (22
-dimers) divided by 44. Then `n_i = r_i / normalizer_i * c[339+i]`. All sums use
-`math.fsum`, so totals are order-independent and exactly rounded; ties are
-evaluated on these floats. The scalar fixtures (spacer 17 = -0.0924, A12 groove =
+dimers) divided by 44. Then `n_i = r_i / normalizer_i * c[339+i]`. Sums use
+`math.fsum` (accurate summation, which reduces but is not promised to remove
+rounding differences); ties are evaluated on the resulting floats. Totals use only
+IEEE-754 basic operations and `fsum`, but the contract promises numeric parity
+within the stated tolerances, not cross-platform bit identity. `math.log` and
+`math.exp` come from the platform libm and may differ in final bits. The scalar fixtures (spacer 17 = -0.0924, A12 groove =
 30, A44 rigidity = 25.2, A20 hybrid difference = -5.6) pin the helpers.
 
 **Naming.** Runtime term keys are *learned scores in source-dG units*. Results
@@ -116,7 +130,8 @@ are listed once in `model.term_source_names`, not repeated per state.
 ascending (inner); keep the first state with the strictly smallest `total`. A later
 equal state never replaces it. `tie_count` is the number of complete states whose
 `total` equals the selected total exactly (always ≥1), so a tie is visible, not silent.
-Floats differing by one ulp are not ties. Frozen expectations: `A200` has five
+Floats differing by one ulp are not ties; exactly tied states arise from identical
+operand values and therefore identical computation. Frozen expectations: `A200` has five
 states exactly equal to its minimum (spacer 17, discriminators 6..10; winner 6/17);
 every other non-empty fixture has a unique minimum with a margin ≥ 0.09, so
 selection parity is unambiguous.
@@ -177,11 +192,11 @@ setup error rather than an override.
 | Field | Type | Meaning |
 | --- | --- | --- |
 | `id` | string | Required. 1..128 chars `[A-Za-z0-9][A-Za-z0-9._:-]*`; unique in the batch (second occurrence is `invalid_input`/`duplicate_id`). |
-| `sequence` | string | Required. Forward-reference DNA (or RNA) text. |
+| `sequence` | string | Required. The supplied local reference as DNA (or RNA) text: contig-forward or transcript-oriented, as declared by `scan` and `projection.sequence_strand`; the runtime does not infer which. |
 | `calibration` | string | Required (record, `defaults` or CLI): `ecoli_mg1655` or `in_vitro`. |
 | `host` | object | Optional metadata as above. |
-| `scan` | object | Optional; default `{"mode":"scan"}`. |
-| `projection` | object | Optional genomic metadata (below). |
+| `scan` | object | Required; no default. |
+| `projection` | object | Optional genomic mapping (below). |
 | `output` | object | Optional `{"states":"selected"\|"all","legacy_keys":bool,"elements":bool}`; defaults `selected`, `false`, `true`. |
 | `model` | object | Optional pin `{"id":…,"parameter_json_sha256":…}`; mismatch is `unsupported`/`model_unavailable`. |
 | `metadata` | object | Optional ≤4096 canonical-JSON bytes, depth ≤4; echoed verbatim, excluded from identity and computation. |
@@ -195,34 +210,70 @@ offending raw-text index and character in the error. Empty is `empty_sequence`.
 Coordinates always count normalized bases. Record raw-text and normalized-DNA
 SHA256 (hash UTF-8 bytes; the normalization is named in `input.normalization`).
 
-**Scan.** Two modes, both in forward-reference TSS bases:
+**Local versus genomic.** `sequence` is the *local reference*. In `scan` and in the
+result, `strand` is the **local site strand** (`+`: transcription runs toward
+increasing local index; `-`: toward decreasing local index, scored on the reverse
+complement) and `forward_base` is the **local base index** of the TSS point
+(`0 <= f < L`). These names are historical; they never mean genomic strand or base.
+Genomic strand and base appear only in `genomic` objects and columns. For
+transcript-oriented input, scan local `+` only; no reverse complement is then
+performed anywhere.
 
-- `{"mode":"scan","range":[a,b],"strands":["+","-"]}`: every TSS base `a <= f < b`
-  on each listed strand; defaults `[0,L]` and both strands; `0<=a<=b<=L`.
+**Scan** (required). Two modes:
+
+- `{"mode":"scan","range":[a,b],"strands":["+"]}`: every local base `a <= f < b`
+  for each listed strand. `range` and `strands` are required (no default range, so
+  padding never becomes a candidate implicitly); `0 <= a <= b <= L`; `strands` is a
+  non-empty list of distinct `+`/`-`, and order of results is strand in listed order,
+  then ascending `f`. `a == b` plans no sites (record `no_candidate`/`empty_scan`).
 - `{"mode":"positions","positions":[{"strand":"+","tss":100},…]}`: exactly the
-  requested points; `strand` is required per item; duplicates are
+  requested points, in request order; `strand` required per item; duplicates are
   `duplicate_position`; out-of-range is `position_out_of_range` (no clipping).
 
-Integers must be JSON integers or integral floats (`20.0`); booleans and
-fractions fail. Planned sites are counted before eligibility and checked against
-limits.
+Both modes retain **every** planned candidate as a listed site, including
+insufficient-context and deadline-unattempted sites. The runtime never samples,
+deduplicates, reorders or drops candidates; grids and chunking belong to the
+caller. Integers must be JSON integers or integral floats (`20.0`); booleans and
+fractions fail. Planned sites are counted before scoring and checked against limits.
 
-**Projection** (optional; required for genomic coordinates and GFF3):
+*Transcript-oriented grid.* For `C` candidate bases supplied as 67 upstream
+bases + `C` candidates + 19 downstream bases, `L = C + 86` and
+`{"mode":"scan","range":[67,67+C],"strands":["+"]}` gives every candidate all 30
+states. Example: `C=4`, `L=90`, candidates `f=67..70`, `state_count` 30 each.
+
+**Projection** (optional; required for any genomic coordinate and GFF3):
 
 ```json
 {"contig":"NC_000911.1","origin":383000,"contig_length":3573470,
- "topology":"linear","origin_crossing":false}
+ "sequence_strand":"+","topology":"linear","origin_crossing":false}
 ```
 
-`sequence[0]` is forward-strand contig base `origin` (zero-based); the supplied
-sequence is always contig-forward. `contig` is 1..128 characters; `0<=origin<contig_length`;
-`topology` is `linear` or `circular`. Linear requires `origin+L <= contig_length`.
-Circular requires `L <= contig_length` (no double traversal); the extract may cross
-the origin only when `origin_crossing` is `true`, and `origin+L > contig_length`
-must hold exactly then (`undeclared_origin_crossing` / `origin_crossing_mismatch`).
-Scan windows never wrap beyond the supplied extract; projection only maps
-coordinates. Two records sharing a `contig` with different `contig_length` or
-`topology` make the later record `invalid_input`/`contig_metadata_conflict`.
+- `origin` is the zero-based contig coordinate of `sequence[0]`
+  (`0 <= origin < contig_length`); `contig` is 1..128 characters.
+- `sequence_strand` (`+` default, or `-`) says whether the supplied local reference
+  reads along the contig forward strand (`+`) or is its reverse complement (`-`).
+  Let `dir = +1` for `+` and `-1` for `-`.
+- Base map: `g = (origin + dir*f) mod contig_length`.
+- Genomic strand of a site = local site strand composed with `sequence_strand`:
+  equal signs give `+`, different signs give `-`.
+- Interval `[a,b)` (local, ascending): pre-modulo bounds are
+  `[origin+a, origin+b)` for `+` and `[origin-b+1, origin-a+1)` for `-`. Let
+  `p` be the lower bound reduced into `[0,contig_length)` and `q = p + (b-a)`; if
+  `q <= contig_length` the interval is `[p,q)`, otherwise it is the two ascending
+  runs `[p,contig_length)` and `[0,q-contig_length)`. Segments are listed along
+  actual transcription: ascending for genomic `+`, descending order of runs
+  (wrapped run first) for genomic `-`; each run itself is ascending.
+- Validity. `topology` is `linear` or `circular`. Linear: every mapped base lies in
+  `[0,contig_length)`, i.e. `origin+L <= contig_length` for `+` and
+  `origin-(L-1) >= 0` for `-`; `origin_crossing` must be `false`. Circular:
+  `L <= contig_length` (at most one traversal). The traversal *crosses the origin*
+  iff `origin+L > contig_length` (`+`) or `origin-(L-1) < 0` (`-`);
+  `origin_crossing` must equal that exactly (`undeclared_origin_crossing` /
+  `origin_crossing_mismatch`). Out-of-bounds linear maps are `invalid_projection`.
+- Projection only relabels coordinates. Scan windows and context never extend beyond
+  the supplied sequence, and nothing wraps within it.
+- Two records sharing a `contig` with different `contig_length` or `topology` make
+  the later record `invalid_input`/`contig_metadata_conflict`.
 
 Unsupported controls: keys `sigma`, `sigma_factor`, `sigma_levels`, `temperature`,
 `temperature_c`, `design`, `optimize`, `k`, `beta` at record level yield
@@ -231,34 +282,55 @@ accepted, ignored or echoed as active settings.
 
 ## Coordinates
 
-- All internal and exported sequence coordinates are zero-based; intervals are
-  half-open `[start,end)`, ascending in forward-reference coordinates.
-- TSS is a **point**: the first transcribed base, i.e. the first ITR base. On `+`,
-  `tss.forward_base = tss.oriented_base = t`. On `-`, the transcript runs toward
-  lower forward coordinates and the forward base is `f = L-1-t`.
-- Oriented interval `[a,b)` maps to forward `[L-b, L-a)` on `-`; `[a,b)` on `+`.
-  Worked check from the frozen source fixture: `L=200`, oriented TSS 70 → forward
-  base 129 (legacy key 130); oriented `[10,34)` → forward `[166,190)`. For
-  requested forward base 100 on `-`, oriented TSS is 99 (executed source: key 101).
-- `legacy_source_key = t` on `+` and `L-t` on `-`. It appears only as
+- All sequence coordinates are zero-based; intervals are half-open `[start,end)`
+  and ascending on the local reference unless stated otherwise.
+- TSS is a **point**: the first transcribed base, i.e. the first ITR base. For local
+  `+`, `tss.forward_base = tss.oriented_base = t`. For local `-`, transcription runs
+  toward lower local indices and `forward_base = f = L-1-t`.
+- Oriented interval `[a,b)` maps to local `[L-b, L-a)` for local `-`, and is
+  unchanged for local `+`. Source-fixture check: `L=200`, oriented TSS 70 → local
+  base 129 (legacy key 130); oriented `[10,34)` → local `[166,190)`. Requested
+  local base 100 on `-` has oriented TSS 99 (executed source: key 101).
+- `legacy_source_key = t` for local `+` and `L-t` for local `-`. It appears only as
   `site.legacy_source_key` when `output.legacy_keys` is true, with warning
   `legacy_key_not_coordinate`; it is never a base or interval endpoint.
 - Interval names: `UP`, `gap` (always one base), `hex35`, `spacer`, `extended10`,
-  `hex10`, `discriminator`, `itr`. Both `intervals` (forward-reference) and
-  `oriented_intervals` are returned per selected or listed state.
-- With `projection`, `genomic_base = (origin + f) mod contig_length` and every
-  interval gains `genomic_segments`: ascending `[start,end)` runs on the contig,
-  at most two, ordered along transcription (so a `-` crossing lists the post-origin
-  run first). Intervals never exceed one contig traversal.
+  `hex10`, `discriminator`, `itr`. Each selected or listed state returns
+  `intervals` (local), `oriented_intervals` and, with `projection`,
+  `genomic_intervals` (name → ordered list of ascending `[start,end)` runs as
+  defined above).
 - Elements (`UP`, `hex35`, `spacer`, `hex10`, `discriminator`, `itr`) are the
-  oriented DNA strings (5′→3′ along the promoter strand), included by default for
-  selected states only.
+  oriented DNA strings (5′→3′ along the promoter strand), selected states only.
+
+**Worked projection examples** (`contig_length` 1000, `L` 200; verified against a
+per-base mapping). Local `+` site `f=100` (state fixture TSS 100/6/17) and local `-`
+site `f=129` (oriented TSS 70; its `UP` is local `[166,190)`):
+
+| Topology | `sequence_strand`, `origin` | Local site | TSS `g` | Genomic strand | Local interval | Pre-modulo | Genomic runs along transcription |
+| --- | --- | --- | ---: | :---: | --- | --- | --- |
+| linear | `+`, 500 | `+`, f=100 | 600 | `+` | `hex35` [65,71) | [565,571) | [565,571) |
+| linear | `+`, 500 | `-`, f=129 | 629 | `-` | `UP` [166,190) | [666,690) | [666,690) |
+| linear | `-`, 700 | `+`, f=100 | 600 | `-` | `hex35` [65,71) | [630,636) | [630,636) |
+| linear | `-`, 700 | `-`, f=129 | 571 | `+` | `UP` [166,190) | [511,535) | [511,535) |
+| circular, crosses | `+`, 950 | `+`, f=100 | 50 | `+` | `UP` [40,64) | [990,1014) | [990,1000), [0,14) |
+| circular, crosses | `+`, 830 | `-`, f=129 | 959 | `-` | `UP` [166,190) | [996,1020) | [0,20), [996,1000) |
+| circular, crosses | `-`, 50 | `+`, f=100 | 950 | `-` | `UP` [40,64) | [-13,11) | [0,11), [987,1000) |
+| circular, crosses | `-`, 180 | `-`, f=129 | 51 | `+` | `UP` [166,190) | [-9,15) | [991,1000), [0,15) |
+
+GFF3 columns for the first row are 566–571 (one-based inclusive) on strand `+`.
+Circular rows have `origin_crossing: true`; the `+`/830 row illustrates a
+local-`-` site on a contig-forward extract whose genomic strand is `-`, so its
+wrapped run is listed first.
 
 ## Result contract (`promoter-result-1.0`)
 
 JSON is authoritative: `{"schema_version":"1.0","model":{…},"batch":{…},"results":[…]}`
 with fixed field order, 2-space indent, `allow_nan=False`, trailing newline, no
-timestamps, paths or elapsed times (identical input and settings give identical bytes).
+timestamps, paths or elapsed times. Repeated runs with identical input, settings,
+platform and runtime give identical bytes. Across platforms the contract is
+semantic and numeric parity within the stated tolerances (absolute plus relative
+1e-12), not bit identity. Deadline-dependent outcomes (`failed`/`deadline_exceeded`
+and their partial scores) are not byte-identical guarantees.
 
 `model`: `id`, `implementation_version`, `kind: "historical_equation_reconstruction"`,
 `source` (commits above), `licence`, `parameters` (array hashes, entry counts,
@@ -277,17 +349,23 @@ Per record: `id`, `status`, `reasons` (stable codes), `prediction_id`, `input`
 (`profile`, `K`, `beta`, `native_host`, `host`, `host_status`), `scan` (resolved),
 `coverage`, `sites`, `projection`, `warnings`, `errors`, `metadata`.
 
-`coverage`: `planned_sites`, `evaluable_sites`, `insufficient_context_sites`,
-`scored_sites`, `complete` (bool) and `truncation` (`null` or
-`{reason, completed_sites, planned_sites}`). In `positions` mode every request is
-a listed site (ineligible ones are `no_candidate`). In `scan` mode ineligible
-positions are counted, not listed.
+`coverage`: `planned_sites`, `scored_sites`, `partial_state_sites` (scored with
+fewer than 30 states), `insufficient_context_sites`, `failed_sites`,
+`unattempted_sites`, `complete_context` (every planned site has all 30 states),
+`complete` (every planned site was attempted) and `truncation` (`null` or
+`{reason, attempted_sites, planned_sites}`). These are summaries of the listed
+sites; every planned site is listed in both scan modes, never only counted.
 
-Site: `site_id`, `strand`, `tss` (`forward_base`, `oriented_base`, `genomic_base`
-when projected), `status` (`ok`|`no_candidate`|`failed`), `reason`
-(`null`|`insufficient_context`|…), `state_count`, `tie_count`, `selected`,
-`states` (present only for `output.states:"all"`), `legacy_source_key` (opt-in).
-Non-ok sites have `selected: null`, never zero scores.
+Site: `site_id`, `strand` (local site strand), `tss` (`forward_base` local,
+`oriented_base`), `genomic` (`null` without projection; else `contig`, `base`,
+`strand`, and `sequence_strand`), `status` (`ok`|`no_candidate`|`failed`),
+`reason` (`null`|`insufficient_context`|`deadline_exceeded`|`nonfinite_arithmetic`),
+`context` (`required_upstream` 67, `required_downstream` 19, `available_upstream`
+= `t`, `available_downstream` = `L-1-t`, all oriented base counts), `state_count`
+(0..30), `complete_state_set` (`state_count == 30`), `tie_count`, `selected`,
+`states` (only for `output.states:"all"`), `legacy_source_key` (opt-in).
+Non-ok sites have `selected: null` and no scores, never zeros. A site with
+`state_count` 1..29 is `ok` with a smaller state set, never padded.
 
 State (`selected` or an entry in `states`): `state_id`, `discriminator_length`,
 `spacer_length`, `terms` (rows in the table above), `log_relative_transcription_score`,
@@ -299,16 +377,19 @@ in visit order and marks `selected: true` on exactly one.
 separators, `allow_nan=False`, as in the RBS provenance helper) of: result
 schema version, model identity (`id`, `implementation_version`,
 `parameter_json_sha256`, array hashes, source commit), calibration (`profile`,
-`host` name/taxon), normalized-DNA SHA256, and `projection`. Then
+`host` name/taxon), normalized-DNA SHA256, and the complete `projection` object
+(`contig`, `origin`, `contig_length`, `sequence_strand`, `topology`,
+`origin_crossing`; `null` when absent). Changing `sequence_strand` or `origin`
+therefore changes every ID. Then
 `prediction_id` = SHA256 of the scope plus resolved `scan` and `output`.
-`site_id` = `psite1:` + first 32 hex of `scope_id` + `:` + strand + `:` + forward
-base; `state_id` = `site_id` + `:d` + discriminator + `s` + spacer. Record `id`,
+`site_id` = `psite1:` + first 32 hex of `scope_id` + `:` + local strand + `:` + local
+`forward_base`; `state_id` = `site_id` + `:d` + discriminator + `s` + spacer. Record `id`,
 `metadata`, limits and deadlines are excluded, so identical sequences share IDs
 across records and scan modes. IDs name the requested calculation, not its
 completeness: always check `status`/`coverage`. A package version change changes
 every ID; any equation or parameter change requires a new `model.id`.
 
-Illustrative single-record shape, with the numeric state copied from the
+Illustrative single-record shape (positions mode, no projection), with the numeric state copied from the
 pre-existing frozen fixture `A200` (winner discriminator 6, spacer 17; K 42,
 beta 1.636217004872062; log score and value derived by the stated formulas from
 that fixture total) and hashes elided. It is not runtime output:
@@ -316,8 +397,9 @@ that fixture total) and hashes elided. It is not runtime output:
 ```json
 {"id":"A200","status":"ok","reasons":[],"prediction_id":"…","calibration":{"profile":"ecoli_mg1655","K":42,"beta":1.636217004872062,"native_host":"Escherichia coli str. K-12 substr. MG1655","host":{"name":"Escherichia coli str. K-12 substr. MG1655","taxon_id":null},"host_status":"calibration_native"},
  "scan":{"mode":"positions","positions":[{"strand":"+","tss":100}]},
- "coverage":{"planned_sites":1,"evaluable_sites":1,"insufficient_context_sites":0,"scored_sites":1,"complete":true,"truncation":null},
- "sites":[{"site_id":"psite1:…:+:100","strand":"+","tss":{"forward_base":100,"oriented_base":100},"status":"ok","reason":null,"state_count":30,"tie_count":5,
+ "coverage":{"planned_sites":1,"scored_sites":1,"partial_state_sites":0,"insufficient_context_sites":0,"failed_sites":0,"unattempted_sites":0,"complete_context":true,"complete":true,"truncation":null},
+ "sites":[{"site_id":"psite1:…:+:100","strand":"+","tss":{"forward_base":100,"oriented_base":100},"genomic":null,"status":"ok","reason":null,
+  "context":{"required_upstream":67,"required_downstream":19,"available_upstream":100,"available_downstream":99},"state_count":30,"complete_state_set":true,"tie_count":5,
   "selected":{"state_id":"…:d6s17","discriminator_length":6,"spacer_length":17,
    "terms":{"hex10":-0.045518549465389205,"hex35":-0.16908705233531682,"discriminator":-0.04487847301375619,"extended10":0.0610364204005321,"itr":-0.21111731757486488,"up":0.11560097243172428,"spacer":-0.09239999999999071,"intercept":-0.9583584537583338,"total":-1.3447224533153952,"binding":-0.13036820896844037,"source_apparent":1.7860375583969719},
    "log_relative_transcription_score":5.937927363231296,"relative_transcription_score":379.14827793659254,"score_status":"ok",
@@ -330,18 +412,36 @@ discriminator 6, spacer 17). The value `379.148…` differs in the last digits f
 the fixture's `Tx_rate` because it is `exp(ln K - beta*total)`; parity is at
 1e-12 relative.
 
+Edge retention (same sequence, `{"mode":"scan","range":[56,60],"strands":["+"]}`):
+four sites are listed in order `f=56,57,58,59`, with `state_count` 0, 0, 1, 3
+(derived from `d + s <= t - 37`). The first two are `no_candidate` with reason
+`insufficient_context`, `selected: null` and `context.available_upstream` 56 and
+57 (required 67); the others are `ok` with partial state sets and
+`complete_state_set: false`. The record is `ok` (two sites scored) with
+`coverage.insufficient_context_sites: 2`, `partial_state_sites: 2` and
+`complete_context: false`.
+
+Projected excerpt (`projection` = `{contig NC_000911.1, origin 500,
+contig_length 1000, sequence_strand "-", topology linear, origin_crossing
+false}`, local `+` site `f=100`): `genomic` is `{"contig":"NC_000911.1","base":400,
+"strand":"-","sequence_strand":"-"}` with `base = 500 - 100`, and the `hex35`
+local `[65,71)` gives `genomic_intervals.hex35 = [[430,436]]` (pre-modulo
+`[500-71+1, 500-65+1)` = `[430,436)`).
+
 ## Statuses, errors and batch behavior
 
 | Status | Meaning |
 | --- | --- |
-| `ok` | Scan mode: ≥1 site scored and none failed. Positions mode: every requested site scored. |
-| `no_candidate` | Scan mode: zero evaluable positions (including empty range). Positions mode: ≥1 requested site lacks a complete state (`insufficient_context`). Scored sites remain listed. Not evidence of no promoter. |
+| `ok` | At least one planned site was scored and none failed. Sites without a complete state are still listed as `no_candidate`; inspect `coverage` for completeness. |
+| `no_candidate` | No site was scored and none failed: zero planned sites (`empty_scan`) or every site lacked a complete state (`insufficient_context`). Not evidence of no promoter. |
 | `unsupported` | Recognized control or model pin the runtime cannot honor. No sites. |
 | `invalid_input` | Validation failed; no sites, `prediction_id: null`. |
-| `failed` | Computation incomplete or invalid: `deadline_exceeded`, `nonfinite_arithmetic`. Completed sites remain, `coverage.complete:false`, `truncation` set. |
+| `failed` | At least one site failed (`deadline_exceeded` or `nonfinite_arithmetic`). Completed sites keep their scores, every other planned site is listed as failed, `coverage.complete:false`, `truncation` set. |
 
-Precedence across sites in positions mode: failed → no_candidate → ok. Whole-record
-precedence: invalid_input → unsupported → computation outcomes.
+Record precedence: invalid_input → unsupported → failed → ok → no_candidate. Site
+statuses are authoritative: a consumer that needs full context checks
+`coverage.complete_context`, and one that needs every candidate scored checks that
+`insufficient_context_sites`, `failed_sites` and `unattempted_sites` are zero.
 
 Stable error/reason codes: `schema_version_unsupported`, `invalid_type`,
 `missing_field`, `unknown_field`, `invalid_id`, `duplicate_id`, `empty_sequence`,
@@ -351,7 +451,7 @@ Stable error/reason codes: `schema_version_unsupported`, `invalid_type`,
 `duplicate_position`, `invalid_projection`, `undeclared_origin_crossing`,
 `origin_crossing_mismatch`, `contig_metadata_conflict`, `invalid_output_option`,
 `limit_exceeded` (names the limit and observed value), `unsupported_control`,
-`model_unavailable`, `insufficient_context`, `empty_scan`, `deadline_exceeded`,
+`model_unavailable`, `scan_required`, `insufficient_context`, `empty_scan`, `deadline_exceeded`,
 `nonfinite_arithmetic`. Each error carries `code`, `field` (JSON path) and a
 message; messages are not part of the contract.
 
@@ -360,8 +460,8 @@ results exist even if scoring later times out), then score in input order,
 single-threaded, one record at a time. One bad record never discards another.
 Deadlines are checked between sites with an injectable monotonic clock; a record
 that exceeds `seconds_per_record`, or any record not started when
-`seconds_per_batch` ends, is `failed`/`deadline_exceeded` (unstarted ones list no
-sites). Exceeding a count/size limit is a pre-flight `invalid_input`/`limit_exceeded`
+`seconds_per_batch` ends, is `failed`/`deadline_exceeded`; unattempted planned
+sites are still listed, as failed sites without scores. Exceeding a count/size limit is a pre-flight `invalid_input`/`limit_exceeded`
 for that record; a limit on the whole input (bytes, records) is a setup error.
 Never silently truncate, subsample or clip a scan.
 
@@ -383,34 +483,41 @@ the file leaves it unspecified and exit 2 if any file value differs. Defaults 30
 and 300 seconds; maximums 120 and 3600. No network, no environment backend, no
 subprocess. `--format csv` rejects `--states all`; `--format gff3` requires every
 record to have a `projection` (records without one are listed as GFF comment
-lines and counted, never guessed) and only emits sites with status `ok`.
+lines and counted, never guessed) and emits features only for sites with a selected state.
 
 **CSV (`promoter-csv-1.0`)**: one header line, then one row per site's selected
 state; records with no site (invalid, unsupported, empty, failed before any site)
 get one row with empty site columns. Columns, in order: `record_id`, `record_status`,
 `prediction_id`, `site_id`, `strand`, `forward_base`, `oriented_base`,
-`genomic_contig`, `genomic_base`, `site_status`, `reason`, `state_count`,
-`tie_count`, `discriminator_length`, `spacer_length`, `score_hex10`, `score_hex35`,
+`sequence_strand`, `genomic_contig`, `genomic_base`, `genomic_strand`, `site_status`,
+`reason`, `state_count`, `complete_state_set`, `tie_count`, `discriminator_length`, `spacer_length`, `score_hex10`, `score_hex35`,
 `score_discriminator`, `score_extended10`, `score_itr`, `score_up`, `score_spacer`,
 `score_intercept`, `score_total`, `score_binding`, `log_relative_transcription_score`,
 `relative_transcription_score`, `score_status`, `calibration_profile`, `host_status`,
 `warning_codes` (`;`-joined). Null is an empty cell, never `0`; floats use shortest
-round-trip `repr`. IDs begin with an alphanumeric, so cells cannot start a
-spreadsheet formula.
+round-trip `repr`. `strand` and `forward_base` are local; `genomic_strand` is the
+composed genomic strand. Text cells are written with standard CSV quoting only.
+No spreadsheet-formula neutralization is applied or promised; user-supplied text
+(record `id`, `contig`) must be treated as untrusted when a CSV is opened in a
+spreadsheet.
 
 **GFF3**: one-based inclusive, `seqid` = `contig`, `source` = `regsite-promoter`,
 `sequence-region` and landmark `region` per contig with `Is_circular` and
-`contig_length`, scores and phase `.`, attributes percent-escaped per the GFF3
+`contig_length`, scores and phase `.`, the strand column the **genomic** strand
+(local strand and `sequence_strand` also as attributes), attributes percent-escaped per the GFF3
 specification, circular features with unwrapped `end` greater than the contig length
 (the [native adapter](rbs-native-runtime.md) convention). Feature `ID`s derive
-from `site_id`. Per ok site, strand-aware features for the selected state:
-`transcription_start_site` (single base), `minus_35_signal` (`hex35`),
-`minus_10_signal` (`hex10`), and `region` with `Name` for `UP`, `spacer`,
-`discriminator`, `itr`; `log_relative_transcription_score` is an attribute, not
-the score column. They are model windows, not experimentally observed
-boundaries, and no span is typed `promoter`. The one-base gap and
-`extended10` stay JSON-only. Sequence Ontology term names are listed to be
-verified (see unresolved questions).
+from `site_id`. Each site with at least one scored state yields `region` features
+for the selected state: Name `tss` (single base), `hex35`, `hex10`, `UP`, `spacer`,
+`discriminator`, `itr`, each with attributes `model_window=true`,
+`model_element=<name>`, `site_id`, `local_strand`, `sequence_strand`,
+`log_relative_transcription_score` (an attribute; the score column stays `.`).
+`no_candidate` and failed sites emit comment lines. Every feature type is the
+generic `region`: no Sequence Ontology term is asserted, because specific names
+were not verified against the authoritative ontology in this contract, and the
+features are model windows, not experimentally observed boundaries; none is typed
+`promoter`. Mapping to specific ontology terms is a later non-breaking addition
+that requires verification. The one-base gap and `extended10` stay JSON-only.
 
 ## Limits and refinement before freeze
 
@@ -463,6 +570,8 @@ inform any limit.
   notice text. Python ≥3.11; no new runtime dependencies; no `benchmarks`
   import at runtime. The runtime may not import B's `reference_oracle` or read the
   expected fixtures at runtime; tests may read the pre-existing JSON fixtures.
+- `tools/derive_promoter_parameters.py` is included in the sdist (`MANIFEST.in`, A
+  only) and excluded from the wheel; inference never imports or runs it.
 - Update `NOTICE`, which currently states the Promoter artifacts are not in the
   wheel, to describe the derived runtime parameters, and ship the complete GPLv3
   text and original 2021 copyright line. The wheel must contain no experimental
@@ -477,24 +586,24 @@ Pure core (`regsite.promoter`, standard library only; Google style, typed):
 | --- | --- |
 | `load_parameters() -> PromoterParameters` | Verifies hashes/counts/finiteness; raises `ParameterError`. |
 | `normalize_dna(value, *, max_length) -> str` | Returns uppercase ACGT or raises `InputError(code, field, index)`. |
-| `orient(forward, strand) -> str` | Identity for `+`, reverse complement for `-`. |
+| `orient(local, strand) -> str` | Identity for local `+`, reverse complement for local `-`; the only reverse complement. |
 | `state_windows(t, d, s) -> dict[str, tuple[int,int]]` | Oriented intervals as defined above. |
-| `to_forward(length, strand, interval) -> tuple[int,int]` / `forward_base(length, strand, oriented_t) -> int` | The only coordinate converters. |
+| `oriented_to_local_interval(length, strand, interval) -> tuple[int,int]` / `oriented_to_local_base(length, strand, oriented_t) -> int` | The only local-orientation converters. |
+| `project_base(projection, local_base) -> int` / `project_interval(projection, site_strand, interval) -> tuple[str, list[tuple[int,int]]]` | Genomic map above; returns genomic strand and runs in transcription order. Validates `check_projection(projection, length)`. |
 | `legacy_source_key(length, strand, oriented_t) -> int` | `t` or `L-t`; not usable as a coordinate. |
 | `score_state(oriented, t, d, s, params) -> StateScore` | Terms as tabulated; no calibration. |
 | `relative_score(log_score) -> tuple[float \| None, str]` | Overflow/underflow policy. |
-| `score_site(forward, strand, forward_base, params, calibration, *, keep_states) -> SiteResult` | Visit order, strict-less selection, `tie_count`, `no_candidate`. |
+| `score_site(local, strand, local_base, params, calibration, *, keep_states) -> SiteResult` | Visit order, strict-less selection, `tie_count`, `no_candidate`. |
 | `predict(request, params, *, seconds, clock) -> dict` | One validated record → record result. |
 
 I/O layer (`regsite.promoter_io`, `regsite.promoter_cli`): `load_requests`,
-`predict_batch`, `write_json`, `write_csv`, `write_gff3`, `project_interval`,
-`main`. Disjoint ownership proposal for A's writers, freezing the core signatures
-first: **core** `src/regsite/promoter.py`, the parameter JSON and derivation script,
-`tests/test_promoter_core.py`, `tests/test_promoter_parity.py`; **interface**
+`predict_batch`, `write_json`, `write_csv`, `write_gff3`, `main`. Disjoint ownership proposal for A's writers, freezing the core signatures
+first: **core** `src/regsite/promoter.py`, the parameter JSON and `tools/derive_promoter_parameters.py`,
+`tests/test_promoter_core.py`, `tests/test_promoter_parity.py`, projection tests; **interface**
 `src/regsite/promoter_io.py`, `src/regsite/promoter_cli.py`,
 `schemas/promoter-request-1.0.schema.json`, `schemas/promoter-result-1.0.schema.json`,
 `examples/promoter-*.json`, I/O/CLI/schema tests; **A only** `pyproject.toml`,
-`NOTICE`, README, indexes and CI. Examples are one single record, one batch
+`NOTICE`, `MANIFEST.in`, README, indexes and CI. Examples are one single record, one batch
 with `defaults`, one projected scan with a circular origin-crossing case, and an
 invalid/unsupported mix; all offline and synthetic.
 
@@ -509,14 +618,14 @@ In addition, the Promoter candidate passes the following before freeze.
 | 1 | Parameter identity | Array/object hashes match; 343 coefficients and four tables bit-equal to `benchmarks/promoter/reference-parameters.json`; derivation independent of that file. |
 | 2 | 212-state parity | Against `reference-fixtures.json`: same state set and visit order for all 11 cases (30,30,0,1,30,1,30,0,30,30,30); terms and score within absolute+relative 1e-12 (fixture `Tx_rate` vs `relative_transcription_score`); selected state equals fixture winner (A200: 6/17 with `tie_count` 5); `unknown-host` and `in-vitro` map to explicit profiles with the stated beta and warnings. |
 | 3 | Terms | Every row of the term table, the four numeric features and the spacer value against `source-fixtures.json` (-0.0924, 30, 25.2, -5.6); all 64/16-entry index offsets exercised; unused entries 336..338 provably unread. |
-| 4 | Coordinates | Forward windows fixture; reverse fixture (129, 130, `[166,190)`); exhaustive property test for every `L` in 78..120 and the 200 cases: reverse-strand site equals forward evaluation of the reverse complement mapped back, interval map is an involution; evaluable counts 123 per strand for `L=200`, `+` oriented `[58,180]`, `-` forward `[19,141]`; the one-base gap present; legacy key never used as a base. |
+| 4 | Coordinates | Local windows fixture; reverse fixture (129, 130, `[166,190)`); exhaustive property test for every `L` in 78..120 and the 200 cases: local-`-` site equals local-`+` evaluation of the reverse complement mapped back, interval map is an involution; evaluable counts 123 per strand for `L=200`, local `+` `f` in `[58,180]`, local `-` `f` in `[19,141]`; all-30-state ranges `[67,L-20]` (`+`) and `[19,L-68]` (`-`); the one-base gap present; legacy key never used as a base; no reverse complement occurs for transcript-oriented local-`+` scans (spy test on `orient`). |
 | 5 | Ties | Exact-tie fixture, first visited wins; strictly-lower later state replaces; ulp-different states are not ties; `tie_count` correct; no host or sigma input changes selection. |
-| 6 | Boundaries | Lengths 77/78/87, left 57/58, right 180/181, edge states 1..29, empty range, range at 0 and `L`, positions at both ends, minimum and maximum limits and one past each. |
+| 6 | Boundaries and retention | Lengths 77/78/87, left 57/58, right 180/181, edge states 0..29; edge-retention example (`[56,60)` gives four listed sites with 0, 0, 1, 3 states and null scores on the first two); every planned candidate present in order in both modes; padding never listed unless in range; grid example `C=4, L=90, [67,71)` gives four 30-state sites and `C` swept over several values gives `L=C+86` all-30; local `-` padding asymmetry; empty range; range at 0 and `L`; positions at both ends; limits and one past each. |
 | 7 | Errors | Every code in the code list has a test; each status; precedence; mixed batch continuity; duplicate IDs and positions; deadline with injected clock and a real tight deadline; unsupported controls; exit codes 0/1/2; no partial `ok` on truncation. |
 | 8 | Numerics | `relative_score` at the exact log bounds and ±1 ulp, overflow/underflow nulls with finite logs, no `inf`/`0.0`/NaN anywhere in output (`allow_nan=False`). |
 | 9 | Calibration | Required, no silent default; profiles K/beta; `host_status` matrix; extrapolation warning text present; no `sigma`/temperature field accepted or emitted; `claims` all false. |
-| 10 | Projection | Linear, circular without crossing, declared crossing with two segments (both strands), undeclared/mismatched crossing, contig conflict, GFF3 one-based inclusive and unwrapped circular end, escaping, strand and order along transcription. |
-| 11 | Exports | JSON deterministic bytes across repeated runs and platforms; CSV header and null cells; schemas validate every example and test output; `states:"all"` bounded as limits state. |
+| 10 | Projection | The eight worked examples reproduced exactly (both local strands, both `sequence_strand` values, linear and circular crossing); brute-force per-base agreement for all combinations over small `L`, `contig_length`, `origin`; linear out-of-bounds, circular `L > contig_length`, undeclared and mismatched crossing, contig conflict; genomic strand composition; IDs change with `sequence_strand`/`origin`; GFF3 one-based inclusive, genomic strand column, unwrapped circular end, escaping and order along transcription. |
+| 11 | Exports | Identical JSON bytes across repeated runs on one platform/runtime; numeric parity within 1e-12 across the CI platforms; CSV header, `genomic_strand` and null cells; schemas validate every example and test output; `states:"all"` bounded as limits state. |
 | 12 | RBS preservation | `git diff` against the baseline shows no change to RBS modules, schemas, models, examples or frozen artifacts; the unchanged RBS suite passes in A's single final full matrix. |
 | 13 | Fresh offline | Wheel installed with `--no-index --no-deps` into a new venv; `regsite-promoter` runs the single, batch, CSV and GFF3 examples; importing and running loads no `numpy`, `scipy`, `sklearn` or `Bio`; a test that blocks sockets and subprocess passes. |
 | 14 | Source parity adoption | Independent source parity (2, plus B's separately executed pinned historical/fork inference on a B-frozen synthetic panel, compared through the public CLI/JSON only) passes before the stdlib engine is adopted. No expected values are copied from runtime output. |
@@ -532,18 +641,13 @@ none of these results are runtime acceptance checks or supply tuning data.
 
 Design modes and optimizers, new fitting or retraining, alternate sigma or
 temperature models, host-specific calibration, genome-wide calibrated
-probabilities or site discovery, circular wrapping beyond the supplied extract,
+probabilities or site discovery, circular wrapping beyond the supplied sequence,
 Operon/Riboswitch coupling, hosted-service parity, native cyanobacterial accuracy
 claims and cyano admission. No stub or placeholder satisfies this contract.
 
 ## Unresolved choices for A
 
-1. **Sequence Ontology names.** `transcription_start_site`, `minus_35_signal` and
-   `minus_10_signal` were not checked against a Sequence Ontology release in this
-   contract-only pass; verify them (or substitute `region` with a `Note`) before
-   freezing the GFF3 schema.
-2. **Pinned values.** `parameter_json_sha256`, the final limit numbers and the
-   `implementation_version` are produced only by the implementation and freeze
-   receipt; this contract sets formats and ceilings, not those values.
-3. **Derivation script home.** Choose its repository path and whether it is
-   included in the sdist; it must be deterministic and hash-gated as specified.
+No public API choice remains open. One item is production of values, not a choice:
+`parameter_json_sha256`, the final limit numbers and `implementation_version` come
+only from the implementation and freeze receipt; this contract sets their formats
+and ceilings.
