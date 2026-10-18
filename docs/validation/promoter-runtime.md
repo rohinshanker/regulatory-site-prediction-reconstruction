@@ -4,8 +4,8 @@
 - Scope: Ticket #33 (parent #7). Specified implementation contract for `regsite-promoter`; not an executed runtime, a hosted-parity claim or a scientific accuracy claim.
 - Last verified: 2026-10-18
 
-**Status.** Nothing here is implemented. The owner decision on parallel Promoter
-development is pending; this document authorizes no runtime code. Equations,
+**Status.** The scoring runtime and CLI are not implemented. The owner decision
+on parallel Promoter development is pending; this document authorizes no runtime code. Equations,
 parameters and 212-state expectations come from the pinned
 [source and benchmark audit](promoter-source-and-benchmarks.md) and
 [executed reference](promoter-executed-reference.md). Ownership follows the
@@ -13,6 +13,15 @@ parameters and 212-state expectations come from the pinned
 oracle and native/strength evaluation stay independent. General rules come from
 the [reconstruction contract](reconstruction-contract.md); conventions mirror
 the [RBS runtime](rbs-runtime.md) and [native adapter](rbs-native-runtime.md).
+
+The Phase 1 [request schema](../../schemas/promoter-request-1.0.schema.json) and
+[single](../../examples/promoter-contract-single.json)/[batch](../../examples/promoter-contract-batch.json)
+synthetic examples are implemented structural contracts. With the locked
+development environment, run `python -m pytest tests/test_promoter_request_schema.py`.
+Schema acceptance does not run a prediction or replace parser, cross-field,
+normalized-coordinate, effective-limit or installed-model validation. Those
+semantic checks remain runtime requirements, explicitly listed in the schema's
+`$comment`. No result-schema execution or scientific accuracy is claimed here.
 
 ## Decisions
 
@@ -188,6 +197,11 @@ Duplicate JSON keys and `NaN`/`Infinity` are setup errors. Unknown keys are
 `invalid_input`/`unknown_field`. `defaults` may hold only `calibration`, `host` and
 `output`; precedence is record > `defaults`; a conflicting CLI flag (below) is a
 setup error rather than an override.
+Defaults merge at the top level: a record's `host` or `output` object replaces
+the whole corresponding defaults object. Missing keys within the winning
+`output` object then receive the documented output defaults. An empty `records`
+envelope is a valid no-op batch with empty results, zero status counts and exit 0;
+a bare array remains invalid.
 
 | Field | Type | Meaning |
 | --- | --- | --- |
@@ -198,7 +212,7 @@ setup error rather than an override.
 | `scan` | object | Required; no default. |
 | `projection` | object | Optional genomic mapping (below). |
 | `output` | object | Optional `{"states":"selected"\|"all","legacy_keys":bool,"elements":bool}`; defaults `selected`, `false`, `true`. |
-| `model` | object | Optional pin `{"id":…,"parameter_json_sha256":…}`; mismatch is `unsupported`/`model_unavailable`. |
+| `model` | object | Optional pin requiring both `id` and `parameter_json_sha256`; mismatch is `unsupported`/`model_unavailable`. |
 | `metadata` | object | Optional ≤4096 canonical-JSON bytes, depth ≤4; echoed verbatim, excluded from identity and computation. |
 
 **Normalization.** Keep only characters after removing ASCII whitespace
@@ -235,6 +249,9 @@ insufficient-context and deadline-unattempted sites. The runtime never samples,
 deduplicates, reorders or drops candidates; grids and chunking belong to the
 caller. Integers must be JSON integers or integral floats (`20.0`); booleans and
 fractions fail. Planned sites are counted before scoring and checked against limits.
+Accepted integral floats are normalized to integers before resolved coordinates,
+scan settings and per-prediction IDs are computed; `batch_id` still binds the
+original parsed input.
 
 *Transcript-oriented grid.* For `C` candidate bases supplied as 67 upstream
 bases + `C` candidates + 19 downstream bases, `L = C + 86` and
@@ -343,11 +360,27 @@ unused indices, `parameter_json_sha256`), `term_source_names`, `terms_unit`,
 
 `batch`: `batch_id`, `record_count`, `status_counts`, `complete` (false if any record
 has status `failed`), effective `limits` and `seconds_per_record`/`seconds_per_batch`.
+`batch_id` is SHA256 of canonical JSON containing the exact parsed input value,
+model `id`/`implementation_version`/`parameter_json_sha256`, effective limit values,
+both deadlines, and explicit CLI calibration/states defaults (null if absent).
+Use keys `input`, `model`, `limits`, `seconds_per_record`, `seconds_per_batch`,
+`cli_calibration`, `cli_states` in that hashed object; sorted keys, compact
+separators and `allow_nan=False`. Output format and elapsed time are excluded.
+Thus the batch identity binds invalid records and metadata too; per-site IDs
+remain independent of record labels and output completeness as specified below.
 
 Per record: `id`, `status`, `reasons` (stable codes), `prediction_id`, `input`
 (`raw_sha256`, `normalized_dna_sha256`, `length`, `normalization`), `calibration`
 (`profile`, `K`, `beta`, `native_host`, `host`, `host_status`), `scan` (resolved),
 `coverage`, `sites`, `projection`, `warnings`, `errors`, `metadata`.
+For `invalid_input` or `unsupported`, `sites` is empty, `prediction_id` and
+`coverage` are null. Preserve `id` only when it is a valid ID string; otherwise
+null. `calibration`, `scan`, `projection` and `metadata` are null unless their
+respective field passed validation. In `input`, retain the raw-sequence hash
+only for a string value; normalized-DNA hash/length are null if normalization
+failed. Hashes or interpreted settings must never be fabricated for rejected
+values. The complete original input is bound by `batch_id`, not copied blindly
+into these validated result fields.
 
 `coverage`: `planned_sites`, `scored_sites`, `partial_state_sites` (a subset of
 scored sites with fewer than 30 states), `insufficient_context_sites`, `failed_sites`

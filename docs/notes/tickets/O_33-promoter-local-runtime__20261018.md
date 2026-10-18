@@ -4,8 +4,8 @@
 - Status: open
 - Opened: 2026-10-18
 - Updated: 2026-10-18
-- Current State: Reviewed contract defines explicit local-reference scans, transcript-oriented genomic projection, every-site retention, term/log-score semantics, calibration and failure/limit rules. Input schema formalization is Phase 1 contract work; runtime implementation starts only after actual RBS release or an explicit owner exception. That decision remains pending.
-- Verification: Match frozen parameters/source fixtures, test every branch/error/boundary/reverse coordinate, preserve explicit host-transfer limits, pass fresh offline installation and integrated CI. Freeze before B outcome evaluation.
+- Current State: Reviewed contract defines explicit local-reference scans, transcript-oriented genomic projection, every-site retention, term/log-score semantics, calibration and failure/limit rules. The Draft 2020-12 request schema, two synthetic examples and 200 structural contract tests are implemented and reviewed. B Phase 1 tools are integrated at b05d52f by ancestry. Runtime implementation starts only after actual RBS release or an explicit owner exception; that decision remains pending.
+- Verification: A reproduced the combined 1,732-test suite with the real linker-3 engine at 100% measured coverage (7,230 statements/3,010 branches), plus 200 new schema tests separately; Ruff/format/mypy, ticket/link/diff checks pass. B's four input-only examples validate against the schema, and projection algebra agrees with 53,508 small-contig interval cases. Promoter scorer/source parity, resource measurements, fresh offline CLI, final CI and independent evaluation remain unexecuted requirements.
 - Cleanup: The owning session alone resolves the scoped ticket, records unresolved findings, distills reusable contracts, removes the resolved file/index row and closes this issue with the exact result commit.
 
 - Owner: Session A. Parent scope: #7.
