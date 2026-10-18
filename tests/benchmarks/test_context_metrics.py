@@ -474,12 +474,12 @@ class ContextMetricsTests(unittest.TestCase):
                     "reasons": [
                         {
                             "status": "no_candidate",
-                            "reason_sha256": sha("no interstrand candidate"),
+                            "reason_present": True,
                             "count": 1,
                         },
                         {
                             "status": "unsupported",
-                            "reason_sha256": sha("leaderless"),
+                            "reason_present": True,
                             "count": 1,
                         },
                     ],
@@ -488,7 +488,7 @@ class ContextMetricsTests(unittest.TestCase):
                     "requested": 4,
                     "statuses": status_counts(ok=(3, 3), failed=(1, 0)),
                     "reasons": [
-                        {"status": "failed", "reason_sha256": None, "count": 1}
+                        {"status": "failed", "reason_present": False, "count": 1}
                     ],
                 },
             },
@@ -497,11 +497,11 @@ class ContextMetricsTests(unittest.TestCase):
         self.assertEqual(
             {
                 key: skipped[key]
-                for key in ("run_status", "run_reason_sha256", "batch_id")
+                for key in ("run_status", "run_reason_present", "batch_id")
             },
             {
                 "run_status": "not_run",
-                "run_reason_sha256": sha("folding slot unavailable"),
+                "run_reason_present": True,
                 "batch_id": None,
             },
         )
@@ -572,7 +572,7 @@ class ContextMetricsTests(unittest.TestCase):
         self.assertEqual(empty["log_tir_rank_changes"], EMPTY)
         self.assertEqual(
             empty["coverage"]["measured_tss"]["reasons"],
-            [{"status": "failed", "reason_sha256": sha("timeout"), "count": 4}],
+            [{"status": "failed", "reason_present": True, "count": 4}],
         )
         self.assertEqual(report["profiles"]["context2017"]["run_status"], "failed")
 
@@ -623,10 +623,28 @@ class ContextMetricsTests(unittest.TestCase):
         text = json.dumps(report)
         for reason in private + ("not run for src-3 residual 0.5",):
             self.assertNotIn(reason, text)
-            self.assertIn(sha(reason), text)
+            self.assertNotIn(sha(reason), text)
         for fragment in ("src-", "residual", "locus-", "ACGUACGUACGU"):
             self.assertNotIn(fragment, text)
-        self.assertIn("reviewed claims", report["definitions"]["reason_sha256"])
+        self.assertIn("reviewed claims", report["definitions"]["reason_presence"])
+
+    def test_different_private_reasons_share_one_presence_count(self):
+        value = collection()
+        for index, reason in enumerate(("source-0 failed", "source-1 failed", None)):
+            replace_row(
+                f"src-{index}:historical:measured_tss", other("failed", reason)
+            )(value)
+        coverage = run(value)["profiles"]["context2017"]["anchors"]["historical"][
+            "coverage"
+        ]["measured_tss"]
+        self.assertEqual(
+            coverage["reasons"],
+            [
+                {"status": "failed", "reason_present": False, "count": 1},
+                {"status": "failed", "reason_present": True, "count": 2},
+            ],
+        )
+        self.assertEqual(coverage["statuses"]["failed"]["rows"], 3)
 
 
 def panel_case(mutate):

@@ -129,12 +129,12 @@ eligible pair set of each profile/anchor. Rank change is measured rank minus
 flank rank, so a negative value ranks the measured context higher.
 
 Each profile/anchor/context reports status and prepared-context counts, plus
-counts by status and `reason_sha256`. That hash covers the exact UTF-8 reason, and
-is null when no reason is given. Whole-profile run reasons appear only as
-`run_reason_sha256`. Raw reasons can name cases, sequences or values, so they stay
-in the private collection. The tool neither redacts nor classifies their prose.
-Any public interpretation of error categories needs a separately reviewed claim
-from the private raw evidence. Pair accounting lists eligible and ineligible pairs, status
+counts by status and whether a reason is present. Whole-profile runs likewise
+report `run_reason_present`. Raw reasons can name cases, sequences or values;
+even a hash can link a known message back to a case. Neither reason text nor
+reason hashes enter the aggregate. Exact reasons stay in the private collection.
+The tool does not classify their prose. Any public interpretation of error
+categories needs a separately reviewed claim from that private evidence. Pair accounting lists eligible and ineligible pairs, status
 combinations and pairs with identical prepared contexts. Prepared contexts are
 grouped by RNA hash, start, aSD, temperature, model ID and execution identity,
 never by filename. The report omits per-case IDs, scores and residuals. Source

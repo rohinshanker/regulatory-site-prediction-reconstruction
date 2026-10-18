@@ -587,11 +587,6 @@ def midranks(values):
     return ranks
 
 
-def _reason_sha256(reason):
-    """Raw reasons may name cases or values; aggregates carry only their hash."""
-    return None if reason is None else digest(reason)
-
-
 def _coverage(rows):
     statuses = {
         status: {"rows": 0, "with_prepared_context": 0}
@@ -602,16 +597,13 @@ def _coverage(rows):
         statuses[row["status"]]["rows"] += 1
         statuses[row["status"]]["with_prepared_context"] += row["context"] is not None
         if row["status"] not in ("ok", NOT_COLLECTED):
-            reasons[(row["status"], _reason_sha256(row["reason"]))] += 1
+            reasons[(row["status"], row["reason"] is not None)] += 1
     return {
         "requested": len(rows),
         "statuses": statuses,
         "reasons": [
-            {"status": status, "reason_sha256": reason, "count": count}
-            for (status, reason), count in sorted(
-                reasons.items(),
-                key=lambda item: (item[0][0], item[0][1] is not None, item[0][1] or ""),
-            )
+            {"status": status, "reason_present": present, "count": count}
+            for (status, present), count in sorted(reasons.items())
         ],
     }
 
@@ -689,7 +681,7 @@ def build_report(panel, panel_sha256, collection, collection_sha256, parsed):
         profiles[profile] = {
             "expected_model_id": run["expected_model_id"],
             "run_status": run["status"],
-            "run_reason_sha256": _reason_sha256(run["reason"]),
+            "run_reason_present": run["reason"] is not None,
             "output_sha256": None if output is None else document_sha256(output),
             "batch_id": None if output is None else output["batch_id"],
             "expected_prediction_schema_version": PROFILE_SCHEMAS[profile],
@@ -737,9 +729,9 @@ def build_report(panel, panel_sha256, collection, collection_sha256, parsed):
                 "eligible pair set; change is measured rank minus flank rank"
             ),
             NOT_COLLECTED: "requested scenario of a failed or not_run profile",
-            "reason_sha256": (
-                "SHA-256 of the exact UTF-8 reason; raw text stays in the private "
-                "collection, and error categories need separately reviewed claims"
+            "reason_presence": (
+                "Only presence counts are emitted; reason text and reason hashes "
+                "stay private. Error categories need separately reviewed claims."
             ),
         },
         "interpretation": (
