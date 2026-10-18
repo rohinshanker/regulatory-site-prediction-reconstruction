@@ -135,8 +135,13 @@ Joint selection uses schema 1.3 with complete-search diagnostics, explicit limit
 and null-score incomplete searches. Its scientific gate is the frozen
 [Wave 4 independent protocol](rbs-wave4-evaluation.md): Cambray ordinary protein
 output is primary, Kuo is exposed secondary, and no native calibration follows.
-The old final cohort is already consumed. A lower optimized energy or a repaired
-folding failure alone cannot satisfy the experimental advancement gate.
+The [completed joint-model result](rbs-joint-selection.md#frozen-independent-experimental-result)
+failed that advancement gate: both primary profiles covered 335/335 inputs,
+but the paired rank gain was -0.000166 with a 95% interval spanning zero.
+The selected Cambray panel and earlier final cohorts are now consumed. Joint
+selection remains an opt-in research profile, with no new native-calibration or
+biological superiority claim. A lower optimized energy or repaired folding
+failure alone cannot satisfy the experimental advancement gate.
 
 Remaining scope includes drafting, kinetics and distinct production stacking,
 backend enumeration differences, design modes, the other three calculators and

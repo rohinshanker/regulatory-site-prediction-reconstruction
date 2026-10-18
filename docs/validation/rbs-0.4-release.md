@@ -126,12 +126,23 @@ is 60 seconds, with at most 100 returned candidates, 512 opening states per
 candidate and 4,096 attempted bound-state evaluations per joint site. Budget
 exhaustion remains an explicit null-score failure. There is no OS memory quota.
 
-Independent experimental advancement is governed separately by the
-[frozen Wave 4 protocol](rbs-wave4-evaluation.md). Software success, lower
-computed energy and development-panel agreement do not establish better
-experimental prediction. The independent collection requires its acknowledged
-receipt and reports full denominators, failures, uncertainty and the prespecified
-decision. No result-dependent tuning is permitted.
+The [frozen Wave 4 experiment](rbs-joint-selection.md#frozen-independent-experimental-result)
+did not advance joint selection. Both primary profiles scored all 335 Cambray
+inputs, with 332 measured common-success rows. Joint/standby Spearman rho was
+0.436083/0.436250; the paired gain was -0.000166, with 95% seed-block interval
+[-0.000905, 0.000205]. The gain-of-0.05 and interval-above-zero gates failed.
+All 10,000 paired draws were usable. This is a completed negative advancement
+result; no model/settings change or additional study inference followed it.
+
+The complete 11-configuration, 596-input collection took 64.4 minutes and
+accounted for all 6,556 attempts: 6,520 successful and 36 explicit no-candidate
+results, with no other statuses. All missing candidates belonged to the six
+mechanistic configurations on six Kuo fepB inputs. Kuo is exposed secondary;
+its unknown logarithm base prohibits log2/fold-error conversion, and rebeca's
+training overlap precludes independent Kuo validation. Constant Cambray UTR-only
+ML predictions retain undefined rank correlation. Software success and lower
+computed energy do not establish better experimental prediction. The panel is
+consumed; further models require a new evaluation cycle.
 
 The calculation remains a bounded equilibrium reconstruction. It cannot promise
 exhaustive cofold enumeration, NUPACK equivalence, current hosted behavior,

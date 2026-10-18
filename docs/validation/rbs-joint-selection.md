@@ -225,3 +225,51 @@ checkout, not subsequent documentation and evidence integration commits.
 The candidate passed all four Linux/macOS and Python 3.11/3.14 CI combinations,
 including fresh offline examples, before the independent collection handshake.
 Neither this receipt nor software success is an experimental advancement result.
+
+## Frozen independent experimental result
+
+The single Wave 4 experiment does **not advance joint selection** on Cambray
+ordinary protein fluorescence. Session B independently audited and recomputed
+the aggregate from the completed collection: 335 inputs, 332 observed means,
+112 families and 56 seed blocks. These are E. coli protein-output measurements,
+not direct initiation rates or native cyanobacterial calibration.
+
+| Primary quantity | Frozen result |
+| --- | ---: |
+| Joint/linker-3 coverage | 335/335 |
+| Standby/linker-3 coverage | 335/335 |
+| Measured common-success rows | 332 |
+| Joint/linker-3 Spearman rho | 0.43608343915501807 |
+| Standby/linker-3 Spearman rho | 0.43624957458722985 |
+| Paired rho gain, joint minus standby | -0.00016613543221177807 |
+| Paired seed-block 95% interval | [-0.0009046435846200018, 0.0002051547949261101] |
+| Usable / total bootstrap draws | 10,000 / 10,000 |
+| Lost baseline-success inputs | 0 |
+
+Coverage, complete collection, artifact integrity and software/resource gates
+passed. The required gain of at least 0.05 and interval strictly above zero both
+failed. The confidence interval spans zero; the decision is failure to demonstrate
+the prespecified gain. This result supports keeping the
+profile opt-in without a biological advancement claim; lower selected model
+energy remains a calculation property, not a measured improvement.
+
+The full roster completed 6,556 attempts in 3,864.2656 seconds with no retries
+or changed settings. There were 6,520 successful predictions and 36 explicit
+`no_candidate` results: the same six Kuo fepB inputs for each of the six
+mechanistic configurations. There were no other statuses. A missing binding
+candidate in this bounded model is not a measured absence of translation.
+Kuo is exposed secondary; its unknown Log(GFP) base prevents log2/fold-error
+conversion, and rebeca's training exposure prevents independent Kuo validation.
+The two UTR-only learned comparators return constant Cambray predictions, so
+their rank correlations are undefined. All non-primary contrasts are descriptive.
+
+The original evaluator aggregate SHA-256 is
+`dcf165f06a8e97d69bb9a087ed9cc85cade939b6917fd42a84382922edea2080`;
+collection SHA-256 is
+`816650a8b16dac25c3c767790533e2b437d7b62c9a960aa32b8eb3e15fd1ed2f`.
+The independently verified handoff is
+[issue28, comment6244451536](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/28#issuecomment-6244451536).
+The scientific candidate and protocol remain unchanged. This selected panel is
+now consumed; future models need a new development/evaluation cycle. Unselected
+labels from the same study do not become an independent-study confirmation.
+Private outcomes and per-case predictions/residuals remain with the evaluator.

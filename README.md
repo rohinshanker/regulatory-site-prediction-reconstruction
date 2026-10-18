@@ -19,6 +19,14 @@ E. coli dataset helped establish the published model, so the result does not
 establish performance on new studies or cyanobacteria. See the
 [Wave 3 validation and reproduction](docs/validation/rbs-wave3-results.md).
 
+**The independent Wave 4 test did not improve ranking accuracy.** On 335
+reserved E. coli inputs, joint and standby scoring both covered every input.
+Against the 332 measured protein-output means, their Spearman correlations were
+0.43608 and 0.43625. The paired difference was -0.00017, with a 95% seed-block
+interval spanning zero; the predeclared advancement gate failed. Joint selection
+remains an opt-in research profile. See the
+[joint model card](docs/validation/rbs-joint-selection.md).
+
 **The independent Wave 2 comparison did not establish a superior model.** On
 468 held-out PCC 6803 genes, the sequence model's mean absolute log2 error was
 0.957 versus 0.990 for a constant baseline; its paired advantage over a
@@ -77,7 +85,8 @@ returned binding candidate before choosing one. It reports the selected candidat
 the old selection's complete energy and search progress in
 [schema 1.3](schemas/rbs-result-1.3.schema.json). Any candidate failure or exhausted
 search budget prevents a winning score. This improves the completeness of the
-declared optimization; biological improvement awaits independent evaluation.
+declared optimization; the frozen independent study did not establish a
+biological improvement.
 Read the [joint-selection contract](docs/validation/rbs-joint-selection.md).
 
 The transcript-aware adapter accepts pinned genomes and explicit TSS/CDS scenarios:
