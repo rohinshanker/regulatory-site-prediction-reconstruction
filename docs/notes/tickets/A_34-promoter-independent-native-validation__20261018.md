@@ -4,7 +4,7 @@
 - Status: active
 - Opened: 2026-10-18
 - Updated: 2026-10-18
-- Current State: Phase 1 active at d37ebd7: Claude Opus DEM-520 implements synthetic-tested portable inputs/metrics in its own worktree; B owns the protocol and source admission. Consumer authority is pinned read-only at 0861119 with 15 committed files verified despite unrelated dirty docs. Phase 2 awaits reviewed candidate and recorded release gate.
+- Current State: Phase 1 input/metric tooling from DEM-520 integrated after B review (8626232; 42 synthetic tests, 100% statement/branch coverage). B's context-panel builder passes 6 tests/17 subtests with full coverage. DEM-522 owns isolated grouping/uncertainty tools. Consumer authority is pinned read-only at 0861119 with 15 committed files verified despite unrelated dirty docs. Phase 2 awaits reviewed candidate and recorded release gate. Claude protocol review DEM-521 terminal-failed at its provider safeguard; no retry/rerouting or completed review claimed.
 - Verification: Verify source/annotation/policy identities; use synthetic labels to test tools; separate source parity, positive TSS localization, transcript-context sensitivity and measured strength. Audit final aggregates independently.
 - Cleanup: The owning session alone resolves the scoped ticket, records unresolved findings, distills reusable contracts, removes the resolved file/index row and closes this issue with the exact result commit.
 
@@ -18,4 +18,4 @@ Before any new credential, administrator password, sudo, keychain or macOS-permi
 
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/34
 
-Protocol: [independent evaluation](../../validation/promoter-wave5-evaluation.md). Grid windows are chosen without TSS labels; source-equation parity, native localization, unchanged-RBS input sensitivity and eligible strength work remain separate. GSE144621 admission is under bounded recheck; no final scoring or label join has run.
+Protocol: [independent evaluation](../../validation/promoter-wave5-evaluation.md). Grid windows are chosen without TSS labels; source-equation parity, native localization, unchanged-RBS input sensitivity and eligible strength work remain separate. GSE144621 remains unadmitted after bounded recheck; no final scoring or outcome join has run.

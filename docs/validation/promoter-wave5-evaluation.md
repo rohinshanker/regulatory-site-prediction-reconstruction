@@ -148,6 +148,24 @@ input-sensitivity results, never demonstrated translation improvements. No TSS
 read count is joined as a strength label; leaderless/internal cases stay in
 coverage even when a profile cannot score them.
 
+The standard-library input builder is
+[`benchmarks/rbs/context_panel.py`](../../benchmarks/rbs/context_panel.py).
+It emits one `native-rbs-evidence-1` envelope for use under each of the two
+profiles, with four named coordinate/context scenarios per selected source row.
+Condition identities are retained; replicate counts and source quality fields
+are omitted from runtime inputs. Missing anchors stay null. Outputs are created
+exclusively with mode 0600; a selection exceeding 1,024 source alternatives fails
+without truncation. Reproduce from the pinned external Tan envelope:
+
+```sh
+python -m benchmarks.rbs.context_panel ENVELOPE PANEL.json \
+  --source-sha256 c442baf07480ddece0956a9ac10aefd5884472ec63ed0c62166e2ad7ef8a03d5
+python -m pytest tests/benchmarks/test_context_panel.py
+```
+
+This prepares inputs only. Collection still requires the candidate/settings
+receipt and folding-slot agreement below.
+
 ### 4. Measured Promoter strength
 
 Reassess only the existing reserved GSE144621 lead and its
