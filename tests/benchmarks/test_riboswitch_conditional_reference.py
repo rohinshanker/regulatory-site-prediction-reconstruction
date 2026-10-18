@@ -457,3 +457,158 @@ def test_existing_five_beta_point_45_fixtures():
         )
         for key in ("maximum_ratio", "concentration_ratio", "actual_ratio"):
             assert_close(result[key], case[key], "1e-47")
+
+
+@pytest.mark.parametrize("exchange", [False, True])
+def test_affinity_refuses_unresolved_unequal_logs_and_preserves_response_policy(
+    exchange,
+):
+    kd, standard = "2." + "0" * 99 + "1", "2"
+    if exchange:
+        kd, standard = standard, kd
+    inputs = {
+        "kd_molar": kd,
+        "standard_molar": standard,
+        "temperature_kelvin": "310.15",
+    }
+    with localcontext() as context:
+        context.prec = 240
+        independent = (
+            Decimal("8.31446261815324")
+            / Decimal("4184")
+            * Decimal(inputs["temperature_kelvin"])
+            * (Decimal(kd).ln() - Decimal(standard).ln())
+        )
+        assert Decimal("3e-101") < abs(independent) < Decimal("4e-101")
+        assert (independent < 0) is exchange
+        with pytest.raises(
+            ValueError, match="insufficient precision for unequal Kd/standard"
+        ):
+            reference.affinity(inputs)
+        # Supplying the independently resolved energy retains the discontinuous
+        # correction policy; silently replacing it with zero would change it.
+        response_inputs = {
+            "beta_mol_per_kcal": "1",
+            "rna_structural_cost_kcal_mol": "0",
+            "ligand_binding_kcal_mol": format(independent, ".70e"),
+            "ribosome_off_kcal_mol": "0",
+            "ribosome_on_kcal_mol": "-1",
+            "bound_fraction": "1",
+        }
+        result = reference.response(response_inputs)
+        assert result["metastability_applied"] is (not exchange)
+        uncorrected = Decimal(1).exp()
+        factor = 1 / (1 + independent.exp()) if independent > 0 else Decimal(1)
+        expected = 1 + factor * (uncorrected - 1)
+        assert_close(result["actual_ratio"], expected, "1e-78")
+        if not exchange:
+            assert Decimal("1.8") < result["actual_ratio"] < Decimal("1.9")
+            assert uncorrected - result["actual_ratio"] > Decimal("0.8")
+
+
+@pytest.mark.parametrize("standard", ["1", "2"])
+def test_resolved_small_affinity_difference_has_high_precision(standard):
+    with localcontext() as context:
+        context.prec = 240
+        kd = Decimal(standard) + Decimal("1e-19")
+        inputs = {
+            "kd_molar": str(kd),
+            "standard_molar": standard,
+            "temperature_kelvin": "310.15",
+        }
+        expected = (
+            Decimal("8.31446261815324")
+            / 4184
+            * Decimal("310.15")
+            * (kd.ln() - Decimal(standard).ln())
+        )
+        result = reference.affinity(inputs)
+        assert abs(result / expected - 1) < Decimal("1e-59")
+
+
+def test_partition_refuses_amplified_cancellation_and_false_bracket():
+    inputs = {
+        "beta_mol_per_kcal": "1",
+        "mrna_relative_volume": "1",
+        "ligand_relative_volume": "1e100",
+        "solvent_molar": "1e200",
+        "mrna_total_molar": "1",
+        "ligand_total_molar": "1e100",
+        "switching_kcal_mol": "0",
+    }
+    with localcontext() as context:
+        context.prec = 240
+        assert residual(inputs, Decimal("0.4")) < 0
+        assert residual(inputs, Decimal("0.41")) > 0
+        # The old solver certified a narrow bracket around 0.5. Both endpoints
+        # actually have positive D, even though its 80-digit residual was zero.
+        for endpoint in (Decimal("0.5") - Decimal("1e-50"), Decimal("0.5")):
+            assert Decimal("0.49") < residual(inputs, endpoint) < Decimal("0.51")
+    with pytest.raises(
+        ValueError, match="insufficient precision to certify bracket signs"
+    ):
+        reference.partition(inputs)
+
+
+@pytest.mark.parametrize("case", FIXTURES["partition_cases"][:3], ids=lambda c: c["id"])
+def test_returned_bracket_and_residual_certified_at_240_digits(case):
+    result = reference.partition(case["inputs"])
+    with localcontext() as context:
+        context.prec = 240
+        lower, upper = result["solver_bracket_molar"]
+        assert residual(case["inputs"], lower) <= 0
+        assert residual(case["inputs"], upper) >= 0
+        assert abs(residual(case["inputs"], result["complex_molar"])) <= (
+            result["solver_tolerance"] * result["solver_residual_scale"]
+        )
+
+
+def test_partition_refuses_unresolved_boundary_neighborhood():
+    inputs = {
+        **FIXTURES["partition_cases"][2]["inputs"],
+        "mrna_relative_volume": "1e-100",
+        "solvent_molar": "1",
+    }
+    with pytest.raises(
+        ValueError, match="insufficient precision for an interior bracket"
+    ):
+        reference.partition(inputs)
+
+
+def test_certifier_refuses_wrong_upper_endpoint_and_excessive_residual():
+    # Exercise the certifier independently with nearby candidate points: its
+    # upper-sign check and its residual check enforce distinct requirements.
+    case = FIXTURES["partition_cases"][2]
+    values = {key: Decimal(value) for key, value in case["inputs"].items()}
+    with reference._arithmetic("partition"):
+        root = Decimal(3) - Decimal(8).sqrt()
+        below_bracket = root - Decimal("5e-51")
+        with pytest.raises(
+            ValueError, match="insufficient precision to certify bracket signs"
+        ):
+            reference._certified_bracket(values, below_bracket, Decimal(1), Decimal(1))
+        excessive_residual = root + Decimal("2e-51")
+        with pytest.raises(
+            ValueError, match="insufficient precision to certify residual"
+        ):
+            reference._certified_bracket(
+                values, excessive_residual, Decimal(1), Decimal(1)
+            )
+
+
+def test_residual_interval_encloses_amplified_error_at_240_digits():
+    inputs = {
+        **FIXTURES["partition_cases"][2]["inputs"],
+        "ligand_total_molar": "1e100",
+        "ligand_relative_volume": "1e100",
+        "solvent_molar": "1e200",
+    }
+    values = {key: Decimal(value) for key, value in inputs.items()}
+    bound = Decimal("0.5")
+    with reference._arithmetic("partition"):
+        lower, upper = reference._residual_bounds(values, bound)
+    with localcontext() as context:
+        context.prec = 240
+        independent = residual(inputs, bound)
+        assert lower < independent < upper
+        assert lower < 0 < upper
