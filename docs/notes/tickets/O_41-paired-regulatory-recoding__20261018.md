@@ -4,7 +4,7 @@
 - Status: open
 - Opened: 2026-10-18
 - Updated: 2026-10-18
-- Current State: Owner authorized sustained calculator implementation on 2026-10-18. Parent #10 consumer admission stays separate. This slice follows the reviewed Promoter runtime #33; it must also work independently with the existing RBS predictor.
+- Current State: Owner authorized sustained calculator implementation on 2026-10-18. Parent #10 consumer admission stays separate. The proposed public contract is docs/validation/paired-regulatory-runtime.md, adopting B's exact paired-edit-input-1 geometry and independent candidate universes. Implementation follows the frozen Promoter runtime #33 in its own worktree and must also work independently with the existing RBS predictor.
 - Verification: Implementation acceptance below; no comparison runtime or biological improvement result claimed yet.
 - Cleanup: Session A alone resolves this scoped ticket after tested implementation, reusable contract distillation and index cleanup.
 
