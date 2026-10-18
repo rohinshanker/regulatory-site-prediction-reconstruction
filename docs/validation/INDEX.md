@@ -5,7 +5,8 @@ Verification dates cover the stated source observations or specification review;
 | Area | Purpose | Last verified | Document |
 | --- | --- | --- | --- |
 | wave5-program | Two-phase Promoter implementation, reused native evidence, independent evaluation, Claude delegation and release boundaries. | 2026-10-18 | [wave5-program.md](wave5-program.md) |
-| rbs-0.4-release | Candidate scope, upgrade recipe, component inventory and publication boundary. | 2026-10-17 | [rbs-0.4-release.md](rbs-0.4-release.md) |
+| rbs-publication | Immutable archive identities, cumulative integration, corrected release body and explicit publication procedure. | 2026-10-18 | [rbs-publication.md](rbs-publication.md) |
+| rbs-0.4-release | Candidate scope, upgrade recipe, component inventory and publication boundary. | 2026-10-18 | [rbs-0.4-release.md](rbs-0.4-release.md) |
 | rbs-joint-selection | Complete bounded binding/standby objective, explicit failure and counterfactual semantics. | 2026-10-17 | [rbs-joint-selection.md](rbs-joint-selection.md) |
 | rbs-wave4-program | Two-session runtime/evaluation ownership, joint-state scoring, candidate freeze, reserved-study tests and release boundaries. | 2026-10-17 | [rbs-wave4-program.md](rbs-wave4-program.md) |
 | rbs-wave2-program | Two-session ownership, dependencies, bounded fourteen-hour wave and acceptance. | 2026-10-17 | [rbs-wave2-program.md](rbs-wave2-program.md) |

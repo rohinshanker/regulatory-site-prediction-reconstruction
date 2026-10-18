@@ -2,7 +2,7 @@
 
 - Purpose: Define the installable candidate, upgrade procedure and publication boundary.
 - Scope: Local RBS prediction; independently installed folding executables.
-- Last verified: 2026-10-17
+- Last verified: 2026-10-18
 
 ## Candidate and compatibility
 
@@ -64,7 +64,14 @@ For an existing environment, use its Python executable with
 earlier unpublished `0.4.0rc1` development build, use a fresh environment or add
 `--force-reinstall` with the exact reviewed wheel: equal version strings do not
 identify equal development artifacts. Verify the wheel against its accompanying
-`SHA256SUMS`. Keep any prior engine installation intact.
+`SHA256SUMS`. Those checksums identify the distributed archives; an ordinary
+local rebuild need not have identical bytes. To reproduce the reviewed wheel
+from the exact `9edb989` source distribution using its locked build tools, run
+`SOURCE_DATE_EPOCH=1792289003 .venv/bin/python -m build --no-isolation --wheel`.
+This reproduced wheel SHA256
+`f6ef1dd8f38157dc7367ebcb0465c37dd0c2f5910825c06f94a8c9f8b99f9c94`
+in independent review. Source-archive byte reproducibility is not claimed.
+Keep any prior engine installation intact.
 Follow the [backend source recipe](rbs-backend-repair.md)
 to build linker-3 from the pinned archive into a separate user-writable directory:
 
@@ -139,6 +146,12 @@ inputs, with 332 measured common-success rows. Joint/standby Spearman rho was
 All 10,000 paired draws were usable. This is a completed negative advancement
 result; no model/settings change or additional study inference followed it.
 
+The historical default scored descriptively higher on that same panel:
+Spearman 0.501889 versus 0.436250 for standby. The historical-minus-standby
+difference was 0.065640, with 95% interval [-0.078068, 0.201101]. That interval
+spans zero, so this comparison establishes no superiority. The public 2014
+development-panel gain is not proof of a gain on this independent study.
+
 The complete 11-configuration, 596-input collection took 64.4 minutes and
 accounted for all 6,556 attempts: 6,520 successful and 36 explicit no-candidate
 results, with no other statuses. All missing candidates belonged to the six
@@ -167,6 +180,10 @@ An approved main merge, version tag and package/release publication remain
 separate actions under ticket 06. Do not imply that a candidate artifact clears
 that milestone. Promoter runtime ticket 07 and consumer admission ticket 10
 retain their release dependencies; no cyano checkout changes are included here.
+
+The [publication handoff](rbs-publication.md) defines the cumulative review,
+immutable archive identities, corrected release-body staging and exact
+SHA-preserving integration procedure. Its preparation does not publish anything.
 
 PR31 is an incremental Wave 4 review against `planning/wave4`, which already
 contains the earlier implementation waves. The default `main` branch remains
