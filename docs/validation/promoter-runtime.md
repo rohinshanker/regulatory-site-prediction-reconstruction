@@ -369,15 +369,28 @@ wrapped run is listed first.
 ## Result contract (`promoter-result-1.0`)
 
 JSON is authoritative: `{"schema_version":"1.0","model":{…},"batch":{…},"results":[…]}`
-with fixed field order, 2-space indent, `allow_nan=False`, trailing newline, no
-timestamps, paths or elapsed times. Repeated runs with identical input, settings,
-platform and runtime give identical bytes. Across platforms the contract is
+with no timestamps, paths or elapsed times. The literal authoritative byte
+serialization for the complete result object is:
+
+```python
+(json.dumps(result, sort_keys=True, indent=2, ensure_ascii=True,
+            allow_nan=False) + "\n").encode("utf-8")
+```
+
+Use Python's default separators for `indent=2`: `(",", ": ")`; do not pass
+compact separators. Keys are sorted at every object level, including metadata;
+array order is preserved. Emit no BOM and exactly one trailing LF byte, with no
+platform newline translation. This specifies both CLI JSON output and the
+authoritative representation used for the result-size limit. Repeated runs
+with identical input, settings, platform and runtime give identical bytes.
+Across platforms the contract is
 semantic and numeric parity within the stated tolerances (absolute plus relative
 1e-12), not bit identity. Deadline-dependent outcomes (`failed`/`deadline_exceeded`
 and their partial scores) are not byte-identical guarantees.
 
-**Canonical bytes for hashes and size checks.** All canonical JSON in this
-contract uses the existing RBS provenance helper's encoding, made explicit here:
+**Canonical bytes for hashes and metadata size.** All canonical JSON in this
+contract uses the existing RBS provenance helper's compact encoding, made
+explicit here. It is distinct from the authoritative result serialization above:
 
 ```python
 json.dumps(value, sort_keys=True, separators=(",", ":"),
@@ -753,8 +766,18 @@ object, including unchanged limits, and the runtime must echo that object exactl
 lists; the separate selected-state copy is accounted for by the JSON byte cap.
 Preflight uses the number of coordinate-eligible states that would be emitted
 if all sites completed, never a timeout-reduced count. `max_result_json_bytes`
-counts the complete pretty-printed authoritative JSON, including its trailing
-newline, even if a compact export was requested. `max_metadata_json_bytes`
+counts the complete result serialized by the literal authoritative expression
+above, including its trailing newline, even if a compact export was requested.
+For received JSON, adapters enforce **both** the received uncompressed byte
+length (including whitespace) and the authoritative reserialization length of
+the complete parsed result, with no fields removed or values coerced. Each must
+be at most `max_result_json_bytes`; equality is allowed, and either excess is a
+rejection. Bound received bytes before parsing, then check authoritative size.
+A compact JSON representation below the cap does not admit a result whose
+authoritative representation exceeds it. Conversely, added wire whitespace
+cannot evade the received-byte check. These checks do not change compact
+canonical hashing. The runtime must detect an authoritative-size breach before
+writing any export (setup error, exit 2). `max_metadata_json_bytes`
 uses canonical bytes, with container depth defined in the request section.
 `max_id_chars`, `max_host_name_chars` and `max_contig_chars` expose the existing
 field constraints; their corresponding validation errors remain `invalid_id`,
@@ -853,7 +876,7 @@ In addition, the Promoter candidate passes the following before freeze.
 | 8 | Numerics | `relative_score` at the exact log bounds and ±1 ulp, overflow/underflow nulls with finite logs; no nonfinite JSON numbers, and no zero/subnormal stand-in for an underflowed relative score. Legitimate zero terms/coordinates remain valid. |
 | 9 | Calibration | Required, no silent default; profiles K/beta; `host_status` matrix; extrapolation warning text present; no `sigma`/temperature field accepted or emitted; `claims` all false. |
 | 10 | Projection | The eight worked examples reproduced exactly (both local strands, both `sequence_strand` values, linear and circular crossing); brute-force per-base agreement for all combinations over small `L`, `contig_length`, `origin`; linear out-of-bounds, circular `L > contig_length`, undeclared and mismatched crossing, contig conflict; genomic strand composition; IDs change with `sequence_strand`/`origin`; GFF3 one-based inclusive, genomic strand column, unwrapped circular end, escaping and order along transcription. |
-| 11 | Exports | Identical JSON bytes across repeated runs on one platform/runtime; numeric parity within 1e-12 across the CI platforms; CSV header, `genomic_strand` and null cells; schemas validate every example and test output; `states:"all"` bounded as limits state. |
+| 11 | Exports | Identical JSON bytes across repeated runs on one platform/runtime using the literal authoritative serializer; numeric parity within 1e-12 across the CI platforms; CSV header, `genomic_strand` and null cells; schemas validate every example and test output; `states:"all"` bounded as limits state; exact-cap and one-byte-over checks for wire and authoritative JSON, compact-below/pretty-above rejection, whitespace inflation, Unicode escaping and trailing LF. |
 | 12 | RBS preservation | `git diff` against the baseline shows no change to RBS modules, schemas, models, examples or frozen artifacts; the unchanged RBS suite passes in A's single final full matrix. |
 | 13 | Fresh offline | Wheel installed with `--no-index --no-deps` into a new venv; `regsite-promoter` runs the single, batch, CSV and GFF3 examples; importing and running loads no `numpy`, `scipy`, `sklearn` or `Bio`; a test that blocks sockets and subprocess passes. |
 | 14 | Source parity adoption | Independent source parity (2, plus B's separately executed pinned historical/fork inference on a B-frozen synthetic panel, compared through the public CLI/JSON only) passes before the stdlib engine is adopted. No expected values are copied from runtime output. |
