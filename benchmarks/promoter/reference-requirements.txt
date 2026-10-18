@@ -1,0 +1,7 @@
+# Exact optional macOS x86_64 CPython3.9 inference wheels. No project dependency changes.
+biopython==1.85 --hash=sha256:d76e44b46f555da2e72ac36e757efd327f7f5f690e9f00ede6f723b48538b6d5
+numpy==2.0.2 --hash=sha256:97032a27bd9d8988b9a97a8c4d2c9f2c15a81f61e2f21404d7e8ef00cb5be729
+scikit-learn==1.6.1 --hash=sha256:6849dd3234e87f55dce1db34c89a810b489ead832aaf4d4550b7ea85628be6c1
+joblib==1.5.3 --hash=sha256:5fc3c5039fc5ca8c0276333a188bbd59d6b7ab37fe6632daa76bc7f9ec18e713
+scipy==1.13.1 --hash=sha256:436bbb42a94a8aeef855d755ce5a465479c721e9d684de76bf61a62e7c2b81d5
+threadpoolctl==3.7.0 --hash=sha256:cd8b60b5641b45c67bbf73c64c843235fc2d8a480c87389f52f5dbee893b86be

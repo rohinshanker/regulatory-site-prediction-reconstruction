@@ -4,12 +4,12 @@
 - Status: active
 - Opened: 2026-10-16
 - Updated: 2026-10-17
-- Current State: RBS structural oracles and open backend/source evidence delivered. Promoter historical inference/weights and public fork pinned with open reuse decision; source/coordinate/dependency gaps documented. Operon/Riboswitch source recovery remains active.
-- Verification: Wave3 benchmark suite and independent reviews are recorded in rbs-structural-fixtures.md, rbs-new-evaluation-data.md and promoter-source-and-benchmarks.md; source hashes, frozen split and aggregate audits are committed. Wave2 results remain unchanged.
+- Current State: RBS structural oracles and open backend/source evidence delivered. Pinned Promoter historical inference and public fork execute with independent finite-state agreement; source, parameter and dependency notices are retained, with legacy API/Python limitations documented. Operon/Riboswitch source recovery remains active.
+- Verification: The benchmark suite passes 235 tests with 100% statement/branch coverage. Independent source execution, fixture and compatibility review is recorded in promoter-executed-reference.md; frozen input/source identities and evaluation rules are in rbs-new-evaluation-data.md and rbs-wave4-evaluation.md. Earlier results remain unchanged.
 - Cleanup: Owning session records final checks and unresolved findings, resolves the ticket, distills reusable guidance into docs/validation/, updates both indexes and linked GitHub issue, then removes the resolved ticket.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/1
 - Priority: P0
-- Owner: Session B (`9677689a-1792176763`), Wave3 evidence; branch `wave3/b-evidence`, baseline `0a9fbd03326afc1baa918e85eb2dd7709f666b63`.
+- Owner: Session B (`9677689a-1792176763`), Wave 4 evidence; branch `wave4/b-independent-evaluation`, baseline `73521a6ae3251678073dce76181ee5909b34fe8b`.
 - Dependencies: None; complete the RBS slice first.
 
 Search public repositories, historical releases, papers, supplements and permitted website downloads for complete implementations of all four calculators. Distinguish a runnable model from wrappers, UI assets and bytecode. Select reuse versus reconstruction per component.

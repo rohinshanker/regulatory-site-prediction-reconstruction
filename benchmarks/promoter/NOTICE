@@ -1,0 +1,30 @@
+The optional historical-reference fixture package (reference_oracle.py,
+reference_run.py, reference-parameters.json, reference-fixtures.json and the
+historical compatibility patch) derives equations, tables and parameters from:
+
+  Copyright (C) 2021 Travis La Fleur, Ayaan Hossain, Howard Salis
+  SalisLabCode commit46da9132740bce30bccd107f02808adf2215e2f0,
+  Promoter_Calculator/.
+  https://github.com/hsalis/SalisLabCode/tree/46da9132740bce30bccd107f02808adf2215e2f0/Promoter_Calculator
+
+The source grants GPL version3 or any later version. ORIGINAL-NOTICE preserves
+its exact copyright/grant; COPYING supplies the complete GPLv3 text. These
+reference files and their modifications are available under GPL-3.0-or-later,
+without warranty. Changes in this repository: scalar independent arithmetic,
+coordinate fixtures, optional inference audit and explicit Python compatibility
+patch. They are benchmark evidence, not the project's required Promoter runtime.
+
+The separately installed Barrick derivative is pinned to
+0fe5f6f0fb2befc087556afa575f7241afd98fbf (v1.2.4), GPL-3.0-or-later:
+https://github.com/barricklab/promoter-calculator/tree/0fe5f6f0fb2befc087556afa575f7241afd98fbf
+Its short LICENSE omits the original copyright line; retain ORIGINAL-NOTICE as
+well. Neither upstream code tree nor the optional installed environment is
+vendored here. Individual dependency and bundled-library notices remain with
+their distributions; the reference environment manifest pins them separately.
+
+Parameter JSON is a lossless float64-to-JSON conversion of the two pinned open
+arrays, plus four utility lookup tables and the source normalization constants.
+Its coefficient indices and source hashes are retained; three fitted spacer
+entries are unused by the published implementation's polynomial. Synthetic
+fixture sequences and outputs contain no experimental measurements. They imply
+neither physical free energies, calibrated host rates nor hosted-site parity.

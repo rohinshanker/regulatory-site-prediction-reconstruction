@@ -4,7 +4,12 @@
 - Scope: Preparation for #7; runtime follows the first RBS release milestone #6.
 - Last verified: 2026-10-17
 
-No project Promoter model or hosted prediction was run.
+No project Promoter runtime or hosted prediction was run. The later
+[executed reference package](promoter-executed-reference.md) now verifies bounded
+historical/fork inference, complete optional environment pins and documented
+compatibility/coordinate discrepancies. This document preserves the earlier
+source and published-column audit; its immutable source manifest records that
+audit's pre-execution status.
 
 ## Reuse decision
 
@@ -24,9 +29,10 @@ redistributes arithmetic/aggregate findings, not the raw measurement workbooks.
 
 Assess the existing [Barrick v1.2.4 fork](https://github.com/barricklab/promoter-calculator/tree/0fe5f6f0fb2befc087556afa575f7241afd98fbf)
 before writing another port. It has the same arrays and inspected mathematical
-body, Python 3 fixes, packaging and CLI. Static comparison is not executed parity.
+body, Python 3 fixes, packaging and CLI. Static comparison alone is not executed parity.
 Its shorter GPL notice omits the original copyright line: preserve the original
-when combining sources. No fork installation or modern dependency lock is certified.
+when combining sources. The later executed reference contract records the tested
+isolated installation; production runtime/dependency admission remains separate.
 
 Required upstream imports are NumPy, SciPy, scikit-learn and Biopython. Reported
 development versions are Python 3.7.7, NumPy 1.21.2, SciPy 1.7.3 and scikit-learn
@@ -142,6 +148,24 @@ reporter labels are not universal biological negatives. Public since 2020 does
 not mean unseen by later predictors. Original Lagator CSVs have no located
 project-wide licence; article CC-BY does not settle that repository's terms.
 Johns2018 and PromoterAtlas2026 remain leads, not admitted benchmarks.
+
+The later [GSE144621 admission update](../../benchmarks/promoter/gse144621-admission-update.json)
+recovers the publisher's pinned reviewed-preprint v1 PDF, SHA256
+`0d3de36b5d48880b5ebef0b3a86b415678ad416c037ccd2d37ebbc14482e4d06`.
+Its Methods page 21 specifies MG1655 genomic landing pads and a 150-base local
+window from −120 to +30 around clustered TSSs; page 25 establishes **30°C** expression
+growth, with two biological and two technical preparations per biological replicate.
+The earlier 37°C/42°C steps are not the expression-growth condition. Page 38 and
+its linked licence identify article CC-BY-4.0. See the
+[publisher's exact PDF](https://raw.githubusercontent.com/elifesciences/enhanced-preprints-data/02e328ec4db0c6aaa097239df28048d9d63fc700/data/92558/v1/92558-v1.pdf).
+
+The author repository still has no located project-wide data/code grant; nested
+BBMap/deepTools notices do not supply one. Full reporter flanks, per-row construct
+identity and locus/family overlap remain unresolved. Reconcile the paper's design
+counts (17,635 TSS regions, 500 negative controls, 112 positive controls) with the
+previously acquired table before defining a denominator; do not invent exclusions
+from the count difference. No new measurement rows were read, predictions run or
+data redistributed for this update. The candidate remains reserved, not admitted.
 
 ## Reproduction and release handoff
 
