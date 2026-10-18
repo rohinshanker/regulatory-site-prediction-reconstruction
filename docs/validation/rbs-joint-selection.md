@@ -216,3 +216,12 @@ Kuo is exposed secondary. Neither endpoint directly measures absolute initiation
 rate; neither supplies native cyanobacterial calibration. The protocol's final
 candidate receipt and completed aggregate report are required before a new-study
 performance claim.
+
+The [frozen candidate receipt](../../models/rbs/wave4-candidate.json) pins
+scientific commit `a11cb5bd13d3c021eedc98cf451609eb4710bb6a`, all six
+mechanistic configurations, both installed engines, model parameters and the
+completed software/resource gates. Its source hashes refer to that immutable
+checkout, not subsequent documentation and evidence integration commits.
+The candidate passed all four Linux/macOS and Python 3.11/3.14 CI combinations,
+including fresh offline examples, before the independent collection handshake.
+Neither this receipt nor software success is an experimental advancement result.
