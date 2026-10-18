@@ -214,8 +214,7 @@ implementation tests. The public 2014 panel is development evidence, while
 Cambray ordinary protein-output ranking is the reserved primary endpoint and
 Kuo is exposed secondary. Neither endpoint directly measures absolute initiation
 rate; neither supplies native cyanobacterial calibration. The protocol's final
-candidate receipt and completed aggregate report are required before a new-study
-performance claim.
+candidate receipt and completed aggregate report identify the result below.
 
 The [frozen candidate receipt](../../models/rbs/wave4-candidate.json) pins
 scientific commit `a11cb5bd13d3c021eedc98cf451609eb4710bb6a`, all six
@@ -262,6 +261,15 @@ Kuo is exposed secondary; its unknown Log(GFP) base prevents log2/fold-error
 conversion, and rebeca's training exposure prevents independent Kuo validation.
 The two UTR-only learned comparators return constant Cambray predictions, so
 their rank correlations are undefined. All non-primary contrasts are descriptive.
+
+On the frozen primary panel, median joint/linker-3 time was 5.082 seconds
+versus 1.473 seconds for standby, about 3.45 times longer. These times include
+per-record process/adapter overhead under the declared two-worker schedule;
+they are distinct from the public-development resource measurements above.
+All Cambray inputs share their upstream leader, as documented before outcomes.
+The result is specific to that local-context protein-output challenge.
+The [full independent report](rbs-wave4-results.md) provides every comparator,
+context, denominator, resource distribution and remaining evidence limitation.
 
 The original evaluator aggregate SHA-256 is
 `dcf165f06a8e97d69bb9a087ed9cc85cade939b6917fd42a84382922edea2080`;

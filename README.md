@@ -25,6 +25,7 @@ Against the 332 measured protein-output means, their Spearman correlations were
 0.43608 and 0.43625. The paired difference was -0.00017, with a 95% seed-block
 interval spanning zero; the predeclared advancement gate failed. Joint selection
 remains an opt-in research profile. See the
+[independent report](docs/validation/rbs-wave4-results.md) and
 [joint model card](docs/validation/rbs-joint-selection.md).
 
 **The independent Wave 2 comparison did not establish a superior model.** On
@@ -128,16 +129,18 @@ future Promoter runtime; it does not establish experimental accuracy.
 
 ## Start a new implementation session
 
-For the active wave, use the [Session A implementation prompt](docs/prompts/wave4-session-a.md)
-or [Session B evaluation/reference prompt](docs/prompts/wave4-session-b.md), with
-the same exact planning commit supplied in their launch messages. The
-[shared Wave 4 program](docs/validation/rbs-wave4-program.md) defines ownership,
-the final-evaluation freeze and publication boundaries. Check the ticket queue
-and immutable handoffs before resuming; the prompts are assignments, not proof
-that their evaluation and release gates have passed.
+Read the [current release guide](docs/validation/rbs-0.4-release.md),
+[independent Wave 4 result](docs/validation/rbs-wave4-results.md) and live ticket
+queue before starting work. Wave 4's scoped implementation/evaluation is complete;
+the public-release milestone remains under ticket 06. Its
+[Session A](docs/prompts/wave4-session-a.md) and
+[Session B](docs/prompts/wave4-session-b.md) prompts preserve the assignment and
+freeze boundaries; do not replay the consumed experiment as a new untouched test.
+Future model changes require a new development/evaluation protocol and suitable
+reserved evidence. Preserve newer work, immutable candidate identities and ownership.
 
 1. Read [AGENTS.md](AGENTS.md), the [live ticket queue](docs/notes/tickets/INDEX.md)
-   and the [Wave 3 validation](docs/validation/rbs-wave3-results.md). Check current
+   and the [Wave 4 validation](docs/validation/rbs-wave4-results.md). Check current
    owners and preserve newer branches/worktrees before claiming work.
 2. Read the [source map](docs/validation/source-map.md),
    [reconstruction contract](docs/validation/reconstruction-contract.md), and

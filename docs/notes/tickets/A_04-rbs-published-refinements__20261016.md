@@ -4,8 +4,8 @@
 - Status: active
 - Opened: 2026-10-16
 - Updated: 2026-10-17
-- Current State: Historical, footprint/context and standby2014 profiles remain unchanged. Joint binding/standby and separately identified linker-3 are implemented and reviewed; scoped backend ticket 26 is complete. Scientific candidate a11cb5b is frozen and one independent study evaluation authorized under 27/28. Drafting, kinetics, distinct production stacking, folding-search completeness and hosted parity remain open.
-- Verification: Reviewed scientific candidate passes 1,614 tests at 100% Python coverage, 35 three-engine checks and all four CI 39080285855 jobs. Earlier-profile compatibility, both-strand repair cases and 136/136 public development resource cases are verified. Durable contracts: rbs-joint-selection.md and rbs-backend-repair.md. No experimental advancement follows from these software gates.
+- Current State: Historical, footprint/context and standby2014 profiles remain preserved. Joint binding/standby and separately identified linker-3 are implemented, reviewed and independently evaluated. Joint selection did not advance on the frozen Cambray experiment; the scoped source repair and bounded optimizer are complete. Drafting, kinetics, distinct production stacking, folding-search completeness and hosted parity remain open.
+- Verification: Scientific a11cb5b and integration 1d4b622 passed four-platform CI; 1,624 integrated tests at 100% measured Python coverage and 35 three-engine component checks pass. Frozen Wave 4 review independently reproduces the negative advancement result. Runtime/model/source contracts retain bounded enumeration and energy discrepancies; no native or hosted equivalence is established.
 - Cleanup: Owning session records final checks and unresolved findings, resolves the ticket, distills reusable guidance into docs/validation/, updates both indexes and linked GitHub issue, then removes the resolved ticket.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/4
 - Priority: P0

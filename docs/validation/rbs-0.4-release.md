@@ -114,7 +114,12 @@ the separate three-engine component suite passed 35 checks. After integrating
 Promoter reference tests, the combined suite passed 1,624 tests at 100% coverage
 of 5,812 statements and 2,390 branches. This is test coverage of the included
 Python scopes, not a claim of complete upstream C++ or biological validation.
-Exact-patch runtime and backend reviews are recorded in the candidate receipt.
+All four jobs in [integration CI39082135334](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/actions/runs/39082135334)
+also passed at `1d4b6225232a7febeba039b8ca2fe8871e4c5204`, including the
+Promoter references. Exact-patch runtime and backend reviews are recorded in
+the candidate receipt. Final artifact manifests and the draft PR identify the
+subsequent documentation/evidence integration and its CI without modifying the
+frozen scientific code.
 Use the [runtime validation commands](rbs-runtime.md) and backend three-engine
 commands to reproduce these gates with real installed engines.
 
@@ -142,7 +147,10 @@ its unknown logarithm base prohibits log2/fold-error conversion, and rebeca's
 training overlap precludes independent Kuo validation. Constant Cambray UTR-only
 ML predictions retain undefined rank correlation. Software success and lower
 computed energy do not establish better experimental prediction. The panel is
-consumed; further models require a new evaluation cycle.
+consumed; further models require a new evaluation cycle. Primary median times
+were 5.082 seconds for joint and 1.473 seconds for standby, about a 3.45-fold
+cost increase. Read the [complete independent report](rbs-wave4-results.md)
+for all descriptive comparisons, uncertainty and source limitations.
 
 The calculation remains a bounded equilibrium reconstruction. It cannot promise
 exhaustive cofold enumeration, NUPACK equivalence, current hosted behavior,
