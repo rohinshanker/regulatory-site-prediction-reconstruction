@@ -482,7 +482,7 @@ def test_semantic_validation_is_explicitly_deferred(value):
     """These need runtime validation; schema acceptance is not prediction success.
 
     Cases cover normalized bounds/length, arithmetic site budgets, projection
-    traversal/crossing, partial output-default resolution, batch ID/contig consistency,
+    traversal/crossing, atomic output-default resolution, batch ID/contig consistency,
     installed-model comparison and canonical metadata byte/depth limits.
     """
     VALIDATOR.validate(value)

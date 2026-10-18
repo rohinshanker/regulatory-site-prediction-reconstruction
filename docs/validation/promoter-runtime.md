@@ -4,8 +4,8 @@
 - Scope: Ticket #33 (parent #7). Specified implementation contract for `regsite-promoter`; not an executed runtime, a hosted-parity claim or a scientific accuracy claim.
 - Last verified: 2026-10-18
 
-**Status.** Nothing here is implemented. The owner decision on parallel Promoter
-development is pending; this document authorizes no runtime code. Equations,
+**Status.** The scoring runtime and CLI are not implemented. The owner decision
+on parallel Promoter development is pending; this document authorizes no runtime code. Equations,
 parameters and 212-state expectations come from the pinned
 [source and benchmark audit](promoter-source-and-benchmarks.md) and
 [executed reference](promoter-executed-reference.md). Ownership follows the
@@ -13,6 +13,15 @@ parameters and 212-state expectations come from the pinned
 oracle and native/strength evaluation stay independent. General rules come from
 the [reconstruction contract](reconstruction-contract.md); conventions mirror
 the [RBS runtime](rbs-runtime.md) and [native adapter](rbs-native-runtime.md).
+
+The Phase 1 [request schema](../../schemas/promoter-request-1.0.schema.json) and
+[single](../../examples/promoter-contract-single.json)/[batch](../../examples/promoter-contract-batch.json)
+synthetic examples are implemented structural contracts. With the locked
+development environment, run `python -m pytest tests/test_promoter_request_schema.py`.
+Schema acceptance does not run a prediction or replace parser, cross-field,
+normalized-coordinate, effective-limit or installed-model validation. Those
+semantic checks remain runtime requirements, explicitly listed in the schema's
+`$comment`. No result-schema execution or scientific accuracy is claimed here.
 
 ## Decisions
 

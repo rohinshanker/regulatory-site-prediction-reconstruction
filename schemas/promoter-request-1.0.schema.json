@@ -321,7 +321,7 @@
         }
       },
       "then": {
-        "$comment": "With no record output override, defaults.output.states:all is unambiguous. Partial output-object inheritance and CLI-resolved limits still require runtime resolution.",
+        "$comment": "With no record output override, defaults.output.states:all applies. A record output object replaces the entire defaults.output object; missing states in that winning object means selected. CLI-resolved limits still require runtime validation.",
         "properties": {
           "records": {
             "items": {
