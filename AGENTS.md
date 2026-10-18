@@ -4,7 +4,7 @@
 
 - Read `README.md`, `docs/notes/tickets/INDEX.md`, and applicable validation
   contracts before significant work. The user authorized the complete four-tool
-  reconstruction program; this initial repository only records its plan.
+  reconstruction program; the first implemented runtime is the Wave 1 RBS reconstruction.
 - RBS is the first implemented and released calculator. Discovery for other
   calculators can run in parallel; do not let a suite-wide audit block a ready
   RBS slice. Avoid duplicate implementations in the cyano consumer repository.
@@ -43,6 +43,16 @@
 - Predictions are not measurements. Distinguish host configuration from host
   calibration, start scoring from site discovery, and aptamer identification
   from conditional riboswitch scoring.
+- Follow `docs/validation/rbs-native-validation.md` for native evidence. Tan
+  2018 TSSs are transcription/context evidence, not translation-initiation labels.
+  Preserve alternate transcripts, assembly/annotation versions and unlabelled
+  sites; absence of an experimental peak is not automatically a negative.
+- The RBS program includes independently evaluated improvements beyond hosted
+  compatibility. Read `docs/validation/rbs-comparator-landscape.md` before selecting
+  learned components; review code, weights, training data and dependencies
+  separately. Keep final outcomes with the independent evaluator and freeze
+  candidate commits/settings before evaluation. No universal or native-host
+  superiority claim without task-matched independent evidence.
 
 ## Work and verification
 
@@ -54,8 +64,9 @@
   new path, failures, boundaries, strand/coordinate conversions and reproducibility.
   Use Google style for the chosen language. No stubs, invented outputs, silent
   fallback models, or placeholder returns in a claimed implementation.
-- Ticket 02 establishes exact CI/test commands. Before that, documentation-only
-  changes require ticket-field/index consistency, link checks and
+- Follow `docs/validation/rbs-runtime.md` for exact CI/test commands. Runtime
+  validation requires the real pinned backend, not skipped integration tests.
+  Documentation changes require ticket-field/index consistency, local links and
   `git diff --check`. Do not claim unavailable runtime tests passed.
 - Each release needs fresh-install/offline smoke tests, unit and integration
   tests, scientific benchmarks, dependency/licence inventory and measured resource

@@ -1,0 +1,1052 @@
+{
+  "manifest_sha256": "f4ecd0b78c578c7b95560b93f137f10b793d4cd9f69a33873865ad3c44216135",
+  "models": {
+    "public2014_sequence": {
+      "relative_TE": {
+        "n_constructs": 27,
+        "n_measurement_eligible": 18,
+        "exclusions": {
+          "n_source_not_measured": 9
+        },
+        "normalization_reference": "footprint2017:AEB-1",
+        "metrics": {
+          "n_submitted": 18,
+          "n_success": 18,
+          "failures": {},
+          "coverage": 1.0,
+          "pearson_r_log": null,
+          "pearson_r2_log": null,
+          "spearman_rho": null,
+          "rmse_log2": 4.659468522722614,
+          "mae_log2": 3.461848418600381,
+          "median_absolute_log2": 2.113658323600043,
+          "bias_log2": 3.118107087536743,
+          "within_2fold": {
+            "n": 5,
+            "all_case_fraction": 0.2777777777777778,
+            "successful_pair_fraction": 0.2777777777777778,
+            "all_case_wilson95": [
+              0.12499753379553993,
+              0.5087265656029746
+            ]
+          },
+          "within_5fold": {
+            "n": 11,
+            "all_case_fraction": 0.6111111111111112,
+            "successful_pair_fraction": 0.6111111111111112,
+            "all_case_wilson95": [
+              0.3861904160223791,
+              0.7969475342783638
+            ]
+          }
+        },
+        "family_bootstrap_mae_log2_95": null,
+        "constant_relative_rate_baseline": {
+          "n_submitted": 18,
+          "n_success": 18,
+          "failures": {},
+          "coverage": 1.0,
+          "pearson_r_log": null,
+          "pearson_r2_log": null,
+          "spearman_rho": null,
+          "rmse_log2": 4.659468522722614,
+          "mae_log2": 3.461848418600381,
+          "median_absolute_log2": 2.113658323600043,
+          "bias_log2": 3.118107087536743,
+          "within_2fold": {
+            "n": 5,
+            "all_case_fraction": 0.2777777777777778,
+            "successful_pair_fraction": 0.2777777777777778,
+            "all_case_wilson95": [
+              0.12499753379553993,
+              0.5087265656029746
+            ]
+          },
+          "within_5fold": {
+            "n": 11,
+            "all_case_fraction": 0.6111111111111112,
+            "successful_pair_fraction": 0.6111111111111112,
+            "all_case_wilson95": [
+              0.3861904160223791,
+              0.7969475342783638
+            ]
+          }
+        }
+      },
+      "fluorescence": {
+        "n_constructs": 27,
+        "n_measurement_eligible": 27,
+        "exclusions": {
+          "n_source_not_measured": 0
+        },
+        "normalization_reference": "footprint2017:AEB-1",
+        "metrics": {
+          "n_submitted": 27,
+          "n_success": 27,
+          "failures": {},
+          "coverage": 1.0,
+          "pearson_r_log": null,
+          "pearson_r2_log": null,
+          "spearman_rho": null,
+          "rmse_log2": 6.493740495522339,
+          "mae_log2": 4.6865890213248065,
+          "median_absolute_log2": 1.6607736220289318,
+          "bias_log2": 4.382845222551116,
+          "within_2fold": {
+            "n": 10,
+            "all_case_fraction": 0.37037037037037035,
+            "successful_pair_fraction": 0.37037037037037035,
+            "all_case_wilson95": [
+              0.21532512960965597,
+              0.5577076558789761
+            ]
+          },
+          "within_5fold": {
+            "n": 14,
+            "all_case_fraction": 0.5185185185185185,
+            "successful_pair_fraction": 0.5185185185185185,
+            "all_case_wilson95": [
+              0.3398561575495229,
+              0.6925677302378153
+            ]
+          }
+        },
+        "family_bootstrap_mae_log2_95": null,
+        "constant_relative_rate_baseline": {
+          "n_submitted": 27,
+          "n_success": 27,
+          "failures": {},
+          "coverage": 1.0,
+          "pearson_r_log": null,
+          "pearson_r2_log": null,
+          "spearman_rho": null,
+          "rmse_log2": 6.493740495522339,
+          "mae_log2": 4.6865890213248065,
+          "median_absolute_log2": 1.6607736220289318,
+          "bias_log2": 4.382845222551116,
+          "within_2fold": {
+            "n": 10,
+            "all_case_fraction": 0.37037037037037035,
+            "successful_pair_fraction": 0.37037037037037035,
+            "all_case_wilson95": [
+              0.21532512960965597,
+              0.5577076558789761
+            ]
+          },
+          "within_5fold": {
+            "n": 14,
+            "all_case_fraction": 0.5185185185185185,
+            "successful_pair_fraction": 0.5185185185185185,
+            "all_case_wilson95": [
+              0.3398561575495229,
+              0.6925677302378153
+            ]
+          }
+        }
+      }
+    },
+    "public2014_hybrid": {
+      "relative_TE": {
+        "n_constructs": 27,
+        "n_measurement_eligible": 18,
+        "exclusions": {
+          "n_source_not_measured": 9
+        },
+        "normalization_reference": "footprint2017:AEB-1",
+        "metrics": {
+          "n_submitted": 18,
+          "n_success": 18,
+          "failures": {},
+          "coverage": 1.0,
+          "pearson_r_log": 0.9006342408966203,
+          "pearson_r2_log": 0.8111420358754314,
+          "spearman_rho": 0.8342799253245404,
+          "rmse_log2": 4.34429384652416,
+          "mae_log2": 3.2490056410708257,
+          "median_absolute_log2": 1.938160396308335,
+          "bias_log2": 2.9019699144818976,
+          "within_2fold": {
+            "n": 5,
+            "all_case_fraction": 0.2777777777777778,
+            "successful_pair_fraction": 0.2777777777777778,
+            "all_case_wilson95": [
+              0.12499753379553993,
+              0.5087265656029746
+            ]
+          },
+          "within_5fold": {
+            "n": 11,
+            "all_case_fraction": 0.6111111111111112,
+            "successful_pair_fraction": 0.6111111111111112,
+            "all_case_wilson95": [
+              0.3861904160223791,
+              0.7969475342783638
+            ]
+          }
+        },
+        "family_bootstrap_mae_log2_95": null,
+        "constant_relative_rate_baseline": {
+          "n_submitted": 18,
+          "n_success": 18,
+          "failures": {},
+          "coverage": 1.0,
+          "pearson_r_log": null,
+          "pearson_r2_log": null,
+          "spearman_rho": null,
+          "rmse_log2": 4.659468522722614,
+          "mae_log2": 3.461848418600381,
+          "median_absolute_log2": 2.113658323600043,
+          "bias_log2": 3.118107087536743,
+          "within_2fold": {
+            "n": 5,
+            "all_case_fraction": 0.2777777777777778,
+            "successful_pair_fraction": 0.2777777777777778,
+            "all_case_wilson95": [
+              0.12499753379553993,
+              0.5087265656029746
+            ]
+          },
+          "within_5fold": {
+            "n": 11,
+            "all_case_fraction": 0.6111111111111112,
+            "successful_pair_fraction": 0.6111111111111112,
+            "all_case_wilson95": [
+              0.3861904160223791,
+              0.7969475342783638
+            ]
+          }
+        }
+      },
+      "fluorescence": {
+        "n_constructs": 27,
+        "n_measurement_eligible": 27,
+        "exclusions": {
+          "n_source_not_measured": 0
+        },
+        "normalization_reference": "footprint2017:AEB-1",
+        "metrics": {
+          "n_submitted": 27,
+          "n_success": 27,
+          "failures": {},
+          "coverage": 1.0,
+          "pearson_r_log": 0.9339416250675429,
+          "pearson_r2_log": 0.8722469590338028,
+          "spearman_rho": 0.8708160914980477,
+          "rmse_log2": 6.1651209387999915,
+          "mae_log2": 4.469421234209488,
+          "median_absolute_log2": 1.6665499609058858,
+          "bias_log2": 4.172275748460934,
+          "within_2fold": {
+            "n": 10,
+            "all_case_fraction": 0.37037037037037035,
+            "successful_pair_fraction": 0.37037037037037035,
+            "all_case_wilson95": [
+              0.21532512960965597,
+              0.5577076558789761
+            ]
+          },
+          "within_5fold": {
+            "n": 14,
+            "all_case_fraction": 0.5185185185185185,
+            "successful_pair_fraction": 0.5185185185185185,
+            "all_case_wilson95": [
+              0.3398561575495229,
+              0.6925677302378153
+            ]
+          }
+        },
+        "family_bootstrap_mae_log2_95": null,
+        "constant_relative_rate_baseline": {
+          "n_submitted": 27,
+          "n_success": 27,
+          "failures": {},
+          "coverage": 1.0,
+          "pearson_r_log": null,
+          "pearson_r2_log": null,
+          "spearman_rho": null,
+          "rmse_log2": 6.493740495522339,
+          "mae_log2": 4.6865890213248065,
+          "median_absolute_log2": 1.6607736220289318,
+          "bias_log2": 4.382845222551116,
+          "within_2fold": {
+            "n": 10,
+            "all_case_fraction": 0.37037037037037035,
+            "successful_pair_fraction": 0.37037037037037035,
+            "all_case_wilson95": [
+              0.21532512960965597,
+              0.5577076558789761
+            ]
+          },
+          "within_5fold": {
+            "n": 14,
+            "all_case_fraction": 0.5185185185185185,
+            "successful_pair_fraction": 0.5185185185185185,
+            "all_case_wilson95": [
+              0.3398561575495229,
+              0.6925677302378153
+            ]
+          }
+        }
+      }
+    },
+    "historical": {
+      "relative_TE": {
+        "n_constructs": 27,
+        "n_measurement_eligible": 18,
+        "exclusions": {
+          "n_source_not_measured": 9
+        },
+        "normalization_reference": "footprint2017:AEB-1",
+        "metrics": {
+          "n_submitted": 18,
+          "n_success": 18,
+          "failures": {},
+          "coverage": 1.0,
+          "pearson_r_log": 0.30129727661602657,
+          "pearson_r2_log": 0.09078004889623442,
+          "spearman_rho": 0.3343701424727153,
+          "rmse_log2": 4.119233949701598,
+          "mae_log2": 3.0175182794769486,
+          "median_absolute_log2": 2.215485466589012,
+          "bias_log2": -1.2356605751119691,
+          "within_2fold": {
+            "n": 8,
+            "all_case_fraction": 0.4444444444444444,
+            "successful_pair_fraction": 0.4444444444444444,
+            "all_case_wilson95": [
+              0.24559518127005633,
+              0.6628358435795723
+            ]
+          },
+          "within_5fold": {
+            "n": 9,
+            "all_case_fraction": 0.5,
+            "successful_pair_fraction": 0.5,
+            "all_case_wilson95": [
+              0.29031021505169974,
+              0.7096897849483003
+            ]
+          }
+        },
+        "family_bootstrap_mae_log2_95": null,
+        "constant_relative_rate_baseline": {
+          "n_submitted": 18,
+          "n_success": 18,
+          "failures": {},
+          "coverage": 1.0,
+          "pearson_r_log": null,
+          "pearson_r2_log": null,
+          "spearman_rho": null,
+          "rmse_log2": 4.659468522722614,
+          "mae_log2": 3.461848418600381,
+          "median_absolute_log2": 2.113658323600043,
+          "bias_log2": 3.118107087536743,
+          "within_2fold": {
+            "n": 5,
+            "all_case_fraction": 0.2777777777777778,
+            "successful_pair_fraction": 0.2777777777777778,
+            "all_case_wilson95": [
+              0.12499753379553993,
+              0.5087265656029746
+            ]
+          },
+          "within_5fold": {
+            "n": 11,
+            "all_case_fraction": 0.6111111111111112,
+            "successful_pair_fraction": 0.6111111111111112,
+            "all_case_wilson95": [
+              0.3861904160223791,
+              0.7969475342783638
+            ]
+          }
+        }
+      },
+      "fluorescence": {
+        "n_constructs": 27,
+        "n_measurement_eligible": 27,
+        "exclusions": {
+          "n_source_not_measured": 0
+        },
+        "normalization_reference": "footprint2017:AEB-1",
+        "metrics": {
+          "n_submitted": 27,
+          "n_success": 27,
+          "failures": {},
+          "coverage": 1.0,
+          "pearson_r_log": 0.46274746851571485,
+          "pearson_r2_log": 0.21413521961770252,
+          "spearman_rho": 0.42649645707483663,
+          "rmse_log2": 4.349992432304197,
+          "mae_log2": 3.5350935131058074,
+          "median_absolute_log2": 3.1636439783716614,
+          "bias_log2": -0.008195789322150048,
+          "within_2fold": {
+            "n": 4,
+            "all_case_fraction": 0.14814814814814814,
+            "successful_pair_fraction": 0.14814814814814814,
+            "all_case_wilson95": [
+              0.05915927776244326,
+              0.3247868542781298
+            ]
+          },
+          "within_5fold": {
+            "n": 11,
+            "all_case_fraction": 0.4074074074074074,
+            "successful_pair_fraction": 0.4074074074074074,
+            "all_case_wilson95": [
+              0.24514757074395552,
+              0.592732990319353
+            ]
+          }
+        },
+        "family_bootstrap_mae_log2_95": null,
+        "constant_relative_rate_baseline": {
+          "n_submitted": 27,
+          "n_success": 27,
+          "failures": {},
+          "coverage": 1.0,
+          "pearson_r_log": null,
+          "pearson_r2_log": null,
+          "spearman_rho": null,
+          "rmse_log2": 6.493740495522339,
+          "mae_log2": 4.6865890213248065,
+          "median_absolute_log2": 1.6607736220289318,
+          "bias_log2": 4.382845222551116,
+          "within_2fold": {
+            "n": 10,
+            "all_case_fraction": 0.37037037037037035,
+            "successful_pair_fraction": 0.37037037037037035,
+            "all_case_wilson95": [
+              0.21532512960965597,
+              0.5577076558789761
+            ]
+          },
+          "within_5fold": {
+            "n": 14,
+            "all_case_fraction": 0.5185185185185185,
+            "successful_pair_fraction": 0.5185185185185185,
+            "all_case_wilson95": [
+              0.3398561575495229,
+              0.6925677302378153
+            ]
+          }
+        }
+      }
+    },
+    "footprint2017": {
+      "relative_TE": {
+        "n_constructs": 27,
+        "n_measurement_eligible": 18,
+        "exclusions": {
+          "n_source_not_measured": 9
+        },
+        "normalization_reference": "footprint2017:AEB-1",
+        "metrics": {
+          "n_submitted": 18,
+          "n_success": 18,
+          "failures": {},
+          "coverage": 1.0,
+          "pearson_r_log": 0.729486314872753,
+          "pearson_r2_log": 0.5321502835866293,
+          "spearman_rho": 0.6890866301485926,
+          "rmse_log2": 2.544769444682713,
+          "mae_log2": 1.6318519809705492,
+          "median_absolute_log2": 0.9375318804408524,
+          "bias_log2": 0.9285984121201993,
+          "within_2fold": {
+            "n": 9,
+            "all_case_fraction": 0.5,
+            "successful_pair_fraction": 0.5,
+            "all_case_wilson95": [
+              0.29031021505169974,
+              0.7096897849483003
+            ]
+          },
+          "within_5fold": {
+            "n": 15,
+            "all_case_fraction": 0.8333333333333334,
+            "successful_pair_fraction": 0.8333333333333334,
+            "all_case_wilson95": [
+              0.6077796189608428,
+              0.9416342319413856
+            ]
+          }
+        },
+        "family_bootstrap_mae_log2_95": null,
+        "constant_relative_rate_baseline": {
+          "n_submitted": 18,
+          "n_success": 18,
+          "failures": {},
+          "coverage": 1.0,
+          "pearson_r_log": null,
+          "pearson_r2_log": null,
+          "spearman_rho": null,
+          "rmse_log2": 4.659468522722614,
+          "mae_log2": 3.461848418600381,
+          "median_absolute_log2": 2.113658323600043,
+          "bias_log2": 3.118107087536743,
+          "within_2fold": {
+            "n": 5,
+            "all_case_fraction": 0.2777777777777778,
+            "successful_pair_fraction": 0.2777777777777778,
+            "all_case_wilson95": [
+              0.12499753379553993,
+              0.5087265656029746
+            ]
+          },
+          "within_5fold": {
+            "n": 11,
+            "all_case_fraction": 0.6111111111111112,
+            "successful_pair_fraction": 0.6111111111111112,
+            "all_case_wilson95": [
+              0.3861904160223791,
+              0.7969475342783638
+            ]
+          }
+        }
+      },
+      "fluorescence": {
+        "n_constructs": 27,
+        "n_measurement_eligible": 27,
+        "exclusions": {
+          "n_source_not_measured": 0
+        },
+        "normalization_reference": "footprint2017:AEB-1",
+        "metrics": {
+          "n_submitted": 27,
+          "n_success": 27,
+          "failures": {},
+          "coverage": 1.0,
+          "pearson_r_log": 0.8172025360108961,
+          "pearson_r2_log": 0.6678199848626399,
+          "spearman_rho": 0.7979871735047848,
+          "rmse_log2": 3.555735931376572,
+          "mae_log2": 2.4471745736561603,
+          "median_absolute_log2": 1.3258256414129488,
+          "bias_log2": 2.0165887298439453,
+          "within_2fold": {
+            "n": 10,
+            "all_case_fraction": 0.37037037037037035,
+            "successful_pair_fraction": 0.37037037037037035,
+            "all_case_wilson95": [
+              0.21532512960965597,
+              0.5577076558789761
+            ]
+          },
+          "within_5fold": {
+            "n": 18,
+            "all_case_fraction": 0.6666666666666666,
+            "successful_pair_fraction": 0.6666666666666666,
+            "all_case_wilson95": [
+              0.47824760507320074,
+              0.8135673850128435
+            ]
+          }
+        },
+        "family_bootstrap_mae_log2_95": null,
+        "constant_relative_rate_baseline": {
+          "n_submitted": 27,
+          "n_success": 27,
+          "failures": {},
+          "coverage": 1.0,
+          "pearson_r_log": null,
+          "pearson_r2_log": null,
+          "spearman_rho": null,
+          "rmse_log2": 6.493740495522339,
+          "mae_log2": 4.6865890213248065,
+          "median_absolute_log2": 1.6607736220289318,
+          "bias_log2": 4.382845222551116,
+          "within_2fold": {
+            "n": 10,
+            "all_case_fraction": 0.37037037037037035,
+            "successful_pair_fraction": 0.37037037037037035,
+            "all_case_wilson95": [
+              0.21532512960965597,
+              0.5577076558789761
+            ]
+          },
+          "within_5fold": {
+            "n": 14,
+            "all_case_fraction": 0.5185185185185185,
+            "successful_pair_fraction": 0.5185185185185185,
+            "all_case_wilson95": [
+              0.3398561575495229,
+              0.6925677302378153
+            ]
+          }
+        }
+      }
+    },
+    "context2017": {
+      "relative_TE": {
+        "n_constructs": 27,
+        "n_measurement_eligible": 18,
+        "exclusions": {
+          "n_source_not_measured": 9
+        },
+        "normalization_reference": "footprint2017:AEB-1",
+        "metrics": {
+          "n_submitted": 18,
+          "n_success": 18,
+          "failures": {},
+          "coverage": 1.0,
+          "pearson_r_log": 0.9017392580827004,
+          "pearson_r2_log": 0.813133689567539,
+          "spearman_rho": 0.8622136029114335,
+          "rmse_log2": 1.566902073968478,
+          "mae_log2": 1.3022969236299746,
+          "median_absolute_log2": 1.2125543508873595,
+          "bias_log2": 0.4560685332411756,
+          "within_2fold": {
+            "n": 5,
+            "all_case_fraction": 0.2777777777777778,
+            "successful_pair_fraction": 0.2777777777777778,
+            "all_case_wilson95": [
+              0.12499753379553993,
+              0.5087265656029746
+            ]
+          },
+          "within_5fold": {
+            "n": 17,
+            "all_case_fraction": 0.9444444444444444,
+            "successful_pair_fraction": 0.9444444444444444,
+            "all_case_wilson95": [
+              0.7424269921812741,
+              0.990124809021697
+            ]
+          }
+        },
+        "family_bootstrap_mae_log2_95": null,
+        "constant_relative_rate_baseline": {
+          "n_submitted": 18,
+          "n_success": 18,
+          "failures": {},
+          "coverage": 1.0,
+          "pearson_r_log": null,
+          "pearson_r2_log": null,
+          "spearman_rho": null,
+          "rmse_log2": 4.659468522722614,
+          "mae_log2": 3.461848418600381,
+          "median_absolute_log2": 2.113658323600043,
+          "bias_log2": 3.118107087536743,
+          "within_2fold": {
+            "n": 5,
+            "all_case_fraction": 0.2777777777777778,
+            "successful_pair_fraction": 0.2777777777777778,
+            "all_case_wilson95": [
+              0.12499753379553993,
+              0.5087265656029746
+            ]
+          },
+          "within_5fold": {
+            "n": 11,
+            "all_case_fraction": 0.6111111111111112,
+            "successful_pair_fraction": 0.6111111111111112,
+            "all_case_wilson95": [
+              0.3861904160223791,
+              0.7969475342783638
+            ]
+          }
+        }
+      },
+      "fluorescence": {
+        "n_constructs": 27,
+        "n_measurement_eligible": 27,
+        "exclusions": {
+          "n_source_not_measured": 0
+        },
+        "normalization_reference": "footprint2017:AEB-1",
+        "metrics": {
+          "n_submitted": 27,
+          "n_success": 27,
+          "failures": {},
+          "coverage": 1.0,
+          "pearson_r_log": 0.9330078698514707,
+          "pearson_r2_log": 0.8705036852047788,
+          "spearman_rho": 0.8864987078337967,
+          "rmse_log2": 2.779307881624759,
+          "mae_log2": 2.0822640400220966,
+          "median_absolute_log2": 1.4480843487618378,
+          "bias_log2": 1.7785202412484062,
+          "within_2fold": {
+            "n": 10,
+            "all_case_fraction": 0.37037037037037035,
+            "successful_pair_fraction": 0.37037037037037035,
+            "all_case_wilson95": [
+              0.21532512960965597,
+              0.5577076558789761
+            ]
+          },
+          "within_5fold": {
+            "n": 17,
+            "all_case_fraction": 0.6296296296296297,
+            "successful_pair_fraction": 0.6296296296296297,
+            "all_case_wilson95": [
+              0.4422923441210239,
+              0.784674870390344
+            ]
+          }
+        },
+        "family_bootstrap_mae_log2_95": null,
+        "constant_relative_rate_baseline": {
+          "n_submitted": 27,
+          "n_success": 27,
+          "failures": {},
+          "coverage": 1.0,
+          "pearson_r_log": null,
+          "pearson_r2_log": null,
+          "spearman_rho": null,
+          "rmse_log2": 6.493740495522339,
+          "mae_log2": 4.6865890213248065,
+          "median_absolute_log2": 1.6607736220289318,
+          "bias_log2": 4.382845222551116,
+          "within_2fold": {
+            "n": 10,
+            "all_case_fraction": 0.37037037037037035,
+            "successful_pair_fraction": 0.37037037037037035,
+            "all_case_wilson95": [
+              0.21532512960965597,
+              0.5577076558789761
+            ]
+          },
+          "within_5fold": {
+            "n": 14,
+            "all_case_fraction": 0.5185185185185185,
+            "successful_pair_fraction": 0.5185185185185185,
+            "all_case_wilson95": [
+              0.3398561575495229,
+              0.6925677302378153
+            ]
+          }
+        }
+      }
+    },
+    "ostir": {
+      "relative_TE": {
+        "n_constructs": 27,
+        "n_measurement_eligible": 18,
+        "exclusions": {
+          "n_source_not_measured": 9
+        },
+        "normalization_reference": "footprint2017:AEB-1",
+        "metrics": {
+          "n_submitted": 18,
+          "n_success": 18,
+          "failures": {},
+          "coverage": 1.0,
+          "pearson_r_log": 0.3305139430651152,
+          "pearson_r2_log": 0.10923946656045022,
+          "spearman_rho": 0.41433826034843463,
+          "rmse_log2": 3.6406195163900668,
+          "mae_log2": 2.9216910019442417,
+          "median_absolute_log2": 2.597237915781369,
+          "bias_log2": -0.1281606072872856,
+          "within_2fold": {
+            "n": 4,
+            "all_case_fraction": 0.2222222222222222,
+            "successful_pair_fraction": 0.2222222222222222,
+            "all_case_wilson95": [
+              0.09000928108601694,
+              0.45214584316212625
+            ]
+          },
+          "within_5fold": {
+            "n": 8,
+            "all_case_fraction": 0.4444444444444444,
+            "successful_pair_fraction": 0.4444444444444444,
+            "all_case_wilson95": [
+              0.24559518127005633,
+              0.6628358435795723
+            ]
+          }
+        },
+        "family_bootstrap_mae_log2_95": null,
+        "constant_relative_rate_baseline": {
+          "n_submitted": 18,
+          "n_success": 18,
+          "failures": {},
+          "coverage": 1.0,
+          "pearson_r_log": null,
+          "pearson_r2_log": null,
+          "spearman_rho": null,
+          "rmse_log2": 4.659468522722614,
+          "mae_log2": 3.461848418600381,
+          "median_absolute_log2": 2.113658323600043,
+          "bias_log2": 3.118107087536743,
+          "within_2fold": {
+            "n": 5,
+            "all_case_fraction": 0.2777777777777778,
+            "successful_pair_fraction": 0.2777777777777778,
+            "all_case_wilson95": [
+              0.12499753379553993,
+              0.5087265656029746
+            ]
+          },
+          "within_5fold": {
+            "n": 11,
+            "all_case_fraction": 0.6111111111111112,
+            "successful_pair_fraction": 0.6111111111111112,
+            "all_case_wilson95": [
+              0.3861904160223791,
+              0.7969475342783638
+            ]
+          }
+        }
+      },
+      "fluorescence": {
+        "n_constructs": 27,
+        "n_measurement_eligible": 27,
+        "exclusions": {
+          "n_source_not_measured": 0
+        },
+        "normalization_reference": "footprint2017:AEB-1",
+        "metrics": {
+          "n_submitted": 27,
+          "n_success": 27,
+          "failures": {},
+          "coverage": 1.0,
+          "pearson_r_log": 0.46450929471230024,
+          "pearson_r2_log": 0.2157688848741186,
+          "spearman_rho": 0.5016972071976985,
+          "rmse_log2": 4.3956804140015295,
+          "mae_log2": 3.5891830666187983,
+          "median_absolute_log2": 3.672233228087048,
+          "bias_log2": 1.0351550407370487,
+          "within_2fold": {
+            "n": 5,
+            "all_case_fraction": 0.18518518518518517,
+            "successful_pair_fraction": 0.18518518518518517,
+            "all_case_wilson95": [
+              0.08180707142976529,
+              0.3669868361854843
+            ]
+          },
+          "within_5fold": {
+            "n": 11,
+            "all_case_fraction": 0.4074074074074074,
+            "successful_pair_fraction": 0.4074074074074074,
+            "all_case_wilson95": [
+              0.24514757074395552,
+              0.592732990319353
+            ]
+          }
+        },
+        "family_bootstrap_mae_log2_95": null,
+        "constant_relative_rate_baseline": {
+          "n_submitted": 27,
+          "n_success": 27,
+          "failures": {},
+          "coverage": 1.0,
+          "pearson_r_log": null,
+          "pearson_r2_log": null,
+          "spearman_rho": null,
+          "rmse_log2": 6.493740495522339,
+          "mae_log2": 4.6865890213248065,
+          "median_absolute_log2": 1.6607736220289318,
+          "bias_log2": 4.382845222551116,
+          "within_2fold": {
+            "n": 10,
+            "all_case_fraction": 0.37037037037037035,
+            "successful_pair_fraction": 0.37037037037037035,
+            "all_case_wilson95": [
+              0.21532512960965597,
+              0.5577076558789761
+            ]
+          },
+          "within_5fold": {
+            "n": 14,
+            "all_case_fraction": 0.5185185185185185,
+            "successful_pair_fraction": 0.5185185185185185,
+            "all_case_wilson95": [
+              0.3398561575495229,
+              0.6925677302378153
+            ]
+          }
+        }
+      }
+    },
+    "rebeca": {
+      "relative_TE": {
+        "n_constructs": 27,
+        "n_measurement_eligible": 18,
+        "exclusions": {
+          "n_source_not_measured": 9
+        },
+        "normalization_reference": "footprint2017:AEB-1",
+        "metrics": {
+          "n_submitted": 18,
+          "n_success": 18,
+          "failures": {},
+          "coverage": 1.0,
+          "pearson_r_log": null,
+          "pearson_r2_log": null,
+          "spearman_rho": null,
+          "rmse_log2": 4.659468522722614,
+          "mae_log2": 3.461848418600381,
+          "median_absolute_log2": 2.113658323600043,
+          "bias_log2": 3.118107087536743,
+          "within_2fold": {
+            "n": 5,
+            "all_case_fraction": 0.2777777777777778,
+            "successful_pair_fraction": 0.2777777777777778,
+            "all_case_wilson95": [
+              0.12499753379553993,
+              0.5087265656029746
+            ]
+          },
+          "within_5fold": {
+            "n": 11,
+            "all_case_fraction": 0.6111111111111112,
+            "successful_pair_fraction": 0.6111111111111112,
+            "all_case_wilson95": [
+              0.3861904160223791,
+              0.7969475342783638
+            ]
+          }
+        },
+        "family_bootstrap_mae_log2_95": null,
+        "constant_relative_rate_baseline": {
+          "n_submitted": 18,
+          "n_success": 18,
+          "failures": {},
+          "coverage": 1.0,
+          "pearson_r_log": null,
+          "pearson_r2_log": null,
+          "spearman_rho": null,
+          "rmse_log2": 4.659468522722614,
+          "mae_log2": 3.461848418600381,
+          "median_absolute_log2": 2.113658323600043,
+          "bias_log2": 3.118107087536743,
+          "within_2fold": {
+            "n": 5,
+            "all_case_fraction": 0.2777777777777778,
+            "successful_pair_fraction": 0.2777777777777778,
+            "all_case_wilson95": [
+              0.12499753379553993,
+              0.5087265656029746
+            ]
+          },
+          "within_5fold": {
+            "n": 11,
+            "all_case_fraction": 0.6111111111111112,
+            "successful_pair_fraction": 0.6111111111111112,
+            "all_case_wilson95": [
+              0.3861904160223791,
+              0.7969475342783638
+            ]
+          }
+        }
+      },
+      "fluorescence": {
+        "n_constructs": 27,
+        "n_measurement_eligible": 27,
+        "exclusions": {
+          "n_source_not_measured": 0
+        },
+        "normalization_reference": "footprint2017:AEB-1",
+        "metrics": {
+          "n_submitted": 27,
+          "n_success": 27,
+          "failures": {},
+          "coverage": 1.0,
+          "pearson_r_log": null,
+          "pearson_r2_log": null,
+          "spearman_rho": null,
+          "rmse_log2": 6.493740495522339,
+          "mae_log2": 4.6865890213248065,
+          "median_absolute_log2": 1.6607736220289318,
+          "bias_log2": 4.382845222551116,
+          "within_2fold": {
+            "n": 10,
+            "all_case_fraction": 0.37037037037037035,
+            "successful_pair_fraction": 0.37037037037037035,
+            "all_case_wilson95": [
+              0.21532512960965597,
+              0.5577076558789761
+            ]
+          },
+          "within_5fold": {
+            "n": 14,
+            "all_case_fraction": 0.5185185185185185,
+            "successful_pair_fraction": 0.5185185185185185,
+            "all_case_wilson95": [
+              0.3398561575495229,
+              0.6925677302378153
+            ]
+          }
+        },
+        "family_bootstrap_mae_log2_95": null,
+        "constant_relative_rate_baseline": {
+          "n_submitted": 27,
+          "n_success": 27,
+          "failures": {},
+          "coverage": 1.0,
+          "pearson_r_log": null,
+          "pearson_r2_log": null,
+          "spearman_rho": null,
+          "rmse_log2": 6.493740495522339,
+          "mae_log2": 4.6865890213248065,
+          "median_absolute_log2": 1.6607736220289318,
+          "bias_log2": 4.382845222551116,
+          "within_2fold": {
+            "n": 10,
+            "all_case_fraction": 0.37037037037037035,
+            "successful_pair_fraction": 0.37037037037037035,
+            "all_case_wilson95": [
+              0.21532512960965597,
+              0.5577076558789761
+            ]
+          },
+          "within_5fold": {
+            "n": 14,
+            "all_case_fraction": 0.5185185185185185,
+            "successful_pair_fraction": 0.5185185185185185,
+            "all_case_wilson95": [
+              0.3398561575495229,
+              0.6925677302378153
+            ]
+          }
+        }
+      }
+    }
+  },
+  "scope": "secondary partially exposed study; one shared-template family; no promotion",
+  "exposure": "Two source fluorescence values were incidentally seen by A during mechanism reading; published footprint selected on this panel. All reconstruction tuning avoided private outcomes.",
+  "evaluator_sha256": "9f63687001888da79baf4f54bd4b4cdd3e259006386550b4839e427eb873172c",
+  "measurement_noise_audit": {
+    "summaries": {
+      "fluorescence": {
+        "n_CV_available": 27,
+        "CV_range": [
+          0.04936042497277303,
+          0.5275327286132169
+        ],
+        "CV_median": 0.12251764396531586,
+        "source_sample_counts": [
+          4
+        ]
+      },
+      "mrna": {
+        "n_CV_available": 18,
+        "CV_range": [
+          0.017932254120414395,
+          0.7194067618262021
+        ],
+        "CV_median": 0.17152059405194792,
+        "source_sample_counts": [
+          2,
+          3,
+          6,
+          8
+        ]
+      }
+    },
+    "replicate_pairing": "Raw paired-replicate covariance unavailable; no ratio variance or biological noise ceiling inferred.",
+    "outlier_handling": "No residual, signal or CV trimming; all source-eligible means retained.",
+    "reference_dependence": "AEB-1 observation shared by all normalized ratios; one forced-zero error control per assay."
+  },
+  "public_export": {
+    "private_report_sha256": "1ce507162462dd65aa0b578511e48524bb98c41b31d7c261f7fb0336c4e5e90f",
+    "policy": "Aggregate performance/provenance only; raw outcomes, per-case errors and private service exports excluded"
+  }
+}

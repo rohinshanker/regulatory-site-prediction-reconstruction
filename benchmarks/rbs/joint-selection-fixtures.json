@@ -1,0 +1,301 @@
+{
+  "schema_version": "rbs-joint-synthetic-oracle-1",
+  "provenance": {
+    "kind": "independent synthetic finite-state energies, not a folding engine or measurements",
+    "basis": "shared Wave4 specification and published standby total-energy accounting; no A scoring internals inspected",
+    "licence": "GPL-3.0-or-later original fixture work",
+    "formula": "E_before + spacing + start_energy - E_unbound + max(0,E_after-E_before) + distortion + sliding",
+    "candidate_tie": "exact total, then original backend index",
+    "state_tie": "penalty, opened-pair count, original module, remaining core"
+  },
+  "cases": [
+    {
+      "id": "greedy_loses_after_standby",
+      "unbound": "-4",
+      "start": "-1.194",
+      "candidates": [
+        {
+          "index": 3,
+          "cofold": "-8",
+          "spacing": "0",
+          "before": "-10",
+          "states": [
+            {
+              "after": "-10",
+              "distortion": "4",
+              "sliding": "0",
+              "opened": 0,
+              "module": 0,
+              "core": 0
+            },
+            {
+              "after": "-7",
+              "distortion": "1",
+              "sliding": "1",
+              "opened": 1,
+              "module": 0,
+              "core": 1
+            },
+            {
+              "after": "-6",
+              "distortion": "0",
+              "sliding": "0",
+              "opened": 2,
+              "module": 0,
+              "core": 2
+            }
+          ]
+        },
+        {
+          "index": 7,
+          "cofold": "-7",
+          "spacing": "0.5",
+          "before": "-9",
+          "states": [
+            {
+              "after": "-9",
+              "distortion": "1",
+              "sliding": "0.5",
+              "opened": 0,
+              "module": 0,
+              "core": 0
+            },
+            {
+              "after": "-8.5",
+              "distortion": "0",
+              "sliding": "0",
+              "opened": 1,
+              "module": 0,
+              "core": 1
+            }
+          ]
+        }
+      ],
+      "expected": {
+        "greedy": 3,
+        "winner": 7,
+        "state": 1,
+        "total": "-5.194",
+        "greedy_total": "-3.194",
+        "candidate_totals": [
+          "-3.194",
+          "-5.194"
+        ]
+      }
+    },
+    {
+      "id": "single_candidate_agrees",
+      "unbound": "-4",
+      "start": "-1.194",
+      "candidates": [
+        {
+          "index": 7,
+          "cofold": "-7",
+          "spacing": "0.5",
+          "before": "-9",
+          "states": [
+            {
+              "after": "-9",
+              "distortion": "1",
+              "sliding": "0.5",
+              "opened": 0,
+              "module": 0,
+              "core": 0
+            },
+            {
+              "after": "-8.5",
+              "distortion": "0",
+              "sliding": "0",
+              "opened": 1,
+              "module": 0,
+              "core": 1
+            }
+          ]
+        }
+      ],
+      "expected": {
+        "greedy": 7,
+        "winner": 7,
+        "state": 1,
+        "total": "-5.194",
+        "greedy_total": "-5.194",
+        "candidate_totals": [
+          "-5.194"
+        ]
+      }
+    },
+    {
+      "id": "backend_order_breaks_exact_total_tie",
+      "unbound": "-4",
+      "start": "-1.194",
+      "candidates": [
+        {
+          "index": 7,
+          "cofold": "-7",
+          "spacing": "2.5",
+          "before": "-9",
+          "states": [
+            {
+              "after": "-9",
+              "distortion": "1",
+              "sliding": "0.5",
+              "opened": 0,
+              "module": 0,
+              "core": 0
+            },
+            {
+              "after": "-8.5",
+              "distortion": "0",
+              "sliding": "0",
+              "opened": 1,
+              "module": 0,
+              "core": 1
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "cofold": "-8",
+          "spacing": "0",
+          "before": "-10",
+          "states": [
+            {
+              "after": "-10",
+              "distortion": "4",
+              "sliding": "0",
+              "opened": 0,
+              "module": 0,
+              "core": 0
+            },
+            {
+              "after": "-7",
+              "distortion": "1",
+              "sliding": "1",
+              "opened": 1,
+              "module": 0,
+              "core": 1
+            },
+            {
+              "after": "-6",
+              "distortion": "0",
+              "sliding": "0",
+              "opened": 2,
+              "module": 0,
+              "core": 2
+            }
+          ]
+        }
+      ],
+      "expected": {
+        "greedy": 3,
+        "winner": 3,
+        "state": 0,
+        "total": "-3.194",
+        "greedy_total": "-3.194",
+        "candidate_totals": [
+          "-3.194",
+          "-3.194"
+        ]
+      }
+    }
+  ],
+  "coordinates": [
+    {
+      "id": "forward_window",
+      "length": 150,
+      "window_start": 7,
+      "window_interval": [
+        12,
+        19
+      ],
+      "strand": "+",
+      "expected_interval": [
+        19,
+        26
+      ]
+    },
+    {
+      "id": "reverse_window",
+      "length": 150,
+      "window_start": 7,
+      "window_interval": [
+        12,
+        19
+      ],
+      "strand": "-",
+      "expected_interval": [
+        124,
+        131
+      ]
+    }
+  ],
+  "start_mapping": {
+    "length": 150,
+    "oriented_start": 67,
+    "reverse_forward_base": 82,
+    "reverse_start_codon_interval": [
+      80,
+      83
+    ]
+  },
+  "circular": [
+    {
+      "genome_length": 100,
+      "oriented_first_base": 93,
+      "step": 1,
+      "interval": [
+        4,
+        12
+      ],
+      "expected_bases": [
+        97,
+        98,
+        99,
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "expected_segments": [
+        [
+          97,
+          100
+        ],
+        [
+          0,
+          5
+        ]
+      ]
+    },
+    {
+      "genome_length": 100,
+      "oriented_first_base": 6,
+      "step": -1,
+      "interval": [
+        4,
+        12
+      ],
+      "expected_bases": [
+        2,
+        1,
+        0,
+        99,
+        98,
+        97,
+        96,
+        95
+      ],
+      "expected_segments": [
+        [
+          0,
+          3
+        ],
+        [
+          95,
+          100
+        ]
+      ]
+    }
+  ]
+}

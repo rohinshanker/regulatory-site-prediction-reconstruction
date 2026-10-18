@@ -1,0 +1,37 @@
+Regulatory site prediction reconstruction — GPL-3.0-or-later.
+
+src/regsite/rbs.py adapts equations and the structural calculation procedure of:
+RBS_Calculator.py, Ribosome Binding Site Calculator v1.0
+Copyright 2008–2009 University of California Regents. All rights reserved.
+GNU General Public License version 3 or (at your option) any later version.
+https://github.com/hsalis/Ribosome-Binding-Site-Calculator-v1.0/blob/8a9c1de1bdd847bb90d2ab6ceaa3c20feceda307/RBS_Calculator.py
+
+This program is distributed WITHOUT ANY WARRANTY; without even the implied
+warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See LICENSE.
+
+RNAstructure 6.6 is independently installed software (GPL-2.0-only) by the
+Mathews Lab, University of Rochester. The Python package neither links nor bundles
+its executables or thermodynamic tables. It exchanges ordinary
+sequence/CT files with separate command-line processes. The included table
+manifest contains hashes, not table contents. Preserve RNAstructure's own
+ReadMe.txt, gpl.txt and corresponding source when separately distributing it.
+
+The separate backends/rnastructure66 component contains a source patch, builder
+and fixtures under GPL-2.0-only, an exception to the repository default. Its own
+LICENSE and README govern that component. It builds independent executables;
+no GPL-2.0-only implementation is copied into or linked with src/regsite.
+
+src/regsite/standby.py independently implements scientific relationships from
+Espah Borujeni, Channarasappa and Salis (2014), doi:10.1093/nar/gkt1139,
+including Supplementary Figure S3. The source article is CC BY 3.0. See
+docs/validation/rbs-standby.md for attribution, source pins and reconstruction
+choices. No source measurements or private model parameters are embedded.
+
+The optional benchmarks/promoter reference tools and parameter conversions derive
+from the GPL-3.0-or-later Promoter Calculator by Travis La Fleur, Ayaan Hossain
+and Howard Salis (Copyright 2021). The source distribution preserves that scope's
+NOTICE, ORIGINAL-NOTICE, COPYING and explicit historical compatibility patch.
+These reference artifacts are not included in the required Python runtime wheel;
+see docs/validation/promoter-executed-reference.md for source/environment pins.
+
+No iDOG wrapper, ViennaRNA, NUPACK or private DNAc code is included.

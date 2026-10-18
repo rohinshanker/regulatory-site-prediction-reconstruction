@@ -1,0 +1,47 @@
+[build-system]
+requires = ["setuptools==82.0.1"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "regulatory-site-prediction-reconstruction"
+version = "0.4.0rc1"
+description = "Explicit, reproducible open reconstructions of regulatory sequence models"
+readme = "README.md"
+requires-python = ">=3.11"
+license = "GPL-3.0-or-later"
+license-files = ["LICENSE", "NOTICE"]
+authors = [{name = "Regulatory site prediction reconstruction contributors"}]
+
+[project.scripts]
+regsite = "regsite.cli:main"
+regsite-native = "regsite.native_cli:main"
+regsite-learned = "regsite.learned_cli:main"
+
+[tool.setuptools.package-data]
+regsite = ["data/*.json"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
+
+[tool.coverage.run]
+branch = true
+source = ["regsite"]
+
+[tool.coverage.report]
+show_missing = true
+fail_under = 100
+
+[tool.ruff]
+line-length = 88
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+
+[tool.mypy]
+python_version = "3.11"
+check_untyped_defs = true

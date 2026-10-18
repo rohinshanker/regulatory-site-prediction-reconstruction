@@ -1,0 +1,5123 @@
+{
+  "schema_version": "rbs-new-split-1",
+  "input_envelope_sha256": "00648504305dddb7accede06ab07ca0ce12749f271b8ec3858dd6f44c359ba5d",
+  "manifest_sha256": "9860c02d5cff0abef70850692a433e0c5302adb87f3e57e78ba2a71ac63a5ee1",
+  "selection_seed": "wave3-rbs-20261017-v1",
+  "selection_uses_outcomes": false,
+  "cambray_universe": {
+    "rows": 244000,
+    "unique_sequences": 244000,
+    "seeds": 56,
+    "universe_id_sha256": "a471d8055ec2840da782ccce4cd340bc31ab5102d4343ab0a5e0ed1ebb212575",
+    "universe_sequence_sha256": "35e510f4b03bac3447701a0d1d255ca10d4e6a513ae34ecece2159a3666634f2"
+  },
+  "partition_counts": {
+    "reserved_final": 335,
+    "exposed_secondary": 261
+  },
+  "records": [
+    {
+      "id": "cambray2018:102_12321213_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:102",
+      "design_family": "102:12321213",
+      "partition": "reserved_final",
+      "sequence_sha256": "a9d1fa62605712d56a991e28444157e743034ab013d994030b10f65dad8aa766",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:102_12321213_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:102",
+      "design_family": "102:12321213",
+      "partition": "reserved_final",
+      "sequence_sha256": "c37e28cfada9940a28da2da0a991f5ba21206325e8025159b0b409ab705d1422",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:102_12321213_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:102",
+      "design_family": "102:12321213",
+      "partition": "reserved_final",
+      "sequence_sha256": "d73240e6b8a770ba8bbfb37b690bec39d27d9613819639de741ff4c066d3d6b6",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:102_13121121_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:102",
+      "design_family": "102:13121121",
+      "partition": "reserved_final",
+      "sequence_sha256": "a2c4b4e4b005e41f85037c0ade89997aff05aa6ca38ded5454c5d0dd8b6c9007",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:102_13121121_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:102",
+      "design_family": "102:13121121",
+      "partition": "reserved_final",
+      "sequence_sha256": "7dbb3c422d09d99ebb05716d01553eebca55f29bea61c40571e633321082ff06",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:102_13121121_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:102",
+      "design_family": "102:13121121",
+      "partition": "reserved_final",
+      "sequence_sha256": "7ea52ba719c222434c06e080b8cb692f6b34927419a14c079c03f3e9b7908590",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:117_13331112_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:117",
+      "design_family": "117:13331112",
+      "partition": "reserved_final",
+      "sequence_sha256": "260cdbb343042402cccb9f2cd178747cc51257c805ec984f3542e4047e90521e",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:117_13331112_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:117",
+      "design_family": "117:13331112",
+      "partition": "reserved_final",
+      "sequence_sha256": "bf6f770eacce396cdac81e6c2d0f2e0e1c632599edcd4658b8ededc92be0aad8",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:117_13331112_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:117",
+      "design_family": "117:13331112",
+      "partition": "reserved_final",
+      "sequence_sha256": "481bb0b85f1a00166ec6ee7e1c364c52d7ab941e9e1538cd764093eb78824e6e",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:117_21221223_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:117",
+      "design_family": "117:21221223",
+      "partition": "reserved_final",
+      "sequence_sha256": "9db8248f8cf1744764b9c290549e1876d8cea06736fc7fb2fe51f35e49678151",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:117_21221223_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:117",
+      "design_family": "117:21221223",
+      "partition": "reserved_final",
+      "sequence_sha256": "92de14e4ab8b11b570a2586242784955dd2e4b79016bdbb2add32d2af720a56e",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:117_21221223_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:117",
+      "design_family": "117:21221223",
+      "partition": "reserved_final",
+      "sequence_sha256": "cf3130aac96c0bafdc0261e513ced87e2fe88fd64004c4ac37678cfe85922957",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:133_13231212_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:133",
+      "design_family": "133:13231212",
+      "partition": "reserved_final",
+      "sequence_sha256": "6787653ebdd2c9858c13c296985d9caf30c17e74f4a7ce07e8beb3637adfba56",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:133_13231212_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:133",
+      "design_family": "133:13231212",
+      "partition": "reserved_final",
+      "sequence_sha256": "71501e28d649593d3095c512dd7d89c248ff76ed6e7c9af06b2d6cea0178e2a9",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:133_13231212_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:133",
+      "design_family": "133:13231212",
+      "partition": "reserved_final",
+      "sequence_sha256": "1e216e2fb85022442481b5bff336952f9dc8a452f6efb66e9fa513ba3172c243",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:133_13311211_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:133",
+      "design_family": "133:13311211",
+      "partition": "reserved_final",
+      "sequence_sha256": "5aed35728dc386c14a9ab343b6f5488b71221920e1ce5996791384234cb46f74",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:133_13311211_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:133",
+      "design_family": "133:13311211",
+      "partition": "reserved_final",
+      "sequence_sha256": "4fcdb9cc4779dbcc97bbc67c1dfe3cc32355aabad01cfa817c25ca149545d2c6",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:133_13311211_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:133",
+      "design_family": "133:13311211",
+      "partition": "reserved_final",
+      "sequence_sha256": "f8fe16877776a7456f10549190c6dacdabcc3355b0160be130145ef340bfa12c",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:136_13121221_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:136",
+      "design_family": "136:13121221",
+      "partition": "reserved_final",
+      "sequence_sha256": "0d49a41e61d9fe554de05ad2672020e9506ac512b5437f34f8ec0eefe2fe31f5",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:136_13121221_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:136",
+      "design_family": "136:13121221",
+      "partition": "reserved_final",
+      "sequence_sha256": "704180a0d77a3adea85e8b9612198d5069f45aeef63d01cec2418e29017107e0",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:136_23121113_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:136",
+      "design_family": "136:23121113",
+      "partition": "reserved_final",
+      "sequence_sha256": "0e49732f1fba8834888bee3a2d41af2820827f8c7c53fd04f8be5f31b6473f7a",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:136_23121113_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:136",
+      "design_family": "136:23121113",
+      "partition": "reserved_final",
+      "sequence_sha256": "d724d0a54aa142a015b899c408717924ddb15e605e320afcd5a289b0ab5a4b76",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:136_23121113_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:136",
+      "design_family": "136:23121113",
+      "partition": "reserved_final",
+      "sequence_sha256": "5fef4a1115a264918b12a8341415724d6c7eccd3b79ed72b467ff27cc7b37ec4",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:141_22111212_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:141",
+      "design_family": "141:22111212",
+      "partition": "reserved_final",
+      "sequence_sha256": "92b8c4f22f9944f6db8e736c35c0f98849341ac7f760c7e8ec8fa5ef594ac5ac",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:141_22111212_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:141",
+      "design_family": "141:22111212",
+      "partition": "reserved_final",
+      "sequence_sha256": "eb21af004e6de2274714fb1a586e43c4b4e52db8536f9fd7223cae120294ece7",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:141_22111212_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:141",
+      "design_family": "141:22111212",
+      "partition": "reserved_final",
+      "sequence_sha256": "b7189d970451113462f3f2350e6f87bff3f533bf0343467854616103581407d1",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:141_33321221_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:141",
+      "design_family": "141:33321221",
+      "partition": "reserved_final",
+      "sequence_sha256": "d1a6b860bb5193ba743930fbb20acf285e772a84dd43b8892e2748bea9dd0460",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:141_33321221_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:141",
+      "design_family": "141:33321221",
+      "partition": "reserved_final",
+      "sequence_sha256": "a4d93051cf9b228dc12e2f79a5ef8a2f0a9de269a77c89b2acef574f56b467cf",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:141_33321221_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:141",
+      "design_family": "141:33321221",
+      "partition": "reserved_final",
+      "sequence_sha256": "3b1c0b754af3437c9532720b3ff3c2df1a7c352101b68dea67096775c158a9c1",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:145_11231123_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:145",
+      "design_family": "145:11231123",
+      "partition": "reserved_final",
+      "sequence_sha256": "9e852b570995f6b487a3a970d20cfec2d711a395f6d5d2a51ce43fecac278986",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:145_11231123_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:145",
+      "design_family": "145:11231123",
+      "partition": "reserved_final",
+      "sequence_sha256": "23f8cee188b8fb691255fa654490e596a1b8f7446030adf3da9726a1468bf8c5",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:145_11231123_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:145",
+      "design_family": "145:11231123",
+      "partition": "reserved_final",
+      "sequence_sha256": "75126c6f5d1f3d99553849f6dff050adf80d43972c7d5507112859b6352df506",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:145_12232113_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:145",
+      "design_family": "145:12232113",
+      "partition": "reserved_final",
+      "sequence_sha256": "5fa0c5ca749a3ee6dd0bbae070618875321505e395b7dbe59aa8e3da2fd14d74",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:145_12232113_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:145",
+      "design_family": "145:12232113",
+      "partition": "reserved_final",
+      "sequence_sha256": "e08d8a4641c7d76cc0fe73d338c5a57ed4183bf9a9e4974936bc59edee2323b3",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:145_12232113_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:145",
+      "design_family": "145:12232113",
+      "partition": "reserved_final",
+      "sequence_sha256": "bd8b1c5243af4741d7134f3f949361033d49656ae4e8971182c579668b068866",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:156_21321122_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:156",
+      "design_family": "156:21321122",
+      "partition": "reserved_final",
+      "sequence_sha256": "e1d20471c703748d8a87e9bbc066ed399ca226e722dd4fe15f0bb37ffb6a671f",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:156_21321122_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:156",
+      "design_family": "156:21321122",
+      "partition": "reserved_final",
+      "sequence_sha256": "f3d8c5aa1167ebd03050beef46d7ff98c37737bd44283da7ca79e3defc2782c7",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:156_21321122_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:156",
+      "design_family": "156:21321122",
+      "partition": "reserved_final",
+      "sequence_sha256": "49f9b16bb31caaad2bb4604a756a4308ca4e35a5fb505d109e5466d410386301",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:156_22321122_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:156",
+      "design_family": "156:22321122",
+      "partition": "reserved_final",
+      "sequence_sha256": "091df70dccb69b9bfe0f9defc032a395f3faf1f76500361479f32817de9dc1e8",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:156_22321122_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:156",
+      "design_family": "156:22321122",
+      "partition": "reserved_final",
+      "sequence_sha256": "285d7399bb4fe80cab122070439fbe5196cfd625367e07011263e6af24b9a327",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:156_22321122_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:156",
+      "design_family": "156:22321122",
+      "partition": "reserved_final",
+      "sequence_sha256": "fb6b8ad344d0ca93e83ce6c0795d4075535d65e431e62b9a291e1b346a6552ff",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:158_11221211_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:158",
+      "design_family": "158:11221211",
+      "partition": "reserved_final",
+      "sequence_sha256": "ac009d3361b4725a0281703328c952481fbc8730875fed4d90dc8df769f26f8a",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:158_11221211_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:158",
+      "design_family": "158:11221211",
+      "partition": "reserved_final",
+      "sequence_sha256": "3b3c3292e7d83aeba10bb6b910d3879c68c1ca885832d995103d4e6b53f628e6",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:158_11221211_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:158",
+      "design_family": "158:11221211",
+      "partition": "reserved_final",
+      "sequence_sha256": "0df74b4148d89ccb05479eeda1b63416208cc52be86feba912ecd91bb0a7c71b",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:158_12231212_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:158",
+      "design_family": "158:12231212",
+      "partition": "reserved_final",
+      "sequence_sha256": "81cb1b4caf5a638373dd477f17105e32a52bbbb3c322851e2d366eb714ebd6b0",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:158_12231212_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:158",
+      "design_family": "158:12231212",
+      "partition": "reserved_final",
+      "sequence_sha256": "9aa3228af9b5dc16338625e6b40f1f270273282470ab3c652cbf9f3787e85dfb",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:158_12231212_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:158",
+      "design_family": "158:12231212",
+      "partition": "reserved_final",
+      "sequence_sha256": "51728f8ce1af552ade5e5e927b610a199d51a5703d26c0f88829b7dc228b06ff",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:15_11231222_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:15",
+      "design_family": "15:11231222",
+      "partition": "reserved_final",
+      "sequence_sha256": "743431c47d8758fadf08d7c1c64bf8223f4f870e1b86af9a6d0ee4224581c76a",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:15_11231222_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:15",
+      "design_family": "15:11231222",
+      "partition": "reserved_final",
+      "sequence_sha256": "69c504f44c7dcc9c0fd129884e525b58ae65aa75cd0fad78f78ede3fe86a99aa",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:15_11231222_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:15",
+      "design_family": "15:11231222",
+      "partition": "reserved_final",
+      "sequence_sha256": "6309e98ea9cb8f945da2b7a5eaed936a35ec7fdd46adec2745c4784d1d04e053",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:15_32111221_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:15",
+      "design_family": "15:32111221",
+      "partition": "reserved_final",
+      "sequence_sha256": "62751fd95bd4c0dad9db8dc7fbef95795855689dc1002bce0282d780df6c06ee",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:15_32111221_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:15",
+      "design_family": "15:32111221",
+      "partition": "reserved_final",
+      "sequence_sha256": "686f4d248bb4b21b494ed7151e426725473620bf3f020b8fbbc892015efd0767",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:15_32111221_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:15",
+      "design_family": "15:32111221",
+      "partition": "reserved_final",
+      "sequence_sha256": "9fdb27eb2cbadbe9dbbb858856aeaa5af12b4b0fba5a41b464fe018d057755ba",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:192_23132122_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:192",
+      "design_family": "192:23132122",
+      "partition": "reserved_final",
+      "sequence_sha256": "a7eafbd3706fb7af5ce0dad4fd870f60eb402d144ec76acec58e7099c76ab1f6",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:192_23132122_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:192",
+      "design_family": "192:23132122",
+      "partition": "reserved_final",
+      "sequence_sha256": "fadfe13abf61487a5ffba62da8451c773f00472ca3386fe7e84a4b237d05afbf",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:192_23132122_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:192",
+      "design_family": "192:23132122",
+      "partition": "reserved_final",
+      "sequence_sha256": "6d2c3f2679c7e96ede271e15591c6aa0e4ef81a43366e7e4a2245c7d9a819488",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:192_23231123_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:192",
+      "design_family": "192:23231123",
+      "partition": "reserved_final",
+      "sequence_sha256": "854d4f8142e2bdb0ae5cd7c52b85066037856dd1e7d1fd1994e0640ad5e88fd4",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:192_23231123_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:192",
+      "design_family": "192:23231123",
+      "partition": "reserved_final",
+      "sequence_sha256": "f63668bc0b0ec3bc9a81e3dec4549e69fd7a8fe42a071f45064921f609e6aacf",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:192_23231123_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:192",
+      "design_family": "192:23231123",
+      "partition": "reserved_final",
+      "sequence_sha256": "0a3a06cd4b43432147d4ff4a7dcbeb26b38d6291e7c1ab70e6f23783cfc48733",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:1_11221123_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:1",
+      "design_family": "1:11221123",
+      "partition": "reserved_final",
+      "sequence_sha256": "5dd60ec50885bd2d1263f157a6ce9a9b5c70cd7eefbb49747905cef29b957f2f",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:1_11221123_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:1",
+      "design_family": "1:11221123",
+      "partition": "reserved_final",
+      "sequence_sha256": "6f88473e6855fc35683a94e738b273743ced6f5ad89eca4ec4396be479f022f5",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:1_11221123_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:1",
+      "design_family": "1:11221123",
+      "partition": "reserved_final",
+      "sequence_sha256": "936c4d93cf6cb860a883870bdedff7d6193709e633433687082cb535935594c6",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:1_32131211_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:1",
+      "design_family": "1:32131211",
+      "partition": "reserved_final",
+      "sequence_sha256": "3f68ab8964ac96d2e3b279ce0b4ed4de6ba7df706145e3c51de58fcb79f8df04",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:1_32131211_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:1",
+      "design_family": "1:32131211",
+      "partition": "reserved_final",
+      "sequence_sha256": "22a86289203f8f91f4728fb22ca2409b19239d8b8eae15be93b301aa1a7df6aa",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:1_32131211_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:1",
+      "design_family": "1:32131211",
+      "partition": "reserved_final",
+      "sequence_sha256": "85068ad6718ba8942809dfd63417fad87a7fba0ff52b96e0be7bac95e0e39d5c",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:205_11131221_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:205",
+      "design_family": "205:11131221",
+      "partition": "reserved_final",
+      "sequence_sha256": "de6cc95f41e5933ba1df07cbee4c9a883600adb9e538d9f145f34f13874e931c",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:205_11131221_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:205",
+      "design_family": "205:11131221",
+      "partition": "reserved_final",
+      "sequence_sha256": "794caa6be4188a5ab828b7088a98d213511aa029a3514cc1b565d4af68085935",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:205_11131221_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:205",
+      "design_family": "205:11131221",
+      "partition": "reserved_final",
+      "sequence_sha256": "a6c21b49c01bcfc55a2e6c97f69edd46c9d6c6ebf778792cdf486063ffdd2e3f",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:205_22331113_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:205",
+      "design_family": "205:22331113",
+      "partition": "reserved_final",
+      "sequence_sha256": "884c2089988ea01c07b7b0b5c5e8fd596aa599147c4d82aa8d61f95323eb26e6",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:205_22331113_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:205",
+      "design_family": "205:22331113",
+      "partition": "reserved_final",
+      "sequence_sha256": "caac0d6e03f7868f590cf941b0a919b774e9dd3bc46bbf40f09001e86d8b2127",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:205_22331113_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:205",
+      "design_family": "205:22331113",
+      "partition": "reserved_final",
+      "sequence_sha256": "28939217d093b59d3d3f37aea6eebd48ce031599bb74bc61b4d0a8f1b4791c0d",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:20_32322121_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:20",
+      "design_family": "20:32322121",
+      "partition": "reserved_final",
+      "sequence_sha256": "28b233b11f0f1aa5b62713584ebb3e0e042b77b4b832c3a1fd79897fd0a75b1b",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:20_32322121_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:20",
+      "design_family": "20:32322121",
+      "partition": "reserved_final",
+      "sequence_sha256": "5ddbbea26ba2b5b91508a8d3462701d33c876ffa4779c07e1dfef21c4fc48303",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:20_32322121_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:20",
+      "design_family": "20:32322121",
+      "partition": "reserved_final",
+      "sequence_sha256": "da3b260171e794816c45a7cb82f690488152c4b8a94e74d9e20f383dd50d17e7",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:20_33121122_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:20",
+      "design_family": "20:33121122",
+      "partition": "reserved_final",
+      "sequence_sha256": "51fe34444f2836592e50d69a852c060082a7b4021b74d98dd05ee0cf83ab6178",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:20_33121122_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:20",
+      "design_family": "20:33121122",
+      "partition": "reserved_final",
+      "sequence_sha256": "bcf6ce0b7fc0ba26cbf11d70a5e0c4776d276ebc0b23d4c19006095e04845ca2",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:20_33121122_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:20",
+      "design_family": "20:33121122",
+      "partition": "reserved_final",
+      "sequence_sha256": "b367685869290351b8be007aa8628d758c24b0b54f3394caa31eaa0a42078043",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:221_11332121_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:221",
+      "design_family": "221:11332121",
+      "partition": "reserved_final",
+      "sequence_sha256": "48d0e5a186f87fb83c62ae3f7383c5cc62caded8eb0e22164d860267a99e79f6",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:221_11332121_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:221",
+      "design_family": "221:11332121",
+      "partition": "reserved_final",
+      "sequence_sha256": "50568bc947e5c2b0dfe6d56d16da9de5d6094cea9f41978635daf93ebd14af10",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:221_11332121_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:221",
+      "design_family": "221:11332121",
+      "partition": "reserved_final",
+      "sequence_sha256": "2429f579a797fd1ca84b3e9cb980f8a6c695ab5205626bb9d4f613faaabf4d92",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:221_23221111_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:221",
+      "design_family": "221:23221111",
+      "partition": "reserved_final",
+      "sequence_sha256": "9450d8a197a77fd14dd84910245bc598e5bc4619b50e8a5de55d6637768973dd",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:221_23221111_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:221",
+      "design_family": "221:23221111",
+      "partition": "reserved_final",
+      "sequence_sha256": "3f9e0190d50f2b7e22979c14ef604ed232eff659dda06e7f1410c43ea7bbc679",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:221_23221111_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:221",
+      "design_family": "221:23221111",
+      "partition": "reserved_final",
+      "sequence_sha256": "753f7d3606082d0645d310bcc70c650b6cd863ecd08d73ec894a2fd2491491f0",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:227_21331223_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:227",
+      "design_family": "227:21331223",
+      "partition": "reserved_final",
+      "sequence_sha256": "a868dab7ae4bf57ef1e1c467d584ffdb70f59883604ae8b84f2e28667647c8f6",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:227_21331223_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:227",
+      "design_family": "227:21331223",
+      "partition": "reserved_final",
+      "sequence_sha256": "8f15c4f3fdf69044b038345a8825e630ca926ecd4f3df8e1b60f512f48b6ca0f",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:227_21331223_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:227",
+      "design_family": "227:21331223",
+      "partition": "reserved_final",
+      "sequence_sha256": "cb536dd4dc14d05dc11732e39981dc8e52b3ceed8e77eee4955c0fb5c88f39d3",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:227_33231221_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:227",
+      "design_family": "227:33231221",
+      "partition": "reserved_final",
+      "sequence_sha256": "197e9e8bc409856c631e923a2dadcbf5f6c93b523475bef91713a9a35a3a4661",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:227_33231221_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:227",
+      "design_family": "227:33231221",
+      "partition": "reserved_final",
+      "sequence_sha256": "e252f54e3cbecfe085914d814698ec706480912e9e9142d56000d00c9f9be0d5",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:227_33231221_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:227",
+      "design_family": "227:33231221",
+      "partition": "reserved_final",
+      "sequence_sha256": "911975e0dd2df0ae0f6f99b3386d80268ab8a7784d5c3d0c1dfb8365796e516c",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:247_12211212_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:247",
+      "design_family": "247:12211212",
+      "partition": "reserved_final",
+      "sequence_sha256": "9d826a5213ed0dbb582a8dfe7e0cbc7905b772f3ab2f45545c75fcfec0a2a742",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:247_12211212_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:247",
+      "design_family": "247:12211212",
+      "partition": "reserved_final",
+      "sequence_sha256": "e23693c9d9cad0ad75d7c237c6374e8bc537ac6fe001760b3907b7fb1dd3a122",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:247_12211212_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:247",
+      "design_family": "247:12211212",
+      "partition": "reserved_final",
+      "sequence_sha256": "6a349b8a23faca0e3968b64889bf00adaf36dfc07017815c2b5ae4962d66742f",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:247_32112122_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:247",
+      "design_family": "247:32112122",
+      "partition": "reserved_final",
+      "sequence_sha256": "de3df6ca074261c13a226931e7389d26263de1a1b43e0ffb2dd2d6f2c335ddf0",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:247_32112122_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:247",
+      "design_family": "247:32112122",
+      "partition": "reserved_final",
+      "sequence_sha256": "d21dcdda5ac49b4d94fd91676a701584eedcead717dcb81706fe84461df97aef",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:247_32112122_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:247",
+      "design_family": "247:32112122",
+      "partition": "reserved_final",
+      "sequence_sha256": "3407f9c2fe3eb0ff31081251b5e4286c88b868a82e57cd0514cf16324afb014a",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:255_22331113_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:255",
+      "design_family": "255:22331113",
+      "partition": "reserved_final",
+      "sequence_sha256": "4e996f062155e2058a42bad16c86e680e606e9ec8dedb9bec3040b538a3b6900",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:255_22331113_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:255",
+      "design_family": "255:22331113",
+      "partition": "reserved_final",
+      "sequence_sha256": "fdbab4598ffe19d74650a015a32a4adce845c09b7728ecc49310a0c3b97e0318",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:255_22331113_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:255",
+      "design_family": "255:22331113",
+      "partition": "reserved_final",
+      "sequence_sha256": "7f821620f7112860b6d27d509445fbdfaf6744a5a7f9f7af1e9799f8c98354f2",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:255_32111121_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:255",
+      "design_family": "255:32111121",
+      "partition": "reserved_final",
+      "sequence_sha256": "02ce306bcdbd5e842b18cf79580c68cfba53abaafd3cd46b2ca04b18e6acc09d",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:255_32111121_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:255",
+      "design_family": "255:32111121",
+      "partition": "reserved_final",
+      "sequence_sha256": "8b91b0f604b4b8db078e467badee0390d582b50de3aea8b1be2cdec21c478db9",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:255_32111121_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:255",
+      "design_family": "255:32111121",
+      "partition": "reserved_final",
+      "sequence_sha256": "12b88e610231a9afc21db9ac61dd4e4da546fa996ff20a7cba01e143a0b3c060",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:25_31322123_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:25",
+      "design_family": "25:31322123",
+      "partition": "reserved_final",
+      "sequence_sha256": "67fc9e970da8808bbe5c4ce5376ac01b0fb3d89a5f3e5e5d3809eac53bc07829",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:25_31322123_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:25",
+      "design_family": "25:31322123",
+      "partition": "reserved_final",
+      "sequence_sha256": "3249c364d5847f6a3204815ac96158501666e1324584cb2ebbabd4881cb4b988",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:25_31322123_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:25",
+      "design_family": "25:31322123",
+      "partition": "reserved_final",
+      "sequence_sha256": "292c51c5ab5046238b048e25dc1e54292d705bdd6a2a55e9707b9f0dc74e9dbd",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:25_33221122_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:25",
+      "design_family": "25:33221122",
+      "partition": "reserved_final",
+      "sequence_sha256": "045f165dfc0dfe4fa152d8c207819e9f3ba4734da136be0c3473b4b925e348e3",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:25_33221122_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:25",
+      "design_family": "25:33221122",
+      "partition": "reserved_final",
+      "sequence_sha256": "55fe262c25800e65075d7b92bb269f760e3cad17da60544bf36ccde449af48af",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:25_33221122_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:25",
+      "design_family": "25:33221122",
+      "partition": "reserved_final",
+      "sequence_sha256": "a8096c227ad9bac6c79ab9e1b3ec36f723efa934bec404a8f86b7b4009522ecf",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:26_11332122_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:26",
+      "design_family": "26:11332122",
+      "partition": "reserved_final",
+      "sequence_sha256": "becc01f4d7edb9b01fd7cc4eb106188ed19c5268aaa2d9053f055abae29c78bd",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:26_11332122_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:26",
+      "design_family": "26:11332122",
+      "partition": "reserved_final",
+      "sequence_sha256": "b9ae0ad5d1fb5e9103556cbb30bf0c49604b90e667ce968b06a352fe357412c4",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:26_11332122_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:26",
+      "design_family": "26:11332122",
+      "partition": "reserved_final",
+      "sequence_sha256": "801970b684997ed1583271bb59bf12d68e46951f14310adeca1c4af79e935243",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:26_32121121_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:26",
+      "design_family": "26:32121121",
+      "partition": "reserved_final",
+      "sequence_sha256": "30c0da450f7f902d950cc345d3c4b3b70c907c03a4b9bb2350cb6198549a2fff",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:26_32121121_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:26",
+      "design_family": "26:32121121",
+      "partition": "reserved_final",
+      "sequence_sha256": "c9d5f590654bd543b95f589a9f986992231bab12abfef646ed23996e22113ab2",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:26_32121121_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:26",
+      "design_family": "26:32121121",
+      "partition": "reserved_final",
+      "sequence_sha256": "7f3484e617eab6944b3999cedfc51dd8da55a3654546e73cf4324eb27cbf8b61",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:277_23231222_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:277",
+      "design_family": "277:23231222",
+      "partition": "reserved_final",
+      "sequence_sha256": "182795d37c25157bbd06d1f03b22f4c1a0443373f7656274b3b9803251d7b579",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:277_23231222_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:277",
+      "design_family": "277:23231222",
+      "partition": "reserved_final",
+      "sequence_sha256": "85455d1f273b0df219912965d9ea17fec721e5fb64ca9693cc8c915214b95f5c",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:277_23231222_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:277",
+      "design_family": "277:23231222",
+      "partition": "reserved_final",
+      "sequence_sha256": "32bdca6420c6e4980c9e6a07caa70d6c5a40a1ceaf5ae975152f7464ecd67060",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:277_23311222_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:277",
+      "design_family": "277:23311222",
+      "partition": "reserved_final",
+      "sequence_sha256": "01dd206a29e423d8e989b068637a69b21700119eef810d65e7f6ec8254335a69",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:277_23311222_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:277",
+      "design_family": "277:23311222",
+      "partition": "reserved_final",
+      "sequence_sha256": "35bb8f0fdf0af4668731ca5de16d80ec2b7e33d2cfaf38261a20d5c64dfa2a1a",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:277_23311222_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:277",
+      "design_family": "277:23311222",
+      "partition": "reserved_final",
+      "sequence_sha256": "64a4959b1672e1e8798a2404f76a63e701c2a0a726e9be5460d107d3845d6c95",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:284_13211211_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:284",
+      "design_family": "284:13211211",
+      "partition": "reserved_final",
+      "sequence_sha256": "e9945f25bfc38eeb3e6e91cce7215d462a5852565fea799c7142804ad3c14dad",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:284_13211211_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:284",
+      "design_family": "284:13211211",
+      "partition": "reserved_final",
+      "sequence_sha256": "ef1c3a0041bc994f8207dbbe959900058a8293f2c25abf90355ecbd428100e08",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:284_13211211_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:284",
+      "design_family": "284:13211211",
+      "partition": "reserved_final",
+      "sequence_sha256": "08db607b625434e9d1904879baf38841e385f9943c47192948dd7525ddbb8132",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:284_23321211_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:284",
+      "design_family": "284:23321211",
+      "partition": "reserved_final",
+      "sequence_sha256": "f14eb91a5b22973f1824cfc09d8c514760e4c922dc33302b1e0284f78eef632e",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:284_23321211_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:284",
+      "design_family": "284:23321211",
+      "partition": "reserved_final",
+      "sequence_sha256": "166a446f9653b36bc340af8724fac159c3fc1a482650306150de7f6f820f8c61",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:284_23321211_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:284",
+      "design_family": "284:23321211",
+      "partition": "reserved_final",
+      "sequence_sha256": "dea7de3255cb7ad88f2b45147c608f486c8c78603a6b0d9f1b796612cc84f0ab",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:299_23322113_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:299",
+      "design_family": "299:23322113",
+      "partition": "reserved_final",
+      "sequence_sha256": "ee164aeb01df40a582aaa95b506f3625eb4e741e3eaf31f0a576912fa415284c",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:299_23322113_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:299",
+      "design_family": "299:23322113",
+      "partition": "reserved_final",
+      "sequence_sha256": "59a7f78558bcd78c24143f2f872ab503f6431d5cc28ea84b9934a0b25c118d58",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:299_23322113_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:299",
+      "design_family": "299:23322113",
+      "partition": "reserved_final",
+      "sequence_sha256": "9cdd462ea3ad2f9e3473972eab97127daddf6025dc8ed7e8b94c05758bf2ce62",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:299_32321122_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:299",
+      "design_family": "299:32321122",
+      "partition": "reserved_final",
+      "sequence_sha256": "dd3fbc2c43f21e947a099fbd43d53ab7c04340b4237c27bb3732f54976b9ee15",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:299_32321122_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:299",
+      "design_family": "299:32321122",
+      "partition": "reserved_final",
+      "sequence_sha256": "c75f1691ed064ebb2eda525b1229826b183f28c09e76705e288c9ac092e8fc27",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:299_32321122_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:299",
+      "design_family": "299:32321122",
+      "partition": "reserved_final",
+      "sequence_sha256": "90345936331bfa066705fd570620a6c1889b84bce17da76f6d441702b2e4e560",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:2_11122112_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:2",
+      "design_family": "2:11122112",
+      "partition": "reserved_final",
+      "sequence_sha256": "aed8a2570b57634c4d09c3ffd39140bc932ebbe992f7908e07242d700329bcb3",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:2_11122112_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:2",
+      "design_family": "2:11122112",
+      "partition": "reserved_final",
+      "sequence_sha256": "dfd06b04d0df279e13fad493fb3a135884756eda8febd988e563af3bd26172b0",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:2_11122112_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:2",
+      "design_family": "2:11122112",
+      "partition": "reserved_final",
+      "sequence_sha256": "82707aea5dc8ed74d755c6eeff8a921097aec9458bfd1ed4543bb9a7eb36b218",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:2_13311211_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:2",
+      "design_family": "2:13311211",
+      "partition": "reserved_final",
+      "sequence_sha256": "ec1cfa32e874b306ec30613c69ec882f33271df34a8dde59c4d1c2d625e7f645",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:2_13311211_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:2",
+      "design_family": "2:13311211",
+      "partition": "reserved_final",
+      "sequence_sha256": "54008ebd5c7880a4cd4e02776dc1674ef1669f29aa0d9bb408eab4e629c40714",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:2_13311211_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:2",
+      "design_family": "2:13311211",
+      "partition": "reserved_final",
+      "sequence_sha256": "e9933ab3de216a92d26dca0f53a010ca50b5d522a536cc789255efae461260a8",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:30_31322121_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:30",
+      "design_family": "30:31322121",
+      "partition": "reserved_final",
+      "sequence_sha256": "c85598ea0cdc0290de4315faa36bcb68aad4d3e1c9188c3c5eb374d607cbc544",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:30_31322121_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:30",
+      "design_family": "30:31322121",
+      "partition": "reserved_final",
+      "sequence_sha256": "2279fd7239ce7c3c5a99e6e92edf32c733a9c96d3f29d8a8afecb3d80b845065",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:30_31322121_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:30",
+      "design_family": "30:31322121",
+      "partition": "reserved_final",
+      "sequence_sha256": "06f2e888bf06fa93010ff212da3677a5ee8cee2e9bf3f548c5354df102140a67",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:30_33231211_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:30",
+      "design_family": "30:33231211",
+      "partition": "reserved_final",
+      "sequence_sha256": "0abfc2c9e1b4138291120989114292a3eeb60232919afd47c9e4e7889ffad3df",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:30_33231211_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:30",
+      "design_family": "30:33231211",
+      "partition": "reserved_final",
+      "sequence_sha256": "2e0420cfccde54b1646a38b8c0bd9eee6959429ed6e48b02b37205c8e5a6490e",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:30_33231211_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:30",
+      "design_family": "30:33231211",
+      "partition": "reserved_final",
+      "sequence_sha256": "7344dda24ff4fffee6e0c5003d9dba18548630dff8a8a2007be6144f4fc48ae2",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:314_32332123_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:314",
+      "design_family": "314:32332123",
+      "partition": "reserved_final",
+      "sequence_sha256": "fb6e9a1593e3b4fb234c21f858faa0a9ab4149d1aedfca3901941f06ed73df4a",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:314_32332123_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:314",
+      "design_family": "314:32332123",
+      "partition": "reserved_final",
+      "sequence_sha256": "f09bbdf1bdddb320240603b65352f5e69894304010df5ce7a11d9d8fa2e072a5",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:314_32332123_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:314",
+      "design_family": "314:32332123",
+      "partition": "reserved_final",
+      "sequence_sha256": "125aab73982c179c6a88d52f61f574727e93531b8ea3f0145e4ee22d39a2eaed",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:314_33211111_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:314",
+      "design_family": "314:33211111",
+      "partition": "reserved_final",
+      "sequence_sha256": "1d6e16c4e56098a3b81e313bb657a5ab1a043f99dbf29cb07bb7e8ec2e714b16",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:314_33211111_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:314",
+      "design_family": "314:33211111",
+      "partition": "reserved_final",
+      "sequence_sha256": "e024597d3b11d1c7924eaee84939c18a92b3877909db2a2f1ee87d6212877eb8",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:314_33211111_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:314",
+      "design_family": "314:33211111",
+      "partition": "reserved_final",
+      "sequence_sha256": "477cc28b7772e85ce224a49589d40fcacac7cabf83bfc7211275ea9e1e518afe",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:321_21331211_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:321",
+      "design_family": "321:21331211",
+      "partition": "reserved_final",
+      "sequence_sha256": "51ecc15e2126ca786207f548fe720cc12f42a69e08c1bd82742c3eecf246fc5d",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:321_21331211_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:321",
+      "design_family": "321:21331211",
+      "partition": "reserved_final",
+      "sequence_sha256": "6fe8ecb14c2e182e051e7438222504d99ba0141d3aab1524419fe7e7ad3f64b0",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:321_21331211_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:321",
+      "design_family": "321:21331211",
+      "partition": "reserved_final",
+      "sequence_sha256": "e523ce782046d7f1c4d558ebf190ee13c81f3bf3d3aef754e1c3e703754ecfd7",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:321_33131121_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:321",
+      "design_family": "321:33131121",
+      "partition": "reserved_final",
+      "sequence_sha256": "555398c577606ade8020bb77756a5ad547f579405094720b0d2688013a095842",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:321_33131121_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:321",
+      "design_family": "321:33131121",
+      "partition": "reserved_final",
+      "sequence_sha256": "ce5c0b2df4a1959746b1c7aa9c775404a63b82521c051761e58e674871403c6a",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:321_33131121_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:321",
+      "design_family": "321:33131121",
+      "partition": "reserved_final",
+      "sequence_sha256": "f3345da2d36b433f88afa46a610e546ff4b0bd8f69ee70a62eb67c1ba1a36912",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:329_21111121_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:329",
+      "design_family": "329:21111121",
+      "partition": "reserved_final",
+      "sequence_sha256": "def79a7855c80baa0feb9f8fba4041b6af203ae52bd2387cbc5280338208bdd8",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:329_21111121_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:329",
+      "design_family": "329:21111121",
+      "partition": "reserved_final",
+      "sequence_sha256": "4db2bb8383e466f109b750a7371ef0d569975286c1c9e3d8aa9c5df9ed775097",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:329_21111121_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:329",
+      "design_family": "329:21111121",
+      "partition": "reserved_final",
+      "sequence_sha256": "64a7164ec7bf8b1be798af1b2133e07af16b25968dde0a13811536e3da9e3d52",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:329_33121123_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:329",
+      "design_family": "329:33121123",
+      "partition": "reserved_final",
+      "sequence_sha256": "fff7cf5cb1b0aad0104c81ba9058376873e2dc581f90668e56e0bf08ba16ca21",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:329_33121123_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:329",
+      "design_family": "329:33121123",
+      "partition": "reserved_final",
+      "sequence_sha256": "4b72d22cc2a2e0b3369b9bec2602436593519f74b19ab209f8ff3f9452ffa6c9",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:329_33121123_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:329",
+      "design_family": "329:33121123",
+      "partition": "reserved_final",
+      "sequence_sha256": "0f3bd9665bf8ab7029619d50eb3619d22ebbab36b21ee58faccc8b2034e252c2",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:33_23322122_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:33",
+      "design_family": "33:23322122",
+      "partition": "reserved_final",
+      "sequence_sha256": "6c80944e8ba0985701bbfa4e3689712da0a6aa51a8ce46c234826aad058b7902",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:33_23322122_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:33",
+      "design_family": "33:23322122",
+      "partition": "reserved_final",
+      "sequence_sha256": "812284258b8dbc880990fec57ca15314c1c515c02f9511c1ba9f001b75cee159",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:33_23322122_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:33",
+      "design_family": "33:23322122",
+      "partition": "reserved_final",
+      "sequence_sha256": "8703139dbeb37707dcdc8b26c19361e22357877152f305a96a6bbf80e15a424e",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:33_31121212_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:33",
+      "design_family": "33:31121212",
+      "partition": "reserved_final",
+      "sequence_sha256": "6045d85bb0879ef9386ee0038c8d078cd7b6eed70a4b33c19fc8895dc9a4fd08",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:33_31121212_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:33",
+      "design_family": "33:31121212",
+      "partition": "reserved_final",
+      "sequence_sha256": "eb48b1cf6d6432541b40261411d8610280e9cc598832a5d9500b939392b77521",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:33_31121212_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:33",
+      "design_family": "33:31121212",
+      "partition": "reserved_final",
+      "sequence_sha256": "18661fe7bb34ec968e90461f2491e6ded02abca3900b65a7513bece2e7b78c72",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:340_13212121_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:340",
+      "design_family": "340:13212121",
+      "partition": "reserved_final",
+      "sequence_sha256": "a2d7455f80dd50d5389b08a034777831778f09e7bc1f5bcf36399e1d5f094e57",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:340_13212121_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:340",
+      "design_family": "340:13212121",
+      "partition": "reserved_final",
+      "sequence_sha256": "e9a6de676bd88b146190139242b5ac119c477d1decdb62645ea5169f3cd2507f",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:340_13212121_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:340",
+      "design_family": "340:13212121",
+      "partition": "reserved_final",
+      "sequence_sha256": "9cbd6d098eebda2719d71863b1af2f0c70b33f397b2e6d687e32118fad92e6bd",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:340_33311122_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:340",
+      "design_family": "340:33311122",
+      "partition": "reserved_final",
+      "sequence_sha256": "9d15acbf9a63c458bf2f30a5d7c155522db479451aeb267bb3e9bf7f4cd9dc23",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:340_33311122_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:340",
+      "design_family": "340:33311122",
+      "partition": "reserved_final",
+      "sequence_sha256": "f4b17127707aa84d332147e65790d30d28773457314467e881e0ecc250e2281e",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:340_33311122_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:340",
+      "design_family": "340:33311122",
+      "partition": "reserved_final",
+      "sequence_sha256": "724023b67d947066e078d731f8ebbec8b6ba77fb19523c3519040f5297b0a31a",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:343_22231121_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:343",
+      "design_family": "343:22231121",
+      "partition": "reserved_final",
+      "sequence_sha256": "eb08cfc6c2c99f33e9359f0a116bd5de4181a081754cb5ddc8ea97c1ff91086e",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:343_22231121_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:343",
+      "design_family": "343:22231121",
+      "partition": "reserved_final",
+      "sequence_sha256": "933418e09c73ce0c23b05e2b2ac461b514ed63e04acc0bbd711bbce0f44fd590",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:343_22231121_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:343",
+      "design_family": "343:22231121",
+      "partition": "reserved_final",
+      "sequence_sha256": "55633927db67bc89965df22cc2b319e55b6fef3bddceb6684324f737e2aa3a8c",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:343_33221112_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:343",
+      "design_family": "343:33221112",
+      "partition": "reserved_final",
+      "sequence_sha256": "8beb9c892f0c9f960d7d63da44fd31f9a5f33e054de25868a12ca7a99205c92c",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:343_33221112_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:343",
+      "design_family": "343:33221112",
+      "partition": "reserved_final",
+      "sequence_sha256": "bdef967dd74f2ef0ed8b1fb869efc080bbd822d9952cd7cb066af30bfd004d0a",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:343_33221112_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:343",
+      "design_family": "343:33221112",
+      "partition": "reserved_final",
+      "sequence_sha256": "5646821afe606796baba1fb185822bbee9adcdfbf4f92b568ecda773ea09dc76",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:344_13221121_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:344",
+      "design_family": "344:13221121",
+      "partition": "reserved_final",
+      "sequence_sha256": "6ac330dfd1de711827c03bb9528da747b19c11e771ff8e34ad48b5a0cc244990",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:344_13221121_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:344",
+      "design_family": "344:13221121",
+      "partition": "reserved_final",
+      "sequence_sha256": "6d88c1a879dc95fb74bbc9a97c7b779af730b38c964d2951d98c5ce04f12c426",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:344_13221121_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:344",
+      "design_family": "344:13221121",
+      "partition": "reserved_final",
+      "sequence_sha256": "bdbdb8146883d184053c9462696207ae4462b00678a9f2c151eecd250093fb5a",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:344_23232113_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:344",
+      "design_family": "344:23232113",
+      "partition": "reserved_final",
+      "sequence_sha256": "4d282e6dbb03a56a28ee564e53d57a7f6f934a74f3cb0a2ee63652dd1f1dfd91",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:344_23232113_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:344",
+      "design_family": "344:23232113",
+      "partition": "reserved_final",
+      "sequence_sha256": "9f46ff85b9ed7fc7a1ab0fabf6e19b0b870109c5ab4cae8e6936503b5e3d605c",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:344_23232113_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:344",
+      "design_family": "344:23232113",
+      "partition": "reserved_final",
+      "sequence_sha256": "7686a22c59c8bcac3e2bff44f1ac54374f2890c17028ecf0e919e6b89979ae8a",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:349_11111122_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:349",
+      "design_family": "349:11111122",
+      "partition": "reserved_final",
+      "sequence_sha256": "1cc50a95e986b4765577c2540f5b2964e7d077de0934e562c1e1b1e903ce4101",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:349_11111122_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:349",
+      "design_family": "349:11111122",
+      "partition": "reserved_final",
+      "sequence_sha256": "ffbc507389129d9be7b9ff7de9a03d664c9e13106705241b01a18d02ea977b2c",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:349_11111122_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:349",
+      "design_family": "349:11111122",
+      "partition": "reserved_final",
+      "sequence_sha256": "daab1706d1b31bfd72ab5be4ec9a7e4886c9069462d6e8f577222b713ec98b59",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:349_31121222_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:349",
+      "design_family": "349:31121222",
+      "partition": "reserved_final",
+      "sequence_sha256": "99685fc91c968225efe8c325119b8e066ad12fcd19e28a1135c3c71e97d3bb04",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:349_31121222_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:349",
+      "design_family": "349:31121222",
+      "partition": "reserved_final",
+      "sequence_sha256": "b30225e4df081805e7fcd9e6d41424243b233caa650a222750182a74e0fc2520",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:349_31121222_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:349",
+      "design_family": "349:31121222",
+      "partition": "reserved_final",
+      "sequence_sha256": "bd13546198120936d93129838c400f5524bc08feffdc3f8d26060e6f8495a411",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:355_22231223_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:355",
+      "design_family": "355:22231223",
+      "partition": "reserved_final",
+      "sequence_sha256": "9c73cd7b0cba17fc05b1211c78f8013cd77ddbd203f7fb8fc16308af723077d1",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:355_22231223_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:355",
+      "design_family": "355:22231223",
+      "partition": "reserved_final",
+      "sequence_sha256": "4d5e7b2a03020a36be71d544d75284108d220f9726d5e4f44f88b453f4318d7b",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:355_22231223_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:355",
+      "design_family": "355:22231223",
+      "partition": "reserved_final",
+      "sequence_sha256": "7ea41cc4f2ccb9fae7f92af4e42ecb7f03be1db7af5d2f23b755e49c4f6bae4f",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:355_23321111_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:355",
+      "design_family": "355:23321111",
+      "partition": "reserved_final",
+      "sequence_sha256": "d953da19441258e0800ba79ac37e1bc52d07286c69a45abc1873bb42cec2231d",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:355_23321111_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:355",
+      "design_family": "355:23321111",
+      "partition": "reserved_final",
+      "sequence_sha256": "96b82d444d2983572c5a5a7fe760dfb2b3b4443b35ce3c59c2e4803468b5d17f",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:355_23321111_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:355",
+      "design_family": "355:23321111",
+      "partition": "reserved_final",
+      "sequence_sha256": "f3b31d4a085ea20c7dcb2cbc3d063d9806ae264b8934b6bf7bc602440d7b3d40",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:359_22321211_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:359",
+      "design_family": "359:22321211",
+      "partition": "reserved_final",
+      "sequence_sha256": "bacc42ef5465e9d40bc819a2f7175c1be24f2a59fe4249bc15a4aae56ce6ae65",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:359_22321211_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:359",
+      "design_family": "359:22321211",
+      "partition": "reserved_final",
+      "sequence_sha256": "a35c2585a8aea37e8f5345a1d7332a6f6a456e3fc7716f21358658032e2931df",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:359_22321211_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:359",
+      "design_family": "359:22321211",
+      "partition": "reserved_final",
+      "sequence_sha256": "a5305ccc1ea2bad45e17cbbb871c7d1d114392cdd5496aa9a0e70b409dd2d73d",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:359_23232113_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:359",
+      "design_family": "359:23232113",
+      "partition": "reserved_final",
+      "sequence_sha256": "9c4e6d2e776e2883dd81fdba99f045a4d9da1705c28c01b2a0d8e70b082f4eda",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:359_23232113_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:359",
+      "design_family": "359:23232113",
+      "partition": "reserved_final",
+      "sequence_sha256": "76b210c65d274a53b6d8a8def6596dc9460bdeff6208316e15bfe16ab27cdcc7",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:359_23232113_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:359",
+      "design_family": "359:23232113",
+      "partition": "reserved_final",
+      "sequence_sha256": "8fc93b62b6041cc6182048fedf260ab096d4a73d802320c42b2c6345f737cfec",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:35_32331121_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:35",
+      "design_family": "35:32331121",
+      "partition": "reserved_final",
+      "sequence_sha256": "26645a1f2aee314287bab9905b1743050d6a35d3d49bccb4d5823732a058ab58",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:35_32331121_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:35",
+      "design_family": "35:32331121",
+      "partition": "reserved_final",
+      "sequence_sha256": "6c972803d0263beb0e01ecc28c197a206bb4f27b4bce1e1dbee19cbe38afd897",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:35_32331121_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:35",
+      "design_family": "35:32331121",
+      "partition": "reserved_final",
+      "sequence_sha256": "4f9c5dd303fcb71ce90496417100f61d6bccfefaac00166f2e4ea216454abf68",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:35_33311121_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:35",
+      "design_family": "35:33311121",
+      "partition": "reserved_final",
+      "sequence_sha256": "84c6bd9c812bc4a57a3116924c5b673b3096feda2a04a3d3028c193ca1e4a70c",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:35_33311121_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:35",
+      "design_family": "35:33311121",
+      "partition": "reserved_final",
+      "sequence_sha256": "e776eca130df45ef3eb37fa3831ef672e342234cbfbb26feac970e93eb88614f",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:35_33311121_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:35",
+      "design_family": "35:33311121",
+      "partition": "reserved_final",
+      "sequence_sha256": "77bcacfd0f239ad4432d47806d73012304278ed9d55b921584f5aa79b47ded49",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:379_12222121_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:379",
+      "design_family": "379:12222121",
+      "partition": "reserved_final",
+      "sequence_sha256": "a643a802b1a1089139469bb8baff4b85038e77ef504368d8485737e0c2df614d",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:379_12222121_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:379",
+      "design_family": "379:12222121",
+      "partition": "reserved_final",
+      "sequence_sha256": "66796cc5bcba39704977b3ae382afebe331f3dcb0999d70d1153213405815e61",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:379_12222121_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:379",
+      "design_family": "379:12222121",
+      "partition": "reserved_final",
+      "sequence_sha256": "aa3dd2eee63a031cd575f4d70b5e02f44c2a89a538291f503969ef2df3ab1f05",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:379_13311122_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:379",
+      "design_family": "379:13311122",
+      "partition": "reserved_final",
+      "sequence_sha256": "f7326c7cee42b63cd65f8d23269c95e021c67ced06f4df0570f8383984b4ddd9",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:379_13311122_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:379",
+      "design_family": "379:13311122",
+      "partition": "reserved_final",
+      "sequence_sha256": "7937ab2b7c9615973f894c981e84d0db466e3c1aa9c439559aed6c497738beac",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:379_13311122_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:379",
+      "design_family": "379:13311122",
+      "partition": "reserved_final",
+      "sequence_sha256": "f0d6e7745358150fd2e5bb9f1b854997f0c288663fea3646046e436f118705ba",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:37_12221121_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:37",
+      "design_family": "37:12221121",
+      "partition": "reserved_final",
+      "sequence_sha256": "d9b35d4ccfd0c27a358016820786166f2f40de6a4e254399041adad043258fe5",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:37_12221121_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:37",
+      "design_family": "37:12221121",
+      "partition": "reserved_final",
+      "sequence_sha256": "547be362b4f9c92131ff8726f09aebc4950d8f01a96f891edfad64f140da8fc2",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:37_12221121_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:37",
+      "design_family": "37:12221121",
+      "partition": "reserved_final",
+      "sequence_sha256": "fc9c9b1d9b295b8655fc51c729bea52e88254de2e40e0b4f8c80afb16b86c491",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:37_23222112_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:37",
+      "design_family": "37:23222112",
+      "partition": "reserved_final",
+      "sequence_sha256": "523e827194bccef0555683271339bf00995a1e0ef234bd5b3cae21b91fda7e12",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:37_23222112_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:37",
+      "design_family": "37:23222112",
+      "partition": "reserved_final",
+      "sequence_sha256": "146087fbb972eaa302329f62344a0360950df3fb31bfe64e003554ef5802e53f",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:37_23222112_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:37",
+      "design_family": "37:23222112",
+      "partition": "reserved_final",
+      "sequence_sha256": "bb14e254ef4e72cc5b94969fa0b459553bcd59f7c116e2dddf21221e97c54fdf",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:380_31211212_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:380",
+      "design_family": "380:31211212",
+      "partition": "reserved_final",
+      "sequence_sha256": "21f4e92ba6fc1d60b35762202fcf234c9766738bba2ebe092a58d487898b9b3b",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:380_31211212_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:380",
+      "design_family": "380:31211212",
+      "partition": "reserved_final",
+      "sequence_sha256": "c1fdef0fc065abebbcbf6bba26fde0c35d4da4be6caee44eb7fea26e8d417675",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:380_31211212_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:380",
+      "design_family": "380:31211212",
+      "partition": "reserved_final",
+      "sequence_sha256": "b73d79608b375dd8b2d11d2c826d9e08792a12083c64bdff3b3996e0627aaa97",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:380_33231223_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:380",
+      "design_family": "380:33231223",
+      "partition": "reserved_final",
+      "sequence_sha256": "492d973e9089ff1be45f645dd510bf67fe31e3fd035b618c72164a349fe2ea2c",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:380_33231223_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:380",
+      "design_family": "380:33231223",
+      "partition": "reserved_final",
+      "sequence_sha256": "06f798738c5fa25c94d86de2ab45acb4a5874ff6230cd2e7e45951a755fb3d41",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:380_33231223_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:380",
+      "design_family": "380:33231223",
+      "partition": "reserved_final",
+      "sequence_sha256": "4f8d11cb35b4a60c6643068f90db309bff27079265ed1182a4bd56a15f45ac7f",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:382_13331223_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:382",
+      "design_family": "382:13331223",
+      "partition": "reserved_final",
+      "sequence_sha256": "64f484d1af2fdff11798e2c9c8481a3dc0203d1351b6a2b58f3896758d9fb8a0",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:382_13331223_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:382",
+      "design_family": "382:13331223",
+      "partition": "reserved_final",
+      "sequence_sha256": "8c5a1bf6c23bc174eaa201ffdf27383b535183be62a6e67fc587955cd230ca76",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:382_13331223_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:382",
+      "design_family": "382:13331223",
+      "partition": "reserved_final",
+      "sequence_sha256": "3a59b948170a755605597121f5c75639ba770fe4009b3ca801e46c368efa74a5",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:382_21112113_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:382",
+      "design_family": "382:21112113",
+      "partition": "reserved_final",
+      "sequence_sha256": "97da282d2a9e84364526eee0e18c6e61e2bf2cc94c13333a74091ddfab3cbaa7",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:382_21112113_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:382",
+      "design_family": "382:21112113",
+      "partition": "reserved_final",
+      "sequence_sha256": "e26b4508fb6a31e68842053f5462b71a02a7ed6d6d9f76572c0c0b8dfd0493a3",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:382_21112113_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:382",
+      "design_family": "382:21112113",
+      "partition": "reserved_final",
+      "sequence_sha256": "7d949440c2b12a1d8a766749e79bbc919c67fee09285497c3a3b8ddb1be233af",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:384_23312111_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:384",
+      "design_family": "384:23312111",
+      "partition": "reserved_final",
+      "sequence_sha256": "bde4927ea8c6a6b57f43191f0458951bffb2a6058291f63a5f900cb98d70848e",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:384_23312111_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:384",
+      "design_family": "384:23312111",
+      "partition": "reserved_final",
+      "sequence_sha256": "555c07a9d6d25b929bc956e18060b56dd3c7ae299c59d01530cf269ddd69b3a9",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:384_23312111_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:384",
+      "design_family": "384:23312111",
+      "partition": "reserved_final",
+      "sequence_sha256": "3fa987dde6f4576b73edd714381872a2305f58d2971adfc42e1e272cfc8a4234",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:384_33211112_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:384",
+      "design_family": "384:33211112",
+      "partition": "reserved_final",
+      "sequence_sha256": "e7039434c838ac018c1c2dd858a007b6ffe8fbfcf2ee9f24376ff166d8bcd717",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:384_33211112_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:384",
+      "design_family": "384:33211112",
+      "partition": "reserved_final",
+      "sequence_sha256": "b7a6bcab8a68b1aa13a0404477b6e10c1b90c0b51aa0d3f7edb48df7a13101cc",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:384_33211112_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:384",
+      "design_family": "384:33211112",
+      "partition": "reserved_final",
+      "sequence_sha256": "5cc59053c022e398c9a6c8d25157a589a0163263765cf34c5e91e89784f79002",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:387_11212112_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:387",
+      "design_family": "387:11212112",
+      "partition": "reserved_final",
+      "sequence_sha256": "53ad5a4270e12208c1979e8fecef50ce22b395194efe6be853caa5c358201825",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:387_11212112_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:387",
+      "design_family": "387:11212112",
+      "partition": "reserved_final",
+      "sequence_sha256": "667e4f96fa3f99f9ff98ac3e5968a7882dfca0deeea1738241c8407bc20a712d",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:387_11212112_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:387",
+      "design_family": "387:11212112",
+      "partition": "reserved_final",
+      "sequence_sha256": "aba4f07ca2678b28fa0a112168e10e0bd699caca22bcf884148555b57a700675",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:387_13122112_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:387",
+      "design_family": "387:13122112",
+      "partition": "reserved_final",
+      "sequence_sha256": "779f8cf85880dd5bc169e44b5ffb43c805613ac65986f7627f6265faaf30ce4e",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:387_13122112_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:387",
+      "design_family": "387:13122112",
+      "partition": "reserved_final",
+      "sequence_sha256": "84a8585d1173203aae95ada2b0aa03f1f63c171a1adc9fe076414f86a5d16d23",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:387_13122112_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:387",
+      "design_family": "387:13122112",
+      "partition": "reserved_final",
+      "sequence_sha256": "ed48f420e326a929f61cad8cc87176b243fec249742e7100accf4d5e87443854",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:44_21312122_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:44",
+      "design_family": "44:21312122",
+      "partition": "reserved_final",
+      "sequence_sha256": "89da3cb951fd136091324eaaf59285663e6c00699d80f4dd8333cbe975088484",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:44_21312122_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:44",
+      "design_family": "44:21312122",
+      "partition": "reserved_final",
+      "sequence_sha256": "0c708ed5897c33a64db4b6ae26701dab15d926664718ba15cd59da669e676bf3",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:44_21312122_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:44",
+      "design_family": "44:21312122",
+      "partition": "reserved_final",
+      "sequence_sha256": "2bbe7736b7dcc609c182da26474de45700878bdaab7f7ba74869784695b4dd39",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:44_33211111_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:44",
+      "design_family": "44:33211111",
+      "partition": "reserved_final",
+      "sequence_sha256": "d218ace5faf02251ac2add3c524b75824dd955aa1456c9bffd987a9e41cb4174",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:44_33211111_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:44",
+      "design_family": "44:33211111",
+      "partition": "reserved_final",
+      "sequence_sha256": "bb82614677c9c44bf28d940841bf995ed0421a00dde7374b0eddcb0d5a341290",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:44_33211111_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:44",
+      "design_family": "44:33211111",
+      "partition": "reserved_final",
+      "sequence_sha256": "314d1cbdd8220b9f85c74d4eae034640173e588b7e891721744e00368dd5fb45",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:46_23221213_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:46",
+      "design_family": "46:23221213",
+      "partition": "reserved_final",
+      "sequence_sha256": "326f123a54b246c3cf572dc07c5a34bf2ca3cff79fbf44997eff1877a47d64ab",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:46_23221213_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:46",
+      "design_family": "46:23221213",
+      "partition": "reserved_final",
+      "sequence_sha256": "f57d8e505379e864a63a69ce681fedca50c5196315570ac5343d45cf7ae44599",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:46_23221213_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:46",
+      "design_family": "46:23221213",
+      "partition": "reserved_final",
+      "sequence_sha256": "0c31057c7c01fe69ba3010f12a14173b5a2805be4eeb8fa05e61369ef6ae25aa",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:46_33231221_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:46",
+      "design_family": "46:33231221",
+      "partition": "reserved_final",
+      "sequence_sha256": "853dc4d2ab799c530c8148bb4a1b2e553ca8e4283bcf41c763a9bffbb35177ca",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:46_33231221_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:46",
+      "design_family": "46:33231221",
+      "partition": "reserved_final",
+      "sequence_sha256": "8c2ae6dc52e6ffad86251ee9d32059deb40ab6f3c8d795a243773d64a8383f07",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:46_33231221_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:46",
+      "design_family": "46:33231221",
+      "partition": "reserved_final",
+      "sequence_sha256": "a0ea69b376893c1f1598621cb97f0b5886bbaa7cd061f5b1c067b94fead90b25",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:47_21112113_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:47",
+      "design_family": "47:21112113",
+      "partition": "reserved_final",
+      "sequence_sha256": "286315c87d64f87fb4a0326ff58e797172279bc5bb76f86071dbc9335921c666",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:47_21112113_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:47",
+      "design_family": "47:21112113",
+      "partition": "reserved_final",
+      "sequence_sha256": "b3c26650dd304e7f88ca99e32c249fa18434c39134c29adc30035c8c3ce98519",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:47_21112113_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:47",
+      "design_family": "47:21112113",
+      "partition": "reserved_final",
+      "sequence_sha256": "bcea5e160a73d3b612ab8d243ab110fbf36fee060b3bc4a9a62edce4ec0cfb97",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:47_23232113_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:47",
+      "design_family": "47:23232113",
+      "partition": "reserved_final",
+      "sequence_sha256": "9565a86dfd42a8e5ce130e8f0a42cf329c7dfadc7186e102deb239fdaf604f97",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:47_23232113_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:47",
+      "design_family": "47:23232113",
+      "partition": "reserved_final",
+      "sequence_sha256": "41634f128460f878fba0303a010a7a1a59783549152f293570c9aa9d3b6d4e1b",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:47_23232113_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:47",
+      "design_family": "47:23232113",
+      "partition": "reserved_final",
+      "sequence_sha256": "92fbdfaf031447ff7a8894f166048dc2affc8e4d897ee0eb16fb9b74c80609f1",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:49_23221212_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:49",
+      "design_family": "49:23221212",
+      "partition": "reserved_final",
+      "sequence_sha256": "d0d4241277627c6a7a9240a3b1d6f428e9977cb96a85963df9767ec2666b1843",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:49_23221212_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:49",
+      "design_family": "49:23221212",
+      "partition": "reserved_final",
+      "sequence_sha256": "b9b6d25593eb023a736b65cb9b92cf549e4324984a855cc36cc71ec40ccd7b56",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:49_23221212_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:49",
+      "design_family": "49:23221212",
+      "partition": "reserved_final",
+      "sequence_sha256": "87e9e4fd8b78aeb9ca0604f653e2b0933cb11eff696b166db7c9f0332a5e4819",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:49_33111123_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:49",
+      "design_family": "49:33111123",
+      "partition": "reserved_final",
+      "sequence_sha256": "67be53c255b3a48edea58ff5f1529e4f624bc8e7928da77682af42edcdf02a3b",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:49_33111123_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:49",
+      "design_family": "49:33111123",
+      "partition": "reserved_final",
+      "sequence_sha256": "7f6fd00720fc6338998044e5cb97699894a557c0143cc1995cdb6a84297519f8",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:49_33111123_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:49",
+      "design_family": "49:33111123",
+      "partition": "reserved_final",
+      "sequence_sha256": "e34891539455a8746e0e349fa4d05cb41f0a8e0cc35d31a78168e52ce2e900d3",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:50_11331213_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:50",
+      "design_family": "50:11331213",
+      "partition": "reserved_final",
+      "sequence_sha256": "29d7549fd247084d022d9e7f1807d01bcf862af91ebaa8d18ea145786180ccb2",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:50_11331213_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:50",
+      "design_family": "50:11331213",
+      "partition": "reserved_final",
+      "sequence_sha256": "f8d8f6089f97437d1a06a0c219d2e2b18d99bfd0334aa8ffef3ed44369dcd971",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:50_11331213_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:50",
+      "design_family": "50:11331213",
+      "partition": "reserved_final",
+      "sequence_sha256": "4a543ab448a06c52b7b6646fa4cdaf77f22a43eee671f805a0cccf8228edc315",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:50_23321211_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:50",
+      "design_family": "50:23321211",
+      "partition": "reserved_final",
+      "sequence_sha256": "1b30b0bf827e4ca94eccafef36e29b022a1e7cff8beb7ec69f2650d8d33753cf",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:50_23321211_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:50",
+      "design_family": "50:23321211",
+      "partition": "reserved_final",
+      "sequence_sha256": "968fe681d28e64276b9d8b495e886e21d4f1ef66f4db2c2e43fb40f0c61929d9",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:50_23321211_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:50",
+      "design_family": "50:23321211",
+      "partition": "reserved_final",
+      "sequence_sha256": "05b2e724a46b53310af2f36892bc174ab0b7c106f2163813e1c869b1579d0fd0",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:54_11132121_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:54",
+      "design_family": "54:11132121",
+      "partition": "reserved_final",
+      "sequence_sha256": "ce37449bc9b5b9deb33b0480ef37a8627072188bb32dc422c57b6b0973d402fd",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:54_11132121_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:54",
+      "design_family": "54:11132121",
+      "partition": "reserved_final",
+      "sequence_sha256": "69b08a4cf342ca6223b06281b7a70971756bbcd4bd0a046d5748165b5b4f4d99",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:54_11132121_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:54",
+      "design_family": "54:11132121",
+      "partition": "reserved_final",
+      "sequence_sha256": "04205f59253f0c61a5648b930a22918e8a573a25adb7e3117e50ee301f7be741",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:54_13211121_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:54",
+      "design_family": "54:13211121",
+      "partition": "reserved_final",
+      "sequence_sha256": "7c801b9cba79af1d77ab469a5d41a716c0db85ba0e3ec2ca44a6f09ac34bb307",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:54_13211121_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:54",
+      "design_family": "54:13211121",
+      "partition": "reserved_final",
+      "sequence_sha256": "517210df224060f390366f11d1c32bc39806e88af962d4d2636b9728b4943b3a",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:54_13211121_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:54",
+      "design_family": "54:13211121",
+      "partition": "reserved_final",
+      "sequence_sha256": "98ef76e6aaf459f42a209a12f27ee3ffc98f57953e8caae2ef170c15b41856ef",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:56_22111211_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:56",
+      "design_family": "56:22111211",
+      "partition": "reserved_final",
+      "sequence_sha256": "e130d85d40ed2fe3d576a0987ec94afa1adf3bec6695ebc3e742cacec53e8a7e",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:56_22111211_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:56",
+      "design_family": "56:22111211",
+      "partition": "reserved_final",
+      "sequence_sha256": "1a31cb13798589e33909410f283d4df51170231e13a92558a782472d07120ae0",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:56_22111211_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:56",
+      "design_family": "56:22111211",
+      "partition": "reserved_final",
+      "sequence_sha256": "7eabc98d7cbb6572e89e484594030784b5818b12352404fe9252e44a7f09dc87",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:56_33232112_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:56",
+      "design_family": "56:33232112",
+      "partition": "reserved_final",
+      "sequence_sha256": "cb125b0cf4a9ab8d7039853e344832718f603af58237c17aa201fb5c0fdbffa5",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:56_33232112_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:56",
+      "design_family": "56:33232112",
+      "partition": "reserved_final",
+      "sequence_sha256": "e376c47d8f623ca9d3cc922acd64e077e62311f788efaa7a715677219af9086e",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:56_33232112_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:56",
+      "design_family": "56:33232112",
+      "partition": "reserved_final",
+      "sequence_sha256": "a2af336e2ac4e54595f6075b64dea66f9f7df08b7d813095939ed8ce7f90b4ca",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:60_21211111_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:60",
+      "design_family": "60:21211111",
+      "partition": "reserved_final",
+      "sequence_sha256": "1da13fdaba4ba35abd2051d6bf03a6c7b716f3f443eef8705d6fab4b0f2e3131",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:60_21211111_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:60",
+      "design_family": "60:21211111",
+      "partition": "reserved_final",
+      "sequence_sha256": "cc0ecddee87d1b9419ea2c80a9649d8057b3aef6407ebd613ac14becbc7b3d02",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:60_21211111_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:60",
+      "design_family": "60:21211111",
+      "partition": "reserved_final",
+      "sequence_sha256": "adf59e2131afac8a922e4ff0289124423adb637c7bc57aa19497a27ab974345f",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:60_32231112_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:60",
+      "design_family": "60:32231112",
+      "partition": "reserved_final",
+      "sequence_sha256": "fb80f2f9772facd1ce28ae27532b53ad64e895488645de83529d3eee451e08c7",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:60_32231112_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:60",
+      "design_family": "60:32231112",
+      "partition": "reserved_final",
+      "sequence_sha256": "1fac75088e5d4c997cba06ae881c3fc7c0cfcc01e792a2a49a35e991dc5d431b",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:60_32231112_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:60",
+      "design_family": "60:32231112",
+      "partition": "reserved_final",
+      "sequence_sha256": "39af947c064ac19039ee3537bda44dde16de72a7b61ecdeb94b6262fb2ea0021",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:71_13122121_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:71",
+      "design_family": "71:13122121",
+      "partition": "reserved_final",
+      "sequence_sha256": "1ead53df3296857d279560f8e9d01ee1abc6851e64cca99e1f56a4aec3c6b8e0",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:71_13122121_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:71",
+      "design_family": "71:13122121",
+      "partition": "reserved_final",
+      "sequence_sha256": "9276afa5ab9533924f603d3575516d57a4bcb5b5baa0d4b4611a0edf47f49e90",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:71_13122121_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:71",
+      "design_family": "71:13122121",
+      "partition": "reserved_final",
+      "sequence_sha256": "3fa3bcf12e21fa8cc75003af2f616eb01e97128f5b6649bd37d6d16c433d65fd",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:71_31322113_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:71",
+      "design_family": "71:31322113",
+      "partition": "reserved_final",
+      "sequence_sha256": "303ab89fadcbd8c1a5d9cf428fc36a6862c1a92f386751c11eb3751f5ac6d6e7",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:71_31322113_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:71",
+      "design_family": "71:31322113",
+      "partition": "reserved_final",
+      "sequence_sha256": "eb73883d283319d04aa273f7e48a02bc8b70435e3ec27dd0f3f86d19189ac3ee",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:71_31322113_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:71",
+      "design_family": "71:31322113",
+      "partition": "reserved_final",
+      "sequence_sha256": "e3bdd0fbd05b1cc89e46d96038c777cbbda6cb71567de7256c75e1c66c273baf",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:76_22331112_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:76",
+      "design_family": "76:22331112",
+      "partition": "reserved_final",
+      "sequence_sha256": "b46d9b40b437da3c1357ee399fad56550618ce51582b4a974c3a776782a386af",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:76_22331112_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:76",
+      "design_family": "76:22331112",
+      "partition": "reserved_final",
+      "sequence_sha256": "4a4cf437bd04b104c2fa661c1c9a5544a12fee6b8b9e158bb20598a2096169df",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:76_22331112_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:76",
+      "design_family": "76:22331112",
+      "partition": "reserved_final",
+      "sequence_sha256": "6753a8d1351cdf0bfc5114aeea09feba7c12db134c6ec61400b445521694ce02",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:76_32311122_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:76",
+      "design_family": "76:32311122",
+      "partition": "reserved_final",
+      "sequence_sha256": "f264e02f15b5c1661e3354e251d0d16de937fbb15a04351188b34176807250d0",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:76_32311122_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:76",
+      "design_family": "76:32311122",
+      "partition": "reserved_final",
+      "sequence_sha256": "95a90db269c12c4687b218e184da834f049d3306ac02bd65bb7497b36553087b",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:76_32311122_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:76",
+      "design_family": "76:32311122",
+      "partition": "reserved_final",
+      "sequence_sha256": "3a7757ca97087859bd5d713f6dad40053a9637db0c0b8737efbacd2f318d4140",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:84_11121221_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:84",
+      "design_family": "84:11121221",
+      "partition": "reserved_final",
+      "sequence_sha256": "40b674e97b19a111dd0783b7379ebcc54e3846361be184e3d055c56207f856ba",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:84_11121221_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:84",
+      "design_family": "84:11121221",
+      "partition": "reserved_final",
+      "sequence_sha256": "5d47f68cf5bc45924982bb961febfe8d157d46d8e63abd5c3ecd6989c5ae040d",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:84_11121221_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:84",
+      "design_family": "84:11121221",
+      "partition": "reserved_final",
+      "sequence_sha256": "44a960ca9d15d71caa3c707aef22fd1d905cd9195a14f4ba37d8bce8b14eb896",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:84_12311221_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:84",
+      "design_family": "84:12311221",
+      "partition": "reserved_final",
+      "sequence_sha256": "ab61d9254340d3cf67036831e48cdf97409e64a4a3f2b0f8fc39810071e89073",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:84_12311221_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:84",
+      "design_family": "84:12311221",
+      "partition": "reserved_final",
+      "sequence_sha256": "83fc06ab78aa24dbd9b465d40f31bed70308b36650a3937b0f9f813de6f56edf",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:84_12311221_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:84",
+      "design_family": "84:12311221",
+      "partition": "reserved_final",
+      "sequence_sha256": "8ca040e42f875681654c2bc2406ea47bf0a0d228a0f14fc61558152bdfb7a6fe",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:86_22111213_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:86",
+      "design_family": "86:22111213",
+      "partition": "reserved_final",
+      "sequence_sha256": "22a68e0523032de5a05fc0d7c01f96de20f376fdc274f16a55301a98e5a8b87d",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:86_22111213_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:86",
+      "design_family": "86:22111213",
+      "partition": "reserved_final",
+      "sequence_sha256": "f643719a687c9de3ffaf121ae325cffc2762d24a3e22b618ae1663a356180d7d",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:86_22111213_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:86",
+      "design_family": "86:22111213",
+      "partition": "reserved_final",
+      "sequence_sha256": "1d450aca33d5e1462b80bef90cb5be5f887e70e8d7380b90b861d5ea53e7d35a",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:86_32111211_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:86",
+      "design_family": "86:32111211",
+      "partition": "reserved_final",
+      "sequence_sha256": "cf5d5dc5f27084d58a41c9950ad32a5ebfccddd473892aaa28595c9d047dd767",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:86_32111211_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:86",
+      "design_family": "86:32111211",
+      "partition": "reserved_final",
+      "sequence_sha256": "2c473ffe5678ea52252c0a90d27f3417f63d6e2b2627752db8361327f2ee42f8",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:86_32111211_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:86",
+      "design_family": "86:32111211",
+      "partition": "reserved_final",
+      "sequence_sha256": "f0e5fe8a744cf03975268d3f6f833d408a5593975d0f6082ae057737e5a34d3f",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:88_12231223_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:88",
+      "design_family": "88:12231223",
+      "partition": "reserved_final",
+      "sequence_sha256": "7485eb51a30de23e173f4f9c88aa050be3db128b098d4d77c95f7c8440306b20",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:88_12231223_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:88",
+      "design_family": "88:12231223",
+      "partition": "reserved_final",
+      "sequence_sha256": "1b9fd1b0b5dd0452fc7cc93c9c0e7c5cc0dc067a189bec7f1568ab4186f12304",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:88_12231223_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:88",
+      "design_family": "88:12231223",
+      "partition": "reserved_final",
+      "sequence_sha256": "d50c3ce3d0cdc1cb545dedc4569aee59bef3662cb4b5d0330f6a3cb7c02f4ecf",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:88_13232112_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:88",
+      "design_family": "88:13232112",
+      "partition": "reserved_final",
+      "sequence_sha256": "b307d985ad62d75e15ea74ce7704f5c84d6aee21d493e95d10c71445536f8eef",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:88_13232112_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:88",
+      "design_family": "88:13232112",
+      "partition": "reserved_final",
+      "sequence_sha256": "f369f82702a0925da18af63f0da1aabb26b1fe403a8010e5f5ab7fad260d48d4",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:88_13232112_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:88",
+      "design_family": "88:13232112",
+      "partition": "reserved_final",
+      "sequence_sha256": "89744d99358ce584791b4922e234ad141715fd4f25ec1efe2a0a7784ab1b1102",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:95_13212111_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:95",
+      "design_family": "95:13212111",
+      "partition": "reserved_final",
+      "sequence_sha256": "09118d39ee69549440aa5f34b00e04368d09c00e200b2e410af8236010709ab0",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:95_13212111_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:95",
+      "design_family": "95:13212111",
+      "partition": "reserved_final",
+      "sequence_sha256": "2475c7e1d4b6d98865418df5a4b25a5fabbdba059bbfb2ca7b70783ba2b6d22a",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:95_13212111_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:95",
+      "design_family": "95:13212111",
+      "partition": "reserved_final",
+      "sequence_sha256": "6b37983588676417eced1257b668aad27ef687143bebc0a3e5bf0162f5454a2c",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:95_21331223_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:95",
+      "design_family": "95:21331223",
+      "partition": "reserved_final",
+      "sequence_sha256": "b2d117382de12892be8fc1a8c97c5d6931ad3411425f8bb566812359ff0c594f",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:95_21331223_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:95",
+      "design_family": "95:21331223",
+      "partition": "reserved_final",
+      "sequence_sha256": "39e60bc7ebb25bb013288e2c0ddb021c3d3ccaa24f310e9ef5abb66d6ee916bc",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:95_21331223_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:95",
+      "design_family": "95:21331223",
+      "partition": "reserved_final",
+      "sequence_sha256": "4017fb96d0c0b340440bdaeacae22071151168601422325c005b4f6de0cf5e2f",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:99_31212121_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:99",
+      "design_family": "99:31212121",
+      "partition": "reserved_final",
+      "sequence_sha256": "6fa45691d9fa8a81413809ed41a95e8d9bcb9f22dc27bf1d41b7e2baaac4b302",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:99_31212121_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:99",
+      "design_family": "99:31212121",
+      "partition": "reserved_final",
+      "sequence_sha256": "eabc90813fcbc91777f7a2e82f576de23581357373d4caba2b6ad38be9686e60",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:99_31212121_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:99",
+      "design_family": "99:31212121",
+      "partition": "reserved_final",
+      "sequence_sha256": "e123b028b14e28570cffc9fa344aec52c0a7158174e48126aba25bb97f7f55fc",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:99_31311211_1",
+      "study": "Cambray2018",
+      "group": "cambray2018:99",
+      "design_family": "99:31311211",
+      "partition": "reserved_final",
+      "sequence_sha256": "f8f3f5ca5fad25f746aa482863c390ba0ade6044d225b53e3a9f32149ddb7ac1",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:99_31311211_2",
+      "study": "Cambray2018",
+      "group": "cambray2018:99",
+      "design_family": "99:31311211",
+      "partition": "reserved_final",
+      "sequence_sha256": "9ea0313952d321de607221599618a0c2829a862486dd5cd0a735c9d7274e1f9c",
+      "start": 89
+    },
+    {
+      "id": "cambray2018:99_31311211_3",
+      "study": "Cambray2018",
+      "group": "cambray2018:99",
+      "design_family": "99:31311211",
+      "partition": "reserved_final",
+      "sequence_sha256": "1d95402bdadf3dcaec327964594903cdf56ef32a5c4f0f1dfb2aba893db14d1d",
+      "start": 89
+    },
+    {
+      "id": "kuo2020:arti:AAAAAAAAA",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "e644f84314c958488e20648fc7e211e6297a0f9252b68de4a0ed0fe4ffd91004",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:arti:AAATTATGT",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "52090fd8552aad1b2ee63d5db6a68e87261ae10cffa9b2e273004fab197b2245",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:arti:AACATGTAT",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "2f9db8305a0d909d038335a877d2f24a209b4cc034e3b7734cb7d31aad20e2bb",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:arti:AAGAAAATA",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "bdda6ef90c80552004727de1448110d46fa6e734797e8e835fc950c1375e191b",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:arti:AAGGAGGTG",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "d3c6d54c88f9ef66e5ed4ce9d22a787a3dee679cf3d9e53f7ad1d226733a397a",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:arti:AAGTCGACA",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "b695692f7ad79b9eee921d150c66d623c0572f639fb1c031310c9229f590cf8e",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:arti:AATTATAAA",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "8c6dcc45e1e60e8362093a680f487a6788a6ff90392510891ce3157836976524",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:arti:AATTGATAT",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "d084d7d0d850d23548f89ab5a662a2bf9020ec6b3e9f308e1fd69ab47670ffd8",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:arti:ACAGGAAGC",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "dbbf4acd0ca672bf4a24b9a6fc0340fa2c07a5c328589d944c66a2349fd4ca05",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:arti:ACGGTGTTT",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "e8960fb2479de0359e503a7de14b9ded81ccc18e02ff27577ba9d1e12f52b67a",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:arti:AGACAATCC",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "a9a270b0e538f040d15671905dac11392a1854d7dc5351e536ce793a09e47f64",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:arti:AGAGAGCTC",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "29183706a98bf45c9322acbc15aa165886cda08af5b011c9bce28d553659d589",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:arti:AGCTCGATC",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "cf848044477bbd53222f3149a1bba539bd8bd849f0d7dbc40405672ed9e9825c",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:arti:AGGCGCCGC",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "c19bd6df68da9209406ee5958ff042c6447055ba6c8abb755bf7b81b2e7dc668",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:arti:AGTTAAAGC",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "bca166ad843b8faca03d2b5f350bbf77aa75cdffe46942395ae6cffeeddb69e1",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:arti:ATACAATAG",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "d7a47dce4dd3421a98aba58da687bfcd65bb586c8a3c45fbaf60669979355875",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:arti:ATATTTTAT",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "4151ddd9347d48ff7c188c387337b107791e82c36e2b12452e86827258b46232",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:arti:ATTAATTAT",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "baa3fd14abec237c4ce132a8a66fc6b286397e9896edd3c5f71b8aefeeb8e3ae",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:arti:ATTATATCT",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "ef81cd20bcfa927d70cfd3c4c3f7ab04c7cd58728ed92add727bef27b5880e48",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:arti:ATTATATTT",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "0fcca0875151fb1252396aca3d8fa90f8a8dd06655d4e768e9dacc384268331e",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:arti:ATTATTAAT",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "fbe29d8694529955e2d40ce977c2564e2d4d91aeadbcd15291111eb10dc2aaeb",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:arti:ATTGTCTAG",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "836e7e7c083b520f20473e799aeb26e2e6164738f343d707dd8e48674d73ec91",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:arti:ATTTAATTT",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "6877440cc0e7a709be707d2c79d7d443250d340435eed19536ecc0debad5319e",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:arti:CAAGTCAGA",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "1fa2d1a0e8f160c330ca86a673345cdd2ba415eff83f2d35a360c5036d2a82e4",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:arti:CAATAACTT",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "bcc21b021d92ede14c4ea441cf9529307315a1b3f470fc85fc9a8f0427544d9d",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:arti:CAATTAATA",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "9b8a8e1777d2f7459e40906d45076aa453579088de513d491655397049683bd5",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:arti:CAGCAGGTA",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "d7f7007a52236faa59b57c00f2688ab1a79193965133ee592d11e2cf3f6af70e",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:arti:CATATGTAA",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "c88e687bed4a0ad7354b2c16f9efb03288a73776a9d3ce372cce1213f7da952d",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:arti:CCACGGGGC",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "fa9a07da9e329479b29a2731d5ec990da41f39eb7112f91aa6ff7d16f69545c9",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:arti:CCAGTTCGC",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "57d4d4dc9b61d1726c37a41b4be2799fe1702673833d6df688c00bdb6a37b259",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:arti:CCCCCCCCC",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "f6395134c9122dfeab028f767820645829b0bed4ffd290d3de1f323d53b57d88",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:arti:CCCCCCGGG",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "61e0fa7715f8832a543b44e0362b38100db41b8bbf450ef6bcb31e6ef1c381c1",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:arti:CCGCGGCTG",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "55e5b08ea0e57b5254e274fb472a11a9994b8aa78de919dfdf9d10d7f6d58a5b",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:arti:CCGGGGGCC",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "689aac4afdb1811c0c101d8a1a670311f95e6ca116325a39b1db6f7302983b62",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:arti:CCGTACAAG",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "8dc646376b7cf5866696b549c7968f8e1fbf2574c8eb56501054b3b3ef72acc3",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:arti:CCTCGTAAC",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "454f1114f086b9aebabb09d5d1f509db746be8daf0ffb281c2e9e0c5bbc9e760",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:arti:CCTCTAAGC",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "9ca60e102792d8b1b4c7b2598abdb40125d5a5ed3a8f7a269f0b7faf22c50ffc",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:arti:CGATAAGAG",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "71e047a3caab2c51ab6944fab9c3ceee33781c9b2690c89a5062996f91db3249",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:arti:CGATGTTTA",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "ddd3580bbffd77766ce78708817763c7a4be5baba8109cbd1ef012d2205af9f2",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:arti:CGGCCATCG",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "430953948a0dda1376ea254ac80a367db2c7ab30f7279a4a5194d0efb1377845",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:arti:CGTCCCCGA",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "1ac07bded854b649be0aec25a39f2d4e8ef881192564b041b100f9ad2d0268c0",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:arti:CTACCGCCA",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "47ccb7115d064df84112e6029a71e559254a40ff0cda28a8e24f174b594356ef",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:arti:CTCCCTTCG",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "ae39004616d0dec946d9aa17326397ad0646c3c8efb736ebcdeea61ef0a1aa76",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:arti:GAGCCGACT",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "590c4caadf048a300a58686fa668da6218e3c481d31a4116b30762507c326704",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:arti:GAGTCCGAC",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "6bd8fd857198b75d1633eb02bbc89bae468383243b2a4459da0bffce98feecd6",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:arti:GCAAGTGAA",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "5b7bab93fe427b6b8899df34e69b5644b11250a2b00479dd4eae7f9dbf64929b",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:arti:GCCAGGAAG",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "45fe929c47e040dca59f3723f8abf486575131dc8da491831e6a9c60f8c28b9b",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:arti:GCCCGCGGC",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "14d584408464e54aa458496ca136a03fe26441acdcc4b0abbb5a2cfe95c013f4",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:arti:GCCCGGGGA",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "a476e57fc1bb01d625a5e14fe841ba0e00b94ef291b20dc34d53e9c01a8cebab",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:arti:GCCCTCGGG",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "fc1a34ec16df4621cbd801e58e92e889677ce90f91c19b8ee3967648b18caf68",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:arti:GCCGGGGCG",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "b3b0cc47b94b64ff19c6a2788cc4e80622c93dc6a3f3f546a27a9c1576ed4fbc",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:arti:GCGCCCCTG",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "1930422af03824b98fa70009c842dd783a13ccf29465a89425700317c17528e0",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:arti:GCGCCGGCG",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "0916e73155435682a65e4e1b9faa6080ad154509ceeddb7114739552f30c76d0",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:arti:GCGGGCGGG",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "2320a3bc883ddd82dfc632949d96d0c6359abdcaa33edfff63d990f641d324e4",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:arti:GCGTCGCCG",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "70248636c3bebf775e4fb1b4cb8f96e70a0d8b23dcbd76c7c038a9b0bcd4514a",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:arti:GCTGCGGAA",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "acac1cdf193e1a717bcae7a25025acaad93b37b1ebc66cebe47243161d13f24c",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:arti:GGCAAGGGG",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "7cd41ba01735536344b448575981cdc902c42e7aeab4f2cf850960a2ffbede36",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:arti:GGCCGGGGG",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "3e43fdb452d9773462e4162dee125174cad2dd67ffa9bd8a3bd86e2b1c89bfe9",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:arti:GGCGTGCTG",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "a1e76d7fd787ddda1e9e47efb9e3ad688ec01e2c81c80b5c40e585b2a79611b1",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:arti:GGGGGGCCG",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "760065fa6a172991b6b9acd6558199b6c6d6d0ce2d9337456265858f07d41b7f",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:arti:GGGGGGGGG",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "fe557bc58e0d01890407a6ab52adddb7b88315a1d62bcb24e7b2e8d86c06e93d",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:arti:GTCTGCCGC",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "aacf5aa0a148009144469976193b0c0191596ebba1b82287e21c50e021e02c3e",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:arti:GTTAATTAT",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "4995381801e5b9834783930548499db1118889393b94e62b645535ec32b06cf6",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:arti:GTTCAGAAA",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "3fcd541fdb0e6d2365a49877b388fd9f2e713bda030ff0658d29eed28b43177f",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:arti:GTTTACAGA",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "125f79dc21234fe8c1bfdb3b410227c37146e5ca0b066886a7b30399e03eb4b8",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:arti:GTTTGCAAC",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "58b171afe752cf27457547419b4199f9a9dea50487d93bde66b5f7cdeaa21f52",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:arti:TAAAGTTTA",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "35c73368f8c70431287ca7dd14bdd84846e7ab626365693241574f85d6257269",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:arti:TAAGGAGGT",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "e50cb6bb9073e2e8df97750b1a1d9a14cef8bbe7e626f9c5f29d1c608b1d38e7",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:arti:TAATTTTTT",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "45f6b1e4495dabc95c8720b1b1ca04dc92882e20a023457765943d552fdac9a9",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:arti:TACCTTCTA",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "a40bf6e4f91768324dc30b0f86fd6464993bcd21070a576b6d27b740dc9b99f9",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:arti:TCAGATTAT",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "f7ecdd97f69704b4e82aa5863744df1adfad3436e56042e64d2ce86b232c259b",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:arti:TCAGTTTCC",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "3cc05bb41a3f8a2aca0602bdf556180ec3442777d9ef34db21f1c3d0c54bd443",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:arti:TCGAACTTA",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "f4339be506bdb2dfb1a99c793d60fa57828b79790b458f0582b4cca478f0142e",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:arti:TCGGACTGG",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "7dc97a856c03b3abe8a7af61e1546df91616fb0e6b6e0d7f0ff8fc53f95ac3fe",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:arti:TCGGGGCCG",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "45ad4efbaf056494f6d58bfbbace0688616fa9ac8a957e3acd85ec33afd78c03",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:arti:TCGTACGTC",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "8086ccd36934c73a0236ec54892cede831eda89116545fde2cf23f3690deab3c",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:arti:TGAATGCGC",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "1937c03887be923cc57e376086f8551eb5927dc4defb01cbb1ed48a463b42cd4",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:arti:TGACCCCGG",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "88a285469c39f34c8d4eacea9c468094b6e5f3a42069c33467b9fc663cb737ae",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:arti:TGCGCCCTC",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "fd40a15c6368cf18affaa0f844d0e71ddf4d9cddc7dbc651322c4f77edc36654",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:arti:TGGCCGGTG",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "abe246a428ce38a201ebdd92291ed6e26689f03884e5a9e23c3de7c2b8b85338",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:arti:TGTATCAAT",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "e561bba0562703212369d3b37c4c762abc65ff166df1f70b9de8636b0c1ddc16",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:arti:TTCAAACGT",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "7a0ddbfab9e44fdc7cca82077e3a8b722980dc543ed308c1939dd070a7ea3f13",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:arti:TTTATGACT",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "9b4ba1f1b6161ccfb091ee1a3776b07e5cf4fdfbfd30f5cd0611fbbfc58130e3",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:arti:TTTCCAATT",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "3f219a43290b18b10f48f0ee5c5c05caf02af90897e74dcd95684e8e4b9e6152",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:arti:TTTTATTAT",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "04223a8a1c78624ab4145f1dbb633aeae64ddb7bddaec705b05b405e55a79b08",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:arti:TTTTCTATA",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "a34de23826addeff4a817803af887a250bd8da8e5cf66d1a329d5d4701b643db",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:arti:TTTTTTTTT",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "acea680ec86537b0486d528cfeb604427b2649d444a4591dbf217f06cde256a1",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:dmsC:AAAAAAAAA",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "16878a5b345a75b69c790ffb15a2a3e41ad9de2e833b5f5783cab3451218b038",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:dmsC:AAATTATGT",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "fdf80c4056a7352cfd7e45da8177a22110107e6d33c5746d7548eaa50c031161",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:dmsC:AACATGTAT",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "eb16a62943a5a796b4b815ee39446f1a427e26998fa5562440b08194894cba02",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:dmsC:AAGAAAATA",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "4ae3df13e1122ce6576713390dbb3fcd59cbf841c17d9f0581a4aea8e2294a06",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:dmsC:AAGGAGGTG",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "42deb5b6c6e47a61b959958ef2c4b500111da648601ebe5b2e4e5bbc06763208",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:dmsC:AAGTCGACA",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "06d742f5845143c50d4245d7f5456c26ccdc96ea7124fc2e0bbd0d508c1bdbe5",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:dmsC:AATTATAAA",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "de1d8790426edc6219364a1c21ef8db2b8c1729fad6ef935bedc2321b52f7b32",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:dmsC:AATTGATAT",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "fb2add274fac28c532d881ef43c6cc97eab44e674cfa1bff7d62c767a473212e",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:dmsC:ACAGGAAGC",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "beaa3bc6a9e57f887ec1fcb4b5c4d46ad95cf0bfbb232083f4dbd7afe793a702",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:dmsC:ACGGTGTTT",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "98917c4dc271bf2b7ab32200de3defa4e8010d3508b9b82b065dc5010016585b",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:dmsC:AGACAATCC",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "01bd0cb06f343eade25125ef842ce86c0762d5898c316a3f237379c4fca10577",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:dmsC:AGAGAGCTC",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "682fd8d0661b58cd66f5b5a1c6e607b1b6aba3d72f80841ebda51148b18af584",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:dmsC:AGCTCGATC",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "10c3bc4ec0f63f4d1ff37340554001199d097d86618787471e255c439f7db17e",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:dmsC:AGGCGCCGC",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "be2cf31a860dce402de957955983f474981478ded83c36808485ec7f684a975d",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:dmsC:AGTTAAAGC",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "4c2cdc660045158d214c8b1136744ace53c154b629f500038bed12bab56020e4",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:dmsC:ATACAATAG",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "ab9f22921c060a50b6255f8541dc8d1ce77e6effa852f489f3702e50b7f488d6",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:dmsC:ATATTTTAT",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "48324922e97cc426e20ff3f900186e263a1d8a18d95923404736a259489b5928",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:dmsC:ATTAATTAT",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "cf9259242e5d37c0ba9f8d79960cd609f572151e6ab85f32d53538728aaa707a",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:dmsC:ATTATATCT",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "c29a6e0c756a78a61c91297ffda79f605c9b587cbbcdfe75bad1d73b8d63027b",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:dmsC:ATTATATTT",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "2fe017cbbccee5c237ac829d0a18dcd54f26074fbdc50814a720300ec0d55ba9",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:dmsC:ATTATTAAT",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "9f5ade0fb610d017a9d4d1d727599e9caf7f05bb064cd5bd284e1e60fec8f0f2",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:dmsC:ATTGTCTAG",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "d2f745ea048d3903d82b8594d521d3afb9673e41792c84f31ba7c5e95a3be443",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:dmsC:ATTTAATTT",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "56c5a182f9ee45fc7b31605f3546712cd7aefe54cf48372a94194b53812c7314",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:dmsC:CAAGTCAGA",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "5daee68aeef63183f433a049b3aa396eaa7465a05975cac1aef27d21c17dccd9",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:dmsC:CAATAACTT",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "9304939f6d4e1bfb06300a925a2df038f66f63cc5657fa145c7f765aea7ead50",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:dmsC:CAATTAATA",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "2bc5bef07d89141625c522172723b21b5e398f5e7fd6a4a53a7210bdbcd39c28",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:dmsC:CAGCAGGTA",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "1d2d9c8dc25e268ec8bb22762b9a3efedef2d62a0e7d9dc9fe79bf334d3a9432",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:dmsC:CATATGTAA",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "4a2cb2d5096f83f80e27b816c63395514e3847350dedb930e5bf53ef00b29215",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:dmsC:CCACGGGGC",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "d41d9a023279bb1bba89064736b955f3d102b4b32909827d7a4bb14b504420a6",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:dmsC:CCAGTTCGC",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "b4f940cb1d9f8b1d742b5f76c5a5727ffd447f9d85cf790d991f3993dc48ac9a",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:dmsC:CCCCCCCCC",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "93f441d32a81264e8414d7c3bd532b7ad0196a415a41b37a36c9f9e5e99fef82",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:dmsC:CCCCCCGGG",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "263230cdce0e0d2336a655e7b5367f87a45146d886084abeeb144d1b2ecbb79a",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:dmsC:CCGCGGCTG",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "a5cd2d0b67004dab683d222f868991f7b7d376cb14ef67bcf2cda48c07c6052b",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:dmsC:CCGGGGGCC",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "ce59f6cf61486b221c905720d01071dda7f91ae32af04d9d65f9decefeff81c3",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:dmsC:CCGTACAAG",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "4e4501bb5327f3511647241dd6a75df33d6081f35ab87ececbe5df4344bb88c0",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:dmsC:CCTCGTAAC",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "6508b8c4f3d7136d70b19cfc65605043299904f50a607749ec43d78a19894ed9",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:dmsC:CCTCTAAGC",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "921dd7ee7cb6599c6c1cc7f69e37d498242d94581512805083af98fd740ae961",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:dmsC:CGATAAGAG",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "877d4d9bc0b112e42d69ac55e6db5b50762c5cb57f6a16db7472501cc25a3d79",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:dmsC:CGATGTTTA",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "2a1c066e5c39fccc9f46b9ae9e80498ace7d008b8b2c094ee066d5560ac56f63",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:dmsC:CGGCCATCG",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "a63571bf8bdd3ce3d1f8164f4079706b2177e16d1d5d547138f8c07e73c8f760",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:dmsC:CGTCCCCGA",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "009c966a38876fdad92bed245b4562a9c62d9ca1ce55d08d885027a3fa1e3477",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:dmsC:CTACCGCCA",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "9bbad0f4b42aba59d3de3beb1392607b35580a37e13eb30b3d2c927b10cb4cc3",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:dmsC:CTCCCTTCG",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "b74513d4fd9672dbc7c22e2cc29839cdfae38eae74c04b65e8ae89417a077249",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:dmsC:GAGCCGACT",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "685e870ef2a6a138cb69a80a1b2a1486c993410c0aaa11c721ea7efb1dfe9b05",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:dmsC:GAGTCCGAC",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "b05c84b87a3d8880e1afa070e9322ee5c2be68d31938035bfbade446f6a42592",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:dmsC:GCAAGTGAA",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "cab598c3685c791884fb2dee01d37a505f0e4c9faf0e80a5dee5e39eb160e4e2",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:dmsC:GCCAGGAAG",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "13609604ca08ac8b04c47ee91c20916c7caa984b51cbcc2147e902a72d26e3eb",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:dmsC:GCCCGCGGC",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "7d0363c227753581069c783e324d1c794f2512d75b9644bde433eb8b550f5b99",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:dmsC:GCCCGGGGA",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "a34f2a523cb78e4b56c3ed686e2dcb75b78f39499601aaf644069fa49743848d",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:dmsC:GCCCTCGGG",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "23344c74752b83216f9b845b3a8c452988e47f28caabceaaea649b010ad35b3d",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:dmsC:GCCGGGGCG",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "d9bb130baec2e202a6676934345c255a269f7e80c191dbb790dcd2af01bbb5d6",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:dmsC:GCGCCCCTG",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "837156683c945c47de7ffe67f3ac649d2fb3e54b32519ef93875d82df24943a5",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:dmsC:GCGCCGGCG",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "12bcec59881362f71f928384a8ad95c9b385820d08fd55ee8648b61ee4255677",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:dmsC:GCGGGCGGG",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "796bdf2698d8a7693ef356f2c25a40cb0aae2f0384710102340a62a0553fef3c",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:dmsC:GCGTCGCCG",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "273556983de4170aef7a229d730d6d201c20018f247a753200e3d40d1749ab39",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:dmsC:GCTGCGGAA",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "d9dd041eb1f5fcdd248ef3cc34a0fee54293c8e234714cbde70650e6277e4ea7",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:dmsC:GGCAAGGGG",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "22f8279f4fe4b85ed1c8ce8890f5073f9bc7c6160dcc9b2ee7b72f24647a3264",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:dmsC:GGCCGGGGG",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "79cb3c1e04eb27d7e8251d03becf75431ef403b2361b38abb44d47a4027cd543",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:dmsC:GGCGTGCTG",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "00f84ad57c7e01fbe9581a155551bf50f83fdde95ffc9661a590a3397784601f",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:dmsC:GGGGGGCCG",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "fe726b60f7efa8087d661625585d163cd303ffad2e23bfcc5088a4b099ef9a65",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:dmsC:GGGGGGGGG",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "f4cd9c261bd96875e0df1195f17124284cfe6d2cd9222c054e9f8ff59d01818d",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:dmsC:GTCTGCCGC",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "be7bf93a320fdd7bf4ab0efcc004df2e94c7c37163b82aba54441153d25c61b5",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:dmsC:GTTAATTAT",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "569aaaae1239d37f80d6b9bf49a6c54a3ee2de0f7ff53c2b84d867f12eb1c66b",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:dmsC:GTTCAGAAA",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "8b19f327094f1eeb7ff42c73ef72514c1c4c196cce1b2c7e5ad4a6441d3e61e5",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:dmsC:GTTTACAGA",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "1050d004a0a737b133b2f5ad4ea28ad2183cdd0f238d890995d4bbf66bd4bb45",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:dmsC:GTTTGCAAC",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "d2618f681a033a2aaaf2bf896fed29bdc53dd818da37f0cfff15990135be273d",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:dmsC:TAAAGTTTA",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "2fe856bedaad6a7206f467ca0e8bb805df74e312847b20d752451774933d1bd9",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:dmsC:TAAGGAGGT",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "35ec106d2cdb52971d24453b990ad3708f6b63198f3f6ff9324e10020296c8b4",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:dmsC:TAATTTTTT",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "f4c50d01bc7d852ab4254fec532e95eaf369e4d007032428f97ab8155fcfdd23",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:dmsC:TACCTTCTA",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "827880ed84f965ac58c6496fca837f8b91775c6f1d079e5098d9cf13d5fac1a3",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:dmsC:TCAGATTAT",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "aefcdd1d3fb025a2ae491886be2750d99520e98b0635e57e24b96dfb6d3d09b6",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:dmsC:TCAGTTTCC",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "ba8c9297fa8775db4bf9a99bbd0a6086e593ec6b025c8afe2288a9d0724cec32",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:dmsC:TCGAACTTA",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "04aafa7e2a30e8f03315ed32d51296a07bee436d933f9785762ce13c545b0f83",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:dmsC:TCGGACTGG",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "8cf066e4be79ea466e183eefc7cac332f1fa224e3aab83d1bacefb3d925f2161",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:dmsC:TCGGGGCCG",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "2de6ffdf7d506454bdc8c24e1efad14712077d4d79e18177558ed216f51c4738",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:dmsC:TCGTACGTC",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "232a363dbd20da9ce2795e7a3529daf68dd2e2f40499eb7f791ca9af498f0779",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:dmsC:TGAATGCGC",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "8e3e7c67ca8c4abfcd5853998ff9bfbeaee73a46271dcc3b9fdb276a3f253c43",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:dmsC:TGACCCCGG",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "77fe15e1a35356a14a0d1de5aa4222725f40311ff34d22ad7872b31cc96d9125",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:dmsC:TGCGCCCTC",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "2d2c27dedd184a159aab31b9bde1efd67276c77fc0954a3da610107e0c36dc81",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:dmsC:TGGCCGGTG",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "29d04d40d1dfdf9a3abd7cc13f9392e68b3604eb4b976570517e85f8387fd799",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:dmsC:TGTATCAAT",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "e7b2ae37f316fbf892ac89f1002ec69a8c23d5e381f44c28dcc3e548ced2be8b",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:dmsC:TTCAAACGT",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "2ddf7e0181a7e568723c486208dc36dd56514125c2082f3dcf1c8df5896f4fe5",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:dmsC:TTTATGACT",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "438b43917422865e1b6c218b184e6df60d6747d51ab9cedeab2bcd5a060ba575",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:dmsC:TTTCCAATT",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "742522a10f59b2be40151e2d809020bb0d8985929edeb0222ed1f863c95fe04f",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:dmsC:TTTTATTAT",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "7bcdd58bad750b0665555578e8f116199a1df583aa5c18b141acc07d147b1073",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:dmsC:TTTTCTATA",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "c0e73e123f97184db63b3c8228bb6ea99c7f6bef5113ae28b26330067bc12b36",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:dmsC:TTTTTTTTT",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "7630e6b62ff8360b03888dc7bc4883f765e8d17209c96d63ac4e97963f4db73d",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:fepB:AAAAAAAAA",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "9d272ff16367d25da72dce01b7de1d4e130f7be966a563a81a474d4d6244ab28",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:fepB:AAATTATGT",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "903c6e04421dbd6910e74ab21e6f692af1ac2200f969dbcf3eff6f569ffe17dc",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:fepB:AACATGTAT",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "f1baf8ac64d67442a6953411934965454474868cf837b43a0a67229278131c7d",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:fepB:AAGAAAATA",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "4dd511c27bec8143416545e7293e9e5b21e017ddb3b40e8eb590cc5f8c2534b4",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:fepB:AAGGAGGTG",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "8e6a701ff9682abca242e43425ed70175e592cea3fd45551f3f773a05e96075b",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:fepB:AAGTCGACA",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "8fa1de02c75bf5a8e0724301617dacdb40865d258858bceee92b49fba6405991",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:fepB:AATTATAAA",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "bd1e5337bca3f88a869df7dabca0ef413cccec29bbf030e778f6cf5ed729bc64",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:fepB:AATTGATAT",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "a51f4a34f8d406fa4f306dcf91f600784d1db9294c3d3165a61acd99e94adca3",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:fepB:ACAGGAAGC",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "5c80c709e3ef6a8b6b4729c08c4ec27f467e685d21f80f10d89b64a91014298c",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:fepB:ACGGTGTTT",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "83f90405066f6d575c017d045718b704b52d13c689d877cb946decab440c47a2",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:fepB:AGACAATCC",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "54caadd8bb6b105dd891b8018474c18680aec605a0f8f11d3b02118c7701fa4d",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:fepB:AGAGAGCTC",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "09505c1a9521b384d214a3d6ba420208ca48623bfe551176254b7370534c9007",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:fepB:AGCTCGATC",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "7399f1e532473de4bff6849822726e329b1f53f51035d9256f0f4a07b866de51",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:fepB:AGGCGCCGC",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "26af300df72e2a4dc91a2ea2878644fda47d717cfd22ea9d84bbd847b23e7fb7",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:fepB:AGTTAAAGC",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "13556bad8c7a7241c9a0fae6b3b77ab975d8bd36a1a4c1097f70bf338e7fa7c6",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:fepB:ATACAATAG",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "b6660bc57afe3baf50d0e6ad01cb3402f12b464cd4309ace76873280599ee095",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:fepB:ATATTTTAT",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "1e2056fae7e44e838532c5f617bac5eaf8590cd17a564b755b471cbb978b88f1",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:fepB:ATTAATTAT",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "a89e147b1142078fb750ba5ce68c94a81b16780019688af9350a463d97b41955",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:fepB:ATTATATCT",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "3901eb2813378019605d2f2227795c18acf66e81c05d60ee3ff64b3bb5a47b89",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:fepB:ATTATATTT",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "68d3f10a91a1f4b2ca551d9122696d37dd2f7ecf50c4a65981996c0aa7ec0669",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:fepB:ATTATTAAT",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "19267bc7e81bc2dfb26bfa53964a04ddc6193c9681f5cc9e474247ea0cca8970",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:fepB:ATTGTCTAG",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "81d9abe083373beeb25bff647ed6cbcaa50e689730063d1758a957e4ea734fed",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:fepB:ATTTAATTT",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "c888661adcbb42e891c2c51c551f38156cf5cf831f476d2f8a5834a1b953596a",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:fepB:CAAGTCAGA",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "5ec24e3d65c494dcda60a919d3894d753b46ade244558e529f6845c3d4af8925",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:fepB:CAATAACTT",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "dd36ac16f6491c7b2dd1b79edaf33b8cf4d0280483ba2a52212f53ff10c3bd0d",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:fepB:CAATTAATA",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "6a89a2bb0e3cc811293a5d2e242315af985aec8bf323b648d15d896a35d17c9c",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:fepB:CAGCAGGTA",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "35196c0e29bd3bece1a9c7211b2712d4e4cf3b1fee7aad1b42be854ba8fdd31c",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:fepB:CATATGTAA",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "a829d6913fad40bbcab0775801040fce1bdecf7a4c0f2a915e7e15a7722ff55c",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:fepB:CCACGGGGC",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "0cf112ea472aed32cbe962c790f6c59071289575a30285f2145ecb8e8ec25c1f",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:fepB:CCAGTTCGC",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "18635a9345c3f432fb1329156ca3abf3e4d409d4d424a9d526ecee98bd8f2e32",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:fepB:CCCCCCCCC",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "de956ed74b8debc92c12aa632473bf1070bbec099f7d3a5de3f518bfae8dd324",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:fepB:CCCCCCGGG",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "92c5f350dcff5067522feb8fac28f90b159b852cf718fc645c31c86744e3c4f3",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:fepB:CCGCGGCTG",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "35c730a0729fa302eb09e002c14e9b22ac357e49ba92f2c7792770f2e57533be",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:fepB:CCGGGGGCC",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "9671e6904ad0f76eb1f9df564728e5f6766036077721bf6ca5c3288d6a13ae7f",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:fepB:CCGTACAAG",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "b7b78eac50234c2bb45d3b2108e6948bbbaea1b444e23642b80633c8625b2a4b",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:fepB:CCTCGTAAC",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "f97cc63d4511b8f5d9fefbf6e40596804bdd18385bffedf39f7dc8e01b74ddac",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:fepB:CCTCTAAGC",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "5521b497abc89652290ea2079888240b7a39990d5118058d0ef027cc7485c758",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:fepB:CGATAAGAG",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "97608647096423695c1b09c3f2dd46611eff9a9d70f8eaa9fd6c18780f3f5643",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:fepB:CGATGTTTA",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "61fba3272d90f5f4b406eea7c050a13b9d06e0c486eb17cf8aabe277934b10aa",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:fepB:CGGCCATCG",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "e5071b71e7f7e71ad5fff5f62bd1a796d0bbd6696db44db89f0758a674ce611b",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:fepB:CGTCCCCGA",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "ca8917e10c3aa1031b9a4d9555d75274738d38b00d895f0990f16dd371b0b1af",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:fepB:CTACCGCCA",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "18b2c8a844a4193f53cae2c8b83bfff66abe7ab21e7e27b7e28dbf66f94d9253",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:fepB:CTCCCTTCG",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "274514a67c1c5b5fb4246e86d3401035f55ddfa856c65c38ea6f1302ce4da001",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:fepB:GAGCCGACT",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "b9a5d7fe8f6714e453e54bce818ced33b2dd41118629a48ff754f965aed1c6f2",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:fepB:GAGTCCGAC",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "23ebf5e41c24cd2c057cb0166ac7df15af4881f5cbbf4ef23ab4b8e39df180d0",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:fepB:GCAAGTGAA",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "99dc6ca63ad0fb76af6bfb1a0439255d7a18d881c7df2e7fd2327118faddfab7",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:fepB:GCCAGGAAG",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "8f00304e13bb9385cec5eeccf1f29f5129ff4920a902f8fefcf9ece25898d30a",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:fepB:GCCCGCGGC",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "d680dd8a7eda9715a84ecda4e619d1d25a25bb74c8ffd3cc90b3c79f975407e3",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:fepB:GCCCGGGGA",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "b48d7cfb75d6d148fb67cbf4cf624535e3f11673aaf01dd751c171bf88ca1815",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:fepB:GCCCTCGGG",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "18f619588c31cb11b3cb4143f64fa372c198508aeabdfe5f7ab361057b65cb1a",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:fepB:GCCGGGGCG",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "d5be4c89bdfabf5d1e22b15c4b9177f800eae2bdc0de57dfa0d34704871ba06f",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:fepB:GCGCCCCTG",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "d33641d1134f5a75c02a5cb15937622ddfb14dfa0eefe5ab2711d687e6ca2787",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:fepB:GCGCCGGCG",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "84b2a0cf806baecb12a5a2283d02a696cc4f119307ea350ea2ee76a04bde8c26",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:fepB:GCGGGCGGG",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "aae614c12f2ae8290e58a8170468b031bd7dc91c71ce3c49dd1bdb1809703478",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:fepB:GCGTCGCCG",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "1947192929d305f17f193c6d14faeb44df502c027eb0845260306accd3e19d23",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:fepB:GCTGCGGAA",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "6b4a2e9654f4557e7a051f4a47b8c5f265fd3198b1cbfe281c13dd7300b92475",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:fepB:GGCAAGGGG",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "dc0428c754cf3b961d5d4963eab324dc5308f8f25d2308ab018b0918982836fa",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:fepB:GGCCGGGGG",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "7b986aeec382b53dce422be63683d902e3209cbf19aa135a018f5435a6e6e7d6",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:fepB:GGCGTGCTG",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "bb87b1c7773d9db6a6d8ac50ff760ddc0dbcec2e12697ff0ef2f03c0291326e0",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:fepB:GGGGGGCCG",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "a343923ce5a04bc570c082546664f78dcc2deec4207b0dfbe518c507c5abf260",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:fepB:GGGGGGGGG",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "09c255182254c640cee59fc847fc1fb328f3abb43ea39cc6f2b1186fb84737ea",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:fepB:GTCTGCCGC",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "e0357d1e5a2c862df8944bddc87c4a2a35c0b80b7cf29899b391d55bc3d9dc31",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:fepB:GTTAATTAT",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "d7c35ea2d0db7767a49f0bbebefc9d42fb86a396b67b3eebd0fb73322b87957d",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:fepB:GTTCAGAAA",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "23f74bb9733dfcafa53a490bd094eeaf091f5f86a65c176a5b75bb3a9a47abff",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:fepB:GTTTACAGA",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "3ec449507fce454236f5f9af1295971f9e0f264a0d9586fd0d0ddbfe470cbecd",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:fepB:GTTTGCAAC",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "18f0b3cecbe2a8389461f1c86ed859f5b3ecc3024e26ee72c6ddd79dd874829d",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:fepB:TAAAGTTTA",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "d37672d10992b757f5bba7a675800e7cef560f08dc8b618697e729ac6f5aa021",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:fepB:TAAGGAGGT",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "561f62a723971598c5b8692cb729e6cec974e189001c3ccb92577bc0ebc28c3b",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:fepB:TAATTTTTT",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "8dd39a3eb4ad2635b96e1d455a273ceca06fc087fc2da42514fe89afa6e7929e",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:fepB:TACCTTCTA",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "2bc1c7fd432981dc347a1a503184636b4cae8687696f3a51785bd29f6abaef60",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:fepB:TCAGATTAT",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "22f57463d328b947db710fa408a6e02a3298593510f47743ef8546f6f96fb4c0",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:fepB:TCAGTTTCC",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "7b5d5fa9ca7ca06b4bed289560e2e41906d190249a6c884c159dfbf59a9b5d0f",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:fepB:TCGAACTTA",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "65717bfc234fa7373804e3ddaedbc535f8a3621223e9d6723bfbb6e1f12c85e5",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:fepB:TCGGACTGG",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "d86c19a7022558a7772152cf22067deffb0be93e164692d061edbca4578969b5",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:fepB:TCGGGGCCG",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "42c4ebff7bad48a6059ba94579836a4cbb90ab1fa91a9c2b09a6f59f21f2fd0d",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:fepB:TCGTACGTC",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "d2957b3f79178249d606ef38ece9a2773b49057f4349459e8fb073b3b60628ca",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:fepB:TGAATGCGC",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "08384d6e057553cebbea7dd82a11be14ea94e6d897dbc3650f8ff14a8dfb7c87",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:fepB:TGACCCCGG",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "db8ebd5af20c5a04529d8e339c00b37038201046bd35af934dc68044885a4791",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:fepB:TGCGCCCTC",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "6fda8823b1ffa07b75dc00a7d925d016c7ebff2cf70d2ae048937ddb16337ba2",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:fepB:TGGCCGGTG",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "ec27688583193dfda99b81cbf5df7b50699bc2b464c5db1938f4bfe3161e3dc0",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:fepB:TGTATCAAT",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "4bca7c1da90084f41101d7015dfb1dc5d9e123a6c89fd9ddd0101dbb44aebcce",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:fepB:TTCAAACGT",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "63cebe3104f4d092ca61fb58cc2e03e8a000e831f4365733423ec4284403d221",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:fepB:TTTATGACT",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "48da513693309e96e7fc48c515e1ddf909a956d19c65ad613b662f7378c71af4",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:fepB:TTTCCAATT",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "3f86ededa4efbdc0e84a33e9150bd6c1d38879ed90758ed5874da377af6e6a1b",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:fepB:TTTTATTAT",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "6b1bd40fb098f52774c5ae92c858a6bac5b142fdccb54992f77c56558d2b60d7",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:fepB:TTTTCTATA",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "a1ae6b7e7946e9e9b39138bb7e69aed541649fbbb3c64d010d9185a30eb98804",
+      "start": 30
+    },
+    {
+      "id": "kuo2020:fepB:TTTTTTTTT",
+      "study": "Kuo2020",
+      "group": "kuo2020:complete-nine-mer-family",
+      "partition": "exposed_secondary",
+      "sequence_sha256": "e65bae2349f5707a491b28eb90e39917d081b106d7d8952aa2973dd41e7a655e",
+      "start": 30
+    }
+  ]
+}

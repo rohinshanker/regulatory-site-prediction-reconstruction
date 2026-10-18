@@ -1,0 +1,110 @@
+{
+  "schema_version": "rbs-new-data-1",
+  "selection_seed": "wave3-rbs-20261017-v1",
+  "cambray2018": {
+    "path": "cambray2018-data15.zip",
+    "sha256": "2758ed63e469c77b42c01e3c022452ef52ebf8d1bd4a86bd4c5b502e44b7bbc0",
+    "url": "https://osf.io/download/pm2qa/",
+    "member": "Supplementary_Data_15_Integrated_Phenotypic_Measurements.csv",
+    "rows": 244000,
+    "doi": "10.1038/nbt.4238",
+    "repository_doi": "10.17605/OSF.IO/A56VU",
+    "rights": "OSF node BSD-3-Clause; Copyright2018 Guillaume Cambray; paper rights separate",
+    "prefix": "AGGGCCCAAGTTCACTTAAAAAGGAGATCAACAATGAAAGCAATTTAGGTACTGAAACATCTTAATCATGCACATAAGGAGGTACCATAATG",
+    "start": 89,
+    "variable_length": 96,
+    "families_per_seed": 2,
+    "prefix_source": {
+      "url": "https://osf.io/download/jxzfg/",
+      "sha256": "efa2ae41e56f13f03536e0ed7c65ab06e017d8c05acbe92883c8f6e2b8991642",
+      "location": "Supplementary_Code_15_RBS_calculator_test.py:89,111"
+    },
+    "partition": "reserved_final",
+    "primary_quantity": "clean.lin.prot.mean",
+    "primary_replicates": [
+      "clean.lin.prot.repOne",
+      "clean.lin.prot.repTwo",
+      "clean.lin.prot.repThree",
+      "clean.lin.prot.repFour"
+    ],
+    "secondary_quantity": "clean.lin.prot.acf.mean",
+    "unit": "Source normalized linear protein production; not RNA-normalized TE",
+    "complete_transcript": false,
+    "model_exposure": "Known prior use by Nikolados2022 and other published predictors; novel only relative to declared project development sources",
+    "host": "E. coli MDS42 delta-recA",
+    "temperature_celsius": 37,
+    "condition": "5mL Rich MOPS, overnight37C; kanamycin/chloramphenicol/IPTG/aTc; exact dose metadata incomplete",
+    "facilitated_condition": "Same DNA; leader amber suppression with arabinose/pAcF enables upstream translation coupling",
+    "induction_conflict": "pAcF2.5mM in FigS5 panelA versus2.5nM in panelB/captionC and main assay passage; intended dose unresolved",
+    "input_scope": "92nt constant prefix (including overlapping leader and reporter ATG) plus96nt design; no complete transcript/plasmid claim",
+    "downstream_gap": "Author design template has extra GCA before primer-backed linker; actual junction unresolved; no padding beyond188nt",
+    "prefix_sha256": "6007d00a4327c25a6d78a11d02baf0694988380a7ebbcdd5a2384fbb629161eb",
+    "rights_scope": "Node-level BSD3 declaration for OSF deposited data/scripts, not Nature article/Addgene/external dependencies; raw measurements and scoring inputs not redistributed in this preparation"
+  },
+  "kuo2020": {
+    "doi": "10.1101/gr.260182.119",
+    "pmcid": "PMC7263185",
+    "bio_project": "PRJNA516114",
+    "rights": "CC-BY-NC-4.0 article; no separate permissive dataset grant located; raw outcomes outside repository",
+    "partition": "exposed_secondary",
+    "exposure_reason": "CR-only CSV header probe printed source measurements in Session B tool output before panel freeze; never supplied to A for tuning",
+    "rows_per_context": 262144,
+    "genotypes_per_gc_count": 8,
+    "cds_prefix": "ATGTCCAAAGGTGAGGAACTGTTCACTGGAGTTGTCCCAATTC",
+    "cds_prefix_sha256": "5bd7080e1406a40322afe3adeddd440db5af02a443bdb7731de6098cfa85fe83",
+    "start": 30,
+    "unit": "Source Log(GFP) fluorescence-derived fitness",
+    "log_base": null,
+    "complete_transcript": false,
+    "contexts": {
+      "fepB": {
+        "path": "kuo-Supplemental_File_S2.csv",
+        "sha256": "3649ee0bb41492c1eded620dc0ebb2a2dd2c4292b91135048d0bf1b6ca680d20",
+        "prefix": "TTAACCTTATTAATA",
+        "suffix": "TGATTT",
+        "parent": "ACAGGAAGC",
+        "archive_member": "supp_gr.260182.119_Supplemental_File_S2.csv"
+      },
+      "arti": {
+        "path": "kuo-Supplemental_File_S3.csv",
+        "sha256": "4c0ef99d7111b207f73c5f2e7f6fbbb690eb5b1bcfc9b7866b3b2506f4455951",
+        "prefix": "TTTGTTTCTAGAACCT",
+        "suffix": "TAAGA",
+        "parent": "TAAGGAGGT",
+        "archive_member": "supp_gr.260182.119_Supplemental_File_S3.csv"
+      },
+      "dmsC": {
+        "path": "kuo-Supplemental_File_S4.csv",
+        "sha256": "fd85858aea96dd53c6f23c50e005df21fb32faec226c45591b1c353d310c4aac",
+        "prefix": "GCTATCTGGCAAACCCG",
+        "suffix": "TGAG",
+        "parent": "AAGGAGGTG",
+        "archive_member": "supp_gr.260182.119_Supplemental_File_S4.csv"
+      }
+    },
+    "host": "E. coli MG1655",
+    "temperature_celsius": 37,
+    "condition": "LBKG,50mg/L kanamycin,10g/L glucose,225rpm,OD6000.55-0.65",
+    "assay": "Three FACS/NGS replicates;8bins except fepB replicate3=15;>=25reads source filter",
+    "sequence_source": {
+      "path": "kuo-Supplemental_Material_20200413.docx",
+      "sha256": "9bfc4d8f8c3d707ca12c3c83b41da23271d767875e8f3d08763187505d01b8c0",
+      "location": "TablesS1/S2; primersYC04p1,YC04p2,ILp6 and plasmids pYC08/09/20"
+    },
+    "model_exposure": "Kuo used for training in gkae491 CNN/CNN-LSTM; no universal untouched claim",
+    "supplement_archive": {
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC7263185/supplementaryFiles",
+      "acquisition_sha256": "46d50e7c4f862f22edb802612f0d3ad16256708b9f1dfef71f0b10b197aeab7a",
+      "hash_role": "ZIP acquisition provenance; reproduction gates use stable uncompressed member hashes"
+    }
+  },
+  "freeze_policy": "Entire Cambray study reserved final; entire Kuo study exposed secondary. No new development labels. Hash-selected sequence families, all members/conditions stay together; selection never uses outcomes or model success.",
+  "metrics_policy": "Primary rank/coverage per study; Cambray linear-protein log2 errors only with calibration frozen on other development data. Kuo no fold-error/log2 conversion while log base unknown. No pooled-study ranking. Preserve missing/zero/negative and backend failures; no outlier trimming. Do not inspect final outcomes for tuning.",
+  "overlap_algorithm": {
+    "paper_doi": "10.1145/316542.316550",
+    "source_url": "https://www.gersteinlab.org/courses/452/09-spring/pdf/Myers.pdf",
+    "sha256": "378415eee6f0aa5ae398d621c5d0f58c33aa56106b4b17119f1c195ba3c6cee7",
+    "location": "Section3 equations4,7-9; first-row positive delta for global edit distance (footnote2)",
+    "implementation": "Independent bit-vector recurrence; not copied third-party code; exhaustive matrix cross-check"
+  }
+}

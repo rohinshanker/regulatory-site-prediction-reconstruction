@@ -1,0 +1,314 @@
+{
+  "schema_version": "promoter-source-manifest-1",
+  "historical_commit": "46da9132740bce30bccd107f02808adf2215e2f0",
+  "paper_tag_commit": "561990e2278f8da80207f721f05b0c1b935c7a97",
+  "paper_doi": "10.1038/s41467-022-32829-5",
+  "audit_assets": {
+    "workbook": {
+      "path": "paper/41467_2022_32829_MOESM5_ESM.xlsx",
+      "sha256": "1ecea7264ba51ad7f6b51c716cccc18141cdb2f8c1b50fbeb5dfe3c6700b67e1"
+    },
+    "coefficients": {
+      "path": "upstream/Promoter_Calculator/free_energy_coeffs.npy",
+      "sha256": "fddf16b38bf29799481e8a45890b669111e16cf2e3448e99d1934d19a8f0b8e9"
+    },
+    "intercept": {
+      "path": "upstream/Promoter_Calculator/model_intercept.npy",
+      "sha256": "f7c66a8d838da71a6b2ab17936cd6ff2564e446af8c0676fba95de2116e99a7b"
+    }
+  },
+  "sources": [
+    {
+      "url": "https://raw.githubusercontent.com/hsalis/SalisLabCode/46da9132740bce30bccd107f02808adf2215e2f0/Promoter_Calculator/LICENSE",
+      "resolved_url": "https://raw.githubusercontent.com/hsalis/SalisLabCode/46da9132740bce30bccd107f02808adf2215e2f0/Promoter_Calculator/LICENSE",
+      "path": "upstream/Promoter_Calculator/LICENSE",
+      "kind": "public_source",
+      "retrieved_utc": "2026-10-17T20:15:42.281430+00:00",
+      "bytes": 724,
+      "sha256": "45d25f34fe826d27d344175bd622cbf3d35cbf53bd993d1350d44ee706571ffd",
+      "content_type": "text/plain; charset=utf-8"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/hsalis/SalisLabCode/46da9132740bce30bccd107f02808adf2215e2f0/Promoter_Calculator/Promoter_Calculator_v1_0.py",
+      "resolved_url": "https://raw.githubusercontent.com/hsalis/SalisLabCode/46da9132740bce30bccd107f02808adf2215e2f0/Promoter_Calculator/Promoter_Calculator_v1_0.py",
+      "path": "upstream/Promoter_Calculator/Promoter_Calculator_v1_0.py",
+      "kind": "public_source",
+      "retrieved_utc": "2026-10-17T20:15:42.440174+00:00",
+      "bytes": 16923,
+      "sha256": "67d2733b0be1968668c6710e56262b00d9b4725b98b4f94749519591b48d1cdb",
+      "content_type": "text/plain; charset=utf-8"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/hsalis/SalisLabCode/46da9132740bce30bccd107f02808adf2215e2f0/Promoter_Calculator/README.md",
+      "resolved_url": "https://raw.githubusercontent.com/hsalis/SalisLabCode/46da9132740bce30bccd107f02808adf2215e2f0/Promoter_Calculator/README.md",
+      "path": "upstream/Promoter_Calculator/README.md",
+      "kind": "public_source",
+      "retrieved_utc": "2026-10-17T20:15:42.710240+00:00",
+      "bytes": 1303,
+      "sha256": "a5f3269206f5425e2c21ca58d9cb638fe87a4cbb1dbdff537a676747dc4b26d2",
+      "content_type": "text/plain; charset=utf-8"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/hsalis/SalisLabCode/46da9132740bce30bccd107f02808adf2215e2f0/Promoter_Calculator/__init__.py",
+      "resolved_url": "https://raw.githubusercontent.com/hsalis/SalisLabCode/46da9132740bce30bccd107f02808adf2215e2f0/Promoter_Calculator/__init__.py",
+      "path": "upstream/Promoter_Calculator/__init__.py",
+      "kind": "public_source",
+      "retrieved_utc": "2026-10-17T20:15:42.855277+00:00",
+      "bytes": 39,
+      "sha256": "04e3ef58dfe74117dcccacddbd0f13d28611a3d71020f060d69d64bb33407afe",
+      "content_type": "text/plain; charset=utf-8"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/hsalis/SalisLabCode/46da9132740bce30bccd107f02808adf2215e2f0/Promoter_Calculator/free_energy_coeffs.npy",
+      "resolved_url": "https://raw.githubusercontent.com/hsalis/SalisLabCode/46da9132740bce30bccd107f02808adf2215e2f0/Promoter_Calculator/free_energy_coeffs.npy",
+      "path": "upstream/Promoter_Calculator/free_energy_coeffs.npy",
+      "kind": "public_source",
+      "retrieved_utc": "2026-10-17T20:15:43.091103+00:00",
+      "bytes": 2872,
+      "sha256": "fddf16b38bf29799481e8a45890b669111e16cf2e3448e99d1934d19a8f0b8e9",
+      "content_type": "application/octet-stream"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/hsalis/SalisLabCode/46da9132740bce30bccd107f02808adf2215e2f0/Promoter_Calculator/model_intercept.npy",
+      "resolved_url": "https://raw.githubusercontent.com/hsalis/SalisLabCode/46da9132740bce30bccd107f02808adf2215e2f0/Promoter_Calculator/model_intercept.npy",
+      "path": "upstream/Promoter_Calculator/model_intercept.npy",
+      "kind": "public_source",
+      "retrieved_utc": "2026-10-17T20:15:43.222134+00:00",
+      "bytes": 136,
+      "sha256": "f7c66a8d838da71a6b2ab17936cd6ff2564e446af8c0676fba95de2116e99a7b",
+      "content_type": "application/octet-stream"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/hsalis/SalisLabCode/46da9132740bce30bccd107f02808adf2215e2f0/Promoter_Calculator/util.py",
+      "resolved_url": "https://raw.githubusercontent.com/hsalis/SalisLabCode/46da9132740bce30bccd107f02808adf2215e2f0/Promoter_Calculator/util.py",
+      "path": "upstream/Promoter_Calculator/util.py",
+      "kind": "public_source",
+      "retrieved_utc": "2026-10-17T20:15:43.333073+00:00",
+      "bytes": 7792,
+      "sha256": "abd561c6f1a4669dace3f783903f2779133cdc4ce5319919302303982eba23cc",
+      "content_type": "text/plain; charset=utf-8"
+    }
+  ],
+  "rights": {
+    "upstream_program_and_arrays": "GPL-3.0-or-later; retain original directory notice and full GPL text",
+    "paper_and_supplements": "CC-BY-4.0 with third-party material exception; source-only cache used by audit",
+    "raw_measurements_redistributed": false
+  },
+  "purpose": "Historical source and published-column reproduction; no runtime or new held-out accuracy result.",
+  "primary_sources": [
+    {
+      "id": "salis-r2022",
+      "type": "public_source_code_and_parameters",
+      "url": "https://github.com/hsalis/SalisLabCode/tree/46da9132740bce30bccd107f02808adf2215e2f0/Promoter_Calculator",
+      "commit": "46da9132740bce30bccd107f02808adf2215e2f0",
+      "paper_tag": "r2022",
+      "tag_commit": "561990e2278f8da80207f721f05b0c1b935c7a97",
+      "license": "GPL-3.0-or-later",
+      "license_location": "Promoter_Calculator/LICENSE:1-15",
+      "decision": "admit_historical_inference_with_compatibility_caveats",
+      "paper_tag_promoter_tree_identical_to_current": true,
+      "required_directory_file_count": 7
+    },
+    {
+      "id": "lafleur2022",
+      "type": "primary_article",
+      "doi": "10.1038/s41467-022-32829-5",
+      "pmcid": "PMC9440211",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9440211/",
+      "license": "CC-BY-4.0 with third-party exception",
+      "license_location": "XML front/article-meta/permissions",
+      "located_sections": [
+        "Sec4",
+        "Sec5",
+        "Sec6",
+        "Sec15",
+        "Sec17",
+        "Sec18",
+        "Sec19",
+        "Sec20",
+        "Sec21",
+        "Sec26"
+      ],
+      "match": "exact historical sigma70 study; no native cyanobacterial match",
+      "decision": "admit_with_benchmark_qualifications"
+    },
+    {
+      "id": "lafleur2022-supplements",
+      "type": "primary_supplements",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC9440211/supplementaryFiles",
+      "decision": "admit_published_columns_with_explicit_cohorts",
+      "archive_member_manifest": "paper/archive-listing.json",
+      "worksheet_map": {
+        "MOESM5": "Data 1: linear predictions, measurements, sequences, parameters",
+        "MOESM6": "Data 2: quadratic predictions",
+        "MOESM7": "Data 3: Lagator predictions",
+        "MOESM8": "Data 4: model comparisons and F-tests",
+        "MOESM9": "Data 5: fit constants"
+      },
+      "license_basis": "Article CC BY 4.0; retain source attribution and third-party exception"
+    },
+    {
+      "id": "barrick-fork",
+      "type": "public_derivative_code",
+      "url": "https://github.com/barricklab/promoter-calculator/tree/0fe5f6f0fb2befc087556afa575f7241afd98fbf",
+      "commit": "0fe5f6f0fb2befc087556afa575f7241afd98fbf",
+      "tag": "v1.2.4",
+      "license": "GPL-3.0-or-later",
+      "license_location": "LICENSE",
+      "decision": "admit_engineering_candidate_not_executed",
+      "arrays_identical_to_salis": true
+    },
+    {
+      "id": "cryptkeeper2024",
+      "type": "primary_article",
+      "doi": "10.1093/synbio/ysae018",
+      "pmcid": "PMC11669485",
+      "url": "https://doi.org/10.1093/synbio/ysae018",
+      "located_section": "Methods 2.3 Promoter and terminator prediction",
+      "license": "CC-BY-4.0",
+      "decision": "admit_evidence_for_fork_provenance_only"
+    },
+    {
+      "id": "urtecho2019",
+      "type": "external_study_republished_data",
+      "doi": "10.1021/acs.biochem.7b01069",
+      "pmcid": "PMC6389444",
+      "url": "https://doi.org/10.1021/acs.biochem.7b01069",
+      "rows_in_2022_workbook": 10898,
+      "located_section": "2022 Data 1 Urtecho et al (Fig 3c, S7b); main XML Sec5",
+      "decision": "admit_2022_column_replication_only",
+      "original_full_text_verified": false,
+      "rights_gap": "Original-study full text/terms not recovered; article supplement third-party caveat applies"
+    },
+    {
+      "id": "hossain2020",
+      "type": "external_study_republished_data",
+      "doi": "10.1038/s41587-020-0584-2",
+      "url": "https://doi.org/10.1038/s41587-020-0584-2",
+      "rows_in_2022_workbook": 4350,
+      "located_section": "2022 Data 1 Hossain et al (Fig 3d, S7d); main XML Sec5",
+      "decision": "admit_2022_column_replication_only",
+      "original_full_text_verified": false,
+      "rights_gap": "Original-study full text/terms not recovered; article supplement third-party caveat applies"
+    },
+    {
+      "id": "yu2021",
+      "type": "external_primary_article_and_republished_data",
+      "doi": "10.1038/s41467-020-20094-3",
+      "pmcid": "PMC7804116",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7804116/",
+      "license": "CC-BY-4.0",
+      "rows_in_2022_workbook": 1493,
+      "located_sections": [
+        "Sec15",
+        "Sec17",
+        "Sec18"
+      ],
+      "decision": "admit_with_unresolved_republished_condition_identity"
+    },
+    {
+      "id": "lagator2022",
+      "type": "external_primary_article_and_original_CSVs",
+      "doi": "10.7554/eLife.64543",
+      "pmcid": "PMC8791639",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8791639/",
+      "article_license": "CC-BY-4.0",
+      "repository_license": "no project-wide license located",
+      "data_commit": "61fe2f54941966469dad801efe06e1c879f27530",
+      "located_sections": [
+        "s4-1",
+        "s4-2",
+        "s4-3",
+        "s4-4",
+        "s4-5",
+        "s4-15"
+      ],
+      "decision": "admit_for_cohort_audit; resolve repository data redistribution terms"
+    },
+    {
+      "id": "urtecho-genomewide",
+      "type": "external_candidate_GEO_and_author_repository",
+      "doi": "10.7554/eLife.92558.1",
+      "publication_type": "reviewed preprint with 2020 preprint precursor",
+      "precursor_doi": "10.1101/2020.01.04.894907",
+      "geo": "GSE144621",
+      "sample": "GSM4292400",
+      "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE144621",
+      "repo_commit": "484abdb6ba2d398501009ee6eb25ca7f190d3b4c",
+      "assembly": "U00096.2",
+      "host": "E. coli MG1655",
+      "medium": "LB for acquired TSS file",
+      "rows_acquired": 17767,
+      "unique_sequences": 17617,
+      "decision": "reserve_pending_admission",
+      "gaps": [
+        "project-wide code/data redistribution license",
+        "primary full text and version history",
+        "temperature and exact full reporter flanks",
+        "family/locus overlap beyond exact strings"
+      ]
+    },
+    {
+      "id": "johns2018",
+      "type": "lead_only",
+      "doi": "10.1038/nmeth.4633",
+      "url": "https://doi.org/10.1038/nmeth.4633",
+      "decision": "insufficient_evidence",
+      "reason": "original full text and construct data not recovered; not admitted from secondary description"
+    },
+    {
+      "id": "promoteratlas2026",
+      "type": "lead_only",
+      "doi": "10.1038/s41467-026-72837-3",
+      "url": "https://doi.org/10.1038/s41467-026-72837-3",
+      "decision": "insufficient_evidence",
+      "reason": "DOI identity only; inaccessible primary text, no admitted dataset"
+    }
+  ],
+  "dependencies": {
+    "paper_reported": {
+      "python": "3.7.7",
+      "scikit-learn": "1.0.2",
+      "scipy": "1.7.3",
+      "numpy": "1.21.2",
+      "pandas": "1.3.5",
+      "matplotlib": "3.5.0",
+      "pickle_label": "4.0",
+      "FlowCal": "1.2.2"
+    },
+    "inference_imports": [
+      "numpy",
+      "scikit-learn",
+      "scipy",
+      "biopython",
+      "Python standard library"
+    ],
+    "biopython_version": null,
+    "dependency_lock_supplied": false,
+    "fresh_install_tested": false,
+    "original_python3_parse": {
+      "status": "SyntaxError",
+      "line": 69,
+      "reason": "Python 2 print syntax"
+    },
+    "barrick_setup_version": "1.2.4",
+    "barrick_setup_dependencies": [
+      "biopython",
+      "numpy",
+      "scikit_learn",
+      "scipy"
+    ],
+    "barrick_requirements_txt": "sklearn>=1.2"
+  },
+  "supplement_archive": {
+    "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC9440211/supplementaryFiles",
+    "sha256": "d339e3c9cb132a2b0edcafdf0f0f929f6c164ae8c186931fd835e9c361c7c53c",
+    "member": "41467_2022_32829_MOESM5_ESM.xlsx",
+    "destination": "paper/41467_2022_32829_MOESM5_ESM.xlsx",
+    "hash_role": "Acquisition provenance only; Europe PMC ZIP timestamps change. Gate reproduction on the extracted member hash in audit_assets.workbook."
+  },
+  "primary_xml": {
+    "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC9440211/fullTextXML",
+    "sha256": "b0418e683a6fd23906dc3e8329ef74dd166298aab39c64b54ec1f96428b2d625"
+  }
+}

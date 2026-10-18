@@ -4,31 +4,168 @@ Build fully open-source, locally usable RBS, Promoter, Operon, and Riboswitch
 calculators, pursuing the closest demonstrable behavior to the production
 [De Novo DNA tools](https://www.denovodna.com/software/).
 
-**Status: implementation is planned, not shipped. RBS is the first implementation.**
-This repository currently contains implementation tickets, source leads, and
-validation contracts. It contains no calculator, downloaded model, or generated
-biological predictions yet. The project is independent of De Novo DNA/Salis Lab.
+**The RBS release candidate, 0.4.0rc1, runs locally.** It includes the historical
+Salis v1 reconstruction, footprint/context/standby refinements, joint binding and
+standby selection, a native genome/transcript adapter, and experimental sequence
+and energy/sequence models.
+The mechanistic profiles use separately installed RNAstructure 6.6 executables
+and return energy terms, relative initiation scores, structures, coordinates and
+explicit failure/missingness. Sequence-only inference needs no folding backend.
+
+**The standby reconstruction improves the public 2014 development panel:**
+106/136 predictions are within twofold of measured expression, versus 52/136
+for historical scoring; mean absolute log2 error falls from 1.56 to 0.66. This
+E. coli dataset helped establish the published model, so the result does not
+establish performance on new studies or cyanobacteria. See the
+[Wave 3 validation and reproduction](docs/validation/rbs-wave3-results.md).
+
+**The independent Wave 4 test did not improve ranking accuracy.** On 335
+reserved E. coli inputs, joint and standby scoring both covered every input.
+Against the 332 measured protein-output means, their Spearman correlations were
+0.43608 and 0.43625. The paired difference was -0.00017, with a 95% seed-block
+interval spanning zero; the predeclared advancement gate failed. Joint selection
+remains an opt-in research profile. See the
+[independent report](docs/validation/rbs-wave4-results.md) and
+[joint model card](docs/validation/rbs-joint-selection.md).
+
+On that same independent panel, the historical default ranked descriptively
+higher (Spearman 0.50189) than standby or joint. The historical-minus-standby
+difference was 0.06564, with a 95% interval of [-0.07807, 0.20110]; this does
+not establish superiority. The development-panel standby gain did not establish
+an advantage on this new study.
+
+**The independent Wave 2 comparison did not establish a superior model.** On
+468 held-out PCC 6803 genes, the sequence model's mean absolute log2 error was
+0.957 versus 0.990 for a constant baseline; its paired advantage over a
+scale-adapted OSTIR comparator was uncertain. The predeclared promotion criteria
+failed. These are experimental models with measured limitations, independent of
+De Novo DNA/Salis Lab. Production equivalence and native UTEX 2973 calibration
+remain unestablished; the other calculators remain planned.
+
+See the [independent results](docs/validation/rbs-wave2-results.md),
+[native validation](docs/validation/rbs-native-validation.md) and
+[comparator roster](docs/validation/rbs-comparator-landscape.md).
+Tan 2018 supplies transcription starts and RNA context, not measured translation
+starts or RBS strengths. Native site localization and strength prediction have
+separate validation gates.
+
+## Run the RBS calculator
+
+Follow the [installation and validation contract](docs/validation/rbs-runtime.md)
+and [0.4.0rc1 release/upgrade guide](docs/validation/rbs-0.4-release.md)
+to install the Python package and pinned open folding backend. Inference is
+local and needs no accounts, coins or network access after installation.
+The optional [traceback/linker-repaired backends](docs/validation/rbs-backend-repair.md)
+fix known malformed/missing folding results and each identify themselves separately.
+
+```sh
+export REGSITE_RNASTRUCTURE="/absolute/path/to/RNAstructure"
+.venv/bin/regsite examples/rbs-single.json
+.venv/bin/regsite examples/rbs-batch.json --format csv
+.venv/bin/regsite examples/rbs-footprint.json --profile footprint2017
+.venv/bin/regsite examples/rbs-standby-hairpin.json --profile standby2014
+.venv/bin/regsite examples/rbs-standby-hairpin.json --profile joint_standby
+```
+
+A request supplies `sequence` and a 9-nt `anti_sd`; optional `start_positions`
+selects starts in transcript orientation. The default scans AUG/GUG/UUG. Host
+labels do not select hidden defaults. See the [input schema](schemas/rbs-request-1.0.schema.json),
+[result schema](schemas/rbs-result-1.0.schema.json), and [model deviations](docs/validation/rbs-runtime.md).
+
+The default historical profile is preserved. The distinct `footprint2017` and
+`context2017` profiles permit RNA beyond the published coding footprint to refold;
+the latter also expands the context window. See their [mechanism contract](docs/validation/rbs-mechanisms.md)
+and [result schema 1.1](schemas/rbs-result-1.1.schema.json). These are explicit
+partial reconstructions of later mechanisms. The [mechanism contract](docs/validation/rbs-mechanisms.md)
+records reproducible folding-backend failures; longer context does not guarantee
+better coverage or accuracy.
+
+The `standby2014` profile calculates accessibility, selective RNA unfolding
+and sliding using the published 2014 relationships. It returns separate penalties,
+selected structures and explicit search limits in [schema 1.2](schemas/rbs-result-1.2.schema.json).
+Read the [standby contract](docs/validation/rbs-standby.md) for source pins and
+reconstruction choices. This implements additional mechanisms; it does not by
+itself establish better experimental accuracy.
+
+The opt-in `joint_standby` profile evaluates that full cost for every eligible
+returned binding candidate before choosing one. It reports the selected candidate,
+the old selection's complete energy and search progress in
+[schema 1.3](schemas/rbs-result-1.3.schema.json). Any candidate failure or exhausted
+search budget prevents a winning score. This improves the completeness of the
+declared optimization; the frozen independent study did not establish a
+biological improvement.
+Read the [joint-selection contract](docs/validation/rbs-joint-selection.md).
+
+The transcript-aware adapter accepts pinned genomes and explicit TSS/CDS scenarios:
+
+```sh
+.venv/bin/regsite-native benchmarks/rbs/native-input-example.json
+.venv/bin/regsite-native benchmarks/rbs/native-input-example.json --format gff3
+.venv/bin/regsite-native examples/rbs-native-karlsen.json --format gff3
+```
+
+It preserves source evidence and unsupported cases, handles both strands and
+circular origins, and separates supplied-start scoring from conditional candidate
+ranking. See the [native runtime contract](docs/validation/rbs-native-runtime.md).
+The small example validates coordinates; it is not a native accuracy benchmark.
+The Karlsen example contains two real PCC 6803 genes, one on each strand, and
+their full pinned reference chromosome. It assumes 100-nt genomic flanks;
+neither transcript boundaries nor translation strengths are measured by this example.
+
+Experimental sequence-only and energy/sequence ridge models use a separate
+`regsite-learned` command and explicit frozen JSON weights. Their outputs are
+log2 assay responses, with training-domain warnings and no invented energies.
+See the [reproducible training and inference contract](docs/validation/rbs-learning-runtime.md).
+
+```sh
+.venv/bin/regsite-learned models/rbs/karlsen2018/sequence-v1.json examples/rbs-karlsen-native.json
+```
+
+The [PCC 6803 model card](models/rbs/karlsen2018/README.md) reports the frozen
+development and final results, including weak gene-to-gene ranking.
+The energy/sequence variant loses too many cases to pass the coverage gate.
+These models are experimental; neither establishes native UTEX 2973 accuracy.
+The [public reporter model card](models/rbs/standby2014/README.md) describes the
+separate E. coli experiment and its limited sequence diversity.
+
+The [executed Promoter reference](docs/validation/promoter-executed-reference.md)
+checks 212 synthetic states against two pinned upstream versions and an independent
+numerical oracle. It prepares source, parameter and coordinate fixtures for the
+future Promoter runtime; it does not establish experimental accuracy.
 
 ## Start a new implementation session
 
-1. Read [AGENTS.md](AGENTS.md) and the [live ticket queue](docs/notes/tickets/INDEX.md).
+Read the [current release guide](docs/validation/rbs-0.4-release.md),
+[independent Wave 4 result](docs/validation/rbs-wave4-results.md) and live ticket
+queue before starting work. Wave 4's scoped implementation/evaluation is complete;
+the public-release milestone remains under ticket 06. Its
+[Session A](docs/prompts/wave4-session-a.md) and
+[Session B](docs/prompts/wave4-session-b.md) prompts preserve the assignment and
+freeze boundaries; do not replay the consumed experiment as a new untouched test.
+Future model changes require a new development/evaluation protocol and suitable
+reserved evidence. Preserve newer work, immutable candidate identities and ownership.
+
+1. Read [AGENTS.md](AGENTS.md), the [live ticket queue](docs/notes/tickets/INDEX.md)
+   and the [Wave 4 validation](docs/validation/rbs-wave4-results.md). Check current
+   owners and preserve newer branches/worktrees before claiming work.
 2. Read the [source map](docs/validation/source-map.md),
    [reconstruction contract](docs/validation/reconstruction-contract.md), and
    [benchmark-quality assessment](docs/validation/benchmark-quality.md).
-3. Claim the RBS slice of ticket 01 and the core runtime ticket 02. Rename a
-   claimed ticket from `O_` to `A_`, update its H1/status and index, and identify
-   the owning session. Work through RBS tickets 03–06 before implementing the
-   other three calculators. Source discovery for those calculators may proceed
-   independently; their incomplete discovery must not block RBS work.
-4. Reuse licensed, complete public implementations where possible; reconstruct
-   missing behavior from primary papers and supplements. Preserve separate
-   historical, reconstructed, and hosted-reference identities.
-5. Ship a reproducible RBS release and coordinate the consumer adapter under
-   ticket 10. Then implement Promoter, Operon, and Riboswitch tickets 07–09 and
-   complete design modes and the suite release under ticket 11.
-6. Run benchmark audit 12 alongside the RBS work. Use ticket 13 to test and release
-   improvements against experimental ground truth, while preserving the separately
-   versioned production-compatibility profile.
+3. Foundation 02, historical scoring 03 and portable native adapter 18 are
+   complete. Tickets 04/06/13 retain remaining mechanisms, release work and
+   experimentally justified improvements. Source recovery for other calculators
+   can proceed independently; implement those calculators after the RBS release.
+4. The Wave 2 models, offsets and final comparison are frozen. Any new scientific
+   change needs a new development cycle and untouched evaluation data. Do not
+   tune against these exposed final outcomes. The original
+   [Session A](docs/prompts/wave2-session-a.md) and
+   [Session B](docs/prompts/wave2-session-b.md) prompts document the completed
+   assignment; do not replay them as a new experiment.
+5. Preserve separate historical, reconstructed and hosted-reference identities.
+   Coordinate consumer admission through ticket 10; implement Promoter, Operon
+   and Riboswitch under 07–09, then design modes and suite delivery under 11.
+   The [prospective UTEX proposal](docs/validation/rbs-utex-measurement-proposal.md)
+   describes the new measurement dependency for stronger native claims.
 
 | Calculator | First usable scope | Completion target |
 | --- | --- | --- |
@@ -42,6 +179,7 @@ is a downstream consumer, not the home for reconstructed model internals.
 Its release/admission rules still govern any displayed prediction. See the
 [consumer boundary](docs/validation/cyano-integration.md).
 
+New website collection and coin purchases are deferred for this wave.
 Live-reference validation uses coin-funded website runs under ticket 05. The owner
 can supply additional authorized lab logins if coins are exhausted and can request
 lab funding for a justified larger panel. Reference spending is separate from the
