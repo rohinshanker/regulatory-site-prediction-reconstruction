@@ -2,7 +2,7 @@
 
 - Purpose: Reproduce new source inputs and reserve independent experimental evaluation.
 - Scope: Cambray2018 bounded-context final panel; Kuo2020 exposed secondary audit.
-- Last verified: 2026-10-17
+- Last verified: 2026-10-18
 
 The [source manifest](../../benchmarks/rbs/new-data-manifest.json),
 [source ledger](../../benchmarks/rbs/new-data-sources.json) and
@@ -233,8 +233,15 @@ Ranked tests for the next immutable candidates:
    cyanobacterial improvement follows from either condition.
 
 Additional cyanobacterial candidates remain honestly incomplete: Lin2021 UTEX
-and Sebesta2020 PCC7942 have useful construct/condition evidence but no recovered
+and Sebesta2020 PCC6803 have useful construct/condition evidence but no recovered
 complete numerical sequence–measurement panel; published predicted rates are
 not experimental labels. Kosuri2013's linked workbooks were inaccessible through
 the attempted ordinary public routes. These gaps do not turn the new E. coli
 panels into evidence of cyanobacterial accuracy.
+
+The [bounded native-source clarification](../../benchmarks/rbs/native-source-admission-update.json)
+checks the primary article title and strain/cultivation methods: Sebesta and
+Peebles used Synechocystis PCC 6803. The earlier PCC7942 summary was incorrect;
+no frozen input, model, source ledger or evaluation membership changes. Lin
+remains an UTEX2973 reporter lead. Neither source is admitted as a complete
+new numerical sequence–measurement benchmark.
