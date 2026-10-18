@@ -1,0 +1,1915 @@
+{
+  "cases": [
+    {
+      "candidates": {
+        "current": [
+          {
+            "base": 0,
+            "id": "current:0:+",
+            "strand": "+"
+          }
+        ],
+        "recoded": [
+          {
+            "base": 0,
+            "id": "recoded:0:+",
+            "strand": "+"
+          }
+        ]
+      },
+      "current_to_recoded": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "expected": {
+        "biological_gain_loss_evaluated": false,
+        "current_count": 1,
+        "current_paths": [
+          {
+            "bases": [
+              0,
+              1,
+              2
+            ],
+            "id": "current:0:+",
+            "mapped_bases": [
+              0,
+              1,
+              2
+            ]
+          }
+        ],
+        "matched_pairs": 1,
+        "pair_id": "unchanged_plus",
+        "pairs": [
+          {
+            "current_id": "current:0:+",
+            "recoded_id": "recoded:0:+"
+          }
+        ],
+        "recoded_count": 1,
+        "recoded_paths": [
+          {
+            "bases": [
+              0,
+              1,
+              2
+            ],
+            "id": "recoded:0:+",
+            "mapped_bases": [
+              0,
+              1,
+              2
+            ]
+          }
+        ],
+        "schema_version": "rbs-codon-correspondence-1",
+        "unmatched_current": [],
+        "unmatched_recoded": []
+      },
+      "input": {
+        "current": {
+          "id": "unchanged_plus:current",
+          "sequence": "ATGCCC"
+        },
+        "edits": [],
+        "pair_id": "unchanged_plus",
+        "recoded": {
+          "id": "unchanged_plus:recoded",
+          "sequence": "ATGCCC"
+        },
+        "schema_version": "paired-edit-input-1",
+        "topology": "linear"
+      },
+      "recoded_to_current": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "candidates": {
+        "current": [
+          {
+            "base": 5,
+            "id": "current:5:-",
+            "strand": "-"
+          }
+        ],
+        "recoded": [
+          {
+            "base": 5,
+            "id": "recoded:5:-",
+            "strand": "-"
+          }
+        ]
+      },
+      "current_to_recoded": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "expected": {
+        "biological_gain_loss_evaluated": false,
+        "current_count": 1,
+        "current_paths": [
+          {
+            "bases": [
+              5,
+              4,
+              3
+            ],
+            "id": "current:5:-",
+            "mapped_bases": [
+              5,
+              4,
+              3
+            ]
+          }
+        ],
+        "matched_pairs": 1,
+        "pair_id": "unchanged_minus",
+        "pairs": [
+          {
+            "current_id": "current:5:-",
+            "recoded_id": "recoded:5:-"
+          }
+        ],
+        "recoded_count": 1,
+        "recoded_paths": [
+          {
+            "bases": [
+              5,
+              4,
+              3
+            ],
+            "id": "recoded:5:-",
+            "mapped_bases": [
+              5,
+              4,
+              3
+            ]
+          }
+        ],
+        "schema_version": "rbs-codon-correspondence-1",
+        "unmatched_current": [],
+        "unmatched_recoded": []
+      },
+      "input": {
+        "current": {
+          "id": "unchanged_minus:current",
+          "sequence": "GGGCAT"
+        },
+        "edits": [],
+        "pair_id": "unchanged_minus",
+        "recoded": {
+          "id": "unchanged_minus:recoded",
+          "sequence": "GGGCAT"
+        },
+        "schema_version": "paired-edit-input-1",
+        "topology": "linear"
+      },
+      "recoded_to_current": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "candidates": {
+        "current": [
+          {
+            "base": 0,
+            "id": "current:0:+",
+            "strand": "+"
+          }
+        ],
+        "recoded": [
+          {
+            "base": 0,
+            "id": "recoded:0:+",
+            "strand": "+"
+          }
+        ]
+      },
+      "current_to_recoded": [
+        0,
+        1,
+        2
+      ],
+      "expected": {
+        "biological_gain_loss_evaluated": false,
+        "current_count": 1,
+        "current_paths": [
+          {
+            "bases": [
+              0,
+              1,
+              2
+            ],
+            "id": "current:0:+",
+            "mapped_bases": [
+              0,
+              1,
+              2
+            ]
+          }
+        ],
+        "matched_pairs": 1,
+        "pair_id": "motif_substitution_plus",
+        "pairs": [
+          {
+            "current_id": "current:0:+",
+            "recoded_id": "recoded:0:+"
+          }
+        ],
+        "recoded_count": 1,
+        "recoded_paths": [
+          {
+            "bases": [
+              0,
+              1,
+              2
+            ],
+            "id": "recoded:0:+",
+            "mapped_bases": [
+              0,
+              1,
+              2
+            ]
+          }
+        ],
+        "schema_version": "rbs-codon-correspondence-1",
+        "unmatched_current": [],
+        "unmatched_recoded": []
+      },
+      "input": {
+        "current": {
+          "id": "motif_substitution_plus:current",
+          "sequence": "ATG"
+        },
+        "edits": [
+          {
+            "end": 1,
+            "id": "e0",
+            "replacement": "G",
+            "start": 0
+          }
+        ],
+        "pair_id": "motif_substitution_plus",
+        "recoded": {
+          "id": "motif_substitution_plus:recoded",
+          "sequence": "GTG"
+        },
+        "schema_version": "paired-edit-input-1",
+        "topology": "linear"
+      },
+      "recoded_to_current": [
+        0,
+        1,
+        2
+      ]
+    },
+    {
+      "candidates": {
+        "current": [
+          {
+            "base": 2,
+            "id": "current:2:-",
+            "strand": "-"
+          }
+        ],
+        "recoded": [
+          {
+            "base": 2,
+            "id": "recoded:2:-",
+            "strand": "-"
+          }
+        ]
+      },
+      "current_to_recoded": [
+        0,
+        1,
+        2
+      ],
+      "expected": {
+        "biological_gain_loss_evaluated": false,
+        "current_count": 1,
+        "current_paths": [
+          {
+            "bases": [
+              2,
+              1,
+              0
+            ],
+            "id": "current:2:-",
+            "mapped_bases": [
+              2,
+              1,
+              0
+            ]
+          }
+        ],
+        "matched_pairs": 1,
+        "pair_id": "motif_substitution_minus",
+        "pairs": [
+          {
+            "current_id": "current:2:-",
+            "recoded_id": "recoded:2:-"
+          }
+        ],
+        "recoded_count": 1,
+        "recoded_paths": [
+          {
+            "bases": [
+              2,
+              1,
+              0
+            ],
+            "id": "recoded:2:-",
+            "mapped_bases": [
+              2,
+              1,
+              0
+            ]
+          }
+        ],
+        "schema_version": "rbs-codon-correspondence-1",
+        "unmatched_current": [],
+        "unmatched_recoded": []
+      },
+      "input": {
+        "current": {
+          "id": "motif_substitution_minus:current",
+          "sequence": "CAT"
+        },
+        "edits": [
+          {
+            "end": 3,
+            "id": "e0",
+            "replacement": "C",
+            "start": 2
+          }
+        ],
+        "pair_id": "motif_substitution_minus",
+        "recoded": {
+          "id": "motif_substitution_minus:recoded",
+          "sequence": "CAC"
+        },
+        "schema_version": "paired-edit-input-1",
+        "topology": "linear"
+      },
+      "recoded_to_current": [
+        0,
+        1,
+        2
+      ]
+    },
+    {
+      "candidates": {
+        "current": [
+          {
+            "base": 0,
+            "id": "current:0:+",
+            "strand": "+"
+          }
+        ],
+        "recoded": [
+          {
+            "base": 0,
+            "id": "recoded:0:+",
+            "strand": "+"
+          },
+          {
+            "base": 2,
+            "id": "recoded:2:+",
+            "strand": "+"
+          }
+        ]
+      },
+      "current_to_recoded": [
+        0,
+        3,
+        4
+      ],
+      "expected": {
+        "biological_gain_loss_evaluated": false,
+        "current_count": 1,
+        "current_paths": [
+          {
+            "bases": [
+              0,
+              1,
+              2
+            ],
+            "id": "current:0:+",
+            "mapped_bases": [
+              0,
+              3,
+              4
+            ]
+          }
+        ],
+        "matched_pairs": 0,
+        "pair_id": "insert_inside_plus",
+        "pairs": [],
+        "recoded_count": 2,
+        "recoded_paths": [
+          {
+            "bases": [
+              0,
+              1,
+              2
+            ],
+            "id": "recoded:0:+",
+            "mapped_bases": [
+              0,
+              null,
+              null
+            ]
+          },
+          {
+            "bases": [
+              2,
+              3,
+              4
+            ],
+            "id": "recoded:2:+",
+            "mapped_bases": [
+              null,
+              1,
+              2
+            ]
+          }
+        ],
+        "schema_version": "rbs-codon-correspondence-1",
+        "unmatched_current": [
+          {
+            "id": "current:0:+",
+            "reason": "interrupted_codon"
+          }
+        ],
+        "unmatched_recoded": [
+          {
+            "id": "recoded:0:+",
+            "reason": "interrupted_codon"
+          },
+          {
+            "id": "recoded:2:+",
+            "reason": "inserted_coordinate"
+          }
+        ]
+      },
+      "input": {
+        "current": {
+          "id": "insert_inside_plus:current",
+          "sequence": "ATG"
+        },
+        "edits": [
+          {
+            "end": 1,
+            "id": "e0",
+            "replacement": "TG",
+            "start": 1
+          }
+        ],
+        "pair_id": "insert_inside_plus",
+        "recoded": {
+          "id": "insert_inside_plus:recoded",
+          "sequence": "ATGTG"
+        },
+        "schema_version": "paired-edit-input-1",
+        "topology": "linear"
+      },
+      "recoded_to_current": [
+        0,
+        null,
+        null,
+        1,
+        2
+      ]
+    },
+    {
+      "candidates": {
+        "current": [
+          {
+            "base": 2,
+            "id": "current:2:-",
+            "strand": "-"
+          }
+        ],
+        "recoded": [
+          {
+            "base": 4,
+            "id": "recoded:4:-",
+            "strand": "-"
+          },
+          {
+            "base": 2,
+            "id": "recoded:2:-",
+            "strand": "-"
+          }
+        ]
+      },
+      "current_to_recoded": [
+        0,
+        1,
+        4
+      ],
+      "expected": {
+        "biological_gain_loss_evaluated": false,
+        "current_count": 1,
+        "current_paths": [
+          {
+            "bases": [
+              2,
+              1,
+              0
+            ],
+            "id": "current:2:-",
+            "mapped_bases": [
+              4,
+              1,
+              0
+            ]
+          }
+        ],
+        "matched_pairs": 0,
+        "pair_id": "insert_inside_minus",
+        "pairs": [],
+        "recoded_count": 2,
+        "recoded_paths": [
+          {
+            "bases": [
+              4,
+              3,
+              2
+            ],
+            "id": "recoded:4:-",
+            "mapped_bases": [
+              2,
+              null,
+              null
+            ]
+          },
+          {
+            "bases": [
+              2,
+              1,
+              0
+            ],
+            "id": "recoded:2:-",
+            "mapped_bases": [
+              null,
+              1,
+              0
+            ]
+          }
+        ],
+        "schema_version": "rbs-codon-correspondence-1",
+        "unmatched_current": [
+          {
+            "id": "current:2:-",
+            "reason": "interrupted_codon"
+          }
+        ],
+        "unmatched_recoded": [
+          {
+            "id": "recoded:4:-",
+            "reason": "interrupted_codon"
+          },
+          {
+            "id": "recoded:2:-",
+            "reason": "inserted_coordinate"
+          }
+        ]
+      },
+      "input": {
+        "current": {
+          "id": "insert_inside_minus:current",
+          "sequence": "CAT"
+        },
+        "edits": [
+          {
+            "end": 2,
+            "id": "e0",
+            "replacement": "CA",
+            "start": 2
+          }
+        ],
+        "pair_id": "insert_inside_minus",
+        "recoded": {
+          "id": "insert_inside_minus:recoded",
+          "sequence": "CACAT"
+        },
+        "schema_version": "paired-edit-input-1",
+        "topology": "linear"
+      },
+      "recoded_to_current": [
+        0,
+        1,
+        null,
+        null,
+        2
+      ]
+    },
+    {
+      "candidates": {
+        "current": [
+          {
+            "base": 0,
+            "id": "current:0:+",
+            "strand": "+"
+          },
+          {
+            "base": 2,
+            "id": "current:2:+",
+            "strand": "+"
+          }
+        ],
+        "recoded": [
+          {
+            "base": 0,
+            "id": "recoded:0:+",
+            "strand": "+"
+          }
+        ]
+      },
+      "current_to_recoded": [
+        0,
+        null,
+        null,
+        1,
+        2
+      ],
+      "expected": {
+        "biological_gain_loss_evaluated": false,
+        "current_count": 2,
+        "current_paths": [
+          {
+            "bases": [
+              0,
+              1,
+              2
+            ],
+            "id": "current:0:+",
+            "mapped_bases": [
+              0,
+              null,
+              null
+            ]
+          },
+          {
+            "bases": [
+              2,
+              3,
+              4
+            ],
+            "id": "current:2:+",
+            "mapped_bases": [
+              null,
+              1,
+              2
+            ]
+          }
+        ],
+        "matched_pairs": 0,
+        "pair_id": "delete_inside_plus",
+        "pairs": [],
+        "recoded_count": 1,
+        "recoded_paths": [
+          {
+            "bases": [
+              0,
+              1,
+              2
+            ],
+            "id": "recoded:0:+",
+            "mapped_bases": [
+              0,
+              3,
+              4
+            ]
+          }
+        ],
+        "schema_version": "rbs-codon-correspondence-1",
+        "unmatched_current": [
+          {
+            "id": "current:0:+",
+            "reason": "interrupted_codon"
+          },
+          {
+            "id": "current:2:+",
+            "reason": "deleted_coordinate"
+          }
+        ],
+        "unmatched_recoded": [
+          {
+            "id": "recoded:0:+",
+            "reason": "interrupted_codon"
+          }
+        ]
+      },
+      "input": {
+        "current": {
+          "id": "delete_inside_plus:current",
+          "sequence": "ATGTG"
+        },
+        "edits": [
+          {
+            "end": 3,
+            "id": "e0",
+            "replacement": "",
+            "start": 1
+          }
+        ],
+        "pair_id": "delete_inside_plus",
+        "recoded": {
+          "id": "delete_inside_plus:recoded",
+          "sequence": "ATG"
+        },
+        "schema_version": "paired-edit-input-1",
+        "topology": "linear"
+      },
+      "recoded_to_current": [
+        0,
+        3,
+        4
+      ]
+    },
+    {
+      "candidates": {
+        "current": [
+          {
+            "base": 4,
+            "id": "current:4:-",
+            "strand": "-"
+          },
+          {
+            "base": 2,
+            "id": "current:2:-",
+            "strand": "-"
+          }
+        ],
+        "recoded": [
+          {
+            "base": 2,
+            "id": "recoded:2:-",
+            "strand": "-"
+          }
+        ]
+      },
+      "current_to_recoded": [
+        0,
+        1,
+        null,
+        null,
+        2
+      ],
+      "expected": {
+        "biological_gain_loss_evaluated": false,
+        "current_count": 2,
+        "current_paths": [
+          {
+            "bases": [
+              4,
+              3,
+              2
+            ],
+            "id": "current:4:-",
+            "mapped_bases": [
+              2,
+              null,
+              null
+            ]
+          },
+          {
+            "bases": [
+              2,
+              1,
+              0
+            ],
+            "id": "current:2:-",
+            "mapped_bases": [
+              null,
+              1,
+              0
+            ]
+          }
+        ],
+        "matched_pairs": 0,
+        "pair_id": "delete_inside_minus",
+        "pairs": [],
+        "recoded_count": 1,
+        "recoded_paths": [
+          {
+            "bases": [
+              2,
+              1,
+              0
+            ],
+            "id": "recoded:2:-",
+            "mapped_bases": [
+              4,
+              1,
+              0
+            ]
+          }
+        ],
+        "schema_version": "rbs-codon-correspondence-1",
+        "unmatched_current": [
+          {
+            "id": "current:4:-",
+            "reason": "interrupted_codon"
+          },
+          {
+            "id": "current:2:-",
+            "reason": "deleted_coordinate"
+          }
+        ],
+        "unmatched_recoded": [
+          {
+            "id": "recoded:2:-",
+            "reason": "interrupted_codon"
+          }
+        ]
+      },
+      "input": {
+        "current": {
+          "id": "delete_inside_minus:current",
+          "sequence": "CACAT"
+        },
+        "edits": [
+          {
+            "end": 4,
+            "id": "e0",
+            "replacement": "",
+            "start": 2
+          }
+        ],
+        "pair_id": "delete_inside_minus",
+        "recoded": {
+          "id": "delete_inside_minus:recoded",
+          "sequence": "CAT"
+        },
+        "schema_version": "paired-edit-input-1",
+        "topology": "linear"
+      },
+      "recoded_to_current": [
+        0,
+        1,
+        4
+      ]
+    },
+    {
+      "candidates": {
+        "current": [
+          {
+            "base": 0,
+            "id": "current:0:+",
+            "strand": "+"
+          }
+        ],
+        "recoded": [
+          {
+            "base": 0,
+            "id": "recoded:0:+",
+            "strand": "+"
+          }
+        ]
+      },
+      "current_to_recoded": [
+        0,
+        null,
+        3
+      ],
+      "expected": {
+        "biological_gain_loss_evaluated": false,
+        "current_count": 1,
+        "current_paths": [
+          {
+            "bases": [
+              0,
+              1,
+              2
+            ],
+            "id": "current:0:+",
+            "mapped_bases": [
+              0,
+              null,
+              3
+            ]
+          }
+        ],
+        "matched_pairs": 0,
+        "pair_id": "unequal_inside_plus",
+        "pairs": [],
+        "recoded_count": 1,
+        "recoded_paths": [
+          {
+            "bases": [
+              0,
+              1,
+              2
+            ],
+            "id": "recoded:0:+",
+            "mapped_bases": [
+              0,
+              null,
+              null
+            ]
+          }
+        ],
+        "schema_version": "rbs-codon-correspondence-1",
+        "unmatched_current": [
+          {
+            "id": "current:0:+",
+            "reason": "interrupted_codon"
+          }
+        ],
+        "unmatched_recoded": [
+          {
+            "id": "recoded:0:+",
+            "reason": "interrupted_codon"
+          }
+        ]
+      },
+      "input": {
+        "current": {
+          "id": "unequal_inside_plus:current",
+          "sequence": "ATG"
+        },
+        "edits": [
+          {
+            "end": 2,
+            "id": "e0",
+            "replacement": "TG",
+            "start": 1
+          }
+        ],
+        "pair_id": "unequal_inside_plus",
+        "recoded": {
+          "id": "unequal_inside_plus:recoded",
+          "sequence": "ATGG"
+        },
+        "schema_version": "paired-edit-input-1",
+        "topology": "linear"
+      },
+      "recoded_to_current": [
+        0,
+        null,
+        null,
+        2
+      ]
+    },
+    {
+      "candidates": {
+        "current": [
+          {
+            "base": 2,
+            "id": "current:2:-",
+            "strand": "-"
+          }
+        ],
+        "recoded": [
+          {
+            "base": 3,
+            "id": "recoded:3:-",
+            "strand": "-"
+          }
+        ]
+      },
+      "current_to_recoded": [
+        0,
+        null,
+        3
+      ],
+      "expected": {
+        "biological_gain_loss_evaluated": false,
+        "current_count": 1,
+        "current_paths": [
+          {
+            "bases": [
+              2,
+              1,
+              0
+            ],
+            "id": "current:2:-",
+            "mapped_bases": [
+              3,
+              null,
+              0
+            ]
+          }
+        ],
+        "matched_pairs": 0,
+        "pair_id": "unequal_inside_minus",
+        "pairs": [],
+        "recoded_count": 1,
+        "recoded_paths": [
+          {
+            "bases": [
+              3,
+              2,
+              1
+            ],
+            "id": "recoded:3:-",
+            "mapped_bases": [
+              2,
+              null,
+              null
+            ]
+          }
+        ],
+        "schema_version": "rbs-codon-correspondence-1",
+        "unmatched_current": [
+          {
+            "id": "current:2:-",
+            "reason": "interrupted_codon"
+          }
+        ],
+        "unmatched_recoded": [
+          {
+            "id": "recoded:3:-",
+            "reason": "interrupted_codon"
+          }
+        ]
+      },
+      "input": {
+        "current": {
+          "id": "unequal_inside_minus:current",
+          "sequence": "CAT"
+        },
+        "edits": [
+          {
+            "end": 2,
+            "id": "e0",
+            "replacement": "CA",
+            "start": 1
+          }
+        ],
+        "pair_id": "unequal_inside_minus",
+        "recoded": {
+          "id": "unequal_inside_minus:recoded",
+          "sequence": "CCAT"
+        },
+        "schema_version": "paired-edit-input-1",
+        "topology": "linear"
+      },
+      "recoded_to_current": [
+        0,
+        null,
+        null,
+        2
+      ]
+    },
+    {
+      "candidates": {
+        "current": [
+          {
+            "base": 0,
+            "id": "current:0:+",
+            "strand": "+"
+          }
+        ],
+        "recoded": [
+          {
+            "base": 0,
+            "id": "recoded:0:+",
+            "strand": "+"
+          }
+        ]
+      },
+      "current_to_recoded": [
+        0,
+        1,
+        null,
+        2
+      ],
+      "expected": {
+        "biological_gain_loss_evaluated": false,
+        "current_count": 1,
+        "current_paths": [
+          {
+            "bases": [
+              0,
+              1,
+              2
+            ],
+            "id": "current:0:+",
+            "mapped_bases": [
+              0,
+              1,
+              null
+            ]
+          }
+        ],
+        "matched_pairs": 0,
+        "pair_id": "delete_third_base",
+        "pairs": [],
+        "recoded_count": 1,
+        "recoded_paths": [
+          {
+            "bases": [
+              0,
+              1,
+              2
+            ],
+            "id": "recoded:0:+",
+            "mapped_bases": [
+              0,
+              1,
+              3
+            ]
+          }
+        ],
+        "schema_version": "rbs-codon-correspondence-1",
+        "unmatched_current": [
+          {
+            "id": "current:0:+",
+            "reason": "interrupted_codon"
+          }
+        ],
+        "unmatched_recoded": [
+          {
+            "id": "recoded:0:+",
+            "reason": "interrupted_codon"
+          }
+        ]
+      },
+      "input": {
+        "current": {
+          "id": "delete_third_base:current",
+          "sequence": "ATGG"
+        },
+        "edits": [
+          {
+            "end": 3,
+            "id": "e0",
+            "replacement": "",
+            "start": 2
+          }
+        ],
+        "pair_id": "delete_third_base",
+        "recoded": {
+          "id": "delete_third_base:recoded",
+          "sequence": "ATG"
+        },
+        "schema_version": "paired-edit-input-1",
+        "topology": "linear"
+      },
+      "recoded_to_current": [
+        0,
+        1,
+        3
+      ]
+    },
+    {
+      "candidates": {
+        "current": [
+          {
+            "base": 0,
+            "id": "current:0:+",
+            "strand": "+"
+          }
+        ],
+        "recoded": [
+          {
+            "base": 0,
+            "id": "recoded:0:+",
+            "strand": "+"
+          }
+        ]
+      },
+      "current_to_recoded": [
+        0,
+        1,
+        3
+      ],
+      "expected": {
+        "biological_gain_loss_evaluated": false,
+        "current_count": 1,
+        "current_paths": [
+          {
+            "bases": [
+              0,
+              1,
+              2
+            ],
+            "id": "current:0:+",
+            "mapped_bases": [
+              0,
+              1,
+              3
+            ]
+          }
+        ],
+        "matched_pairs": 0,
+        "pair_id": "insert_third_base",
+        "pairs": [],
+        "recoded_count": 1,
+        "recoded_paths": [
+          {
+            "bases": [
+              0,
+              1,
+              2
+            ],
+            "id": "recoded:0:+",
+            "mapped_bases": [
+              0,
+              1,
+              null
+            ]
+          }
+        ],
+        "schema_version": "rbs-codon-correspondence-1",
+        "unmatched_current": [
+          {
+            "id": "current:0:+",
+            "reason": "interrupted_codon"
+          }
+        ],
+        "unmatched_recoded": [
+          {
+            "id": "recoded:0:+",
+            "reason": "interrupted_codon"
+          }
+        ]
+      },
+      "input": {
+        "current": {
+          "id": "insert_third_base:current",
+          "sequence": "ATG"
+        },
+        "edits": [
+          {
+            "end": 2,
+            "id": "e0",
+            "replacement": "G",
+            "start": 2
+          }
+        ],
+        "pair_id": "insert_third_base",
+        "recoded": {
+          "id": "insert_third_base:recoded",
+          "sequence": "ATGG"
+        },
+        "schema_version": "paired-edit-input-1",
+        "topology": "linear"
+      },
+      "recoded_to_current": [
+        0,
+        1,
+        null,
+        2
+      ]
+    },
+    {
+      "candidates": {
+        "current": [
+          {
+            "base": 0,
+            "id": "current:0:+",
+            "strand": "+"
+          }
+        ],
+        "recoded": [
+          {
+            "base": 2,
+            "id": "recoded:2:+",
+            "strand": "+"
+          },
+          {
+            "base": 3,
+            "id": "recoded:3:-",
+            "strand": "-"
+          }
+        ]
+      },
+      "current_to_recoded": [
+        2,
+        3,
+        4
+      ],
+      "expected": {
+        "biological_gain_loss_evaluated": false,
+        "current_count": 1,
+        "current_paths": [
+          {
+            "bases": [
+              0,
+              1,
+              2
+            ],
+            "id": "current:0:+",
+            "mapped_bases": [
+              2,
+              3,
+              4
+            ]
+          }
+        ],
+        "matched_pairs": 1,
+        "pair_id": "shift_intact",
+        "pairs": [
+          {
+            "current_id": "current:0:+",
+            "recoded_id": "recoded:2:+"
+          }
+        ],
+        "recoded_count": 2,
+        "recoded_paths": [
+          {
+            "bases": [
+              2,
+              3,
+              4
+            ],
+            "id": "recoded:2:+",
+            "mapped_bases": [
+              0,
+              1,
+              2
+            ]
+          },
+          {
+            "bases": [
+              3,
+              2,
+              1
+            ],
+            "id": "recoded:3:-",
+            "mapped_bases": [
+              1,
+              0,
+              null
+            ]
+          }
+        ],
+        "schema_version": "rbs-codon-correspondence-1",
+        "unmatched_current": [],
+        "unmatched_recoded": [
+          {
+            "id": "recoded:3:-",
+            "reason": "mapped_anchor_absent"
+          }
+        ]
+      },
+      "input": {
+        "current": {
+          "id": "shift_intact:current",
+          "sequence": "ATG"
+        },
+        "edits": [
+          {
+            "end": 0,
+            "id": "e0",
+            "replacement": "CC",
+            "start": 0
+          }
+        ],
+        "pair_id": "shift_intact",
+        "recoded": {
+          "id": "shift_intact:recoded",
+          "sequence": "CCATG"
+        },
+        "schema_version": "paired-edit-input-1",
+        "topology": "linear"
+      },
+      "recoded_to_current": [
+        null,
+        null,
+        0,
+        1,
+        2
+      ]
+    },
+    {
+      "candidates": {
+        "current": [
+          {
+            "base": 2,
+            "id": "current:2:+",
+            "strand": "+"
+          }
+        ],
+        "recoded": [
+          {
+            "base": 2,
+            "id": "recoded:2:-",
+            "strand": "-"
+          }
+        ]
+      },
+      "current_to_recoded": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "expected": {
+        "biological_gain_loss_evaluated": false,
+        "current_count": 1,
+        "current_paths": [
+          {
+            "bases": [
+              2,
+              3,
+              4
+            ],
+            "id": "current:2:+",
+            "mapped_bases": [
+              2,
+              3,
+              4
+            ]
+          }
+        ],
+        "matched_pairs": 0,
+        "pair_id": "strand_change",
+        "pairs": [],
+        "recoded_count": 1,
+        "recoded_paths": [
+          {
+            "bases": [
+              2,
+              1,
+              0
+            ],
+            "id": "recoded:2:-",
+            "mapped_bases": [
+              2,
+              1,
+              0
+            ]
+          }
+        ],
+        "schema_version": "rbs-codon-correspondence-1",
+        "unmatched_current": [
+          {
+            "id": "current:2:+",
+            "reason": "mapped_anchor_absent"
+          }
+        ],
+        "unmatched_recoded": [
+          {
+            "id": "recoded:2:-",
+            "reason": "mapped_anchor_absent"
+          }
+        ]
+      },
+      "input": {
+        "current": {
+          "id": "strand_change:current",
+          "sequence": "TTATG"
+        },
+        "edits": [
+          {
+            "end": 5,
+            "id": "e0",
+            "replacement": "CATCC",
+            "start": 0
+          }
+        ],
+        "pair_id": "strand_change",
+        "recoded": {
+          "id": "strand_change:recoded",
+          "sequence": "CATCC"
+        },
+        "schema_version": "paired-edit-input-1",
+        "topology": "linear"
+      },
+      "recoded_to_current": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "candidates": {
+        "current": [
+          {
+            "base": 0,
+            "id": "current:0:+",
+            "strand": "+"
+          }
+        ],
+        "recoded": []
+      },
+      "current_to_recoded": [
+        0,
+        1,
+        2
+      ],
+      "expected": {
+        "biological_gain_loss_evaluated": false,
+        "current_count": 1,
+        "current_paths": [
+          {
+            "bases": [
+              0,
+              1,
+              2
+            ],
+            "id": "current:0:+",
+            "mapped_bases": [
+              0,
+              1,
+              2
+            ]
+          }
+        ],
+        "matched_pairs": 0,
+        "pair_id": "eligibility_removed",
+        "pairs": [],
+        "recoded_count": 0,
+        "recoded_paths": [],
+        "schema_version": "rbs-codon-correspondence-1",
+        "unmatched_current": [
+          {
+            "id": "current:0:+",
+            "reason": "mapped_anchor_absent"
+          }
+        ],
+        "unmatched_recoded": []
+      },
+      "input": {
+        "current": {
+          "id": "eligibility_removed:current",
+          "sequence": "ATG"
+        },
+        "edits": [
+          {
+            "end": 2,
+            "id": "e0",
+            "replacement": "C",
+            "start": 1
+          }
+        ],
+        "pair_id": "eligibility_removed",
+        "recoded": {
+          "id": "eligibility_removed:recoded",
+          "sequence": "ACG"
+        },
+        "schema_version": "paired-edit-input-1",
+        "topology": "linear"
+      },
+      "recoded_to_current": [
+        0,
+        1,
+        2
+      ]
+    },
+    {
+      "candidates": {
+        "current": [],
+        "recoded": [
+          {
+            "base": 0,
+            "id": "recoded:0:+",
+            "strand": "+"
+          }
+        ]
+      },
+      "current_to_recoded": [
+        0,
+        1,
+        2
+      ],
+      "expected": {
+        "biological_gain_loss_evaluated": false,
+        "current_count": 0,
+        "current_paths": [],
+        "matched_pairs": 0,
+        "pair_id": "eligibility_added",
+        "pairs": [],
+        "recoded_count": 1,
+        "recoded_paths": [
+          {
+            "bases": [
+              0,
+              1,
+              2
+            ],
+            "id": "recoded:0:+",
+            "mapped_bases": [
+              0,
+              1,
+              2
+            ]
+          }
+        ],
+        "schema_version": "rbs-codon-correspondence-1",
+        "unmatched_current": [],
+        "unmatched_recoded": [
+          {
+            "id": "recoded:0:+",
+            "reason": "mapped_anchor_absent"
+          }
+        ]
+      },
+      "input": {
+        "current": {
+          "id": "eligibility_added:current",
+          "sequence": "ACG"
+        },
+        "edits": [
+          {
+            "end": 2,
+            "id": "e0",
+            "replacement": "T",
+            "start": 1
+          }
+        ],
+        "pair_id": "eligibility_added",
+        "recoded": {
+          "id": "eligibility_added:recoded",
+          "sequence": "ATG"
+        },
+        "schema_version": "paired-edit-input-1",
+        "topology": "linear"
+      },
+      "recoded_to_current": [
+        0,
+        1,
+        2
+      ]
+    },
+    {
+      "candidates": {
+        "current": [
+          {
+            "base": 0,
+            "id": "current:0:+",
+            "strand": "+"
+          }
+        ],
+        "recoded": [
+          {
+            "base": 0,
+            "id": "recoded:0:+",
+            "strand": "+"
+          },
+          {
+            "base": 3,
+            "id": "recoded:3:+",
+            "strand": "+"
+          }
+        ]
+      },
+      "current_to_recoded": [
+        null,
+        null,
+        null
+      ],
+      "expected": {
+        "biological_gain_loss_evaluated": false,
+        "current_count": 1,
+        "current_paths": [
+          {
+            "bases": [
+              0,
+              1,
+              2
+            ],
+            "id": "current:0:+",
+            "mapped_bases": [
+              null,
+              null,
+              null
+            ]
+          }
+        ],
+        "matched_pairs": 0,
+        "pair_id": "whole_unequal",
+        "pairs": [],
+        "recoded_count": 2,
+        "recoded_paths": [
+          {
+            "bases": [
+              0,
+              1,
+              2
+            ],
+            "id": "recoded:0:+",
+            "mapped_bases": [
+              null,
+              null,
+              null
+            ]
+          },
+          {
+            "bases": [
+              3,
+              4,
+              5
+            ],
+            "id": "recoded:3:+",
+            "mapped_bases": [
+              null,
+              null,
+              null
+            ]
+          }
+        ],
+        "schema_version": "rbs-codon-correspondence-1",
+        "unmatched_current": [
+          {
+            "id": "current:0:+",
+            "reason": "deleted_coordinate"
+          }
+        ],
+        "unmatched_recoded": [
+          {
+            "id": "recoded:0:+",
+            "reason": "inserted_coordinate"
+          },
+          {
+            "id": "recoded:3:+",
+            "reason": "inserted_coordinate"
+          }
+        ]
+      },
+      "input": {
+        "current": {
+          "id": "whole_unequal:current",
+          "sequence": "ATG"
+        },
+        "edits": [
+          {
+            "end": 3,
+            "id": "e0",
+            "replacement": "GTGGTG",
+            "start": 0
+          }
+        ],
+        "pair_id": "whole_unequal",
+        "recoded": {
+          "id": "whole_unequal:recoded",
+          "sequence": "GTGGTG"
+        },
+        "schema_version": "paired-edit-input-1",
+        "topology": "linear"
+      },
+      "recoded_to_current": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "candidates": {
+        "current": [],
+        "recoded": []
+      },
+      "current_to_recoded": [
+        0,
+        1,
+        2
+      ],
+      "expected": {
+        "biological_gain_loss_evaluated": false,
+        "current_count": 0,
+        "current_paths": [],
+        "matched_pairs": 0,
+        "pair_id": "circular_no_implicit_wrap",
+        "pairs": [],
+        "recoded_count": 0,
+        "recoded_paths": [],
+        "schema_version": "rbs-codon-correspondence-1",
+        "unmatched_current": [],
+        "unmatched_recoded": []
+      },
+      "input": {
+        "current": {
+          "id": "circular_no_implicit_wrap:current",
+          "sequence": "GAT"
+        },
+        "edits": [],
+        "pair_id": "circular_no_implicit_wrap",
+        "recoded": {
+          "id": "circular_no_implicit_wrap:recoded",
+          "sequence": "GAT"
+        },
+        "schema_version": "paired-edit-input-1",
+        "topology": "circular"
+      },
+      "recoded_to_current": [
+        0,
+        1,
+        2
+      ]
+    },
+    {
+      "candidates": {
+        "current": [
+          {
+            "base": 0,
+            "id": "current:0:+",
+            "strand": "+"
+          }
+        ],
+        "recoded": [
+          {
+            "base": 0,
+            "id": "recoded:0:+",
+            "strand": "+"
+          }
+        ]
+      },
+      "current_to_recoded": [
+        0,
+        1,
+        2
+      ],
+      "expected": {
+        "biological_gain_loss_evaluated": false,
+        "current_count": 1,
+        "current_paths": [
+          {
+            "bases": [
+              0,
+              1,
+              2
+            ],
+            "id": "current:0:+",
+            "mapped_bases": [
+              0,
+              1,
+              2
+            ]
+          }
+        ],
+        "matched_pairs": 1,
+        "pair_id": "circular_intact",
+        "pairs": [
+          {
+            "current_id": "current:0:+",
+            "recoded_id": "recoded:0:+"
+          }
+        ],
+        "recoded_count": 1,
+        "recoded_paths": [
+          {
+            "bases": [
+              0,
+              1,
+              2
+            ],
+            "id": "recoded:0:+",
+            "mapped_bases": [
+              0,
+              1,
+              2
+            ]
+          }
+        ],
+        "schema_version": "rbs-codon-correspondence-1",
+        "unmatched_current": [],
+        "unmatched_recoded": []
+      },
+      "input": {
+        "current": {
+          "id": "circular_intact:current",
+          "sequence": "ATG"
+        },
+        "edits": [],
+        "pair_id": "circular_intact",
+        "recoded": {
+          "id": "circular_intact:recoded",
+          "sequence": "ATG"
+        },
+        "schema_version": "paired-edit-input-1",
+        "topology": "circular"
+      },
+      "recoded_to_current": [
+        0,
+        1,
+        2
+      ]
+    }
+  ],
+  "license": "GPL-3.0-or-later",
+  "purpose": "Label-free synthetic coordinate correspondence; no predictions, assays or biological gain/loss labels. Candidate rosters enumerate ATG/GTG/TTG within each supplied string on both strands. Short sequences test geometry only, not scoring feasibility.",
+  "schema_version": "rbs-codon-correspondence-panel-1"
+}
