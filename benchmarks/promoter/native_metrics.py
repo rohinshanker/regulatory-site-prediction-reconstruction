@@ -34,6 +34,7 @@ METRIC_SCHEMA = "promoter-native-metrics-1"
 STATUSES = ("ok", "failed", "not_run", "unsupported", "no_candidate")
 DEFAULT_TOP_K = (1, 5, 10)
 DEFAULT_TOLERANCES = (0, 3)
+SOURCE_CATEGORIES = ("gTSS", "aTSS", "iTSS", "nTSS", "unclassified")
 MAX_SETTING_VALUES = 8
 MAX_TOP_K = 1000
 MAX_TOLERANCE = 100
@@ -379,6 +380,22 @@ def evaluate(queries, scores, labels, groups, settings):
     group_ids = {}
     for label_id, group in group_of.items():
         group_ids.setdefault(group, []).append(label_id)
+    replicon_ids = {genome: [] for genome in sorted(lengths)}
+    category_ids = {category: [] for category in SOURCE_CATEGORIES}
+    multiple_categories = 0
+    for label in labels["labels"]:
+        identity = label["label_id"]
+        replicon_ids[label["genome_id"]].append(identity)
+        rows = label.get("source_rows", [])
+        if not isinstance(rows, list) or any(not isinstance(row, dict) for row in rows):
+            raise ValueError("Label source_rows must be a list of objects")
+        categories = {
+            category if category in SOURCE_CATEGORIES else "unclassified"
+            for category in (row.get("tss_type") for row in rows)
+        } or {"unclassified"}
+        multiple_categories += len(categories) > 1
+        for category in categories:
+            category_ids[category].append(identity)
     return {
         "schema_version": METRIC_SCHEMA,
         "scope": (
@@ -410,6 +427,15 @@ def evaluate(queries, scores, labels, groups, settings):
         "overall": summary(membership),
         "n_groups": len(group_ids),
         "groups": {g: summary(ids) for g, ids in sorted(group_ids.items())},
+        "subgroups": {
+            "scope": (
+                "descriptive summaries of the same global one-to-one matches; "
+                "source-category memberships may overlap; no subgroup intervals"
+            ),
+            "labels_with_multiple_source_categories": multiple_categories,
+            "replicons": {g: summary(ids) for g, ids in replicon_ids.items()},
+            "source_categories": {c: summary(ids) for c, ids in category_ids.items()},
+        },
     }
 
 

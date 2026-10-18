@@ -1,7 +1,7 @@
 # Native Promoter query and positional-metric tooling
 
 - Purpose: Build label-free genome-grid Promoter queries, project positive TSS labels separately and evaluate supplied scores by positional recovery.
-- Scope: Deterministic stdlib tools tested on synthetic inputs; no scoring engine, runtime import, real labels or final outcomes.
+- Scope: Deterministic stdlib tools for queries, separate source-label projection and supplied-score evaluation; tests use synthetic outcomes and import no runtime scoring engine.
 - Owner: Session B (`9677689a-1792176763`); the frozen protocol, label extraction and grouping stay with B.
 - Last verified: 2026-10-18
 
@@ -113,6 +113,16 @@ tool; this evaluator has no bootstrap. Repeated conditions are already one
 label, so they are not independent samples. When competing labels in one window belong to
 different groups, group credit follows the deterministic matching (labels by
 local index, each taking the leftmost free acceptable prediction).
+
+`subgroups` reports each declared replicon (including those with zero positives)
+and the source categories gTSS/aTSS/iTSS/nTSS. Missing or unknown categories go
+in `unclassified`. Duplicate source rows do not duplicate a label's membership;
+a label with several categories belongs to each, and the number of such labels
+is reported. Category totals therefore need not sum to the overall denominator.
+All subgroup credits use the same global matches and ranks. The tool never
+rematches after excluding competing labels from other categories. These are
+descriptive summaries without subgroup confidence intervals; zero denominators
+remain null.
 
 ## Resource limits
 

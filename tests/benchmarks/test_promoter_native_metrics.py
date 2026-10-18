@@ -143,6 +143,65 @@ def recovery(summary):
     return {(r["top_k"], r["tolerance_nt"]): r["matched"] for r in summary["recovery"]}
 
 
+class SubgroupTest(unittest.TestCase):
+    def test_shared_matches_and_overlapping_source_membership(self):
+        queries, scores, labels, _ = documents()
+        queries["genomes"]["empty"] = {"length": 100}
+        query_hash = n.document_sha256(queries)
+        labels["query_document_sha256"] = query_hash
+        scores["query_document_sha256"] = query_hash
+        scores["results"][0]["candidates"] = candidates(
+            {i: -1 if i == 4 else 10 for i in range(10)}
+        )
+        source_types = {
+            "A": ["gTSS", "gTSS"],
+            "B": ["aTSS"],
+            "C": ["iTSS"],
+            "D": ["nTSS"],
+            "E": ["gTSS", "not-a-source-class", None],
+        }
+        for row in labels["labels"]:
+            row["source_rows"] = [
+                {"tss_type": category}
+                for category in source_types.get(row["label_id"], [])
+            ]
+        result = m.evaluate(
+            queries,
+            scores,
+            labels,
+            groups_document(labels),
+            m.metric_settings(True, [1], [1]),
+        )
+        subgroups = result["subgroups"]
+        self.assertEqual(subgroups["labels_with_multiple_source_categories"], 1)
+        self.assertEqual(subgroups["replicons"]["g"], result["overall"])
+        empty = subgroups["replicons"]["empty"]
+        self.assertEqual(empty["n_labels"], 0)
+        self.assertIsNone(empty["recovery"][0]["fraction_of_all_labels"])
+        categories = subgroups["source_categories"]
+        self.assertEqual(categories["gTSS"]["n_labels"], 2)
+        self.assertEqual(categories["unclassified"]["n_labels"], 2)
+        self.assertEqual(recovery(categories["gTSS"]), {(1, 1): 1})
+        # A takes the one top prediction before B in the global matching.
+        # Evaluating the aTSS subset alone would incorrectly give B a hit.
+        self.assertEqual(recovery(categories["aTSS"]), {(1, 1): 0})
+        self.assertEqual(recovery(result["overall"]), {(1, 1): 1})
+
+    def test_source_rows_shape(self):
+        for rows in (None, {}, ["not-an-object"]):
+            with self.subTest(rows=rows):
+                queries, scores, labels, _ = documents()
+                labels["labels"][0]["source_rows"] = rows
+                with self.assertRaisesRegex(ValueError, "source_rows"):
+                    m.evaluate(
+                        queries,
+                        scores,
+                        labels,
+                        groups_document(labels),
+                        m.metric_settings(True),
+                    )
+
+
 class SettingsTest(unittest.TestCase):
     def test_defaults_and_validation(self):
         settings = m.metric_settings(True)
