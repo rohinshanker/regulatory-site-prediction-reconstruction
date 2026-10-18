@@ -28,6 +28,7 @@ from typing import IO
 
 SCHEMA_VERSION = "riboswitch-canonical-constraint-fixtures-1"
 RECEIPT_VERSION = "riboswitch-canonical-constraint-receipt-1"
+AUDIT_VERSION = "riboswitch-canonical-constraint-reaudit-1"
 FIXTURES = Path(__file__).with_name("canonical-fixtures.json")
 CANONICAL_PAIRS = frozenset({"AU", "UA", "GC", "CG", "GU", "UG"})
 MIN_HAIRPIN_LOOP = 3
@@ -84,6 +85,24 @@ BACKEND_FAILED = "backend_failed"
 CONSTRAINT_VIOLATED = "constraint_violated"
 EVALUATION_FAILED = "evaluation_failed"
 NOT_RUN = "not_run"
+OUTCOMES = frozenset({"exited", "timed_out", "launch_failed"})
+CHECKED = (
+    "fixtures_sha256",
+    "schema_version",
+    "settings",
+    "limits",
+    "backend pins, table manifest and version lines",
+    "job accounting, order, programs and arguments",
+    "saved stdout/stderr hashes",
+    "saved FASTA and constraint bytes against validated demands",
+    "CT/energy parsing, constraint audit, expectations and relations",
+)
+NOT_VALIDATED = (
+    "execution runner_sha256 is recorded, not recomputed from current code",
+    "executor label, Python and platform are recorded claims",
+    "job wall times are only checked against the declared bounds",
+    "binary build ancestry",
+)
 TIE_SELECTION = (
     "Fold --MFE returns one structure from RNAstructure's deterministic traceback; "
     "among equal-energy minima the traceback's choice is recorded, not proven unique."
@@ -311,7 +330,10 @@ def parse_ct(text: str, sequence: str) -> tuple[tuple[Pair, ...], float | None]:
     """Parse exactly one CT structure and check it against the request sequence.
 
     Returns one-based pairs and the header energy, or None when no energy is
-    reported. Nonreciprocal, crossing or noncanonical output is rejected.
+    reported. Nonreciprocal, crossing or noncanonical output is rejected, as is
+    any backbone other than one linear strand (previous ``n-1``; next ``n+1``,
+    or 0 for the last base). The natural-numbering column must be an integer;
+    RNAstructure ignores its value, so no mapping is inferred from it.
     """
     lines = [line for line in text.splitlines() if line.strip()]
     if not lines:
@@ -330,11 +352,13 @@ def parse_ct(text: str, sequence: str) -> tuple[tuple[Pair, ...], float | None]:
         if len(columns) != 6:
             raise OutputError("invalid_ct_row")
         try:
-            number, mate = int(columns[0]), int(columns[4])
+            number, previous, following, mate, _ = map(int, columns[:1] + columns[2:])
         except ValueError as exc:
             raise OutputError("invalid_ct_row") from exc
         if number != index or not 0 <= mate <= length or mate == index:
             raise OutputError("invalid_ct_row")
+        if previous != index - 1 or following != (index + 1) % (length + 1):
+            raise OutputError("invalid_ct_backbone")
         bases.append(columns[1])
         partner[index] = mate
     if "".join(bases) != sequence:
@@ -648,9 +672,7 @@ def _assess_case(request, case, directory, fold_job, efn2_job) -> dict:
         "sequence_sha256": _sha256(request.sequence.encode()),
         "fasta_sha256": _file_sha256(directory / "input.fa"),
         "constraint_text": constraint,
-        "constraint_sha256": None
-        if constraint is None
-        else _sha256(constraint.encode()),
+        "constraint_sha256": _file_sha256(directory / "constraint.con"),
         "forced_pairs": [list(pair) for pair in request.pairs],
         "forced_unpaired": list(request.unpaired),
         "fold_job": None if fold_job is None else fold_job["index"],
@@ -748,17 +770,64 @@ def _versions(context: _Context, directory: Path) -> dict:
     return versions
 
 
+def expected_inputs(request: Request) -> dict:
+    """Exact bytes each case input file must hold; None means it must be absent."""
+    constraint = constraint_text(request)
+    return {
+        "input.fa": f">{request.case_id}\n{request.sequence}\n".encode(),
+        "constraint.con": None if constraint is None else constraint.encode(),
+    }
+
+
+def input_problems(request: Request, directory: Path) -> list[str]:
+    """Name every saved input whose presence or bytes differ from the request."""
+    problems = []
+    for name, expected in expected_inputs(request).items():
+        path = directory / name
+        actual = path.read_bytes() if path.exists() else None
+        if actual != expected:
+            problems.append(f"case_{request.case_id}_{name}")
+    return problems
+
+
+def _write_inputs(request: Request, directory: Path) -> None:
+    for name, raw in expected_inputs(request).items():
+        if raw is not None:
+            (directory / name).write_bytes(raw)
+
+
 def _run_case(context: _Context, request: Request, case: dict, directory: Path) -> dict:
     directory.mkdir(parents=True)
-    (directory / "input.fa").write_text(f">{request.case_id}\n{request.sequence}\n")
-    constraint = constraint_text(request)
-    if constraint is not None:
-        (directory / "constraint.con").write_text(constraint)
+    _write_inputs(request, directory)
+    problems = input_problems(request, directory)
+    if problems:
+        raise SetupError("saved inputs differ before launch: " + ", ".join(problems))
     fold_job = _run_job(context, "Fold", fold_args(request), directory, request.case_id)
     efn2_job = None
     if "pairs" in assess_fold(request, fold_job, directory / "output.ct"):
         efn2_job = _run_job(context, "efn2", EFN2_ARGS, directory, request.case_id)
     return _assess_case(request, case, directory, fold_job, efn2_job)
+
+
+def _settings() -> dict:
+    return {
+        "temperature_k": TEMPERATURE_K,
+        "fold_flags": list(FOLD_FLAGS),
+        "constraint_flag": list(CONSTRAINT_FLAG),
+        "efn2_flags": list(EFN2_FLAGS),
+        "environment": {**_environment(Path("<installation>")), "inherited": False},
+        "tie_selection": TIE_SELECTION,
+        "energy_tolerance_kcal_per_mol": ENERGY_TOLERANCE,
+    }
+
+
+def _limits(limits: Limits) -> dict:
+    return {
+        "max_jobs": limits.max_jobs,
+        "job_seconds": limits.job_seconds,
+        "total_seconds": limits.total_seconds,
+        "retries": 0,
+    }
 
 
 def run(
@@ -799,21 +868,8 @@ def run(
         "python": platform.python_version(),
         "platform": f"{platform.system()} {platform.machine()}",
         "backend": backend,
-        "settings": {
-            "temperature_k": TEMPERATURE_K,
-            "fold_flags": list(FOLD_FLAGS),
-            "constraint_flag": list(CONSTRAINT_FLAG),
-            "efn2_flags": list(EFN2_FLAGS),
-            "environment": {**_environment(Path("<installation>")), "inherited": False},
-            "tie_selection": TIE_SELECTION,
-            "energy_tolerance_kcal_per_mol": ENERGY_TOLERANCE,
-        },
-        "limits": {
-            "max_jobs": limits.max_jobs,
-            "job_seconds": limits.job_seconds,
-            "total_seconds": limits.total_seconds,
-            "retries": 0,
-        },
+        "settings": _settings(),
+        "limits": _limits(limits),
         "total_jobs": len(context.jobs),
         "jobs": context.jobs,
         **_conclusions(fixtures, cases),
@@ -824,43 +880,127 @@ def run(
     return receipt
 
 
-def reaudit(fixtures_path: Path, output: Path) -> list[str]:
-    """Recompute every conclusion from stored outputs; return any discrepancies."""
+def _backend_problems(backend: dict, pins: dict) -> list[str]:
+    versions = backend["versions"]
+    valid = (
+        all(backend[key] == value for key, value in pins.items())
+        and table_manifest_sha256(backend["tables"]) == pins["table_manifest_sha256"]
+        and backend["table_count"] == len(backend["tables"])
+        and set(versions) == {"Fold", "efn2"}
+        and all(VERSION_PATTERN.search(line) for line in versions.values())
+    )
+    return [] if valid else ["backend"]
+
+
+def _job_problems(receipt: dict, requests: list, recorded: dict) -> list[str]:
+    """Check job records against the fixed launch order of a default-limit run."""
+    limits = Limits()
+    jobs = receipt["jobs"]
+    planned = [("Fold", None, ["--version"]), ("efn2", None, ["--version"])]
+    references = [0, 1]
+    for request in requests:
+        prior = recorded[request.case_id]
+        for key, program, args in (
+            ("fold_job", "Fold", list(fold_args(request))),
+            ("efn2_job", "efn2", list(EFN2_ARGS)),
+        ):
+            if prior[key] is not None:
+                references.append(prior[key])
+                planned.append((program, request.case_id, args))
+    problems = []
+    if (
+        receipt["total_jobs"] != len(jobs)
+        or len(jobs) > limits.max_jobs
+        or sum(job["seconds"] for job in jobs) > limits.total_seconds
+    ):
+        problems.append("total_jobs")
+    if len(planned) != len(jobs) or references != list(range(len(planned))):
+        problems.append("job_accounting")
+    for index, (job, plan) in enumerate(zip(jobs, planned, strict=False)):
+        if (job["program"], job["case"], job["args"]) != plan or not (
+            job["index"] == index
+            and 0 < job["timeout_seconds"] <= limits.job_seconds
+            and job["outcome"] in OUTCOMES
+            and isinstance(job["exit_code"], int) == (job["outcome"] == "exited")
+        ):
+            problems.append(f"job_{index}_record")
+    return problems
+
+
+def _job_at(jobs: list, index) -> dict | None:
+    """Return a referenced job; a dangling reference reads as not run."""
+    return jobs[index] if isinstance(index, int) and 0 <= index < len(jobs) else None
+
+
+def _audit(raw: bytes, fixtures: dict, requests: list, receipt: dict, output: Path):
+    problems = [] if receipt["fixtures_sha256"] == _sha256(raw) else ["fixtures_sha256"]
+    if receipt["schema_version"] != RECEIPT_VERSION:
+        problems.append("schema_version")
+    if receipt["settings"] != _settings():
+        problems.append("settings")
+    if receipt["limits"] != _limits(Limits()):
+        problems.append("limits")
+    problems += _backend_problems(receipt["backend"], fixtures["backend_pins"])
+    recorded = {case["id"]: case for case in receipt["cases"]}
+    problems += _job_problems(receipt, requests, recorded)
+    jobs = receipt["jobs"]
+    for job in jobs:
+        case_id = job["case"]
+        directory = (
+            output / "identity" if case_id is None else output / "cases" / case_id
+        )
+        for stream in ("stdout", "stderr"):
+            path = directory / f"{job['program'].lower()}.{stream}"
+            if _file_sha256(path) != job[f"{stream}_sha256"]:
+                problems.append(f"job_{job['index']}_{stream}")
+    cases = []
+    for request, case in zip(requests, fixtures["executed"], strict=True):
+        prior = recorded[request.case_id]
+        fold_job, efn2_job = (
+            _job_at(jobs, prior[key]) for key in ("fold_job", "efn2_job")
+        )
+        directory = output / "cases" / request.case_id
+        problems += input_problems(request, directory)
+        cases.append(_assess_case(request, case, directory, fold_job, efn2_job))
+    derived = _conclusions(fixtures, cases)
+    return problems + [key for key, value in derived.items() if receipt[key] != value]
+
+
+def reaudit(fixtures_path: Path, output: Path) -> dict:
+    """Recheck a stored run offline against the fixed contract; make no backend call.
+
+    Returns an audit report binding the execution receipt, its recorded runner
+    identity, this auditor's identity and every saved file hash.
+    """
     raw = fixtures_path.read_bytes()
     fixtures = json.loads(raw)
     requests = validate_fixtures(fixtures, Limits())
-    receipt = json.loads((output / "receipt.json").read_text())
+    receipt_raw = (output / "receipt.json").read_bytes()
+    receipt = json.loads(receipt_raw)
     try:
-        problems = (
-            [] if receipt["fixtures_sha256"] == _sha256(raw) else ["fixtures_sha256"]
-        )
-        jobs = receipt["jobs"]
-        for job in jobs:
-            case_id = job["case"]
-            directory = (
-                output / "identity" if case_id is None else output / "cases" / case_id
-            )
-            for stream in ("stdout", "stderr"):
-                path = directory / f"{job['program'].lower()}.{stream}"
-                if _file_sha256(path) != job[f"{stream}_sha256"]:
-                    problems.append(f"job_{job['index']}_{stream}")
-        recorded = {case["id"]: case for case in receipt["cases"]}
-        cases = []
-        for request, case in zip(requests, fixtures["executed"], strict=True):
-            prior = recorded[request.case_id]
-            fold_job = None if prior["fold_job"] is None else jobs[prior["fold_job"]]
-            efn2_job = None if prior["efn2_job"] is None else jobs[prior["efn2_job"]]
-            if fold_job is not None and fold_job["args"] != list(fold_args(request)):
-                problems.append(f"job_{fold_job['index']}_args")
-            if efn2_job is not None and efn2_job["args"] != list(EFN2_ARGS):
-                problems.append(f"job_{efn2_job['index']}_args")
-            directory = output / "cases" / request.case_id
-            cases.append(_assess_case(request, case, directory, fold_job, efn2_job))
-        derived = _conclusions(fixtures, cases)
-        problems += [key for key, value in derived.items() if receipt[key] != value]
-    except (KeyError, TypeError, IndexError):
-        return ["malformed_receipt"]
-    return problems
+        problems = _audit(raw, fixtures, requests, receipt, output)
+    except (KeyError, TypeError, IndexError, AttributeError):
+        problems = ["malformed_receipt"]
+    saved = {
+        path.relative_to(output).as_posix(): _file_sha256(path)
+        for path in sorted(output.rglob("*"))
+        if path.is_file() and path != output / "receipt.json"
+    }
+    return {
+        "schema_version": AUDIT_VERSION,
+        "reproduced": not problems,
+        "problems": problems,
+        "fixtures_sha256": _sha256(raw),
+        "execution_receipt_sha256": _sha256(receipt_raw),
+        "execution_runner_sha256": receipt.get("runner_sha256")
+        if isinstance(receipt, dict)
+        else None,
+        "auditor_sha256": _sha256(Path(__file__).read_bytes()),
+        "backend_calls": 0,
+        "checked": list(CHECKED),
+        "not_validated": list(NOT_VALIDATED),
+        "saved_files": saved,
+    }
 
 
 def main(argv=None) -> int:
@@ -875,6 +1015,7 @@ def main(argv=None) -> int:
     audit_parser = commands.add_parser("reaudit", help="recheck stored outputs offline")
     audit_parser.add_argument("--output", type=Path, required=True)
     audit_parser.add_argument("--fixtures", type=Path, default=FIXTURES)
+    audit_parser.add_argument("--audit-receipt", type=Path, help="new file to write")
     args = parser.parse_args(argv)
     try:
         if args.command == "run":
@@ -888,9 +1029,14 @@ def main(argv=None) -> int:
             }
             print(json.dumps(summary, indent=2))
             return 0 if receipt["all_expectations_met"] else 1
-        problems = reaudit(args.fixtures, args.output)
-        print(json.dumps({"reproduced": not problems, "problems": problems}, indent=2))
-        return 1 if problems else 0
+        report = reaudit(args.fixtures, args.output)
+        if args.audit_receipt is not None:
+            with args.audit_receipt.open("x") as stream:
+                json.dump(report, stream, indent=2)
+                stream.write("\n")
+        summary = {key: report[key] for key in ("reproduced", "problems")}
+        print(json.dumps(summary, indent=2))
+        return 0 if report["reproduced"] else 1
     except (SetupError, OSError, ValueError) as exc:
         print(f"error: {exc}", file=sys.stderr)
         return 2

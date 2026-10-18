@@ -10,6 +10,7 @@ import copy
 import io
 import json
 import runpy
+import shutil
 import stat
 import sys
 import tempfile
@@ -22,6 +23,8 @@ from benchmarks.riboswitch import constrained_reference as c
 REPO = Path(__file__).resolve().parents[2]
 FIXTURES_PATH = REPO / "benchmarks/riboswitch/canonical-fixtures.json"
 RECEIPT_PATH = REPO / "benchmarks/riboswitch/canonical-receipt.json"
+AUDIT_PATH = REPO / "benchmarks/riboswitch/canonical-reaudit.json"
+MODULE_PATH = REPO / "benchmarks/riboswitch/constrained_reference.py"
 TABLES_PATH = REPO / "src/regsite/data/rnastructure-tables.json"
 HAIRPIN = "GGGAGCGAAAGCUCCC"
 HAIRPIN_PAIRS = ((1, 16), (2, 15), (3, 14), (4, 13), (5, 12), (6, 11))
@@ -33,8 +36,9 @@ def ct_text(sequence, pairs, energy="-1.0", name="synthetic"):
     header = f"{len(sequence):5d}  " + (
         f"ENERGY = {energy}  {name}" if energy is not None else name
     )
+    n = len(sequence)
     rows = [
-        f"{i:5d} {base} {i - 1:5d} {i + 1:5d} {partner.get(i, 0):5d} {i:5d}"
+        f"{i:5d} {base} {i - 1:5d} {(i + 1) % (n + 1):5d} {partner.get(i, 0):5d} {i:5d}"
         for i, base in enumerate(sequence, 1)
     ]
     return "\n".join([header, *rows]) + "\n"
@@ -268,6 +272,27 @@ class ParserTest(unittest.TestCase):
             with self.subTest(code), self.assertRaises(c.OutputError) as caught:
                 c.parse_ct(text, sequence)
             self.assertEqual(caught.exception.code, code)
+        rows_with = {
+            "invalid_ct_row": ("1 G 0 2 9 x", "1 G 0 x 9 1", "1 G x 2 9 1"),
+            "invalid_ct_backbone": ("1 G 99 99 9 1", "1 G 0 3 9 1", "1 G 1 2 9 1"),
+        }
+        for code, replacements in rows_with.items():
+            for row in replacements:
+                text = "\n".join([rows[0], row, *rows[2:]])
+                with self.subTest(row), self.assertRaises(c.OutputError) as caught:
+                    c.parse_ct(text, "GGGAAACCC")
+                self.assertEqual(caught.exception.code, code)
+        for index, row in (
+            (5, "    5 A     4     7     0     5"),
+            (9, "    9 C     8    10     1     9"),
+        ):
+            text = "\n".join([*rows[:index], row, *rows[index + 1 :]])
+            with self.subTest(row), self.assertRaises(c.OutputError) as caught:
+                c.parse_ct(text, "GGGAAACCC")
+            self.assertEqual(caught.exception.code, "invalid_ct_backbone")
+        # Natural numbering is ignored by RNAstructure; only its integer form counts.
+        renumbered = "\n".join([rows[0], "1 G 0 2 9 500", *rows[2:]])
+        self.assertEqual(c.parse_ct(renumbered, "GGGAAACCC")[0], ((1, 9), (2, 8)))
         for row in ("1 G 0 2 x 1", "2 G 0 2 9 1", "1 G 0 2 99 1", "1 G 0 2 1 1"):
             text = "\n".join([rows[0], row, *rows[2:]])
             with self.subTest(row), self.assertRaises(c.OutputError) as caught:
@@ -519,34 +544,131 @@ class RunTest(unittest.TestCase):
             self.assertEqual(set(env), {"DATAPATH", "OMP_NUM_THREADS", "LC_ALL"})
             self.assertLessEqual(timeout, 120)
         self.assertEqual(json.loads((output / "receipt.json").read_text()), receipt)
-        self.assertEqual(c.reaudit(path, output), [])
+        report = c.reaudit(path, output)
+        self.assertEqual((report["reproduced"], report["problems"]), (True, []))
+        self.assertEqual(report["backend_calls"], 0)
+        self.assertEqual(report["auditor_sha256"], c._sha256(MODULE_PATH.read_bytes()))
+        self.assertEqual(report["execution_runner_sha256"], receipt["runner_sha256"])
+        self.assertEqual(
+            report["execution_receipt_sha256"],
+            c._sha256((output / "receipt.json").read_bytes()),
+        )
+        self.assertNotIn("receipt.json", report["saved_files"])
+        self.assertEqual(
+            report["saved_files"]["cases/noop/constraint.con"],
+            cases["noop"]["constraint_sha256"],
+        )
+        self.assertNotIn("cases/hairpin/constraint.con", report["saved_files"])
         with self.assertRaises(c.SetupError):
             c.run(path, self.root, self.archive, output, engine)
 
     def test_reaudit_detects_tampering(self):
         fixtures, structures = self.standard()
         path = self.write_fixtures(fixtures)
-        output = self.base / "run"
-        c.run(path, self.root, self.archive, output, FakeEngine(structures))
-        receipt_path = output / "receipt.json"
-        original = receipt_path.read_text()
-        (output / "cases/open/fold.stdout").write_text("changed")
-        ct = output / "cases/hairpin/output.ct"
-        ct.write_text(ct.read_text().replace("ENERGY = -6.0", "ENERGY = -7.0"))
-        problems = c.reaudit(path, output)
-        self.assertIn("job_2_stdout", problems)
-        self.assertIn("cases", problems)
-        receipt = json.loads(original)
-        receipt["jobs"][2]["args"] = ["changed"]
-        receipt["jobs"][3]["args"] = ["changed"]
-        receipt_path.write_text(json.dumps(receipt))
-        self.assertIn("job_2_args", c.reaudit(path, output))
-        self.assertIn("job_3_args", c.reaudit(path, output))
-        receipt_path.write_text(json.dumps({"fixtures_sha256": "x"}))
-        self.assertEqual(c.reaudit(path, output), ["malformed_receipt"])
+        pristine = self.base / "run"
+        c.run(path, self.root, self.archive, pristine, FakeEngine(structures))
+        original = json.loads((pristine / "receipt.json").read_text())
+
+        def problems(change):
+            copy_dir = self.base / "mutated"
+            shutil.rmtree(copy_dir, ignore_errors=True)
+            shutil.copytree(pristine, copy_dir)
+            receipt = copy.deepcopy(original)
+            change(copy_dir, receipt)
+            (copy_dir / "receipt.json").write_text(json.dumps(receipt))
+            return c.reaudit(path, copy_dir)["problems"]
+
+        def edit(relative, text):
+            return lambda d, r: (d / relative).write_text(text)
+
+        def job(position, **fields):
+            return lambda d, r: r["jobs"][position].update(fields)
+
+        hairpin_ct = (pristine / "cases/hairpin/output.ct").read_text()
+        expected = [
+            (lambda d, r: None, []),
+            (edit("cases/open/fold.stdout", "changed"), ["job_2_stdout"]),
+            (
+                edit("cases/hairpin/output.ct", hairpin_ct.replace("-6.0", "-7.0")),
+                ["cases"],
+            ),
+            (
+                edit("cases/noop/constraint.con", "corrupted\n"),
+                ["case_noop_constraint.con", "cases"],
+            ),
+            (
+                lambda d, r: (d / "cases/noop/constraint.con").unlink(),
+                ["case_noop_constraint.con", "cases"],
+            ),
+            (
+                edit("cases/hairpin/constraint.con", "DS:\n-1\n"),
+                ["case_hairpin_constraint.con"],
+            ),
+            (
+                edit("cases/open/input.fa", ">open\nAAAAAAAU\n"),
+                ["case_open_input.fa", "cases"],
+            ),
+            (
+                lambda d, r: r["settings"].update(temperature_k="300"),
+                ["settings"],
+            ),
+            (lambda d, r: r["limits"].update(job_seconds=500), ["limits"]),
+            (lambda d, r: r.update(total_jobs=5), ["total_jobs"]),
+            (lambda d, r: r.update(schema_version="x"), ["schema_version"]),
+            (
+                lambda d, r: r["backend"]["versions"].update(Fold="Fold 6.5"),
+                ["backend"],
+            ),
+            (lambda d, r: r["backend"].update(fold_sha256="0"), ["backend"]),
+            (job(2, args=["changed"]), ["job_2_record"]),
+            (job(2, timeout_seconds=500), ["job_2_record"]),
+            (job(2, exit_code=None), ["job_2_record"]),
+            (job(2, outcome="crashed"), ["job_2_record"]),
+            (job(2, index=7), ["job_2_record"]),
+            (job(2, seconds=10_000), ["total_jobs"]),
+            (
+                lambda d, r: r["cases"][0].update(fold_job=3, efn2_job=2),
+                ["job_accounting"],
+            ),
+            (
+                lambda d, r: r.update(jobs=r["jobs"][:-1], total_jobs=11),
+                ["job_accounting", "cases"],
+            ),
+        ]
+        for index, (change, wanted) in enumerate(expected):
+            with self.subTest(index):
+                found = problems(change)
+                # Each mutation must name its own check; derived sections may cascade.
+                self.assertEqual(found[: len(wanted)] if wanted else found, wanted)
+        self.assertEqual(problems(lambda d, r: r.pop("jobs")), ["malformed_receipt"])
+        mutated = self.base / "mutated"
+        (mutated / "receipt.json").write_text("[]")
+        report = c.reaudit(path, mutated)
+        self.assertEqual(report["problems"], ["malformed_receipt"])
+        self.assertIsNone(report["execution_runner_sha256"])
         other = self.write_fixtures({**fixtures, "scope": "changed"}, "other.json")
-        receipt_path.write_text(original)
-        self.assertIn("fixtures_sha256", c.reaudit(other, output))
+        self.assertIn("fixtures_sha256", c.reaudit(other, pristine)["problems"])
+
+    def test_inputs_are_verified_before_launch(self):
+        fixtures, structures = self.standard()
+        path = self.write_fixtures(fixtures)
+        engine = FakeEngine(structures)
+
+        def corrupt(request, directory):
+            (directory / "input.fa").write_text(">x\nA\n")
+
+        with (
+            patch.object(c, "_write_inputs", corrupt),
+            self.assertRaisesRegex(c.SetupError, "case_open_input.fa"),
+        ):
+            c.run(path, self.root, self.archive, self.base / "run", engine)
+        self.assertEqual([cmd[1] for cmd in engine.commands], [["--version"]] * 2)
+        unconstrained = request(mode="unconstrained")
+        directory = self.base / "inputs"
+        directory.mkdir()
+        c._write_inputs(unconstrained, directory)
+        self.assertEqual(c.input_problems(unconstrained, directory), [])
+        self.assertFalse((directory / "constraint.con").exists())
 
     def test_failure_modes_propagate_without_retry(self):
         executed = [
@@ -650,7 +772,7 @@ class RunTest(unittest.TestCase):
         )
         self.assertFalse(second["expectation_met"])
         self.assertEqual(receipt["relations"][0]["evaluable"], False)
-        self.assertEqual(c.reaudit(path, self.base / "run"), [])
+        self.assertEqual(c.reaudit(path, self.base / "run")["problems"], [])
 
     def test_setup_refusals(self):
         fixtures, structures = self.standard()
@@ -689,7 +811,7 @@ class CommandLineTest(unittest.TestCase):
             script.write_text(
                 f"#!{sys.executable}\nimport sys\na = sys.argv[1:]\n"
                 "ct = '    4  ENERGY = 0  x\\n' + ''.join("
-                "f'{i} A {i-1} {i+1} 0 {i}\\n' for i in range(1, 5))\n"
+                "f'{i} A {i-1} {(i+1) % 5} 0 {i}\\n' for i in range(1, 5))\n"
                 f"if a == ['--version']:\n    print('{program}: Version 6.6 (x).')\n"
                 f"    sys.exit(1)\n{body}\n"
             )
@@ -739,10 +861,14 @@ class CommandLineTest(unittest.TestCase):
         receipt = json.loads((output / "receipt.json").read_text())
         self.assertTrue(receipt["executor"].endswith("constrained_reference.execute"))
         self.assertEqual(receipt["jobs"][0]["exit_code"], 1)
-        code, out, _ = self.main(
-            "reaudit", "--output", output, "--fixtures", self.fixtures
-        )
+        audit = self.base / "audit.json"
+        args = ("reaudit", "--output", output, "--fixtures", self.fixtures)
+        code, out, _ = self.main(*args, "--audit-receipt", audit)
         self.assertEqual((code, json.loads(out)["reproduced"]), (0, True))
+        self.assertEqual(json.loads(audit.read_text())["problems"], [])
+        code, _, err = self.main(*args, "--audit-receipt", audit)
+        self.assertEqual(code, 2)
+        self.assertEqual(self.main(*args)[0], 0)
         code, _, _ = self.main("reaudit", "--output", output, "--fixtures", self.unmet)
         self.assertEqual(code, 1)
         code, _, err = self.main(*self.run_args(self.fixtures, output))
@@ -821,6 +947,46 @@ class CommittedReceiptTest(unittest.TestCase):
         derived = c._conclusions(self.fixtures, cases)
         for key in ("rejected", "relations", "all_expectations_met"):
             self.assertEqual(self.receipt[key], derived[key])
+
+
+class CommittedAuditTest(unittest.TestCase):
+    """The offline audit receipt binds the frozen run to the current auditor."""
+
+    def test_audit_binds_execution_and_saved_files(self):
+        audit = json.loads(AUDIT_PATH.read_text())
+        receipt = json.loads(RECEIPT_PATH.read_text())
+        fixtures = json.loads(FIXTURES_PATH.read_text())
+        self.assertEqual(audit["schema_version"], c.AUDIT_VERSION)
+        self.assertEqual((audit["reproduced"], audit["problems"]), (True, []))
+        self.assertEqual(audit["backend_calls"], 0)
+        self.assertEqual(
+            audit["execution_receipt_sha256"], c._sha256(RECEIPT_PATH.read_bytes())
+        )
+        self.assertEqual(audit["execution_runner_sha256"], receipt["runner_sha256"])
+        self.assertNotEqual(audit["auditor_sha256"], receipt["runner_sha256"])
+        self.assertEqual(audit["auditor_sha256"], c._sha256(MODULE_PATH.read_bytes()))
+        self.assertEqual(audit["fixtures_sha256"], receipt["fixtures_sha256"])
+        self.assertEqual(audit["checked"], list(c.CHECKED))
+        self.assertEqual(audit["not_validated"], list(c.NOT_VALIDATED))
+        saved = audit["saved_files"]
+        requests = c.validate_fixtures(fixtures, c.Limits())
+        for request, case in zip(requests, receipt["cases"], strict=True):
+            for name, raw in c.expected_inputs(request).items():
+                key = f"cases/{request.case_id}/{name}"
+                self.assertEqual(
+                    saved.get(key), None if raw is None else c._sha256(raw)
+                )
+            self.assertEqual(
+                saved.get(f"cases/{case['id']}/output.ct"), case["ct_sha256"]
+            )
+            self.assertEqual(
+                saved.get(f"cases/{case['id']}/energy.txt"), case["energy_sha256"]
+            )
+        for job in receipt["jobs"]:
+            folder = "identity" if job["case"] is None else f"cases/{job['case']}"
+            for stream in ("stdout", "stderr"):
+                key = f"{folder}/{job['program'].lower()}.{stream}"
+                self.assertEqual(saved[key], job[f"{stream}_sha256"])
 
 
 if __name__ == "__main__":

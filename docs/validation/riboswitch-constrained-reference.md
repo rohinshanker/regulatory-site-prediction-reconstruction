@@ -69,9 +69,15 @@ The environment contains only `DATAPATH=<installation>/data_tables`,
 `OMP_NUM_THREADS=1` and `LC_ALL=C`; no shell is used. Isolated-pair
 heuristics, dangles and coaxial stacking stay at RNAstructure 6.6 defaults.
 Jobs run one at a time, each with at most 120 s, at most 30 processes and 900 s
-in total, and no retries. The output directory must be new. Fold must exit 0
-and write exactly one reciprocal, noncrossing, canonical CT for the submitted
-sequence. Any other outcome is `backend_failed`, never repaired. A valid CT
+in total, and no retries. The output directory must be new. Before Fold
+launches, the saved `input.fa` must equal `>id\nSEQUENCE\n`. `constraint.con`
+must hold exactly the validated demand bytes, or be absent for an unconstrained
+case; otherwise the run stops. Fold must exit 0 and write exactly one
+reciprocal, noncrossing, canonical CT for the submitted sequence. Its backbone
+must be one linear strand: previous `n−1`, next `n+1`, and next 0 on the last
+base. The natural-numbering column must be an integer. The manual says
+RNAstructure ignores its value, so no position mapping is inferred from it.
+Any other outcome is `backend_failed`, never repaired. A valid CT
 missing a demand is `constraint_violated`. efn2 then evaluates that same CT.
 `--MFE` returns one deterministic traceback; among equal minima the returned
 structure is recorded, not proven unique.
@@ -114,6 +120,24 @@ is asserted from the other. The impossible case is contract-valid, but the fixed
 deliberately left to the engine, and its failure propagates without a guessed
 structure.
 
+## Offline audit
+
+`reaudit` makes no backend call. It checks the receipt's schema, settings,
+limits, backend pins, table manifest and version lines against the fixed run
+contract. It also checks job count, order, programs, arguments, timeouts,
+outcomes, wall-time total, and case-to-job references. The saved
+stdout/stderr, FASTA and constraint bytes are compared with the validated
+demands, and every CT, energy and conclusion is recomputed. It does not
+validate the recorded execution runner hash, executor label, Python or platform.
+Wall times are only bounded, and binary ancestry is not established.
+
+The frozen execution receipt and saved inputs were not rerun or rewritten.
+The [audit receipt](../../benchmarks/riboswitch/canonical-reaudit.json) binds
+that receipt's hash, the execution runner `7ce2de5e…b9f2`, the auditor `b1e7db9d…3804c`
+and all 69 saved file hashes. The auditor hash is the current
+`constrained_reference.py`; it differs from the execution runner identity.
+Any later code change needs a new audit receipt.
+
 ## Supported use and remaining gates
 
 This supports one bounded component: exact canonical, nested, fixed-state
@@ -123,8 +147,9 @@ structure and its efn2 energy, or an explicit failure.
 
 It does not establish the published model's backend: the 2015 supplement's
 pseudoknot section cites ViennaRNA 1.8.5 canonical-stem energies, and the 2023
-study's aptamer constraints used ViennaRNA 2.5/Turner 2004 without dangles. RNAstructure 6.6 differs in parameters,
-dangles, coaxial stacking, isolated-pair heuristics and traceback. The
+study's aptamer constraints used ViennaRNA 2.5/Turner 2004 without dangles.
+RNAstructure 6.6 differs in parameters, dangles, coaxial stacking,
+isolated-pair heuristics and traceback. The
 following remain separate gates: ligand binding energy and occupancy, volume
 conservation, metastability and kinetic corrections, intermolecular RBS/aSD
 constrained cofolding, partition functions, and SHAPE or other restraint
@@ -143,12 +168,13 @@ python -m benchmarks.riboswitch.constrained_reference run \
   --rnastructure /path/to/original/RNAstructure \
   --source-archive /path/to/RNAstructureSource.tgz \
   --output /new/private/run
-python -m benchmarks.riboswitch.constrained_reference reaudit --output /new/private/run
+python -m benchmarks.riboswitch.constrained_reference reaudit --output /new/private/run \
+  --audit-receipt /new/private/reaudit.json
 PYTHONPATH=src python -m pytest tests/benchmarks/test_riboswitch_constrained_reference.py \
   --cov=benchmarks.riboswitch --cov-branch --cov-report=term-missing
 ```
 
 `run` exits 0 when every expectation is met, 1 otherwise, and 2 on a fixture,
-pin, version or output-directory refusal. `reaudit` makes no backend call; it
-rechecks stored stdout/stderr, CT and energy hashes, the recorded arguments,
-and every derived conclusion.
+pin, version, input-byte or output-directory refusal. `reaudit` exits 0 when
+reproduced, 1 when any problem is listed, and 2 when files are missing or the
+audit receipt path already exists.
