@@ -1,7 +1,7 @@
 # Paired regulatory prediction runtime contract
 
 - Purpose: Compare supplied current and recoded sequences without confusing geometric changes, model scores and measured regulation.
-- Scope: A ticket #41; producer library/CLI and portable results. Implementation follows the Promoter candidate freeze.
+- Scope: A ticket #41; producer library/CLI and portable results. Independent edit geometry proceeds in isolation; predictor integration follows the Promoter candidate freeze.
 - Last verified: 2026-10-18
 
 This is an implementation contract, not an executed comparator. B's independent
@@ -118,8 +118,9 @@ comparison version; raw scores and missingness remain available to callers.
 
 ## Verification and execution order
 
-Freeze the Promoter candidate first, then implement this scope in a separate
-worktree so B can evaluate the immutable earlier candidate. Reproduce all B
+Implement dependency-independent edit geometry in a separate worktree while the
+Promoter review runs. Freeze the Promoter candidate before integrating its
+predictor, so B can evaluate that immutable earlier candidate. Reproduce all B
 literal edit fixtures and compare every interval/base path on both strands,
 including circular boundaries. Test unchanged-sequence controls, no-change edits,
 substitutions, insertion/deletion, unequal replacements, overlaps and malformed
