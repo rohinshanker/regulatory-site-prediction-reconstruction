@@ -8,6 +8,11 @@
 - RBS is the first implemented and released calculator. Discovery for other
   calculators can run in parallel; do not let a suite-wide audit block a ready
   RBS slice. Avoid duplicate implementations in the cyano consumer repository.
+- Owner authorization on 2026-10-18 permits isolated Promoter and subsequent
+  calculator/recoding-comparison implementation alongside RBS release preparation.
+  Actual RBS publication is no longer a prerequisite for branch implementation.
+  Publication and consumer admission retain their separate gates; preserve the
+  canonical/cyano checkouts. See `docs/validation/wave5-program.md`.
 - Search for a complete, usable, openly licensed implementation before writing
   a replacement. A wrapper, public form, directory listing, or `.pyc` file is not
   proof of a complete source implementation.

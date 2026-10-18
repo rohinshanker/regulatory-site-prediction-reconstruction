@@ -33,10 +33,9 @@ Phase 1:
 2. Freeze the new Promoter input/result/core API contract and file ownership.
    Admitted source arrays, equations and independent fixtures already exist;
    avoid another broad discovery pass or an unnecessary legacy runtime stack.
-3. Confirm the owner's decision about parallel Promoter branch development.
-   The current dependency remains actual RBS release until explicitly changed.
-   Do independent contracts/release work while pending; never treat timeout as
-   authorization. Record an approved change in AGENTS/parent tickets/program.
+3. The owner authorized parallel branch implementation on 2026-10-18; the decision
+   is recorded in AGENTS and the shared program. Continue Phase 2 while release
+   publication remains separate. Preserve the candidate and evaluation gates.
 
 Phase 2, when the dependency permits:
 

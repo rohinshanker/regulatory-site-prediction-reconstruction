@@ -4,8 +4,9 @@
 - Scope: Ticket #33 (parent #7). Specified implementation contract for `regsite-promoter`; not an executed runtime, a hosted-parity claim or a scientific accuracy claim.
 - Last verified: 2026-10-18
 
-**Status.** The scoring runtime and CLI are not implemented. The owner decision
-on parallel Promoter development is pending; this document authorizes no runtime code. Equations,
+**Status.** The scoring runtime and CLI are not yet implemented. On 2026-10-18
+the owner authorized isolated implementation alongside RBS release preparation,
+as recorded in the [Wave 5 program](wave5-program.md). Equations,
 parameters and 212-state expectations come from the pinned
 [source and benchmark audit](promoter-source-and-benchmarks.md) and
 [executed reference](promoter-executed-reference.md). Ownership follows the
