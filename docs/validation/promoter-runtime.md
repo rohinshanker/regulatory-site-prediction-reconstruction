@@ -264,10 +264,12 @@ performed anywhere.
   for each listed strand. `range` and `strands` are required (no default range, so
   padding never becomes a candidate implicitly); `0 <= a <= b <= L`; `strands` is a
   non-empty list of distinct `+`/`-`, and order of results is strand in listed order,
-  then ascending `f`. `a == b` plans no sites (record `no_candidate`/`empty_scan`).
+  then ascending `f`. `a == b` plans no sites (valid, supported record finalized
+  in preflight as `no_candidate`/`empty_scan`, before deadline handling).
 - `{"mode":"positions","positions":[{"strand":"+","tss":100},…]}`: exactly the
   requested points, in request order; `strand` required per item; duplicates are
   `duplicate_position`; out-of-range is `position_out_of_range` (no clipping).
+  An empty `positions` list follows the same empty-scan preflight rule.
 
 Both modes retain **every** planned candidate as a listed site, including
 insufficient-context and deadline-unattempted sites. The runtime never samples,
@@ -456,7 +458,9 @@ The four disjoint counts `scored_sites + insufficient_context_sites + failed_sit
 denominator. An unattempted site's status is `failed` with `attempted:false`;
 every site carries `attempted` so the counts can be reconstructed. Context
 eligibility is computed from coordinates before scoring, even for unattempted
-sites. Empty scans have zero counts and vacuously true completeness fields.
+sites. Valid, supported empty scans have zero counts, vacuously true
+`complete`/`complete_context`, and `truncation:null`, even if a batch deadline
+has already expired; see the preflight precedence below.
 
 Site: `site_id`, `strand` (local site strand), `tss` (`forward_base` local,
 `oriented_base`), `genomic` (`null` without projection; else `contig`, `base`,
@@ -607,10 +611,29 @@ message; messages are not part of the contract.
 Batch rules: validate every record first (all `invalid_input`/`unsupported`
 results exist even if scoring later times out), then score in input order,
 single-threaded, one record at a time. One bad record never discards another.
-Deadlines are checked between sites with an injectable monotonic clock; a record
-that exceeds `seconds_per_record`, or any record not started when
-`seconds_per_batch` ends, is `failed`/`deadline_exceeded`; unattempted planned
-sites are still listed, as failed sites without scores. Exceeding a count/size limit is a pre-flight `invalid_input`/`limit_exceeded`
+
+**Empty-scan precedence.** After validation, preflight finalizes every valid,
+supported record with zero planned sites as `status:"no_candidate"`,
+`reasons:["empty_scan"]`, `sites:[]`, and `errors:[]`. Its normal non-null
+`prediction_id` is retained. All six coverage counts are zero,
+`coverage.complete` and `coverage.complete_context` are true, and
+`coverage.truncation` is null. No site processing is required, so neither a
+record nor batch deadline can change that result, including when the batch
+deadline expires before its position in the input order is reached. An invalid
+or unsupported empty request retains that higher-priority status and its null
+coverage/prediction ID; an empty scan never bypasses validation. A result with
+`status:"failed"` and zero planned sites is therefore inconsistent with this
+contract. Empty records do not make `batch.complete` false; another failed
+record still does.
+
+Deadlines are checked between sites with an injectable monotonic clock. For a
+validated, supported **nonempty** record, an expired deadline only causes
+`failed`/`deadline_exceeded` when planned site processing remains: the record
+deadline interrupts remaining sites, or the batch deadline prevents starting
+or continuing them. Unattempted planned sites are still listed as failed sites
+without scores. A record whose sites are all finished is not retroactively
+failed because the clock expires before the next record. Exceeding a count/size
+limit is a pre-flight `invalid_input`/`limit_exceeded`
 for that record; a limit on the whole input (bytes, records) is a setup error.
 Never silently truncate, subsample or clip a scan.
 
@@ -826,7 +849,7 @@ In addition, the Promoter candidate passes the following before freeze.
 | 4 | Coordinates | Local windows fixture; reverse fixture (129, 130, `[166,190)`); exhaustive property test for every `L` in 78..120 and the 200 cases: local-`-` site equals local-`+` evaluation of the reverse complement mapped back, interval map is an involution; evaluable counts 123 per strand for `L=200`, local `+` `f` in `[58,180]`, local `-` `f` in `[19,141]`; all-30-state ranges `[67,L-20]` (`+`) and `[19,L-68]` (`-`); the one-base gap present; legacy key never used as a base; no reverse complement occurs for transcript-oriented local-`+` scans (spy test on `orient`). |
 | 5 | Ties | Exact-tie fixture, first visited wins; strictly-lower later state replaces; ulp-different states are not ties; `tie_count` correct; no host or sigma input changes selection. |
 | 6 | Boundaries and retention | Lengths 77/78/87, left 57/58, right 180/181, edge states 0..29; edge-retention example (`[56,60)` gives four listed sites with 0, 0, 1, 3 states and null scores on the first two); every planned candidate present in order in both modes; padding never listed unless in range; grid example `C=4, L=90, [67,71)` gives four 30-state sites and `C` swept over several values gives `L=C+86` all-30; local `-` padding asymmetry; empty range; range at 0 and `L`; positions at both ends; limits and one past each. |
-| 7 | Errors | Every code in the code list has a test; each status; precedence; mixed batch continuity; duplicate IDs and positions; deadline with injected clock and a real tight deadline; unsupported controls; exit codes 0/1/2; no partial `ok` on truncation. |
+| 7 | Errors | Every code in the code list has a test; each status; precedence; mixed batch continuity; duplicate IDs and positions; deadline with injected clock and a real tight deadline; valid empty range/list remains `no_candidate` with complete zero coverage under an already-expired batch clock, while invalid/unsupported empty requests retain their status and an unstarted nonempty record fails; completed records never retroactively fail; unsupported controls; exit codes 0/1/2; no partial `ok` on truncation. |
 | 8 | Numerics | `relative_score` at the exact log bounds and ±1 ulp, overflow/underflow nulls with finite logs; no nonfinite JSON numbers, and no zero/subnormal stand-in for an underflowed relative score. Legitimate zero terms/coordinates remain valid. |
 | 9 | Calibration | Required, no silent default; profiles K/beta; `host_status` matrix; extrapolation warning text present; no `sigma`/temperature field accepted or emitted; `claims` all false. |
 | 10 | Projection | The eight worked examples reproduced exactly (both local strands, both `sequence_strand` values, linear and circular crossing); brute-force per-base agreement for all combinations over small `L`, `contig_length`, `origin`; linear out-of-bounds, circular `L > contig_length`, undeclared and mismatched crossing, contig conflict; genomic strand composition; IDs change with `sequence_strand`/`origin`; GFF3 one-based inclusive, genomic strand column, unwrapped circular end, escaping and order along transcription. |
