@@ -84,6 +84,16 @@ membership. Groups use `promoter-native-groups-1`: `labels_document_sha256`
 and exactly one supplied nonempty group per label. Groups are never inferred
 from names.
 
+The [runtime adapter](promoter-runtime-adapter.md) emits
+`promoter-native-scores-2`. This version retains every candidate, in query and
+local-index order, for every request status. Each result also preserves its
+`runtime_status`; setup failures, execution failures and invalid inputs normalize
+to failed requests with explicit null candidates. A failed runtime record may
+retain successful candidate scores for the separate successful-position summary,
+but never gains all-case credit. The legacy scores-1 format and its metric
+behavior remain supported unchanged. V2 coverage adds complete-roster candidate
+counts and raw runtime-status counts without changing the predeclared endpoints.
+
 Direction is required (`--direction lower` for the raw Promoter score). Within
 each query, `ok` candidates are ranked by score. Ties break by genomic point
 ascending and then by local index. Top-k positions are matched to that query's
