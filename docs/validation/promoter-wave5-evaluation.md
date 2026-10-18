@@ -4,7 +4,7 @@
 - Scope: Session B, Wave 5 tickets #34/#35; no model fitting or hosted jobs.
 - Last verified: 2026-10-18
 - Planning baseline: `d37ebd7d8eb2422389d003e3fc2ebab2aa5c6466`.
-- State: Phase 1 protocol; final collection requires reviewed tools, immutable input/settings hashes and A's candidate/gate receipt.
+- State: Phase 1 protocol; final collection requires reviewed tools, immutable input/settings hashes and A's immutable candidate/settings/resource receipt.
 
 ## Authority and independence
 
@@ -216,15 +216,18 @@ Test preparation, status accounting, matching, ties and uncertainty on synthetic
 labels. B independently reviews Claude's exact tool patch. Freeze protocol,
 source/annotation policies, queries/labels/groups, tool hashes, candidate commit,
 parameters and full backend/runtime settings before the first real prediction.
-Record any owner-approved release-gate exception; elapsed time is not approval.
+Owner authorization at `457ac340d1bf66fed976896015f13f3ed8d08c54` permits
+isolated implementation alongside RBS release preparation. Collection still
+requires the immutable candidate/settings/resource receipt; elapsed time does
+not supply it.
 The reviewed public interface is `docs/validation/promoter-runtime.md` at
 `5b890a3c307d366a828d95812f22a2b9975e6cfe`. Interface preparation and synthetic
-adapter tests may proceed while the gate is pending. They do not authorize a
-runtime implementation, a real input collection or a label/outcome join.
+adapter tests and isolated runtime implementation may proceed. A real input
+collection or label/outcome join still requires the final frozen receipt.
 
 The final receipt must bind these separately checkable items before collection:
 
-- The recorded release dependency or owner exception, immutable candidate commit,
+- The recorded implementation authorization, immutable candidate commit,
   wheel hash, implementation version, complete emitted model object, six-key
   `identity_model`, model/parameter/source hashes and the exact reviewed public
   interface. A version string alone is insufficient.

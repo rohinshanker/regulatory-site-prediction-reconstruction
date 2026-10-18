@@ -1,6 +1,7 @@
 """Offline historical Promoter scoring with explicit calibration and scan scope."""
 
 import argparse
+import io
 import sys
 from contextlib import nullcontext
 
@@ -40,9 +41,13 @@ def main(argv: list[str] | None = None) -> int:
             cli_states=args.states,
             output_format=args.format,
         )
+        stream = io.StringIO()
         {"json": write_json, "csv": write_csv, "gff3": write_gff3}[args.format](
-            result, sys.stdout
+            result, stream
         )
+        rendered = stream.getvalue()
+        rendered.encode("utf-8")  # Validate the complete export before touching stdout.
+        sys.stdout.write(rendered)
         return int(
             any(r["status"] in ("invalid_input", "failed") for r in result["results"])
         )

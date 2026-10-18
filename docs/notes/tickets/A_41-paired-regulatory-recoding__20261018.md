@@ -4,8 +4,8 @@
 - Status: active
 - Opened: 2026-10-18
 - Updated: 2026-10-18
-- Current State: Owner authorized sustained calculator implementation on 2026-10-18. Parent #10 consumer admission stays separate. The proposed public contract is docs/validation/paired-regulatory-runtime.md, adopting B's exact paired-edit-input-1 geometry and independent candidate universes. Dependency-independent edit geometry begins in its own worktree while #33 review/resources run. Predictor integration follows the frozen Promoter runtime and also works independently with existing RBS scoring.
-- Verification: Implementation acceptance below; no comparison runtime or biological improvement result claimed yet.
+- Current State: Owner authorized sustained calculator implementation on 2026-10-18. Parent #10 consumer admission stays separate. The proposed public contract is docs/validation/paired-regulatory-runtime.md, adopting B's exact paired-edit-input-1 geometry and independent candidate universes. Dependency-independent edit geometry is implemented at dba6b1c in its separate worktree and under exact-patch Claude review DEM-535 against B's literal fixtures. Predictor integration follows the frozen Promoter runtime and also works independently with existing RBS scoring.
+- Verification: Edit geometry has 48 tests at 100% of 123 statements/44 branches, plus clean Ruff/format/mypy. Predictor orchestration remains unimplemented; no biological improvement result claimed.
 - Cleanup: Session A alone resolves this scoped ticket after tested implementation, reusable contract distillation and index cleanup.
 
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/41

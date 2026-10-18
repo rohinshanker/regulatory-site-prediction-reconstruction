@@ -1,0 +1,465 @@
+{
+  "cases": [
+    {
+      "expected_current_to_recoded": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "expected_recoded_to_current": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "input": {
+        "current": {
+          "id": "unchanged:current",
+          "sequence": "ACGT"
+        },
+        "edits": [],
+        "pair_id": "unchanged",
+        "recoded": {
+          "id": "unchanged:recoded",
+          "sequence": "ACGT"
+        },
+        "schema_version": "paired-edit-input-1",
+        "topology": "linear"
+      }
+    },
+    {
+      "expected_current_to_recoded": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "expected_recoded_to_current": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "input": {
+        "current": {
+          "id": "substitution:current",
+          "sequence": "AACCGGTT"
+        },
+        "edits": [
+          {
+            "end": 3,
+            "id": "e0",
+            "replacement": "T",
+            "start": 2
+          }
+        ],
+        "pair_id": "substitution",
+        "recoded": {
+          "id": "substitution:recoded",
+          "sequence": "AATCGGTT"
+        },
+        "schema_version": "paired-edit-input-1",
+        "topology": "linear"
+      }
+    },
+    {
+      "expected_current_to_recoded": [
+        0,
+        1,
+        4,
+        5
+      ],
+      "expected_recoded_to_current": [
+        0,
+        1,
+        null,
+        null,
+        2,
+        3
+      ],
+      "input": {
+        "current": {
+          "id": "internal-insertion:current",
+          "sequence": "ACGT"
+        },
+        "edits": [
+          {
+            "end": 2,
+            "id": "e0",
+            "replacement": "TT",
+            "start": 2
+          }
+        ],
+        "pair_id": "internal-insertion",
+        "recoded": {
+          "id": "internal-insertion:recoded",
+          "sequence": "ACTTGT"
+        },
+        "schema_version": "paired-edit-input-1",
+        "topology": "linear"
+      }
+    },
+    {
+      "expected_current_to_recoded": [
+        0,
+        1,
+        null,
+        null,
+        2,
+        3,
+        4,
+        5
+      ],
+      "expected_recoded_to_current": [
+        0,
+        1,
+        4,
+        5,
+        6,
+        7
+      ],
+      "input": {
+        "current": {
+          "id": "internal-deletion:current",
+          "sequence": "AACCGGTT"
+        },
+        "edits": [
+          {
+            "end": 4,
+            "id": "e0",
+            "replacement": "",
+            "start": 2
+          }
+        ],
+        "pair_id": "internal-deletion",
+        "recoded": {
+          "id": "internal-deletion:recoded",
+          "sequence": "AAGGTT"
+        },
+        "schema_version": "paired-edit-input-1",
+        "topology": "linear"
+      }
+    },
+    {
+      "expected_current_to_recoded": [
+        0,
+        1,
+        null,
+        null,
+        null,
+        4,
+        5,
+        6
+      ],
+      "expected_recoded_to_current": [
+        0,
+        1,
+        null,
+        null,
+        5,
+        6,
+        7
+      ],
+      "input": {
+        "current": {
+          "id": "unequal-replacement:current",
+          "sequence": "AACCGGTT"
+        },
+        "edits": [
+          {
+            "end": 5,
+            "id": "e0",
+            "replacement": "TA",
+            "start": 2
+          }
+        ],
+        "pair_id": "unequal-replacement",
+        "recoded": {
+          "id": "unequal-replacement:recoded",
+          "sequence": "AATAGTT"
+        },
+        "schema_version": "paired-edit-input-1",
+        "topology": "linear"
+      }
+    },
+    {
+      "expected_current_to_recoded": [
+        0,
+        null,
+        null,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "expected_recoded_to_current": [
+        0,
+        null,
+        null,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "input": {
+        "current": {
+          "id": "adjacent-edits:current",
+          "sequence": "ACGTACGT"
+        },
+        "edits": [
+          {
+            "end": 1,
+            "id": "e0",
+            "replacement": "T",
+            "start": 0
+          },
+          {
+            "end": 3,
+            "id": "e1",
+            "replacement": "",
+            "start": 1
+          },
+          {
+            "end": 3,
+            "id": "e2",
+            "replacement": "AA",
+            "start": 3
+          },
+          {
+            "end": 8,
+            "id": "e3",
+            "replacement": "CCCC",
+            "start": 4
+          }
+        ],
+        "pair_id": "adjacent-edits",
+        "recoded": {
+          "id": "adjacent-edits:recoded",
+          "sequence": "TAATCCCC"
+        },
+        "schema_version": "paired-edit-input-1",
+        "topology": "linear"
+      }
+    },
+    {
+      "expected_current_to_recoded": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "expected_recoded_to_current": [
+        0,
+        1,
+        2,
+        3,
+        null,
+        null
+      ],
+      "input": {
+        "current": {
+          "id": "terminal-insertion:current",
+          "sequence": "ACGT"
+        },
+        "edits": [
+          {
+            "end": 4,
+            "id": "e0",
+            "replacement": "AA",
+            "start": 4
+          }
+        ],
+        "pair_id": "terminal-insertion",
+        "recoded": {
+          "id": "terminal-insertion:recoded",
+          "sequence": "ACGTAA"
+        },
+        "schema_version": "paired-edit-input-1",
+        "topology": "linear"
+      }
+    },
+    {
+      "expected_current_to_recoded": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "expected_recoded_to_current": [
+        null,
+        null,
+        0,
+        1,
+        2,
+        3
+      ],
+      "input": {
+        "current": {
+          "id": "initial-insertion:current",
+          "sequence": "ACGT"
+        },
+        "edits": [
+          {
+            "end": 0,
+            "id": "e0",
+            "replacement": "AA",
+            "start": 0
+          }
+        ],
+        "pair_id": "initial-insertion",
+        "recoded": {
+          "id": "initial-insertion:recoded",
+          "sequence": "AAACGT"
+        },
+        "schema_version": "paired-edit-input-1",
+        "topology": "linear"
+      }
+    },
+    {
+      "expected_current_to_recoded": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "expected_recoded_to_current": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "input": {
+        "current": {
+          "id": "circle-control:current",
+          "sequence": "ACGT"
+        },
+        "edits": [],
+        "pair_id": "circle-control",
+        "recoded": {
+          "id": "circle-control:recoded",
+          "sequence": "ACGT"
+        },
+        "schema_version": "paired-edit-input-1",
+        "topology": "circular"
+      }
+    },
+    {
+      "expected_current_to_recoded": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "expected_recoded_to_current": [
+        null,
+        0,
+        1,
+        2,
+        3
+      ],
+      "input": {
+        "current": {
+          "id": "circle-origin-insertion:current",
+          "sequence": "ACGT"
+        },
+        "edits": [
+          {
+            "end": 0,
+            "id": "e0",
+            "replacement": "A",
+            "start": 0
+          }
+        ],
+        "pair_id": "circle-origin-insertion",
+        "recoded": {
+          "id": "circle-origin-insertion:recoded",
+          "sequence": "AACGT"
+        },
+        "schema_version": "paired-edit-input-1",
+        "topology": "circular"
+      }
+    },
+    {
+      "expected_current_to_recoded": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "expected_recoded_to_current": [
+        null,
+        null,
+        null
+      ],
+      "input": {
+        "current": {
+          "id": "entire-replacement:current",
+          "sequence": "ACGT"
+        },
+        "edits": [
+          {
+            "end": 4,
+            "id": "e0",
+            "replacement": "AAA",
+            "start": 0
+          }
+        ],
+        "pair_id": "entire-replacement",
+        "recoded": {
+          "id": "entire-replacement:recoded",
+          "sequence": "AAA"
+        },
+        "schema_version": "paired-edit-input-1",
+        "topology": "linear"
+      }
+    },
+    {
+      "expected_current_to_recoded": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "expected_recoded_to_current": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "input": {
+        "current": {
+          "id": "declared-no-change:current",
+          "sequence": "ACGT"
+        },
+        "edits": [
+          {
+            "end": 3,
+            "id": "e0",
+            "replacement": "CG",
+            "start": 1
+          }
+        ],
+        "pair_id": "declared-no-change",
+        "recoded": {
+          "id": "declared-no-change:recoded",
+          "sequence": "ACGT"
+        },
+        "schema_version": "paired-edit-input-1",
+        "topology": "linear"
+      }
+    }
+  ],
+  "schema_version": "paired-edit-fixtures-1",
+  "scope": "Independent synthetic explicit edit maps; no model outputs, experimental labels or biological gain/loss expectations."
+}

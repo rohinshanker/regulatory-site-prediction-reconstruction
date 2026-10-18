@@ -82,7 +82,9 @@ The field names `dG_total`/`dG_apparent` are inherited source names. These are
 learned score terms, not independently calibrated physical free energies.
 Likewise `42*exp(-beta*score)` is the source's relative transcription-score rule,
 not evidence of an absolute rate or native cyanobacterial accuracy. Promoter
-runtime work remains #7, after the actual first-RBS-release milestone #6.
+runtime work remains #7/#33. Owner authorization at `457ac340` permits isolated
+implementation alongside RBS release preparation; collection and publication
+retain their separate gates.
 
 ## Reproduction
 
@@ -115,3 +117,80 @@ The offline test command requires no optional source environment; its source API
 mocks test audit plumbing, while the separately executed receipt substantiates
 actual upstream inference. Source failures and earlier development attempts remain
 outside Git; do not erase or mislabel them as successful unmodified execution.
+
+## Public runtime parity panel
+
+The [source-parity input](../../benchmarks/promoter/source-parity-request.json)
+contains the 11 frozen cases in both local strand orientations: 22 records and
+424 expected complete states. Reverse inputs are reverse complements, so they
+exercise the same source arithmetic with independently transformed coordinates.
+Each record requests all states and the selected state's elements, plus the
+explicit legacy key. Synthetic projections cover both sequence strands and
+linear/circular origins; they carry no native labels. The
+[expectation artifact](../../benchmarks/promoter/source-parity-expectations.json)
+keeps state order, exact selected/tie expectations, all numerical terms, log and
+relative scores, local/oriented/genomic intervals and strand-correct TSS points.
+
+The [builder](../../benchmarks/promoter/source_parity.py) uses the existing
+independent oracle, verifies each source state's frozen numerical values, then
+maps individual bases before assembling genomic intervals. It imports no
+reconstruction. The synthetic panel is frozen before the runtime candidate:
+
+| Artifact | SHA256 |
+| --- | --- |
+| Runtime request | `fbc5b8b9c99c7ffc4558ff5a423c1b7bdd237a7ebc993aac9505890c4a9c89d3` |
+| Numerical/coordinate expectations | `bc7121f05f7b1a87e93995bd627a1a44a808e09b5167236c75fd5547eb6f33fc` |
+| Independently re-executed historical/fork receipt | `a2934ceab65a72e15e6b96cb16fe2ddd0b1ff19fc66c8a471e313594eb739353` |
+
+The source receipt is byte-identical to the earlier checked-in executed receipt;
+this is source execution, not new-runtime or native collection. The optional
+source environment remains isolated and unchanged. Reproduce panel bytes and
+independent per-base geometry checks without that optional environment:
+
+```sh
+PYTHONPATH=src:. python -m pytest -q tests/benchmarks/test_promoter_source_parity.py
+PYTHONPATH=. python - <<'PY'
+from benchmarks.promoter.source_parity import build_panel
+from pathlib import Path
+request, expectations = build_panel()
+assert request == Path("benchmarks/promoter/source-parity-request.json").read_bytes()
+assert expectations == Path("benchmarks/promoter/source-parity-expectations.json").read_bytes()
+PY
+```
+
+At collection, bind the exact request and expected artifacts to A's immutable
+candidate/model/settings/resource receipt. Source parity uses absolute/relative
+1e-12 tolerance; record selection, state order/count, coordinate values and
+status/tie semantics are exact. Model and batch identities are additional receipt
+checks, not contained in these candidate-independent expected score fields.
+Retain no-candidate cases in the 22-record denominator. A failed, missing or
+partial source-parity record cannot be credited as a pass. Do not consume native
+outcomes to repair a source discrepancy.
+
+The [public-result checker](../../benchmarks/promoter/source_parity_check.py)
+accepts exact CLI result bytes and a separately frozen adapter-format identity/
+settings manifest. Both CLI defaults must be null because this panel explicitly
+requests mixed profiles and all states. It checks the source parameter file against the frozen expectation hash and
+binds model/source/array identity,
+full model object, limits/deadlines, batch/prediction/site/state IDs, input hashes,
+complete record/state rosters, numerical terms, selection, coordinates, elements
+and coverage. Missing, failed, reordered or partial records fail parity. Received
+and authoritative pretty JSON sizes are independently bounded. Warnings must be code/message objects; the panel requires the legacy-key code
+and, for its host-absent E. coli records, host_unspecified. Missing, duplicate
+or inapplicable codes fail; explanatory wording is not an identity key. The successful audit records
+candidate/wheel/manifest, input/expectation/result and both checker/adapter hashes.
+
+```python
+from benchmarks.promoter.source_parity_check import check
+# result_bytes came from the frozen candidate's public CLI; manifest is the
+# reviewed candidate/settings receipt, never inferred from the observed result.
+audit = check(result_bytes, manifest)
+```
+
+This function neither launches inference nor proves that the asserted wheel was
+used; the collection receipt must independently bind that execution. Synthetic
+mutation tests check the validator, not source parity of an unexecuted candidate:
+
+```sh
+PYTHONPATH=src:. python -m pytest -q tests/benchmarks/test_promoter_source_parity_check.py
+```

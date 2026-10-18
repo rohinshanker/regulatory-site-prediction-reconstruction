@@ -45,10 +45,10 @@ jobs:
         run: |
           ruff check src tests experiments tools
           ruff format --check src tests experiments tools
-          ruff check benchmarks/rbs/structural.py benchmarks/rbs/new_data.py benchmarks/rbs/wave4_*.py benchmarks/rbs/context_panel.py benchmarks/rbs/context_metrics.py benchmarks/promoter
-          ruff format --check benchmarks/rbs/structural.py benchmarks/rbs/new_data.py benchmarks/rbs/wave4_*.py benchmarks/rbs/context_panel.py benchmarks/rbs/context_metrics.py benchmarks/promoter
+          ruff check benchmarks/rbs/structural.py benchmarks/rbs/new_data.py benchmarks/rbs/wave4_*.py benchmarks/rbs/context_panel.py benchmarks/rbs/context_metrics.py benchmarks/promoter benchmarks/recoding benchmarks/riboswitch
+          ruff format --check benchmarks/rbs/structural.py benchmarks/rbs/new_data.py benchmarks/rbs/wave4_*.py benchmarks/rbs/context_panel.py benchmarks/rbs/context_metrics.py benchmarks/promoter benchmarks/recoding benchmarks/riboswitch
           mypy src/regsite experiments tools
-          python -m pytest --cov=regsite --cov=benchmarks.rbs --cov=benchmarks.promoter --cov=experiments.rbs --cov=tools.derive_promoter_parameters --cov-report=term-missing
+          python -m pytest --cov=regsite --cov=benchmarks.rbs --cov=benchmarks.promoter --cov=benchmarks.recoding --cov=benchmarks.riboswitch --cov=experiments.rbs --cov=tools.derive_promoter_parameters --cov-report=term-missing
           git diff --check
       - name: Build and validate both separately licensed repairs
         shell: bash
@@ -59,8 +59,8 @@ jobs:
           export RNASTRUCTURE66_PATCHED="$GITHUB_WORKSPACE/.cache/traceback-fixed/RNAstructure"
           export RNASTRUCTURE66_LINKER3="$GITHUB_WORKSPACE/.cache/linker-fixed/RNAstructure"
           python -m unittest discover -s backends/rnastructure66/tests -v
-          REGSITE_RNASTRUCTURE="$RNASTRUCTURE66_PATCHED" python -m pytest --cov=regsite --cov=benchmarks.rbs --cov=benchmarks.promoter --cov=experiments.rbs --cov-report=term-missing
-          REGSITE_RNASTRUCTURE="$RNASTRUCTURE66_LINKER3" python -m pytest --cov=regsite --cov=benchmarks.rbs --cov=benchmarks.promoter --cov=experiments.rbs --cov-report=term-missing
+          REGSITE_RNASTRUCTURE="$RNASTRUCTURE66_PATCHED" python -m pytest --cov=regsite --cov=benchmarks.rbs --cov=benchmarks.promoter --cov=benchmarks.recoding --cov=benchmarks.riboswitch --cov=experiments.rbs --cov-report=term-missing
+          REGSITE_RNASTRUCTURE="$RNASTRUCTURE66_LINKER3" python -m pytest --cov=regsite --cov=benchmarks.rbs --cov=benchmarks.promoter --cov=benchmarks.recoding --cov=benchmarks.riboswitch --cov=experiments.rbs --cov-report=term-missing
       - name: Build and run fresh offline wheel installation
         shell: bash
         run: |

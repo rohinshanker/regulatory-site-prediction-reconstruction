@@ -246,6 +246,11 @@ It names the normalization policy, not a list of edits. It is `null`, together
 with normalized-DNA hash/length, if normalization fails or is not performed
 because an earlier sequence check fails. A later failure in another field does
 not erase successfully normalized input information.
+An unpaired Unicode surrogate in a sequence is `invalid_character` at its raw
+index. It has no UTF-8 representation, so its raw hash is null and valid sibling
+records still execute. Host names and contig identifiers must also encode as
+UTF-8; invalid values receive their field's validation error. If sequence length
+is unavailable, projection shape is checked but no extent or crossing is inferred.
 
 Omitted `metadata` emits `metadata:null`; explicit `{}` emits `{}`. A valid
 supplied object is echoed without Unicode, numeric or value normalization.
@@ -720,7 +725,11 @@ for the selected state: Name `tss` (single base), `hex35`, `hex10`, `UP`, `space
 generic `region`: no Sequence Ontology term is asserted, because specific names
 were not verified against the authoritative ontology in this contract, and the
 features are model windows, not experimentally observed boundaries; none is typed
-`promoter`. Mapping to specific ontology terms is a later non-breaking addition
+`promoter`. GFF feature IDs append `:record:<record_id>:<element>` to the site ID,
+so overlapping records have distinct features while sharing the same scientific
+site identity. A `record_id` attribute preserves the enclosing record. The CLI
+renders and UTF-8-checks the complete export before writing stdout; rendering
+errors cannot emit a partial header. Mapping to specific ontology terms is a later non-breaking addition
 that requires verification. The one-base gap and `extended10` stay JSON-only.
 
 ## Limits and refinement before freeze
@@ -735,13 +744,17 @@ changing semantics, requires measurements below and an amendment to this documen
 | Raw sequence text chars | 50,000 | record `limit_exceeded` |
 | Normalized bases per record | 5,000 | record `limit_exceeded` |
 | Normalized bases per batch | 100,000 | later records `limit_exceeded` |
-| Planned sites per record | 5,000 | record `limit_exceeded` |
-| Planned sites per batch | 20,000 | later records `limit_exceeded` |
-| `states:"all"` planned sites per record / emitted states per record / per batch | 100 / 3,000 / 10,000 | record `limit_exceeded` |
+| Planned sites per record | 1,000 | record `limit_exceeded` |
+| Planned sites per batch | 4,000 | later records `limit_exceeded` |
+| `states:"all"` planned sites per record / emitted states per record / per batch | 100 / 2,000 / 2,000 | record `limit_exceeded` |
 | Serialized result JSON | 64 MiB | setup error (exit 2), nothing written |
 | `metadata` | 4,096 bytes, depth 4 | record `limit_exceeded` |
 | `seconds_per_record` default / max | 30 / 120 | option error |
 | `seconds_per_batch` default / max | 300 / 3600 | option error |
+
+The effective candidate limits were lowered after synthetic resource probes;
+original ceiling probes remain in the measurement tool for reproducibility.
+Cross-platform admission and the candidate receipt are still pending.
 
 Single thread; no operating-system memory quota is claimed. Effective limits are
 echoed in `batch.limits`, with exactly the following keys. This object shows the
@@ -761,11 +774,11 @@ object, including unchanged limits, and the runtime must echo that object exactl
   "max_raw_sequence_chars_per_record": 50000,
   "max_normalized_bases_per_record": 5000,
   "max_normalized_bases_per_batch": 100000,
-  "max_planned_sites_per_record": 5000,
-  "max_planned_sites_per_batch": 20000,
+  "max_planned_sites_per_record": 1000,
+  "max_planned_sites_per_batch": 4000,
   "max_all_state_sites_per_record": 100,
-  "max_all_states_per_record": 3000,
-  "max_all_states_per_batch": 10000,
+  "max_all_states_per_record": 2000,
+  "max_all_states_per_batch": 2000,
   "max_result_json_bytes": 67108864,
   "max_metadata_json_bytes": 4096,
   "max_metadata_depth": 4,
@@ -817,8 +830,8 @@ inform any limit.
    whose range plans exactly the per-record site ceiling, the largest permitted
    batch, and `states:"all"` at its ceilings.
 2. On each CI platform/Python combination run three timed repetitions per input;
-   record wall time, peak RSS (`/usr/bin/time -l` on macOS, `-v` on Linux) and
-   serialized bytes. Take the maximum per-site wall time `c`.
+   record wall time, peak RSS (`resource.getrusage`: bytes on macOS, KiB on Linux)
+   and serialized bytes. Take the maximum per-site wall time `c`.
 3. Admit a site/record/batch limit `N` only if `N·c` is at most half of the
    corresponding default deadline on the slowest platform and the worst-case
    serialized result is at most half of the 64 MiB ceiling; otherwise lower `N`.
@@ -859,15 +872,17 @@ Pure core (`regsite.promoter`, standard library only; Google style, typed):
 | `orient(local, strand) -> str` | Identity for local `+`, reverse complement for local `-`; the only reverse complement. |
 | `state_windows(t, d, s) -> dict[str, tuple[int,int]]` | Oriented intervals as defined above. |
 | `oriented_to_local_interval(length, strand, interval) -> tuple[int,int]` / `oriented_to_local_base(length, strand, oriented_t) -> int` | The only local-orientation converters. |
-| `project_base(projection, local_base) -> int` / `project_interval(projection, site_strand, interval) -> tuple[str, list[tuple[int,int]]]` | Genomic map above; returns genomic strand and runs in transcription order. Validates `check_projection(projection, length)`. |
+| `project_base(projection, local_base) -> int` / `project_interval(projection, site_strand, interval) -> tuple[str, list[tuple[int,int]]]` | Genomic map above; returns genomic strand and runs in transcription order. Caller must first validate the complete projection with `check_projection(projection, length)`. |
 | `legacy_source_key(length, strand, oriented_t) -> int` | `t` or `L-t`; not usable as a coordinate. |
 | `score_state(oriented, t, d, s, params) -> StateScore` | Terms as tabulated; no calibration. |
 | `relative_score(log_score) -> tuple[float \| None, str]` | Overflow/underflow policy. |
 | `score_site(local, strand, local_base, params, calibration, *, keep_states) -> SiteResult` | Visit order, strict-less selection, `tie_count`, `no_candidate`. |
-| `predict(request, params, *, seconds, clock) -> dict` | One validated record → record result. |
 
 I/O layer (`regsite.promoter_io`, `regsite.promoter_cli`): `load_requests`,
-`predict_batch`, `write_json`, `write_csv`, `write_gff3`, `main`. Disjoint ownership proposal for A's writers, freezing the core signatures
+`predict_batch`, `write_json`, `write_csv`, `write_gff3`, `main`. The internal
+`promoter_io.predict(PreparedRecord, params, *, seconds, clock, batch_deadline)`
+handles validated records and deadlines; consumers use `predict_batch` rather
+than constructing internal prepared records. Disjoint ownership proposal for A's writers, freezing the core signatures
 first: **core** `src/regsite/promoter.py`, the parameter JSON and `tools/derive_promoter_parameters.py`,
 `tests/test_promoter_core.py`, `tests/test_promoter_parity.py`, projection tests; **interface**
 `src/regsite/promoter_io.py`, `src/regsite/promoter_cli.py`,
