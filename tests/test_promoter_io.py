@@ -455,6 +455,30 @@ def test_unpaired_surrogates_are_isolated_record_errors(changes, code):
         stream.getvalue().encode("utf-8")
 
 
+@pytest.mark.parametrize(
+    "value,code,index,character",
+    [
+        ("N\ud800", "ambiguous_base", 0, "N"),
+        ("TU\ud800", "mixed_dna_rna", 1, "U"),
+        ("A\ud800N", "invalid_character", 1, "\ud800"),
+    ],
+)
+def test_first_bad_sequence_character_precedes_unencodable_raw_hash(
+    value, code, index, character
+):
+    record = one(sequence=value)
+    assert record["input"]["raw_sha256"] is None
+    assert record["errors"][0]["code"] == code
+    assert record["errors"][0]["index"] == index
+    assert record["errors"][0]["character"] == character
+
+
+def test_raw_character_limit_precedes_surrogate_normalization():
+    record = one(sequence="A" * 50000 + "\ud800")
+    assert record["reasons"] == ["limit_exceeded"]
+    assert record["input"]["raw_sha256"] is None
+
+
 def test_unknown_sequence_extent_does_not_invent_projection_errors():
     record = one(
         sequence="ACGTN" * 40,

@@ -27,11 +27,11 @@ LIMITS = {
     "max_raw_sequence_chars_per_record": 50_000,
     "max_normalized_bases_per_record": 5_000,
     "max_normalized_bases_per_batch": 100_000,
-    "max_planned_sites_per_record": 5_000,
-    "max_planned_sites_per_batch": 20_000,
+    "max_planned_sites_per_record": 1_000,
+    "max_planned_sites_per_batch": 4_000,
     "max_all_state_sites_per_record": 100,
-    "max_all_states_per_record": 3_000,
-    "max_all_states_per_batch": 10_000,
+    "max_all_states_per_record": 2_000,
+    "max_all_states_per_batch": 2_000,
     "max_result_json_bytes": 67_108_864,
     "max_metadata_json_bytes": 4_096,
     "max_metadata_depth": 4,
@@ -424,9 +424,13 @@ def _prepare(
         value = raw["sequence"]
         if not isinstance(value, str):
             raise promoter.InputError("invalid_type", "sequence")
-        result["input"]["raw_sha256"] = hashlib.sha256(
-            _utf8(value, "invalid_character", "sequence")
-        ).hexdigest()
+        try:
+            raw_bytes = value.encode("utf-8")
+        except UnicodeEncodeError:
+            # No UTF-8 byte identity exists; normalization reports the first error.
+            raw_bytes = None
+        if raw_bytes is not None:
+            result["input"]["raw_sha256"] = hashlib.sha256(raw_bytes).hexdigest()
         _limit("max_raw_sequence_chars_per_record", len(value), "sequence")
         normalized = promoter.normalize_dna(value, max_length=len(value))
         _limit("max_normalized_bases_per_record", len(normalized), "sequence")
