@@ -82,7 +82,9 @@ The field names `dG_total`/`dG_apparent` are inherited source names. These are
 learned score terms, not independently calibrated physical free energies.
 Likewise `42*exp(-beta*score)` is the source's relative transcription-score rule,
 not evidence of an absolute rate or native cyanobacterial accuracy. Promoter
-runtime work remains #7, after the actual first-RBS-release milestone #6.
+runtime work remains #7/#33. Owner authorization at `457ac340` permits isolated
+implementation alongside RBS release preparation; collection and publication
+retain their separate gates.
 
 ## Reproduction
 
