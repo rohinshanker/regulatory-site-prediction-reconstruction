@@ -1,0 +1,421 @@
+{
+  "affinity_cases": [
+    {
+      "expected_binding_kcal_mol": "0E-65",
+      "id": "reference_equals_kd",
+      "inputs": {
+        "kd_molar": "1",
+        "standard_molar": "1",
+        "temperature_kelvin": "310.15"
+      }
+    },
+    {
+      "expected_binding_kcal_mol": "-8.5149329751984460809207848606264507104895724679780672709931044960",
+      "id": "micromolar_kd",
+      "inputs": {
+        "kd_molar": "0.000001",
+        "standard_molar": "1",
+        "temperature_kelvin": "310.15"
+      }
+    },
+    {
+      "expected_binding_kcal_mol": "-4.2574664875992230404603924303132253552447862339890336354965522480",
+      "id": "shifted_standard",
+      "inputs": {
+        "kd_molar": "0.000001",
+        "standard_molar": "0.001",
+        "temperature_kelvin": "310.15"
+      }
+    }
+  ],
+  "analytic_partition_derivations": {
+    "positive_cost_fifth": "b=1/5, m=l=1, Cs=4, Vm=2, Vl=1, beta=1, switch=ln(16/5): D=2ln(1/4)-ln(1/5)+ln(16/5)=0.",
+    "stable_half": "b=1/4, m=1/2, l=5/4, Cs=4, Vm=2, Vl=1, beta=1, switch=-ln(4): D=0-ln(1/4)-ln(4)=0.",
+    "zero_switching": "Vm=Vl=beta=1,m=l=1,Cs=4,switch=0 gives 4b=(1-b)^2; the feasible root is b=3-sqrt(8)."
+  },
+  "decimal_precision": 65,
+  "gas_constant_j_mol_kelvin": "8.31446261815324",
+  "invalid_cases": [
+    {
+      "field": "beta_mol_per_kcal",
+      "function": "response",
+      "value": "0"
+    },
+    {
+      "field": "beta_mol_per_kcal",
+      "function": "response",
+      "value": "-1"
+    },
+    {
+      "field": "bound_fraction",
+      "function": "response",
+      "value": "-0.1"
+    },
+    {
+      "field": "bound_fraction",
+      "function": "response",
+      "value": "1.1"
+    },
+    {
+      "field": "rna_structural_cost_kcal_mol",
+      "function": "response",
+      "value": "-0.1"
+    },
+    {
+      "field": "ribosome_off_kcal_mol",
+      "function": "response",
+      "value": "NaN"
+    },
+    {
+      "field": "ribosome_on_kcal_mol",
+      "function": "response",
+      "value": "Infinity"
+    },
+    {
+      "field": "bound_fraction",
+      "function": "response",
+      "value": true
+    },
+    {
+      "field": "kd_molar",
+      "function": "affinity",
+      "value": "0"
+    },
+    {
+      "field": "kd_molar",
+      "function": "affinity",
+      "value": "-1"
+    },
+    {
+      "field": "standard_molar",
+      "function": "affinity",
+      "value": "0"
+    },
+    {
+      "field": "temperature_kelvin",
+      "function": "affinity",
+      "value": "0"
+    },
+    {
+      "field": "temperature_kelvin",
+      "function": "affinity",
+      "value": "-1"
+    },
+    {
+      "field": "kd_molar",
+      "function": "affinity",
+      "value": "-Infinity"
+    },
+    {
+      "field": "mrna_total_molar",
+      "function": "partition",
+      "value": "-1"
+    },
+    {
+      "field": "ligand_total_molar",
+      "function": "partition",
+      "value": "-1"
+    },
+    {
+      "field": "solvent_molar",
+      "function": "partition",
+      "value": "0"
+    },
+    {
+      "field": "mrna_relative_volume",
+      "function": "partition",
+      "value": "0"
+    },
+    {
+      "field": "ligand_relative_volume",
+      "function": "partition",
+      "value": "0"
+    },
+    {
+      "field": "beta_mol_per_kcal",
+      "function": "partition",
+      "value": "0"
+    },
+    {
+      "field": "switching_kcal_mol",
+      "function": "partition",
+      "value": "NaN"
+    }
+  ],
+  "joules_per_kcal": "4184",
+  "license": "GPL-3.0-or-later",
+  "partition_cases": [
+    {
+      "expected": {
+        "bound_fraction": "0.5",
+        "complex_molar": "0.25",
+        "ligand_free_molar": "1.00",
+        "mrna_free_molar": "0.25",
+        "status": "ok"
+      },
+      "id": "stable_half",
+      "inputs": {
+        "beta_mol_per_kcal": "1",
+        "ligand_relative_volume": "1",
+        "ligand_total_molar": "1.25",
+        "mrna_relative_volume": "2",
+        "mrna_total_molar": "0.5",
+        "solvent_molar": "4",
+        "switching_kcal_mol": "-1.3862943611198906188344642429163531361510002687205105082413600190"
+      }
+    },
+    {
+      "expected": {
+        "bound_fraction": "0.2",
+        "complex_molar": "0.2",
+        "ligand_free_molar": "0.8",
+        "mrna_free_molar": "0.8",
+        "status": "ok"
+      },
+      "id": "positive_cost_fifth",
+      "inputs": {
+        "beta_mol_per_kcal": "1",
+        "ligand_relative_volume": "1",
+        "ligand_total_molar": "1",
+        "mrna_relative_volume": "2",
+        "mrna_total_molar": "1",
+        "solvent_molar": "4",
+        "switching_kcal_mol": "1.1631508098056808630681691526065186327763991831725032945700721465"
+      }
+    },
+    {
+      "expected": {
+        "bound_fraction": "0.1715728752538099023966225515806038428606562492461038536466405240",
+        "complex_molar": "0.1715728752538099023966225515806038428606562492461038536466405240",
+        "ligand_free_molar": "0.8284271247461900976033774484193961571393437507538961463533594760",
+        "mrna_free_molar": "0.8284271247461900976033774484193961571393437507538961463533594760",
+        "status": "ok"
+      },
+      "id": "zero_switching",
+      "inputs": {
+        "beta_mol_per_kcal": "1",
+        "ligand_relative_volume": "1",
+        "ligand_total_molar": "1",
+        "mrna_relative_volume": "1",
+        "mrna_total_molar": "1",
+        "solvent_molar": "4",
+        "switching_kcal_mol": "0"
+      }
+    },
+    {
+      "expected": {
+        "bound_fraction": "0",
+        "complex_molar": "0",
+        "ligand_free_molar": "0",
+        "mrna_free_molar": "1",
+        "status": "ok"
+      },
+      "id": "no_ligand",
+      "inputs": {
+        "beta_mol_per_kcal": "1",
+        "ligand_relative_volume": "1",
+        "ligand_total_molar": "0",
+        "mrna_relative_volume": "2",
+        "mrna_total_molar": "1",
+        "solvent_molar": "4",
+        "switching_kcal_mol": "-1"
+      }
+    },
+    {
+      "expected": {
+        "bound_fraction": null,
+        "complex_molar": "0",
+        "ligand_free_molar": "1",
+        "mrna_free_molar": "0",
+        "status": "no_mrna"
+      },
+      "id": "no_mrna",
+      "inputs": {
+        "beta_mol_per_kcal": "1",
+        "ligand_relative_volume": "1",
+        "ligand_total_molar": "1",
+        "mrna_relative_volume": "2",
+        "mrna_total_molar": "0",
+        "solvent_molar": "4",
+        "switching_kcal_mol": "-1"
+      }
+    },
+    {
+      "expected": {
+        "bound_fraction": null,
+        "complex_molar": "0",
+        "ligand_free_molar": "0",
+        "mrna_free_molar": "0",
+        "status": "no_mrna"
+      },
+      "id": "neither_species",
+      "inputs": {
+        "beta_mol_per_kcal": "1",
+        "ligand_relative_volume": "1",
+        "ligand_total_molar": "0",
+        "mrna_relative_volume": "2",
+        "mrna_total_molar": "0",
+        "solvent_molar": "4",
+        "switching_kcal_mol": "-1"
+      }
+    }
+  ],
+  "purpose": "Independent synthetic algebra and volume-weighted equilibrium, not biological measurements or sequence-to-switch efficacy. No published fitted constants or NC data redistributed. beta=1 is synthetic, not a calibration.",
+  "response_cases": [
+    {
+      "expected": {
+        "actual_ratio": "1",
+        "concentration_ratio": "1",
+        "maximum_ratio": "1",
+        "metastability_applied": false
+      },
+      "id": "equal_states",
+      "inputs": {
+        "beta_mol_per_kcal": "1",
+        "bound_fraction": "0.3",
+        "ligand_binding_kcal_mol": "-2",
+        "ribosome_off_kcal_mol": "0",
+        "ribosome_on_kcal_mol": "0",
+        "rna_structural_cost_kcal_mol": "1"
+      }
+    },
+    {
+      "expected": {
+        "actual_ratio": "1",
+        "concentration_ratio": "1",
+        "maximum_ratio": "4",
+        "metastability_applied": false
+      },
+      "id": "zero_occupancy",
+      "inputs": {
+        "beta_mol_per_kcal": "1",
+        "bound_fraction": "0",
+        "ligand_binding_kcal_mol": "-2",
+        "ribosome_off_kcal_mol": "0",
+        "ribosome_on_kcal_mol": "-1.3862943611198906188344642429163531361510002687205105082413600190",
+        "rna_structural_cost_kcal_mol": "1"
+      }
+    },
+    {
+      "expected": {
+        "actual_ratio": "4",
+        "concentration_ratio": "4",
+        "maximum_ratio": "4",
+        "metastability_applied": false
+      },
+      "id": "full_occupancy",
+      "inputs": {
+        "beta_mol_per_kcal": "1",
+        "bound_fraction": "1",
+        "ligand_binding_kcal_mol": "-2",
+        "ribosome_off_kcal_mol": "0",
+        "ribosome_on_kcal_mol": "-1.3862943611198906188344642429163531361510002687205105082413600190",
+        "rna_structural_cost_kcal_mol": "1"
+      }
+    },
+    {
+      "expected": {
+        "actual_ratio": "2.5",
+        "concentration_ratio": "2.5",
+        "maximum_ratio": "4",
+        "metastability_applied": false
+      },
+      "id": "half_occupancy_stable",
+      "inputs": {
+        "beta_mol_per_kcal": "1",
+        "bound_fraction": "0.5",
+        "ligand_binding_kcal_mol": "-2.3862943611198906188344642429163531361510002687205105082413600190",
+        "ribosome_off_kcal_mol": "0",
+        "ribosome_on_kcal_mol": "-1.3862943611198906188344642429163531361510002687205105082413600190",
+        "rna_structural_cost_kcal_mol": "1"
+      }
+    },
+    {
+      "expected": {
+        "actual_ratio": "2.5",
+        "concentration_ratio": "2.5",
+        "maximum_ratio": "4",
+        "metastability_applied": false
+      },
+      "id": "zero_switching_boundary",
+      "inputs": {
+        "beta_mol_per_kcal": "1",
+        "bound_fraction": "0.5",
+        "ligand_binding_kcal_mol": "-1",
+        "ribosome_off_kcal_mol": "0",
+        "ribosome_on_kcal_mol": "-1.3862943611198906188344642429163531361510002687205105082413600190",
+        "rna_structural_cost_kcal_mol": "1"
+      }
+    },
+    {
+      "expected": {
+        "actual_ratio": "1.1428571428571428571428571428571428571428571428571428571428571429",
+        "concentration_ratio": "1.6",
+        "maximum_ratio": "4",
+        "metastability_applied": true
+      },
+      "id": "positive_cost_exact_factor",
+      "inputs": {
+        "beta_mol_per_kcal": "1",
+        "bound_fraction": "0.2",
+        "ligand_binding_kcal_mol": "-0.8368491901943191369318308473934813672236008168274967054299278535",
+        "ribosome_off_kcal_mol": "0",
+        "ribosome_on_kcal_mol": "-1.3862943611198906188344642429163531361510002687205105082413600190",
+        "rna_structural_cost_kcal_mol": "2"
+      }
+    },
+    {
+      "expected": {
+        "actual_ratio": "0.96428571428571428571428571428571428571428571428571428571428571429",
+        "concentration_ratio": "0.85",
+        "maximum_ratio": "0.25",
+        "metastability_applied": true
+      },
+      "id": "repression_positive_cost",
+      "inputs": {
+        "beta_mol_per_kcal": "1",
+        "bound_fraction": "0.2",
+        "ligand_binding_kcal_mol": "-0.8368491901943191369318308473934813672236008168274967054299278535",
+        "ribosome_off_kcal_mol": "0",
+        "ribosome_on_kcal_mol": "1.3862943611198906188344642429163531361510002687205105082413600190",
+        "rna_structural_cost_kcal_mol": "2"
+      }
+    },
+    {
+      "expected": {
+        "actual_ratio": "1",
+        "concentration_ratio": "1",
+        "maximum_ratio": "1",
+        "metastability_applied": true
+      },
+      "id": "equal_states_metastable",
+      "inputs": {
+        "beta_mol_per_kcal": "1",
+        "bound_fraction": "0.2",
+        "ligand_binding_kcal_mol": "-0.8368491901943191369318308473934813672236008168274967054299278535",
+        "ribosome_off_kcal_mol": "0",
+        "ribosome_on_kcal_mol": "0",
+        "rna_structural_cost_kcal_mol": "2"
+      }
+    }
+  ],
+  "schema_version": "conditional-aptamer-independent-fixtures-1",
+  "source_identity": {
+    "doi": "10.1093/nar/gkv1289",
+    "equations": [
+      "S4-S19",
+      "S20-S26"
+    ],
+    "gas_constant_source": "https://physics.nist.gov/cgi-bin/cuu/Value?r%7Csearch_for=R",
+    "reference_concentration_note": "S12 requires an explicit dimensionless Kd/standard_molar convention; it is not specified by the printed equation.",
+    "supplement_sha256": "b68da105ea6c8f6c26f6e6f66863d066c34b1052dd0eeb23159c96d0c1a861fe"
+  },
+  "volume_conventions": {
+    "complex_volume": "equal to free mrna",
+    "free_ligand_energy": "0",
+    "logarithm": "natural",
+    "normalization": "concentration divided by explicit solvent_molar; relative molecular volumes use solvent volume 1",
+    "packing_constraint": "none; report sum of volume fractions without adding a solvent/packing term"
+  },
+  "zero_switching_policy": "Strict-positive correction: exactly zero is uncorrected. This is a declared reconstruction policy at a source-unspecified boundary, not an explicit published zero-case rule."
+}

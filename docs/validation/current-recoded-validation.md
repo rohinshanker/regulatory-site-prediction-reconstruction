@@ -16,6 +16,28 @@ its map entries; later edits cannot shrink an already produced prefix.
 No alignment algorithm, nearest-coordinate join or annotation-name inference
 creates correspondence. Inputs are synthetic uppercase ACGT, not native outcomes.
 
+The exact nested input shape is:
+
+```json
+{
+  "schema_version": "paired-edit-input-1",
+  "pair_id": "insertion-example",
+  "topology": "linear",
+  "current": {"id": "current", "sequence": "ACGT"},
+  "recoded": {"id": "recoded", "sequence": "ACTTGT"},
+  "edits": [{"id": "e0", "start": 2, "end": 2, "replacement": "TT"}]
+}
+```
+
+Objects admit exactly the displayed keys. IDs are nonempty strings of at most
+128 characters; both sequences have 1–10,000 bases; at most 10,000 edits are
+allowed. Coordinates are genuine integers, excluding booleans. The producer
+`paired-regulatory-request-1` places this object under `pair`, alongside an
+explicit `calculator`, `current_request`, `recoded_request` and `settings`.
+Predictor requests bind each side's ID and normalized sequence and supply its
+own scan/strand/projection. This example describes geometry only; it is not a
+complete predictor request or a scoring-feasible RBS construct.
+
 Edits have unique IDs, nonoverlapping ranges and distinct starts. An insertion
 has an empty source range and nonempty replacement; a deletion has nonempty
 source and empty replacement. Empty-to-empty edits are invalid. Adjacent edits
@@ -57,8 +79,16 @@ expected-result method; no scoring implementation supplies expected coordinates.
 Each sequence has its own complete declared candidate universe. Match candidates
 only when an explicit mapped anchor and local strand identify exactly one
 counterpart under the same calculator/anchor definition. RBS start-codon anchors
-and Promoter TSS anchors are distinct universes. A feature crossing an edit is
-reported separately from its anchor mapping.
+and Promoter TSS anchors are distinct universes. RBS correspondence additionally
+requires all three start-codon bases to map to the other codon in transcription
+order: `[b,b+1,b+2]` on local `+` and `[b,b-1,b-2]` on local `-`. The complete
+path must fit inside the supplied string; circular genomic projection does not
+wrap its codon. Equal-length motif substitutions can still correspond. If a
+same-strand mapped anchor exists but the three-base paths disagree, retain both
+candidates as unmatched with `interrupted_codon`. Without such an anchor
+counterpart, the reason remains `mapped_anchor_absent`, even if internal codon
+bases are also disrupted. A feature crossing an edit is reported separately
+from its anchor mapping.
 
 Report unmatched source/target coordinates separately from mapped anchors absent
 from the opposite candidate universe. Use descriptions such as deleted coordinate,
@@ -104,6 +134,11 @@ and composes strands. `pair_candidates` validates caller-supplied complete roste
 requires four separate SHA256 identities (model, settings, backend, calibration)
 and retains every unmatched or unsuccessful candidate. A finite difference that
 overflows binary64 remains null with `nonfinite_delta`.
+
+That original `paired-prediction-audit-1` helper checks generic anchor-based
+score accounting. Its accepted pairs alone do not establish the additional RBS
+three-base correspondence requirement. Use the codon-specific expectations below
+when evaluating RBS matching; Promoter matching uses its mapped TSS anchor.
 
 The [12 literal input/map fixtures](../../benchmarks/recoding/synthetic-edit-fixtures.json)
 are synthetic. They cover unchanged sequence, declared no-change edit,
@@ -161,4 +196,48 @@ must not be presented as experimental evidence of a recoding effect.
 
 ```sh
 PYTHONPATH=src:. python -m pytest -q tests/benchmarks/test_recoding_runtime_panel.py
+```
+
+## Three-base RBS correspondence
+
+The separate [19-case panel](../../benchmarks/recoding/rbs-codon-correspondence-fixtures.json)
+has SHA256 `4dcd59ec3195178e93aa575524572ea94f012433701a615effb4fc7cb94283e6`.
+It preserves 19 current and 21 recoded candidates: six matched pairs and 16
+unmatched rows specifically caused by interrupted codon correspondence. Literal
+maps and expected partitions were fixed before implementing the
+[codon oracle](../../benchmarks/recoding/codon_pairs.py). The earlier 12-map and
+nine-long-pair files retain their original bytes.
+
+`match_rbs_candidates(document, current, recoded)` revalidates the original
+`paired-edit-input-1`, then accepts ordered rosters of exactly `{id,base,strand}`.
+It neither discovers motifs nor reads scores. IDs are nonempty and at most 128
+characters; coordinates are genuine integers; each side has unique IDs and
+anchor/strand pairs and at most 20,000 candidates. A caller must preserve failed
+candidate geometry when constructing these rosters. All three bases must fit,
+including for circular inputs. The returned `rbs-codon-correspondence-1` keeps
+both local/mapped paths, matched IDs, and both unmatched lists in their respective
+input orders. Every candidate belongs to exactly one pair or unmatched entry.
+
+For example, inserting `TG` after the first base of `ATG` gives `ATGTG`.
+The old codon path `[0,1,2]` maps to `[0,3,4]`, while the new codon at anchor 0
+uses `[0,1,2]`: both anchors are retained as `interrupted_codon`. The additional
+`GTG` at anchor 2 has an inserted coordinate. On the reverse complement, the
+same requirement holds in decreasing local-index order. By contrast, a declared
+equal-length `ATG`→`GTG` substitution preserves all three positions and matches.
+
+Other cases cover third-base insertion/deletion, internal unequal replacements,
+intact shifts, changed strand, changed motif eligibility, whole replacement and
+circular nonwrapping. Short strings test geometry only, not RBS scoring feasibility.
+The tests enumerate each complete ATG/GTG/TTG roster independently, then check
+all small single edits using distinct position tokens, sparse rosters and inverse
+edits. Boundary/refusal, ordering, empty rosters and input preservation checks are
+included. These tests do not establish numerical score or partial-record handling
+in A's comparator; those require its immutable public result and execution receipt.
+
+```sh
+PYTHONPATH=src:. python -m coverage run --branch --source=benchmarks.recoding \
+  -m pytest -q tests/benchmarks/test_recoding_edit_maps.py \
+  tests/benchmarks/test_recoding_runtime_panel.py \
+  tests/benchmarks/test_recoding_codon_pairs.py
+python -m coverage report --fail-under=100
 ```
