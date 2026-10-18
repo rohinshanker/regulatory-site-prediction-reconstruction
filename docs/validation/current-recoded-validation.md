@@ -128,3 +128,37 @@ checks. Its returned map is used in memory; it does not accept an unverified
 serialized mapping as authority. A's producer runtime and exports must receive
 an independent exact-candidate check against these frozen expectations before
 this ticket's implementation comparison can be resolved.
+
+## Calculator-sized synthetic pairs
+
+The [nine long pairs](../../benchmarks/recoding/runtime-pair-fixtures.json) use
+explicit 197–203-base synthetic backbones, with 18 supplied sequences, 17 literal
+RBS start candidates and 4,108 full-context Promoter positions across both local
+strands. They contain no measurements or predicted score expectations. The file
+SHA256 is `9ea3b25074c01502d8149dba99edc2e6cf6011f6940f9d5b3a074bfdcadb357c`.
+
+These inputs cover unchanged sequences, a declared no-change substitution,
+plus-strand creation/removal, minus-strand creation, indels before an anchor, unequal replacement
+of an anchor and circular reverse projection. Every side has its own projection
+and complete candidate universe. The insertion case deliberately retains a
+reverse-strand TTG created across its junction: its anchor maps to an existing
+base, so it is a newly eligible candidate at a mapped coordinate, not a newly
+inserted anchor. Literal codon lists are checked by independent direct enumeration.
+
+Promoter ranges in this **benchmark panel** are oriented TSS ranges `[67,L-19)`;
+they are not a combined public scan request. For local `-`, convert each TSS `t`
+to forward base `L-1-t` (equivalently forward range `[19,L-67)` in increasing
+order). Every listed position has all 30 source states. RBS lists include only
+ATG/GTG/TTG codons fully inside the supplied string; circular genomic projection
+does not silently add a codon across that string's ends. Feature probes preserve
+split intervals and unmatched bases independently of anchor matching.
+
+The test uses synthetic zero scores solely to verify matching/difference
+accounting; these are explicitly not model outputs. Actual paired RBS/Promoter
+execution, resource/failure coverage and numerical unchanged controls require
+A's versioned public comparison candidate and an execution receipt. This panel
+must not be presented as experimental evidence of a recoding effect.
+
+```sh
+PYTHONPATH=src:. python -m pytest -q tests/benchmarks/test_recoding_runtime_panel.py
+```
