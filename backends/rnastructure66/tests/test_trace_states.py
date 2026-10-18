@@ -181,11 +181,11 @@ int main() {
 
 
 class TraceStateTests(unittest.TestCase):
-    def make_program(self, wrong_penalty=False):
-        root = Path(os.environ["RNASTRUCTURE66_PATCHED"])
+    def make_program(self, wrong_penalty=False, root=None, manifest_name="manifest.json"):
+        root = Path(os.environ["RNASTRUCTURE66_PATCHED"] if root is None else root)
         source = (root / "src/algorithm.cpp").read_text()
         component = Path(__file__).resolve().parents[1]
-        manifest = json.loads((component / "manifest.json").read_text())
+        manifest = json.loads((component / manifest_name).read_text())
         self.assertEqual(hashlib.sha256((root / "src/algorithm.cpp").read_bytes()).hexdigest(),
                          manifest["patch"]["patched_source_sha256"])
         w2 = source.split("// keep track of w2:", 1)[1].split("\n\t\t\t}\n", 1)[0]

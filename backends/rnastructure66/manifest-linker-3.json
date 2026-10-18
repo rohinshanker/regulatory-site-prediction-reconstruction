@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "component": "rnastructure-6.6-linker-3",
+  "license": "GPL-2.0-only",
+  "upstream": {
+    "version": "6.6",
+    "url": "https://rna.urmc.rochester.edu/Releases/rnastructure-6.6/RNAstructureSource.tgz",
+    "archive_sha256": "1bedc62aaab984279055caaa6234d48fca113f4b8e17a8060e0b3784d5a397c3",
+    "archive_bytes": 30765790,
+    "source_file": "src/algorithm.cpp",
+    "source_sha256": "c024b600aabfad624fa0d4dbcd2297b9aacdb654ad2e491686847b705fa343d8"
+  },
+  "patch": {
+    "file": "linker.patch",
+    "sha256": "2ef6ef61496b034110f4151e2fc1aec77cbd011c88a36bcef574be0dfecebb2d",
+    "patched_source_sha256": "b19a9ad1634f7e8f7669410b1eb7f5e8c27542f073054acb65647891e62ddbc7"
+  },
+  "predecessor": {
+    "component": "rnastructure-6.6-traceback-2",
+    "manifest": "manifest.json",
+    "patch_sha256": "2d599e7fa9f6581b605350508163c4aa14458ebb8f444c096e5f923c8742d671",
+    "patched_source_sha256": "6300df34e26fe674b6e87260cee69617130c015910e3ed67fd1b45aa1e2dca6c"
+  },
+  "provenance": {
+    "basis": "Instrumented fill/trace reproduction of synthetic seed 484/index 17 plus source analysis of the ordinary W/WMB linker guards. No experimental outcomes used.",
+    "change": "Cumulative patch: every traceback-2 hunk unchanged, plus the ordinary WMB nucleotide-addition terms now carry the INFINITE_ENERGY linker-centre marker already used by the ordinary W strips.",
+    "unchanged": "W2/WMB2 recurrences and handlers, thermodynamic parameters, candidate-pair heap ordering and enumeration limits."
+  }
+}

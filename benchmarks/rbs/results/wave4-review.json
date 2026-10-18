@@ -1,0 +1,37 @@
+{
+  "schema_version": "rbs-wave4-review-1",
+  "review": "DEM-516",
+  "reviewed_B_code_commit": "1d7175dad0130a94e3c108456161b98125dccabe",
+  "scientific_A_candidate": "a11cb5bd13d3c021eedc98cf451609eb4710bb6a",
+  "verdict": "accepted; no remaining numerical or publication findings",
+  "artifacts": {
+    "docs/validation/rbs-wave4-results.md": "e14d73d63abd078c2470e0ec41ca092236ea5f69f242db600b12210d55c3948d",
+    "benchmarks/rbs/results/wave4-aggregate.json": "b3344b2c539de19b58c53675cdf8d6ac96b26dd51fa56cf1df986b44160b9935",
+    "docs/validation/rbs-new-evaluation-data.md": "43924c892ad2086337f108f9e01a2d3b301af3377e16330dd1ef1a4618695e12"
+  },
+  "private_original_aggregate_sha256": "dcf165f06a8e97d69bb9a087ed9cc85cade939b6917fd42a84382922edea2080",
+  "private_arithmetic_review_sha256": "71754dacdf8ea7fa627da126c690ab1d16a6c286188fe5dec1cce569955b5d04",
+  "private_publication_review_sha256": "d37eae255fa36e4b4be461beab593d3468225a36839559622ee5b1039589e14f",
+  "independent_recomputation": {
+    "exact_fields_matched": 659,
+    "floating_fields_matched": 464,
+    "maximum_absolute_float_difference": 0.0,
+    "jobs_audited": 6556,
+    "primary_draws": 10000,
+    "primary_usable_draws": 10000,
+    "primary_undefined_draws": 0,
+    "advance": false
+  },
+  "reporting_findings_resolved": [
+    "W4-AUD-001: consumed-panel reservation wording",
+    "W4-AUD-002: standalone Kuo unknown log base and rebeca training exposure"
+  ],
+  "original_evaluator_bytes_recoverable": true,
+  "privacy": "No raw measurements, per-case predictions/residuals or private evaluator transcripts published.",
+  "limits": [
+    "Arithmetic and saved output identity verified; raw assay processing not rerun.",
+    "No scoring-internal inspection, new model inference or retuning.",
+    "Source/comparator admission and external artifact inventory have separate prior reviews.",
+    "Original wall time and peak concurrency not independently timed by the statistical reviewer."
+  ]
+}

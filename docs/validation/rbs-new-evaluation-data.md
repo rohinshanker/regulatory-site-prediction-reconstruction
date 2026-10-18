@@ -1,17 +1,20 @@
 # New RBS evaluation data
 
-- Purpose: Reproduce new source inputs and reserve independent experimental evaluation.
-- Scope: Cambray2018 bounded-context final panel; Kuo2020 exposed secondary audit.
-- Last verified: 2026-10-17
+- Purpose: Reproduce source inputs and preserve independent experimental evaluation boundaries.
+- Scope: Cambray2018 bounded-context panel consumed in Wave 4; Kuo2020 exposed secondary audit.
+- Last verified: 2026-10-18
 
 The [source manifest](../../benchmarks/rbs/new-data-manifest.json),
 [source ledger](../../benchmarks/rbs/new-data-sources.json) and
 [frozen split](../../benchmarks/rbs/new-evaluation-split.json) identify the sources,
-sequence recipes, study conditions, rights and all selected records. No new
-model has been scored on these outcomes. The prior Wave2 final datasets remain
-consumed; this package does not reopen them as untouched tests.
+sequence recipes, study conditions, rights and all selected records. The selected
+335-input Cambray panel was consumed by the single frozen Wave 4 evaluation after
+all configurations completed. No labels or per-case residuals were supplied to A.
+Frozen manifests retain their original `reserved_final` fields and hashes as
+selection provenance; those fields do not describe current exposure. The prior
+Wave 2 final datasets also remain consumed.
 
-## Cambray2018: reserved final
+## Cambray2018: frozen final panel, now consumed
 
 [Cambray, Guimaraes and Arkin](https://doi.org/10.1038/nbt.4238), deposit
 [OSF A56VU](https://osf.io/a56vu/), DOI `10.17605/OSF.IO/A56VU`, SRA `SRP086076`.
@@ -118,9 +121,12 @@ Seed: `wave3-rbs-20261017-v1`. Selection uses sequence/identity fields only.
 
 - **Cambray:** hash-rank `seed:combi` families, retain two per seed and every
   actual member. This selects 335 inputs from 112 families / 56 seed blocks; one
-  family has only two actual design members. Entire Cambray study stays reserved
-  final, including unselected sequences. No Cambray development labels are
-  released. A row-random split would leak the deliberately nearby designs.
+  family has only two actual design members. Before Wave 4 the entire Cambray
+  study was reserved, including unselected sequences. The selected panel is now
+  consumed; unselected labels remain unreleased for training. They do not become
+  a new independent-study confirmation after the selected aggregate is known.
+  No Cambray development labels are released. A row-random split would leak the
+  deliberately nearby designs.
 - **Kuo:** generate the full DNA9-mer universe; hash-select eight per GC count
   (0..9), plus four homopolymers and three parental genotypes. The 87 genotypes
   appear in all three contexts, yielding 261 inputs. All remain exposed secondary.
@@ -213,7 +219,8 @@ cannot be compared. Multiple source records can represent the same biological
 context; comparison counts are not independent sample counts. Unknown upstream
 training exposure and more distant homology remain outside this check.
 
-Ranked tests for the next immutable candidates:
+The following hypotheses were recorded before Wave 4; they are not authority to
+retune or repeat an untouched test on the now-consumed panel:
 
 1. **Backend validity:** the archived malformed/native-failure cases and exhaustive
    tiny controls should pass after #21 repairs; failure coverage must improve
@@ -233,8 +240,15 @@ Ranked tests for the next immutable candidates:
    cyanobacterial improvement follows from either condition.
 
 Additional cyanobacterial candidates remain honestly incomplete: Lin2021 UTEX
-and Sebesta2020 PCC7942 have useful construct/condition evidence but no recovered
+and Sebesta2020 PCC6803 have useful construct/condition evidence but no recovered
 complete numerical sequence–measurement panel; published predicted rates are
 not experimental labels. Kosuri2013's linked workbooks were inaccessible through
 the attempted ordinary public routes. These gaps do not turn the new E. coli
 panels into evidence of cyanobacterial accuracy.
+
+The [bounded native-source clarification](../../benchmarks/rbs/native-source-admission-update.json)
+checks the primary article title and strain/cultivation methods: Sebesta and
+Peebles used Synechocystis PCC 6803. The earlier PCC7942 summary was incorrect;
+no frozen input, model, source ledger or evaluation membership changes. Lin
+remains an UTEX2973 reporter lead. Neither source is admitted as a complete
+new numerical sequence–measurement benchmark.

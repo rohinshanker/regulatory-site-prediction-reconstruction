@@ -21,12 +21,18 @@ class Profile:
 
     @property
     def standby(self) -> bool:
-        return self.name == "standby2014"
+        return self.name in ("standby2014", "joint_standby")
+
+    @property
+    def joint(self) -> bool:
+        return self.name == "joint_standby"
 
     @property
     def schema_version(self) -> str:
         if self.historical:
             return "1.0"
+        if self.joint:
+            return "1.3"
         return "1.2" if self.standby else "1.1"
 
 
@@ -40,6 +46,9 @@ PROFILES = (
     ),
     Profile(
         "standby2014", "standby2014-rnastructure-6.6-reconstruction-1", 100, 100, 13
+    ),
+    Profile(
+        "joint_standby", "joint-standby-rnastructure-6.6-reconstruction-1", 100, 100, 13
     ),
 )
 

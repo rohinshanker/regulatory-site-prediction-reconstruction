@@ -13,6 +13,11 @@ import tarfile
 
 
 COMPONENT = Path(__file__).resolve().parent
+DEFAULT_COMPONENT = "rnastructure-6.6-traceback-2"
+MANIFESTS = {
+    DEFAULT_COMPONENT: "manifest.json",
+    "rnastructure-6.6-linker-3": "manifest-linker-3.json",
+}
 
 
 def sha256(path):
@@ -25,15 +30,26 @@ def require_hash(path, expected):
         raise ValueError(f"SHA-256 mismatch: {path}")
 
 
-def install(archive, destination, jobs=2, optimize=True):
+def load_manifest(component=DEFAULT_COMPONENT):
+    """Return the pinned manifest of one named component."""
+    if component not in MANIFESTS:
+        raise ValueError(f"Unknown component: {component}")
+    manifest = json.loads((COMPONENT / MANIFESTS[component]).read_text())
+    if manifest["component"] != component:
+        raise ValueError(f"Manifest component mismatch: {MANIFESTS[component]}")
+    return manifest
+
+
+def install(archive, destination, jobs=2, optimize=True, component=DEFAULT_COMPONENT):
     """Verify inputs, extract and patch pristine source, then compile serial tools.
 
     Existing destinations are refused, including partial builds. A failed build
-    is retained for diagnosis; retry into another new directory.
+    is retained for diagnosis; retry into another new directory. The component
+    selects which pinned cumulative patch is applied to the pristine source.
     """
     if jobs not in (1, 2):
         raise ValueError("jobs must be 1 or 2")
-    manifest = json.loads((COMPONENT / "manifest.json").read_text())
+    manifest = load_manifest(component)
     archive = Path(archive).resolve(strict=True)
     destination = Path(destination).absolute()
     require_hash(archive, manifest["upstream"]["archive_sha256"])
@@ -127,8 +143,9 @@ def main():
     parser.add_argument("--destination", type=Path, required=True)
     parser.add_argument("--jobs", type=int, choices=(1, 2), default=2)
     parser.add_argument("--no-optimize", action="store_true")
+    parser.add_argument("--component", choices=sorted(MANIFESTS), default=DEFAULT_COMPONENT)
     args = parser.parse_args()
-    print(install(args.archive, args.destination, args.jobs, not args.no_optimize))
+    print(install(args.archive, args.destination, args.jobs, not args.no_optimize, args.component))
 
 
 if __name__ == "__main__":

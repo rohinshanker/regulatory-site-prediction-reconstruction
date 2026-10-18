@@ -21,6 +21,29 @@ def structure(dot: str) -> Structure:
     return Structure("A" * len(dot), tuple(pairs), -20)
 
 
+def test_bulk_callback_preserves_ordered_states_and_selected_result():
+    prefix = structure("((...))..(...)")
+    single_calls, bulk_calls = [], []
+
+    def energy(pairs):
+        return -20 + 0.5 * sum(j < 0 for j in pairs)
+
+    def single(pairs):
+        single_calls.append(pairs)
+        return energy(pairs)
+
+    def bulk(states):
+        bulk_calls.extend(states)
+        return tuple(energy(pairs) for pairs in states)
+
+    a = optimize(prefix, -20, single)
+    b = optimize(prefix, -20, single, evaluate_many=bulk)
+    assert a == b
+    assert single_calls == bulk_calls
+    with pytest.raises(BackendError, match="bulk energy count mismatch"):
+        optimize(prefix, -20, single, evaluate_many=lambda states: ())
+
+
 @pytest.mark.parametrize(
     "dot,height",
     [

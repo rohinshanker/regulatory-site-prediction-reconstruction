@@ -10,9 +10,10 @@ The adapter and result contracts are original implementations.
 import hashlib
 import json
 import math
+from collections.abc import Callable
 from copy import deepcopy
-from dataclasses import asdict
-from typing import Any
+from dataclasses import asdict, dataclass
+from typing import Any, cast
 
 from regsite import __version__
 from regsite.backend import MAX_STRUCTURES, RnaStructure
@@ -49,6 +50,287 @@ BASE_WARNINGS = [
     "relative_initiation_score_not_absolute_rate_or_probability",
     "host_configuration_is_not_host_calibration",
 ]
+MAX_JOINT_STATES = 4096
+JOINT_TIE_TOLERANCE = 1e-9
+JOINT_PARAMETERS = {
+    "objective": "minimum complete initiation energy over eligible returned candidates",
+    "energy_summation": "math.fsum(complex, spacing, start, -unbound, standby)",
+    "tie_rule": "lowest backend index within absolute tolerance of global minimum",
+    "tie_tolerance_kcal_mol": JOINT_TIE_TOLERANCE,
+    "candidate_deduplication": "none; each returned traceback retains its index",
+    "maximum_bound_state_attempts_per_site": MAX_JOINT_STATES,
+    "maximum_fixed_states_per_process": MAX_STRUCTURES,
+    "prefix_suffix_fold_cache": "per-site sequence cache; no bound-state deduplication",
+    "incomplete_search": "no winner or site score after any candidate failure or limit",
+}
+BindingOption = tuple[float, int, int, float, list[tuple[int, int]]]
+
+
+@dataclass(frozen=True)
+class _BoundState:
+    """One binding candidate's assembled complex and complete accessibility search."""
+
+    first: int
+    last: int
+    before: Structure
+    after: Structure
+    suffix: Structure | None
+    suffix_start: int
+    standby: StandbyResult | None
+    standby_signed: float
+
+
+def _bound_state(
+    window: str,
+    leader: str,
+    anti_sd: str,
+    binding: list[tuple[int, int]],
+    folding,
+    profile: Profile,
+    evaluate: Callable[[str, tuple[int, ...]], Structure],
+    *,
+    evaluate_many: Callable[[tuple[Structure, ...]], tuple[Structure, ...]]
+    | None = None,
+    fold_cache: dict[str, Structure] | None = None,
+) -> _BoundState:
+    """Preserve the original assembly/arithmetic for both selection procedures."""
+
+    def fold(sequence):
+        if fold_cache is None:
+            return folding.fold(sequence)
+        if sequence not in fold_cache:
+            fold_cache[sequence] = folding.fold(sequence)
+        return fold_cache[sequence]
+
+    first, last = min(i for i, _ in binding), max(i for i, _ in binding)
+    prefix = fold(window[:first])
+    suffix_start = min(len(window), len(leader) + profile.footprint_nt)
+    suffix = None if profile.historical else fold(window[suffix_start:])
+    joined = window + "III" + anti_sd
+    before = evaluate(
+        joined, _joined_pairs(window, anti_sd, prefix, binding, suffix, suffix_start)
+    )
+    standby = None
+    if profile.standby:
+        states = {prefix.pairs: before}
+
+        def evaluate_opening(pairs):
+            state_prefix = Structure(prefix.sequence, pairs, None)
+            state = evaluate(
+                joined,
+                _joined_pairs(
+                    window, anti_sd, state_prefix, binding, suffix, suffix_start
+                ),
+            )
+            states[pairs] = state
+            return state.energy
+
+        def evaluate_openings(pairing_states):
+            structures = tuple(
+                Structure(
+                    joined,
+                    _joined_pairs(
+                        window,
+                        anti_sd,
+                        Structure(prefix.sequence, pairs, None),
+                        binding,
+                        suffix,
+                        suffix_start,
+                    ),
+                    None,
+                )
+                for pairs in pairing_states
+            )
+            evaluated = cast(Callable, evaluate_many)(structures)
+            for pairs, state in zip(pairing_states, evaluated, strict=True):
+                states[pairs] = state
+            return tuple(state.energy for state in evaluated)
+
+        standby = optimize(
+            prefix,
+            cast(float, before.energy),
+            evaluate_opening,
+            evaluate_many=evaluate_openings if evaluate_many is not None else None,
+        )
+        after = states[standby.selected.pairs]
+        standby_signed = -standby.selected.total
+    else:
+        accessible_prefix = folding.fold(window[: max(0, first - 4)])
+        after = evaluate(
+            joined,
+            _joined_pairs(
+                window, anti_sd, accessible_prefix, binding, suffix, suffix_start
+            ),
+        )
+        standby_signed = min(
+            0.0, cast(float, before.energy) - cast(float, after.energy)
+        )
+    return _BoundState(
+        first, last, before, after, suffix, suffix_start, standby, standby_signed
+    )
+
+
+def _empty_joint_search(returned: int) -> dict:
+    """Initialize observable progress; unknown candidate lists remain null instead."""
+    return {
+        "returned": returned,
+        "connected": 0,
+        "eligible": 0,
+        "evaluated": 0,
+        "failed": 0,
+        "not_evaluated": 0,
+        "state_attempts": 0,
+        "states_evaluated": 0,
+        "complete": False,
+        "selected_index": None,
+        "selected_candidate_id": None,
+        "greedy_index": None,
+        "greedy_candidate_id": None,
+        "greedy_total_energy": None,
+        "candidates": [],
+    }
+
+
+def _joint_selection(
+    viable: list[BindingOption],
+    candidates: tuple[Structure, ...],
+    window: str,
+    leader: str,
+    request: RbsRequest,
+    codon: str,
+    unbound: Structure,
+    folding,
+    profile: Profile,
+    search: dict,
+) -> tuple[BindingOption, _BoundState]:
+    """Complete all eligible candidates or preserve progress and propagate failure."""
+    search.update(eligible=len(viable), not_evaluated=len(viable))
+    for preliminary, index, spacing, _penalty, _binding in viable:
+        candidate = candidates[index]
+        digest = hashlib.sha256(
+            json.dumps(
+                {"sequence": candidate.sequence, "pairs": candidate.pairs},
+                sort_keys=True,
+                separators=(",", ":"),
+            ).encode()
+        ).hexdigest()
+        search["candidates"].append(
+            {
+                "index": index,
+                "candidate_id": f"cofold-{index}-{digest}",
+                "preliminary_energy": preliminary,
+                "aligned_spacing": spacing,
+                "status": "not_evaluated",
+                "reason": None,
+                "total_energy": None,
+                "standby_energy": None,
+                "state_attempts": 0,
+                "states_evaluated": 0,
+                "negative_unfolding_seen": None,
+            }
+        )
+
+    def evaluate_many(structures: tuple[Structure, ...]) -> tuple[Structure, ...]:
+        results: list[Structure] = []
+        while len(results) < len(structures):
+            available = min(MAX_STRUCTURES, MAX_JOINT_STATES - search["state_attempts"])
+            if available == 0:
+                raise StandbySearchLimit(
+                    f"joint standby search exceeds {MAX_JOINT_STATES} bound states"
+                )
+            batch = structures[len(results) : len(results) + available]
+            search["state_attempts"] += len(batch)
+            evaluated = folding.evaluate_many(batch)
+            if len(evaluated) != len(batch):
+                raise BackendError("joint bulk energy count mismatch")
+            if any(s.energy is None or not math.isfinite(s.energy) for s in evaluated):
+                raise BackendError("nonfinite joint bound-state energy")
+            search["states_evaluated"] += len(evaluated)
+            results.extend(evaluated)
+        return tuple(results)
+
+    def evaluate(sequence: str, pairs: tuple[int, ...]) -> Structure:
+        return evaluate_many((Structure(sequence, pairs, None),))[0]
+
+    completed = []
+    fold_cache: dict[str, Structure] = {}
+    for option, row in zip(viable, search["candidates"], strict=True):
+        preliminary, index, spacing, penalty, binding = option
+        attempts, evaluated = search["state_attempts"], search["states_evaluated"]
+        search["not_evaluated"] -= 1
+        try:
+            state = _bound_state(
+                window,
+                leader,
+                request.anti_sd,
+                binding,
+                folding,
+                profile,
+                evaluate,
+                evaluate_many=evaluate_many,
+                fold_cache=fold_cache,
+            )
+            total = _joint_total_energy(
+                cast(float, state.before.energy),
+                penalty,
+                START_ENERGIES[codon],
+                cast(float, unbound.energy),
+                state.standby_signed,
+            )
+            row.update(
+                status="ok",
+                total_energy=total,
+                standby_energy=-state.standby_signed,
+                negative_unfolding_seen=cast(
+                    StandbyResult, state.standby
+                ).negative_unfolding_seen,
+            )
+            search["evaluated"] += 1
+            completed.append((total, index, option, state, row))
+        except (BackendError, OSError, UnicodeError) as exc:
+            row.update(
+                status="unsupported"
+                if isinstance(exc, StandbySearchLimit)
+                else "failed",
+                reason=str(exc),
+            )
+            search["failed"] += 1
+            raise
+        finally:
+            row["state_attempts"] = search["state_attempts"] - attempts
+            row["states_evaluated"] = search["states_evaluated"] - evaluated
+    minimum = min(item[0] for item in completed)
+    selected = min(
+        (item for item in completed if item[0] - minimum <= JOINT_TIE_TOLERANCE),
+        key=lambda item: item[1],
+    )
+    greedy = min(completed, key=lambda item: (item[2][0], item[1]))
+    search.update(
+        complete=True,
+        selected_index=selected[1],
+        selected_candidate_id=selected[4]["candidate_id"],
+        greedy_index=greedy[1],
+        greedy_candidate_id=greedy[4]["candidate_id"],
+        greedy_total_energy=greedy[0],
+    )
+    return selected[2], selected[3]
+
+
+def _joint_total_energy(
+    complex_energy: float,
+    spacing: float,
+    start: float,
+    unbound: float,
+    standby_signed: float,
+) -> float:
+    """Sum the five signed terms without order-dependent intermediate rounding."""
+    try:
+        result = math.fsum((complex_energy, spacing, start, -unbound, -standby_signed))
+    except (OverflowError, ValueError) as exc:
+        raise BackendError("nonfinite joint candidate total energy") from exc
+    if not math.isfinite(result):
+        raise BackendError("nonfinite joint candidate total energy")
+    return result
 
 
 def spacing_energy(aligned_spacing: int) -> float:
@@ -223,6 +505,8 @@ def _score_site(request: RbsRequest, start: int, folding, profile: Profile) -> d
         site.update(coding_footprint=None, post_footprint=None)
     if profile.standby:
         site["standby"] = None
+    if profile.joint:
+        site["joint_search"] = None
     if codon not in START_ENERGIES:
         return dict(site, status="unsupported", reason="unsupported_start_codon")
     if start == 0:
@@ -233,12 +517,20 @@ def _score_site(request: RbsRequest, start: int, folding, profile: Profile) -> d
     try:
         unbound = folding.fold(window)
         candidates = folding.cofold(leader, request.anti_sd)
+        joint_search = None
+        if profile.joint:
+            joint_search = _empty_joint_search(len(candidates))
+            site["joint_search"] = joint_search
         connected = []
         for index, candidate in enumerate(candidates):
             binding = interstrand_pairs(candidate, len(leader))
             if binding:
                 connected.append((index, candidate, binding))
+        if joint_search is not None:
+            joint_search["connected"] = len(connected)
         if not connected:
+            if joint_search is not None:
+                joint_search["complete"] = True
             return dict(site, reason="no_interstrand_candidate_in_bounded_search")
         lowest = min(candidate.energy for _, candidate, _ in connected)
         viable = []
@@ -250,65 +542,55 @@ def _score_site(request: RbsRequest, start: int, folding, profile: Profile) -> d
                     (candidate.energy + penalty, index, spacing, penalty, binding)
                 )
         if not viable:
+            if joint_search is not None:
+                joint_search["complete"] = True
             return dict(site, reason="no_interstrand_candidate_in_bounded_search")
-        # Source tie policy: first minimum in backend enumeration order.
-        ranking_energy, index, spacing, penalty, binding = min(
-            viable, key=lambda x: (x[0], x[1])
-        )
-        first, last = min(i for i, _ in binding), max(i for i, _ in binding)
-        prefix = folding.fold(window[:first])
-        suffix_start = min(len(window), len(leader) + profile.footprint_nt)
-        suffix = None if profile.historical else folding.fold(window[suffix_start:])
-        joined = window + "III" + request.anti_sd
-        before = folding.evaluate(
-            joined,
-            _joined_pairs(
-                window, request.anti_sd, prefix, binding, suffix, suffix_start
-            ),
-        )
-        standby_start = max(0, first - 4)
-        standby = None
-        if profile.standby:
-            states = {prefix.pairs: before}
-
-            def evaluate_opening(pairs):
-                state_prefix = Structure(prefix.sequence, pairs, None)
-                state = folding.evaluate(
-                    joined,
-                    _joined_pairs(
-                        window,
-                        request.anti_sd,
-                        state_prefix,
-                        binding,
-                        suffix,
-                        suffix_start,
-                    ),
-                )
-                states[pairs] = state
-                return state.energy
-
-            standby = optimize(prefix, before.energy, evaluate_opening)
-            after = states[standby.selected.pairs]
-            standby_signed = -standby.selected.total
-        else:
-            accessible_prefix = folding.fold(window[:standby_start])
-            after = folding.evaluate(
-                joined,
-                _joined_pairs(
-                    window,
-                    request.anti_sd,
-                    accessible_prefix,
-                    binding,
-                    suffix,
-                    suffix_start,
-                ),
+        if joint_search is not None:
+            option, bound = _joint_selection(
+                viable,
+                candidates,
+                window,
+                leader,
+                request,
+                codon,
+                unbound,
+                folding,
+                profile,
+                joint_search,
             )
-            standby_signed = min(0.0, before.energy - after.energy)
-        total = total_energy(
-            before.energy + penalty,
-            START_ENERGIES[codon],
-            unbound.energy,
-            standby_signed,
+        else:
+            # Source tie policy: first minimum in backend enumeration order.
+            option = min(viable, key=lambda x: (x[0], x[1]))
+            bound = _bound_state(
+                window,
+                leader,
+                request.anti_sd,
+                option[4],
+                folding,
+                profile,
+                folding.evaluate,
+            )
+        ranking_energy, index, spacing, penalty, binding = option
+        first, last = bound.first, bound.last
+        before, after = bound.before, bound.after
+        suffix, suffix_start = bound.suffix, bound.suffix_start
+        standby, standby_signed = bound.standby, bound.standby_signed
+        standby_start = max(0, first - 4)
+        total = (
+            _joint_total_energy(
+                cast(float, before.energy),
+                penalty,
+                START_ENERGIES[codon],
+                unbound.energy,
+                standby_signed,
+            )
+            if profile.joint
+            else total_energy(
+                cast(float, before.energy) + penalty,
+                START_ENERGIES[codon],
+                unbound.energy,
+                standby_signed,
+            )
         )
         rate = initiation_rate(total)
         warnings = []
@@ -388,7 +670,12 @@ def _score_site(request: RbsRequest, start: int, folding, profile: Profile) -> d
             )
             result["standby_interval"] = None
             result["standby"] = _standby_result(standby, begin, request)
-            if standby.negative_unfolding_seen:
+            if standby.negative_unfolding_seen or (
+                joint_search is not None
+                and any(
+                    c["negative_unfolding_seen"] for c in joint_search["candidates"]
+                )
+            ):
                 warnings.append("negative_fixed_state_unfolding_cost_clamped_to_zero")
             if first == 0:
                 warnings.append("no_upstream_standby_context_available")
@@ -406,7 +693,7 @@ def _score_site(request: RbsRequest, start: int, folding, profile: Profile) -> d
             )
             if (
                 suffix.prediction_energy is not None
-                and abs(suffix.prediction_energy - suffix.energy) > 1e-9
+                and abs(suffix.prediction_energy - cast(float, suffix.energy)) > 1e-9
             ):
                 warnings.append("post_footprint_native_energy_differs_from_efn2")
             if end < start + profile.footprint_nt:
@@ -474,10 +761,22 @@ def predict(
             base["warnings"].extend(
                 [
                     "standby_geometry_continuation_and_branch_opening_are_reconstructions",
-                    "binding_candidate_selected_before_standby_optimization",
                     "drafting_stacking_and_nonequilibrium_mechanisms_not_implemented",
                 ]
             )
+            if specification.joint:
+                parameters["standby_model"]["binding_candidate_rule"] = (
+                    "minimum complete initiation energy across "
+                    "eligible returned candidates"
+                )
+                parameters["joint_search"] = deepcopy(JOINT_PARAMETERS)
+                base["warnings"].append(
+                    "joint_selection_is_exhaustive_only_within_declared_candidate_states"
+                )
+            else:
+                base["warnings"].insert(
+                    -1, "binding_candidate_selected_before_standby_optimization"
+                )
         else:
             base["warnings"].append(
                 "later_standby_geometry_sliding_drafting_stacking_not_implemented"

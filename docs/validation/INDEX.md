@@ -4,6 +4,8 @@ Verification dates cover the stated source observations or specification review;
 
 | Area | Purpose | Last verified | Document |
 | --- | --- | --- | --- |
+| rbs-0.4-release | Candidate scope, upgrade recipe, component inventory and publication boundary. | 2026-10-17 | [rbs-0.4-release.md](rbs-0.4-release.md) |
+| rbs-joint-selection | Complete bounded binding/standby objective, explicit failure and counterfactual semantics. | 2026-10-17 | [rbs-joint-selection.md](rbs-joint-selection.md) |
 | rbs-wave4-program | Two-session runtime/evaluation ownership, joint-state scoring, candidate freeze, reserved-study tests and release boundaries. | 2026-10-17 | [rbs-wave4-program.md](rbs-wave4-program.md) |
 | rbs-wave2-program | Two-session ownership, dependencies, bounded fourteen-hour wave and acceptance. | 2026-10-17 | [rbs-wave2-program.md](rbs-wave2-program.md) |
 | rbs-native-validation | Tan TSS context, native TIS/TE and reporter validation with cyanobacterial claim gates. | 2026-10-17 | [rbs-native-validation.md](rbs-native-validation.md) |
@@ -15,7 +17,7 @@ Verification dates cover the stated source observations or specification review;
 | rbs-source-decision | Pinned RBS sources, licences, open-backend decision and scalar fixtures. | 2026-10-16 | [rbs-source-decision.md](rbs-source-decision.md) |
 | rbs-standby | Published standby geometry, complete bounded opening search, explicit reconstruction choices and schema 1.2. | 2026-10-17 | [rbs-standby.md](rbs-standby.md) |
 | rbs-mechanisms | Versioned footprint/context profiles, primary parameter provenance, structures and ablation checks. | 2026-10-16 | [rbs-mechanisms.md](rbs-mechanisms.md) |
-| rbs-backend-repair | Separate GPL2 traceback repair, strict build receipt admission, source pins and two-engine validation. | 2026-10-17 | [rbs-backend-repair.md](rbs-backend-repair.md) |
+| rbs-backend-repair | Separate GPL2 traceback/linker repairs, strict build receipts, source pins and three-engine validation. | 2026-10-17 | [rbs-backend-repair.md](rbs-backend-repair.md) |
 | rbs-runtime | Installation, schemas, equations/deviations, resource bounds and release gates. | 2026-10-17 | [rbs-runtime.md](rbs-runtime.md) |
 | rbs-evaluation-protocol | Frozen experimental split, normalization, eligibility and independent evaluator boundary. | 2026-10-17 | [rbs-evaluation-protocol.md](rbs-evaluation-protocol.md) |
 | rbs-benchmark-card | Independently reproduced metrics, harness defects, leakage and measurement limits. | 2026-10-17 | [rbs-benchmark-card.md](rbs-benchmark-card.md) |
@@ -34,4 +36,7 @@ Verification dates cover the stated source observations or specification review;
 | rbs-structural-fixtures | Independent folding diagnostics, exhaustive tiny topology controls and repair acceptance. | 2026-10-17 | [rbs-structural-fixtures.md](rbs-structural-fixtures.md) |
 | promoter-source-and-benchmarks | Open historical source/weights, coordinate fixtures and independently reproduced published-column metrics. | 2026-10-17 | [promoter-source-and-benchmarks.md](promoter-source-and-benchmarks.md) |
 | rbs-wave3-results | Structural, software and development-only validation of standby scoring and traceback repair. | 2026-10-17 | [rbs-wave3-results.md](rbs-wave3-results.md) |
-| rbs-new-evaluation-data | New Cambray final and Kuo secondary inputs, exact local context, frozen selection and independent evaluation gates. | 2026-10-17 | [rbs-new-evaluation-data.md](rbs-new-evaluation-data.md) |
+| rbs-new-evaluation-data | New Cambray final and Kuo secondary inputs, exact local context, frozen selection and independent evaluation gates. | 2026-10-18 | [rbs-new-evaluation-data.md](rbs-new-evaluation-data.md) |
+| rbs-wave4-evaluation | Frozen independent rank protocol, paired block uncertainty, synthetic joint oracle and evaluation boundaries. | 2026-10-18 | [rbs-wave4-evaluation.md](rbs-wave4-evaluation.md) |
+| rbs-wave4-results | Independently verified frozen experimental results, negative advancement decision, complete denominators and consumed-panel boundary. | 2026-10-18 | [rbs-wave4-results.md](rbs-wave4-results.md) |
+| promoter-executed-reference | Pinned optional source execution, independent finite-state fixtures, compatibility failures and corrected coordinate semantics. | 2026-10-17 | [promoter-executed-reference.md](promoter-executed-reference.md) |

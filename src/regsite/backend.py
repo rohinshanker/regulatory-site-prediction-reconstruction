@@ -20,6 +20,9 @@ from tempfile import TemporaryDirectory
 from regsite.structures import BackendError, Structure, parse_ct, to_ct
 
 SOURCE_SHA256 = "1bedc62aaab984279055caaa6234d48fca113f4b8e17a8060e0b3784d5a397c3"
+UPSTREAM_SOURCE_SHA256 = (
+    "c024b600aabfad624fa0d4dbcd2297b9aacdb654ad2e491686847b705fa343d8"
+)
 TRACEBACK_COMPONENT = "rnastructure-6.6-traceback-2"
 TRACEBACK_PATCH_SHA256 = (
     "2d599e7fa9f6581b605350508163c4aa14458ebb8f444c096e5f923c8742d671"
@@ -27,6 +30,15 @@ TRACEBACK_PATCH_SHA256 = (
 TRACEBACK_SOURCE_SHA256 = (
     "6300df34e26fe674b6e87260cee69617130c015910e3ed67fd1b45aa1e2dca6c"
 )
+LINKER_COMPONENT = "rnastructure-6.6-linker-3"
+LINKER_PATCH_SHA256 = "2ef6ef61496b034110f4151e2fc1aec77cbd011c88a36bcef574be0dfecebb2d"
+LINKER_SOURCE_SHA256 = (
+    "b19a9ad1634f7e8f7669410b1eb7f5e8c27542f073054acb65647891e62ddbc7"
+)
+PATCHED_COMPONENTS = {
+    TRACEBACK_COMPONENT: (TRACEBACK_PATCH_SHA256, TRACEBACK_SOURCE_SHA256),
+    LINKER_COMPONENT: (LINKER_PATCH_SHA256, LINKER_SOURCE_SHA256),
+}
 MAX_STRUCTURES = 100
 MAX_FOLD_NT = 200
 MAX_LEADER_NT = 100
@@ -54,9 +66,14 @@ def _sha256(path: Path) -> str:
 
 
 def _build_identity(root: Path, binaries: dict, tables: dict) -> dict:
-    """Admit only the pinned separate patch when its build receipt is present."""
+    """Admit an explicitly pinned separate patch when its build receipt is present."""
     path = root / "traceback-build.json"
     if not path.exists():
+        source = root / "src" / "algorithm.cpp"
+        if source.exists() and _sha256(source) != UPSTREAM_SOURCE_SHA256:
+            raise BackendError(
+                "RNAstructure source requires a recognized build receipt"
+            )
         return {}
     try:
         with path.open("rb") as stream:
@@ -68,27 +85,29 @@ def _build_identity(root: Path, binaries: dict, tables: dict) -> dict:
         raise BackendError(
             "RNAstructure build receipt is unreadable or invalid"
         ) from exc
+    component = receipt.get("component") if isinstance(receipt, dict) else None
+    if not isinstance(component, str) or component not in PATCHED_COMPONENTS:
+        raise BackendError("RNAstructure build receipt identity/hash mismatch")
+    patch_hash, source_hash = PATCHED_COMPONENTS[component]
     required = {
-        "component": TRACEBACK_COMPONENT,
+        "component": component,
         "license": "GPL-2.0-only",
         "source_archive_sha256": SOURCE_SHA256,
-        "patch_sha256": TRACEBACK_PATCH_SHA256,
-        "patched_source_sha256": TRACEBACK_SOURCE_SHA256,
+        "patch_sha256": patch_hash,
+        "patched_source_sha256": source_hash,
         "executable_sha256": binaries,
     }
-    if not isinstance(receipt, dict) or any(
-        receipt.get(key) != expected for key, expected in required.items()
-    ):
+    if any(receipt.get(key) != expected for key, expected in required.items()):
         raise BackendError("RNAstructure build receipt identity/hash mismatch")
     recorded_tables = receipt.get("table_sha256")
     if not isinstance(recorded_tables, dict) or any(
         recorded_tables.get(name) != digest for name, digest in tables.items()
     ):
         raise BackendError("RNAstructure build receipt table mismatch")
-    if _sha256(root / "src" / "algorithm.cpp") != TRACEBACK_SOURCE_SHA256:
+    if _sha256(root / "src" / "algorithm.cpp") != source_hash:
         raise BackendError("RNAstructure patched source hash mismatch")
     return {
-        "variant": TRACEBACK_COMPONENT,
+        "variant": component,
         "build_provenance": {
             key: value for key, value in required.items() if key != "executable_sha256"
         },
@@ -200,6 +219,12 @@ class FoldingSession:
     def evaluate(self, sequence: str, pairs: tuple[int, ...]) -> Structure:
         """Evaluate the supplied structure, preserving its exact base pairs."""
         return self._evaluate_many((Structure(sequence, pairs, None),))[0]
+
+    def evaluate_many(self, structures: tuple[Structure, ...]) -> tuple[Structure, ...]:
+        """Evaluate 1..100 states of one sequence, preserving input order."""
+        if structures and any(s.sequence != structures[0].sequence for s in structures):
+            raise BackendError("fixed-state batch requires one sequence")
+        return self._evaluate_many(structures)
 
     def _evaluate_many(
         self, structures: tuple[Structure, ...]

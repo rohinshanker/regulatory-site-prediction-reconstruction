@@ -4,9 +4,10 @@ Build fully open-source, locally usable RBS, Promoter, Operon, and Riboswitch
 calculators, pursuing the closest demonstrable behavior to the production
 [De Novo DNA tools](https://www.denovodna.com/software/).
 
-**The RBS release candidate, 0.3.0rc1, runs locally.** It includes the historical
-Salis v1 reconstruction, separately named footprint/context/standby refinements, a native
-genome/transcript adapter, and experimental sequence and energy/sequence models.
+**The RBS release candidate, 0.4.0rc1, runs locally.** It includes the historical
+Salis v1 reconstruction, footprint/context/standby refinements, joint binding and
+standby selection, a native genome/transcript adapter, and experimental sequence
+and energy/sequence models.
 The mechanistic profiles use separately installed RNAstructure 6.6 executables
 and return energy terms, relative initiation scores, structures, coordinates and
 explicit failure/missingness. Sequence-only inference needs no folding backend.
@@ -17,6 +18,15 @@ for historical scoring; mean absolute log2 error falls from 1.56 to 0.66. This
 E. coli dataset helped establish the published model, so the result does not
 establish performance on new studies or cyanobacteria. See the
 [Wave 3 validation and reproduction](docs/validation/rbs-wave3-results.md).
+
+**The independent Wave 4 test did not improve ranking accuracy.** On 335
+reserved E. coli inputs, joint and standby scoring both covered every input.
+Against the 332 measured protein-output means, their Spearman correlations were
+0.43608 and 0.43625. The paired difference was -0.00017, with a 95% seed-block
+interval spanning zero; the predeclared advancement gate failed. Joint selection
+remains an opt-in research profile. See the
+[independent report](docs/validation/rbs-wave4-results.md) and
+[joint model card](docs/validation/rbs-joint-selection.md).
 
 **The independent Wave 2 comparison did not establish a superior model.** On
 468 held-out PCC 6803 genes, the sequence model's mean absolute log2 error was
@@ -36,10 +46,11 @@ separate validation gates.
 ## Run the RBS calculator
 
 Follow the [installation and validation contract](docs/validation/rbs-runtime.md)
+and [0.4.0rc1 release/upgrade guide](docs/validation/rbs-0.4-release.md)
 to install the Python package and pinned open folding backend. Inference is
 local and needs no accounts, coins or network access after installation.
-The optional [traceback-repaired backend](docs/validation/rbs-backend-repair.md)
-fixes known malformed/missing folding results and identifies itself separately.
+The optional [traceback/linker-repaired backends](docs/validation/rbs-backend-repair.md)
+fix known malformed/missing folding results and each identify themselves separately.
 
 ```sh
 export REGSITE_RNASTRUCTURE="/absolute/path/to/RNAstructure"
@@ -47,6 +58,7 @@ export REGSITE_RNASTRUCTURE="/absolute/path/to/RNAstructure"
 .venv/bin/regsite examples/rbs-batch.json --format csv
 .venv/bin/regsite examples/rbs-footprint.json --profile footprint2017
 .venv/bin/regsite examples/rbs-standby-hairpin.json --profile standby2014
+.venv/bin/regsite examples/rbs-standby-hairpin.json --profile joint_standby
 ```
 
 A request supplies `sequence` and a 9-nt `anti_sd`; optional `start_positions`
@@ -62,12 +74,21 @@ partial reconstructions of later mechanisms. The [mechanism contract](docs/valid
 records reproducible folding-backend failures; longer context does not guarantee
 better coverage or accuracy.
 
-The new `standby2014` profile calculates accessibility, selective RNA unfolding
+The `standby2014` profile calculates accessibility, selective RNA unfolding
 and sliding using the published 2014 relationships. It returns separate penalties,
 selected structures and explicit search limits in [schema 1.2](schemas/rbs-result-1.2.schema.json).
 Read the [standby contract](docs/validation/rbs-standby.md) for source pins and
 reconstruction choices. This implements additional mechanisms; it does not by
 itself establish better experimental accuracy.
+
+The opt-in `joint_standby` profile evaluates that full cost for every eligible
+returned binding candidate before choosing one. It reports the selected candidate,
+the old selection's complete energy and search progress in
+[schema 1.3](schemas/rbs-result-1.3.schema.json). Any candidate failure or exhausted
+search budget prevents a winning score. This improves the completeness of the
+declared optimization; the frozen independent study did not establish a
+biological improvement.
+Read the [joint-selection contract](docs/validation/rbs-joint-selection.md).
 
 The transcript-aware adapter accepts pinned genomes and explicit TSS/CDS scenarios:
 
@@ -101,17 +122,25 @@ These models are experimental; neither establishes native UTEX 2973 accuracy.
 The [public reporter model card](models/rbs/standby2014/README.md) describes the
 separate E. coli experiment and its limited sequence diversity.
 
+The [executed Promoter reference](docs/validation/promoter-executed-reference.md)
+checks 212 synthetic states against two pinned upstream versions and an independent
+numerical oracle. It prepares source, parameter and coordinate fixtures for the
+future Promoter runtime; it does not establish experimental accuracy.
+
 ## Start a new implementation session
 
-For the planned next wave, use the [Session A implementation prompt](docs/prompts/wave4-session-a.md)
-or [Session B evaluation/reference prompt](docs/prompts/wave4-session-b.md), with
-the same exact planning commit supplied in their launch messages. The
-[shared Wave 4 program](docs/validation/rbs-wave4-program.md) defines ownership,
-the final-evaluation freeze and publication boundaries. These are planned
-deliverables, not additional implemented features.
+Read the [current release guide](docs/validation/rbs-0.4-release.md),
+[independent Wave 4 result](docs/validation/rbs-wave4-results.md) and live ticket
+queue before starting work. Wave 4's scoped implementation/evaluation is complete;
+the public-release milestone remains under ticket 06. Its
+[Session A](docs/prompts/wave4-session-a.md) and
+[Session B](docs/prompts/wave4-session-b.md) prompts preserve the assignment and
+freeze boundaries; do not replay the consumed experiment as a new untouched test.
+Future model changes require a new development/evaluation protocol and suitable
+reserved evidence. Preserve newer work, immutable candidate identities and ownership.
 
 1. Read [AGENTS.md](AGENTS.md), the [live ticket queue](docs/notes/tickets/INDEX.md)
-   and the [Wave 3 validation](docs/validation/rbs-wave3-results.md). Check current
+   and the [Wave 4 validation](docs/validation/rbs-wave4-results.md). Check current
    owners and preserve newer branches/worktrees before claiming work.
 2. Read the [source map](docs/validation/source-map.md),
    [reconstruction contract](docs/validation/reconstruction-contract.md), and

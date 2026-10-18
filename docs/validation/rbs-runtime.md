@@ -86,6 +86,13 @@ The [input schema](../../schemas/rbs-request-1.0.schema.json) and
 `schema_version` defaults to `1.0` on input; other supplied versions fail.
 Runtime validation additionally enforces normalized sequence and index bounds.
 
+The optional profiles keep that input contract and select separate result schemas:
+footprint/context use 1.1, standby2014 uses 1.2 and joint_standby uses
+[1.3](../../schemas/rbs-result-1.3.schema.json). Joint selection adds complete
+per-candidate work/failure accounting and a greedy counterfactual; see its
+[objective and limits](rbs-joint-selection.md). Earlier profile contracts and
+the historical default remain unchanged. Native JSON accepts all these profiles.
+
 - Uppercase, remove whitespace, and map T to U. Reject ambiguous bases. Sequence
   coordinates count normalized nucleotides, not raw text characters. Record
   raw, normalized and oriented SHA-256 identities.
@@ -101,9 +108,10 @@ Runtime validation additionally enforces normalized sequence and index bounds.
   separately, and window bounds in transcript orientation. Binding spans are
   the first through last paired mRNA base, not an experimentally established SD
   motif. Standby spans are modeled unpaired prefixes, possibly shorter than 4 nt.
-- Starts at position zero are unsupported leaderless initiation. Circular
-  sequence wrapping, genome projection, kinetic RBS models and design
-  are not implemented. Unsupported configurations emit no fabricated feature
+- Starts at position zero are unsupported leaderless initiation. The sequence
+  scorer does not infer circular wrapping or genome coordinates; use the
+  [native adapter](rbs-native-runtime.md) with explicit genomic paths for those.
+  Kinetic RBS models and design are not implemented. Unsupported cases emit no feature
   intervals. Refined equilibrium profiles and their coding-footprint intervals
   are specified separately.
 
@@ -198,6 +206,9 @@ variable skips real-engine fixtures, so that run cannot satisfy release gates.
 .cache/fresh/bin/regsite examples/rbs-batch.json
 .cache/fresh/bin/regsite examples/rbs-batch.json --format csv
 .cache/fresh/bin/regsite examples/rbs-standby-hairpin.json --profile standby2014
+.cache/fresh/bin/regsite examples/rbs-standby-hairpin.json --profile joint_standby
+.cache/fresh/bin/regsite examples/rbs-batch.json --profile joint_standby --format csv
+.cache/fresh/bin/regsite-native examples/rbs-native-karlsen.json --profile joint_standby
 git diff --check
 ```
 
@@ -208,7 +219,9 @@ real single/batch execution. CI runs the gates and fresh-wheel examples on all
 four Python/platform combinations; its actual run status is authoritative.
 
 Limits: 10,000 normalized bases, 1,000 selected starts, 100 batch records,
-2,000,000 input/output text characters. The historical profile handles at most 70 mRNA bases; refined context permits
+2,000,000 input or individual backend-output text characters. Prediction JSON can
+be larger because it preserves all requested sites and their diagnostics. The
+historical profile handles at most 70 mRNA bases; refined context permits
 200 mRNA bases plus 3 linker/9 aSD positions, ≤100 structures and one thread. Process
 wall-time is capped at 15 s and total folding time at 60 s per record by default,
 configurable up to 120 s. Input-size/window caps bound computational memory;
