@@ -4,8 +4,20 @@ Verification dates cover the stated source observations or specification review;
 
 | Area | Purpose | Last verified | Document |
 | --- | --- | --- | --- |
+| paired-regulatory-runtime | Planned exact-edit paired predictor execution, complete candidate/feature correspondence and comparable score differences. | 2026-10-18 | [paired-regulatory-runtime.md](paired-regulatory-runtime.md) |
+| calculator-delivery-program | Sustained Promoter, paired recoding comparison, supplied-operon and conditional aptamer delivery for portable cyano-consumer outputs. | 2026-10-18 | [calculator-delivery-program.md](calculator-delivery-program.md) |
+| promoter-runtime | Implemented core/batch/CLI contract, source identities, coordinates, calibration and candidate acceptance gates. | 2026-10-18 | [promoter-runtime.md](promoter-runtime.md) |
+| riboswitch-constrained-reference | Pinned canonical forced-pair/unpaired feasibility, immutable synthetic execution and offline integrity audit. | 2026-10-18 | [riboswitch-constrained-reference.md](riboswitch-constrained-reference.md) |
+| current-recoded-validation | Independent synthetic edit maps, candidate universes and failure-preserving comparison rules. | 2026-10-18 | [current-recoded-validation.md](current-recoded-validation.md) |
+| rbs-context-metrics | Hash-bound unchanged-profile context comparisons, complete status accounting and private failure identities. | 2026-10-18 | [rbs-context-metrics.md](rbs-context-metrics.md) |
+| promoter-native-grouping | Fixed input-only label groups and validated cluster-bootstrap intervals from group sufficient statistics. | 2026-10-18 | [promoter-native-grouping.md](promoter-native-grouping.md) |
+| promoter-runtime-adapter | Outcome-free public-runtime plans, exact receipt bindings, complete candidate rosters and private collection validation. | 2026-10-18 | [promoter-runtime-adapter.md](promoter-runtime-adapter.md) |
+| promoter-native-tooling | Outcome-free genomic queries, separate source-label projection and status-aware positional metrics with synthetic verification. | 2026-10-18 | [promoter-native-tooling.md](promoter-native-tooling.md) |
+| operon-riboswitch-source-admission | Pinned open components, isolated schema smoke, independent scalar fixtures and exact missing inference/dependency paths. | 2026-10-18 | [operon-riboswitch-source-admission.md](operon-riboswitch-source-admission.md) |
+| promoter-wave5-evaluation | Independent source parity, fixed-grid native localization, RBS context sensitivity and measured-strength admission. | 2026-10-18 | [promoter-wave5-evaluation.md](promoter-wave5-evaluation.md) |
 | wave5-program | Two-phase Promoter implementation, reused native evidence, independent evaluation, Claude delegation and release boundaries. | 2026-10-18 | [wave5-program.md](wave5-program.md) |
-| rbs-0.4-release | Candidate scope, upgrade recipe, component inventory and publication boundary. | 2026-10-17 | [rbs-0.4-release.md](rbs-0.4-release.md) |
+| rbs-publication | Immutable archive identities, cumulative integration, corrected release body and explicit publication procedure. | 2026-10-18 | [rbs-publication.md](rbs-publication.md) |
+| rbs-0.4-release | Candidate scope, upgrade recipe, component inventory and publication boundary. | 2026-10-18 | [rbs-0.4-release.md](rbs-0.4-release.md) |
 | rbs-joint-selection | Complete bounded binding/standby objective, explicit failure and counterfactual semantics. | 2026-10-17 | [rbs-joint-selection.md](rbs-joint-selection.md) |
 | rbs-wave4-program | Two-session runtime/evaluation ownership, joint-state scoring, candidate freeze, reserved-study tests and release boundaries. | 2026-10-17 | [rbs-wave4-program.md](rbs-wave4-program.md) |
 | rbs-wave2-program | Two-session ownership, dependencies, bounded fourteen-hour wave and acceptance. | 2026-10-17 | [rbs-wave2-program.md](rbs-wave2-program.md) |
@@ -13,7 +25,7 @@ Verification dates cover the stated source observations or specification review;
 | rbs-comparator-landscape | Mechanistic/ML comparator roster, artifact gates and specialist improvement strategy. | 2026-10-17 | [rbs-comparator-landscape.md](rbs-comparator-landscape.md) |
 | reconstruction-contract | Define reproducible, fully open calculator reconstruction and release requirements. | 2026-10-17 | [reconstruction-contract.md](reconstruction-contract.md) |
 | source-map | Preserve pinned starting sources and known recovery gaps. | 2026-10-16 | [source-map.md](source-map.md) |
-| cyano-integration | Separate reconstructed engines from downstream native-data admission and UI. | 2026-10-16 | [cyano-integration.md](cyano-integration.md) |
+| cyano-integration | Separate paired producer predictions from downstream native-data admission and UI. | 2026-10-18 | [cyano-integration.md](cyano-integration.md) |
 | benchmark-quality | Assess published benchmark limitations and define stronger evaluation. | 2026-10-16 | [benchmark-quality.md](benchmark-quality.md) |
 | rbs-source-decision | Pinned RBS sources, licences, open-backend decision and scalar fixtures. | 2026-10-16 | [rbs-source-decision.md](rbs-source-decision.md) |
 | rbs-standby | Published standby geometry, complete bounded opening search, explicit reconstruction choices and schema 1.2. | 2026-10-17 | [rbs-standby.md](rbs-standby.md) |

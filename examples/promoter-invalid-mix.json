@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0",
+  "records": [
+    {
+      "id": "valid",
+      "sequence": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "calibration": "in_vitro",
+      "scan": {
+        "mode": "positions",
+        "positions": [
+          {
+            "strand": "+",
+            "tss": 67
+          }
+        ]
+      }
+    },
+    {
+      "id": "ambiguity",
+      "sequence": "ACGN",
+      "calibration": "in_vitro",
+      "scan": {
+        "mode": "positions",
+        "positions": []
+      }
+    },
+    {
+      "id": "unsupported-sigma",
+      "sequence": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "calibration": "in_vitro",
+      "scan": {
+        "mode": "positions",
+        "positions": [
+          {
+            "strand": "+",
+            "tss": 67
+          }
+        ]
+      },
+      "sigma": "alternative"
+    }
+  ]
+}

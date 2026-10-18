@@ -1,16 +1,16 @@
-# O_07-promoter-calculator-reconstruction__20261016 — Open
+# A_07-promoter-calculator-reconstruction__20261016 — Active
 
 - Scope: Recover and implement the production-oriented Promoter Calculator.
-- Status: open
+- Status: active
 - Opened: 2026-10-16
-- Updated: 2026-10-16
-- Current State: Planned; implementation has not started. See the work and acceptance criteria below.
-- Verification: Repository setup checked ticket H1/fields, queue membership and local links on 2026-10-16; implementation validation is specified below and has not run.
+- Updated: 2026-10-18
+- Current State: Admitted source/parameters and 212-state reference are available. The reviewed local-reference request/result contract is in docs/validation/promoter-runtime.md; #33 owns the runtime slice and #34 the independent evaluation. The owner authorized isolated calculator implementation alongside RBS release preparation on 2026-10-18; #33 is active. Publication and native consumer admission remain separate gates.
+- Verification: Contract coordinate algebra, candidate retention, explicit calibration and limits reviewed; source-parity/runtime/fresh-install acceptance remains specified, not executed.
 - Cleanup: Owning session records final checks and unresolved findings, resolves the ticket, distills reusable guidance into docs/validation/, updates both indexes and linked GitHub issue, then removes the resolved ticket.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/7
 - Priority: P1
-- Owner: Unclaimed; the implementing session must claim this ticket before writing its scope.
-- Dependencies: RBS release milestone 06; Promoter slice of 01; 02; Promoter benchmarks from 05.
+- Owner: Session A (`baf5b738-1792172297`); Session B owns independent source/benchmark work.
+- Dependencies: Promoter slice of 01; 02; independent source/benchmark contracts. RBS milestone 06 remains a publication dependency, not a blocker for isolated implementation after the 2026-10-18 owner instruction.
 
 Deliver a usable DNA-to-promoter/TSS predictor and a documented path to production parity. Reuse the public Salis model and the cyano compatibility work; do not mistake iDOG promoter parts/design machinery for an existing locator.
 

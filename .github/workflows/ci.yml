@@ -1,4 +1,4 @@
-name: RBS runtime
+name: Regulatory calculator runtime
 on:
   push:
     branches: [main]
@@ -43,12 +43,12 @@ jobs:
           fi
       - name: Static and full runtime gates
         run: |
-          ruff check src tests experiments
-          ruff format --check src tests experiments
-          ruff check benchmarks/rbs/structural.py benchmarks/rbs/new_data.py benchmarks/rbs/wave4_*.py benchmarks/promoter
-          ruff format --check benchmarks/rbs/structural.py benchmarks/rbs/new_data.py benchmarks/rbs/wave4_*.py benchmarks/promoter
-          mypy src/regsite experiments
-          python -m pytest --cov=regsite --cov=benchmarks.rbs --cov=benchmarks.promoter --cov=experiments.rbs --cov-report=term-missing
+          ruff check src tests experiments tools
+          ruff format --check src tests experiments tools
+          ruff check benchmarks/rbs/structural.py benchmarks/rbs/new_data.py benchmarks/rbs/wave4_*.py benchmarks/rbs/context_panel.py benchmarks/rbs/context_metrics.py benchmarks/promoter benchmarks/recoding benchmarks/riboswitch
+          ruff format --check benchmarks/rbs/structural.py benchmarks/rbs/new_data.py benchmarks/rbs/wave4_*.py benchmarks/rbs/context_panel.py benchmarks/rbs/context_metrics.py benchmarks/promoter benchmarks/recoding benchmarks/riboswitch
+          mypy src/regsite experiments tools
+          python -m pytest --cov=regsite --cov=benchmarks.rbs --cov=benchmarks.promoter --cov=benchmarks.recoding --cov=benchmarks.riboswitch --cov=experiments.rbs --cov=tools.derive_promoter_parameters --cov=tools.measure_promoter_resources --cov-report=term-missing
           git diff --check
       - name: Build and validate both separately licensed repairs
         shell: bash
@@ -59,14 +59,21 @@ jobs:
           export RNASTRUCTURE66_PATCHED="$GITHUB_WORKSPACE/.cache/traceback-fixed/RNAstructure"
           export RNASTRUCTURE66_LINKER3="$GITHUB_WORKSPACE/.cache/linker-fixed/RNAstructure"
           python -m unittest discover -s backends/rnastructure66/tests -v
-          REGSITE_RNASTRUCTURE="$RNASTRUCTURE66_PATCHED" python -m pytest --cov=regsite --cov=benchmarks.rbs --cov=benchmarks.promoter --cov=experiments.rbs --cov-report=term-missing
-          REGSITE_RNASTRUCTURE="$RNASTRUCTURE66_LINKER3" python -m pytest --cov=regsite --cov=benchmarks.rbs --cov=benchmarks.promoter --cov=experiments.rbs --cov-report=term-missing
+          # The complete suite ran above. Repeat only RBS-dependent tests for
+          # backend variants; Promoter/edit/reference tests do not use folding.
+          REGSITE_RNASTRUCTURE="$RNASTRUCTURE66_PATCHED" python -m pytest --ignore-glob='tests/test_promoter*' --ignore-glob='tests/benchmarks/test_promoter*' --ignore-glob='tests/benchmarks/test_recoding*' --ignore-glob='tests/benchmarks/test_riboswitch*' --cov=regsite.rbs --cov=regsite.backend --cov=regsite.standby --cov=regsite.structures --cov=regsite.native --cov=regsite.native_cli --cov=regsite.cli --cov=regsite.learned --cov=regsite.features --cov-report=term-missing
+          REGSITE_RNASTRUCTURE="$RNASTRUCTURE66_LINKER3" python -m pytest --ignore-glob='tests/test_promoter*' --ignore-glob='tests/benchmarks/test_promoter*' --ignore-glob='tests/benchmarks/test_recoding*' --ignore-glob='tests/benchmarks/test_riboswitch*' --cov=regsite.rbs --cov=regsite.backend --cov=regsite.standby --cov=regsite.structures --cov=regsite.native --cov=regsite.native_cli --cov=regsite.cli --cov=regsite.learned --cov=regsite.features --cov-report=term-missing
       - name: Build and run fresh offline wheel installation
         shell: bash
         run: |
           python -m build --no-isolation
           python -m venv .cache/fresh
           .cache/fresh/bin/python -m pip install --no-index --no-deps dist/*.whl
+          .cache/fresh/bin/regsite-promoter examples/promoter-contract-single.json > .cache/promoter-single.json
+          .cache/fresh/bin/regsite-promoter examples/promoter-contract-batch.json > .cache/promoter-batch.json
+          .cache/fresh/bin/regsite-promoter examples/promoter-projected.json --format csv > .cache/promoter.csv
+          .cache/fresh/bin/regsite-promoter examples/promoter-projected.json --format gff3 > .cache/promoter.gff3
+          .cache/fresh/bin/python -c 'import json; a=json.load(open(".cache/promoter-single.json")); b=json.load(open(".cache/promoter-batch.json")); assert a["results"][0]["status"]=="ok"; assert a["model"]["id"]=="promoter-lafleur2022-historical-1"; assert [r["status"] for r in b["results"]]==["ok","no_candidate"]; assert open(".cache/promoter.gff3").readline()=="##gff-version 3\n"'
           .cache/fresh/bin/regsite examples/rbs-single.json > .cache/single.json
           .cache/fresh/bin/regsite examples/rbs-batch.json > .cache/batch.json
           .cache/fresh/bin/regsite examples/rbs-batch.json --format csv > .cache/batch.csv
@@ -103,3 +110,35 @@ jobs:
           .cache/fresh/bin/python -c 'import json; a=json.load(open(".cache/joint-original.json")); b=json.load(open(".cache/joint-fixed.json")); c=json.load(open(".cache/joint-batch.json")); assert a["schema_version"]==b["schema_version"]=="1.3"; assert all(r["status"]=="ok" and r["sites"][0]["joint_search"]["complete"] for x in (a,b) for r in x["results"]); assert [r["status"] for r in c["results"]]==["ok","ok","no_candidate","unsupported"]'
           .cache/fresh/bin/python -c 'import csv,json; r=next(csv.DictReader(open(".cache/joint.csv"))); assert r["schema_version"]=="1.3" and r["status"]=="ok"; a=json.load(open(".cache/native-joint.json")); assert [r["status"] for r in a["results"]]==["ok","ok"]; assert all(r["prediction"]["schema_version"]=="1.3" and "standby_module" in r["genomic_sites"][0] for r in a["results"])'
           .cache/fresh/bin/python -c 'import csv,json; a=json.load(open(".cache/joint-linker.json")); b=json.load(open(".cache/native-joint-linker.json")); c=list(csv.DictReader(open(".cache/joint-linker-batch.csv"))); assert a["results"][0]["backend"]["variant"]=="rnastructure-6.6-linker-3"; assert a["results"][0]["status"]=="ok"; assert [r["status"] for r in b["results"]]==["ok","ok"]; assert all(r["prediction"]["backend"]["variant"]=="rnastructure-6.6-linker-3" for r in b["results"]); assert [r["status"] for r in c]==["ok","ok","no_candidate","unsupported"]'
+
+  promoter-resources:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-24.04, macos-14]
+        python: ['3.11', '3.14']
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Measure and admit the complete synthetic candidate suite
+        env:
+          PYTHONPATH: src:.
+        run: >-
+          python tools/measure_promoter_resources.py
+          --suite candidate --repetitions 3 --budget-seconds 1200 --admit
+          --output .cache/promoter-resources/ci.json
+      - name: Preserve the complete resource receipt, including failures
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: promoter-resources-${{ matrix.os }}-py${{ matrix.python }}
+          path: .cache/promoter-resources/ci.json
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 30

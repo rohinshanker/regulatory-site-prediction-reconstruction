@@ -2,7 +2,10 @@
 
 - Purpose: Separate reconstructed engines from downstream native-data admission and UI.
 - Scope: Versioned producer/consumer boundaries and conditional dependencies.
-- Last verified: 2026-10-16
+- Last verified: 2026-10-18
+
+This verification date covers the ownership/implementation boundary; the consumer
+baseline below remains historical.
 
 The canonical consumer is
 [isaacs-cyano-gene-selection](https://github.com/rohinshanker/isaacs-cyano-gene-selection),
@@ -12,9 +15,13 @@ calculator-assessment documentation. Read its current instructions and queue
 before touching it; baseline findings are not permission to overwrite later work.
 
 This repository owns calculator source, model parameters, dependency pins,
-reconstruction benchmarks and release artifacts. The consumer owns native
-sequence extraction, organism/assembly mapping, data admission, rendering and
-recoding comparisons. Integrate through a versioned package/CLI/result schema;
+reconstruction benchmarks and release artifacts, including paired prediction
+and coordinate comparison of caller-supplied current/recoded sequences under
+[the continuing program](calculator-delivery-program.md) and ticket #41. The
+consumer owns native sequence extraction, organism/assembly mapping, data
+admission, rendering and the presentation/interpretation of recoding comparisons.
+Producer work does not authorize canonical consumer edits or admit a UI layer.
+Integrate through a versioned package/CLI/result schema;
 do not copy model internals or point production at a mutable sibling directory.
 
 | Consumer ticket | Dependency on this repository |
