@@ -4,6 +4,7 @@ Verification dates cover the stated source observations or specification review;
 
 | Area | Purpose | Last verified | Document |
 | --- | --- | --- | --- |
+| promoter-runtime | Specified local-reference request/result, coordinate projection, score/calibration and acceptance contracts; implementation gated. | 2026-10-18 | [promoter-runtime.md](promoter-runtime.md) |
 | rbs-context-metrics | Hash-bound unchanged-profile context comparisons, complete status accounting and private failure identities. | 2026-10-18 | [rbs-context-metrics.md](rbs-context-metrics.md) |
 | promoter-native-grouping | Fixed input-only label groups and validated cluster-bootstrap intervals from group sufficient statistics. | 2026-10-18 | [promoter-native-grouping.md](promoter-native-grouping.md) |
 | promoter-native-tooling | Outcome-free genomic queries, separate source-label projection and status-aware positional metrics with synthetic verification. | 2026-10-18 | [promoter-native-tooling.md](promoter-native-tooling.md) |

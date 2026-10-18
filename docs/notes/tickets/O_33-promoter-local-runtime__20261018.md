@@ -4,7 +4,7 @@
 - Status: open
 - Opened: 2026-10-18
 - Updated: 2026-10-18
-- Current State: Source and 212-state independent fixtures are ready. Implementation starts after the RBS release dependency is satisfied or the user explicitly permits parallel branch development.
+- Current State: Reviewed contract defines explicit local-reference scans, transcript-oriented genomic projection, every-site retention, term/log-score semantics, calibration and failure/limit rules. Input schema formalization is Phase 1 contract work; runtime implementation starts only after actual RBS release or an explicit owner exception. That decision remains pending.
 - Verification: Match frozen parameters/source fixtures, test every branch/error/boundary/reverse coordinate, preserve explicit host-transfer limits, pass fresh offline installation and integrated CI. Freeze before B outcome evaluation.
 - Cleanup: The owning session alone resolves the scoped ticket, records unresolved findings, distills reusable contracts, removes the resolved file/index row and closes this issue with the exact result commit.
 

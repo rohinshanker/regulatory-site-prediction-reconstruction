@@ -130,8 +130,8 @@ are listed once in `model.term_source_names`, not repeated per state.
 ascending (inner); keep the first state with the strictly smallest `total`. A later
 equal state never replaces it. `tie_count` is the number of complete states whose
 `total` equals the selected total exactly (always ≥1), so a tie is visible, not silent.
-Floats differing by one ulp are not ties; exactly tied states arise from identical
-operand values and therefore identical computation. Frozen expectations: `A200` has five
+Floats differing by one ulp are not ties. The homopolymer fixture's tied states
+use identical operands; other sequences may tie for other reasons. Frozen expectations: `A200` has five
 states exactly equal to its minimum (spacer 17, discriminators 6..10; winner 6/17);
 every other non-empty fixture has a unique minimum with a margin ≥ 0.09, so
 selection parity is unambiguous.
@@ -342,19 +342,26 @@ unused indices, `parameter_json_sha256`), `term_source_names`, `terms_unit`,
 `claims` must stay false in v1.
 
 `batch`: `batch_id`, `record_count`, `status_counts`, `complete` (false if any record
-failed on a deadline), effective `limits` and `seconds_per_record`/`seconds_per_batch`.
+has status `failed`), effective `limits` and `seconds_per_record`/`seconds_per_batch`.
 
 Per record: `id`, `status`, `reasons` (stable codes), `prediction_id`, `input`
 (`raw_sha256`, `normalized_dna_sha256`, `length`, `normalization`), `calibration`
 (`profile`, `K`, `beta`, `native_host`, `host`, `host_status`), `scan` (resolved),
 `coverage`, `sites`, `projection`, `warnings`, `errors`, `metadata`.
 
-`coverage`: `planned_sites`, `scored_sites`, `partial_state_sites` (scored with
-fewer than 30 states), `insufficient_context_sites`, `failed_sites`,
+`coverage`: `planned_sites`, `scored_sites`, `partial_state_sites` (a subset of
+scored sites with fewer than 30 states), `insufficient_context_sites`, `failed_sites`
+(attempted but failed),
 `unattempted_sites`, `complete_context` (every planned site has all 30 states),
-`complete` (every planned site was attempted) and `truncation` (`null` or
+`complete` (no failed or unattempted sites) and `truncation` (`null` or
 `{reason, attempted_sites, planned_sites}`). These are summaries of the listed
 sites; every planned site is listed in both scan modes, never only counted.
+The four disjoint counts `scored_sites + insufficient_context_sites + failed_sites
++ unattempted_sites` equal `planned_sites`. `partial_state_sites` is not an extra
+denominator. An unattempted site's status is `failed` with `attempted:false`;
+every site carries `attempted` so the counts can be reconstructed. Context
+eligibility is computed from coordinates before scoring, even for unattempted
+sites. Empty scans have zero counts and vacuously true completeness fields.
 
 Site: `site_id`, `strand` (local site strand), `tss` (`forward_base` local,
 `oriented_base`), `genomic` (`null` without projection; else `contig`, `base`,
@@ -362,10 +369,13 @@ Site: `site_id`, `strand` (local site strand), `tss` (`forward_base` local,
 `reason` (`null`|`insufficient_context`|`deadline_exceeded`|`nonfinite_arithmetic`),
 `context` (`required_upstream` 67, `required_downstream` 19, `available_upstream`
 = `t`, `available_downstream` = `L-1-t`, all oriented base counts), `state_count`
-(0..30), `complete_state_set` (`state_count == 30`), `tie_count`, `selected`,
+(0..30 eligible coordinate states, independent of whether scoring ran),
+`complete_state_set` (`state_count == 30`), `attempted`, `tie_count`, `selected`,
 `states` (only for `output.states:"all"`), `legacy_source_key` (opt-in).
-Non-ok sites have `selected: null` and no scores, never zeros. A site with
-`state_count` 1..29 is `ok` with a smaller state set, never padded.
+Non-ok sites have `selected: null`, `tie_count: null`, and no scores; if requested,
+their `states` is an empty list. Eligibility does not imply a completed computation.
+A successfully scored site with `state_count` 1..29 is `ok` with a smaller state
+set, never padded.
 
 State (`selected` or an entry in `states`): `state_id`, `discriminator_length`,
 `spacer_length`, `terms` (rows in the table above), `log_relative_transcription_score`,
@@ -481,16 +491,20 @@ regsite-promoter INPUT [--format json|csv|gff3] [--calibration ecoli_mg1655|in_v
 `INPUT` is a path or `-` for stdin. `--calibration`/`--states` set a value only where
 the file leaves it unspecified and exit 2 if any file value differs. Defaults 30
 and 300 seconds; maximums 120 and 3600. No network, no environment backend, no
-subprocess. `--format csv` rejects `--states all`; `--format gff3` requires every
-record to have a `projection` (records without one are listed as GFF comment
-lines and counted, never guessed) and emits features only for sites with a selected state.
+subprocess. `--format csv` rejects any resolved `output.states:"all"`, whether
+supplied by CLI, record or defaults. GFF3 requires projection to emit a feature:
+unprojected records are retained as counted comment lines with
+`export_reason=projection_required`, rather than assigned guessed coordinates.
+This export omission does not alter their JSON prediction status. GFF3 emits
+features only for sites with a selected state.
 
-**CSV (`promoter-csv-1.0`)**: one header line, then one row per site's selected
-state; records with no site (invalid, unsupported, empty, failed before any site)
-get one row with empty site columns. Columns, in order: `record_id`, `record_status`,
+**CSV (`promoter-csv-1.0`)**: one header line, then one row per planned site,
+including null-score rows for `no_candidate` and failed sites. Records with no
+planned site (invalid, unsupported or empty) get one row with empty site columns.
+Columns, in order: `record_id`, `record_status`,
 `prediction_id`, `site_id`, `strand`, `forward_base`, `oriented_base`,
 `sequence_strand`, `genomic_contig`, `genomic_base`, `genomic_strand`, `site_status`,
-`reason`, `state_count`, `complete_state_set`, `tie_count`, `discriminator_length`, `spacer_length`, `score_hex10`, `score_hex35`,
+`reason`, `attempted`, `state_count`, `complete_state_set`, `tie_count`, `discriminator_length`, `spacer_length`, `score_hex10`, `score_hex35`,
 `score_discriminator`, `score_extended10`, `score_itr`, `score_up`, `score_spacer`,
 `score_intercept`, `score_total`, `score_binding`, `log_relative_transcription_score`,
 `relative_transcription_score`, `score_status`, `calibration_profile`, `host_status`,
@@ -622,7 +636,7 @@ In addition, the Promoter candidate passes the following before freeze.
 | 5 | Ties | Exact-tie fixture, first visited wins; strictly-lower later state replaces; ulp-different states are not ties; `tie_count` correct; no host or sigma input changes selection. |
 | 6 | Boundaries and retention | Lengths 77/78/87, left 57/58, right 180/181, edge states 0..29; edge-retention example (`[56,60)` gives four listed sites with 0, 0, 1, 3 states and null scores on the first two); every planned candidate present in order in both modes; padding never listed unless in range; grid example `C=4, L=90, [67,71)` gives four 30-state sites and `C` swept over several values gives `L=C+86` all-30; local `-` padding asymmetry; empty range; range at 0 and `L`; positions at both ends; limits and one past each. |
 | 7 | Errors | Every code in the code list has a test; each status; precedence; mixed batch continuity; duplicate IDs and positions; deadline with injected clock and a real tight deadline; unsupported controls; exit codes 0/1/2; no partial `ok` on truncation. |
-| 8 | Numerics | `relative_score` at the exact log bounds and ±1 ulp, overflow/underflow nulls with finite logs, no `inf`/`0.0`/NaN anywhere in output (`allow_nan=False`). |
+| 8 | Numerics | `relative_score` at the exact log bounds and ±1 ulp, overflow/underflow nulls with finite logs; no nonfinite JSON numbers, and no zero/subnormal stand-in for an underflowed relative score. Legitimate zero terms/coordinates remain valid. |
 | 9 | Calibration | Required, no silent default; profiles K/beta; `host_status` matrix; extrapolation warning text present; no `sigma`/temperature field accepted or emitted; `claims` all false. |
 | 10 | Projection | The eight worked examples reproduced exactly (both local strands, both `sequence_strand` values, linear and circular crossing); brute-force per-base agreement for all combinations over small `L`, `contig_length`, `origin`; linear out-of-bounds, circular `L > contig_length`, undeclared and mismatched crossing, contig conflict; genomic strand composition; IDs change with `sequence_strand`/`origin`; GFF3 one-based inclusive, genomic strand column, unwrapped circular end, escaping and order along transcription. |
 | 11 | Exports | Identical JSON bytes across repeated runs on one platform/runtime; numeric parity within 1e-12 across the CI platforms; CSV header, `genomic_strand` and null cells; schemas validate every example and test output; `states:"all"` bounded as limits state. |
