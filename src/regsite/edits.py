@@ -51,7 +51,12 @@ def _digest(value: str) -> str:
 
 @dataclass(frozen=True)
 class EditMap:
-    """Validated immutable partial bijection in the declared forward frame."""
+    """Immutable result of ``build_edit_map`` in the declared forward frame.
+
+    The generated constructor is an internal representation, not a validation
+    entry point. Public prediction APIs accept raw documents and call the factory;
+    caller-constructed or deserialized maps are never accepted as authority.
+    """
 
     pair_id: str
     current_id: str

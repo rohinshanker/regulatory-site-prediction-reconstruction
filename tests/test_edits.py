@@ -5,6 +5,7 @@ import hashlib
 import itertools
 import json
 from dataclasses import FrozenInstanceError
+from pathlib import Path
 
 import pytest
 
@@ -266,3 +267,39 @@ def test_exhaustive_interval_paths_and_inverse_on_small_edits():
                                 assert result["contiguous_target_path"] == (
                                     None not in mapped and adjacent
                                 )
+
+
+@pytest.mark.parametrize("sequence", ["", "N", "acgt", "U", "A" * 10001])
+def test_invalid_identical_sequences_cannot_hide_behind_reconstruction(sequence):
+    # With identical sides and no edits, only the DNA validation can refuse this.
+    with pytest.raises(EditError, match="current.sequence: expected bounded uppercase"):
+        build_edit_map(pair(sequence, sequence))
+
+
+def test_edit_end_upper_bound_rejects_otherwise_reconstructable_empty_tail():
+    # Python slicing would otherwise accept the out-of-range empty deletion.
+    with pytest.raises(EditError, match=r"edits\[0\].end: expected an integer"):
+        build_edit_map(pair(edits=[edit(4, 5, "")]))
+
+
+def test_reconstruction_limit_is_reported_before_later_identity_mismatch():
+    with pytest.raises(EditError, match="reconstructed sequence exceeds maximum"):
+        build_edit_map(pair(edits=[edit(0, 0, "A" * 10000), edit(1, 1, "A", "e1")]))
+
+
+def test_replacement_alphabet_check_has_its_own_error():
+    with pytest.raises(EditError, match=r"edits\[0\].replacement: expected bounded"):
+        build_edit_map(pair(edits=[edit(0, 1, "a")]))
+
+
+def test_independently_frozen_literal_base_maps():
+    path = Path(__file__).resolve().parents[1] / (
+        "benchmarks/recoding/synthetic-edit-fixtures.json"
+    )
+    raw = path.read_bytes()
+    cases = json.loads(raw)["cases"]
+    assert len(cases) == 12
+    for case in cases:
+        mapping = build_edit_map(case["input"]).to_dict()
+        assert mapping["current_to_recoded"] == case["expected_current_to_recoded"]
+        assert mapping["recoded_to_current"] == case["expected_recoded_to_current"]
