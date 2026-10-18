@@ -171,6 +171,16 @@ and never selects a profile. Result `calibration.host_status`:
 The comparison is an exact string match after Unicode NFC; it is a registry lookup
 of one declared string, not name inference.
 
+Resolved `calibration.host` is `null` when no host is supplied. Otherwise it is
+exactly `{"name": <NFC name>, "taxon_id": <integer or null>}`; both keys are
+present, and an omitted input taxon ID becomes `null`. An accepted integral
+float taxon ID becomes an integer. No taxon ID is inferred from the name.
+`calibration.native_host` is the native string in the table for `ecoli_mg1655`
+and `null` for `in_vitro`; `K` is the integer `42`, and `beta` is the table's
+finite float. These resolved values, not the original spelling or numeric
+representation, are used for per-prediction identity. Explicit input `host:null`
+or `taxon_id:null` remains invalid; output nulls do not create request defaults.
+
 Per state, with `log_relative_transcription_score = ln(K) - beta*total`
 (`math.log(K) - beta*total`, finite for every complete state):
 
@@ -213,7 +223,7 @@ a bare array remains invalid.
 | `projection` | object | Optional genomic mapping (below). |
 | `output` | object | Optional `{"states":"selected"\|"all","legacy_keys":bool,"elements":bool}`; defaults `selected`, `false`, `true`. |
 | `model` | object | Optional pin requiring both `id` and `parameter_json_sha256`; mismatch is `unsupported`/`model_unavailable`. |
-| `metadata` | object | Optional ≤4096 canonical-JSON bytes, depth ≤4; echoed verbatim, excluded from identity and computation. |
+| `metadata` | object | Optional ≤4096 canonical-JSON bytes, container depth ≤4; echoed as the parsed object, excluded from per-prediction/site identity and computation, but bound by `batch_id`. |
 
 **Normalization.** Keep only characters after removing ASCII whitespace
 (`space`, `\t`, `\n`, `\v`, `\f`, `\r`); uppercase; map `U`→`T`. Text containing
@@ -222,7 +232,22 @@ both `T` and `U` is `mixed_dna_rna`. Any remaining character outside `ACGT`
 (`ambiguous_base` for IUPAC letters, otherwise `invalid_character`) with the first
 offending raw-text index and character in the error. Empty is `empty_sequence`.
 Coordinates always count normalized bases. Record raw-text and normalized-DNA
-SHA256 (hash UTF-8 bytes; the normalization is named in `input.normalization`).
+SHA256 (hash UTF-8 bytes). `input.normalization` is the string
+`"ascii-whitespace-uppercase-u-to-t-1"` whenever valid normalized ACGT text has
+been produced, including an already-uppercase ACGT input that needs no changes.
+It names the normalization policy, not a list of edits. It is `null`, together
+with normalized-DNA hash/length, if normalization fails or is not performed
+because an earlier sequence check fails. A later failure in another field does
+not erase successfully normalized input information.
+
+Omitted `metadata` emits `metadata:null`; explicit `{}` emits `{}`. A valid
+supplied object is echoed without Unicode, numeric or value normalization.
+Explicit input `metadata:null` is invalid and emits null under the rejected-field
+rule. Metadata bytes are the length of the canonical byte encoding defined
+below. Container depth counts object and array nesting: the root object has
+depth 1, scalar leaves do not add depth, and an empty object/array counts as one
+container. Thus `{"a":[{"b":0}]}` has depth 3. No host or metadata values
+are inferred from the record ID.
 
 **Local versus genomic.** `sequence` is the *local reference*. In `scan` and in the
 result, `strand` is the **local site strand** (`+`: transcription runs toward
@@ -349,6 +374,24 @@ semantic and numeric parity within the stated tolerances (absolute plus relative
 1e-12), not bit identity. Deadline-dependent outcomes (`failed`/`deadline_exceeded`
 and their partial scores) are not byte-identical guarantees.
 
+**Canonical bytes for hashes and size checks.** All canonical JSON in this
+contract uses the existing RBS provenance helper's encoding, made explicit here:
+
+```python
+json.dumps(value, sort_keys=True, separators=(",", ":"),
+           ensure_ascii=True, allow_nan=False).encode("utf-8")
+```
+
+There is no BOM or trailing newline. SHA256 values are lowercase, 64-character
+hexadecimal strings, without a prefix. JSON arrays preserve order; object keys
+are sorted only for encoding. This is Python JSON encoding, not RFC 8785:
+parsed `20` and `20.0` have different canonical bytes. Resolved integer fields
+are converted to integers before per-prediction hashing. Other raw input values
+are not normalized for `batch_id`. Effective deadlines are finite positive
+floats (`30.0`, not `30`), whether supplied as integers or floats. The pretty
+result JSON also uses `ensure_ascii=True`, but its indentation/newline are not
+part of canonical hash bytes.
+
 `model`: `id`, `implementation_version`, `kind: "historical_equation_reconstruction"`,
 `source` (commits above), `licence`, `parameters` (array hashes, entry counts,
 unused indices, `parameter_json_sha256`), `term_source_names`, `terms_unit`,
@@ -363,9 +406,28 @@ has status `failed`), effective `limits` and `seconds_per_record`/`seconds_per_b
 `batch_id` is SHA256 of canonical JSON containing the exact parsed input value,
 model `id`/`implementation_version`/`parameter_json_sha256`, effective limit values,
 both deadlines, and explicit CLI calibration/states defaults (null if absent).
-Use keys `input`, `model`, `limits`, `seconds_per_record`, `seconds_per_batch`,
-`cli_calibration`, `cli_states` in that hashed object; sorted keys, compact
-separators and `allow_nan=False`. Output format and elapsed time are excluded.
+Its exact payload is:
+
+```python
+{
+    "input": parsed_input,
+    "model": {
+        "id": identity_model["id"],
+        "implementation_version": identity_model["implementation_version"],
+        "parameter_json_sha256": identity_model["parameter_json_sha256"],
+    },
+    "limits": effective_limits,
+    "seconds_per_record": resolved_seconds_per_record,
+    "seconds_per_batch": resolved_seconds_per_batch,
+    "cli_calibration": cli_calibration_or_none,
+    "cli_states": cli_states_or_none,
+}
+```
+
+Here `identity_model` is defined below; `effective_limits` is the entire
+`batch.limits` object defined under limits, with no omitted keys. CLI defaults
+are the explicitly supplied string or `null`, even if the file already specifies
+the same value. Output format and elapsed time are excluded.
 Thus the batch identity binds invalid records and metadata too; per-site IDs
 remain independent of record labels and output completeness as specified below.
 
@@ -416,19 +478,63 @@ State (`selected` or an entry in `states`): `state_id`, `discriminator_length`,
 `elements` (selected only, unless disabled). `states` lists every complete state
 in visit order and marks `selected: true` on exactly one.
 
-**Stable IDs.** `scope_id` = SHA256 of canonical JSON (sorted keys, compact
-separators, `allow_nan=False`, as in the RBS provenance helper) of: result
-schema version, model identity (`id`, `implementation_version`,
-`parameter_json_sha256`, array hashes, source commit), calibration (`profile`,
-`host` name/taxon), normalized-DNA SHA256, and the complete `projection` object
-(`contig`, `origin`, `contig_length`, `sequence_strand`, `topology`,
-`origin_crossing`; `null` when absent). Changing `sequence_strand` or `origin`
-therefore changes every ID. Then
-`prediction_id` = SHA256 of the scope plus resolved `scan` and `output`.
+**Stable IDs.** The candidate receipt supplies the following exact six-key
+`identity_model` object. Its `id` and `implementation_version` equal the emitted
+`model` fields; its parameter and source hashes must identify the same artifacts
+as the complete emitted `model` object. B pins both objects from the receipt,
+without guessing how extra source/parameter details nest inside emitted `model`.
+The two implementation-produced strings below are specified by the receipt;
+they are not available before implementation and freeze.
+
+```python
+identity_model = {
+    "id": "promoter-lafleur2022-historical-1",
+    "implementation_version": frozen_implementation_version,
+    "parameter_json_sha256": frozen_parameter_json_sha256,
+    "coefficient_array_sha256": "fddf16b38bf29799481e8a45890b669111e16cf2e3448e99d1934d19a8f0b8e9",
+    "intercept_array_sha256": "f7c66a8d838da71a6b2ab17936cd6ff2564e446af8c0676fba95de2116e99a7b",
+    "source_commit": "46da9132740bce30bccd107f02808adf2215e2f0",
+}
+scope_payload = {
+    "schema_version": "1.0",
+    "model": identity_model,
+    "calibration": {
+        "profile": resolved_calibration["profile"],
+        "host": resolved_calibration["host"],
+    },
+    "normalized_dna_sha256": normalized_dna_sha256,
+    "projection": resolved_projection_or_none,
+}
+scope_id = sha256(canonical_bytes(scope_payload)).hexdigest()
+prediction_payload = {
+    "scope_id": scope_id,
+    "scan": resolved_scan,
+    "output": resolved_output,
+}
+prediction_id = sha256(canonical_bytes(prediction_payload)).hexdigest()
+```
+
+These are literal key sets; no other fields are hashed implicitly. `scope_id`
+is a computed intermediate, not an additional per-record result field. The
+prediction payload uses the full 64-character scope digest, not its site-ID
+prefix. `resolved_projection_or_none` is null if absent; otherwise exactly
+`contig`, `origin`, `contig_length`, `sequence_strand`, `topology`, and
+`origin_crossing`, with the default `sequence_strand:"+"` inserted and coordinates
+converted to integers. `contig` retains its supplied string. `resolved_scan`
+contains exactly `mode`, `range`, `strands` for scan mode, or exactly `mode`,
+`positions` for positions mode; each position has exactly `strand`, `tss`.
+All coordinate numbers are integers, and list order is preserved.
+`resolved_output` always has exactly `states`, `legacy_keys`, `elements`,
+including their resolved defaults (`"selected"`, `false`, `true`).
+
+Changing `sequence_strand` or `origin` changes every ID.
 `site_id` = `psite1:` + first 32 hex of `scope_id` + `:` + local strand + `:` + local
 `forward_base`; `state_id` = `site_id` + `:d` + discriminator + `s` + spacer. Record `id`,
 `metadata`, limits and deadlines are excluded, so identical sequences share IDs
-across records and scan modes. IDs name the requested calculation, not its
+across records with the same resolved model/calibration/projection; site IDs are
+also stable across scan modes, while prediction IDs bind the scan/output request.
+Integer parts of IDs use ordinary base-10 digits without leading zeros.
+IDs name the requested calculation, not its
 completeness: always check `status`/`coverage`. A package version change changes
 every ID; any equation or parameter change requires a new `model.id`.
 
@@ -587,7 +693,59 @@ changing semantics, requires measurements below and an amendment to this documen
 | `seconds_per_batch` default / max | 300 / 3600 | option error |
 
 Single thread; no operating-system memory quota is claimed. Effective limits are
-echoed in `batch.limits`.
+echoed in `batch.limits`, with exactly the following keys. This object shows the
+current ceilings, **not** a frozen or measured candidate. All count/size/depth
+values are JSON integers; the four deadline defaults/maxima are JSON floats.
+String lengths count Unicode code points, not UTF-8 bytes; ID syntax remains
+restricted to ASCII. The final receipt must supply the complete effective
+object, including unchanged limits, and the runtime must echo that object exactly.
+
+```json
+{
+  "max_input_json_bytes": 4000000,
+  "max_records_per_batch": 100,
+  "max_id_chars": 128,
+  "max_host_name_chars": 200,
+  "max_contig_chars": 128,
+  "max_raw_sequence_chars_per_record": 50000,
+  "max_normalized_bases_per_record": 5000,
+  "max_normalized_bases_per_batch": 100000,
+  "max_planned_sites_per_record": 5000,
+  "max_planned_sites_per_batch": 20000,
+  "max_all_state_sites_per_record": 100,
+  "max_all_states_per_record": 3000,
+  "max_all_states_per_batch": 10000,
+  "max_result_json_bytes": 67108864,
+  "max_metadata_json_bytes": 4096,
+  "max_metadata_depth": 4,
+  "default_seconds_per_record": 30.0,
+  "max_seconds_per_record": 120.0,
+  "default_seconds_per_batch": 300.0,
+  "max_seconds_per_batch": 3600.0
+}
+```
+
+`max_all_state_sites_per_record` applies only to records resolving to
+`states:"all"`. The two `max_all_states_*` limits bound entries in `states`
+lists; the separate selected-state copy is accounted for by the JSON byte cap.
+Preflight uses the number of coordinate-eligible states that would be emitted
+if all sites completed, never a timeout-reduced count. `max_result_json_bytes`
+counts the complete pretty-printed authoritative JSON, including its trailing
+newline, even if a compact export was requested. `max_metadata_json_bytes`
+uses canonical bytes, with container depth defined in the request section.
+`max_id_chars`, `max_host_name_chars` and `max_contig_chars` expose the existing
+field constraints; their corresponding validation errors remain `invalid_id`,
+`invalid_host` and `invalid_projection`. Raw host name length is checked before
+NFC normalization. No implicit precision, RSS or CPU limit is represented here.
+
+The deadlines actually used are the separate `batch.seconds_per_record` and
+`batch.seconds_per_batch` floats, each no greater than its maximum. They may
+differ from the defaults without changing `batch.limits`. Evaluator packing
+limits are caller settings; they never replace, narrow or omit fields from this
+runtime identity. A receipt must include the exact emitted `model`, the six-key
+`identity_model`, this full effective limits object, and the actual deadlines
+and CLI defaults. B checks equality to the receipt and recomputes `batch_id`;
+the ceiling object in this document alone is not collection authorization.
 
 **Synthetic validation procedure (A, before the candidate freeze).** Use only
 generated sequences: homopolymers A/C/G/T, repeats of the fixture motifs, and a
@@ -676,7 +834,7 @@ In addition, the Promoter candidate passes the following before freeze.
 | 12 | RBS preservation | `git diff` against the baseline shows no change to RBS modules, schemas, models, examples or frozen artifacts; the unchanged RBS suite passes in A's single final full matrix. |
 | 13 | Fresh offline | Wheel installed with `--no-index --no-deps` into a new venv; `regsite-promoter` runs the single, batch, CSV and GFF3 examples; importing and running loads no `numpy`, `scipy`, `sklearn` or `Bio`; a test that blocks sockets and subprocess passes. |
 | 14 | Source parity adoption | Independent source parity (2, plus B's separately executed pinned historical/fork inference on a B-frozen synthetic panel, compared through the public CLI/JSON only) passes before the stdlib engine is adopted. No expected values are copied from runtime output. |
-| 15 | Freeze receipt | Exact commit, wheel and parameter hashes, effective limits and measurements, settings and CLI invocations, input manifest hash, test receipts; B acknowledges the frozen protocol before final collection. Never repair against final outcomes and call the rerun held out. |
+| 15 | Freeze receipt | Exact commit, wheel and parameter hashes, complete emitted model plus six-key identity model, full effective limits and measurements, resolved deadlines/CLI defaults and invocations, input manifest hash, test receipts; B acknowledges the frozen protocol before final collection. Never repair against final outcomes and call the rerun held out. |
 
 Native Tan checks (B) are conditional localization and transcript-context
 diagnostics: windows and grids are declared before scoring, positives are
