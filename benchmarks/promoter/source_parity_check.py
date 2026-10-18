@@ -87,9 +87,11 @@ def check(raw, manifest):
     if settings["cli_calibration"] is not None or settings["cli_states"] is not None:
         raise ValueError("Source parity requires null CLI calibration/states defaults")
     model = identity["identity_model"]
-    parameters = strict_json(
-        (source_parity.ROOT / "reference-parameters.json").read_bytes()
-    )
+    request_raw, request, expectations = _assets()
+    parameter_raw = (source_parity.ROOT / "reference-parameters.json").read_bytes()
+    if _hash(parameter_raw) != expectations["parameter_sha256"]:
+        raise ValueError("Frozen source parameter identity mismatch")
+    parameters = strict_json(parameter_raw)
     _same(
         [
             model["source_commit"],
@@ -103,7 +105,6 @@ def check(raw, manifest):
         ],
         "source/array identity",
     )
-    request_raw, request, expectations = _assets()
     limits = settings["runtime_limits"]
     if len(raw) > limits["max_result_json_bytes"]:
         raise ValueError("Source parity wire result byte cap exceeded")

@@ -214,6 +214,12 @@ class SourceParityCheckTest(unittest.TestCase):
         with mock.patch.object(c, "REQUEST_SHA256", "0" * 64):
             with self.assertRaisesRegex(ValueError, "asset identity"):
                 c.check(encode(result), receipt)
+        assets = c._assets()
+        changed = copy.deepcopy(assets[2])
+        changed["parameter_sha256"] = "0" * 64
+        with mock.patch.object(c, "_assets", return_value=(*assets[:2], changed)):
+            with self.assertRaisesRegex(ValueError, "parameter identity"):
+                c.check(encode(result), receipt)
         raw = encode(result)
         with self.assertRaisesRegex(ValueError, "wire result"):
             c.check(

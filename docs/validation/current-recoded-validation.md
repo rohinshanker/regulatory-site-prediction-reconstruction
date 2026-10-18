@@ -11,6 +11,8 @@
 sequence frame, their identities, topology and a sorted edit list. Edits use
 zero-based half-open current-sequence intervals and exact replacement strings.
 Reapplying them must reproduce the supplied recoded string byte for byte.
+Reject any produced prefix longer than that supplied string before allocating
+its map entries; later edits cannot shrink an already produced prefix.
 No alignment algorithm, nearest-coordinate join or annotation-name inference
 creates correspondence. Inputs are synthetic uppercase ACGT, not native outcomes.
 

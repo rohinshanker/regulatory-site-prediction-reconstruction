@@ -87,6 +87,10 @@ def build_map(document):
             raise ValueError("Edits overlap, share a start, or are not sorted")
         if start == end and not replacement:
             raise ValueError("An empty-to-empty edit has no declared operation")
+        # A produced prefix cannot shrink under any later edit. Reject before
+        # allocating map entries for an impossible large replacement list.
+        if offset + start - previous_end + len(replacement) > len(recoded):
+            raise ValueError("Edit prefix exceeds the supplied recoded length")
         unchanged = current[previous_end:start]
         assembled.extend((unchanged, replacement))
         for old in range(previous_end, start):

@@ -30,6 +30,21 @@ def candidate(name, base, status="ok", score=1.0, strand="+"):
 
 
 class EditMapTest(unittest.TestCase):
+    def test_impossible_prefix_refused_before_expanding_remaining_edits(self):
+        document = copy.deepcopy(FIXTURES[0]["input"])
+        document["edits"] = [
+            {
+                "id": "too-long-prefix",
+                "start": 0,
+                "end": 1,
+                "replacement": "A" * m.MAX_BASES,
+            },
+            {"id": "later-deletion", "start": 1, "end": 4, "replacement": ""},
+        ]
+        # A later deletion cannot remove already-produced replacement bases.
+        with self.assertRaisesRegex(ValueError, "prefix exceeds"):
+            m.build_map(document)
+
     def test_literal_maps_and_all_interval_paths(self):
         for fixture in FIXTURES:
             document = fixture["input"]

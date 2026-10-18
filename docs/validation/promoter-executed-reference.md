@@ -170,7 +170,8 @@ outcomes to repair a source discrepancy.
 The [public-result checker](../../benchmarks/promoter/source_parity_check.py)
 accepts exact CLI result bytes and a separately frozen adapter-format identity/
 settings manifest. Both CLI defaults must be null because this panel explicitly
-requests mixed profiles and all states. It binds model/source/array identity,
+requests mixed profiles and all states. It checks the source parameter file against the frozen expectation hash and
+binds model/source/array identity,
 full model object, limits/deadlines, batch/prediction/site/state IDs, input hashes,
 complete record/state rosters, numerical terms, selection, coordinates, elements
 and coverage. Missing, failed, reordered or partial records fail parity. Received
