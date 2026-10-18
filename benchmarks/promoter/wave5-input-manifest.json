@@ -77,9 +77,9 @@
     }
   },
   "rbs_context_panel": {
-    "file": "tan-context-panel-v2.json",
-    "sha256": "47169be33f5abbda6bafc7bf8b45832e1384e2d3edee4f744face0362c934109",
-    "tool_sha256": "2cf7e899c48c35f820fd321ec93e40ef8583ae4df36ca5c6f3f06147efd583ea",
+    "file": "tan-context-panel-v3.json",
+    "sha256": "5cf8ec26ed614edc9b51eb94e5c13207e4ce94fab6e59cec06282893f3e85bf5",
+    "tool_sha256": "d9351cb78999f93d1197d53f32024b5200ceab5ea8cb62253b7f751658bd7849",
     "settings": {
       "anti_sd": "ACCUCCUUU",
       "downstream_length_nt": 100,
@@ -345,7 +345,19 @@
         "stratum": "unresolved"
       }
     ],
-    "storage": "External input-only native envelope; no outcome fields or replicate counts."
+    "storage": "External input-only native envelope; no outcome fields or replicate counts.",
+    "independent_context_expectations": {
+      "file": "tan-context-expectations.json",
+      "sha256": "efbebe4485a5fe0131168446c8ef74c7de4a3b2b0f114bf1504a68a92a30a55a",
+      "counts": {
+        "internal_tss": 4,
+        "prepared": 106,
+        "missing_anchor": 14
+      },
+      "unique_prepared_core_inputs": 57,
+      "equivalent_core_input_groups": 29,
+      "scope": "Full input RNA hash/start/temperature/anti-SD equivalence. No scoring, preprocessing or model output inferred; distinct genomic exports remain distinct scenarios."
+    }
   },
   "input_only_examples": {
     "path": "benchmarks/promoter/native-query-examples.json",
@@ -358,7 +370,7 @@
     "signed_leader_scenarios_checked": 55,
     "missing_anchor_measured_scenarios_retained": 7,
     "native_schema": "native-rbs-evidence-1.schema.json validated for 124 scenarios",
-    "groups": "Recomputed 1966 groups and size histogram; all4808labels exactlyonce, canonicalminlabelIDs, sharedqueries/loci and adjacentnear-point invariants verified independently."
+    "groups": "Recomputed 1,966 groups and size histogram; all 4,808 labels exactly once, canonical minimum label IDs, shared queries/loci and adjacent near-point invariants verified independently."
   },
   "collection": {
     "performed": false,
