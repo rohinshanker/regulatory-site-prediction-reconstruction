@@ -4,7 +4,7 @@
 - Status: active
 - Opened: 2026-10-18
 - Updated: 2026-10-18
-- Current State: Use a scoped Claude evidence analyst; reuse existing source map, papers and repository discoveries. No new suite coordinator or speculative full runtime.
+- Current State: Claude Fable DEM-519 terminal-failed at its provider biology safeguard before returning a dossier; no retry or rerouting. B continues the authorized public-source review locally. Current SalisLabCode still pins to 46da913; the MIT mRNA Stability directory exposes a train/test script on precomputed features, not yet a recovered sequence-to-inference path.
 - Verification: Pin sources, parameters, licences, dependencies and complete-versus-wrapper distinctions. Execute permitted isolated smoke cases when complete code exists; otherwise produce precise missing components and an ordered implementation contract.
 - Cleanup: The owning session alone resolves the scoped ticket, records unresolved findings, distills reusable contracts, removes the resolved file/index row and closes this issue with the exact result commit.
 

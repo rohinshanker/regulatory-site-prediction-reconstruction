@@ -1,0 +1,96 @@
+{
+  "schema_version": "promoter-wave5-strength-admission-1",
+  "checked_date": "2026-10-18",
+  "decision": "not_admitted_for_wave5_independent_strength",
+  "study": "GSE144621",
+  "repository": "https://github.com/KosuriLab/ecoli_promoter_mpra",
+  "commit": "484abdb6ba2d398501009ee6eb25ca7f190d3b4c",
+  "current_commit_matches_reserved_pin": true,
+  "new_measurement_rows_read": false,
+  "new_predictions_run": false,
+  "redistributed_data": false,
+  "files": [
+    {
+      "path": "commit.json",
+      "bytes": 23329,
+      "sha256": "9f77e2c73bbe9e924d74f720cc2069a43197b5655dc7fce3778d49aa776a9684"
+    },
+    {
+      "path": "repo.json",
+      "bytes": 6558,
+      "sha256": "92c9288b77b05ba01932b65c5165edf8e4b50376a1f95efd94e635f367c8dd40"
+    },
+    {
+      "path": "scripts/endo_tss/Makefile",
+      "bytes": 3604,
+      "sha256": "b357bd13a5e867e0e14c9c8e05f1b5955fa587e0739f9a83797d01f24cb718b5"
+    },
+    {
+      "path": "scripts/endo_tss/endo_tss_format.R",
+      "bytes": 1910,
+      "sha256": "d211713bcafbb032542ef8f1430390589c9eda4555cd7c599beb49c03bd17d1c"
+    },
+    {
+      "path": "scripts/endo_tss/lib_gen/Makefile_endo_tss_lib_gen.sh",
+      "bytes": 1150,
+      "sha256": "4c75d6f8a8ac1d970e4c69248a45d1652c8bb77d66b595a7d901a2c58ec2fd36"
+    },
+    {
+      "path": "scripts/endo_tss/lib_gen/fwd_primers.fasta",
+      "bytes": 50,
+      "sha256": "fd72e9481daf40ca29a4e3d6896de6f308cbca068bf89d2bb86fd80a39b5ccbf"
+    },
+    {
+      "path": "scripts/endo_tss/lib_gen/lib_gen_tss.py",
+      "bytes": 5603,
+      "sha256": "c1f06b45e140847124135ac46d3b1adcac58ac500ee036683aa1dad81f9f953d"
+    },
+    {
+      "path": "scripts/endo_tss/lib_gen/rev_primers.fasta",
+      "bytes": 51,
+      "sha256": "242622c9c78d0054022c64f0fa38842d761dc6993290fc7006fe7f7e13a9703b"
+    },
+    {
+      "path": "tree.json",
+      "bytes": 814768,
+      "sha256": "a3036449c17a874331740fd714c40c588a39ee3d40ac5c641415d676ab053d9a"
+    }
+  ],
+  "resolved_in_this_pass": [
+    "Current repository commit and recursive tree exactly match the earlier pin; tree is not truncated.",
+    "lib_gen_tss.py declares oriented -120/+30 local windows and appends primer flanks before synthesis-strand selection.",
+    "fwd_primers.fasta and rev_primers.fasta identify 24-base and 24-base synthesis flanks, respectively; these are not automatically complete integrated reporter flanks.",
+    "endo_tss_format.R parses source position/strand and category metadata; Makefile identifies separate standardization and barcode-derived variant paths. Neither alone verifies actual per-row reporter sequence."
+  ],
+  "remaining_gates": [
+    {
+      "id": "GSE-RIGHTS",
+      "requirement": "Explicit applicable data redistribution/use grant for deposited measurement and construct artifacts",
+      "evidence": "GitHub license is null; only nested BBMap/deepTools licences are present. Article CC-BY4 is not a blanket repository grant.",
+      "status": "unresolved"
+    },
+    {
+      "id": "GSE-CONSTRUCT",
+      "requirement": "Exact measured per-row integrated reporter context and orientation including synthetic/control/restriction-site-edited variants",
+      "evidence": "Primer and design code pins recovered; cloning/integration junctions and measured variant-to-design reconciliation not established.",
+      "status": "partially_recovered_not_admitted"
+    },
+    {
+      "id": "GSE-DENOMINATOR",
+      "requirement": "Reconcile paper design counts and acquired table membership without outcome-guided exclusions",
+      "evidence": "Prior 17767 rows/17617 unique strings versus paper 17635 TSS+500 negative+112 positive design counts are different artifact stages. No invented exclusion or fresh outcome scan performed.",
+      "status": "unresolved"
+    },
+    {
+      "id": "GSE-INDEPENDENCE",
+      "requirement": "Locus/near-family/control overlap and candidate training exposure audit",
+      "evidence": "Previous exact-string nonoverlap is insufficient; full family/construct admission unresolved.",
+      "status": "unresolved"
+    }
+  ],
+  "scope": "Finish source parity, native positive-TSS localization and unchanged-RBS transcript-context sensitivity. No substituted exposed-column audit or fitted strength claim.",
+  "access_limits": [
+    "GEO and eLife browser text endpoints returned client challenges; not solved or bypassed. Public author GitHub metadata and pinned source paths were accessible."
+  ],
+  "prior_context_record": "benchmarks/promoter/gse144621-admission-update.json"
+}
