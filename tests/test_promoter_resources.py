@@ -59,10 +59,22 @@ def test_deterministic_generator_and_public_api():
         tool.sequence("private", 5, 0)
 
 
+def original_limits():
+    """The original diagnostic contract, never installed into the runtime."""
+    return dict(
+        tool.pio.LIMITS,
+        max_planned_sites_per_record=5000,
+        max_planned_sites_per_batch=20000,
+        max_all_states_per_record=3000,
+        max_all_states_per_batch=10000,
+    )
+
+
 def test_exact_ceiling_preflights_without_scoring():
-    limits = tool.pio.LIMITS
+    limits = original_limits()
     plans = {}
-    for name, setting in tool.scenarios(limits).items():
+    for name in tool.ORIGINAL_SCENARIOS:
+        setting = tool.scenarios(limits)[name]
         value = tool.generate(setting, limits)
         plans[name] = tool.preflight(value, limits)
         assert plans[name]["admitted_dimensions"]
@@ -244,7 +256,7 @@ def test_recommendation_uses_worst_observed_cost_and_both_half_budgets():
     assert result["selected"]["worst_measured_wall_seconds_per_site"] == 0.2
     assert result["selected"]["candidate_sites_per_record"] == 10
     assert result["selected"]["candidate_sites_per_batch"] == 10
-    result = tool.recommend([row(size=1), row(mode="all", size=1)], tool.pio.LIMITS)[
+    result = tool.recommend([row(size=1), row(mode="all", size=1)], original_limits())[
         "candidates"
     ]
     assert result["selected"]["candidate_sites_per_record"] == 150
@@ -357,16 +369,15 @@ def test_script_entry_point(monkeypatch, capsys):
 
 
 def test_scan_and_mixed_exact_counts_and_tiny_execution():
-    settings = tool.scenarios(tool.pio.LIMITS)
-    scan = tool.generate(settings["scan-record"], tool.pio.LIMITS)
+    limits = original_limits()
+    settings = tool.scenarios(limits)
+    scan = tool.generate(settings["scan-record"], limits)
     assert scan["records"][0]["scan"] == {
         "mode": "scan",
         "range": [1250, 3750],
         "strands": ["+", "-"],
     }
-    ceiling = tool.preflight(
-        tool.generate(settings["mixed-ceiling"], tool.pio.LIMITS), tool.pio.LIMITS
-    )
+    ceiling = tool.preflight(tool.generate(settings["mixed-ceiling"], limits), limits)
     assert ceiling["planned_sites"] == 20000
     assert ceiling["planned_emitted_states"] == 10000
     assert {
@@ -377,9 +388,7 @@ def test_scan_and_mixed_exact_counts_and_tiny_execution():
     } <= set(ceiling["equalities"])
     for states in (1000, 2000, 3000):
         for name in (f"all-{states}", f"mixed-4000-{states}"):
-            plan = tool.preflight(
-                tool.generate(settings[name], tool.pio.LIMITS), tool.pio.LIMITS
-            )
+            plan = tool.preflight(tool.generate(settings[name], limits), limits)
             assert plan["planned_emitted_states"] == states
             assert plan["admitted_dimensions"]
             if name.startswith("mixed"):
@@ -410,3 +419,355 @@ def test_mixed_recommendations_are_joint_evidence_not_independent_admission():
     assert not tool.recommend([mixed], tool.pio.LIMITS)["joint_samples"][0][
         "half_output_compliant"
     ]
+
+
+def gate_receipt(names=("tiny",)):
+    """Fabricated timing/RSS evidence around the real public model identity."""
+    limits = dict(tool.pio.LIMITS)
+    model, identity_model = tool.pio.model_identity(tool.promoter.load_parameters())
+    identity = {
+        "limits": limits,
+        "model": model,
+        "identity_model": identity_model,
+        "api_call": tool.api_call(limits),
+        "source_sha256": dict.fromkeys(tool.SOURCE_PATHS, "0" * 64),
+        "git_head": "a" * 40,
+        "python": "mock Python",
+        "platform": "mock platform",
+        "executable": "mock python",
+    }
+    rows = []
+    for name in names:
+        for rep in (1, 2, 3):
+            rows.append(
+                {
+                    "scenario": name,
+                    "repetition": rep,
+                    "status": "ok",
+                    "complete": True,
+                    "settings": {"states": "selected"},
+                    "preflight": {
+                        "planned_sites": 10,
+                        "planned_emitted_states": 0,
+                        "admitted_dimensions": True,
+                        "violations": [],
+                        "records": [{}],
+                    },
+                    "coverage": {
+                        "planned_sites": 10,
+                        "scored_sites": 10,
+                        "failed_sites": 0,
+                        "unattempted_sites": 0,
+                        "insufficient_context_sites": 0,
+                    },
+                    "peak_rss": {"raw": 10, "bytes": 10240, "unit": "KiB"},
+                    "authoritative_bytes": 1000,
+                    "wall_seconds": 0.001,
+                    "api_call": deepcopy(identity["api_call"]),
+                    "model": deepcopy(model),
+                    "batch": {
+                        "limits": deepcopy(limits),
+                        "seconds_per_record": limits["default_seconds_per_record"],
+                        "seconds_per_batch": limits["default_seconds_per_batch"],
+                        "record_count": 1,
+                        "complete": True,
+                    },
+                    "emitted_states": 0,
+                    "record_statuses": ["ok"],
+                }
+            )
+    return {
+        "runtime": identity,
+        "repetitions": 3,
+        "measurements": rows,
+        "elapsed_seconds": 1,
+        "budget_seconds": 1200,
+    }
+
+
+def checked(receipt, **kwargs):
+    return tool.check_receipt(receipt, required_scenarios=("tiny",), **kwargs)
+
+
+def test_gate_is_separate_from_generation_and_pins_expected_build(monkeypatch):
+    receipt = gate_receipt()
+
+    def forbidden(*args, **kwargs):
+        pytest.fail("receipt admission must not generate or score requests")
+
+    monkeypatch.setattr(tool, "generate", forbidden)
+    monkeypatch.setattr(tool, "measure", forbidden)
+    result = checked(receipt, expected_runtime=deepcopy(receipt["runtime"]))
+    assert result["passed"] and result["failures"] == []
+    assert (
+        result["time_safety"]["worst_complete_nonmixed_wall_seconds_per_site"] == 0.0001
+    )
+    assert result["time_safety"]["record"]["scaled_seconds"] == 0.1
+    assert result["time_safety"]["batch"]["scaled_seconds"] == 0.4
+    expected = deepcopy(receipt["runtime"])
+    expected["source_sha256"][tool.SOURCE_PATHS[0]] = "1" * 64
+    assert "differs from expected build" in str(
+        checked(receipt, expected_runtime=expected)["failures"]
+    )
+
+
+@pytest.mark.parametrize(
+    "path,value,message",
+    [
+        (("repetitions",), 2, "receipt repetitions"),
+        (("repetitions",), True, "receipt repetitions"),
+        (("measurements", 0, "repetition"), 2, "repetitions must be exactly"),
+        (("measurements", 0, "repetition"), "1", "repetitions must be exactly"),
+        (("measurements", 0, "status"), "incomplete", "incomplete/rejected"),
+        (("measurements", 0, "complete"), False, "incomplete/rejected"),
+        (("measurements", 0, "elapsed_overrun"), True, "incomplete/rejected"),
+        (("measurements", 0, "coverage"), None, "incomplete/rejected"),
+        (("measurements", 0, "coverage", "failed_sites"), 1, "incomplete/rejected"),
+        (
+            ("measurements", 0, "coverage", "unattempted_sites"),
+            1,
+            "incomplete/rejected",
+        ),
+        (("measurements", 0, "coverage", "scored_sites"), 9, "incomplete/rejected"),
+        (
+            ("measurements", 0, "preflight", "admitted_dimensions"),
+            False,
+            "preflight rejected",
+        ),
+        (("measurements", 0, "preflight", "violations"), ["cap"], "preflight rejected"),
+        (("measurements", 0, "peak_rss"), None, "RSS not measured"),
+        (("measurements", 0, "peak_rss", "raw"), None, "RSS not measured"),
+        (("measurements", 0, "peak_rss", "unit"), "unknown", "RSS not measured"),
+        (("measurements", 0, "peak_rss", "bytes"), 123, "RSS not measured"),
+        (("measurements", 0, "authoritative_bytes"), None, "half output cap"),
+        (("measurements", 0, "authoritative_bytes"), 33554433, "half output cap"),
+        (("measurements", 0, "wall_seconds"), float("nan"), "wall time"),
+        (("measurements", 0, "wall_seconds"), 0, "wall time"),
+        (("measurements", 0, "api_call"), {}, "actual API deadlines/options"),
+        (
+            ("measurements", 0, "batch", "seconds_per_record"),
+            1,
+            "emitted runtime identity",
+        ),
+        (
+            ("measurements", 0, "batch", "seconds_per_batch"),
+            1,
+            "emitted runtime identity",
+        ),
+        (("measurements", 0, "model"), {}, "emitted runtime identity"),
+        (("measurements", 0, "batch", "limits"), {}, "emitted runtime identity"),
+        (("measurements", 0, "emitted_states"), 1, "missing planned result counts"),
+        (("measurements", 0, "record_statuses"), ["unsupported"], "rejected records"),
+        (("measurements", 0, "record_statuses"), [], "missing planned result counts"),
+        (
+            ("measurements", 0, "batch", "record_count"),
+            2,
+            "missing planned result counts",
+        ),
+        (
+            ("measurements", 0, "batch", "complete"),
+            False,
+            "missing planned result counts",
+        ),
+        (("runtime", "identity_model"), {}, "six-key identity"),
+        (("runtime", "api_call"), {}, "actual API options"),
+        (("runtime", "source_sha256"), {}, "source SHA256"),
+        (
+            ("runtime", "source_sha256", tool.SOURCE_PATHS[0]),
+            "no-hash",
+            "source SHA256",
+        ),
+        (("runtime", "source_sha256", tool.SOURCE_PATHS[0]), None, "source SHA256"),
+        (("runtime", "python"), "", "missing runtime python"),
+        (("runtime", "platform"), 1, "missing runtime platform"),
+        (
+            ("runtime", "limits", "max_planned_sites_per_record"),
+            1000.5,
+            "20 finite positive",
+        ),
+        (
+            ("runtime", "limits", "max_planned_sites_per_record"),
+            -1,
+            "20 finite positive",
+        ),
+        (("elapsed_seconds",), 1201, "elapsed time exceeds budget"),
+        (("elapsed_seconds",), None, "elapsed time exceeds budget"),
+        (("budget_seconds",), None, "elapsed time exceeds budget"),
+    ],
+)
+def test_gate_failures_are_concrete(path, value, message):
+    receipt = gate_receipt()
+    target = receipt
+    for key in path[:-1]:
+        target = target[key]
+    target[path[-1]] = value
+    result = checked(receipt)
+    assert not result["passed"]
+    assert message in str(result["failures"])
+
+
+@pytest.mark.parametrize(
+    "receipt", [None, {}, {"runtime": None}, {"runtime": {"limits": {}}}]
+)
+def test_gate_rejects_malformed_receipts(receipt):
+    result = checked(receipt)
+    assert not result["passed"] and "malformed receipt" in str(result["failures"])
+
+
+def test_gate_requires_names_repetitions_complete_model_and_timing_evidence():
+    receipt = gate_receipt()
+    assert not tool.check_receipt(receipt)["passed"]  # missing candidate roster
+    del receipt["runtime"]["model"]["claims"]
+    assert "complete emitted model fields" in str(checked(receipt)["failures"])
+    receipt = gate_receipt()
+    receipt["measurements"].pop()
+    assert not checked(receipt)["passed"]
+    receipt["measurements"] = []
+    result = checked(receipt)
+    assert "missing required scenario: tiny" in result["failures"]
+    assert "no complete nonmixed" in str(result["failures"])
+    receipt = gate_receipt()
+    for row in receipt["measurements"]:
+        row["settings"]["states"] = "mixed"
+    assert "no complete nonmixed" in str(checked(receipt)["failures"])
+
+
+def test_gate_empty_coverage_and_zero_context_sites():
+    receipt = gate_receipt()
+    for row in receipt["measurements"]:
+        row["coverage"]["scored_sites"] = 8
+        row["coverage"]["insufficient_context_sites"] = 2
+    assert checked(receipt)["passed"]
+    for row in receipt["measurements"]:
+        row["coverage"] = dict.fromkeys(row["coverage"], 0)
+        row["preflight"]["planned_sites"] = 0
+    result = checked(receipt)
+    assert not result["passed"] and "no complete nonmixed" in str(result["failures"])
+
+
+def test_gate_half_size_and_time_equalities_global_cost_and_elapsed_overruns():
+    receipt = gate_receipt()
+    for row in receipt["measurements"]:
+        row["authoritative_bytes"] = 33554432
+        row["wall_seconds"] = 0.15  # N*c exactly 15 seconds for 1000 sites.
+    assert checked(receipt)["passed"]
+    for row in receipt["measurements"]:
+        row["wall_seconds"] = 5
+    result = checked(receipt)
+    assert "record: N*c" in str(result["failures"])
+    assert "batch: N*c" in str(result["failures"])
+    receipt = gate_receipt()
+    for row in receipt["measurements"]:
+        row["wall_seconds"] = 31
+    assert "elapsed wall time exceeds" in str(checked(receipt)["failures"])
+    for row in receipt["measurements"]:
+        row["preflight"]["records"] = [{}, {}]
+        row["record_statuses"] = ["ok", "ok"]
+        row["batch"]["record_count"] = 2
+        row["wall_seconds"] = 301
+    assert "elapsed wall time exceeds" in str(checked(receipt)["failures"])
+    receipt = gate_receipt(("tiny", "mixed"))
+    for row in receipt["measurements"][3:]:
+        row["settings"]["states"] = "mixed"
+        row["wall_seconds"] = 20
+    assert checked(receipt)["passed"]  # mixed cost does not replace nonmixed c
+    receipt = gate_receipt()
+    receipt["runtime"]["limits"]["default_seconds_per_record"] = 100.0
+    for row in receipt["measurements"]:
+        row["api_call"]["seconds_per_record"] = 100.0
+        row["batch"]["seconds_per_record"] = 100.0
+        row["batch"]["limits"]["default_seconds_per_record"] = 100.0
+        row["wall_seconds"] = 0.375
+    receipt["runtime"]["api_call"]["seconds_per_record"] = 100.0
+    assert checked(receipt)["passed"]  # batch N*c exactly 150 seconds
+
+
+@pytest.mark.parametrize("value", [None, True, "1", float("nan"), float("inf"), 0, -1])
+def test_nonpositive_measurement_numbers(value):
+    assert not tool.positive(value)
+
+
+def test_effective_suite_preflights_changed_caps_and_immutable_input_hashes():
+    limits = tool.pio.LIMITS
+    settings = tool.scenarios(limits)
+    for name in tool.CANDIDATE_SCENARIOS:
+        request = tool.generate(settings[name], limits)
+        plan = tool.preflight(request, limits)
+        assert plan["admitted_dimensions"], (name, plan["violations"])
+        if name.startswith("effective-record-") or name == "effective-scan":
+            assert plan["planned_sites"] == limits["max_planned_sites_per_record"]
+            assert plan["observed"]["max_normalized_bases_per_record"] == 5000
+    for name, expected in (
+        (
+            "all-2000",
+            "7c345e731e58747aa08de5c0d6314896005cb4889c6b0d9b68cc3ff507e410e5",
+        ),
+        (
+            "mixed-4000-2000",
+            "d52819a1f3684d7020515aadb1a2017af5e929e11cb5dde2e73133194b5c6b7b",
+        ),
+    ):
+        assert (
+            tool.pio.canonical_hash(tool.generate(settings[name], limits)) == expected
+        )
+    all_plan = tool.preflight(
+        tool.generate(settings["effective-all-sites"], limits), limits
+    )
+    assert all_plan["planned_sites"] == 100
+    assert all_plan["planned_emitted_states"] == 2000
+    mixed = tool.preflight(tool.generate(settings["effective-mixed"], limits), limits)
+    assert mixed["planned_sites"] == 4000 and mixed["planned_emitted_states"] == 2000
+    tiny = tool.generate(
+        spec(states="all", partial_positions=[], extra_empty_sites=1), limits
+    )
+    result = tool.measure(tiny)
+    assert result["complete"] and result["coverage"]["insufficient_context_sites"] == 1
+    revised = dict(
+        limits,
+        max_normalized_bases_per_record=200,
+        max_planned_sites_per_record=3,
+        max_planned_sites_per_batch=12,
+        max_all_states_per_record=5,
+        max_all_states_per_batch=5,
+        max_all_state_sites_per_record=3,
+    )
+    generated = tool.scenarios(revised)
+    assert generated["effective-scan"]["sites"] == [2]  # explicit odd-count adjustment
+    plan = tool.preflight(
+        tool.generate(generated["effective-all-sites"], revised), revised
+    )
+    assert plan["planned_emitted_states"] == 5 and plan["admitted_dimensions"]
+    even = dict(revised, max_all_states_per_record=30, max_all_states_per_batch=30)
+    assert tool.scenarios(even)["effective-all-sites"]["partial_positions"] == []
+
+
+def test_real_tight_deadline_and_completed_elapsed_overrun(monkeypatch):
+    result = tool.measure(request(), seconds_per_record=1e-9, seconds_per_batch=1e-9)
+    assert not result["complete"] and result["status"] == "incomplete"
+    assert result["api_call"]["seconds_per_record"] == 1e-9
+    assert result["batch"]["seconds_per_batch"] == 1e-9
+    assert result["coverage"]["unattempted_sites"] == 2
+    assert result["elapsed_overrun"]
+    # An API returning a complete result after its budget is still a failure.
+    completed = tool.pio.predict_batch(request())
+    monkeypatch.setattr(tool.pio, "predict_batch", lambda *a, **kw: completed)
+    result = tool.measure(request(), seconds_per_batch=1e-12)
+    assert result["status"] == "elapsed_overrun" and not result["complete"]
+    result = tool.measure(request(), seconds_per_record=1e-12)
+    assert result["status"] == "elapsed_overrun" and not result["complete"]
+
+
+def test_cli_admission_and_recheck_exit_codes(monkeypatch, tmp_path, capsys):
+    monkeypatch.setattr(tool, "ROOT", tmp_path)
+    sample = gate_receipt(tool.CANDIDATE_SCENARIOS)
+    monkeypatch.setattr(tool, "collect", lambda *a: deepcopy(sample))
+    monkeypatch.setattr(tool, "runtime_identity", lambda: deepcopy(sample["runtime"]))
+    assert tool.main(["--suite", "candidate", "--admit"]) == 0
+    artifact = tmp_path / ".cache/promoter-resources/receipt.json"
+    assert json.loads(artifact.read_bytes())["admission"]["passed"]
+    assert tool.main(["--check-receipt", str(artifact)]) == 0
+    sample["measurements"].pop()
+    assert tool.main(["--suite", "candidate", "--admit"]) == 1
+    assert tool.main(["--check-receipt", str(artifact)]) == 1
+    assert "repetitions must be exactly" in capsys.readouterr().out
+    assert tool.main(["--suite", "diagnostic"]) == 0
