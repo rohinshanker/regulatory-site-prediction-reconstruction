@@ -4,6 +4,7 @@ Verification dates cover the stated source observations or specification review;
 
 | Area | Purpose | Last verified | Document |
 | --- | --- | --- | --- |
+| operon-riboswitch-source-admission | Pinned open components, isolated schema smoke, independent scalar fixtures and exact missing inference/dependency paths. | 2026-10-18 | [operon-riboswitch-source-admission.md](operon-riboswitch-source-admission.md) |
 | promoter-wave5-evaluation | Independent source parity, fixed-grid native localization, RBS context sensitivity and measured-strength admission. | 2026-10-18 | [promoter-wave5-evaluation.md](promoter-wave5-evaluation.md) |
 | wave5-program | Two-phase Promoter implementation, reused native evidence, independent evaluation, Claude delegation and release boundaries. | 2026-10-18 | [wave5-program.md](wave5-program.md) |
 | rbs-0.4-release | Candidate scope, upgrade recipe, component inventory and publication boundary. | 2026-10-17 | [rbs-0.4-release.md](rbs-0.4-release.md) |
