@@ -10,8 +10,9 @@ the [runtime contract](promoter-runtime.md) at public interface
 `21cab40908cdc850735b41d1c84430e3ee0b14d9`). It sits
 between the [native queries](promoter-native-tooling.md) and
 [`native_metrics.py`](../../benchmarks/promoter/native_metrics.py), following
-the [Wave 5 protocol](promoter-wave5-evaluation.md). No candidate, settings
-receipt or owner release gate exists yet. The test identities and results are
+the [Wave 5 protocol](promoter-wave5-evaluation.md). No candidate/settings
+receipt exists yet. Isolated implementation is authorized by 457ac340; collection
+still requires the immutable candidate/settings/resource receipt. The test identities and results are
 synthetic fakes, not candidate receipts. Limits are reviewed ceilings, not
 measured capacities; no speed or feasibility claim is made before A's
 measurements. `candidate_commit` and `wheel_sha256` are caller assertions:
@@ -176,7 +177,8 @@ The adapter maps sites to candidates as follows: `ok` → `ok`, insufficient
 context → `no_candidate`, and failed or unattempted → `failed`. Partial-state
 sites that scored are `ok`.
 
-Scores-1 behaviour and output bytes are unchanged; the tests pin them. With
+Scores-1 behavior and output bytes are unchanged except for the evaluator
+`tool_sha256`; snapshot tests remove that changing tool identity before comparison. With
 scores-2, the all-case endpoint still credits only an `ok` request whose every
 candidate is `ok`. Scored candidates of failed requests enter only
 `conditional_successful_positions`. Unsupported, not-run and setup-failed rows
