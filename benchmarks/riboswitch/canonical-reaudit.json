@@ -5,7 +5,7 @@
   "fixtures_sha256": "6a0307eec52f70f3e8bea6f2f8b757e79c8ed8b1d90d32b02e2a3ce461be7059",
   "execution_receipt_sha256": "7c474565160ba5fad4011769c3dad56018241e92e2bf9212f5855a172a99ef20",
   "execution_runner_sha256": "7ce2de5e4cce6d0b9276c4d59be1c63d8ee78cc4d6d09237ba861802cfd0b9f2",
-  "auditor_sha256": "b1e7db9d8662fd3092bf91b82921114cc76b0f2f65744510a2093d10cad3804c",
+  "auditor_sha256": "52469ca3462bf14f66aea058e0138a892738874973f60a5857f9b8a1bd3f83df",
   "backend_calls": 0,
   "checked": [
     "fixtures_sha256",

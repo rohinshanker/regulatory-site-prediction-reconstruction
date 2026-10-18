@@ -125,7 +125,9 @@ structure.
 `reaudit` makes no backend call. It checks the receipt's schema, settings,
 limits, backend pins, table manifest and version lines against the fixed run
 contract. It also checks job count, order, programs, arguments, timeouts,
-outcomes, wall-time total, and case-to-job references. The saved
+outcomes, wall-time total, and case-to-job references. Elapsed seconds must be
+finite and nonnegative and timeouts finite, positive and at most 120 s; booleans
+are refused, and exited jobs need a genuine integer exit code. The saved
 stdout/stderr, FASTA and constraint bytes are compared with the validated
 demands, and every CT, energy and conclusion is recomputed. It does not
 validate the recorded execution runner hash, executor label, Python or platform.
@@ -133,7 +135,7 @@ Wall times are only bounded, and binary ancestry is not established.
 
 The frozen execution receipt and saved inputs were not rerun or rewritten.
 The [audit receipt](../../benchmarks/riboswitch/canonical-reaudit.json) binds
-that receipt's hash, the execution runner `7ce2de5e…b9f2`, the auditor `b1e7db9d…3804c`
+that receipt's hash, the execution runner `7ce2de5e…b9f2`, the auditor `52469ca3…83df`
 and all 69 saved file hashes. The auditor hash is the current
 `constrained_reference.py`; it differs from the execution runner identity.
 Any later code change needs a new audit receipt.

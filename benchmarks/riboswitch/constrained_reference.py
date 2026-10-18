@@ -892,6 +892,29 @@ def _backend_problems(backend: dict, pins: dict) -> list[str]:
     return [] if valid else ["backend"]
 
 
+def _real(value) -> float | None:
+    """Return a finite JSON number as float; booleans and other types are None."""
+    if isinstance(value, bool) or not isinstance(value, int | float):
+        return None
+    return float(value) if math.isfinite(value) else None
+
+
+def _job_record_valid(job: dict, index: int, limits: Limits) -> bool:
+    seconds, timeout = _real(job["seconds"]), _real(job["timeout_seconds"])
+    exit_code = job["exit_code"]
+    return (
+        job["index"] == index
+        and seconds is not None
+        and seconds >= 0
+        and timeout is not None
+        and 0 < timeout <= limits.job_seconds
+        and job["outcome"] in OUTCOMES
+        and (
+            type(exit_code) is int if job["outcome"] == "exited" else exit_code is None
+        )
+    )
+
+
 def _job_problems(receipt: dict, requests: list, recorded: dict) -> list[str]:
     """Check job records against the fixed launch order of a default-limit run."""
     limits = Limits()
@@ -908,20 +931,19 @@ def _job_problems(receipt: dict, requests: list, recorded: dict) -> list[str]:
                 references.append(prior[key])
                 planned.append((program, request.case_id, args))
     problems = []
+    elapsed = [_real(job["seconds"]) for job in jobs]
     if (
         receipt["total_jobs"] != len(jobs)
         or len(jobs) > limits.max_jobs
-        or sum(job["seconds"] for job in jobs) > limits.total_seconds
+        or sum(value for value in elapsed if value is not None and value >= 0)
+        > limits.total_seconds
     ):
         problems.append("total_jobs")
     if len(planned) != len(jobs) or references != list(range(len(planned))):
         problems.append("job_accounting")
     for index, (job, plan) in enumerate(zip(jobs, planned, strict=False)):
-        if (job["program"], job["case"], job["args"]) != plan or not (
-            job["index"] == index
-            and 0 < job["timeout_seconds"] <= limits.job_seconds
-            and job["outcome"] in OUTCOMES
-            and isinstance(job["exit_code"], int) == (job["outcome"] == "exited")
+        if (job["program"], job["case"], job["args"]) != plan or not _job_record_valid(
+            job, index, limits
         ):
             problems.append(f"job_{index}_record")
     return problems
