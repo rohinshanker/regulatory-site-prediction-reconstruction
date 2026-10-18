@@ -47,6 +47,12 @@ MAX_METRICS_BYTES = 256 * 1024 * 1024
 MAX_GROUPS = MAX_LABELS
 MAX_RESAMPLED_GROUPS = 100_000_000
 MAX_COLUMN_OPERATIONS = 1_000_000_000
+INPUT_HASH_FIELDS = {
+    "query_document_sha256",
+    "scores_sha256",
+    "labels_sha256",
+    "groups_sha256",
+}
 
 
 def tool_sha256():
@@ -114,7 +120,11 @@ def _summary(summary, roster, name):
         not isinstance(rows, list)
         or [
             (row.get("top_k"), row.get("tolerance_nt"))
-            if isinstance(row, dict)
+            if (
+                isinstance(row, dict)
+                and type(row.get("top_k")) is int
+                and type(row.get("tolerance_nt")) is int
+            )
             else None
             for row in rows
         ]
@@ -152,8 +162,10 @@ def load_statistics(metrics):
         raise ValueError("Metrics settings or settings_sha256 mismatch")
     checked_hash(metrics.get("tool_sha256"))
     sources = metrics.get("inputs")
-    if not isinstance(sources, dict) or not sources:
-        raise ValueError("Metrics inputs must be a nonempty object")
+    if not isinstance(sources, dict) or set(sources) != INPUT_HASH_FIELDS:
+        raise ValueError(
+            "Metrics inputs must identify queries, scores, labels and groups"
+        )
     for value in sources.values():
         checked_hash(value)
     roster = [(k, t) for k in settings["top_k"] for t in settings["tolerances_nt"]]

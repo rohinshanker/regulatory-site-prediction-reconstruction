@@ -62,7 +62,8 @@ No per-label context or sequence is emitted.
 Input is one canonical `promoter-native-metrics-1` document and its explicit
 file SHA-256; no scores, labels or groups are joined. Before computing, the tool
 checks schema, metric settings and `settings_sha256`, hash-shaped tool and input
-identities, and in `overall` and every group: nonnegative integer counts (not
+identities for exactly the query, score, label and group documents, and in
+`overall` and every group: nonnegative integer endpoint indices/counts (not
 bool), complete ⊆ scored ⊆ in-window ⊆ all labels, `n_out_of_window`, the exact
 top-k × tolerance roster, `matched` ≤ complete-query labels and each reported
 fraction (`matched / denominator`, null for zero). Every group needs at least

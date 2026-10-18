@@ -153,7 +153,8 @@ def query_interval_pairs(queries, genomes):
     for genome_id, spans in by_genome.items():
         spans.sort()
         for i, (_, upper, a) in enumerate(spans):
-            for lower, _, b in spans[i + 1 :]:
+            for j in range(i + 1, len(spans)):
+                lower, _, b = spans[j]
                 if lower > upper:
                     break
                 _add_pair(pairs, a, b, RULES[1])

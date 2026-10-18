@@ -1,6 +1,6 @@
 {
   "schema_version": "wave5-phase1-input-manifest-1",
-  "state": "Prepared before model scoring; final collection additionally requires reviewed groups/tools, immutable candidate/settings and recorded release-gate decision.",
+  "state": "Prepared inputs and groups before model scoring; final collection requires reviewed tools, immutable candidate/settings and recorded release-gate decision.",
   "planning_commit": "d37ebd7d8eb2422389d003e3fc2ebab2aa5c6466",
   "source_envelope_sha256": "c442baf07480ddece0956a9ac10aefd5884472ec63ed0c62166e2ad7ef8a03d5",
   "source_s1_sha256": "098ecbd204cd1042a6edee1d2a500eaeca4efe034c503e2ade3db1c605e79b00",
@@ -357,7 +357,8 @@
     "method": "Direct modular genomic-base extraction on both strands, independent of builder helpers; full strings, hashes, candidate ranges and full-state support agree.",
     "signed_leader_scenarios_checked": 55,
     "missing_anchor_measured_scenarios_retained": 7,
-    "native_schema": "native-rbs-evidence-1.schema.json validated for 124 scenarios"
+    "native_schema": "native-rbs-evidence-1.schema.json validated for 124 scenarios",
+    "groups": "Recomputed 1966 groups and size histogram; all4808labels exactlyonce, canonicalminlabelIDs, sharedqueries/loci and adjacentnear-point invariants verified independently."
   },
   "collection": {
     "performed": false,
@@ -368,5 +369,140 @@
     "292 in-window and 4516 out-of-window positive TSSs are coverage counts, not prediction results.",
     "RBS 248 profile jobs measure input sensitivity, not accuracy or translation improvement.",
     "Four query examples include plus/minus and circular-origin contexts, with no labels."
-  ]
+  ],
+  "native_groups": {
+    "file": "tan-grid-groups.json",
+    "sha256": "cb13a73defd907f1262d21831db9a086a08ebcd757201bf21e8eb6cc07af9a63",
+    "tool_sha256": "d4bfce2861b7bae4989de23050b1284b66dcd20179e8c6901e7e4cb913e3b516",
+    "settings": {
+      "component_id": "lexicographically smallest member label_id",
+      "context_downstream_nt": 19,
+      "context_policy": "transcript-oriented; linear clips at ends; circular wraps the origin at most once without repeating a base, shortening upstream first; fewer than k bases is unavailable",
+      "context_upstream_nt": 67,
+      "jaccard_min": {
+        "denominator": 2,
+        "numerator": 1
+      },
+      "kmer_nt": 15,
+      "limits": {
+        "max_labels": 20000,
+        "max_pair_operations": 2000000,
+        "max_pairs_per_rule": 1000000,
+        "max_queries": 200000
+      },
+      "max_label_distance_nt": 86,
+      "nodes": "projected labels and selected queries",
+      "rules": {
+        "label_context_kmer": "Jaccard of distinct canonical k-mer sets >= numerator/denominator; canonical k-mer is min(kmer, reverse complement)",
+        "label_distance": "|a - b| <= 86 nt on one replicon, either strand; minimum circular distance on circular replicons",
+        "label_locus_tag": "exact nonempty source_locus_tag shared on one replicon; no alias inference",
+        "label_query_attachment": "each in-window label joins its query",
+        "query_interval_overlap_or_touch": "padded genomic segments overlap or touch on one replicon, either strand; circular segments ending at L touch those at 0"
+      }
+    },
+    "settings_sha256": "01512010aee0c7a3175cbc4fe86eae760fa8d7cb1404ab8517d448fb4ac8632b",
+    "counts": {
+      "context_limit_reason": {
+        "circular_no_repeat_limit": 0,
+        "linear_edge": 0
+      },
+      "context_status": {
+        "clipped": 0,
+        "complete": 4808,
+        "unavailable": 0
+      },
+      "edges": {
+        "label_context_kmer": 316,
+        "label_distance": 1110,
+        "label_locus_tag": 4570,
+        "label_query_attachment": 292,
+        "query_interval_overlap_or_touch": 315
+      },
+      "group_size_counts": [
+        [
+          1,
+          784
+        ],
+        [
+          2,
+          544
+        ],
+        [
+          3,
+          252
+        ],
+        [
+          4,
+          159
+        ],
+        [
+          5,
+          101
+        ],
+        [
+          6,
+          50
+        ],
+        [
+          7,
+          34
+        ],
+        [
+          8,
+          15
+        ],
+        [
+          9,
+          6
+        ],
+        [
+          10,
+          7
+        ],
+        [
+          11,
+          4
+        ],
+        [
+          12,
+          2
+        ],
+        [
+          13,
+          2
+        ],
+        [
+          17,
+          2
+        ],
+        [
+          18,
+          1
+        ],
+        [
+          19,
+          1
+        ],
+        [
+          28,
+          1
+        ],
+        [
+          64,
+          1
+        ]
+      ],
+      "max_group_size": 64,
+      "n_groups": 1966,
+      "n_labels": 4808,
+      "n_labels_in_window": 292,
+      "n_labels_out_of_window": 4516,
+      "n_labels_with_locus_tag": 4628,
+      "n_queries": 366,
+      "n_queries_in_unlabelled_components": 102,
+      "n_queries_with_labels": 193,
+      "n_unlabelled_query_components": 81
+    },
+    "storage": "External B evaluation cache. Input-only grouping; no scores or outcomes."
+  }
 }

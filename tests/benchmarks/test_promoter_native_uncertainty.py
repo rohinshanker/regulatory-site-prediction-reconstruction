@@ -59,7 +59,7 @@ def metrics_document(stats, top_k=(1,), tolerances=(0,)):
         "schema_version": m.METRIC_SCHEMA,
         "settings": settings,
         "settings_sha256": n.document_sha256(settings),
-        "inputs": {name: c * 64 for name, c in (("groups_sha256", "a"), ("x", "b"))},
+        "inputs": {name: "a" * 64 for name in u.INPUT_HASH_FIELDS},
         "tool_sha256": "c" * 64,
         "overall": summary(
             sum(a for a, _, _ in stats), sum(b for _, b, _ in stats), totals, pairs
@@ -329,9 +329,10 @@ class ValidationTest(unittest.TestCase):
         self.check(lambda d: d.update(settings_sha256="0" * 64), "settings_sha256")
         self.check(lambda d: d["settings"].update(tie_rule="other"), "settings_sha256")
         self.check(lambda d: d.update(tool_sha256="bad"), "lowercase 64-hex")
-        self.check(lambda d: d.update(inputs={}), "inputs must be a nonempty")
-        self.check(lambda d: d.update(inputs=[]), "inputs must be a nonempty")
-        self.check(lambda d: d["inputs"].update(x="0"), "lowercase 64-hex")
+        self.check(lambda d: d.update(inputs={}), "inputs must identify")
+        self.check(lambda d: d.update(inputs=[]), "inputs must identify")
+        self.check(lambda d: d["inputs"].update(groups_sha256="0"), "lowercase 64-hex")
+        self.check(lambda d: d["inputs"].update(x="a" * 64), "inputs must identify")
         self.check(lambda d: d.update(n_groups=3), "matching n_groups")
         self.check(lambda d: d.update(groups={}, n_groups=0), "1..")
         self.check(lambda d: d.update(groups=[]), "matching n_groups")
@@ -365,6 +366,10 @@ class ValidationTest(unittest.TestCase):
         self.check(lambda d: group(d)["recovery"].pop(), "roster")
         self.check(lambda d: group(d)["recovery"].reverse(), "roster")
         self.check(lambda d: group(d)["recovery"].__setitem__(0, 1), "roster")
+        self.check(lambda d: group(d)["recovery"][0].update(top_k=True), "roster")
+        self.check(
+            lambda d: group(d)["recovery"][0].update(tolerance_nt=False), "roster"
+        )
         self.check(
             lambda d: group(d)["recovery"][0].update(matched=False),
             "nonnegative integer",
