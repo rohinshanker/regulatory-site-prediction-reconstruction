@@ -1,4 +1,4 @@
-# RNAstructure 6.6 intermolecular traceback repair
+# RNAstructure 6.6 standalone builds and intermolecular traceback repair
 
 This optional, separately installed **GPL-2.0-only** component repairs
 intermolecular traceback in the pinned RNAstructure 6.6 source. It supplies a
@@ -9,7 +9,8 @@ source or library is copied into `src/regsite`.
 
 `manifest.json` pins the upstream archive, original source file, patch and
 patched source of version 2 by SHA-256; `manifest-linker-3.json` pins the
-cumulative version-3 patch described below. The included `LICENSE` is upstream `gpl.txt`.
+cumulative version-3 patch described below. `manifest-original.json` pins the
+unmodified source with `patch: null`. The included `LICENSE` is upstream `gpl.txt`.
 The full upstream source, `ReadMe.txt`, `gpl.txt`, attribution headers and data
 tables remain in each independently built installation. Preserve that source
 and its notices when distributing binaries. The component scripts and fixtures
@@ -253,9 +254,9 @@ biological accuracy.
 
 ## Reproducible installation
 
-Prerequisites: Python 3.11+, an already installed C++ compiler, `make`, `patch`
-and the pinned source archive. On macOS, already installed command-line developer
-tools/SDK are required; the builder obtains the SDK with `xcrun` and sets both
+Prerequisites: Python 3.11+, an already installed C++ compiler, `make`, `file`
+and the pinned source archive; repaired builds also require `patch`. On macOS,
+already installed command-line developer tools/SDK are required; the builder obtains the SDK with `xcrun` and sets both
 SDK include flags. It first runs the non-prompting `xcode-select -p` preflight,
 before extraction or patching, and fails with instructions when tools are absent.
 It never invokes developer-tools installation. No administrator access, new developer tools, account or
@@ -263,6 +264,10 @@ network is needed when the archive is present. Inspect available memory and
 disk before compiling; at most two make jobs are allowed.
 
 ```sh
+python3 backends/rnastructure66/build.py \
+  --archive /path/to/RNAstructureSource.tgz \
+  --destination /new/user-owned/rnastructure66-original \
+  --jobs 2 --component rnastructure-6.6-original
 python3 backends/rnastructure66/build.py \
   --archive /path/to/RNAstructureSource.tgz \
   --destination /new/user-owned/rnastructure66-traceback-2 \
@@ -273,8 +278,12 @@ python3 backends/rnastructure66/build.py \
   --jobs 2 --component rnastructure-6.6-linker-3
 ```
 
-`--component` selects the pinned cumulative patch; the default remains
-traceback-2 and unknown names are refused before anything is created.
+`--component rnastructure-6.6-original` explicitly selects pristine source and
+skips every patch operation. The source hash is checked before and after
+compilation. The default remains traceback-2; the other names select pinned
+cumulative patches. Unknown names and contradictory manifests are refused
+before anything is created. This is a reproducible installation recipe, not a
+promise of bit-identical binaries or biological validation.
 
 The archive SHA-256 must be
 `1bedc62aaab984279055caaa6234d48fca113f4b8e17a8060e0b3784d5a397c3`.
@@ -291,8 +300,17 @@ regular-file/directory allowlist and fresh destination provide the safe
 extraction path; links and traversal paths are rejected before creating it.
 Set `DATAPATH` to that root's `data_tables` when calling its tools directly.
 
-`RNAstructure/traceback-build.json` records the source/patch identities, build
-command, compiler version, platform, machine, actual executable architectures,
+Original builds write `RNAstructure/original-build.json`, with
+`patch_applied: false`, `patch_sha256: null`, pristine `source_sha256`, archive
+hash/byte count, and the same compiler/build/platform/executable/table identities
+as repaired builds. They never write `traceback-build.json`; runtime repaired
+identity discovery and model identities remain unchanged. A receipt binds the
+recorded files but is not independent proof of provenance or new platform
+admission. The original engine root is
+`/new/user-owned/rnastructure66-original/RNAstructure`.
+
+Repaired builds retain `RNAstructure/traceback-build.json`, recording source/patch
+identities, build command, compiler version, platform, machine, actual executable architectures,
 executable hashes and all installed table hashes.
 The builder removes inherited make/architecture/compiler tuning variables.
 Upstream's platform detection selects the target architecture; inspect the
@@ -301,6 +319,13 @@ Rosetta. `--no-optimize` adds upstream `optimize=off` for a fresh diagnostic
 build. Every independently compiled executable has its own binary identity.
 
 ## Component gate
+
+Installer unit tests use only synthetic archives/files and mocked subprocesses;
+no engine, application import or download is needed:
+
+```sh
+python3 -m unittest discover -s backends/rnastructure66/tests -p test_build.py -v
+```
 
 Run from the repository root with an installed C++ compiler; no third-party Python packages or application
 imports are used. All three engine variables are mandatory and missing engines fail

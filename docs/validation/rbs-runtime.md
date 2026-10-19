@@ -191,21 +191,29 @@ upgrading. A retained matching archive can be used instead of downloading.
 mkdir -p .cache
 curl --fail --location https://rna.urmc.rochester.edu/Releases/rnastructure-6.6/RNAstructureSource.tgz -o .cache/RNAstructureSource.tgz
 python3 -c 'import hashlib,pathlib; assert hashlib.sha256(pathlib.Path(".cache/RNAstructureSource.tgz").read_bytes()).hexdigest()=="1bedc62aaab984279055caaa6234d48fca113f4b8e17a8060e0b3784d5a397c3"'
-tar -xzf .cache/RNAstructureSource.tgz -C .cache
-make -C .cache/RNAstructure -j2 Fold bifold efn2
-export REGSITE_RNASTRUCTURE="$PWD/.cache/RNAstructure"
+python3 backends/rnastructure66/build.py \
+  --archive .cache/RNAstructureSource.tgz \
+  --destination .cache/rnastructure66-original --jobs 2 \
+  --component rnastructure-6.6-original
+export REGSITE_RNASTRUCTURE="$PWD/.cache/rnastructure66-original/RNAstructure"
 ```
 
-On macOS with installed command-line developer tools, replace `make` with:
+The [standalone GPL-2.0-only builder](../../backends/rnastructure66/README.md)
+requires Python 3.11+, an installed C++ compiler, `make` and `file`; it performs
+no download. It refuses existing destinations, checks archive/source identities,
+skips patches for this explicit original component and verifies pristine source
+after compilation. It writes `RNAstructure/original-build.json` with an explicit
+no-patch marker and compiler, build, platform, executable and table hashes. This
+installation recipe does not promise bit-identical binaries, new platform
+admission or biological validation. The default builder component remains the
+separate traceback-2 repair; keep the explicit original selector above.
 
-```sh
-sdk="$(xcrun --show-sdk-path)"
-make -C .cache/RNAstructure -j2 Fold bifold efn2 CXX="clang++ -isysroot $sdk -isystem $sdk/usr/include/c++/v1"
-```
-
-No administrator access is needed when a compiler/SDK already exists. If absent,
-the user must install/approve developer tools separately. Always use the backend
-root: macOS's `/usr/bin/fold` is an unrelated text utility. At startup all 45
+On macOS it first runs non-prompting `xcode-select -p`, then obtains the existing
+SDK through `xcrun` and supplies both SDK include flags. No administrator access
+is needed when prerequisites exist. Missing tools fail with instructions; the
+builder never launches installation or permission prompts. Failed build
+directories remain for diagnosis; retry only into a new destination.
+Always use the backend root: macOS's `/usr/bin/fold` is an unrelated text utility. At startup all 45
 pinned parameter files and all three executable version strings are checked;
 actual executable hashes are included in the result. Runtime scratch files are
 private temporary directories removed after each operation.
