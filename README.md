@@ -42,13 +42,16 @@ failed. These are experimental models with measured limitations, independent of
 De Novo DNA/Salis Lab. Production equivalence and native UTEX 2973 calibration
 remain unestablished.
 
-**The 0.5.0rc1 development branch also runs the historical Promoter model.**
+**The historical Promoter model also runs locally.**
 It scores explicitly requested transcription-start candidates on either strand,
 returns the model's sequence windows and score contributions, and exports JSON,
-CSV or projected GFF3. It requires only Python's standard library. Independent
-review, final resource limits and biological evaluation are in progress; this
-is not a released or cyanobacteria-calibrated predictor. Operon and Riboswitch
-runtime work remains pending admission of their component models.
+CSV or projected GFF3. It requires only Python's standard library. Its
+arithmetic reproduces the pinned historical source on synthetic states; that is
+fidelity, not demonstrated biological accuracy. Calibration is *E. coli* only,
+and independent native and measured-strength evaluation has not produced a result.
+This is not a released or cyanobacteria-calibrated predictor. See the
+[Promoter model card](docs/validation/promoter-model-card.md). Operon and
+Riboswitch runtime work remains pending admission of their component models.
 
 See the [independent results](docs/validation/rbs-wave2-results.md),
 [native validation](docs/validation/rbs-native-validation.md) and
@@ -147,10 +150,15 @@ separate E. coli experiment and its limited sequence diversity.
 
 Supply a sequence, explicit candidate positions or range, and either the
 `ecoli_mg1655` or `in_vitro` calibration profile. Host labels describe applicability;
-they do not calibrate the model. Every requested position is retained, including
-positions lacking enough flanking sequence and unfinished computations. Predicted
-windows are model features, not experimentally measured regulatory boundaries.
-See the [runtime contract](docs/validation/promoter-runtime.md),
+they do not calibrate the model. A supplied cyanobacterial host label retains
+the explicitly selected profile and adds an extrapolation warning. Every
+requested position is retained,
+including positions lacking enough flanking sequence and unfinished computations.
+Predicted windows are model features, not experimentally measured regulatory
+boundaries. A score difference between current and recoded sequences is a model
+difference at supplied positions, not measured site gain or loss. See the
+[model card](docs/validation/promoter-model-card.md),
+[runtime contract](docs/validation/promoter-runtime.md),
 [request schema](schemas/promoter-request-1.0.schema.json) and
 [result schema](schemas/promoter-result-1.0.schema.json).
 
@@ -160,10 +168,34 @@ numerical oracle. This checks reconstruction fidelity separately from experiment
 accuracy. The relative transcription score is not a probability or an absolute
 transcription rate. No native cyanobacterial accuracy or hosted parity is claimed.
 
+## Compare current and recoded sequences
+
+The 0.6.0rc1 paired development runtime executes both supplied sequences with the existing
+RBS or Promoter calculator and compares candidates through an explicit edit map:
+
+```sh
+.venv/bin/regsite-compare examples/paired-promoter-unchanged.json
+.venv/bin/regsite-compare examples/paired-promoter-indel.json --format csv
+.venv/bin/regsite-compare examples/paired-rbs-substitution.json
+```
+
+RBS uses the separately installed backend above. The synthetic examples exercise
+unchanged scores, substitutions and an insertion; they are not validated designs.
+JSON retains both full predictions, mapped features, settings, missing values and
+coverage. CSV provides scalar comparisons bound to the full JSON hash. Differences
+are calculated only for successful candidates with compatible scientific settings.
+An interrupted start codon or unmatched position stays explicit, without a claim
+of biological site gain or loss. See the [paired contract](docs/validation/paired-regulatory-runtime.md).
+The core and transport passed independent review. Package/resource admission and
+the frozen producer comparison remain in progress; no canonical cyano integration
+or release is implied.
+The separate [0.5.0rc1 Promoter evaluation candidate](docs/validation/promoter-0.5-candidate.md)
+remains immutable. Package versions and result identities stay explicit even where
+the underlying calculator equations and parameter files are unchanged.
+
 The [continuing delivery program](docs/validation/calculator-delivery-program.md)
-next connects RBS and Promoter outputs to comparisons of supplied original and
-recoded sequences, followed by admitted supplied-operon and specified-aptamer
-components. The visualizer remains a downstream consumer of versioned predictions.
+then adds admitted supplied-operon and specified-aptamer components. The visualizer
+remains a downstream consumer of versioned predictions.
 
 ## Start a new implementation session
 

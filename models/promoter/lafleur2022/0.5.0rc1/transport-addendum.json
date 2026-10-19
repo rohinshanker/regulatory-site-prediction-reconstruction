@@ -1,0 +1,24 @@
+{
+  "admission_sha256": "a72c3539d574573e94fa2cbcc2768d50d2e23cfd5e290ea520e25e6b68031283",
+  "b_final_protocol_acknowledgement_still_required": true,
+  "b_verification": {
+    "largest_raw_bytes": 6507,
+    "public_confirmation": "https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/34#issuecomment-6256904555",
+    "receipt_sha256": "ab74844a4faef1a48f43bfb631bb64fa3ca5c82160a371a9f637af8c7a82dd00",
+    "request_files": 92,
+    "request_hashes_unchanged": true
+  },
+  "biological_outcomes_inspected": false,
+  "candidate_commit": "2dff23cb5697507281f7ffa73fc617d56989b40c",
+  "finding": "Frozen CLI measures text after newline translation and inherits stdin encoding; no scorer change.",
+  "native_stage_admission_preserved": true,
+  "required_transport": {
+    "carriage_returns_allowed": false,
+    "explicit_request_file_argument": true,
+    "max_raw_input_bytes": 4000000,
+    "received_and_authoritative_result_checks": true,
+    "stdin_allowed": false,
+    "strict_utf8": true
+  },
+  "schema_version": "promoter-admission-transport-addendum-1"
+}

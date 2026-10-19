@@ -7,6 +7,7 @@ from contextlib import nullcontext
 
 from regsite.promoter import ParameterError
 from regsite.promoter_io import (
+    LIMITS,
     SetupError,
     load_requests,
     predict_batch,
@@ -28,11 +29,14 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
     try:
         with (
-            nullcontext(sys.stdin)
+            nullcontext(sys.stdin.buffer)
             if args.input == "-"
-            else open(args.input, encoding="utf-8")
+            else open(args.input, "rb")
         ) as stream:
-            value = load_requests(stream)
+            raw = stream.read(int(LIMITS["max_input_json_bytes"]) + 1)
+            if len(raw) > LIMITS["max_input_json_bytes"]:
+                raise SetupError("max_input_json_bytes exceeded by received input")
+            value = load_requests(io.StringIO(raw.decode("utf-8")))
         result = predict_batch(
             value,
             seconds_per_record=args.seconds_per_record,
@@ -46,8 +50,9 @@ def main(argv: list[str] | None = None) -> int:
             result, stream
         )
         rendered = stream.getvalue()
-        rendered.encode("utf-8")  # Validate the complete export before touching stdout.
-        sys.stdout.write(rendered)
+        # Encode completely before writing; stream encoding/newline settings must
+        # not change the documented UTF-8 wire representation.
+        sys.stdout.buffer.write(rendered.encode("utf-8"))
         return int(
             any(r["status"] in ("invalid_input", "failed") for r in result["results"])
         )

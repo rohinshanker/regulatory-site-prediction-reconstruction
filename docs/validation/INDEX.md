@@ -4,6 +4,9 @@ Verification dates cover the stated source observations or specification review;
 
 | Area | Purpose | Last verified | Document |
 | --- | --- | --- | --- |
+| promoter-0.5-candidate | Immutable source/package/CI/resource receipts, rebuild procedure and bounded native-stage transport conditions. | 2026-10-18 | [promoter-0.5-candidate.md](promoter-0.5-candidate.md) |
+| conditional-aptamer-contract | Explicit supplied-energy/volume equations, canonical structural-state boundary and independent synthetic checks. | 2026-10-18 | [conditional-aptamer-contract.md](conditional-aptamer-contract.md) |
+| promoter-model-card | Historical source and parameter pins, E. coli calibration and host-transfer limits, score semantics, fidelity versus biological evidence and current/recoded interpretation. | 2026-10-18 | [promoter-model-card.md](promoter-model-card.md) |
 | paired-regulatory-runtime | Planned exact-edit paired predictor execution, complete candidate/feature correspondence and comparable score differences. | 2026-10-18 | [paired-regulatory-runtime.md](paired-regulatory-runtime.md) |
 | calculator-delivery-program | Sustained Promoter, paired recoding comparison, supplied-operon and conditional aptamer delivery for portable cyano-consumer outputs. | 2026-10-18 | [calculator-delivery-program.md](calculator-delivery-program.md) |
 | promoter-runtime | Implemented core/batch/CLI contract, source identities, coordinates, calibration and candidate acceptance gates. | 2026-10-18 | [promoter-runtime.md](promoter-runtime.md) |

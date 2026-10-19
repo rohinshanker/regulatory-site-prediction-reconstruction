@@ -1,0 +1,827 @@
+{
+  "budget_seconds": 60.0,
+  "elapsed_seconds": 0.7704327090177685,
+  "generator": "synthetic-promoter-resources-3",
+  "invocation": [
+    "tools/measure_promoter_resources.py",
+    "--scenario",
+    "tight-deadline",
+    "--repetitions",
+    "3",
+    "--budget-seconds",
+    "60",
+    "--output",
+    ".cache/promoter-resources/tight-final.json"
+  ],
+  "measurements": [
+    {
+      "api_call": {
+        "cli_calibration": null,
+        "cli_states": null,
+        "function": "regsite.promoter_io.predict_batch",
+        "output_format": "json",
+        "seconds_per_batch": 1e-09,
+        "seconds_per_record": 1e-09
+      },
+      "api_seconds": 0.022314000059850514,
+      "authoritative_bytes": 1677055,
+      "authoritative_sha256": "8eacd391d3f0cec0beae8cc02ec2de9f69e5f7f4cbd0067f5be2e9da2739a0bc",
+      "batch": {
+        "batch_id": "95fc046ed3e4440cd0afa1993fee8778bdda10e163ae362d4954ff4139bbf28b",
+        "complete": false,
+        "limits": {
+          "default_seconds_per_batch": 300.0,
+          "default_seconds_per_record": 30.0,
+          "max_all_state_sites_per_record": 100,
+          "max_all_states_per_batch": 2000,
+          "max_all_states_per_record": 2000,
+          "max_contig_chars": 128,
+          "max_host_name_chars": 200,
+          "max_id_chars": 128,
+          "max_input_json_bytes": 4000000,
+          "max_metadata_depth": 4,
+          "max_metadata_json_bytes": 4096,
+          "max_normalized_bases_per_batch": 100000,
+          "max_normalized_bases_per_record": 5000,
+          "max_planned_sites_per_batch": 4000,
+          "max_planned_sites_per_record": 1000,
+          "max_raw_sequence_chars_per_record": 50000,
+          "max_records_per_batch": 100,
+          "max_result_json_bytes": 67108864,
+          "max_seconds_per_batch": 3600.0,
+          "max_seconds_per_record": 120.0
+        },
+        "record_count": 1,
+        "seconds_per_batch": 1e-09,
+        "seconds_per_record": 1e-09,
+        "status_counts": {
+          "failed": 1,
+          "invalid_input": 0,
+          "no_candidate": 0,
+          "ok": 0,
+          "unsupported": 0
+        }
+      },
+      "command": [
+        "/Users/Rohin/Desktop/coding_stuff/ISAACS-LAB/worktrees/reconstruction-rbs-wave4-runtime/.venv/bin/python",
+        "/Users/Rohin/Desktop/coding_stuff/ISAACS-LAB/worktrees/reconstruction-wave5-promoter-resources/tools/measure_promoter_resources.py",
+        "--worker"
+      ],
+      "complete": false,
+      "coverage": {
+        "failed_sites": 0,
+        "insufficient_context_sites": 0,
+        "planned_sites": 1000,
+        "scored_sites": 0,
+        "unattempted_sites": 1000
+      },
+      "elapsed_overrun": true,
+      "emitted_states": 0,
+      "error": null,
+      "input_sha256": "a01bbcea40b450dba6580b3cd43cf57fa394cfe7440dafd4ffa9512849ff12b0",
+      "model": {
+        "claims": {
+          "absolute_rate": false,
+          "hosted_parity": false,
+          "native_accuracy_evaluated": false,
+          "physical_free_energy": false,
+          "probability": false
+        },
+        "id": "promoter-lafleur2022-historical-1",
+        "implementation_version": "0.5.0rc1",
+        "kind": "historical_equation_reconstruction",
+        "licence": "GPL-3.0-or-later",
+        "not_modeled": [
+          "sigma_factor",
+          "temperature",
+          "host_specific_calibration",
+          "probability",
+          "absolute_rate",
+          "free_energy"
+        ],
+        "parameters": {
+          "array_sha256": {
+            "coefficients": "fddf16b38bf29799481e8a45890b669111e16cf2e3448e99d1934d19a8f0b8e9",
+            "intercept": "f7c66a8d838da71a6b2ab17936cd6ff2564e446af8c0676fba95de2116e99a7b"
+          },
+          "coefficient_count": 343,
+          "intercept_count": 1,
+          "parameter_json_sha256": "e2957d4687a5d5a2a20bcce231b4ea1446f269b383bbae94eed72860efa360dc",
+          "unused_coefficient_indices": [
+            336,
+            337,
+            338
+          ]
+        },
+        "source": {
+          "commit": "46da9132740bce30bccd107f02808adf2215e2f0",
+          "path": "Promoter_Calculator",
+          "reference_fork_commit": "0fe5f6f0fb2befc087556afa575f7241afd98fbf",
+          "repository": "https://github.com/hsalis/SalisLabCode"
+        },
+        "source_quirks": [
+          {
+            "behavior": "Corrected local base L-1-t; legacy L-t diagnostic only.",
+            "id": "reverse_key_l_minus_t"
+          },
+          {
+            "behavior": "Always retain the one-base UP/hex35 gap.",
+            "id": "arbitrary_scan_gap_omitted"
+          },
+          {
+            "behavior": "No sigma input accepted; source metadata had no effect.",
+            "id": "sigma_levels_ignored"
+          },
+          {
+            "behavior": "Calibration required, never inferred from host.",
+            "id": "unknown_organism_default_beta"
+          },
+          {
+            "behavior": "All coordinate-eligible states available on request.",
+            "id": "one_state_per_tss_public"
+          },
+          {
+            "behavior": "Preserve unused 336..338; use source quadratic.",
+            "id": "unused_spacer_coefficients"
+          },
+          {
+            "behavior": "Follow code: UP=24; discriminator lengths 6..10.",
+            "id": "paper_code_difference"
+          }
+        ],
+        "term_source_names": {
+          "binding": "dG_bind",
+          "discriminator": "dG_disc",
+          "extended10": "dG_ext10",
+          "hex10": "dG_10",
+          "hex35": "dG_35",
+          "intercept": "intercept",
+          "itr": "dG_ITR",
+          "source_apparent": "dG_apparent",
+          "spacer": "dG_spacer",
+          "total": "dG_total",
+          "up": "dG_UP"
+        },
+        "terms_semantics": "learned regression score contributions; not independently established free energies",
+        "terms_unit": "source_dG_units"
+      },
+      "peak_rss": {
+        "bytes": 39288832,
+        "raw": 39288832,
+        "source": "resource.getrusage(RUSAGE_SELF).ru_maxrss",
+        "unit": "bytes"
+      },
+      "preflight": {
+        "admitted_dimensions": true,
+        "equalities": [
+          "max_normalized_bases_per_record",
+          "max_planned_sites_per_record"
+        ],
+        "observed": {
+          "max_all_states_per_batch": 0,
+          "max_input_json_bytes": 37541,
+          "max_normalized_bases_per_batch": 5000,
+          "max_normalized_bases_per_record": 5000,
+          "max_planned_sites_per_batch": 1000,
+          "max_planned_sites_per_record": 1000,
+          "max_raw_sequence_chars_per_record": 5000,
+          "max_records_per_batch": 1
+        },
+        "planned_emitted_states": 0,
+        "planned_sites": 1000,
+        "records": [
+          {
+            "eligible_states": 30000,
+            "id": "synthetic-0xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+            "normalized_bases": 5000,
+            "normalized_sha256": "ec42650a75800b0c4c439b3c3029e4ba0e26879da9b1d0f87d1a7dbad22130cc",
+            "planned_emitted_states": 0,
+            "planned_sites": 1000
+          }
+        ],
+        "violations": []
+      },
+      "record_reasons": [
+        [
+          "deadline_exceeded"
+        ]
+      ],
+      "record_statuses": [
+        "failed"
+      ],
+      "repetition": 1,
+      "scenario": "tight-deadline",
+      "serialization_seconds": 0.005989167024381459,
+      "settings": {
+        "deadlines": {
+          "seconds_per_batch": 1e-09,
+          "seconds_per_record": 1e-09
+        },
+        "dna": "gc50",
+        "edge_tss": null,
+        "lengths": [
+          5000
+        ],
+        "seed": 1729,
+        "sites": [
+          1000
+        ],
+        "states": "selected",
+        "verbose": true
+      },
+      "status": "incomplete",
+      "wall_seconds": 0.1854683340061456,
+      "worker_seconds": 0.02934204100165516
+    },
+    {
+      "api_call": {
+        "cli_calibration": null,
+        "cli_states": null,
+        "function": "regsite.promoter_io.predict_batch",
+        "output_format": "json",
+        "seconds_per_batch": 1e-09,
+        "seconds_per_record": 1e-09
+      },
+      "api_seconds": 0.028123709023930132,
+      "authoritative_bytes": 1677055,
+      "authoritative_sha256": "8eacd391d3f0cec0beae8cc02ec2de9f69e5f7f4cbd0067f5be2e9da2739a0bc",
+      "batch": {
+        "batch_id": "95fc046ed3e4440cd0afa1993fee8778bdda10e163ae362d4954ff4139bbf28b",
+        "complete": false,
+        "limits": {
+          "default_seconds_per_batch": 300.0,
+          "default_seconds_per_record": 30.0,
+          "max_all_state_sites_per_record": 100,
+          "max_all_states_per_batch": 2000,
+          "max_all_states_per_record": 2000,
+          "max_contig_chars": 128,
+          "max_host_name_chars": 200,
+          "max_id_chars": 128,
+          "max_input_json_bytes": 4000000,
+          "max_metadata_depth": 4,
+          "max_metadata_json_bytes": 4096,
+          "max_normalized_bases_per_batch": 100000,
+          "max_normalized_bases_per_record": 5000,
+          "max_planned_sites_per_batch": 4000,
+          "max_planned_sites_per_record": 1000,
+          "max_raw_sequence_chars_per_record": 50000,
+          "max_records_per_batch": 100,
+          "max_result_json_bytes": 67108864,
+          "max_seconds_per_batch": 3600.0,
+          "max_seconds_per_record": 120.0
+        },
+        "record_count": 1,
+        "seconds_per_batch": 1e-09,
+        "seconds_per_record": 1e-09,
+        "status_counts": {
+          "failed": 1,
+          "invalid_input": 0,
+          "no_candidate": 0,
+          "ok": 0,
+          "unsupported": 0
+        }
+      },
+      "command": [
+        "/Users/Rohin/Desktop/coding_stuff/ISAACS-LAB/worktrees/reconstruction-rbs-wave4-runtime/.venv/bin/python",
+        "/Users/Rohin/Desktop/coding_stuff/ISAACS-LAB/worktrees/reconstruction-wave5-promoter-resources/tools/measure_promoter_resources.py",
+        "--worker"
+      ],
+      "complete": false,
+      "coverage": {
+        "failed_sites": 0,
+        "insufficient_context_sites": 0,
+        "planned_sites": 1000,
+        "scored_sites": 0,
+        "unattempted_sites": 1000
+      },
+      "elapsed_overrun": true,
+      "emitted_states": 0,
+      "error": null,
+      "input_sha256": "a01bbcea40b450dba6580b3cd43cf57fa394cfe7440dafd4ffa9512849ff12b0",
+      "model": {
+        "claims": {
+          "absolute_rate": false,
+          "hosted_parity": false,
+          "native_accuracy_evaluated": false,
+          "physical_free_energy": false,
+          "probability": false
+        },
+        "id": "promoter-lafleur2022-historical-1",
+        "implementation_version": "0.5.0rc1",
+        "kind": "historical_equation_reconstruction",
+        "licence": "GPL-3.0-or-later",
+        "not_modeled": [
+          "sigma_factor",
+          "temperature",
+          "host_specific_calibration",
+          "probability",
+          "absolute_rate",
+          "free_energy"
+        ],
+        "parameters": {
+          "array_sha256": {
+            "coefficients": "fddf16b38bf29799481e8a45890b669111e16cf2e3448e99d1934d19a8f0b8e9",
+            "intercept": "f7c66a8d838da71a6b2ab17936cd6ff2564e446af8c0676fba95de2116e99a7b"
+          },
+          "coefficient_count": 343,
+          "intercept_count": 1,
+          "parameter_json_sha256": "e2957d4687a5d5a2a20bcce231b4ea1446f269b383bbae94eed72860efa360dc",
+          "unused_coefficient_indices": [
+            336,
+            337,
+            338
+          ]
+        },
+        "source": {
+          "commit": "46da9132740bce30bccd107f02808adf2215e2f0",
+          "path": "Promoter_Calculator",
+          "reference_fork_commit": "0fe5f6f0fb2befc087556afa575f7241afd98fbf",
+          "repository": "https://github.com/hsalis/SalisLabCode"
+        },
+        "source_quirks": [
+          {
+            "behavior": "Corrected local base L-1-t; legacy L-t diagnostic only.",
+            "id": "reverse_key_l_minus_t"
+          },
+          {
+            "behavior": "Always retain the one-base UP/hex35 gap.",
+            "id": "arbitrary_scan_gap_omitted"
+          },
+          {
+            "behavior": "No sigma input accepted; source metadata had no effect.",
+            "id": "sigma_levels_ignored"
+          },
+          {
+            "behavior": "Calibration required, never inferred from host.",
+            "id": "unknown_organism_default_beta"
+          },
+          {
+            "behavior": "All coordinate-eligible states available on request.",
+            "id": "one_state_per_tss_public"
+          },
+          {
+            "behavior": "Preserve unused 336..338; use source quadratic.",
+            "id": "unused_spacer_coefficients"
+          },
+          {
+            "behavior": "Follow code: UP=24; discriminator lengths 6..10.",
+            "id": "paper_code_difference"
+          }
+        ],
+        "term_source_names": {
+          "binding": "dG_bind",
+          "discriminator": "dG_disc",
+          "extended10": "dG_ext10",
+          "hex10": "dG_10",
+          "hex35": "dG_35",
+          "intercept": "intercept",
+          "itr": "dG_ITR",
+          "source_apparent": "dG_apparent",
+          "spacer": "dG_spacer",
+          "total": "dG_total",
+          "up": "dG_UP"
+        },
+        "terms_semantics": "learned regression score contributions; not independently established free energies",
+        "terms_unit": "source_dG_units"
+      },
+      "peak_rss": {
+        "bytes": 41140224,
+        "raw": 41140224,
+        "source": "resource.getrusage(RUSAGE_SELF).ru_maxrss",
+        "unit": "bytes"
+      },
+      "preflight": {
+        "admitted_dimensions": true,
+        "equalities": [
+          "max_normalized_bases_per_record",
+          "max_planned_sites_per_record"
+        ],
+        "observed": {
+          "max_all_states_per_batch": 0,
+          "max_input_json_bytes": 37541,
+          "max_normalized_bases_per_batch": 5000,
+          "max_normalized_bases_per_record": 5000,
+          "max_planned_sites_per_batch": 1000,
+          "max_planned_sites_per_record": 1000,
+          "max_raw_sequence_chars_per_record": 5000,
+          "max_records_per_batch": 1
+        },
+        "planned_emitted_states": 0,
+        "planned_sites": 1000,
+        "records": [
+          {
+            "eligible_states": 30000,
+            "id": "synthetic-0xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+            "normalized_bases": 5000,
+            "normalized_sha256": "ec42650a75800b0c4c439b3c3029e4ba0e26879da9b1d0f87d1a7dbad22130cc",
+            "planned_emitted_states": 0,
+            "planned_sites": 1000
+          }
+        ],
+        "violations": []
+      },
+      "record_reasons": [
+        [
+          "deadline_exceeded"
+        ]
+      ],
+      "record_statuses": [
+        "failed"
+      ],
+      "repetition": 2,
+      "scenario": "tight-deadline",
+      "serialization_seconds": 0.017572500044479966,
+      "settings": {
+        "deadlines": {
+          "seconds_per_batch": 1e-09,
+          "seconds_per_record": 1e-09
+        },
+        "dna": "gc50",
+        "edge_tss": null,
+        "lengths": [
+          5000
+        ],
+        "seed": 1729,
+        "sites": [
+          1000
+        ],
+        "states": "selected",
+        "verbose": true
+      },
+      "status": "incomplete",
+      "wall_seconds": 0.20666641602292657,
+      "worker_seconds": 0.047169749974273145
+    },
+    {
+      "api_call": {
+        "cli_calibration": null,
+        "cli_states": null,
+        "function": "regsite.promoter_io.predict_batch",
+        "output_format": "json",
+        "seconds_per_batch": 1e-09,
+        "seconds_per_record": 1e-09
+      },
+      "api_seconds": 0.025143624981865287,
+      "authoritative_bytes": 1677055,
+      "authoritative_sha256": "8eacd391d3f0cec0beae8cc02ec2de9f69e5f7f4cbd0067f5be2e9da2739a0bc",
+      "batch": {
+        "batch_id": "95fc046ed3e4440cd0afa1993fee8778bdda10e163ae362d4954ff4139bbf28b",
+        "complete": false,
+        "limits": {
+          "default_seconds_per_batch": 300.0,
+          "default_seconds_per_record": 30.0,
+          "max_all_state_sites_per_record": 100,
+          "max_all_states_per_batch": 2000,
+          "max_all_states_per_record": 2000,
+          "max_contig_chars": 128,
+          "max_host_name_chars": 200,
+          "max_id_chars": 128,
+          "max_input_json_bytes": 4000000,
+          "max_metadata_depth": 4,
+          "max_metadata_json_bytes": 4096,
+          "max_normalized_bases_per_batch": 100000,
+          "max_normalized_bases_per_record": 5000,
+          "max_planned_sites_per_batch": 4000,
+          "max_planned_sites_per_record": 1000,
+          "max_raw_sequence_chars_per_record": 50000,
+          "max_records_per_batch": 100,
+          "max_result_json_bytes": 67108864,
+          "max_seconds_per_batch": 3600.0,
+          "max_seconds_per_record": 120.0
+        },
+        "record_count": 1,
+        "seconds_per_batch": 1e-09,
+        "seconds_per_record": 1e-09,
+        "status_counts": {
+          "failed": 1,
+          "invalid_input": 0,
+          "no_candidate": 0,
+          "ok": 0,
+          "unsupported": 0
+        }
+      },
+      "command": [
+        "/Users/Rohin/Desktop/coding_stuff/ISAACS-LAB/worktrees/reconstruction-rbs-wave4-runtime/.venv/bin/python",
+        "/Users/Rohin/Desktop/coding_stuff/ISAACS-LAB/worktrees/reconstruction-wave5-promoter-resources/tools/measure_promoter_resources.py",
+        "--worker"
+      ],
+      "complete": false,
+      "coverage": {
+        "failed_sites": 0,
+        "insufficient_context_sites": 0,
+        "planned_sites": 1000,
+        "scored_sites": 0,
+        "unattempted_sites": 1000
+      },
+      "elapsed_overrun": true,
+      "emitted_states": 0,
+      "error": null,
+      "input_sha256": "a01bbcea40b450dba6580b3cd43cf57fa394cfe7440dafd4ffa9512849ff12b0",
+      "model": {
+        "claims": {
+          "absolute_rate": false,
+          "hosted_parity": false,
+          "native_accuracy_evaluated": false,
+          "physical_free_energy": false,
+          "probability": false
+        },
+        "id": "promoter-lafleur2022-historical-1",
+        "implementation_version": "0.5.0rc1",
+        "kind": "historical_equation_reconstruction",
+        "licence": "GPL-3.0-or-later",
+        "not_modeled": [
+          "sigma_factor",
+          "temperature",
+          "host_specific_calibration",
+          "probability",
+          "absolute_rate",
+          "free_energy"
+        ],
+        "parameters": {
+          "array_sha256": {
+            "coefficients": "fddf16b38bf29799481e8a45890b669111e16cf2e3448e99d1934d19a8f0b8e9",
+            "intercept": "f7c66a8d838da71a6b2ab17936cd6ff2564e446af8c0676fba95de2116e99a7b"
+          },
+          "coefficient_count": 343,
+          "intercept_count": 1,
+          "parameter_json_sha256": "e2957d4687a5d5a2a20bcce231b4ea1446f269b383bbae94eed72860efa360dc",
+          "unused_coefficient_indices": [
+            336,
+            337,
+            338
+          ]
+        },
+        "source": {
+          "commit": "46da9132740bce30bccd107f02808adf2215e2f0",
+          "path": "Promoter_Calculator",
+          "reference_fork_commit": "0fe5f6f0fb2befc087556afa575f7241afd98fbf",
+          "repository": "https://github.com/hsalis/SalisLabCode"
+        },
+        "source_quirks": [
+          {
+            "behavior": "Corrected local base L-1-t; legacy L-t diagnostic only.",
+            "id": "reverse_key_l_minus_t"
+          },
+          {
+            "behavior": "Always retain the one-base UP/hex35 gap.",
+            "id": "arbitrary_scan_gap_omitted"
+          },
+          {
+            "behavior": "No sigma input accepted; source metadata had no effect.",
+            "id": "sigma_levels_ignored"
+          },
+          {
+            "behavior": "Calibration required, never inferred from host.",
+            "id": "unknown_organism_default_beta"
+          },
+          {
+            "behavior": "All coordinate-eligible states available on request.",
+            "id": "one_state_per_tss_public"
+          },
+          {
+            "behavior": "Preserve unused 336..338; use source quadratic.",
+            "id": "unused_spacer_coefficients"
+          },
+          {
+            "behavior": "Follow code: UP=24; discriminator lengths 6..10.",
+            "id": "paper_code_difference"
+          }
+        ],
+        "term_source_names": {
+          "binding": "dG_bind",
+          "discriminator": "dG_disc",
+          "extended10": "dG_ext10",
+          "hex10": "dG_10",
+          "hex35": "dG_35",
+          "intercept": "intercept",
+          "itr": "dG_ITR",
+          "source_apparent": "dG_apparent",
+          "spacer": "dG_spacer",
+          "total": "dG_total",
+          "up": "dG_UP"
+        },
+        "terms_semantics": "learned regression score contributions; not independently established free energies",
+        "terms_unit": "source_dG_units"
+      },
+      "peak_rss": {
+        "bytes": 39616512,
+        "raw": 39616512,
+        "source": "resource.getrusage(RUSAGE_SELF).ru_maxrss",
+        "unit": "bytes"
+      },
+      "preflight": {
+        "admitted_dimensions": true,
+        "equalities": [
+          "max_normalized_bases_per_record",
+          "max_planned_sites_per_record"
+        ],
+        "observed": {
+          "max_all_states_per_batch": 0,
+          "max_input_json_bytes": 37541,
+          "max_normalized_bases_per_batch": 5000,
+          "max_normalized_bases_per_record": 5000,
+          "max_planned_sites_per_batch": 1000,
+          "max_planned_sites_per_record": 1000,
+          "max_raw_sequence_chars_per_record": 5000,
+          "max_records_per_batch": 1
+        },
+        "planned_emitted_states": 0,
+        "planned_sites": 1000,
+        "records": [
+          {
+            "eligible_states": 30000,
+            "id": "synthetic-0xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+            "normalized_bases": 5000,
+            "normalized_sha256": "ec42650a75800b0c4c439b3c3029e4ba0e26879da9b1d0f87d1a7dbad22130cc",
+            "planned_emitted_states": 0,
+            "planned_sites": 1000
+          }
+        ],
+        "violations": []
+      },
+      "record_reasons": [
+        [
+          "deadline_exceeded"
+        ]
+      ],
+      "record_statuses": [
+        "failed"
+      ],
+      "repetition": 3,
+      "scenario": "tight-deadline",
+      "serialization_seconds": 0.009997000102885067,
+      "settings": {
+        "deadlines": {
+          "seconds_per_batch": 1e-09,
+          "seconds_per_record": 1e-09
+        },
+        "dna": "gc50",
+        "edge_tss": null,
+        "lengths": [
+          5000
+        ],
+        "seed": 1729,
+        "sites": [
+          1000
+        ],
+        "states": "selected",
+        "verbose": true
+      },
+      "status": "incomplete",
+      "wall_seconds": 0.28719925007317215,
+      "worker_seconds": 0.036367833032272756
+    }
+  ],
+  "receipt_version": 1,
+  "recommendations": {
+    "candidates": {
+      "all": null,
+      "selected": null
+    },
+    "caveats": [
+      "Independent selected/all candidates cannot be combined without a mixed batch receipt: both consume the same output budget.",
+      "Finite synthetic samples do not bound all inputs; no exhaustive maximum claim.",
+      "Includes process and serialization overhead; only this platform/Python measured.",
+      "Rejected/failed runs cannot certify capacity. Candidates require a new measured receipt.",
+      "Independent evaluator and coordinator choose final limits; runtime is never modified."
+    ],
+    "joint_samples": []
+  },
+  "repetitions": 3,
+  "runtime": {
+    "api_call": {
+      "cli_calibration": null,
+      "cli_states": null,
+      "function": "regsite.promoter_io.predict_batch",
+      "output_format": "json",
+      "seconds_per_batch": 300.0,
+      "seconds_per_record": 30.0
+    },
+    "executable": "/Users/Rohin/Desktop/coding_stuff/ISAACS-LAB/worktrees/reconstruction-rbs-wave4-runtime/.venv/bin/python",
+    "git_head": "e4520a11bc6c8b27841c10b43d6240532726e43c",
+    "identity_model": {
+      "coefficient_array_sha256": "fddf16b38bf29799481e8a45890b669111e16cf2e3448e99d1934d19a8f0b8e9",
+      "id": "promoter-lafleur2022-historical-1",
+      "implementation_version": "0.5.0rc1",
+      "intercept_array_sha256": "f7c66a8d838da71a6b2ab17936cd6ff2564e446af8c0676fba95de2116e99a7b",
+      "parameter_json_sha256": "e2957d4687a5d5a2a20bcce231b4ea1446f269b383bbae94eed72860efa360dc",
+      "source_commit": "46da9132740bce30bccd107f02808adf2215e2f0"
+    },
+    "limits": {
+      "default_seconds_per_batch": 300.0,
+      "default_seconds_per_record": 30.0,
+      "max_all_state_sites_per_record": 100,
+      "max_all_states_per_batch": 2000,
+      "max_all_states_per_record": 2000,
+      "max_contig_chars": 128,
+      "max_host_name_chars": 200,
+      "max_id_chars": 128,
+      "max_input_json_bytes": 4000000,
+      "max_metadata_depth": 4,
+      "max_metadata_json_bytes": 4096,
+      "max_normalized_bases_per_batch": 100000,
+      "max_normalized_bases_per_record": 5000,
+      "max_planned_sites_per_batch": 4000,
+      "max_planned_sites_per_record": 1000,
+      "max_raw_sequence_chars_per_record": 50000,
+      "max_records_per_batch": 100,
+      "max_result_json_bytes": 67108864,
+      "max_seconds_per_batch": 3600.0,
+      "max_seconds_per_record": 120.0
+    },
+    "model": {
+      "claims": {
+        "absolute_rate": false,
+        "hosted_parity": false,
+        "native_accuracy_evaluated": false,
+        "physical_free_energy": false,
+        "probability": false
+      },
+      "id": "promoter-lafleur2022-historical-1",
+      "implementation_version": "0.5.0rc1",
+      "kind": "historical_equation_reconstruction",
+      "licence": "GPL-3.0-or-later",
+      "not_modeled": [
+        "sigma_factor",
+        "temperature",
+        "host_specific_calibration",
+        "probability",
+        "absolute_rate",
+        "free_energy"
+      ],
+      "parameters": {
+        "array_sha256": {
+          "coefficients": "fddf16b38bf29799481e8a45890b669111e16cf2e3448e99d1934d19a8f0b8e9",
+          "intercept": "f7c66a8d838da71a6b2ab17936cd6ff2564e446af8c0676fba95de2116e99a7b"
+        },
+        "coefficient_count": 343,
+        "intercept_count": 1,
+        "parameter_json_sha256": "e2957d4687a5d5a2a20bcce231b4ea1446f269b383bbae94eed72860efa360dc",
+        "unused_coefficient_indices": [
+          336,
+          337,
+          338
+        ]
+      },
+      "source": {
+        "commit": "46da9132740bce30bccd107f02808adf2215e2f0",
+        "path": "Promoter_Calculator",
+        "reference_fork_commit": "0fe5f6f0fb2befc087556afa575f7241afd98fbf",
+        "repository": "https://github.com/hsalis/SalisLabCode"
+      },
+      "source_quirks": [
+        {
+          "behavior": "Corrected local base L-1-t; legacy L-t diagnostic only.",
+          "id": "reverse_key_l_minus_t"
+        },
+        {
+          "behavior": "Always retain the one-base UP/hex35 gap.",
+          "id": "arbitrary_scan_gap_omitted"
+        },
+        {
+          "behavior": "No sigma input accepted; source metadata had no effect.",
+          "id": "sigma_levels_ignored"
+        },
+        {
+          "behavior": "Calibration required, never inferred from host.",
+          "id": "unknown_organism_default_beta"
+        },
+        {
+          "behavior": "All coordinate-eligible states available on request.",
+          "id": "one_state_per_tss_public"
+        },
+        {
+          "behavior": "Preserve unused 336..338; use source quadratic.",
+          "id": "unused_spacer_coefficients"
+        },
+        {
+          "behavior": "Follow code: UP=24; discriminator lengths 6..10.",
+          "id": "paper_code_difference"
+        }
+      ],
+      "term_source_names": {
+        "binding": "dG_bind",
+        "discriminator": "dG_disc",
+        "extended10": "dG_ext10",
+        "hex10": "dG_10",
+        "hex35": "dG_35",
+        "intercept": "intercept",
+        "itr": "dG_ITR",
+        "source_apparent": "dG_apparent",
+        "spacer": "dG_spacer",
+        "total": "dG_total",
+        "up": "dG_UP"
+      },
+      "terms_semantics": "learned regression score contributions; not independently established free energies",
+      "terms_unit": "source_dG_units"
+    },
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "python": "3.14.7 (main, Aug  5 2026, 10:29:49) [Clang 21.0.0 (clang-2100.1.1.101)]",
+    "source_sha256": {
+      "src/regsite/data/promoter-parameters-1.json": "f45bda817d1a0db323964b1ab8f37cb5d2e071dc9e09adf0ef5d791f2415f15e",
+      "src/regsite/promoter.py": "5624c4f035b04d8c4b7161511556d5a0133c4a12af9911caa91a0777aa1668c5",
+      "src/regsite/promoter_io.py": "a06de643dec20daaf19a8e5afb93bd97afda89bbd72b53e73eac2775fecead42",
+      "tools/measure_promoter_resources.py": "f83b5810eb60b21bd20923f7218dc9dd9436d98da24b6b8301cd647e0408c96f"
+    }
+  }
+}
