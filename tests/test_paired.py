@@ -514,6 +514,8 @@ def test_public_panel_rosters_fit_without_scoring():
 
 def test_real_rbs_controls_changed_input_and_reverse_features(real_backend):
     """Six real folding records maximum; sequential and 30 seconds per record."""
+    from test_paired_schemas import RESULT_VALIDATOR
+
     backend = real_backend
     dna = "AAAGGAGGAAAAAAATG" + "A" * 35
     unchanged = p.predict_pair(document("rbs", current=dna), backend)
@@ -559,6 +561,8 @@ def test_real_rbs_controls_changed_input_and_reverse_features(real_backend):
         for value in result["comparisons"][0]["deltas"].values()
         if value["value"] is not None
     )
+    for actual in (unchanged, changed, result):
+        RESULT_VALIDATOR.validate(actual)
 
 
 @pytest.mark.parametrize("side", p.SIDES)

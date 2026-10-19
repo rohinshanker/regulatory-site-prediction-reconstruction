@@ -445,3 +445,27 @@ Every row contains the request and complete JSON prediction hashes. Full structu
 per-base feature maps and native source identities remain in the corresponding
 JSON; CSV alone is not a replacement for that artifact. No threshold or biological
 gain/loss classification is introduced by export.
+
+## Schema scope and diagnostic requests
+
+The [request schema](../../schemas/paired-regulatory-request-1.schema.json)
+describes valid requests. The library also returns diagnostic results for native
+per-record failures, such as omitted Promoter calibration or 5,001–10,000-base
+Promoter input inside the wrapper's wider pair bound. Such inputs can fail the
+valid-request schema while their retained results satisfy the
+[result schema](../../schemas/paired-regulatory-result-1.schema.json). RBS profiles
+accept their existing short names or model IDs; aliases resolve to the same
+scientific model but remain distinct in the full supplied-request hash.
+
+A suppressed comparison copies its row reason into every unavailable delta.
+Optional missing values in otherwise comparable rows use `value_unavailable`.
+The native empty interval `[L,L)` retains that interval and an empty mapped base
+set, including on circular pairs; its mapping is complete and contiguous by the
+empty-set convention. No base at index `L` or invented origin feature is added.
+
+Resolve schema references through a local registry keyed by sibling filenames.
+Schema validation does not prove hashes, coordinate arithmetic, candidate order,
+coverage sums, float-versus-integer wire representations or byte budgets. It also
+cannot express the cross-side feature budget: two otherwise valid 512-candidate
+RBS rosters exceed it and are rejected before either predictor runs. Limits are
+literal schema constants and must change with the runtime's versioned contract.

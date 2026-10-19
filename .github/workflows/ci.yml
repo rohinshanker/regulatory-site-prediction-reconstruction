@@ -16,7 +16,7 @@ jobs:
         os: [ubuntu-24.04, macos-14]
         python: ['3.11', '3.14']
     runs-on: ${{ matrix.os }}
-    timeout-minutes: 30
+    timeout-minutes: 45
     env:
       REGSITE_RNASTRUCTURE: ${{ github.workspace }}/.cache/RNAstructure
     steps:
@@ -69,6 +69,11 @@ jobs:
           python -m build --no-isolation
           python -m venv .cache/fresh
           .cache/fresh/bin/python -m pip install --no-index --no-deps dist/*.whl
+          .cache/fresh/bin/regsite-compare examples/paired-promoter-unchanged.json > .cache/paired-unchanged.json
+          .cache/fresh/bin/regsite-compare examples/paired-promoter-indel.json > .cache/paired-indel.json
+          .cache/fresh/bin/regsite-compare examples/paired-promoter-indel.json --format csv > .cache/paired.csv
+          REGSITE_RNASTRUCTURE="$GITHUB_WORKSPACE/.cache/linker-fixed/RNAstructure" .cache/fresh/bin/regsite-compare examples/paired-rbs-substitution.json > .cache/paired-rbs.json
+          .cache/fresh/bin/python -c 'import csv,json; a=json.load(open(".cache/paired-unchanged.json")); b=json.load(open(".cache/paired-indel.json")); c=json.load(open(".cache/paired-rbs.json")); assert all(r["schema_version"]=="paired-regulatory-result-1" and r["status"]=="complete" and r["coverage"]["complete"] for r in (a,b,c)); assert all(v["value"]==0 for row in a["comparisons"] for v in row["deltas"].values()); rows=list(csv.DictReader(open(".cache/paired.csv"))); assert len(rows)==24 and all(row["prediction_sha256"]==b["prediction_sha256"] for row in rows); assert c["sides"]["current"]["prediction"]["backend"]["variant"]=="rnastructure-6.6-linker-3"'
           .cache/fresh/bin/regsite-promoter examples/promoter-contract-single.json > .cache/promoter-single.json
           .cache/fresh/bin/regsite-promoter examples/promoter-contract-batch.json > .cache/promoter-batch.json
           .cache/fresh/bin/regsite-promoter examples/promoter-projected.json --format csv > .cache/promoter.csv
