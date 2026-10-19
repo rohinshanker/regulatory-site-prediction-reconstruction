@@ -256,6 +256,7 @@ def test_whole_deadline_precedence_and_no_execution(backend, monkeypatch, empty)
         assert component["status"] == "not_evaluated"
         assert component["reason"] == "deadline_exceeded"
         assert component["prediction"] is None
+        assert component["declared_seconds"] is None
     assert result["cds"][0]["reason"] == "deadline_exceeded"
 
 
@@ -269,12 +270,24 @@ def test_remaining_budget_and_serial_order(backend, monkeypatch):
         calls.append("rbs")
         assert kw["seconds"] == 30.0
         assert kw["execution_seconds"] == 14.0
+        assert a[1].deadline == 15.0
         return native_rb(*a, **kw)
 
     def pm(*a, **kw):
         calls.append("promoter")
-        assert kw["seconds_per_record"] == kw["seconds_per_batch"] == 5.0
-        return native_pm(*a, **kw)
+        assert kw["seconds_per_record"] == kw["seconds_per_batch"] == 30.0
+        clock = kw["clock"]
+        readings = []
+
+        def observed_clock():
+            reading = clock()
+            readings.append(reading)
+            return reading
+
+        kw["clock"] = observed_clock
+        result = native_pm(*a, **kw)
+        assert readings[0] + 30.0 == 15.0
+        return result
 
     ticks = iter([0.0, 1.0, 10.0])
     monkeypatch.setattr(t.time, "monotonic", lambda: next(ticks, 10.0))
@@ -282,7 +295,8 @@ def test_remaining_budget_and_serial_order(backend, monkeypatch):
     monkeypatch.setattr(t.promoter_io, "predict_batch", pm)
     result = t.predict_transcript(request, backend)
     assert calls == ["rbs", "promoter"]
-    assert result["components"]["rbs"]["execution_seconds"] == 14.0
+    assert result["components"]["rbs"]["declared_seconds"] == 30.0
+    assert result["components"]["promoter"]["declared_seconds"] == 30.0
 
 
 def set_path(value, path, replacement):
@@ -616,8 +630,8 @@ def test_promoter_preparation_consumes_enclosing_budget(backend, monkeypatch):
     original = t.promoter_io.predict_batch
 
     def prepare_then_expire(*args, **kwargs):
-        # The wrapper's initial clock read is the call's start, rather than
-        # the later time at which the native batch finishes preparation.
+        # The wrapper fixes the batch deadline independently of the later
+        # time at which the native batch finishes preparation.
         return original(*args, **kwargs)
 
     ticks = iter([0.0, 1.0, 10.0, 101.0, 101.0, 101.0])
@@ -693,3 +707,188 @@ def test_execution_failure_retains_successful_sibling(backend, monkeypatch):
     assert result["components"]["rbs"]["coverage"]["returned"] == 2
     assert result["components"]["rbs"]["coverage"]["scored"] == 1
     assert result["status"] == "partial"
+
+
+@pytest.mark.parametrize(
+    "field,bad",
+    [
+        ("origin", 10.0),
+        ("contig_length", 1000.0),
+        ("origin", True),
+        ("contig_length", True),
+    ],
+)
+def test_projection_requires_genuine_integers_before_scoring(
+    backend, monkeypatch, field, bad
+):
+    request = document()
+    request["projection"] = projection() | {field: bad}
+    monkeypatch.setattr(
+        t.rbs, "predict", lambda *a, **k: pytest.fail("scored invalid projection")
+    )
+    monkeypatch.setattr(
+        t.promoter_io,
+        "predict_batch",
+        lambda *a, **k: pytest.fail("scored invalid projection"),
+    )
+    with pytest.raises(
+        t.TranscriptError, match=f"projection.{field}: expected genuine integer"
+    ):
+        t.predict_transcript(request, backend)
+
+
+@pytest.mark.parametrize("seconds", [30, 120])
+def test_complete_result_identity_stable_with_reduced_remaining_time(
+    backend, monkeypatch, seconds
+):
+    request = document()
+    request["settings"] = {
+        "seconds_per_rbs_record": seconds,
+        "seconds_per_promoter_record": seconds,
+        "seconds_total": 30,
+    }
+    results = []
+    for schedule in ([0, 1, 2], [0, 1.1, 2.1], [50, 51.5, 52.5]):
+        ticks = iter(schedule)
+        monkeypatch.setattr(
+            t.time,
+            "monotonic",
+            lambda ticks=ticks, last=schedule[-1]: next(ticks, last),
+        )
+        result = t.predict_transcript(request, backend)
+        assert result["status"] == "complete"
+        for component in result["components"].values():
+            assert component["declared_seconds"] == float(seconds)
+            assert "execution_seconds" not in component
+        batch = result["components"]["promoter"]["prediction"]["batch"]
+        assert (
+            batch["seconds_per_record"] == batch["seconds_per_batch"] == float(seconds)
+        )
+        results.append(result)
+    assert results[0] == results[1] == results[2]
+    assert t.result_bytes(results[0]) == t.result_bytes(results[1])
+    unhashed = {k: v for k, v in results[0].items() if k != "prediction_sha256"}
+    assert (
+        results[0]["prediction_sha256"]
+        == hashlib.sha256(t.canonical_bytes(unhashed)).hexdigest()
+    )
+
+
+def test_promoter_true_timeout_uses_whole_deadline_with_declared_budgets(
+    backend, monkeypatch
+):
+    request = document()
+    request["settings"] = {
+        "seconds_per_rbs_record": 120,
+        "seconds_per_promoter_record": 120,
+        "seconds_total": 30,
+    }
+    ticks = iter([0.0, 1.0, 2.0, 31.0, 31.0, 31.0])
+    monkeypatch.setattr(t.time, "monotonic", lambda: next(ticks))
+    monkeypatch.setattr(
+        t.promoter,
+        "score_site",
+        lambda *a, **kw: pytest.fail("scored after whole deadline"),
+    )
+    result = t.predict_transcript(request, backend)
+    component = result["components"]["promoter"]
+    assert component["status"] == "failed"
+    assert component["declared_seconds"] == 120.0
+    assert component["prediction"]["batch"]["seconds_per_batch"] == 120.0
+    assert component["coverage"]["not_evaluated"] == 2
+    assert all(
+        c["reason"] == "deadline_exceeded" for c in result["promoter_candidates"]
+    )
+
+
+def test_parameter_setup_consumes_whole_budget_before_any_prediction(
+    backend, monkeypatch
+):
+    now = 0.0
+    original = t.promoter.load_parameters
+
+    def slow_setup():
+        nonlocal now
+        params = original()
+        now = 31.0
+        return params
+
+    request = document()
+    request["settings"]["seconds_total"] = 30
+    monkeypatch.setattr(t.time, "monotonic", lambda: now)
+    monkeypatch.setattr(t.promoter, "load_parameters", slow_setup)
+    monkeypatch.setattr(
+        t.rbs,
+        "predict",
+        lambda *a, **kw: pytest.fail("RBS started after setup deadline"),
+    )
+    monkeypatch.setattr(
+        t.promoter_io,
+        "predict_batch",
+        lambda *a, **kw: pytest.fail("Promoter started after setup deadline"),
+    )
+    result = t.predict_transcript(request, backend)
+    assert result["status"] == "unavailable"
+    assert all(
+        c["status"] == "not_evaluated" and c["declared_seconds"] is None
+        for c in result["components"].values()
+    )
+
+
+def test_rbs_session_setup_cannot_start_folding_after_whole_deadline(
+    backend, monkeypatch
+):
+    import subprocess
+
+    now = 0.0
+
+    def slow_session_setup(*args):
+        nonlocal now
+        now = 31.0
+        return FoldingSession(Path("."), 310.15, now + 120.0)
+
+    request = document()
+    request["settings"] = {
+        "seconds_per_rbs_record": 120,
+        "seconds_per_promoter_record": 120,
+        "seconds_total": 30,
+    }
+    monkeypatch.setattr(t.time, "monotonic", lambda: now)
+    monkeypatch.setattr(RnaStructure, "session", slow_session_setup)
+    monkeypatch.setattr(
+        subprocess,
+        "run",
+        lambda *a, **kw: pytest.fail("folding job started after whole deadline"),
+    )
+    result = t.predict_transcript(request, backend)
+    assert result["components"]["rbs"]["declared_seconds"] == 120.0
+    assert result["components"]["rbs"]["status"] == "failed"
+    assert result["cds"][0]["reason"] == "request folding time budget exhausted"
+    assert result["components"]["promoter"]["status"] == "not_evaluated"
+    assert result["components"]["promoter"]["declared_seconds"] is None
+
+
+@pytest.mark.parametrize("mode", ["scored", "no_candidate", "unstarted", "deadline"])
+def test_promoter_log_score_unit_for_success_and_missing_values(
+    backend, monkeypatch, mode
+):
+    request = document()
+    if mode == "no_candidate":
+        request["promoter"]["scan"]["positions"] = [{"strand": "+", "tss": 0}]
+    elif mode in ("unstarted", "deadline"):
+        schedule = (
+            [0.0, 101.0, 102.0]
+            if mode == "unstarted"
+            else [0.0, 1.0, 2.0, 101.0, 101.0, 101.0]
+        )
+        ticks = iter(schedule)
+        monkeypatch.setattr(t.time, "monotonic", lambda: next(ticks))
+    result = t.predict_transcript(request, backend)
+    for candidate in result["promoter_candidates"]:
+        scalar = candidate["scalars"]["log_relative_transcription_score"]
+        assert scalar["unit"] == "ln_relative_transcription_score"
+        assert (scalar["value"] is not None) == (mode == "scored")
+        assert (
+            candidate["scalars"]["relative_transcription_score"]["unit"]
+            == "relative_transcription_score"
+        )

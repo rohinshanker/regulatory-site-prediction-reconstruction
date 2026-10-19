@@ -67,17 +67,17 @@ class _DeadlineBackend(RnaStructure):
 
 
 def _predict_promoter(
-    request: dict, params: promoter.PromoterParameters, seconds: float, started: float
+    request: dict, params: promoter.PromoterParameters, seconds: float, deadline: float
 ) -> dict:
-    # The native batch initializes its deadline after preparation. Anchor its
-    # first clock read to this call, so preparation consumes the same allowance.
+    # Preserve declared native budgets in the identity while independently
+    # enforcing the absolute execution deadline, including preparation time.
     initial = True
 
     def clock() -> float:
         nonlocal initial
         if initial:
             initial = False
-            return started
+            return deadline - seconds
         return time.monotonic()
 
     return promoter_io.predict_batch(
@@ -293,6 +293,11 @@ def _preflight(
                 "contig origin contig_length sequence_strand topology origin_crossing",
                 "projection",
             )
+            for field in ("origin", "contig_length"):
+                if type(projection[field]) is not int:
+                    raise TranscriptError(
+                        f"projection.{field}: expected genuine integer"
+                    )
             promoter.check_projection(projection, len(sequence))
     except promoter.InputError as exc:
         raise TranscriptError(str(exc)) from exc
@@ -346,10 +351,10 @@ def _scalars(site: dict | None, calculator: str, reason: str | None) -> dict:
     else:
         selected = site.get("selected") or {}
         values = {
-            name: (selected.get(name), name)
-            for name in (
-                "relative_transcription_score",
-                "log_relative_transcription_score",
+            name: (selected.get(name), unit)
+            for name, unit in (
+                ("relative_transcription_score", "relative_transcription_score"),
+                ("log_relative_transcription_score", "ln_relative_transcription_score"),
             )
         }
         values.update(
@@ -373,7 +378,7 @@ def _component(request: dict, roster: list) -> dict:
         "roster": roster,
         "status": "not_evaluated",
         "reason": "deadline_exceeded",
-        "execution_seconds": None,
+        "declared_seconds": None,
         "prediction": None,
     }
 
@@ -665,8 +670,10 @@ def predict_transcript(document: object, backend: RnaStructure | None = None) ->
             remaining = deadline - call_started
             if remaining <= 0:
                 continue
-            budget = min(settings[f"seconds_per_{name}_record"], remaining)
-            component["execution_seconds"] = budget
+            declared = settings[f"seconds_per_{name}_record"]
+            budget = min(declared, remaining)
+            component_deadline = min(deadline, call_started + declared)
+            component["declared_seconds"] = declared
             if name == "rbs":
                 assert backend is not None
                 component["prediction"] = rbs.predict(
@@ -675,7 +682,7 @@ def predict_transcript(document: object, backend: RnaStructure | None = None) ->
                         backend.root,
                         backend.identity,
                         backend,
-                        min(deadline, call_started + budget),
+                        component_deadline,
                     ),
                     seconds=settings["seconds_per_rbs_record"],
                     profile=value["rbs"]["profile"],
@@ -683,7 +690,7 @@ def predict_transcript(document: object, backend: RnaStructure | None = None) ->
                 )
             else:
                 component["prediction"] = _predict_promoter(
-                    pm_request, params, budget, call_started
+                    pm_request, params, declared, component_deadline
                 )
         result = _assemble(value, components)
         result["identities"] = {

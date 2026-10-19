@@ -19,6 +19,9 @@ independently rejects non-JSON Python values, invalid UTF-8 strings, nonfinite
 numbers and oversized canonical input. Root depth is zero; object keys and values,
 and array elements, each count as nodes one level below their container. Limits
 are depth 16, 20,000 nodes and 1,000,000 canonical bytes.
+Projection `origin` and `contig_length` must have genuine integer types before
+either predictor runs; integral floats and booleans are rejected, without
+normalization or coercion.
 
 ## Execution and missingness
 
@@ -47,17 +50,27 @@ omitted in the native Promoter request; an absent taxon ID stays absent. Both
 scan strands are independent of the supplied transcript. No predictor selects
 or changes the transcript.
 
-The whole deadline starts at library entry. Component execution allowances are
-`min(requested_component_seconds, remaining_whole_seconds)`. RBS retains its
-requested record budget in its native prediction identity and receives a separate
-execution allowance. A delegating backend caps the native folding session's
-absolute deadline at both the component and whole deadlines; native subprocess
-creation checks that deadline. Promoter's first batch clock read is anchored to
-the wrapper's call time so native preparation consumes the same allowance.
-Subsequent reads use the monotonic clock. Execution is serial, with no retry.
+The whole deadline starts at library entry. Each started component retains its
+fixed requested budget as `declared_seconds`, and native identities retain those
+same declared record/batch budgets. The component's actual absolute deadline is
+`min(whole_deadline, component_call_time + declared_seconds)`. RBS receives a
+separate execution allowance of
+`min(declared_seconds, remaining_whole_seconds)`; a delegating backend also caps
+the native folding session's absolute deadline at the component deadline.
+Native subprocess creation checks that deadline. Promoter's first batch clock
+read returns `component_deadline - declared_seconds`; its native batch then adds
+the unchanged declared allowance to obtain the actual deadline. Subsequent reads
+use the real monotonic clock. Native preparation consumes the same execution
+allowance. Execution is serial, with no retry.
+
+Actual timestamps and remaining allowances are internal execution controls, not
+result fields or identity settings. Identical successful requests therefore have
+identical complete-result hashes even if their total budget is below the declared
+component budgets and scheduling changes the remaining time. Native results are
+retained in full; the complete-result hash excludes only `prediction_sha256`.
 
 An unstarted component is `not_evaluated` / `deadline_exceeded`, retains its
-request and roster and has null `prediction` and `execution_seconds`. This rule
+request and roster and has null `prediction` and `declared_seconds`. This rule
 also applies to an unstarted empty Promoter scan. A started empty scan instead
 retains the real native `no_candidate` result. Already completed components do
 not retroactively fail. Native RBS failures, unsupported starts, leaderless starts,
@@ -135,7 +148,7 @@ Component = {
   roster: declared candidate roster,
   status: native record status | "not_evaluated" | "not_applicable",
   reason: native record reason/first native reason | wrapper reason | null,
-  execution_seconds: effective allowance float | null,
+  declared_seconds: requested component allowance float | null if never started,
   prediction: NativeRbsResult | NativePromoterBatch | null,
   coverage: {requested, returned, scored, not_evaluated, missing,
              incompatible (RBS only)}
@@ -256,7 +269,10 @@ The additional `limits.predictors.rbs` fields are
 `limits.predictors.promoter` is the complete unchanged native effective limits
 object. These are ceilings, not measured performance or admission claims.
 Complete deterministic executions have stable wrapper identities; reduced
-execution allowances or deadline-dependent missingness may change them.
+execution allowances alone do not change them. Deadline-dependent missingness
+can change a result and its identity. A `not_applicable` RBS component never
+starts, so its `declared_seconds` also remains null; the requested budget is
+still preserved in `request.settings` and resolved `settings`.
 
 ## Focused verification and remaining integration
 
@@ -266,8 +282,13 @@ input before scoring, unsupported and missing sites, successful siblings,
 leaderless/short-leader/end-boundary starts, overlapping and clipped annotations,
 all incompatible reasons, forward/reverse/circular projections, empty/null
 features, native corruption, serial shortened budgets, absolute subprocess
-blocking, preparation time, and unstarted empty-scan precedence. The bounded
-real integration test executes one RBS request, serially, with the caller's pinned
+blocking, preparation time, and unstarted empty-scan precedence. The
+reproducibility checks compare the entire result and recompute its full hash
+across different monotonic schedules with total budgets below component budgets.
+Projection type checks reject floats and booleans atomically. Logarithmic
+Promoter scalar units are checked for successful, no-candidate, unstarted and
+deadline-failed sites. The bounded real integration test executes one RBS request,
+serially, with the caller's pinned
 backend and checks a positive native score plus real Promoter results.
 
 Run from the worktree with `PYTHONPATH=src:.` and the assigned test Python:
