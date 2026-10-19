@@ -25,8 +25,9 @@ length or positions. Distinct isoforms require distinct requests.
 CDS ranges have unique IDs and starts, are ordered by increasing start, and may
 overlap. A range `[s,e)` is a supplied annotation, including whatever end the
 caller declares. The wrapper neither infers a stop codon nor validates a protein
-sequence, reading frame or functional ORF. Ranges must be nonempty and contained
-in the construct. Negative-strand CDSs on this transcript require a separate
+sequence, reading frame or functional ORF. Ranges must span at least three bases
+and be contained in the construct. Shorter ranges are invalid organization,
+even if three construct bases happen to follow their start. Negative-strand CDSs on this transcript require a separate
 request; they cannot silently become cistrons of the same molecule.
 
 For an annotation, preserve signed start offset `s-u`. Only a complete start
@@ -63,8 +64,8 @@ The Promoter request explicitly names positions or a scan on the complete
 construct, its calibration, requested strands and output settings. Its normalized
 sequence must equal the supplied construct. Promoter results never redefine
 `[u,v)`, create another RNA isoform, or weight RBS scores. Opposite-strand
-promoter candidates remain explicitly opposite-strand features. Optional
-terminator or other part intervals are supplied annotations only.
+promoter candidates remain explicitly opposite-strand features. Version 1 has
+no optional terminator or other part fields; unknown fields are rejected.
 
 ## Genomic mapping
 
@@ -96,6 +97,17 @@ narrow those bounds. Explicit per-component and whole-request deadlines must
 retain unstarted work. Organization validation and the complete component roster
 precede model execution. Deterministic execution order and stop rules are part
 of the settings receipt, not scheduler-dependent behavior.
+
+The [public request contract at `3b146dc`](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/blob/3b146dcc4d947c36c5259d9ba02637e2124b0c66/docs/validation/supplied-transcript-contract.md)
+agrees with these geometry rules. It makes organization validation atomic,
+runs RBS before Promoter, and fixes explicit component settings and complete
+candidate rosters. The fixture input is a geometry oracle rather than a wire
+request: its `transcript_range` maps to `transcript.range`; fixture projection
+`length` maps to `contig_length`, with explicit contig and origin-crossing
+declarations added by the request builder. Supplied provenance and predictor
+settings must also be explicit. The fixture flag
+`downstream_annotation_clipped` corresponds to the runtime warning
+`downstream_clipped`; no scientific meaning is changed by that spelling.
 
 Retain original Promoter and RBS results, complete model/settings/backend
 identities, each CDS annotation and start correspondence, transcript-to-construct
@@ -138,7 +150,8 @@ python -m pytest --confcutdir=tests/benchmarks -q \
   tests/benchmarks/test_operon_organization_fixtures.py
 ```
 
-These checks establish input expectations only. They execute no predictor and
+All 12 cases satisfy the public minimum CDS span and retain their original
+fixture hash. These checks establish input expectations only. They execute no predictor and
 cannot establish runtime deadline handling or biological accuracy. A's immutable
 runtime candidate and execution receipt remain prerequisites for the subsequent
 independent component/result comparison. Parent #8 stays open for missing models.

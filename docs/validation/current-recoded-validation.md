@@ -2,7 +2,7 @@
 
 - Purpose: Test coordinate correspondence and prediction accounting before comparing current and recoded constructs.
 - Scope: B ticket #39; label-free synthetic benchmark fixtures and producer-side validation. A owns runtime/portable exports.
-- Last verified: 2026-10-18
+- Last verified: 2026-10-19
 - Authorization: `457ac340d1bf66fed976896015f13f3ed8d08c54`; publication and consumer admission remain separate.
 
 ## Frozen input meaning
@@ -152,8 +152,10 @@ all four unsuccessful statuses on both sides and overflow propagation. No
 score in these tests comes from a predictor or an assay.
 
 ```sh
-PYTHONPATH=src:. python -m coverage run --branch --source=benchmarks.recoding \
-  -m pytest -q tests/benchmarks/test_recoding_edit_maps.py
+PYTHONPATH=. python -m coverage run --branch \
+  --source=benchmarks.recoding.edit_maps \
+  -m pytest -q --confcutdir=tests/benchmarks \
+  tests/benchmarks/test_recoding_edit_maps.py
 python -m coverage report --fail-under=100
 ```
 
@@ -235,9 +237,114 @@ included. These tests do not establish numerical score or partial-record handlin
 in A's comparator; those require its immutable public result and execution receipt.
 
 ```sh
-PYTHONPATH=src:. python -m coverage run --branch --source=benchmarks.recoding \
-  -m pytest -q tests/benchmarks/test_recoding_edit_maps.py \
+PYTHONPATH=. python -m coverage run --branch \
+  --source=benchmarks.recoding.edit_maps,benchmarks.recoding.codon_pairs \
+  -m pytest -q --confcutdir=tests/benchmarks \
+  tests/benchmarks/test_recoding_edit_maps.py \
   tests/benchmarks/test_recoding_runtime_panel.py \
   tests/benchmarks/test_recoding_codon_pairs.py
 python -m coverage report --fail-under=100
 ```
+
+## Public paired-result audit and frozen execution panel
+
+[`runtime_check`](../../benchmarks/recoding/runtime_check.py) imports only B's
+edit/codon oracles and standard-library helpers. `build_requests()` returns the
+36 explicit requests and a byte/count manifest from the unchanged long-pair
+fixture. `check_result(original_request, received_bytes, expected_limits)` checks
+strict JSON, received and authoritative result-byte caps, public identity/hash
+payloads, candidate rosters, three-base codon matches, feature/genomic mapping,
+scalar extraction/deltas, units, ordering, warnings and all failure/null counts.
+Caller-supplied limits must be the candidate's complete effective limits,
+including its nested predictor limits; public ceilings are not an admission.
+
+Valid integral numeric coordinates and anti-SD normalization follow the public
+component contracts; raw input values remain intact in request hashes. Missing
+Promoter projection strand resolves to `+`. Invalid inputs retain their raw
+identity rather than receiving invented normalized values. Regression tests
+cover these defaults and normalization distinctions, including `0` versus `0.0`.
+
+This is a wrapper audit, not an independent scorer. Its returned scope is
+`public_hashes_geometry_extraction_arithmetic_accounting` and
+`native_prediction_admitted` is false. Root separately verifies the installed
+candidate/model/backend, public result schemas, native input bindings and
+source-parity admission. Hash consistency alone cannot establish model equations,
+selected-state correctness or biological accuracy.
+
+The [preparation](../../benchmarks/recoding/wave5-paired-preparation.json) pins
+candidate `920215602a837b0fd2fed403512f3b3ed59bfda2`, verified package CI, the
+reviewed checker and every request's exact bytes/hash before collection. There
+are 18 Promoter jobs with 4,108 positions and 18 historical RBS jobs with 17
+explicit starts; empty lists remain explicit. Promoter uses 30 seconds per side,
+RBS 60; the serial stage is capped at 3,600 seconds, with a 30-second process-exit
+allowance inside that stage. Each outer job timeout is the smaller of fresh
+remaining stage time and twice its side budget plus that allowance. No retry,
+adaptive repacking, extra predictor jobs or optional standby profile is planned.
+Existing unchanged-sequence pairs supply identity controls. Artificial public
+result mutations test missing/failure propagation separately from actual scoring.
+
+The compact ASCII request-list SHA256 is
+`035ff8875ef9bca9c158a7b6ad7c72db15ef52fb242ce3247c7d7b8aa412ed8d`.
+The [stage acknowledgement](../../benchmarks/recoding/wave5-paired-collection-ack.json)
+binds the reviewed collector and complete execution plan. Candidate-universe changes remain separate from biologically
+lost/added regulation; the synthetic panel contains no experimental outcome.
+
+Root reproduced 264 tests and 17 subtests at 100% of 640 statements/256 branches
+across the four recoding modules. Independent exact-patch review approved the
+normalization repair at `1286daef57109099ff328425534e6507f1c4e155` after 167
+focused tests and adversarial probes; the original 36-job manifest is unchanged.
+
+```sh
+PYTHONPATH=. python -m coverage run --branch --source=benchmarks.recoding \
+  -m pytest -q --confcutdir=tests/benchmarks \
+  tests/benchmarks/test_recoding_edit_maps.py \
+  tests/benchmarks/test_recoding_runtime_panel.py \
+  tests/benchmarks/test_recoding_codon_pairs.py \
+  tests/benchmarks/test_recoding_runtime_check.py \
+  tests/benchmarks/test_recoding_collect.py
+python -m coverage report --fail-under=100
+```
+
+## Durable execution and separate numerical checks
+
+The [collector](../../benchmarks/recoding/collect.py) archives all 36 compact
+request files before launching one process at a time. Its private journal records
+durable intent, the real exit before parsing, raw hashes, wrapper audit and final
+receipt. It uses the [context collector process boundary](rbs-context-collection.md);
+no retry/resume is possible. Read-only recovery requires exact types, ordered
+events, complete artifacts and every job before `ready: true`. That flag certifies
+wrapper audits only; full native schemas/model identity and source arithmetic are
+separate evaluator checks. Invalid output or failed persistence stops the stage,
+and all unstarted jobs stay in the roster.
+
+The pre-collection numerical fixture enumerates all 123,240 source states at the
+4,108 requested Promoter positions using the unchanged independent
+[reference oracle](../../benchmarks/promoter/reference_oracle.py) and
+[parameters](../../benchmarks/promoter/reference-parameters.json). For each request
+and side, orient the sequence on its requested strand, convert forward base `f`
+to `L-1-f` on the minus strand, enumerate `states`, and select `winner` using its
+fixed discriminator/spacer tie order. Compare the selected lengths, all learned
+terms, relative score and natural-log score at the existing 1e-12 absolute/relative
+tolerance. Exact expectation bytes, source/tool identities and construction-script
+hash are frozen in the stage acknowledgement before runtime output. Failed
+positions remain in all-case coverage; successful-position source agreement is
+reported separately. No experimental outcome or threshold fitting enters this
+synthetic check.
+
+The admitted public schemas validate every frozen request and each actual full
+result; native model/backend identities must equal the pinned candidate. These
+checks supplement the wrapper geometry/arithmetic audit. Existing source-parity
+and unchanged RBS implementation evidence remain separate from biological
+validation; no synthetic delta establishes expression accuracy or a gained/lost
+regulatory site.
+
+## Reviewed frozen result
+
+The [independent 0.6 result](current-recoded-results.md) reports the completed
+once-only comparison, complete denominators, source arithmetic and unchanged
+controls. The [aggregate](../../benchmarks/recoding/wave5-paired-aggregates.json)
+and [control summary](../../benchmarks/recoding/wave5-unchanged-controls.json)
+retain the exact independently reviewed bytes. All 36 jobs are accounted for;
+this synthetic check makes no biological recoding-effect claim. The full command
+above now includes the collector: 389 tests and 17 subtests pass at 100% of
+897 statements and 358 branches.

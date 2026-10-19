@@ -1,0 +1,35 @@
+{
+  "all_native_record_statuses": {
+    "promoter": {
+      "ok": 36
+    },
+    "rbs": {
+      "no_candidate": 22,
+      "ok": 14
+    }
+  },
+  "by_calculator": {
+    "promoter": {
+      "empty_comparison_jobs": 0,
+      "finite_scalar_deltas": 8208,
+      "jobs": 6,
+      "matched_comparisons": 684,
+      "nonzero_scalar_deltas": 0
+    },
+    "rbs": {
+      "empty_comparison_jobs": 3,
+      "finite_scalar_deltas": 36,
+      "jobs": 6,
+      "matched_comparisons": 3,
+      "nonzero_scalar_deltas": 0
+    }
+  },
+  "claims": {
+    "biological_accuracy": false,
+    "measured_regulatory_effect": false
+  },
+  "comparison_rule": "Every finite scalar delta in paired unchanged-sequence comparisons is exactly zero; empty comparisons remain empty, never invented zero-valued candidates.",
+  "job_count": 12,
+  "schema_version": "paired-unchanged-control-audit-1",
+  "selection": "Frozen jobs whose exact current and recoded DNA strings are equal, including declared equal replacements and circular/reverse projection controls. No selection by score."
+}

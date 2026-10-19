@@ -1,0 +1,50 @@
+{
+  "absolute_tolerance": 1e-12,
+  "by_calculator": {
+    "promoter": {
+      "comparable": 2040,
+      "jobs": 18,
+      "paired": 2040,
+      "requested": 4108,
+      "returned": 4108,
+      "scored": 4108,
+      "statuses": {
+        "complete": 18
+      },
+      "unmatched": 28
+    },
+    "rbs": {
+      "comparable": 5,
+      "jobs": 18,
+      "paired": 5,
+      "requested": 17,
+      "returned": 17,
+      "scored": 15,
+      "statuses": {
+        "complete": 18
+      },
+      "unmatched": 7
+    }
+  },
+  "candidate_commit": "920215602a837b0fd2fed403512f3b3ed59bfda2",
+  "claims": {
+    "biological_recoding_effect": false,
+    "expression_accuracy": false,
+    "native_calibration": false,
+    "source_arithmetic_at_successful_synthetic_positions": true
+  },
+  "jobs_retained": 36,
+  "native_payloads_checked": 72,
+  "native_payloads_missing": 0,
+  "plan_sha256": "5df11c70e9b963b93406cde6ab2d82249e241177ee86cceb0f69be4e6ce9579e",
+  "promoter_scalar_checks": 53404,
+  "promoter_source_positions_expected": 4108,
+  "promoter_source_positions_verified": 4108,
+  "public_result_schemas_passed": 36,
+  "receipt_sha256": "952b596f5f9cb4db3ebc3f6458f23e8cd13623fd74f7b0664b94d6206e8d0074",
+  "relative_tolerance": 1e-12,
+  "schema_version": "paired-independent-validation-1",
+  "side_requests_expected": 72,
+  "source_expectations_sha256": "9375d1a8ccd7f12ba4b661c9e798b52933e26b15724ebcdda33382283c87eb5e",
+  "wrapper_hash_geometry_arithmetic_audits_passed": 36
+}
