@@ -12,6 +12,10 @@ The fsynced append-only execution-journal.jsonl is primary attempt evidence.
 recover() is read-only: unmatched starts have unknown actual exits, returned
 processes remain unvalidated until their finished event, and incomplete journals
 or finalization block adaptation. It never creates a replacement collection.
+A started event records launch intent and a timeout ceiling, not proof of launch.
+After its final sync the collector rechecks the absolute stage deadline: expiry
+is explicitly cancelled without launch; otherwise observed evidence records the
+actual timeout passed to the runner. Unobserved intents keep that timeout null.
 """
 
 import argparse
@@ -41,7 +45,7 @@ MAX_ADMISSION_BYTES = 4 * 1024 * 1024
 MAX_OUTPUT_BYTES = 64 * 1024 * 1024
 MAX_JOURNAL_BYTES = 2 * adapter.MAX_PLAN_BYTES
 JOURNAL_NAME = "execution-journal.jsonl"
-JOURNAL_SCHEMA = "promoter-execution-journal-1"
+JOURNAL_SCHEMA = "promoter-execution-journal-2"
 PLAN_KEYS = (
     "schema_version scope tool_sha256 query_document_sha256 query_source "
     "query_settings_sha256 queries_sha256 manifest manifest_sha256 identity_sha256 "
@@ -399,6 +403,7 @@ def _ledgers(
                 entry,
                 argv=None,
                 duration_seconds=None,
+                timeout_ceiling_seconds=None,
                 timeout_seconds=None,
                 reason="not_started",
                 stdout=None,
@@ -494,6 +499,7 @@ def collect(
         _sync_directory(output)
         _sync_directory(output.parent)
         start = clock()
+        deadline = start + stage_seconds
         for index, (batch, raw) in enumerate(
             zip(plan["batches"], requests, strict=True)
         ):
@@ -503,18 +509,17 @@ def collect(
                 stream.write(raw)
                 _sync_file(stream)
             argv = _argv(executable, request_path, settings)
-            remaining = stage_seconds - (clock() - start)
+            remaining = deadline - clock()
             if remaining <= 0:
                 receipt["stop_reason"] = "stage_expired"
                 break
-            timeout = min(
+            timeout_ceiling = min(
                 remaining, settings["seconds_per_batch"] + process_grace_seconds
             )
             stdout_path, stderr_path = (
                 output / f"{name}-{index:06d}.bin" for name in ("stdout", "stderr")
             )
-            detail.update(argv=argv, timeout_seconds=timeout)
-            before = clock()
+            detail.update(argv=argv, timeout_ceiling_seconds=timeout_ceiling)
             with (
                 _open_private(stdout_path) as stdout,
                 _open_private(stderr_path) as stderr,
@@ -525,10 +530,26 @@ def collect(
                         event="started",
                         batch_index=index,
                         argv=argv,
-                        timeout_seconds=timeout,
+                        timeout_ceiling_seconds=timeout_ceiling,
                     ),
                 )
                 _sync_directory(output)
+                before = clock()
+                remaining = deadline - before
+                if remaining <= 0:
+                    _append_event(
+                        journal,
+                        dict(
+                            event="cancelled",
+                            batch_index=index,
+                            reason="stage_expired",
+                            launched=False,
+                        ),
+                    )
+                    detail["reason"] = receipt["stop_reason"] = "stage_expired"
+                    break
+                timeout = min(remaining, timeout_ceiling)
+                detail["timeout_seconds"] = timeout
                 code, reason = _attempt(argv, timeout, stdout, stderr, runner)
                 detail["duration_seconds"] = clock() - before
                 _append_event(
@@ -539,6 +560,7 @@ def collect(
                         actual_exit_code=code if reason is None else None,
                         synthetic_exit_code=code if reason is not None else None,
                         reason=reason,
+                        timeout_seconds=timeout,
                         duration_seconds=detail["duration_seconds"],
                     ),
                 )
@@ -650,7 +672,7 @@ def _journal_header(header):
     return plan, collection, receipt
 
 
-def _observed(event):
+def _observed(event, timeout_ceiling):
     adapter._exact_keys(
         event,
         (
@@ -659,6 +681,7 @@ def _observed(event):
             "actual_exit_code",
             "synthetic_exit_code",
             "reason",
+            "timeout_seconds",
             "duration_seconds",
         ),
         "observed event",
@@ -681,6 +704,7 @@ def _observed(event):
             raise ValueError("Invalid synthetic process observation")
         adapter._same(synthetic, expected[reason], "synthetic exit")
         code = synthetic
+    _seconds(event["timeout_seconds"], timeout_ceiling)
     _seconds(event["duration_seconds"], math.inf, zero=True)
     return code
 
@@ -700,6 +724,7 @@ def _finished(event, row, initial, cap):
         "batch_index",
         "request_sha256",
         "argv",
+        "timeout_ceiling_seconds",
         "timeout_seconds",
         "duration_seconds",
         "exit_code",
@@ -778,7 +803,7 @@ def _recover(events, truncated, output):
                 ),
                 "finalized event",
             )
-            if phase not in ("idle", "finished"):
+            if phase not in ("idle", "finished", "cancelled"):
                 raise ValueError(
                     "Finalization before a finished attempt or after finalization"
                 )
@@ -813,7 +838,7 @@ def _recover(events, truncated, output):
         if kind == "started":
             adapter._exact_keys(
                 event,
-                ("event", "batch_index", "argv", "timeout_seconds"),
+                ("event", "batch_index", "argv", "timeout_ceiling_seconds"),
                 "started event",
             )
             if phase not in ("idle", "finished") or stop is not None:
@@ -828,7 +853,7 @@ def _recover(events, truncated, output):
                 "started argv",
             )
             _seconds(
-                event["timeout_seconds"],
+                event["timeout_ceiling_seconds"],
                 min(
                     receipt["stage_seconds"],
                     settings["seconds_per_batch"] + receipt["process_grace_seconds"],
@@ -836,22 +861,44 @@ def _recover(events, truncated, output):
             )
             row.update(
                 argv=event["argv"],
-                timeout_seconds=event["timeout_seconds"],
+                timeout_ceiling_seconds=event["timeout_ceiling_seconds"],
                 status="interrupted_unknown",
                 process_status="interrupted_unknown",
                 validation_state="unfinished",
                 reason="unmatched_start",
             )
             phase = "started"
+        elif kind == "cancelled":
+            adapter._exact_keys(
+                event, ("event", "batch_index", "reason", "launched"), "cancelled event"
+            )
+            if phase != "started":
+                raise ValueError("Cancellation without an unmatched launch intent")
+            adapter._same(
+                [event["reason"], event["launched"]],
+                ["stage_expired", False],
+                "cancelled launch",
+            )
+            row.update(
+                status="not_run",
+                process_status="not_run",
+                validation_state="not_launched",
+                reason="stage_expired",
+            )
+            receipt["batches"][index] = {
+                key: row[key] for key in receipt["batches"][index]
+            }
+            stop, phase = "stage_expired", "cancelled"
         elif kind == "observed":
             if phase != "started":
                 raise ValueError("Observation without an unmatched start")
-            code = _observed(event)
+            code = _observed(event, row["timeout_ceiling_seconds"])
             status = "returned_unvalidated" if code in (0, 1) else _process_status(code)
             row.update(
                 actual_exit_code=event["actual_exit_code"],
                 synthetic_exit_code=event["synthetic_exit_code"],
                 exit_code=code,
+                timeout_seconds=event["timeout_seconds"],
                 status=status,
                 process_status=_process_status(code),
                 reason=event["reason"],
@@ -915,7 +962,9 @@ def _recover(events, truncated, output):
 def recover(output):
     """Read journal evidence only; never resume, launch or synthesize a collection.
 
-    Unknown actual exits stay null. Complete returned observations are distinct
+    Unobserved intent has unknown actual timeout/exit; it is not proof of launch.
+    Explicit cancellation is not_run with no actual timeout or exit.
+    Complete returned observations are distinct
     from finished validation. A missing finalization, missing/mismatched final
     artifact, validation failure or truncated tail blocks normal adaptation.
     A complete malformed entry rejects recovery; only an unterminated last line
