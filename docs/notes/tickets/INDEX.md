@@ -14,6 +14,7 @@ A owns remaining runtime/release/improvement scopes 04/06/13; B owns broader sou
 
 | Status | Updated | Ticket | Priority | Scope |
 | --- | --- | --- | --- | --- |
+| A | 2026-10-19 | [A_calculator-artifact-manifests__20261019.md](A_calculator-artifact-manifests__20261019.md) | P1 | Session A: offline producer artifact manifests and integrity checks; external bulky storage, no browser admission or scoring; parent #6/#10 |
 | A | 2026-10-18 | [A_01-source-recovery-and-open-licensing__20261016.md](A_01-source-recovery-and-open-licensing__20261016.md) | P0 | RBS/Promoter evidence, bounded Operon/Riboswitch admission and canonical constrained-folding fixtures delivered; complete later-tool inference unresolved; [issue #1](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/1) |
 | A | 2026-10-17 | [A_04-rbs-published-refinements__20261016.md](A_04-rbs-published-refinements__20261016.md) | P0 | Footprint/context/standby implemented; kinetics, stacking, search completeness and backend parity remain; [issue #4](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/4) |
 | A | 2026-10-19 | [A_05-live-calculator-reference-benchmarks__20261016.md](A_05-live-calculator-reference-benchmarks__20261016.md) | P0 | Reuse completed RBS panel; debit unreconciled; no new purchase recommended for preview; any later paid panel needs new freeze/pricing; [issue #5](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/5) |
