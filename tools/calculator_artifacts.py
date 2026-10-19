@@ -15,6 +15,7 @@ import re
 import secrets
 import stat
 import sys
+import unicodedata
 from collections.abc import Iterator, Sequence
 from contextlib import contextmanager
 from typing import Any
@@ -240,13 +241,20 @@ def _encoded(value: dict) -> bytes:
     ).encode()
 
 
+def _collides(output: str, source: str) -> bool:
+    """Conservatively reject aliases and outputs replacing an input's parent."""
+    output_key = unicodedata.normalize("NFC", output).casefold()
+    source_key = unicodedata.normalize("NFC", source).casefold()
+    return source_key == output_key or source_key.startswith(output_key + "/")
+
+
 def _output_check(output: str, root: str, entries: list[dict]) -> None:
     _require(bool(_absolute(output)), "output_file_required")
     _require(
-        output.casefold()
-        not in {
-            (root.rstrip("/") + "/" + entry["path"]).casefold() for entry in entries
-        },
+        not any(
+            _collides(output, root.rstrip("/") + "/" + entry["path"])
+            for entry in entries
+        ),
         "output_input_collision",
     )
 
@@ -309,9 +317,7 @@ def verify_manifest(root: str, manifest_path: str, output: str | None = None) ->
     entries = manifest["artifacts"]
     if output is not None:
         _output_check(output, root, entries)
-        _require(
-            output.casefold() != manifest_path.casefold(), "output_input_collision"
-        )
+        _require(not _collides(output, manifest_path), "output_input_collision")
     rows, identities = [], {manifest_identity}
 
     def check(directory: int, entry: dict) -> dict:

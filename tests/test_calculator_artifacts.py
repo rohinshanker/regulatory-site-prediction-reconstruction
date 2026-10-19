@@ -768,6 +768,37 @@ def test_json_recursion_failure_is_an_invalid_manifest(storage, monkeypatch):
         tool.verify_manifest(root, path)
 
 
+def test_missing_input_parent_cannot_become_report(storage):
+    root, _, path = storage
+    manifest = create(storage)
+    manifest["artifacts"][0]["path"] = "absent/input.json"
+    save(path, manifest)
+    parent = Path(root) / "absent"
+    with pytest.raises(tool.ArtifactError, match="output_input_collision"):
+        tool.verify_manifest(root, path, str(parent))
+    assert not parent.exists()
+
+
+def test_unicode_normalized_output_aliases(tmp_path):
+    root = tmp_path / "caf\u00e9"
+    root.mkdir()
+    entries = [{"id": "input", "role": "request", "path": "missing.json"}]
+    output = tmp_path / "cafe\u0301" / "missing.json"
+    with pytest.raises(tool.ArtifactError, match="output_input_collision"):
+        tool.create_manifest(str(root), COMMIT, entries, str(output))
+    assert not (root / "missing.json").exists()
+    (root / "input").write_bytes(b"artificial")
+    entries[0]["path"] = "input"
+    manifest = root / "manifest.json"
+    tool.create_manifest(str(root), COMMIT, entries, str(manifest))
+    with pytest.raises(tool.ArtifactError, match="output_input_collision"):
+        tool.verify_manifest(
+            str(root), str(manifest), str(tmp_path / "cafe\u0301" / "manifest.json")
+        )
+    with pytest.raises(tool.ArtifactError, match="output_input_collision"):
+        tool.verify_manifest(str(root), str(manifest), str(root))
+
+
 def test_cli_success_incomplete_and_errors(storage, tmp_path, capsys):
     root, entries, output = storage
     args = ["create", "--root", root, "--producer-commit", COMMIT, "--output", output]

@@ -30,7 +30,9 @@ The [reconstruction contract](reconstruction-contract.md) and
 
 Run from a source checkout with Python 3.11 or newer on a POSIX system supporting
 `dir_fd`, `O_DIRECTORY` and `O_NOFOLLOW` (macOS/Linux). Windows is unsupported.
-Use an existing writable directory for each output parent. These commands assume
+Every ancestor directory needs read and search permission; search-only directories
+are unsupported by this implementation. Output parents also need write permission.
+The tool does not change permissions. These commands assume
 the named external files already exist; they do not run predictions or create
 artifact directories. Replace the example absolute paths and commit with your
 explicit locations and declared producer revision:
@@ -116,13 +118,16 @@ and intermediate links, are rejected. Duplicate selected file identities (device
 inode), including hardlink aliases, are rejected; a verified manifest cannot
 refer to itself or its hardlink alias. Unselected files are never enumerated.
 
-Outputs cannot collide with selected input paths, including missing inputs, or
-the verification manifest. Path comparisons conservatively ignore case for these
-collisions, including on case-sensitive filesystems. Existing destinations of any
-kind are never overwritten. Only the generated manifest/report uses a private
+Outputs cannot coincide with selected input paths, including missing inputs, or
+the verification manifest, or replace any of their parent directories with a file.
+Path comparisons conservatively normalize Unicode to NFC and ignore case,
+including on filesystems that distinguish those names. Existing destinations of
+any kind are never overwritten. Only the generated manifest/report uses a private
 mode-0600 temporary file beside the destination; after writing, flushing and
 fsync, an exclusive atomic link publishes its complete bytes. The temporary name
-is then removed. No input artifact is linked or changed. Publication requires a
+is then removed. The published file retains mode 0600; sharing it requires a
+separate, deliberate permission decision by its owner. No input artifact is
+linked or changed. Publication requires a
 filesystem supporting same-directory hardlinks; there is no unsafe fallback.
 Failed writes do not publish truncated destination files. A process crash can
 leave a private temporary file; cleanup failure can leave a temporary name beside
@@ -164,6 +169,9 @@ command as a whole. CLI declaration, manifest and output-publication failures
 emit a deterministic `{"status":"invalid","error":"stable_code"}` envelope.
 Argument-parser usage errors go to stderr. Callers must check process exit status,
 including stdout/write failures, before accepting any command as complete.
+IO codes are deliberately coarse: `not_found` can identify either a missing
+input or an output parent, and `io_error` includes an existing output destination.
+The tool never overwrites that destination or attempts a permission change.
 
 | Exit | Meaning |
 | --- | --- |
