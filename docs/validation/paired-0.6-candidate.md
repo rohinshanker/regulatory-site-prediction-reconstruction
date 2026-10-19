@@ -62,10 +62,13 @@ hashes and authoritative JSON sizes. Do not rewrite the frozen receipts.
 
 The eight required jobs in
 [CI39180666203](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/actions/runs/39180666203)
-cover Ubuntu 24.04/macOS 14 and Python 3.11/3.14, including original/repaired
-RBS backends and fresh installation. Their final success and B's exact input,
-settings and stage acknowledgement must be bound in a separate admission receipt
-before independent collection. The candidate receipt alone is preparation.
+all passed on the exact source commit. The [CI admission receipt](../../models/paired/0.6.0rc1/ci-admission.json) binds every job/step, the log hash, test totals and
+the synthetic receipts. The four runtime jobs each passed 3,152 full tests and
+1,963 tests per repaired-backend run, with 100% required coverage; their fresh
+offline wheel examples passed. The four resource jobs also passed. This covers
+Ubuntu 24.04/macOS 14 and Python 3.11/3.14. B must still bind exact inputs, settings
+and a finite stage acknowledgement before each independent collection. CI success
+does not establish biological accuracy, production equivalence or publication.
 
 ## Unchanged RBS context preparation
 
