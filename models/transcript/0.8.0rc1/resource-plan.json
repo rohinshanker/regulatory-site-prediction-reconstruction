@@ -52,6 +52,9 @@
   "execution": {
     "backend": "separately_installed_rnastructure-6.6-linker-3",
     "concurrent_cli_processes": 1,
+    "csv_replay_request_ids": [
+      "supplied-transcript-two-cds"
+    ],
     "memory_measurement": "macOS /usr/bin/time -l maximum resident set size, bytes",
     "repetitions": 1,
     "timeout_seconds_per_cli": 250,
