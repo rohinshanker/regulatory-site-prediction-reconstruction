@@ -568,9 +568,9 @@ def test_independent_denominators_and_partial_success():
 def test_reference_types_and_recursive_finite():
     assert c.parse(b'{"a":[1.25,null,true]}') == {"a": [1.25, None, True]}
     assert c.references([{"hash_sha256": H}])[0]["location"] == [0, "hash_sha256"]
-    with pytest.raises(c.ReceiptError, match="invalid SHA"):
+    with pytest.raises(c.ReceiptError, match="invalid.*SHA"):
         c.references({"hash_sha256": "no"})
-    with pytest.raises(c.ReceiptError, match="invalid SHA"):
+    with pytest.raises(c.ReceiptError, match="invalid.*SHA"):
         c.references({"map_sha256": {"x": 1}})
     with pytest.raises(c.ReceiptError, match="non-finite"):
         c._finite(float("inf"))
@@ -718,3 +718,102 @@ def test_inventory_not_silently_omitted(tmp_path):
     manifest.write_bytes(encode(trust))
     with pytest.raises(c.ReceiptError, match="reference inventory"):
         c.check(root, manifest)
+
+
+def set_request_statuses(docs, ok, labelled_ok=20, non_ok_scored=0):
+    """Build coherent synthetic status summaries before rebinding all byte pins."""
+    adapter = docs[c.AGGREGATE]["collection"]["adapter_counts"]
+    adapter["request_status"].update(ok=ok, failed=30 - ok)
+    adapter["runtime_status"].update(ok=ok, failed=30 - ok)
+    adapter["n_complete_requests"] = ok
+    adapter["n_non_ok_requests_with_scored_candidates"] = non_ok_scored
+    for metrics in docs[c.AGGREGATE]["results"].values():
+        coverage = metrics["coverage"]
+        coverage["request_status"] = copy.deepcopy(adapter["request_status"])
+        coverage["runtime_status"] = copy.deepcopy(adapter["runtime_status"])
+        coverage["n_complete_queries"] = ok
+        coverage["n_non_ok_queries_with_scored_candidates"] = non_ok_scored
+        coverage["n_queries_with_labels_ok"] = labelled_ok
+        coverage["candidate_status_in_ok_requests"]["ok"] = 2 * ok
+
+
+@pytest.mark.parametrize("ok,non_ok_scored", [(30, 1), (29, 2)])
+def test_non_ok_scored_subset_rejected_after_rebinding(tmp_path, ok, non_ok_scored):
+    docs = fixture()
+    set_request_statuses(docs, ok, non_ok_scored=non_ok_scored)
+    with pytest.raises(c.ReceiptError, match="non-ok scored request subset"):
+        c.check(*write_fixture(tmp_path, docs))
+
+
+@pytest.mark.parametrize("ok,labelled_ok", [(30, 19), (29, 18), (29, 21)])
+def test_labelled_status_complement_rejected_after_rebinding(tmp_path, ok, labelled_ok):
+    docs = fixture()
+    set_request_statuses(docs, ok, labelled_ok=labelled_ok)
+    with pytest.raises(c.ReceiptError, match="labelled query bound"):
+        c.check(*write_fixture(tmp_path, docs))
+
+
+@pytest.mark.parametrize(
+    "ok,labelled_ok,non_ok_scored",
+    [
+        (30, 20, 0),
+        (29, 20, 0),
+        (29, 19, 1),
+        (28, 18, 2),
+    ],
+)
+def test_partial_status_subset_boundaries(tmp_path, ok, labelled_ok, non_ok_scored):
+    docs = fixture()
+    set_request_statuses(docs, ok, labelled_ok, non_ok_scored)
+    assert c.check(*write_fixture(tmp_path, docs))["status"] == "consistent"
+
+
+def test_public_canonical_unicode_bytes_and_settings_rebinding(tmp_path):
+    # Literal expected wire bytes, independent of the implementation's serializer.
+    expected = b'{"matching":"synthetic caf\\u00e9"}\n'
+    assert c.canonical({"matching": "synthetic café"}) == expected
+    assert encode({"matching": "synthetic café"}) == expected
+    docs = fixture()
+    docs[c.FREEZE]["metric_settings"]["matching"] = "synthetic café"
+    for metrics in docs[c.AGGREGATE]["results"].values():
+        metrics["settings"]["matching"] = "synthetic café"
+        metrics["uncertainty"]["inputs"]["metrics_settings_sha256"] = sha(
+            encode(metrics["settings"])
+        )
+    assert c.check(*write_fixture(tmp_path, docs))["status"] == "consistent"
+
+
+@pytest.mark.parametrize("value", [True, None, [], {}, {"fake": H}])
+def test_invalid_scalar_hash_after_rebinding(tmp_path, value):
+    root, manifest = write_fixture(tmp_path, fixture())
+    aggregate = json.loads((root / c.AGGREGATE).read_bytes())
+    aggregate["collection_sha256"] = value
+    raw = encode(aggregate)
+    (root / c.AGGREGATE).write_bytes(raw)
+    trust = json.loads(manifest.read_bytes())
+    trust["artifacts"][c.AGGREGATE] = sha(raw)
+    # Even an explicitly rebound inventory that omits the malformed hash cannot
+    # turn a schema/type failure into a consistent report.
+    trust["referenced_only"][c.AGGREGATE] = [
+        row
+        for row in trust["referenced_only"][c.AGGREGATE]
+        if row["location"] != ["collection_sha256"]
+    ]
+    manifest.write_bytes(encode(trust))
+    with pytest.raises(c.ReceiptError, match="invalid scalar SHA-256"):
+        c.check(root, manifest)
+
+
+@pytest.mark.parametrize(
+    "field", ["tool_and_protocol_sha256", "verified_artifact_sha256"]
+)
+def test_declared_hash_maps_only(field):
+    assert c.references({field: {"opaque/file": H}}) == [
+        {"location": [field, "opaque/file"], "sha256": H}
+    ]
+    with pytest.raises(c.ReceiptError, match="expected SHA-256 map"):
+        c.references({field: H})
+    with pytest.raises(c.ReceiptError, match="invalid SHA-256 map"):
+        c.references({field: {"opaque/file": True}})
+    with pytest.raises(c.ReceiptError, match="invalid scalar SHA-256"):
+        c.references({"nested": {field: {"opaque/file": H}}})

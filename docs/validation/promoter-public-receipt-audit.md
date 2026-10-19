@@ -56,11 +56,19 @@ binds the checked acknowledgement bytes. All structurally published SHA-256
 references are inventoried with their JSON locations and compared to the explicit
 manifest inventory. Repeated input, score, tool, metric-settings and
 uncertainty-settings references are reconciled. Settings digests use sorted-key,
-compact UTF-8 JSON followed by one LF. No private metric document or bootstrap
+compact JSON with default ASCII Unicode escapes, encoded as UTF-8 and followed
+by one LF. Scalar SHA-256 fields require lowercase 64-character hexadecimal
+strings. Only the top-level `tool_and_protocol_sha256` and
+`verified_artifact_sha256` fields are hash maps; malformed scalar values cannot
+be omitted from the inventory. No private metric document or bootstrap
 sufficient statistics are reconstructed from these settings.
 
 Batch/request/candidate status rosters and totals reconcile with acknowledgement
-counts and collection coverage. Label counts retain all-label, in-window,
+counts and collection coverage. Non-ok requests with scored candidates are
+bounded by the number of non-ok requests. Labelled-ok counts and their
+labelled-not-ok complements must fit the corresponding request-status counts;
+in an all-ok collection every labelled request must also be labelled-ok. Label
+counts retain all-label, in-window,
 out-of-window, complete-query and successful-own-candidate denominators.
 Recovery and exact-rank tie endpoint rosters, fractions, bounds and rank
 sum/mean relationships are checked for the overall report and every subgroup.

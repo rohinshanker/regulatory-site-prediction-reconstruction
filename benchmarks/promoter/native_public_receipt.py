@@ -62,7 +62,6 @@ def canonical(value):
             value,
             sort_keys=True,
             separators=(",", ":"),
-            ensure_ascii=False,
             allow_nan=False,
         )
         + "\n"
@@ -189,13 +188,11 @@ def references(value, pointer=()):
     if type(value) is dict:
         for key, child in sorted(value.items()):
             location = (*pointer, key)
-            if key.endswith("sha256") and type(child) is str:
-                require(
-                    len(child) == 64 and all(c in "0123456789abcdef" for c in child),
-                    "reference: invalid SHA-256",
-                )
-                result.append({"location": list(location), "sha256": child})
-            elif key.endswith("sha256") and type(child) is dict:
+            if location in (
+                ("tool_and_protocol_sha256",),
+                ("verified_artifact_sha256",),
+            ):
+                require(type(child) is dict, "reference: expected SHA-256 map")
                 for name, sha in sorted(child.items()):
                     require(
                         type(sha) is str
@@ -204,6 +201,14 @@ def references(value, pointer=()):
                         "reference: invalid SHA-256 map",
                     )
                     result.append({"location": [*location, name], "sha256": sha})
+            elif key.endswith("sha256"):
+                require(
+                    type(child) is str
+                    and len(child) == 64
+                    and all(c in "0123456789abcdef" for c in child),
+                    "reference: invalid scalar SHA-256",
+                )
+                result.append({"location": list(location), "sha256": child})
             else:
                 result.extend(references(child, location))
     elif type(value) is list:
@@ -614,6 +619,11 @@ def reconcile(freeze, ack, aggregate):
         ),
     ):
         status_counts(adapter[field], roster_, total, field)
+    non_ok_requests = totals["n_requests"] - adapter["request_status"]["ok"]
+    require(
+        adapter["n_non_ok_requests_with_scored_candidates"] <= non_ok_requests,
+        "non-ok scored request subset exceeds non-ok requests",
+    )
     keys(
         adapter["site_reason"],
         ("deadline_exceeded", "insufficient_context", "nonfinite_arithmetic"),
@@ -702,7 +712,9 @@ def reconcile(freeze, ack, aggregate):
             c["n_queries_with_labels_ok"]
             <= c["n_queries_with_labels"]
             <= c["n_queries"]
-            and c["n_queries_with_labels_ok"] <= c["request_status"]["ok"],
+            and c["n_queries_with_labels_ok"] <= c["request_status"]["ok"]
+            and c["n_queries_with_labels"] - c["n_queries_with_labels_ok"]
+            <= non_ok_requests,
             f"{name}: labelled query bound",
         )
         keys(c["candidate_status_in_ok_requests"], STATUSES, name)
