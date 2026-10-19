@@ -18,6 +18,7 @@ regsite-native = "regsite.native_cli:main"
 regsite-learned = "regsite.learned_cli:main"
 regsite-promoter = "regsite.promoter_cli:main"
 regsite-compare = "regsite.paired_cli:main"
+regsite-conditional = "regsite.conditional_cli:main"
 
 [tool.setuptools.package-data]
 regsite = ["data/*.json", "data/*.txt"]

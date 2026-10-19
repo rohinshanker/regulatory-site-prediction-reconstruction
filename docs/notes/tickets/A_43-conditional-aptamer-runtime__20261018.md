@@ -4,8 +4,8 @@
 - Status: active
 - Opened: 2026-10-18
 - Updated: 2026-10-18
-- Current State: Session A accepted the bounded profile split in B's reviewed `conditional-aptamer-contract.md` at 01b28c8. Implementation follows the paired RBS/Promoter integration in a separate worktree. Neither profile supplies the missing full sequence-to-switch engine.
-- Verification: B's independent constraints and scalar/equilibrium fixtures are available; A reproduced 101 adjacent geometry/contract tests plus 17 subtests during evidence integration. No conditional runtime, fresh installation or cross-platform structural admission is yet claimed.
+- Current State: Both admitted profiles are implemented at `08f1e4f`, with bounded JSON CLI integration underway. B's reviewed independent reference `6acbfbac` is integrated at `96c608a`. Exact core review DEM-554 and schema implementation DEM-555 are active; neither profile supplies the missing full sequence-to-switch engine.
+- Verification: A reproduced 361 independent-reference/core tests (one real-backend case deliberately deselected), plus 26 CLI tests with 100% of 47 statements/10 branches. The core worker passed 193 tests and all nine canonical backend fixtures plus the public structural request using 23 sequential processes. Fresh installation, final resource receipt and independent review remain; cross-platform structural admission is not claimed.
 - Cleanup: Session A resolves only after concrete reviewed runtime, full tests, independent fixture comparison and reusable validation contracts. Parent #9 stays open for missing sequence-to-switch mechanisms.
 
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/43

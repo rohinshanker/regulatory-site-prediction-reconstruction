@@ -107,3 +107,40 @@ near-standard affinity cancellation, tiny/unequal totals, range failures,
 partial results and all runtime statements/branches. CLI/schema integration,
 fresh-wheel tests, whole-CLI resource admission and other-platform backend
 admission belong to the integrating coordinator.
+
+## Command-line transport
+
+`regsite-conditional REQUEST.json` accepts one explicit request, or `-` for
+standard input. `--backend-root /path/to/original/RNAstructure` selects the
+structural installation; otherwise that profile uses `REGSITE_RNASTRUCTURE`.
+The supplied-energy profile requires no backend. No scientific setting is
+inferred from the command line.
+
+The transport reads at most 65,537 raw bytes before strict UTF-8 decoding and
+rejects inputs above 65,536 bytes. Duplicate object keys (including nested keys),
+nonfinite constants and malformed JSON produce a complete `invalid_input`
+receipt with no request identity. Parsed invalid requests retain the library's
+field validation and identity semantics. JSON output always uses the authoritative
+serializer above, including when the terminal encoding differs from UTF-8.
+
+Exit 0 means `ok`; exit 1 means `failed` or `no_mrna`; exit 2 means
+`invalid_input` or `unsupported`. Every one of these statuses has a JSON receipt.
+An input/output access failure or output-size rejection also exits 2, with a
+fixed stderr message and no intentional partial JSON. A downstream broken pipe
+can of course have received a prefix before the operating system reports it.
+There are no retries. Raw I/O failures do not disclose installation paths.
+
+```sh
+regsite-conditional examples/conditional-supplied-half-occupancy.json
+regsite-conditional examples/conditional-supplied-volume-fifth.json
+regsite-conditional examples/conditional-hairpin-structure-control.json \
+  --backend-root /path/to/admitted/original/RNAstructure
+```
+
+The first two examples are synthetic algebra controls, not physiological
+concentrations or aptamer predictions. The last is a supplied canonical RNA
+hairpin, not evidence of ligand binding. Binary64 scalar inference is portable;
+the structural profile currently admits only the recorded original arm64 binary
+identities. Other builds need independent canonical-fixture admission before
+runtime acceptance. Successful scalar CI on another platform does not establish
+structural-backend admission there.
