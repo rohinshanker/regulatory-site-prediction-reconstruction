@@ -1,0 +1,65 @@
+{
+  "all_case_endpoint": "Only complete requests with every candidate scored receive recovery credit. Retain failed, partial, unsupported and unstarted requests and all out-of-window labels.",
+  "candidate_commit": "2dff23cb5697507281f7ffa73fc617d56989b40c",
+  "candidate_preparation_sha256": "803f023c9c24171e1a82bb62fc75d15fb61c2fe1ba04b6a0f776bdbee180dc33",
+  "control": "One constant-zero score for every requested candidate; deterministic genomic-point tie break and optimistic/mid/pessimistic positive ranks; uninformative ranking control, no biological predictor claim.",
+  "final_collection_gate": "Separate immutable A admission receipt binding eight successful CI jobs, reviewed collector identity and B protocol acknowledgement before execution; no retry/repacking after outcomes.",
+  "forbidden_claims": [
+    "precision or false discovery from unlabelled sites",
+    "native-host calibration",
+    "translation-initiation accuracy from TSS labels",
+    "new independent promoter-strength challenge",
+    "whole-genome sensitivity inferred from conditional sampled-window recall"
+  ],
+  "input_manifest_sha256": "96b2b1c061b26991c5c89bb7a997e5f2f4a5a3655efe0cdbb8104f75f7b0cc61",
+  "metric_settings": {
+    "lower_is_better": true,
+    "matching": "one-to-one maximum-cardinality within tolerance, per query",
+    "tie_rule": "score, then genomic point ascending, then local index ascending",
+    "tolerances_nt": [
+      0,
+      3
+    ],
+    "top_k": [
+      1,
+      5,
+      10
+    ]
+  },
+  "native_groups_sha256": "cb13a73defd907f1262d21831db9a086a08ebcd757201bf21e8eb6cc07af9a63",
+  "native_labels_sha256": "e7aebffef5771334c40550cc78a6e547aada3aef12d952770a67df81addceea6",
+  "native_queries_sha256": "f71f7d82f9ebf8b1f58c40851436000fbff9e139d07210794961e82720e251f5",
+  "schema_version": "promoter-native-evaluation-freeze-1",
+  "scope": "Frozen analysis identities and settings before native predictions or outcome joins; separate collection admission required.",
+  "score_field": "selected.terms.total",
+  "secondary_endpoint": "Successful-position diagnostics are separate and never replace the all-case endpoint.",
+  "target_host_status": "extrapolated",
+  "tool_and_protocol_sha256": {
+    "benchmarks/promoter/native_groups.py": "d4bfce2861b7bae4989de23050b1284b66dcd20179e8c6901e7e4cb913e3b516",
+    "benchmarks/promoter/native_inputs.py": "a1625e4206bdd39587bba9f0691d5048e9bc2522037e886b4f8a38472d06013a",
+    "benchmarks/promoter/native_metrics.py": "c5a18e5d4e117339d733a8aad602512ea0891d04ab9d08f12df43358f1e1a3b5",
+    "benchmarks/promoter/native_uncertainty.py": "5126ccb4fb8af9c5a5138af186ac9cd389fb5a17371dfe743836fe18b9c67285",
+    "benchmarks/promoter/runtime_adapter.py": "7743b89b923afdec93ca6d5abe44b42dcb1aa7efc994b8b4a244c70687824239",
+    "benchmarks/promoter/source_parity_check.py": "d49cd41d13dbef287f3a4d42973afb5081e97c3880c714bb3da475cc191a7aef",
+    "docs/validation/promoter-wave5-evaluation.md": "7d0e1509ffaad280530a2309cf7ce548ad44d56eba3e0716883298917e1215f1"
+  },
+  "uncertainty_settings": {
+    "eligible_group": "group with a positive denominator",
+    "interval": "percentile: sorted defined values v, h = (n - 1) * q, v[floor(h)] + (h - floor(h)) * (v[floor(h) + 1] - v[floor(h)])",
+    "limits": {
+      "max_column_operations": 1000000000,
+      "max_groups": 500000,
+      "max_resampled_groups": 100000000
+    },
+    "min_eligible_groups": 20,
+    "quantiles": [
+      "1/40",
+      "39/40"
+    ],
+    "resamples": 10000,
+    "resampling": "groups sorted by ID; each draw is random.Random(seed).choices(range(G), k=G) in sequence, shared by every endpoint and denominator",
+    "seed": 20261018,
+    "statistic": "sum of matched / sum of denominator over drawn groups",
+    "undefined_resample": "zero summed denominator; counted, never set to 0"
+  }
+}

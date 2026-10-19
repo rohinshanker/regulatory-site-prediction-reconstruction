@@ -1,0 +1,110 @@
+{
+  "acknowledged_at_utc": "2026-10-19T00:41:24.125539+00:00",
+  "authorization": "A admission a72c3539 and owner isolated-development authorization 457ac340 permit this bounded offline stage after this acknowledgement; no website, coins, credentials, privilege, cyano, main, tag or publication authority.",
+  "candidate_commit": "2dff23cb5697507281f7ffa73fc617d56989b40c",
+  "collector_commit": "38794ca6fb9613e481bd91b9d0c53a5d5647bc51",
+  "collector_integration_commit": "64484ef11bb9baf835bfff6bb00279728a717cdc",
+  "collector_journal_schema": "promoter-execution-journal-2",
+  "collector_tool_sha256": "7b0c20ceba145a04c2ee6109cd7cf0c4da7c2f9548fe9927c347335854f45db9",
+  "evaluation_freeze_sha256": "1355ca6ab02d43c89050f033cb3c24d6018c819544ce043305b6945b89e0a2c0",
+  "execution": {
+    "adaptation_gate": "Read-only recovery adaptation_ready must be true, followed by unchanged adapter validation of every completed raw result.",
+    "diagnostic_bytes_per_stream": 67108864,
+    "environment": {
+      "regsite_resolves_to_verified_installation": true,
+      "set": {
+        "PYTHONNOUSERSITE": "1"
+      },
+      "unset": [
+        "PYTHONPATH",
+        "PYTHONHOME"
+      ]
+    },
+    "executable_sha256": "96e072bdb46e5460f6c5bc0ee4c4a0615263e5f8c77c7477b85c5bbc4074af83",
+    "folding_processes": 0,
+    "installed_members_verified": 34,
+    "journal_byte_cap": 1073741824,
+    "process_exit_policy": "Exit 0/1 must pass result and status validation; exit 2 and other nonzero exits retain explicit failed batches. No repeat attempts.",
+    "process_grace_seconds": 30.0,
+    "python_version": "3.14.7 (main, Aug  5 2026, 10:29:49) [Clang 21.0.0 (clang-2100.1.1.101)]",
+    "repacking": false,
+    "retries": 0,
+    "serial_processes": 1,
+    "settings_changes_after_outcomes": false,
+    "stage_seconds": 3600.0,
+    "stop_conditions": [
+      "whole-stage deadline before next launch",
+      "subprocess timeout",
+      "launch error",
+      "collector result validation failure",
+      "persistence or journal-cap failure"
+    ],
+    "transport": "Strict UTF-8, LF/no CR, explicit file paths; all 92 raw requests <= 4000000 bytes. Runtime result wire and authoritative caps both enforced."
+  },
+  "outcome_policy": "Private raw outputs, case scores and group statistics stay with B; only independently reviewed aggregate reports may be sent to A. No tuning, filtering or threshold changes.",
+  "owner": "Session B 9677689a-1792176763",
+  "review": {
+    "collector_final": "Independent native Astra reviewer /root/collector_deadline_review approved exact 38794ca after Multica confirmation failed terminally from model capacity; 23 focused tests and independent deadline/durability probes passed",
+    "collector_original_and_durability": "DEM-551 found and confirmed repair of P1; subsequent P2 fixed in 38794ca",
+    "protocol": "DEM-552, approved before outcomes; final arithmetic reviewer remains DEM-552",
+    "root_tests": "50 tests and 130 subtests; 100% of 416 statements and 118 branches; Ruff and diff checks passed"
+  },
+  "schema_version": "promoter-native-protocol-acknowledgement-1",
+  "settings": {
+    "calibration": "ecoli_mg1655",
+    "cli_calibration": null,
+    "cli_states": null,
+    "host": {
+      "name": "Synechococcus elongatus UTEX 2973",
+      "taxon_id": null
+    },
+    "limits": {
+      "bases_per_batch": 100000,
+      "bases_per_record": 5000,
+      "records_per_batch": 100,
+      "request_bytes": 4000000,
+      "sites_per_batch": 4000,
+      "sites_per_record": 1000
+    },
+    "runtime_limits": {
+      "default_seconds_per_batch": 300.0,
+      "default_seconds_per_record": 30.0,
+      "max_all_state_sites_per_record": 100,
+      "max_all_states_per_batch": 2000,
+      "max_all_states_per_record": 2000,
+      "max_contig_chars": 128,
+      "max_host_name_chars": 200,
+      "max_id_chars": 128,
+      "max_input_json_bytes": 4000000,
+      "max_metadata_depth": 4,
+      "max_metadata_json_bytes": 4096,
+      "max_normalized_bases_per_batch": 100000,
+      "max_normalized_bases_per_record": 5000,
+      "max_planned_sites_per_batch": 4000,
+      "max_planned_sites_per_record": 1000,
+      "max_raw_sequence_chars_per_record": 50000,
+      "max_records_per_batch": 100,
+      "max_result_json_bytes": 67108864,
+      "max_seconds_per_batch": 3600.0,
+      "max_seconds_per_record": 120.0
+    },
+    "seconds_per_batch": 300.0,
+    "seconds_per_record": 30.0
+  },
+  "totals": {
+    "n_bases": 395892,
+    "n_batches": 92,
+    "n_requests": 366,
+    "n_sites": 364416
+  },
+  "verified_artifact_sha256": {
+    "admission.json": "a72c3539d574573e94fa2cbcc2768d50d2e23cfd5e290ea520e25e6b68031283",
+    "candidate.json": "9d7c4f178ea550aa85af41f7927043f857498e01ecf710d261619eb1a18654ad",
+    "ci-complete.json": "b26e6427b65735873236379dac2682ffd7bc8ede6e489a4c401b08a254467538",
+    "installation.json": "08eb124c2106e6d40ddc232eaf68aff2f90b81543d06a48b10d4e32d8376644a",
+    "manifest.json": "425d17247391f4099a5bf7b9d6528e592e716176764596352e9a4c7e1a6ce66e",
+    "plan.canonical.json": "90bdf3d60ef9bd7d66738c70265d0b5909539d8e57c5ff49d846c5797b349080",
+    "transport-check.json": "ab74844a4faef1a48f43bfb631bb64fa3ca5c82160a371a9f637af8c7a82dd00"
+  },
+  "wheel_sha256": "4443e3558c6c689373fe09af4eabc1530b4af2a166391773056a69053939b1ff"
+}
