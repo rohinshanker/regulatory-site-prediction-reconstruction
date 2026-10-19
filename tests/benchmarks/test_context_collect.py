@@ -686,6 +686,114 @@ time.sleep(20)
         self.assertEqual(result["reason"], "descendants_remaining")
         self.assertTrue(result["cleanup_confirmed"])
 
+    def test_signal_during_real_preexec_startup_and_creation_failure(self):
+        # Signal arrives while the constructor waits for the preexec error pipe.
+        # Each child has its own session and is harmless; exec never does science.
+        for pending in (False, True):
+            for fail in (False, True):
+                with self.subTest(pending=pending, fail=fail):
+                    self.check_startup_window(pending, fail)
+
+    def check_startup_window(self, pending, fail):
+        pidfile = self.root / "startup.pid"
+        parent = os.getpid()
+        previous = {s: signal.getsignal(s) for s in (signal.SIGINT, signal.SIGTERM)}
+        original_limit = c._limit
+
+        def startup(cap):
+            original_limit(cap)
+            pidfile.write_text(str(os.getpid()))
+            if pending:
+                os.kill(parent, signal.SIGTERM)
+            # Keep Popen in its constructor after the signal has been sent.
+            c.time.sleep(0.15)
+            if fail:
+                raise ValueError("synthetic preexec failure")
+
+        body = "import time; time.sleep(5)" if pending else "pass"
+        try:
+            with c._signals(), patch.object(c, "_limit", side_effect=startup):
+                observation = c._attempt(
+                    [sys.executable, "-c", body],
+                    2.0,
+                    subprocess.DEVNULL,
+                    subprocess.DEVNULL,
+                    dict(os.environ),
+                    1024,
+                )
+            pid = int(pidfile.read_text())
+            self.assertEqual(
+                observation["reason"],
+                "launch_error" if fail else "cancelled" if pending else None,
+            )
+            self.assertEqual(
+                observation["actual_exit_code"],
+                None if fail else -signal.SIGKILL if pending else 0,
+            )
+            # Popen creation failure or the owned cleanup must reap the child.
+            with self.assertRaises(ChildProcessError):
+                os.waitpid(pid, os.WNOHANG)
+        finally:
+            # Also contain a regression of the startup leak if the test fails.
+            if pidfile.exists():
+                pid = int(pidfile.read_text())
+                try:
+                    os.killpg(pid, signal.SIGKILL)
+                except ProcessLookupError:
+                    pass
+                deadline = c.time.monotonic() + 2.0
+                while True:
+                    try:
+                        reaped, _ = os.waitpid(pid, os.WNOHANG)
+                    except ChildProcessError:
+                        break
+                    if reaped == pid:
+                        break
+                    if c.time.monotonic() >= deadline:
+                        self.fail("Synthetic startup child was not reaped")
+                    c.time.sleep(0.01)
+        self.assertEqual(previous, {s: signal.getsignal(s) for s in previous})
+
+    def test_pending_startup_signals_acquire_handle_before_cleanup(self):
+        process = Mock(pid=999999, returncode=-signal.SIGKILL)
+        for sig in (signal.SIGINT, signal.SIGTERM):
+            for fail in (
+                None,
+                OSError("creation"),
+                subprocess.SubprocessError("creation"),
+            ):
+
+                def launch(*args, sig=sig, fail=fail, **kwargs):
+                    signal.raise_signal(sig)
+                    if fail is not None:
+                        raise fail
+                    return process
+
+                with (
+                    self.subTest(sig=sig, fail=fail),
+                    patch.object(c.subprocess, "Popen", side_effect=launch),
+                    patch.object(c, "_kill_wait", return_value=True) as cleanup,
+                ):
+                    observation = c._attempt([], 1.0, None, None, {}, 1024)
+                    if fail is None:
+                        cleanup.assert_called_once_with(process)
+                        self.assertEqual(observation["reason"], "cancelled")
+                    else:
+                        cleanup.assert_not_called()
+                        self.assertEqual(observation["reason"], "launch_error")
+                        self.assertIsNone(observation["actual_exit_code"])
+
+    def test_constructor_exceptions_without_a_handle_propagate(self):
+        for error in (KeyboardInterrupt(), RuntimeError("creation")):
+            with (
+                self.subTest(error=error),
+                patch.object(c.subprocess, "Popen", side_effect=error),
+                patch.object(c, "_kill_wait") as cleanup,
+                self.assertRaises(type(error)),
+            ):
+                c._attempt([], 1.0, None, None, {}, 1024)
+            cleanup.assert_not_called()
+
     def test_signal_handler_restores_previous_handlers(self):
         previous = {s: signal.getsignal(s) for s in (signal.SIGINT, signal.SIGTERM)}
         with c._signals(), self.assertRaises(KeyboardInterrupt):
@@ -758,6 +866,116 @@ time.sleep(20)
             with self.subTest(i=i), self.assertRaises(ValueError):
                 self.write_events(events)
                 self.recover()
+
+    def refresh_receipt(self, receipt, events):
+        raw = canonical_bytes(receipt)
+        (self.output / "receipt.json").write_bytes(raw)
+        events[-1]["receipt_sha256"] = f.sha(raw)
+        self.write_events(events)
+
+    def test_recovery_rejects_changed_finished_and_receipt_exit_types(self):
+        self.collect()
+        baseline = self.events()
+        receipt = strict_json((self.output / "receipt.json").read_bytes())
+        self.assertTrue(self.recover()["ready"])
+        for value in (False, True, 0.0, 1.0, 1):
+            events, changed = copy.deepcopy(baseline), copy.deepcopy(receipt)
+            events[3]["observation"]["actual_exit_code"] = value
+            changed["jobs"][0]["observation"]["actual_exit_code"] = value
+            self.refresh_receipt(changed, events)
+            with (
+                self.subTest(value=value, type=type(value)),
+                self.assertRaises(ValueError),
+            ):
+                self.recover()
+        self.refresh_receipt(receipt, baseline)
+        self.assertTrue(self.recover()["ready"])
+
+    def test_recovery_validates_observation_shapes_and_exit_types(self):
+        self.collect()
+        baseline = self.events()
+        values = (False, True, 0.0, -9.0, "0", [], {}, None)
+        for value in values:
+            events = copy.deepcopy(baseline)
+            events[2]["actual_exit_code"] = value
+            self.write_events(events)
+            with (
+                self.subTest(value=value, type=type(value)),
+                self.assertRaises(ValueError),
+            ):
+                self.recover()
+        malformed = (
+            None,
+            [],
+            {},
+            {"actual_exit_code": 0},
+            dict(actual_exit_code=0, reason=None, cleanup_confirmed=1),
+            dict(actual_exit_code=0, reason="launch_error", cleanup_confirmed=True),
+            dict(actual_exit_code=None, reason="cancelled", cleanup_confirmed=True),
+            dict(actual_exit_code=0, reason=None, cleanup_confirmed=True, extra=0),
+        )
+        for value in malformed:
+            events = copy.deepcopy(baseline)
+            events[3]["observation"] = value
+            self.write_events(events)
+            with self.subTest(value=value), self.assertRaises(ValueError):
+                self.recover()
+        events = copy.deepcopy(baseline)
+        events[3]["timeout_seconds"] = int(events[3]["timeout_seconds"])
+        self.write_events(events)
+        with self.assertRaises(ValueError):
+            self.recover()
+        events = baseline[:1] + [
+            dict(event="cancelled", profile="historical", launched=0)
+        ]
+        self.write_events(events)
+        with self.assertRaises(ValueError):
+            self.recover()
+
+    def test_recovery_type_sensitive_nested_artifact_reconciliation(self):
+        self.collect()
+        baseline = self.events()
+        receipt = strict_json((self.output / "receipt.json").read_bytes())
+        collection = strict_json((self.output / "collection.json").read_bytes())
+        for kind in ("exit_bool", "exit_float", "cleanup", "stream_bytes", "timeout"):
+            events, changed = copy.deepcopy(baseline), copy.deepcopy(receipt)
+            job = changed["jobs"][0]
+            if kind == "exit_bool":
+                job["observation"]["actual_exit_code"] = False
+            elif kind == "exit_float":
+                job["observation"]["actual_exit_code"] = 0.0
+            elif kind == "cleanup":
+                job["observation"]["cleanup_confirmed"] = 1
+            elif kind == "stream_bytes":
+                job["streams"]["stdout"]["bytes"] = float(
+                    job["streams"]["stdout"]["bytes"]
+                )
+            else:
+                job["timeout_seconds"] = int(job["timeout_seconds"])
+            self.refresh_receipt(changed, events)
+            with self.subTest(kind=kind):
+                self.assertFalse(self.recover()["ready"])
+        for value in (False, 0):
+            events, changed = copy.deepcopy(baseline), copy.deepcopy(collection)
+            prediction = changed["runs"]["historical"]["output"]["results"][0][
+                "prediction"
+            ]
+            self.assertIs(type(prediction["sites"][0]["log_tir"]), float)
+            prediction["sites"][0]["log_tir"] = value
+            raw = canonical_bytes(changed)
+            (self.output / "collection.json").write_bytes(raw)
+            events[-1]["collection_sha256"] = f.sha(raw)
+            changed_receipt = copy.deepcopy(receipt)
+            changed_receipt["collection_sha256"] = f.sha(raw)
+            self.refresh_receipt(changed_receipt, events)
+            with self.subTest(value=value):
+                self.assertFalse(self.recover()["ready"])
+        (self.output / "collection.json").write_bytes(canonical_bytes(collection))
+        self.refresh_receipt(receipt, baseline)
+        changed_plan = copy.deepcopy(self.current_plan)
+        changed_plan["stage_seconds"] = int(changed_plan["stage_seconds"])
+        (self.output / "plan.json").write_bytes(canonical_bytes(changed_plan))
+        self.assertFalse(self.recover()["ready"])
 
     def test_recovery_missing_and_mismatched_artifacts(self):
         self.collect()

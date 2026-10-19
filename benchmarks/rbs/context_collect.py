@@ -327,7 +327,7 @@ def preflight(
         stream_bytes=plan["stream_bytes"],
         output=plan["output"],
     )
-    if plan != rebuilt:
+    if not _same(plan, rebuilt):
         raise ValueError("Plan differs from preflight")
     return plan
 
@@ -392,9 +392,20 @@ def _kill_wait(process):
 
 
 @contextlib.contextmanager
-def _signals():
+def _signals(*, defer=False):
+    """Defer startup cancellation until Popen has returned an owned handle.
+
+    A construction error remains a launch error. On success, a pending signal
+    becomes KeyboardInterrupt only after the caller has assigned the process.
+    The child inherits no blocked signal mask; caught handlers reset at exec.
+    """
+    pending = False
+
     def cancel(signum, frame):
-        raise KeyboardInterrupt
+        nonlocal pending
+        if not defer:
+            raise KeyboardInterrupt
+        pending = True
 
     previous = {s: signal.signal(s, cancel) for s in (signal.SIGINT, signal.SIGTERM)}
     try:
@@ -402,28 +413,34 @@ def _signals():
     finally:
         for sig, handler in previous.items():
             signal.signal(sig, handler)
+    if pending:
+        raise KeyboardInterrupt
 
 
 def _attempt(argv, timeout, stdout, stderr, env, cap):
     began = time.monotonic()
+    process = None
     try:
-        process = subprocess.Popen(
-            argv,
-            stdin=subprocess.DEVNULL,
-            stdout=stdout,
-            stderr=stderr,
-            env=env,
-            shell=False,
-            start_new_session=True,
-            preexec_fn=lambda: _limit(cap),
-        )
-    except (OSError, subprocess.SubprocessError):
-        return dict(
-            actual_exit_code=None, reason="launch_error", cleanup_confirmed=True
-        )
-    try:
+        try:
+            with _signals(defer=True):
+                process = subprocess.Popen(
+                    argv,
+                    stdin=subprocess.DEVNULL,
+                    stdout=stdout,
+                    stderr=stderr,
+                    env=env,
+                    shell=False,
+                    start_new_session=True,
+                    preexec_fn=lambda: _limit(cap),
+                )
+        except (OSError, subprocess.SubprocessError):
+            return dict(
+                actual_exit_code=None, reason="launch_error", cleanup_confirmed=True
+            )
         process.wait(timeout=max(0.0, timeout - (time.monotonic() - began)))
     except (subprocess.TimeoutExpired, KeyboardInterrupt) as error:
+        if process is None:
+            raise
         clean = _kill_wait(process)
         return dict(
             actual_exit_code=process.returncode,
@@ -433,7 +450,8 @@ def _attempt(argv, timeout, stdout, stderr, env, cap):
             cleanup_confirmed=clean,
         )
     except BaseException:
-        _kill_wait(process)
+        if process is not None:
+            _kill_wait(process)
         raise
     # A leader can exit while its descendants are still writing. Stop the stage.
     if _group_exists(process.pid):
@@ -448,6 +466,37 @@ def _attempt(argv, timeout, stdout, stderr, env, cap):
     )
 
 
+def _same(left, right):
+    """Compare complete JSON evidence without bool/int/float coercion."""
+    return canonical_bytes(left) == canonical_bytes(right)
+
+
+def _observation(value):
+    metrics._exact_keys(
+        value,
+        ("actual_exit_code", "reason", "cleanup_confirmed"),
+        "process observation",
+    )
+    code, reason = value["actual_exit_code"], value["reason"]
+    if (
+        type(value["cleanup_confirmed"]) is not bool
+        or reason
+        not in (None, "timeout", "cancelled", "launch_error", "descendants_remaining")
+        or (code is not None and type(code) is not int)
+        or (reason == "launch_error" and code is not None)
+        or (
+            code is None
+            and reason != "launch_error"
+            and not (
+                reason in ("timeout", "cancelled") and not value["cleanup_confirmed"]
+            )
+        )
+        or (reason is None and not value["cleanup_confirmed"])
+    ):
+        raise ValueError("Invalid process observation")
+    return value
+
+
 def _validate(raw, code, profile, plan, panel):
     native = strict_json(raw)
     candidate = plan["candidate"]["receipt"]
@@ -456,8 +505,8 @@ def _validate(raw, code, profile, plan, panel):
     for row in native["results"]:
         prediction = row["prediction"]
         if prediction is not None and (
-            prediction.get("model") != model
-            or prediction.get("backend") != candidate["execution"]["backend"]
+            not _same(prediction.get("model"), model)
+            or not _same(prediction.get("backend"), candidate["execution"]["backend"])
         ):
             raise ValueError("Complete model/backend differs from candidate")
     failed = any(
@@ -727,7 +776,9 @@ def recover(output, *, expected_plan_sha256):
             job.update(state="interrupted_unknown", intended=True)
             phase = "intent"
         elif kind == "cancelled" and phase in ("new", "finished", "intent"):
-            if event != dict(event="cancelled", profile=profile, launched=False):
+            if not _same(
+                event, dict(event="cancelled", profile=profile, launched=False)
+            ):
                 raise ValueError("Invalid cancellation")
             job.update(state="cancelled_not_launched")
             phase, stop = "cancelled", True
@@ -745,33 +796,12 @@ def recover(output, *, expected_plan_sha256):
                 "observation",
             )
             _seconds(event["timeout_seconds"], ceiling)
-            code, reason = event["actual_exit_code"], event["reason"]
-            if (
-                type(event["cleanup_confirmed"]) is not bool
-                or reason
-                not in (
-                    None,
-                    "timeout",
-                    "cancelled",
-                    "launch_error",
-                    "descendants_remaining",
-                )
-                or (code is not None and type(code) is not int)
-                or (reason == "launch_error" and code is not None)
-                or (
-                    code is None
-                    and reason != "launch_error"
-                    and not (
-                        reason in ("timeout", "cancelled")
-                        and not event["cleanup_confirmed"]
-                    )
-                )
-                or (reason is None and not event["cleanup_confirmed"])
-            ):
-                raise ValueError("Invalid process observation")
-            observation = {
-                k: event[k] for k in ("actual_exit_code", "reason", "cleanup_confirmed")
-            }
+            observation = _observation(
+                {
+                    k: event[k]
+                    for k in ("actual_exit_code", "reason", "cleanup_confirmed")
+                }
+            )
             timeout = event["timeout_seconds"]
             job.update(
                 state="observed_unvalidated", observed=True, observation=observation
@@ -791,9 +821,8 @@ def recover(output, *, expected_plan_sha256):
                 ),
                 "finish",
             )
-            if (
-                event["observation"] != observation
-                or event["timeout_seconds"] != timeout
+            if not _same(_observation(event["observation"]), observation) or not _same(
+                event["timeout_seconds"], timeout
             ):
                 raise ValueError("Finish observation mismatch")
             if event["status"] not in ("completed", "failed") or (
@@ -818,12 +847,12 @@ def recover(output, *, expected_plan_sha256):
         return result
     try:
         saved_plan = strict_json(_read(output / "plan.json", MAX_JOURNAL))
-        if saved_plan != plan:
+        if not _same(saved_plan, plan):
             raise ValueError("Archived plan mismatch")
         candidate_raw = _pin(
             output / "candidate.json", plan["candidate"]["sha256"], MAX_RECEIPT
         )
-        if strict_json(candidate_raw) != plan["candidate"]["receipt"]:
+        if not _same(strict_json(candidate_raw), plan["candidate"]["receipt"]):
             raise ValueError("Archived candidate mismatch")
         _candidate(plan["candidate"]["receipt"])
         _pin(output / "admission.json", plan["admission"]["sha256"], MAX_RECEIPT)
@@ -831,22 +860,20 @@ def recover(output, *, expected_plan_sha256):
             _pin(output / "panel.json", plan["panel"]["sha256"], MAX_PANEL),
             plan["panel"]["sha256"],
         )
-        if (
-            plan["jobs"]
-            != [
-                dict(
-                    profile=p,
-                    record_ids=[r["id"] for r in panel["records"]],
-                    argv=_argv(
-                        plan["executable"]["path"],
-                        str(Path(plan["output"]) / "panel.json"),
-                        p,
-                        _settings(plan["candidate"]["receipt"]),
-                    ),
-                )
-                for p in PROFILES
-            ]
-            or len(_read(output / "panel.json", MAX_PANEL)) != plan["panel"]["bytes"]
+        if plan["jobs"] != [
+            dict(
+                profile=p,
+                record_ids=[r["id"] for r in panel["records"]],
+                argv=_argv(
+                    plan["executable"]["path"],
+                    str(Path(plan["output"]) / "panel.json"),
+                    p,
+                    _settings(plan["candidate"]["receipt"]),
+                ),
+            )
+            for p in PROFILES
+        ] or not _same(
+            len(_read(output / "panel.json", MAX_PANEL)), plan["panel"]["bytes"]
         ):
             raise ValueError("Archived roster mismatch")
         expected = _collection(plan)
@@ -858,7 +885,7 @@ def recover(output, *, expected_plan_sha256):
                 raw_stream = _pin(
                     output / f"{profile}.{name}", spec["sha256"], plan["stream_bytes"]
                 )
-                if len(raw_stream) != spec["bytes"]:
+                if not _same(len(raw_stream), spec["bytes"]):
                     raise ValueError("Stream size mismatch")
             native = None
             if detail["status"] == "completed":
@@ -877,7 +904,7 @@ def recover(output, *, expected_plan_sha256):
         collection_raw = _pin(
             output / "collection.json", final["collection_sha256"], MAX_COLLECTION
         )
-        if strict_json(collection_raw) != expected:
+        if not _same(strict_json(collection_raw), expected):
             raise ValueError("Collection does not reconcile")
         receipt = strict_json(
             _pin(output / "receipt.json", final["receipt_sha256"], MAX_RECEIPT)
@@ -892,7 +919,7 @@ def recover(output, *, expected_plan_sha256):
             collection_sha256=digest(collection_raw),
             jobs=details,
         )
-        if receipt != wanted:
+        if not _same(receipt, wanted):
             raise ValueError("Receipt does not reconcile")
         result["ready"] = all(job["validated"] for job in jobs.values())
     except (OSError, *VALIDATION_ERRORS):
