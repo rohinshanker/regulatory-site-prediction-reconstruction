@@ -4,7 +4,7 @@
 - Status: active
 - Opened: 2026-10-19
 - Updated: 2026-10-19
-- Current State: Codex implementation complete in the assigned sole-writer tree from `f9a93402ca434d301754874b35f06aa118c99df8`; explicit pristine component, distinct original receipt, installer tests and installation docs are ready for Session A integration and Session B exact-patch review. The Markdown ticket remains active pending acceptance; no CI edits or review dispatch.
+- Current State: Codex implementation complete in the assigned sole-writer tree from `f9a93402ca434d301754874b35f06aa118c99df8`; explicit pristine component, distinct original receipt, installer tests and installation docs are ready for Session A CI integration and finite independent exact-patch review. The Markdown ticket remains active pending acceptance; no CI edits or review dispatch.
 - Verification: 30 focused tests passed (17 new installer tests plus 13 existing component contracts/checkers); installer coverage is 126/126 statements and 56/56 branches (100%). Existing runtime Ruff checks/format and mypy passed; focused installer syntax/undefined-name checks and diff integrity passed. One fresh jobs-2 macOS arm64 build and only tiny existing synthetic controls passed; all 4,721 upstream archive files, 375 installed table hashes and executable receipt hashes verified unchanged/intact. No biological evaluation or platform admission.
 - Cleanup: Preserve original files/installations and immutable candidates. Keep generated source/binaries outside Git. Distill installation instructions into the existing component guide, then remove this child ticket/index row after acceptance; #6 remains open.
 
@@ -25,8 +25,11 @@ Branch: `quality/original-backend-installer-20261019`.
 The existing GPL-2.0-only source boundary remains separate from GPL-3 runtime
 code. No equation, thermodynamic table, patch, model/profile, package version,
 private outcome, website collection, consumer, preview cap or main/tag/release
-change. Session B is asked to perform the finite independent review after the
-implementation is frozen; no duplicate source crawl or new coordinator.
+change. Session B could not receive the new reservation because Agent Deck refused a
+second submission with an unresolved acceptance marker. The reservation was
+cancelled before typing, without removing the marker; the public issue records
+the handoff. A will assign one available independent reviewer after freezing the
+CI-integrated patch, without duplicate source work or a new coordinator.
 
 PV-R1 and DEM-577/568 remain stopped; this is not a retry or workaround. Before
 any new credentials/admin/sudo/keychain/macOS permissions, disclose exact action,
@@ -58,5 +61,7 @@ resource and reason and await the owner's decision; never bypass a refusal.
 - Limits: real build tested only on macOS arm64/Python 3.14.7; Linux/older-Python
   installer commands and extraction fallback are mocked unit cases. Full runtime,
   three-engine panel and scientific/native evaluations were outside this bounded
-  installer task and were not run. Session A owns CI integration; Session B owns
-  independent exact-patch review. No bit-identical-binary or accuracy claim.
+  installer task and were not run. Session A owns CI integration; A coordinates
+  independent exact-patch review; B has not acknowledged the reservation. No bit-identical-binary or accuracy claim.
+
+A integration tree: `/Users/Rohin/Desktop/coding_stuff/ISAACS-LAB/worktrees/reconstruction-original-backend-integration-20261019`, branch `quality/original-backend-integration-20261019`, from exact worker commit `42ea33cd6c99218c0f042c5f48aa719a7e8a0d63`. CI now uses the explicit original installer and enforces installer branch coverage before unchanged full runtime/backend gates. Worker tree remains intact.
