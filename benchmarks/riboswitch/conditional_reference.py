@@ -7,10 +7,16 @@ characters each. Nonzero inputs must have adjusted exponents in [-1000, 1000].
 Arithmetic uses an isolated 80-digit, round-half-even Decimal context; unsafe
 intermediates (including subnormals) raise ValueError rather than returning zeros
 or infinities. The context's exponent limits are -9999 and 9999.
+Unequal Kd/standard inputs are refused if subtraction of their logarithms loses
+more than 20 decimal orders relative to the larger logarithm.
 
 Partition convergence requires bracket width / min(total mRNA, total ligand)
 <= 1e-50 AND abs(D) / max(Vm, Vl, abs(beta * switching)) <= 1e-50.
 Thus the bracket bounds the absolute bound-fraction error by at most 1e-50.
+Every returned interior bracket also has independently evaluated, outward-rounded
+80-digit derivative bounds certifying D(lower) <= 0 <= D(upper). Inconclusive
+signs or a residual enclosure outside the stated tolerance cause an explicit
+insufficient-precision refusal, never claimed convergence.
 Finite precision and the 256-iteration cap can refuse extreme interior roots.
 No solvent species, packing constraint, Hill law, or Kd-to-occupancy conversion
 is added. beta is an independent empirical coefficient, not 1/(R*T).
@@ -20,6 +26,8 @@ import re
 from collections.abc import Iterator
 from contextlib import contextmanager
 from decimal import (
+    ROUND_CEILING,
+    ROUND_FLOOR,
     ROUND_HALF_EVEN,
     Clamped,
     Context,
@@ -37,6 +45,8 @@ _DECIMAL = re.compile(r"[+-]?(?:[0-9]+(?:\.[0-9]*)?|\.[0-9]+)(?:[eE][+-]?[0-9]+)
 _ZERO = Decimal("0")
 _ONE = Decimal("1")
 _TOLERANCE = Decimal("1e-50")
+_LOG_CANCELLATION_LIMIT = Decimal("1e-20")
+_LOG_ROUNDING_MARGIN = Decimal("1e-78")
 _BETA = "beta_mol_per_kcal"
 _COST = "rna_structural_cost_kcal_mol"
 _RESPONSE_FIELDS = (
@@ -158,27 +168,83 @@ def response(inputs: dict) -> dict:
 
 
 def affinity(inputs: dict) -> Decimal:
-    """Return binding kcal/mol as R*T*(ln(Kd_molar) - ln(standard_molar))."""
+    """Return binding kcal/mol, refusing insufficiently resolved log differences."""
     with _arithmetic("affinity"):
         values = _numbers(inputs, _AFFINITY_FIELDS, positive=_AFFINITY_FIELDS)
         gas_constant = Decimal("8.31446261815324") / Decimal("4184")
-        return (
-            gas_constant
-            * values["temperature_kelvin"]
-            * (values["kd_molar"].ln() - values["standard_molar"].ln())
-        )
+        kd, standard = values["kd_molar"], values["standard_molar"]
+        log_kd, log_standard = kd.ln(), standard.ln()
+        difference = log_kd - log_standard
+        if kd != standard and abs(difference) < (
+            _LOG_CANCELLATION_LIMIT * max(abs(log_kd), abs(log_standard))
+        ):
+            raise ValueError("affinity: insufficient precision for unequal Kd/standard")
+        return gas_constant * values["temperature_kelvin"] * difference
+
+
+def _log_bound(value: Decimal, direction: int) -> Decimal:
+    """Enclose correctly rounded ln with a margin exceeding one 80-digit ulp."""
+    logarithm = value.ln()
+    margin = _LOG_ROUNDING_MARGIN * max(_ONE, abs(logarithm))
+    return logarithm + direction * margin
+
+
+def _residual_bounds(
+    values: dict[str, Decimal], bound: Decimal
+) -> tuple[Decimal, Decimal]:
+    """Enclose D by directed arithmetic, including subtraction and log errors."""
+    mrna, ligand = (values[field] for field in _PARTITION_TOTALS)
+    vm, vl = values["mrna_relative_volume"], values["ligand_relative_volume"]
+    solvent = values["solvent_molar"]
+    bounds = []
+    for rounding, opposite, direction in (
+        (ROUND_FLOOR, ROUND_CEILING, -1),
+        (ROUND_CEILING, ROUND_FLOOR, 1),
+    ):
+        with localcontext() as context:
+            # D decreases with either free concentration. Their enclosure and
+            # the subtracted ligand term therefore use the opposite rounding.
+            context.rounding = opposite
+            mrna_free, ligand_free = mrna - bound, ligand - bound
+            ligand_term = vl * _log_bound(vl * ligand_free / solvent, -direction)
+            context.rounding = rounding
+            mrna_term = vm * _log_bound(bound / mrna_free, direction)
+            energy = values[_BETA] * values["switching_kcal_mol"]
+            bounds.append(mrna_term - ligand_term + energy)
+    return bounds[0], bounds[1]
+
+
+def _certified_bracket(
+    values: dict[str, Decimal],
+    bound: Decimal,
+    initial_width: Decimal,
+    residual_scale: Decimal,
+) -> tuple[Decimal, Decimal]:
+    """Refuse convergence unless a nearby narrow bracket has certified signs."""
+    radius = initial_width * _TOLERANCE / 4
+    lower, upper = bound - radius, bound + radius
+    if not 0 < lower < upper < initial_width:
+        raise ValueError("partition: insufficient precision for an interior bracket")
+    if _residual_bounds(values, lower)[1] > 0 or _residual_bounds(values, upper)[0] < 0:
+        raise ValueError("partition: insufficient precision to certify bracket signs")
+    enclosure = _residual_bounds(values, bound)
+    with localcontext() as context:
+        context.rounding = ROUND_CEILING
+        if max(abs(endpoint) for endpoint in enclosure) / residual_scale > _TOLERANCE:
+            raise ValueError("partition: insufficient precision to certify residual")
+    return lower, upper
 
 
 def _solve(
-    mrna: Decimal,
-    ligand: Decimal,
-    mrna_volume: Decimal,
-    ligand_volume: Decimal,
-    solvent: Decimal,
-    energy: Decimal,
+    values: dict[str, Decimal],
     max_iterations: int,
 ) -> tuple[Decimal, tuple[Decimal, Decimal], Decimal, int, Decimal]:
     """Bisect the strictly increasing source derivative on its feasible domain."""
+    mrna, ligand = (values[field] for field in _PARTITION_TOTALS)
+    mrna_volume = values["mrna_relative_volume"]
+    ligand_volume = values["ligand_relative_volume"]
+    solvent = values["solvent_molar"]
+    energy = values[_BETA] * values["switching_kcal_mol"]
     lower, upper = _ZERO, min(mrna, ligand)
     initial_width = upper
     scale = max(mrna_volume, ligand_volume, abs(energy))
@@ -193,10 +259,11 @@ def _solve(
             lower = bound
         else:
             upper = bound
-        if (upper - lower) / initial_width <= _TOLERANCE and abs(
+        if (upper - lower) / initial_width <= _TOLERANCE / 4 and abs(
             residual
         ) / scale <= _TOLERANCE:
-            return bound, (lower, upper), residual, iteration, scale
+            bracket = _certified_bracket(values, bound, initial_width, scale)
+            return bound, bracket, residual, iteration, scale
     raise ValueError(
         "partition: convergence not reached within max_iterations; "
         "interior root may exceed numeric resolution"
@@ -234,15 +301,7 @@ def partition(inputs: dict, *, max_iterations: int = 256) -> dict:
             None,
         )
         if mrna > 0 and ligand > 0:
-            bound, bracket, residual, iterations, scale = _solve(
-                mrna,
-                ligand,
-                mrna_volume,
-                ligand_volume,
-                solvent,
-                values[_BETA] * values["switching_kcal_mol"],
-                max_iterations,
-            )
+            bound, bracket, residual, iterations, scale = _solve(values, max_iterations)
         mrna_free, ligand_free = mrna - bound, ligand - bound
         volumes = {
             "mrna_free_volume_fraction": mrna_volume * mrna_free / solvent,
