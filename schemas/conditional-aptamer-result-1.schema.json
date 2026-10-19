@@ -88,7 +88,7 @@
           "const": "ac4d7be48ba856dc6a713829425b584ffd55551743b10c51049de0ec70dc2f6e"
         },
         "parameter_sha256": {
-          "const": "33073ce660e072ee7c2cd0cade504fbc4a2dbb8f2e95c67612c0f837d2187999"
+          "const": "551ca4da7af67303b74e494f56d4cf9b643b32a449792a8bb54c5b41cce662e8"
         },
         "backend": {
           "anyOf": [
@@ -101,7 +101,7 @@
           ]
         },
         "convention_id": {
-          "const": "natural_logs_equal_rna_complex_volume_explicit_molar_standard_strict_positive_zero_uncorrected_binary64_min_total_bracket_1"
+          "const": "natural_logs_equal_rna_complex_volume_explicit_molar_standard_strict_positive_zero_uncorrected_binary64_certified_min_total_bracket_2"
         }
       }
     },
