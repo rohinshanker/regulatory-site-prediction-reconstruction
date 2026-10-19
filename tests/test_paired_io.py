@@ -24,25 +24,25 @@ from regsite import paired, paired_io
 )
 def test_bad_json(text):
     with pytest.raises(paired.PairError, match="invalid paired JSON"):
-        paired_io.load_request(io.StringIO(text))
+        paired_io.load_request(io.BytesIO(text.encode("utf-8", errors="surrogatepass")))
 
 
 def test_strict_loading_and_received_byte_boundary(monkeypatch):
     raw = '{"a":1.5,"b":[false,null,"µ"]}'
     maximum = len(raw.encode("utf-8"))
     monkeypatch.setitem(paired.LIMITS, "max_input_json_bytes", maximum)
-    assert paired_io.load_request(io.StringIO(raw)) == json.loads(raw)
+    assert paired_io.load_request(io.BytesIO(raw.encode("utf-8"))) == json.loads(raw)
     with pytest.raises(paired.PairError, match="received input"):
-        paired_io.load_request(io.StringIO(raw + " "))
+        paired_io.load_request(io.BytesIO((raw + " ").encode("utf-8")))
     # Reading is bounded even if the stream has much more trailing whitespace.
-    stream = io.StringIO(" " * 1000)
+    stream = io.BytesIO(b" " * 1000)
     with pytest.raises(paired.PairError, match="received input"):
         paired_io.load_request(stream)
     assert stream.tell() == maximum + 1
 
 
 def test_decode_error_is_a_pair_error():
-    stream = io.TextIOWrapper(io.BytesIO(b"\xff"), encoding="utf-8")
+    stream = io.BytesIO(b"\xff")
     with pytest.raises(paired.PairError, match="invalid paired JSON"):
         paired_io.load_request(stream)
 

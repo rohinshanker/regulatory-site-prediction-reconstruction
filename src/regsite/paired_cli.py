@@ -8,6 +8,7 @@ from contextlib import nullcontext
 from regsite.backend import RnaStructure
 from regsite.paired import PairError, predict_pair
 from regsite.paired_io import export_text, load_request
+from regsite.promoter import ParameterError
 from regsite.structures import BackendError
 
 
@@ -24,9 +25,9 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
     try:
         with (
-            nullcontext(sys.stdin)
+            nullcontext(sys.stdin.buffer)
             if args.input == "-"
-            else open(args.input, encoding="utf-8")
+            else open(args.input, "rb")
         ) as stream:
             request = load_request(stream)
         backend = None
@@ -36,9 +37,9 @@ def main(argv: list[str] | None = None) -> int:
             backend = RnaStructure.open(args.backend_root)
         result = predict_pair(request, backend)
         text = export_text(result, args.format)
-        sys.stdout.write(text)
+        sys.stdout.buffer.write(text.encode("utf-8"))
         return int(result["status"] in ("partial", "unavailable"))
-    except (PairError, BackendError, OSError, UnicodeError) as exc:
+    except (PairError, ParameterError, BackendError, OSError, UnicodeError) as exc:
         print(f"regsite-compare: {exc}", file=sys.stderr)
         return 2
 

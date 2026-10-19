@@ -4,7 +4,7 @@ import csv
 import io
 import json
 import math
-from typing import TextIO
+from typing import BinaryIO
 
 from regsite.paired import LIMITS, PairError, result_bytes
 
@@ -25,13 +25,14 @@ def _float(text: str) -> float:
     return value
 
 
-def load_request(stream: TextIO) -> object:
+def load_request(stream: BinaryIO) -> object:
     """Bound received UTF-8 bytes as well as the core's canonical input size."""
     maximum = LIMITS["max_input_json_bytes"]
     try:
-        text = stream.read(maximum + 1)
-        if len(text.encode("utf-8")) > maximum:
+        raw = stream.read(maximum + 1)
+        if len(raw) > maximum:
             raise PairError("max_input_json_bytes exceeded by received input")
+        text = raw.decode("utf-8")
         return json.loads(
             text, object_pairs_hook=_object, parse_float=_float, parse_constant=_float
         )
