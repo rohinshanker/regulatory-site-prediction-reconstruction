@@ -4,8 +4,8 @@
 - Status: active
 - Opened: 2026-10-16
 - Updated: 2026-10-18
-- Current State: A implemented canonical structural-state and supplied-energy conditional profiles under #43, frozen at 163802f (0.7.0rc1, PR46). B #40/#42 independently admitted component sources/fixtures. Full sequence-derived ligand-constrained ribosome states, pseudoknot/steric inference and a complete Riboswitch Calculator remain unfinished.
-- Verification: 476 focused tests with 100% of 747 statements/320 branches; exact-patch review accepted624fa4f. Fresh offline package passed nine bounded requests and16sequential backend jobs; B independently checked three saved controls. Final eight-job CI39183611595 remains a package gate. No native accuracy or hosted equivalence.
+- Current State: A completed scoped#43 canonical structural-state and supplied-energy profiles, frozen at163802f (0.7.0rc1, PR46). B #40/#42 independently admitted component sources/fixtures. Portable original-backend qualification is the next bounded dependency; B's assigned validation-tool scope is not yet acknowledged. Full sequence-derived ligand-constrained ribosome states, pseudoknot/steric inference and a complete Riboswitch Calculator remain unfinished.
+- Verification: 476 focused tests with100%747statements320branches; independent review accepted624fa4f. Fresh offline package passed9bounded requests and16sequential backend jobs; B independently checked3saved controls. All8CI39183611595 jobs passed and exact admission is recorded in docs/validation/conditional-0.7-candidate.md. Structural admission remains restricted to the verified original macOS arm64 binary pair; portable scalar inference passed Linux/macOS/Python3.11/3.14. No native accuracy or hosted equivalence.
 - Cleanup: Owning session records final checks and unresolved findings, resolves the ticket, distills reusable guidance into docs/validation/, updates both indexes and linked GitHub issue, then removes the resolved ticket.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/9
 - Priority: P1

@@ -4,8 +4,8 @@
 - Status: active
 - Opened: 2026-10-16
 - Updated: 2026-10-18
-- Current State: A owns bounded supplied-transcript component orchestration under #47; B #45 independently supplies organization/projection fixtures. Complete production Operon inference remains unfinished. Source admission found no complete open integrated engine; coupling, elongation, stability, termination and combined abundance require separate admitted implementations.
-- Verification: Existing RBS/Promoter source and package gates passed. New supplied-transcript implementation, exact-patch review, fresh installation and independent component comparison remain in #47/#45.
+- Current State: A implemented bounded supplied-transcript RBS/Promoter orchestration under #47, frozen at9e96bc0 (0.8.0rc1, PR48); B completed independent organization/projection fixtures. Complete production Operon inference remains unfinished. Source admission found no complete open integrated engine; coupling, elongation, stability, termination and combined abundance require separate admitted implementations.
+- Verification: Exact independent runtime/CLI/schema review passed. The transcript suite passed868tests with100%448statements184branches, plus3resource-plan regressions;12independent literal geometry fixtures match. Fresh offline installation passed8fixed JSON cases and1CSV replay, with complete identities and missingness. Final CI39193463857 remains the package gate. See docs/validation/transcript-0.8-candidate.md; no integrated abundance, native calibration or hosted equivalence follows.
 - Cleanup: Owning session records final checks and unresolved findings, resolves the ticket, distills reusable guidance into docs/validation/, updates both indexes and linked GitHub issue, then removes the resolved ticket.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/8
 - Priority: P1
