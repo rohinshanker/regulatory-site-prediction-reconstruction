@@ -364,3 +364,33 @@ unsafe exponents, caller-context isolation and the earlier beta-0.45 fixtures.
 Independent 240-digit regressions cover near-equal affinity values and severely
 disproportionate concentrations/volumes that invalidate an 80-digit point estimate.
 No folding or biological measurements are used by these tests.
+
+
+## Saved runtime control check
+
+The [three-control audit](../../benchmarks/riboswitch/conditional-saved-control-audit.json)
+compares A's immutable saved 0.7.0rc1 outputs at candidate
+`163802fddd3e49c8d72380167d661c7d8291f41b` against the pre-existing independent
+request examples. All non-settings request fields are identical; A narrows the
+original proposed structural deadlines. Raw request/output hashes and the exact
+parameter identity are retained in the receipt. This check runs no predictor
+or folding executable and does not admit the full package or numerical domain.
+
+The two supplied-energy controls reproduce response ratios 2.5 and 8/7 within
+absolute/relative 1e-12. B's fixed-precision reference independently evaluates
+exact supplied binary64 values using `Decimal.from_float`; the volume-control
+root lies inside A's reported molarity bracket, whose width divided by the
+smaller total is at most 1e-12. The saved structural control matches the previously
+executed hairpin pair list and both efn2 energies of -11.2 kcal/mol, with zero
+structural cost and null response. These three controls contain no Kd case and
+cannot establish full-domain parity, general riboswitch inference or accuracy.
+
+For reproduction, retrieve the receipt's exact request/output paths from its
+`artifact_commit` with `git show`, verify their byte hashes, and compare the
+unchanged `expected_slice` fields in `conditional-request-examples.json`.
+For the volume control, pass the exact input beta, relative volumes, molar totals,
+solvent molarity and the exact sum of supplied RNA cost/binding energy to
+`conditional_reference.partition`; compare its `complex_molar` to the saved
+bracket. Feed the independent bound fraction and supplied ribosome energies to
+`conditional_reference.response`. Keep this source/control check separate from
+package CI admission and any future experimental challenge.
