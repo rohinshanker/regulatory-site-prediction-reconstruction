@@ -4,6 +4,7 @@ Verification dates cover the stated source observations or specification review;
 
 | Area | Purpose | Last verified | Document |
 | --- | --- | --- | --- |
+| supplied-transcript-contract | Explicit RNA context, supplied CDS eligibility, native component settings and portable coordinate/failure boundary. | 2026-10-18 | [supplied-transcript-contract.md](supplied-transcript-contract.md) |
 | conditional-0.7-candidate | Immutable conditional package, reviewed numerical domain, installed synthetic/backend checks and structural portability boundary. | 2026-10-18 | [conditional-0.7-candidate.md](conditional-0.7-candidate.md) |
 | promoter-wave5-results | Independently audited frozen native positive-TSS localization, all denominators and consumed-panel limits. | 2026-10-19 | [promoter-wave5-results.md](promoter-wave5-results.md) |
 | paired-0.6-candidate | Immutable paired package, source and installed resource receipts; independent comparison and RBS-context preparation gates. | 2026-10-18 | [paired-0.6-candidate.md](paired-0.6-candidate.md) |
