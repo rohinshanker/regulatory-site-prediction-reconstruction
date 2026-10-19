@@ -66,6 +66,9 @@ Tan 2018 supplies transcription starts and RNA context, not measured translation
 starts or RBS strengths. Native site localization and strength prediction have
 separate validation gates.
 
+Register complete files in explicit external storage and check their byte identity
+with the [offline artifact manifest tool](docs/validation/calculator-artifact-storage.md).
+
 ## Run the RBS calculator
 
 Follow the [installation and validation contract](docs/validation/rbs-runtime.md)

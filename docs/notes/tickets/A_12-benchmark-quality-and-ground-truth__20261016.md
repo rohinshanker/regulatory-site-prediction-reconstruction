@@ -16,6 +16,15 @@ The owner reports that older calculators were not close enough to ground truth
 and asks how good the current benchmarks are and whether prediction can improve.
 Read [the initial assessment](../../validation/benchmark-quality.md).
 
+The [public Promoter receipt audit](../../validation/promoter-public-receipt-audit.md)
+checks the four frozen public artifacts for candidate `2dff23c`, including
+identities, byte/reference hashes, status/label partitions and endpoint
+denominators. Its independently reviewed checker passes 111 focused tests with
+full statement/branch coverage. This verifies consumed-cohort public receipt
+consistency only; it does not recompute biological outcomes or verify the 59
+opaque artifact/hash references. The bounded audit child is complete; this
+broader benchmark-quality parent remains active.
+
 ## Work
 
 - Trace every reported accuracy to a model version, dataset, organism, assay,

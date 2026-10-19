@@ -4,6 +4,8 @@ Verification dates cover the stated source observations or specification review;
 
 | Area | Purpose | Last verified | Document |
 | --- | --- | --- | --- |
+| promoter-public-receipt-audit | Public-only frozen receipt identities, arithmetic, unchecked dependencies and deterministic verification contract. | 2026-10-19 | [promoter-public-receipt-audit.md](promoter-public-receipt-audit.md) |
+| calculator-artifact-storage | Explicit external opaque artifacts, streaming offline SHA-256 checks, strict manifest/path limits and integrity-only boundaries. | 2026-10-19 | [calculator-artifact-storage.md](calculator-artifact-storage.md) |
 | rbs-wave5-context-results | Independently audited unchanged-profile transcript-context sensitivity, repeated-input accounting and source-selection census. | 2026-10-19 | [rbs-wave5-context-results.md](rbs-wave5-context-results.md) |
 | current-recoded-results | Independently audited frozen paired candidate accounting, source arithmetic and unchanged-sequence controls. | 2026-10-19 | [current-recoded-results.md](current-recoded-results.md) |
 | promoter-wave5-results | Independently audited frozen native positive-TSS localization, all denominators and consumed-panel limits. | 2026-10-19 | [promoter-wave5-results.md](promoter-wave5-results.md) |
