@@ -5,6 +5,7 @@ Verification dates cover the stated source observations or specification review;
 | Area | Purpose | Last verified | Document |
 | --- | --- | --- | --- |
 | supplied-transcript-contract | Explicit RNA context, supplied CDS eligibility, native component settings and portable coordinate/failure boundary. | 2026-10-18 | [supplied-transcript-contract.md](supplied-transcript-contract.md) |
+| supplied-transcript-runtime | Exact component results, stable declared-budget identities, features, missingness and local transport. | 2026-10-18 | [supplied-transcript-runtime.md](supplied-transcript-runtime.md) |
 | conditional-0.7-candidate | Immutable conditional package, reviewed numerical domain, installed synthetic/backend checks and structural portability boundary. | 2026-10-18 | [conditional-0.7-candidate.md](conditional-0.7-candidate.md) |
 | rbs-wave5-context-results | Independently audited unchanged-profile transcript-context sensitivity, repeated-input accounting and source-selection census. | 2026-10-19 | [rbs-wave5-context-results.md](rbs-wave5-context-results.md) |
 | current-recoded-results | Independently audited frozen paired candidate accounting, source arithmetic and unchanged-sequence controls. | 2026-10-19 | [current-recoded-results.md](current-recoded-results.md) |

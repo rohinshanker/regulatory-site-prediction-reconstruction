@@ -1,5 +1,9 @@
 # Supplied-transcript library runtime
 
+- Purpose: Run the admitted RBS and Promoter components on explicitly supplied transcript/CDS organization.
+- Scope: Versioned local component results and transport; no integrated Operon or abundance model.
+- Last verified: 2026-10-18
+
 This document specifies the emitted `supplied-transcript-result-1` object from
 `regsite.transcript.predict_transcript(document, backend=None)`. The request
 contract is [supplied-transcript-contract.md](supplied-transcript-contract.md),
@@ -275,6 +279,45 @@ starts, so its `declared_seconds` also remains null; the requested budget is
 still preserved in `request.settings` and resolved `settings`.
 
 ## Focused verification and remaining integration
+
+### Local command and exports
+
+The development package provides `regsite-transcript REQUEST.json`, or `-` for
+binary standard input. Use `--backend-root PATH` or `REGSITE_RNASTRUCTURE` to
+select a separately installed verified engine. An explicit argument takes
+precedence. No backend is needed when every supplied CDS is incompatible.
+The parser counts received UTF-8 bytes before decoding, rejects duplicate keys
+at every nesting level, nonfinite numbers and invalid UTF-8, and leaves all
+relational/type checks to the atomic library preflight.
+
+JSON uses the authoritative pretty serialization above. `--format csv` retains
+one summary row for each component, even an empty or unstarted one, followed by
+one row per scalar for every CDS and requested Promoter candidate. Missing scalar
+values are blank with an explicit reason; numerical zero is retained. CSV binds
+both the original request and full JSON prediction hashes. Full native results,
+identities, structures and projected features remain in JSON. CSV coordinates
+are construct coordinates; no genomic coordinate is silently substituted.
+Both serializations enforce the 33,554,432-byte output cap before writing.
+
+Exit status is 0 for complete accounting, 1 for partial/unavailable results, and
+2 for atomic input/backend/integrity/export/I/O failure. Atomic failures print a
+fixed diagnostic on stderr and no JSON; an operating-system output failure can
+interrupt writing already serialized bytes. Consumers must check the exit and
+parse the entire output before accepting it. Broken pipes, including flush-time
+errors, exit 2 without a shutdown traceback. Complete accounting does not mean
+every candidate has a score or that a scientific prediction is correct.
+
+```sh
+regsite-transcript examples/supplied-transcript-single.json
+regsite-transcript examples/supplied-transcript-two-cds.json --format csv
+regsite-transcript examples/supplied-transcript-incompatible.json
+```
+
+The examples are synthetic geometry/component checks. Separate transcript
+isoforms or recoded constructs require separate explicit requests. The current
+command adds no joint expression model or automatic recoding selection.
+
+### Verification boundary
 
 The owned tests cover the real public predictors with deterministic synthetic
 structure sessions, all admitted profiles, full 10-CDS shared requests, malformed

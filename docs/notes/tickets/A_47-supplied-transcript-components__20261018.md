@@ -4,8 +4,8 @@
 - Status: active
 - Opened: 2026-10-18
 - Updated: 2026-10-18
-- Current State: Session A claimed this slice in isolated wave5/supplied-transcript from frozen conditional163802f. Public request/coordinate/failure contract is specified; runtime implementation is next. B #45 independently owns organization/projection fixtures and agreed incompatible-start/partial-CDS semantics.
-- Verification: Existing component source/CI admissions preserved. New runtime, schema, fresh installation, resource measurements and independent fixture comparison have not yet run.
+- Current State: Session A integrated real component orchestration8618ca0, strict request schema48730cb and core review repairs18cb8a1. The 0.8.0rc1 CLI provides strict binary JSON input and failure-preserving JSON/CSV exports. Fixed declared budgets preserve successful result identities while internal absolute deadlines cap execution. Independent core recheck is running; result schema, package admission and B adapter remain.
+- Verification: Core repair suite154tests/100%362statements158branches; root reproduced545request-schema tests and33transport tests/100%86statements26branches, plus Ruff/mypy. Earlier worker real-linker integration passed. Independent literal geometry, final resource measurements, fresh installation and final CI remain to be admitted. Existing immutable candidates and consumed evidence remain unchanged.
 - Cleanup: Session A resolves only the bounded implemented component after exact-patch review and independent checks, distills reusable contracts and removes this ticket/index row. Parent #8 remains open for missing integrated mechanisms.
 
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/47
