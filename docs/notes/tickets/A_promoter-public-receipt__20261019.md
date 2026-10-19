@@ -1,12 +1,16 @@
 # A_promoter-public-receipt__20261019 — Active
 
-Scope: Public-only Promoter Wave 5 receipt consistency under parent #12.
-Status: active
-Opened: 2026-10-19
-Updated: 2026-10-19
+- Scope: Public-only Promoter Wave 5 receipt consistency under parent #12.
+- Status: active
+- Opened: 2026-10-19
+- Updated: 2026-10-19
+- Current State: Implemented; awaiting B/A independent exact-patch review.
+- Verification: Focused pytest and branch coverage; Ruff and documentation checks recorded below.
+- Cleanup: Keep active for coordinator acceptance; no closure by this worker.
 
 ## Current State
 
+DEM-595 codex-implementer implements the bounded slice for Session B.
 Session B reg-site-reconstruction (9677689a-1792176763) owns implementation/tests
 and scoped closure. Session A baf5b738-1792172297 activated its reserved slice and
 owns finite independent exact-patch review/integration. Base f604c7775e5bb76d8fbcb24af11328b218438f72;
@@ -40,6 +44,20 @@ A's complete reservation/acceptance is in
 Artifacts and final handoff: /tmp/promoter-public-receipt-20261019/.
 One scoped Codex implementer permitted, no child or reviewer chain. A's finite
 review supplies independent side-review coverage; do not dispatch a duplicate.
+
+Implementation evidence: the checker and synthetic suite reconcile only the four
+allowlisted files plus the explicitly supplied manifest. Metadata contracts and
+all published hash references are explicit trust inputs; private artifacts remain
+not checked. The reusable contract is
+[public receipt audit](../../validation/promoter-public-receipt-audit.md).
+
+Focused validation: 86 tests passed; 100% of 354 statements and 122 branches.
+Ruff check/format and the scoped ticket/link checks passed. The shared home
+checker reports four pre-existing errors in the unrelated
+O_claude-doctor-cleanup__20261016.md; this repository is outside its automatic scope. Final command evidence and immutable
+patch identity are recorded in the worker handoff under the reserved artifact
+parent, outside Git. The four original input pins remain unchanged.
+Independent review is pending Session A dispatch after handoff, not claimed done.
 
 ## Cleanup
 
