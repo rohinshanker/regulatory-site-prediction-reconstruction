@@ -2,7 +2,7 @@
 
 - Purpose: Test coordinate correspondence and prediction accounting before comparing current and recoded constructs.
 - Scope: B ticket #39; label-free synthetic benchmark fixtures and producer-side validation. A owns runtime/portable exports.
-- Last verified: 2026-10-18
+- Last verified: 2026-10-19
 - Authorization: `457ac340d1bf66fed976896015f13f3ed8d08c54`; publication and consumer admission remain separate.
 
 ## Frozen input meaning
@@ -152,8 +152,10 @@ all four unsuccessful statuses on both sides and overflow propagation. No
 score in these tests comes from a predictor or an assay.
 
 ```sh
-PYTHONPATH=src:. python -m coverage run --branch --source=benchmarks.recoding \
-  -m pytest -q tests/benchmarks/test_recoding_edit_maps.py
+PYTHONPATH=. python -m coverage run --branch \
+  --source=benchmarks.recoding.edit_maps \
+  -m pytest -q --confcutdir=tests/benchmarks \
+  tests/benchmarks/test_recoding_edit_maps.py
 python -m coverage report --fail-under=100
 ```
 
@@ -235,8 +237,10 @@ included. These tests do not establish numerical score or partial-record handlin
 in A's comparator; those require its immutable public result and execution receipt.
 
 ```sh
-PYTHONPATH=src:. python -m coverage run --branch --source=benchmarks.recoding \
-  -m pytest -q tests/benchmarks/test_recoding_edit_maps.py \
+PYTHONPATH=. python -m coverage run --branch \
+  --source=benchmarks.recoding.edit_maps,benchmarks.recoding.codon_pairs \
+  -m pytest -q --confcutdir=tests/benchmarks \
+  tests/benchmarks/test_recoding_edit_maps.py \
   tests/benchmarks/test_recoding_runtime_panel.py \
   tests/benchmarks/test_recoding_codon_pairs.py
 python -m coverage report --fail-under=100
@@ -296,7 +300,8 @@ PYTHONPATH=. python -m coverage run --branch --source=benchmarks.recoding \
   tests/benchmarks/test_recoding_edit_maps.py \
   tests/benchmarks/test_recoding_runtime_panel.py \
   tests/benchmarks/test_recoding_codon_pairs.py \
-  tests/benchmarks/test_recoding_runtime_check.py
+  tests/benchmarks/test_recoding_runtime_check.py \
+  tests/benchmarks/test_recoding_collect.py
 python -m coverage report --fail-under=100
 ```
 
@@ -332,3 +337,14 @@ checks supplement the wrapper geometry/arithmetic audit. Existing source-parity
 and unchanged RBS implementation evidence remain separate from biological
 validation; no synthetic delta establishes expression accuracy or a gained/lost
 regulatory site.
+
+## Reviewed frozen result
+
+The [independent 0.6 result](current-recoded-results.md) reports the completed
+once-only comparison, complete denominators, source arithmetic and unchanged
+controls. The [aggregate](../../benchmarks/recoding/wave5-paired-aggregates.json)
+and [control summary](../../benchmarks/recoding/wave5-unchanged-controls.json)
+retain the exact independently reviewed bytes. All 36 jobs are accounted for;
+this synthetic check makes no biological recoding-effect claim. The full command
+above now includes the collector: 389 tests and 17 subtests pass at 100% of
+897 statements and 358 branches.
