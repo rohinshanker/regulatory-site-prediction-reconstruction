@@ -192,9 +192,12 @@ coverage. CSV provides scalar comparisons bound to the full JSON hash. Differenc
 are calculated only for successful candidates with compatible scientific settings.
 An interrupted start codon or unmatched position stays explicit, without a claim
 of biological site gain or loss. See the [paired contract](docs/validation/paired-regulatory-runtime.md).
-The core and transport passed independent review. Package/resource admission and
-the frozen producer comparison remain in progress; no canonical cyano integration
-or release is implied.
+The core, transport, fresh installation and eight CI gates passed. The independent
+synthetic comparison retained all 4,125 candidates across 36 jobs and matched
+53,404 scalar comparisons to its separate oracle. Unchanged controls had zero
+finite score differences. These checks establish accounting and arithmetic,
+not biological effects of recoding. See the [independent paired results](docs/validation/current-recoded-results.md)
+and [immutable package receipt](docs/validation/paired-0.6-candidate.md).
 The separate [0.5.0rc1 Promoter evaluation candidate](docs/validation/promoter-0.5-candidate.md)
 remains immutable. Package versions and result identities stay explicit even where
 the underlying calculator equations and parameter files are unchanged.
@@ -226,8 +229,12 @@ These examples are synthetic checks. The structural energies do not supply the
 missing ligand-constrained ribosome model, and the scalar calculation does not
 infer an aptamer or physiological concentrations. Every result retains source,
 parameter and backend identities, warnings, partial states and explicit failures.
-Review and package validation remain in progress. See the
-[conditional contract](docs/validation/conditional-aptamer-runtime.md).
+Independent review, fresh offline examples, measured resources and all eight CI
+gates passed for the bounded candidate. Its three saved controls also passed an
+independent equation/structure audit. Cross-platform CI validates the portable
+scalar profile; structural admission remains limited to the exact original build.
+See the [conditional contract](docs/validation/conditional-aptamer-runtime.md)
+and [immutable package validation](docs/validation/conditional-0.7-candidate.md).
 
 ## Start a new implementation session
 

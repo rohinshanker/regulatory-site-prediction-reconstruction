@@ -71,9 +71,14 @@ the frozen receipt. The source archive identity is recorded; bit-identical
 rebuilding of its tar/gzip container has not been claimed.
 
 All eight jobs in [CI39183611595](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/actions/runs/39183611595)
-remain an explicit final package gate. The scalar profile runs fresh offline
-on Linux/macOS and Python 3.11/3.14 in that matrix. Structural portability is not
-inferred from those scalar checks. Final successful CI must be recorded separately
-before claiming full package admission. Parent #9 retains constrained ribosome
+passed on the exact frozen source. The [final CI admission](../../models/conditional/0.7.0rc1/ci-admission.json)
+binds every job, the log hash and installed receipts. Each runtime job passed
+3,842 tests with 100% required coverage and one explicit skip: the original-binary
+conditional integration requires its separately admitted installation. Each
+repaired-backend selection passed 1,963 tests with 100% required coverage; all
+four resource jobs passed. The scalar profile runs fresh offline on Linux/macOS
+and Python 3.11/3.14. Structural portability is not inferred from those scalar
+checks; the separate macOS installed receipt supplies the exact-build structural
+evidence. Parent #9 retains constrained ribosome
 states, pseudoknots, ligand/steric inference, native calibration and full switch
 prediction; this candidate supplies neither a discovery tool nor a recoding optimizer.
