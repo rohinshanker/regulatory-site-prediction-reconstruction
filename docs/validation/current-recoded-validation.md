@@ -241,3 +241,61 @@ PYTHONPATH=src:. python -m coverage run --branch --source=benchmarks.recoding \
   tests/benchmarks/test_recoding_codon_pairs.py
 python -m coverage report --fail-under=100
 ```
+
+## Public paired-result audit and frozen execution panel
+
+[`runtime_check`](../../benchmarks/recoding/runtime_check.py) imports only B's
+edit/codon oracles and standard-library helpers. `build_requests()` returns the
+36 explicit requests and a byte/count manifest from the unchanged long-pair
+fixture. `check_result(original_request, received_bytes, expected_limits)` checks
+strict JSON, received and authoritative result-byte caps, public identity/hash
+payloads, candidate rosters, three-base codon matches, feature/genomic mapping,
+scalar extraction/deltas, units, ordering, warnings and all failure/null counts.
+Caller-supplied limits must be the candidate's complete effective limits,
+including its nested predictor limits; public ceilings are not an admission.
+
+Valid integral numeric coordinates and anti-SD normalization follow the public
+component contracts; raw input values remain intact in request hashes. Missing
+Promoter projection strand resolves to `+`. Invalid inputs retain their raw
+identity rather than receiving invented normalized values. Regression tests
+cover these defaults and normalization distinctions, including `0` versus `0.0`.
+
+This is a wrapper audit, not an independent scorer. Its returned scope is
+`public_hashes_geometry_extraction_arithmetic_accounting` and
+`native_prediction_admitted` is false. Root separately verifies the installed
+candidate/model/backend, public result schemas, native input bindings and
+source-parity admission. Hash consistency alone cannot establish model equations,
+selected-state correctness or biological accuracy.
+
+The [preparation](../../benchmarks/recoding/wave5-paired-preparation.json) pins
+candidate `920215602a837b0fd2fed403512f3b3ed59bfda2`, verified package CI, the
+reviewed checker and every request's exact bytes/hash before collection. There
+are 18 Promoter jobs with 4,108 positions and 18 historical RBS jobs with 17
+explicit starts; empty lists remain explicit. Promoter uses 30 seconds per side,
+RBS 60; the serial stage is capped at 3,600 seconds, with a 30-second process-exit
+allowance inside that stage. Each outer job timeout is the smaller of fresh
+remaining stage time and twice its side budget plus that allowance. No retry,
+adaptive repacking, extra predictor jobs or optional standby profile is planned.
+Existing unchanged-sequence pairs supply identity controls. Artificial public
+result mutations test missing/failure propagation separately from actual scoring.
+
+The compact ASCII request-list SHA256 is
+`035ff8875ef9bca9c158a7b6ad7c72db15ef52fb242ce3247c7d7b8aa412ed8d`.
+Execution still requires a reviewed durable collector and explicit B
+acknowledgement. Candidate-universe changes remain separate from biologically
+lost/added regulation; the synthetic panel contains no experimental outcome.
+
+Root reproduced 264 tests and 17 subtests at 100% of 640 statements/256 branches
+across the four recoding modules. Independent exact-patch review approved the
+normalization repair at `1286daef57109099ff328425534e6507f1c4e155` after 167
+focused tests and adversarial probes; the original 36-job manifest is unchanged.
+
+```sh
+PYTHONPATH=. python -m coverage run --branch --source=benchmarks.recoding \
+  -m pytest -q --confcutdir=tests/benchmarks \
+  tests/benchmarks/test_recoding_edit_maps.py \
+  tests/benchmarks/test_recoding_runtime_panel.py \
+  tests/benchmarks/test_recoding_codon_pairs.py \
+  tests/benchmarks/test_recoding_runtime_check.py
+python -m coverage report --fail-under=100
+```
