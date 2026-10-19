@@ -65,3 +65,28 @@ resource and reason and await the owner's decision; never bypass a refusal.
   independent exact-patch review; B has not acknowledged the reservation. No bit-identical-binary or accuracy claim.
 
 A integration tree: `/Users/Rohin/Desktop/coding_stuff/ISAACS-LAB/worktrees/reconstruction-original-backend-integration-20261019`, branch `quality/original-backend-integration-20261019`, from exact worker commit `42ea33cd6c99218c0f042c5f48aa719a7e8a0d63`. CI now uses the explicit original installer and enforces installer branch coverage before unchanged full runtime/backend gates. Worker tree remains intact.
+
+## Independent review and bounded repair
+
+Session A disposition of DEM-599 review of `8469b2f`: preserve the exact
+historical repaired-receipt field order and test its order/serialization; add
+original-path missing-prerequisite cases; remove `GNUMAKEFLAGS`, `MAKEFILES`
+and `RNA_INCLUDE_CUDA` from the build environment; narrow source-verification
+wording to the pinned `src/algorithm.cpp`. All four findings are addressed,
+pending the same reviewer's finite exact-patch recheck. A reproduced baseline
+receipt bytes with the reviewer's independent synthetic comparison after the
+repair. All 30 focused tests still pass; 126 statements and 56 branches remain
+100% covered. No frozen source/patch/model/table identities were changed.
+
+A also installed a fresh 0.7.0rc1 wheel offline and ran only the committed
+synthetic single/batch RBS examples against the new original engine. Result
+statuses were `ok` and `ok, ok, no_candidate, unsupported`; binary hashes match
+the saved installation receipt. The initial ad-hoc post-run assertion assumed
+incorrect JSON nesting; it was corrected against the saved outputs without
+repeating predictions. An 872-byte artifact manifest verifies both complete
+outputs and the installation smoke receipt outside either repository.
+
+The worker's real build predates its final metadata/CLI error-validation edits;
+its compile/extraction/receipt path was unchanged. Do not label it an execution
+of the exact final builder bytes. CI builds the final commit on Linux/macOS and
+Python 3.11/3.14; draft PR #52 and its checks retain publication separation.

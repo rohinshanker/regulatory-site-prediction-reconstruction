@@ -158,18 +158,25 @@ def install(archive, destination, jobs=2, optimize=True, component=DEFAULT_COMPO
     # settings from an interactive shell. Explicit make arguments above govern.
     environment = os.environ.copy()
     for name in (
-        "MAKEFLAGS", "MFLAGS", "MAKEOVERRIDES", "RNA_MAKE_OS", "RNA_MAKE_ARCH",
-        "CUDA", "DATAPATH", "CXX", "CXXFLAGS", "CPP_FLAGS", "LDFLAGS", "LDLIBS",
+        "MAKEFLAGS", "GNUMAKEFLAGS", "MAKEFILES", "MFLAGS", "MAKEOVERRIDES",
+        "RNA_MAKE_OS", "RNA_MAKE_ARCH", "RNA_INCLUDE_CUDA", "CUDA", "DATAPATH", "CXX", "CXXFLAGS", "CPP_FLAGS", "LDFLAGS", "LDLIBS",
     ):
         environment.pop(name, None)
     subprocess.run(command, cwd=root, env=environment, check=True)
     require_hash(source_file, expected_source)
     files = [root / "exe" / name for name in ("Fold", "bifold", "efn2")]
     tables = sorted((root / "data_tables").glob("*"))
+    # Raw receipt bytes are pinned by existing evaluations. Keep repaired
+    # identity fields in their original position, including serialization order.
+    identity = {} if patch is None else {
+        "patch_sha256": sha256(patch),
+        "patched_source_sha256": sha256(source_file),
+    }
     receipt = {
         "component": manifest["component"],
         "license": manifest["license"],
         "source_archive_sha256": sha256(archive),
+        **identity,
         "build_command": command,
         "platform": platform.platform(),
         "machine": platform.machine(),
@@ -190,11 +197,6 @@ def install(archive, destination, jobs=2, optimize=True, component=DEFAULT_COMPO
             "source_file": manifest["upstream"]["source_file"],
             "source_sha256": sha256(source_file),
             "source_archive_bytes": archive.stat().st_size,
-        })
-    else:
-        receipt.update({
-            "patch_sha256": sha256(patch),
-            "patched_source_sha256": sha256(source_file),
         })
     (root / receipt_name).write_text(json.dumps(receipt, indent=2) + "\n")
     return root

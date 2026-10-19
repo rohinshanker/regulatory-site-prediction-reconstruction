@@ -312,7 +312,8 @@ admission. The original engine root is
 Repaired builds retain `RNAstructure/traceback-build.json`, recording source/patch
 identities, build command, compiler version, platform, machine, actual executable architectures,
 executable hashes and all installed table hashes.
-The builder removes inherited make/architecture/compiler tuning variables.
+The builder removes inherited make/architecture/compiler tuning variables,
+including `GNUMAKEFLAGS`, `MAKEFILES` and `RNA_INCLUDE_CUDA`.
 Upstream's platform detection selects the target architecture; inspect the
 build log and receipt, especially when Python or its subprocesses run under
 Rosetta. `--no-optimize` adds upstream `optimize=off` for a fresh diagnostic

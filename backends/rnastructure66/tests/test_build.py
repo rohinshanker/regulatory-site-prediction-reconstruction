@@ -145,11 +145,12 @@ class InstallerTests(unittest.TestCase):
                 self.assertEqual(receipt["component"], component)
                 self.assertEqual(receipt["patch_sha256"], digest(b"synthetic patch\n"))
                 self.assertEqual(receipt["patched_source_sha256"], digest(self.patched))
-                self.assertEqual(set(receipt), {
+                self.assertEqual(list(receipt), [
                     "component", "license", "source_archive_sha256", "patch_sha256",
                     "patched_source_sha256", "build_command", "platform", "machine",
                     "compiler_version", "executable_architecture", "executable_sha256", "table_sha256",
-                })
+                ])
+                self.assertEqual((root / "traceback-build.json").read_text(), json.dumps(receipt, indent=2) + "\n")
                 self.assertFalse((root / "original-build.json").exists())
         patches = [call for call in self.run.call_args_list if call.args[0][0] == "patch"]
         self.assertEqual(len(patches), 2)
@@ -160,7 +161,7 @@ class InstallerTests(unittest.TestCase):
 
     def test_macos_sdk_diagnostic_command_and_environment(self):
         self.system.return_value = "Darwin"
-        dirty = dict.fromkeys(("MAKEFLAGS", "MFLAGS", "MAKEOVERRIDES", "RNA_MAKE_OS", "RNA_MAKE_ARCH", "CUDA", "DATAPATH", "CXX", "CXXFLAGS", "CPP_FLAGS", "LDFLAGS", "LDLIBS"), "inherited")
+        dirty = dict.fromkeys(("MAKEFLAGS", "GNUMAKEFLAGS", "MAKEFILES", "MFLAGS", "MAKEOVERRIDES", "RNA_MAKE_OS", "RNA_MAKE_ARCH", "RNA_INCLUDE_CUDA", "CUDA", "DATAPATH", "CXX", "CXXFLAGS", "CPP_FLAGS", "LDFLAGS", "LDLIBS"), "inherited")
         with mock.patch.dict(os.environ, {**dirty, "KEEP_THIS": "yes"}):
             self.install(optimize=False)
         self.assertEqual(self.run.call_args_list[0], mock.call(["xcode-select", "-p"], capture_output=True, text=True))
@@ -270,12 +271,14 @@ class InstallerTests(unittest.TestCase):
 
     def test_missing_prerequisites(self):
         for tool in ("g++", "make", "file", "patch", "xcode-select", "xcrun", "clang++"):
-            with self.subTest(tool=tool):
-                self.system.return_value = "Darwin" if tool in ("xcode-select", "xcrun", "clang++") else "Linux"
-                self.which.side_effect = lambda name: None if name == tool else f"/tools/{name}"
-                with self.assertRaises(RuntimeError):
-                    builder.install(self.archive, self.destination)
-                self.assertFalse(self.destination.exists())
+            components = (builder.DEFAULT_COMPONENT,) if tool == "patch" else (builder.DEFAULT_COMPONENT, ORIGINAL)
+            for component in components:
+                with self.subTest(tool=tool, component=component):
+                    self.system.return_value = "Darwin" if tool in ("xcode-select", "xcrun", "clang++") else "Linux"
+                    self.which.side_effect = lambda name: None if name == tool else f"/tools/{name}"
+                    with self.assertRaises(RuntimeError):
+                        builder.install(self.archive, self.destination, component=component)
+                    self.assertFalse(self.destination.exists())
 
     def test_absent_macos_tools_and_empty_sdk(self):
         self.system.return_value = "Darwin"

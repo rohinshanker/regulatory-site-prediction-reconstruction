@@ -201,8 +201,8 @@ export REGSITE_RNASTRUCTURE="$PWD/.cache/rnastructure66-original/RNAstructure"
 The [standalone GPL-2.0-only builder](../../backends/rnastructure66/README.md)
 requires Python 3.11+, an installed C++ compiler, `make` and `file`; it performs
 no download. It refuses existing destinations, checks archive/source identities,
-skips patches for this explicit original component and verifies pristine source
-after compilation. It writes `RNAstructure/original-build.json` with an explicit
+skips patches for this explicit original component and verifies the pinned
+`src/algorithm.cpp` hash before and after compilation. It writes `RNAstructure/original-build.json` with an explicit
 no-patch marker and compiler, build, platform, executable and table hashes. This
 installation recipe does not promise bit-identical binaries, new platform
 admission or biological validation. The default builder component remains the
