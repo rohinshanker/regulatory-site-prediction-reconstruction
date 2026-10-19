@@ -203,8 +203,34 @@ remains immutable. Package versions and result identities stay explicit even whe
 the underlying calculator equations and parameter files are unchanged.
 
 The [continuing delivery program](docs/validation/calculator-delivery-program.md)
-then adds admitted supplied-operon and specified-aptamer components. The visualizer
-remains a downstream consumer of versioned predictions.
+adds explicit transcript and specified-aptamer components. The visualizer remains
+a downstream consumer of versioned predictions.
+
+## Analyze a supplied transcript and its CDS annotations
+
+The 0.8.0rc1 development command runs RBS scoring on the exact supplied RNA
+segment and Promoter scoring on the full construct:
+
+```sh
+.venv/bin/regsite-transcript examples/supplied-transcript-single.json
+.venv/bin/regsite-transcript examples/supplied-transcript-two-cds.json --format csv
+.venv/bin/regsite-transcript examples/supplied-transcript-incompatible.json
+```
+
+Supply transcript and CDS intervals explicitly, with their annotation provenance.
+All eligible starts share one RBS calculation and its time budget. A CDS whose
+start does not fit the transcript remains visible as incompatible; downstream
+clipping, unsupported starts and failed calculations retain separate warnings or
+missing values. Optional genomic projection handles reverse strands and circular
+origins without adding sequence to the supplied RNA.
+
+This connects annotated transcript contexts to the existing component models.
+It does not discover operons, model translational coupling, or multiply scores
+into a protein-abundance estimate. JSON retains both complete native predictions;
+CSV retains component summaries and scalar rows bound to the full JSON hash.
+Core and transport tests pass; final schema/package admission remains in progress.
+See the [request contract](docs/validation/supplied-transcript-contract.md) and
+[runtime and export semantics](docs/validation/supplied-transcript-runtime.md).
 
 ## Conditional aptamer components
 
