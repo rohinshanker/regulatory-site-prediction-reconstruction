@@ -79,3 +79,13 @@ Energy/rank changes describe input sensitivity, not measured translation
 improvement or host calibration. Repeated contexts and loci are not independent
 experimental measurements. The selected panel cannot become an untouched new
 test after its outcomes have been inspected.
+
+## Reviewed frozen result
+
+The [completed 0.6 diagnostic](rbs-wave5-context-results.md) and its
+[exact aggregate](../../benchmarks/rbs/wave5-context-aggregates.json) retain the
+independently reviewed output-derived metrics. The separate source audit also
+reconstructed the full 4,808-association census, six-stratum first-four selection,
+all 24 loci, 31 source alternatives and 124 scenarios in order. The consumed
+collection is immutable; reproduce arithmetic from saved outputs, without new
+predictor execution.

@@ -4,6 +4,7 @@ Verification dates cover the stated source observations or specification review;
 
 | Area | Purpose | Last verified | Document |
 | --- | --- | --- | --- |
+| rbs-wave5-context-results | Independently audited unchanged-profile transcript-context sensitivity, repeated-input accounting and source-selection census. | 2026-10-19 | [rbs-wave5-context-results.md](rbs-wave5-context-results.md) |
 | current-recoded-results | Independently audited frozen paired candidate accounting, source arithmetic and unchanged-sequence controls. | 2026-10-19 | [current-recoded-results.md](current-recoded-results.md) |
 | promoter-wave5-results | Independently audited frozen native positive-TSS localization, all denominators and consumed-panel limits. | 2026-10-19 | [promoter-wave5-results.md](promoter-wave5-results.md) |
 | supplied-transcript-boundaries | Public-contract-reconciled construct/transcript/CDS geometry, immutable fixtures and uncoupled component failure semantics. | 2026-10-19 | [supplied-transcript-boundaries.md](supplied-transcript-boundaries.md) |
