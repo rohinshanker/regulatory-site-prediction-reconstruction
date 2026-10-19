@@ -24,13 +24,13 @@ from regsite.conditional_math import (
     evaluate_response,
 )
 
-PARAMETER_SHA256 = "33073ce660e072ee7c2cd0cade504fbc4a2dbb8f2e95c67612c0f837d2187999"
+PARAMETER_SHA256 = "551ca4da7af67303b74e494f56d4cf9b643b32a449792a8bb54c5b41cce662e8"
 SOURCE_MANIFEST_SHA256 = (
     "ac4d7be48ba856dc6a713829425b584ffd55551743b10c51049de0ec70dc2f6e"
 )
 CONVENTION_ID = (
     "natural_logs_equal_rna_complex_volume_explicit_molar_standard_"
-    "strict_positive_zero_uncorrected_binary64_min_total_bracket_1"
+    "strict_positive_zero_uncorrected_binary64_certified_min_total_bracket_2"
 )
 PROFILES = {"canonical_structure_pair", "supplied_energy_response"}
 INPUT_LIMIT = 65_536
@@ -212,6 +212,12 @@ def _provenance(value) -> dict:
     return value
 
 
+def _mode(value: dict) -> str:
+    if "mode" not in value:
+        refuse("missing_field", "Required mode field absent")
+    return _text(value["mode"])
+
+
 def _settings(value, profile: str) -> dict:
     structural = profile == "canonical_structure_pair"
     value = _object(
@@ -250,7 +256,7 @@ def _structural_input(value) -> tuple[dict, dict]:
     constraint = aptamer["constraint"]
     if type(constraint) is not dict:
         refuse("invalid_object", "Constraint must be an object")
-    mode = constraint.get("mode")
+    mode = _mode(constraint)
     pairs, unpaired = [], []
     if mode == "full":
         _object(constraint, "mode structure")
@@ -345,7 +351,7 @@ def _response_input(value) -> dict:
     affinity = value["affinity"]
     if type(affinity) is not dict:
         refuse("invalid_object", "Affinity must be an object")
-    mode = affinity.get("mode")
+    mode = _mode(affinity)
     if mode == "kd":
         _object(affinity, "mode kd_molar standard_molar")
         _number(affinity["kd_molar"], positive=True)
@@ -358,10 +364,11 @@ def _response_input(value) -> dict:
     occupancy = value["occupancy"]
     if type(occupancy) is not dict:
         refuse("invalid_object", "Occupancy must be an object")
-    if occupancy.get("mode") == "supplied_fraction":
+    mode = _mode(occupancy)
+    if mode == "supplied_fraction":
         _object(occupancy, "mode fraction")
         _number(occupancy["fraction"], lower=0, upper=1)
-    elif occupancy.get("mode") == "published2015_volume":
+    elif mode == "published2015_volume":
         _object(
             occupancy,
             "mode mrna_total_molar ligand_total_molar solvent_molar "

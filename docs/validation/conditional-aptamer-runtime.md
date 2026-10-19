@@ -38,9 +38,51 @@ The volume solver requires both relative bracket width
 `(high-low)/min(mrna_total_molar,ligand_total_molar) <= 1e-12` and scaled stationary
 residual `<= 1e-12`. This also bounds occupancy uncertainty. It uses at most the
 explicit `max_iterations` (1–256), within `seconds_total` (at most 30 s).
-An exact interior zero collapses the bracket. Boundary cases use zero iterations
+Only a certified exact interior zero collapses the bracket. Boundary cases use zero iterations
 and null residual. Positive totals require a representable interior root;
 rounding to an endpoint, underflow, overflow or exhaustion is an explicit failure.
+
+The numerical convention is
+`natural_logs_equal_rna_complex_volume_explicit_molar_standard_strict_positive_zero_uncorrected_binary64_certified_min_total_bracket_2`.
+The source manifest, physical constants, scientific assumptions and backend pins
+retain their existing identities; the parameter hash additionally binds the
+certification method below. The public result shape and error-code vocabulary
+are unchanged.
+
+Keep `G_on - G_off + G_bind` as one exact rational combination of the supplied
+binary64 energies through the metastability sign decision, its beta product and
+the occupancy equation. The separately displayed structural cost is rounded
+once; it is not reused to form switching energy. Otherwise a small positive
+switching cost can round to zero and select the discontinuous wrong branch.
+With Kd input, the converted binding energy has the documented binary64 rounding
+before joining that exact combination. Unrepresentable displayed fields fail
+explicitly while other representable components survive.
+
+Every bisection update uses a certified stationary sign, not the sign of a
+rounded float residual. At each candidate, form `b/(m-b)` and `Vl*(l-b)/Cs` as
+exact fractions of the original input values and candidate. Independently of
+the caller's Decimal context, divide those fractions at 80 decimal digits with
+directed floor/ceiling rounding. Monotonicity of ln and Decimal's correctly
+rounded nearest/even ln give log enclosures by widening each endpoint result
+one adjacent Decimal value outward. `ln(1)` is exactly zero and needs no
+widening. Convert these finite decimal bounds back to exact fractions for
+weighted addition, the exact beta/switching energy, and residual scaling.
+Thus rounding of a large ligand total cannot erase its difference from free
+ligand, and a float zero cannot supply an interval guarantee.
+
+If the resulting sign interval straddles zero, repeat once at 160 digits.
+If neither stage proves a strict sign or an exact zero interval, return
+`numerical_range` with the last certified bracket retained. Each solver iteration
+uses at most two stages (eight endpoint ln calls); the existing 256-iteration
+cap and deadline apply. No unbounded precision escalation is permitted.
+The residual stopping test uses the entire certified scaled interval within
+the tolerance, and the relative width test uses exact rational endpoint
+subtraction. `scaled_residual` reports the binary64-rounded midpoint of that
+interval for diagnostics; it is not itself the sign certificate. A nonzero
+midpoint outside binary64 range is an explicit numerical failure. Regression
+checks cover the strict-positive cancellation boundary, widely separated
+concentration scales, second-stage certification, unresolved near cancellation,
+and independent high-precision signs at the reported bracket endpoints.
 
 Both profiles preserve supplied assumptions and warn that native calibration is
 absent. Canonical RNA energies do not supply constrained ribosome binding,

@@ -442,3 +442,142 @@ def test_status_precedence_retains_valid_components():
         "invalid_string",
         "unsupported_affinity",
     ]
+
+
+@pytest.mark.parametrize(
+    "path",
+    [
+        "input.affinity.mode",
+        "input.occupancy.mode",
+        "input.aptamer.constraint.mode",
+    ],
+)
+@pytest.mark.parametrize(
+    "value,code",
+    [
+        (DELETE, "missing_field"),
+        (None, "invalid_string"),
+        ([], "invalid_string"),
+        ({}, "invalid_string"),
+        (False, "invalid_string"),
+        (1, "invalid_string"),
+        ("", "invalid_string"),
+    ],
+)
+def test_modes_require_present_strings_before_feature_dispatch(
+    monkeypatch, path, value, code
+):
+    document = request("aptamer" in path)
+    replace(document, path, value)
+    monkeypatch.setattr(
+        c, "verify_backend", lambda *_: pytest.fail("Malformed mode ran backend")
+    )
+    result = c.predict_conditional(document)
+    assert result["status"] == "invalid_input"
+    assert result["reasons"] == [code]
+    assert result["complete"] is False
+    assert result["input"] is None
+
+
+@pytest.mark.parametrize(
+    "path,code",
+    [
+        ("input.affinity.mode", "unsupported_affinity"),
+        ("input.occupancy.mode", "unsupported_occupancy"),
+        ("input.aptamer.constraint.mode", "invalid_mode"),
+    ],
+)
+def test_well_formed_unadmitted_modes_stay_unsupported(path, code):
+    document = request("aptamer" in path)
+    replace(document, path, "unadmitted")
+    result = c.predict_conditional(document)
+    assert result["status"] == "unsupported"
+    assert result["reasons"] == [code]
+    assert not result["complete"]
+
+
+@pytest.mark.parametrize(
+    "on,switch,applied,actual",
+    [
+        (-0.9999999999999999, 2**-53, True, 1.75),
+        (-1.0, 0.0, False, 2.5),
+        (-1.0000000000000002, -(2**-52), False, 2.5),
+    ],
+)
+def test_exact_combined_binary64_switching_selects_branch(on, switch, applied, actual):
+    document = request()
+    document["input"]["energies"].update(rna_off_kcal_mol=-2.0, rna_on_kcal_mol=on)
+    document["input"]["affinity"]["delta_g_kcal_mol"] = -1.0
+    result = c.predict_conditional(document)
+    assert result["status"] == "ok" and result["complete"]
+    response = result["response"]
+    assert response["switching_kcal_mol"] == switch
+    assert response["metastability_applied"] is applied
+    assert response["ar_actual"] == pytest.approx(actual, rel=1e-15)
+
+
+def test_no_false_collapsed_bracket_from_rounded_logs():
+    # Independent endpoint checks use exact binary64 inputs at 200 digits.
+    from decimal import Decimal, localcontext
+    from fractions import Fraction
+
+    document = request()
+    document["input"]["energies"].update(rna_off_kcal_mol=0.0, rna_on_kcal_mol=0.0)
+    document["input"]["affinity"]["delta_g_kcal_mol"] = 0.0
+    occupancy = dict(
+        mode="published2015_volume",
+        mrna_total_molar=1.0,
+        ligand_total_molar=1.0000000000000002e100,
+        solvent_molar=1e100,
+        mrna_relative_volume=1e-16,
+        ligand_relative_volume=1.0,
+    )
+    document["input"]["occupancy"] = occupancy
+    result = c.predict_conditional(document)
+    assert result["status"] == "ok" and result["complete"]
+    observed = result["response"]["occupancy"]
+    low, high = observed["solver"]["bracket_molar"]
+    assert low < 0.8746450564212727 < high
+    assert Fraction(high) - Fraction(low) <= Fraction(1e-12)
+    assert observed["fraction"] == pytest.approx(0.8746450564212727, abs=1e-12)
+    assert observed["solver"]["iterations"] > 1
+    with localcontext(prec=200):
+        m, ligand, cs, vm, vl = [
+            Decimal(occupancy[k])
+            for k in (
+                "mrna_total_molar",
+                "ligand_total_molar",
+                "solvent_molar",
+                "mrna_relative_volume",
+                "ligand_relative_volume",
+            )
+        ]
+
+        def residual(b):
+            b = Decimal(b)
+            return vm * (b / (m - b)).ln() - vl * (vl * (ligand - b) / cs).ln()
+
+        assert residual(low) < 0 < residual(high)
+        assert residual(0.5) < 0
+
+
+def test_uncertifiable_root_reports_numerical_range_and_keeps_bracket():
+    document = request()
+    document["input"]["energies"].update(rna_off_kcal_mol=0, rna_on_kcal_mol=0)
+    document["input"]["affinity"]["delta_g_kcal_mol"] = 0
+    document["input"]["occupancy"] = dict(
+        mode="published2015_volume",
+        mrna_total_molar=1.0,
+        ligand_total_molar=1e200,
+        solvent_molar=1e200,
+        mrna_relative_volume=1.0,
+        ligand_relative_volume=1.0,
+    )
+    result = c.predict_conditional(document)
+    assert result["status"] == "failed" and not result["complete"]
+    assert result["reasons"] == ["numerical_range"]
+    response = result["response"]
+    assert response["switching_kcal_mol"] == 0
+    assert response["occupancy"]["fraction"] is None
+    assert response["occupancy"]["solver"]["bracket_molar"] == [0, 1]
+    assert response["ar_conc"] is response["ar_actual"] is None

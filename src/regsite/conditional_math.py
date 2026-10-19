@@ -6,10 +6,12 @@ validator. No fitted coefficients or experimental measurements are embedded.
 
 import math
 import time
+from decimal import ROUND_CEILING, ROUND_FLOOR, Context, Decimal, localcontext
 from fractions import Fraction
 
 GAS_CONSTANT = 8.31446261815324 / 4184
 TOLERANCE = 1e-12
+SIGN_PRECISIONS = (80, 160)
 
 
 class ConditionalError(ValueError):
@@ -87,10 +89,66 @@ def empty_occupancy(mode: str) -> dict:
     )
 
 
+def log_bounds(ratio: Fraction, precision: int) -> tuple[Fraction, Fraction]:
+    """Enclose ln(exact rational) using directed division and rounded Decimal ln.
+
+    Decimal ln is correctly rounded to nearest/even. One adjacent representable
+    value on each side encloses that rounding. ln(1) is exactly zero, avoiding
+    Decimal's enormous subnormal neighbor at zero. No caller context is used.
+    """
+    with localcontext(Context(prec=precision)) as context:
+        context.rounding = ROUND_FLOOR
+        lower = Decimal(ratio.numerator) / Decimal(ratio.denominator)
+        context.rounding = ROUND_CEILING
+        upper = Decimal(ratio.numerator) / Decimal(ratio.denominator)
+        low_log = Decimal(0) if lower == 1 else lower.ln().next_minus()
+        high_log = Decimal(0) if upper == 1 else upper.ln().next_plus()
+        return Fraction(low_log), Fraction(high_log)
+
+
+def certified_stationary(
+    bound: float,
+    m: float,
+    ligand: float,
+    solvent: float,
+    vm: float,
+    vl: float,
+    energy: Fraction,
+    deadline: float,
+) -> tuple[int, float, bool]:
+    """Certify D's sign and residual bound, or refuse unresolved cancellation.
+
+    Every argument to ln and every weighted interval operation is exact rational
+    arithmetic. The two fixed Decimal precisions bound certification work. A
+    float residual is diagnostic only; it never decides which root interval lives.
+    """
+    b, fm, fl = Fraction(bound), Fraction(m), Fraction(ligand)
+    rna_ratio = b / (fm - b)
+    ligand_ratio = Fraction(vl) * (fl - b) / Fraction(solvent)
+    scale = max(Fraction(1), Fraction(vm), Fraction(vl), abs(energy))
+    for precision in SIGN_PRECISIONS:
+        check_deadline(deadline)
+        rna_low, rna_high = log_bounds(rna_ratio, precision)
+        ligand_low, ligand_high = log_bounds(ligand_ratio, precision)
+        low = (Fraction(vm) * rna_low - Fraction(vl) * ligand_high + energy) / scale
+        high = (Fraction(vm) * rna_high - Fraction(vl) * ligand_low + energy) / scale
+        if low == high == 0:
+            return 0, 0.0, True
+        if low > 0 or high < 0:
+            return (
+                1 if low > 0 else -1,
+                represent((low + high) / 2),
+                max(abs(low), abs(high)) <= Fraction(TOLERANCE),
+            )
+    raise ConditionalError(
+        "numerical_range", "Stationary sign uncertifiable at bounded precision"
+    )
+
+
 def solve_occupancy(
     supplied: dict,
     beta: float,
-    switching: float,
+    switching: float | Fraction,
     iterations: int,
     deadline: float,
     out: dict | None = None,
@@ -106,14 +164,8 @@ def solve_occupancy(
     bound, low, high, count, residual = 0.0, 0.0, min(m, ligand), 0, None
     out["solver"] = dict(iterations=0, bracket_molar=[low, high], scaled_residual=None)
     if m > 0 and ligand > 0:
-        # Normalize before taking products: D/scale has no overflowing terms.
+        # Preserve the exact combined energy, including below a rounded RNA cost.
         energy = Fraction(beta) * Fraction(switching)
-        scale = max(Fraction(1), Fraction(vm), Fraction(vl), abs(energy))
-        am, al, ae = (
-            represent(Fraction(vm) / scale),
-            represent(Fraction(vl) / scale),
-            represent(energy / scale),
-        )
         for step in range(1, iterations + 1):
             count = step
             check_deadline(deadline)
@@ -122,25 +174,22 @@ def solve_occupancy(
                 raise ConditionalError(
                     "numerical_range", "No representable interior bracket"
                 )
-            residual = math.fsum(
-                (
-                    am * (math.log(bound) - math.log(m - bound)),
-                    -al * (math.log(vl) + math.log(ligand - bound) - math.log(solvent)),
-                    ae,
-                )
+            sign, residual, residual_small = certified_stationary(
+                bound, m, ligand, solvent, vm, vl, energy, deadline
             )
-            if residual == 0:
+            if sign == 0:
                 low = high = bound
-            elif residual < 0:
+            elif sign < 0:
                 low = bound
             else:
                 high = bound
             out["solver"] = dict(
                 iterations=count, bracket_molar=[low, high], scaled_residual=residual
             )
-            if (high - low) / min(m, ligand) <= TOLERANCE and abs(
-                residual
-            ) <= TOLERANCE:
+            width_small = Fraction(high) - Fraction(low) <= (
+                Fraction(TOLERANCE) * Fraction(min(m, ligand))
+            )
+            if width_small and residual_small:
                 break
         else:
             raise ConditionalError(
@@ -209,9 +258,10 @@ def evaluate_response(
         data["beta_mol_per_kcal"],
         data["affinity"],
     )
-    cost = attempt(
-        lambda: difference(energies["rna_on_kcal_mol"], energies["rna_off_kcal_mol"])
+    exact_cost = Fraction(energies["rna_on_kcal_mol"]) - Fraction(
+        energies["rna_off_kcal_mol"]
     )
+    cost = attempt(lambda: represent(exact_cost))
     if affinity["mode"] == "delta_g":
         binding = affinity["delta_g_kcal_mol"]
     else:
@@ -235,17 +285,16 @@ def evaluate_response(
     response["log_ar_max"] = log_ar
     if log_ar is not None:
         response["ar_max"] = attempt(lambda: exponential(log_ar))
-    if cost is not None and binding is not None:
-        switching = attempt(lambda: represent(Fraction(cost) + Fraction(binding)))
+    if binding is not None:
+        exact_switching = exact_cost + Fraction(binding)
+        switching = attempt(lambda: represent(exact_switching))
         response["switching_kcal_mol"] = switching
         if switching is not None:
-            applied = switching > 0
+            applied = exact_switching > 0
             response["metastability_applied"] = applied
             log_q: float | None = 0.0
             if applied:
-                product = attempt(
-                    lambda: represent(Fraction(beta) * Fraction(switching))
-                )
+                product = attempt(lambda: represent(Fraction(beta) * exact_switching))
                 log_q = (
                     None
                     if product is None
@@ -257,7 +306,7 @@ def evaluate_response(
                 lambda: solve_occupancy(
                     data["occupancy"],
                     beta,
-                    switching,
+                    exact_switching,
                     settings["max_iterations"],
                     deadline,
                     response["occupancy"],

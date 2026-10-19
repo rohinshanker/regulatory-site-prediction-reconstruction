@@ -348,3 +348,64 @@ def test_nonconvergence_keeps_last_bracket_and_residual():
     assert solver["bracket_molar"] == [0, 0.5]
     assert math.isfinite(solver["scaled_residual"])
     assert actual["occupancy"]["concentrations"] is None
+
+
+def test_certification_uses_bounded_second_precision(monkeypatch):
+    calls = []
+    original = cm.log_bounds
+
+    def observe(ratio, precision):
+        calls.append(precision)
+        return original(ratio, precision)
+
+    monkeypatch.setattr(cm, "log_bounds", observe)
+    sign, residual, within = cm.certified_stationary(
+        0.5, 1, 1e100, 1e100, 1, 1, Fraction(0), time.monotonic() + 5
+    )
+    assert sign == 1 and 0 < residual < 1e-99 and within
+    assert calls == [80, 80, 160, 160]
+    with pytest.raises(cm.ConditionalError, match="uncertifiable"):
+        cm.certified_stationary(
+            0.5, 1, 1e200, 1e200, 1, 1, Fraction(0), time.monotonic() + 5
+        )
+    assert calls[-4:] == [80, 80, 160, 160]
+    with pytest.raises(cm.ConditionalError, match="deadline"):
+        cm.certified_stationary(0.5, 1, 1, 1, 1, 1, Fraction(0), 0)
+
+
+def test_log_interval_encloses_independent_high_precision_value():
+    from decimal import Context, Decimal, Inexact, localcontext
+
+    for ratio in (
+        Fraction(1),
+        Fraction(1, 3),
+        Fraction(3),
+        Fraction.from_float(1e-300),
+        Fraction.from_float(1e300),
+    ):
+        low, high = cm.log_bounds(ratio, 80)
+        with localcontext(Context(prec=220)):
+            expected = (Decimal(ratio.numerator) / Decimal(ratio.denominator)).ln()
+        assert low <= Fraction(expected) <= high
+    with localcontext(Context(prec=2, Emax=2, Emin=-2)) as hostile:
+        hostile.traps[Inexact] = True
+        assert cm.log_bounds(Fraction(3), 80)[0] > 1
+
+
+def test_exact_switching_survives_unrepresentable_display_cost():
+    data = response_data()
+    data["energies"].update(
+        rna_off_kcal_mol=-1e308,
+        rna_on_kcal_mol=1e308,
+        ribosome_off_kcal_mol=0,
+        ribosome_on_kcal_mol=0,
+    )
+    data["affinity"]["delta_g_kcal_mol"] = -1e308
+    actual, cost, errors = cm.evaluate_response(
+        data, {"max_iterations": 256}, time.monotonic() + 5
+    )
+    assert cost is None
+    assert actual["switching_kcal_mol"] == 1e308
+    assert actual["metastability_applied"] is True
+    assert actual["ar_actual"] == 1
+    assert errors and all(error.code == "numerical_range" for error in errors)
