@@ -42,6 +42,8 @@ class BuildContractTests(unittest.TestCase):
             destination = Path(directory) / "new"
             with (mock.patch.object(builder, "require_hash"),
                   mock.patch.object(builder.platform, "system", return_value="Darwin"),
+                  # Simulate an installed selector with no selected tools on any host.
+                  mock.patch.object(builder.shutil, "which", return_value="/mock/xcode-select"),
                   mock.patch.object(builder.subprocess, "run", return_value=mock.Mock(returncode=1)) as run,
                   mock.patch.object(builder.subprocess, "check_output") as output,
                   self.assertRaisesRegex(RuntimeError, "Install/select")):
