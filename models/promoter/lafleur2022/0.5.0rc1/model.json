@@ -1,0 +1,86 @@
+{
+  "claims": {
+    "absolute_rate": false,
+    "hosted_parity": false,
+    "native_accuracy_evaluated": false,
+    "physical_free_energy": false,
+    "probability": false
+  },
+  "id": "promoter-lafleur2022-historical-1",
+  "implementation_version": "0.5.0rc1",
+  "kind": "historical_equation_reconstruction",
+  "licence": "GPL-3.0-or-later",
+  "not_modeled": [
+    "sigma_factor",
+    "temperature",
+    "host_specific_calibration",
+    "probability",
+    "absolute_rate",
+    "free_energy"
+  ],
+  "parameters": {
+    "array_sha256": {
+      "coefficients": "fddf16b38bf29799481e8a45890b669111e16cf2e3448e99d1934d19a8f0b8e9",
+      "intercept": "f7c66a8d838da71a6b2ab17936cd6ff2564e446af8c0676fba95de2116e99a7b"
+    },
+    "coefficient_count": 343,
+    "intercept_count": 1,
+    "parameter_json_sha256": "e2957d4687a5d5a2a20bcce231b4ea1446f269b383bbae94eed72860efa360dc",
+    "unused_coefficient_indices": [
+      336,
+      337,
+      338
+    ]
+  },
+  "source": {
+    "commit": "46da9132740bce30bccd107f02808adf2215e2f0",
+    "path": "Promoter_Calculator",
+    "reference_fork_commit": "0fe5f6f0fb2befc087556afa575f7241afd98fbf",
+    "repository": "https://github.com/hsalis/SalisLabCode"
+  },
+  "source_quirks": [
+    {
+      "behavior": "Corrected local base L-1-t; legacy L-t diagnostic only.",
+      "id": "reverse_key_l_minus_t"
+    },
+    {
+      "behavior": "Always retain the one-base UP/hex35 gap.",
+      "id": "arbitrary_scan_gap_omitted"
+    },
+    {
+      "behavior": "No sigma input accepted; source metadata had no effect.",
+      "id": "sigma_levels_ignored"
+    },
+    {
+      "behavior": "Calibration required, never inferred from host.",
+      "id": "unknown_organism_default_beta"
+    },
+    {
+      "behavior": "All coordinate-eligible states available on request.",
+      "id": "one_state_per_tss_public"
+    },
+    {
+      "behavior": "Preserve unused 336..338; use source quadratic.",
+      "id": "unused_spacer_coefficients"
+    },
+    {
+      "behavior": "Follow code: UP=24; discriminator lengths 6..10.",
+      "id": "paper_code_difference"
+    }
+  ],
+  "term_source_names": {
+    "binding": "dG_bind",
+    "discriminator": "dG_disc",
+    "extended10": "dG_ext10",
+    "hex10": "dG_10",
+    "hex35": "dG_35",
+    "intercept": "intercept",
+    "itr": "dG_ITR",
+    "source_apparent": "dG_apparent",
+    "spacer": "dG_spacer",
+    "total": "dG_total",
+    "up": "dG_UP"
+  },
+  "terms_semantics": "learned regression score contributions; not independently established free energies",
+  "terms_unit": "source_dG_units"
+}

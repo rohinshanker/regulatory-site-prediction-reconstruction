@@ -1,0 +1,18 @@
+{
+  "absolute_tolerance": 1e-12,
+  "adapter_tool_sha256": "7743b89b923afdec93ca6d5abe44b42dcb1aa7efc994b8b4a244c70687824239",
+  "authoritative_result_sha256": "24773ae1178f9eaeedf7dcbbe491164a704abbff8b498cfbc398013ff821e9e1",
+  "candidate_commit": "2dff23cb5697507281f7ffa73fc617d56989b40c",
+  "expectations_sha256": "bc7121f05f7b1a87e93995bd627a1a44a808e09b5167236c75fd5547eb6f33fc",
+  "manifest_sha256": "7e332197471781bba175362f2fec25d99ba97fe72d8e94a19f778582a903558c",
+  "no_candidate_records": 4,
+  "records_passed": 22,
+  "relative_tolerance": 1e-12,
+  "request_sha256": "fbc5b8b9c99c7ffc4558ff5a423c1b7bdd237a7ebc993aac9505890c4a9c89d3",
+  "result_sha256": "24773ae1178f9eaeedf7dcbbe491164a704abbff8b498cfbc398013ff821e9e1",
+  "schema_version": "promoter-source-parity-audit-1",
+  "scope": "synthetic source parity; no native accuracy or hosted equivalence",
+  "states_passed": 424,
+  "tool_sha256": "d49cd41d13dbef287f3a4d42973afb5081e97c3880c714bb3da475cc191a7aef",
+  "wheel_sha256": "4443e3558c6c689373fe09af4eabc1530b4af2a166391773056a69053939b1ff"
+}
