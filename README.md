@@ -47,8 +47,13 @@ It scores explicitly requested transcription-start candidates on either strand,
 returns the model's sequence windows and score contributions, and exports JSON,
 CSV or projected GFF3. It requires only Python's standard library. Its
 arithmetic reproduces the pinned historical source on synthetic states; that is
-fidelity, not demonstrated biological accuracy. Calibration is *E. coli* only,
-and independent native and measured-strength evaluation has not produced a result.
+fidelity. In the independently reviewed Tan 2018 UTEX 2973 fixed-grid evaluation,
+the top ten predictions recovered 36/292 in-window TSS positives exactly (12.33%)
+and 47/292 within three bases (16.10%). All 364,416 requested positions completed.
+The model localizes a minority of source positives; these positive-only labels
+cannot establish specificity or promoter strength. Calibration remains *E. coli*.
+See the [full native evaluation](docs/validation/promoter-wave5-results.md) for
+confidence intervals, all 4,808 source-positive denominators and sampling limits.
 This is not a released or cyanobacteria-calibrated predictor. See the
 [Promoter model card](docs/validation/promoter-model-card.md). Operon integration remains in preparation. The conditional Riboswitch component
 below has bounded structural and supplied-energy profiles; complete
