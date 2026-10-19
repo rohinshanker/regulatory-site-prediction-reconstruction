@@ -168,10 +168,30 @@ numerical oracle. This checks reconstruction fidelity separately from experiment
 accuracy. The relative transcription score is not a probability or an absolute
 transcription rate. No native cyanobacterial accuracy or hosted parity is claimed.
 
+## Compare current and recoded sequences
+
+The paired development runtime executes both supplied sequences with the existing
+RBS or Promoter calculator and compares candidates through an explicit edit map:
+
+```sh
+.venv/bin/regsite-compare examples/paired-promoter-unchanged.json
+.venv/bin/regsite-compare examples/paired-promoter-indel.json --format csv
+.venv/bin/regsite-compare examples/paired-rbs-substitution.json
+```
+
+RBS uses the separately installed backend above. The synthetic examples exercise
+unchanged scores, substitutions and an insertion; they are not validated designs.
+JSON retains both full predictions, mapped features, settings, missing values and
+coverage. CSV provides scalar comparisons bound to the full JSON hash. Differences
+are calculated only for successful candidates with compatible scientific settings.
+An interrupted start codon or unmatched position stays explicit, without a claim
+of biological site gain or loss. See the [paired contract](docs/validation/paired-regulatory-runtime.md).
+Independent review, resource admission and the frozen producer comparison remain
+in progress; no canonical cyano integration or release is implied.
+
 The [continuing delivery program](docs/validation/calculator-delivery-program.md)
-next connects RBS and Promoter outputs to comparisons of supplied original and
-recoded sequences, followed by admitted supplied-operon and specified-aptamer
-components. The visualizer remains a downstream consumer of versioned predictions.
+then adds admitted supplied-operon and specified-aptamer components. The visualizer
+remains a downstream consumer of versioned predictions.
 
 ## Start a new implementation session
 

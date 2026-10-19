@@ -4,7 +4,7 @@
 - Scope: A ticket #41; producer library/CLI and portable results. Edit geometry and predictor orchestration proceed in an isolated branch against the reviewed public runtime; evaluation and release bind an immutable candidate.
 - Last verified: 2026-10-18
 
-This contract describes the locally executable paired library. B's independent
+This contract describes the locally executable paired library and CLI. B's independent
 `paired-edit-input-1` convention and frozen synthetic maps are authoritative for
 geometry; see B ticket #39. The calculator models remain unchanged. No optimizer,
 new fitted threshold, experimental improvement or consumer admission is implied.
@@ -415,3 +415,33 @@ PYTHONPATH=src:. .venv/bin/python -m pytest -q tests/test_paired.py \
 .venv/bin/mypy src/regsite/paired.py tests/test_paired.py
 git diff --check
 ```
+
+## Command and portable scalar export
+
+```sh
+regsite-compare examples/paired-promoter-unchanged.json
+regsite-compare examples/paired-promoter-indel.json --format csv
+regsite-compare examples/paired-rbs-substitution.json --backend-root /absolute/path/to/RNAstructure
+```
+
+The examples are synthetic contract exercises, not successful biological designs.
+The command also accepts `-` for UTF-8 standard input. RBS resolves its separate
+installation from `--backend-root` or `REGSITE_RNASTRUCTURE`; Promoter executes
+without subprocesses or network access. Duplicate JSON keys, nonfinite numbers,
+invalid UTF-8 and received input above 2,000,000 bytes are rejected. Core canonical
+input limits apply independently after parsing.
+
+Exit `0` means complete execution, including explicitly incomparable scientific
+settings; it does not certify comparable scores or a biological effect. Exit `1`
+preserves partial/unavailable results. Exit `2` reports atomic setup, installation
+or serialization errors on stderr. Serialization and the output-byte check finish
+before stdout receives any result bytes.
+
+JSON is the complete authoritative artifact. CSV emits one row per comparison
+and scalar, including unpaired candidates and null differences. An empty comparison
+list emits one summary row, retaining unknown versus zero expected counts and both
+native record statuses. Empty numeric cells mean unavailable; zero stays numeric.
+Every row contains the request and complete JSON prediction hashes. Full structures,
+per-base feature maps and native source identities remain in the corresponding
+JSON; CSV alone is not a replacement for that artifact. No threshold or biological
+gain/loss classification is introduced by export.
