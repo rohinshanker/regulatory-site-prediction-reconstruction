@@ -20,7 +20,7 @@ def test_comparison_matches_independent_literal_codon_rosters(case):
     geometry = build_edit_map(case["input"])
     assert list(geometry.current_to_recoded) == case["current_to_recoded"]
     assert list(geometry.recoded_to_current) == case["recoded_to_current"]
-    sides = {}
+    sides: dict[str, dict] = {}
     for side in paired.SIDES:
         candidates = []
         for item in case["candidates"][side]:
