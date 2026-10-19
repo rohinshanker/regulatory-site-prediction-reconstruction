@@ -1,0 +1,3881 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Supplied transcript result 1",
+  "description": "Strict wrapper structural contract with complete native component results. See ../docs/validation/supplied-transcript-runtime.md.",
+  "$comment": "Resolve all references offline using a local registry keyed by sibling schema filenames. Validate finite, duplicate-free UTF-8 JSON before this schema. Runtime and independent adapters remain authoritative for hashes and canonical serialization (including 33554432-byte output limit); equality of original requests, annotations, sequences and identities; native model/source/parameter/backend verification; scalar equations, unit meaning, score/log relations and biological validity; CDS eligibility, relational interval bounds/order/length and signed offsets; strand/coordinate transforms, genomic run order, projection fit/crossing and empty-run correspondence; roster/site-index correspondences, ordering, coverage sums/status counts and requested-versus-returned completeness; declared-budget binding, deadlines and execution success. Schema can bound individual counts but cannot prove their arithmetic consistency. JSON Schema integer accepts integral floats and number accepts integers; runtime/adapters must enforce genuine integer coordinates/counts and prescribed float settings. Backend identity and native model source/parameter dictionaries retain their admitted typed extension contracts; schema acceptance does not verify their provenance. Predictions are not measurements or an integrated Operon/abundance model.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "id",
+    "implementation_version",
+    "status",
+    "request_sha256",
+    "prediction_sha256",
+    "request",
+    "settings",
+    "limits",
+    "identities",
+    "transcript",
+    "components",
+    "cds",
+    "promoter_candidates",
+    "coverage",
+    "unsupported_capabilities",
+    "warnings"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "supplied-transcript-result-1"
+    },
+    "id": {
+      "$ref": "supplied-transcript-request-1.schema.json#/$defs/id"
+    },
+    "implementation_version": {
+      "$ref": "#/$defs/text"
+    },
+    "status": {
+      "enum": [
+        "complete",
+        "partial",
+        "unavailable"
+      ]
+    },
+    "request_sha256": {
+      "$ref": "#/$defs/digest"
+    },
+    "prediction_sha256": {
+      "$ref": "#/$defs/digest"
+    },
+    "request": {
+      "$ref": "supplied-transcript-request-1.schema.json"
+    },
+    "settings": {
+      "$ref": "#/$defs/settings"
+    },
+    "limits": {
+      "$ref": "#/$defs/limits"
+    },
+    "identities": {
+      "$ref": "#/$defs/identities"
+    },
+    "transcript": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "annotation",
+        "sequence",
+        "sequence_sha256",
+        "coordinates"
+      ],
+      "properties": {
+        "annotation": {
+          "$ref": "#/$defs/annotation"
+        },
+        "sequence": {
+          "$ref": "#/$defs/dna"
+        },
+        "sequence_sha256": {
+          "$ref": "#/$defs/digest"
+        },
+        "coordinates": {
+          "$ref": "#/$defs/required_forward_feature"
+        }
+      }
+    },
+    "components": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "rbs",
+        "promoter"
+      ],
+      "properties": {
+        "rbs": {
+          "$ref": "#/$defs/rbs_component"
+        },
+        "promoter": {
+          "$ref": "#/$defs/promoter_component"
+        }
+      }
+    },
+    "cds": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 10,
+      "items": {
+        "$ref": "#/$defs/cds"
+      }
+    },
+    "promoter_candidates": {
+      "type": "array",
+      "minItems": 0,
+      "maxItems": 512,
+      "items": {
+        "$ref": "#/$defs/promoter_candidate"
+      }
+    },
+    "coverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "cds",
+        "eligible_cds",
+        "incompatible_cds",
+        "scored",
+        "complete"
+      ],
+      "properties": {
+        "cds": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10
+        },
+        "eligible_cds": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10
+        },
+        "incompatible_cds": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10
+        },
+        "scored": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 522
+        },
+        "complete": {
+          "type": "boolean"
+        }
+      }
+    },
+    "unsupported_capabilities": {
+      "const": [
+        "coupling",
+        "elongation",
+        "decay_stability",
+        "termination",
+        "native_operon_discovery",
+        "joint_protein_abundance"
+      ]
+    },
+    "warnings": {
+      "const": [
+        "component_scores_do_not_estimate_joint_protein_abundance",
+        "supplied_annotations_are_not_independently_verified"
+      ]
+    }
+  },
+  "$defs": {
+    "digest": {
+      "$ref": "promoter-result-1.0.schema.json#/$defs/digest"
+    },
+    "finite": {
+      "$ref": "promoter-result-1.0.schema.json#/$defs/finite"
+    },
+    "text": {
+      "type": "string",
+      "minLength": 1
+    },
+    "reason": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/text"
+        }
+      ]
+    },
+    "strand": {
+      "$ref": "promoter-result-1.0.schema.json#/$defs/strand"
+    },
+    "coordinate": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 5000
+    },
+    "interval": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": {
+        "$ref": "#/$defs/coordinate"
+      }
+    },
+    "annotation": {
+      "$ref": "supplied-transcript-request-1.schema.json#/$defs/annotation"
+    },
+    "settings": {
+      "$ref": "supplied-transcript-request-1.schema.json#/$defs/settings"
+    },
+    "json_value": {
+      "$ref": "promoter-result-1.0.schema.json#/$defs/json_value"
+    },
+    "dna": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 5000,
+      "pattern": "^[ACGT]+(?![\\s\\S])"
+    },
+    "backend": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "$ref": "#/$defs/json_value"
+      },
+      "$comment": "Complete caller-supplied RnaStructure.identity, including synthetic fixture identities. Native backend identity keys are extensible; typed JSON is intentional. Schema cannot verify an engine installation or the identity content."
+    },
+    "genomic": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "contig",
+        "strand",
+        "runs"
+      ],
+      "properties": {
+        "contig": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "strand": {
+          "$ref": "#/$defs/strand"
+        },
+        "runs": {
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 2,
+          "items": {
+            "type": "array",
+            "minItems": 2,
+            "maxItems": 2,
+            "items": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        }
+      }
+    },
+    "feature": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "native_interval",
+        "construct_interval",
+        "local_strand",
+        "genomic",
+        "reason"
+      ],
+      "properties": {
+        "native_interval": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/interval"
+            }
+          ]
+        },
+        "construct_interval": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/interval"
+            }
+          ]
+        },
+        "local_strand": {
+          "$ref": "#/$defs/strand"
+        },
+        "genomic": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/genomic"
+            }
+          ]
+        },
+        "reason": {
+          "enum": [
+            null,
+            "feature_unavailable"
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "native_interval": {
+                "type": "null"
+              }
+            },
+            "required": [
+              "native_interval"
+            ]
+          },
+          "then": {
+            "properties": {
+              "construct_interval": {
+                "type": "null"
+              },
+              "genomic": {
+                "type": "null"
+              },
+              "reason": {
+                "const": "feature_unavailable"
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "construct_interval": {
+                "$ref": "#/$defs/interval"
+              },
+              "reason": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "forward_feature": {
+      "$ref": "#/$defs/feature",
+      "properties": {
+        "local_strand": {
+          "const": "+"
+        }
+      }
+    },
+    "scalar": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "value",
+        "unit",
+        "reason"
+      ],
+      "properties": {
+        "value": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/finite"
+            }
+          ]
+        },
+        "unit": {
+          "$ref": "#/$defs/text"
+        },
+        "reason": {
+          "$ref": "#/$defs/reason"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "value": {
+                "type": "null"
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "then": {
+            "properties": {
+              "reason": {
+                "$ref": "#/$defs/text"
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "reason": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "energy_scalar": {
+      "$ref": "#/$defs/scalar",
+      "properties": {
+        "unit": {
+          "const": "kcal/mol"
+        }
+      }
+    },
+    "tir_scalar": {
+      "$ref": "#/$defs/scalar",
+      "properties": {
+        "unit": {
+          "const": "relative_initiation_score"
+        }
+      }
+    },
+    "log_tir_scalar": {
+      "$ref": "#/$defs/scalar",
+      "properties": {
+        "unit": {
+          "const": "ln_relative_initiation_score"
+        }
+      }
+    },
+    "term_scalar": {
+      "$ref": "#/$defs/scalar",
+      "properties": {
+        "unit": {
+          "const": "source_dG_units"
+        }
+      }
+    },
+    "transcription_scalar": {
+      "$ref": "#/$defs/scalar",
+      "properties": {
+        "unit": {
+          "const": "relative_transcription_score"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/finite",
+              "exclusiveMinimum": 0
+            }
+          ]
+        }
+      }
+    },
+    "log_transcription_scalar": {
+      "$ref": "#/$defs/scalar",
+      "properties": {
+        "unit": {
+          "const": "ln_relative_transcription_score"
+        }
+      }
+    },
+    "rbs_scalars": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "tir",
+        "log_tir",
+        "dG_mRNA",
+        "dG_mRNA_native_prediction",
+        "dG_cofold_native_prediction",
+        "dG_cofold_search",
+        "dG_search_with_spacing",
+        "dG_complex",
+        "dG_spacing",
+        "dG_start",
+        "dG_standby_signed",
+        "dG_accessible_complex",
+        "dG_total",
+        "dG_standby",
+        "dG_distortion",
+        "dG_unfolding",
+        "dG_unfolding_raw",
+        "dG_sliding",
+        "dG_post_footprint"
+      ],
+      "properties": {
+        "tir": {
+          "$ref": "#/$defs/tir_scalar"
+        },
+        "log_tir": {
+          "$ref": "#/$defs/log_tir_scalar"
+        },
+        "dG_mRNA": {
+          "$ref": "#/$defs/energy_scalar"
+        },
+        "dG_mRNA_native_prediction": {
+          "$ref": "#/$defs/energy_scalar"
+        },
+        "dG_cofold_native_prediction": {
+          "$ref": "#/$defs/energy_scalar"
+        },
+        "dG_cofold_search": {
+          "$ref": "#/$defs/energy_scalar"
+        },
+        "dG_search_with_spacing": {
+          "$ref": "#/$defs/energy_scalar"
+        },
+        "dG_complex": {
+          "$ref": "#/$defs/energy_scalar"
+        },
+        "dG_spacing": {
+          "$ref": "#/$defs/energy_scalar"
+        },
+        "dG_start": {
+          "$ref": "#/$defs/energy_scalar"
+        },
+        "dG_standby_signed": {
+          "$ref": "#/$defs/energy_scalar"
+        },
+        "dG_accessible_complex": {
+          "$ref": "#/$defs/energy_scalar"
+        },
+        "dG_total": {
+          "$ref": "#/$defs/energy_scalar"
+        },
+        "dG_standby": {
+          "$ref": "#/$defs/energy_scalar"
+        },
+        "dG_distortion": {
+          "$ref": "#/$defs/energy_scalar"
+        },
+        "dG_unfolding": {
+          "$ref": "#/$defs/energy_scalar"
+        },
+        "dG_unfolding_raw": {
+          "$ref": "#/$defs/energy_scalar"
+        },
+        "dG_sliding": {
+          "$ref": "#/$defs/energy_scalar"
+        },
+        "dG_post_footprint": {
+          "$ref": "#/$defs/energy_scalar"
+        }
+      }
+    },
+    "promoter_scalars": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "relative_transcription_score",
+        "log_relative_transcription_score",
+        "hex10",
+        "hex35",
+        "discriminator",
+        "extended10",
+        "itr",
+        "up",
+        "spacer",
+        "intercept",
+        "total",
+        "binding"
+      ],
+      "properties": {
+        "relative_transcription_score": {
+          "$ref": "#/$defs/transcription_scalar"
+        },
+        "log_relative_transcription_score": {
+          "$ref": "#/$defs/log_transcription_scalar"
+        },
+        "hex10": {
+          "$ref": "#/$defs/term_scalar"
+        },
+        "hex35": {
+          "$ref": "#/$defs/term_scalar"
+        },
+        "discriminator": {
+          "$ref": "#/$defs/term_scalar"
+        },
+        "extended10": {
+          "$ref": "#/$defs/term_scalar"
+        },
+        "itr": {
+          "$ref": "#/$defs/term_scalar"
+        },
+        "up": {
+          "$ref": "#/$defs/term_scalar"
+        },
+        "spacer": {
+          "$ref": "#/$defs/term_scalar"
+        },
+        "intercept": {
+          "$ref": "#/$defs/term_scalar"
+        },
+        "total": {
+          "$ref": "#/$defs/term_scalar"
+        },
+        "binding": {
+          "$ref": "#/$defs/term_scalar"
+        }
+      }
+    },
+    "rbs_features": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "start_codon",
+        "window",
+        "binding_interval",
+        "standby_interval",
+        "coding_footprint",
+        "standby.original_hairpin",
+        "standby.hairpin",
+        "standby.distal",
+        "standby.proximal"
+      ],
+      "properties": {
+        "start_codon": {
+          "$ref": "#/$defs/required_forward_feature"
+        },
+        "window": {
+          "$ref": "#/$defs/required_forward_feature"
+        },
+        "binding_interval": {
+          "$ref": "#/$defs/forward_feature"
+        },
+        "standby_interval": {
+          "$ref": "#/$defs/forward_feature"
+        },
+        "coding_footprint": {
+          "$ref": "#/$defs/forward_feature"
+        },
+        "standby.original_hairpin": {
+          "$ref": "#/$defs/forward_feature"
+        },
+        "standby.hairpin": {
+          "$ref": "#/$defs/forward_feature"
+        },
+        "standby.distal": {
+          "$ref": "#/$defs/forward_feature"
+        },
+        "standby.proximal": {
+          "$ref": "#/$defs/forward_feature"
+        }
+      },
+      "patternProperties": {
+        "^standby\\.downstream_hairpins\\.(?:[0-9]|[1-4][0-9])(?![\\s\\S])": {
+          "$ref": "#/$defs/forward_feature"
+        }
+      },
+      "maxProperties": 59
+    },
+    "promoter_features": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "tss",
+        "UP",
+        "gap",
+        "hex35",
+        "spacer",
+        "extended10",
+        "hex10",
+        "discriminator",
+        "itr"
+      ],
+      "properties": {
+        "tss": {
+          "$ref": "#/$defs/required_feature"
+        },
+        "UP": {
+          "$ref": "#/$defs/feature"
+        },
+        "gap": {
+          "$ref": "#/$defs/feature"
+        },
+        "hex35": {
+          "$ref": "#/$defs/feature"
+        },
+        "spacer": {
+          "$ref": "#/$defs/feature"
+        },
+        "extended10": {
+          "$ref": "#/$defs/feature"
+        },
+        "hex10": {
+          "$ref": "#/$defs/feature"
+        },
+        "discriminator": {
+          "$ref": "#/$defs/feature"
+        },
+        "itr": {
+          "$ref": "#/$defs/feature"
+        }
+      }
+    },
+    "empty_features": {
+      "type": "object",
+      "maxProperties": 0,
+      "additionalProperties": false
+    },
+    "cds": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "annotation",
+        "transcript_offset",
+        "eligible",
+        "warnings",
+        "annotation_coordinates",
+        "site_index",
+        "status",
+        "reason",
+        "scalars",
+        "features"
+      ],
+      "properties": {
+        "annotation": {
+          "$ref": "#/$defs/annotation"
+        },
+        "transcript_offset": {
+          "type": "integer",
+          "minimum": -4999,
+          "maximum": 4999
+        },
+        "eligible": {
+          "type": "boolean"
+        },
+        "warnings": {
+          "enum": [
+            [],
+            [
+              "downstream_clipped"
+            ]
+          ]
+        },
+        "annotation_coordinates": {
+          "$ref": "#/$defs/required_forward_feature"
+        },
+        "site_index": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9
+            }
+          ]
+        },
+        "status": {
+          "enum": [
+            "ok",
+            "no_candidate",
+            "unsupported",
+            "failed",
+            "not_evaluated",
+            "incompatible_transcript"
+          ]
+        },
+        "reason": {
+          "$ref": "#/$defs/reason"
+        },
+        "scalars": {
+          "$ref": "#/$defs/rbs_scalars"
+        },
+        "features": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/empty_features"
+            },
+            {
+              "$ref": "#/$defs/rbs_features"
+            }
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "eligible": {
+                "const": false
+              }
+            },
+            "required": [
+              "eligible"
+            ]
+          },
+          "then": {
+            "properties": {
+              "status": {
+                "const": "incompatible_transcript"
+              },
+              "site_index": {
+                "type": "null"
+              },
+              "warnings": {
+                "const": []
+              },
+              "reason": {
+                "enum": [
+                  "start_before_transcript",
+                  "start_after_transcript",
+                  "start_codon_after_transcript"
+                ]
+              },
+              "scalars": {
+                "additionalProperties": {
+                  "properties": {
+                    "value": {
+                      "type": "null"
+                    },
+                    "reason": {
+                      "const": "incompatible_transcript"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "status": {
+                "enum": [
+                  "ok",
+                  "no_candidate",
+                  "unsupported",
+                  "failed",
+                  "not_evaluated"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "site_index": {
+                "type": "null"
+              }
+            },
+            "required": [
+              "site_index"
+            ]
+          },
+          "then": {
+            "properties": {
+              "features": {
+                "$ref": "#/$defs/empty_features"
+              },
+              "status": {
+                "enum": [
+                  "not_evaluated",
+                  "incompatible_transcript"
+                ]
+              },
+              "scalars": {
+                "additionalProperties": {
+                  "properties": {
+                    "value": {
+                      "type": "null"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "features": {
+                "$ref": "#/$defs/rbs_features"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "not_evaluated"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "eligible": {
+                "const": true
+              },
+              "site_index": {
+                "type": "null"
+              },
+              "reason": {
+                "enum": [
+                  "deadline_exceeded",
+                  "missing_native_site"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "ok"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "eligible": {
+                "const": true
+              },
+              "reason": {
+                "type": "null"
+              },
+              "scalars": {
+                "properties": {
+                  "tir": {
+                    "properties": {
+                      "value": {
+                        "type": "number",
+                        "exclusiveMinimum": 0
+                      }
+                    }
+                  },
+                  "log_tir": {
+                    "properties": {
+                      "value": {
+                        "$ref": "#/$defs/finite"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "enum": [
+                  "no_candidate",
+                  "unsupported",
+                  "failed",
+                  "not_evaluated"
+                ]
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "scalars": {
+                "additionalProperties": {
+                  "properties": {
+                    "value": {
+                      "type": "null"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "promoter_candidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "strand",
+        "construct_tss",
+        "site_index",
+        "status",
+        "reason",
+        "scalars",
+        "features"
+      ],
+      "properties": {
+        "strand": {
+          "$ref": "#/$defs/strand"
+        },
+        "construct_tss": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4999
+        },
+        "site_index": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 511
+            }
+          ]
+        },
+        "status": {
+          "enum": [
+            "ok",
+            "no_candidate",
+            "unsupported",
+            "failed",
+            "not_evaluated"
+          ]
+        },
+        "reason": {
+          "$ref": "#/$defs/reason"
+        },
+        "scalars": {
+          "$ref": "#/$defs/promoter_scalars"
+        },
+        "features": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/empty_features"
+            },
+            {
+              "$ref": "#/$defs/promoter_features"
+            }
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "site_index": {
+                "type": "null"
+              }
+            },
+            "required": [
+              "site_index"
+            ]
+          },
+          "then": {
+            "properties": {
+              "features": {
+                "$ref": "#/$defs/empty_features"
+              },
+              "status": {
+                "const": "not_evaluated"
+              },
+              "reason": {
+                "enum": [
+                  "deadline_exceeded",
+                  "missing_native_site"
+                ]
+              },
+              "scalars": {
+                "additionalProperties": {
+                  "properties": {
+                    "value": {
+                      "type": "null"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "features": {
+                "$ref": "#/$defs/promoter_features"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "strand": {
+                "const": "+"
+              }
+            },
+            "required": [
+              "strand"
+            ]
+          },
+          "then": {
+            "properties": {
+              "features": {
+                "additionalProperties": {
+                  "properties": {
+                    "local_strand": {
+                      "const": "+"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "strand": {
+                "const": "-"
+              }
+            },
+            "required": [
+              "strand"
+            ]
+          },
+          "then": {
+            "properties": {
+              "features": {
+                "additionalProperties": {
+                  "properties": {
+                    "local_strand": {
+                      "const": "-"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "enum": [
+                  "no_candidate",
+                  "unsupported",
+                  "failed",
+                  "not_evaluated"
+                ]
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "scalars": {
+                "additionalProperties": {
+                  "properties": {
+                    "value": {
+                      "type": "null"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "ok"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "scalars": {
+                "properties": {
+                  "log_relative_transcription_score": {
+                    "properties": {
+                      "value": {
+                        "$ref": "#/$defs/finite"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "rbs_coverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "requested",
+        "returned",
+        "scored",
+        "not_evaluated",
+        "missing",
+        "incompatible"
+      ],
+      "properties": {
+        "requested": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10
+        },
+        "returned": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10
+        },
+        "scored": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10
+        },
+        "not_evaluated": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10
+        },
+        "missing": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10
+        },
+        "incompatible": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10
+        }
+      }
+    },
+    "promoter_coverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "requested",
+        "returned",
+        "scored",
+        "not_evaluated",
+        "missing"
+      ],
+      "properties": {
+        "requested": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 512
+        },
+        "returned": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 512
+        },
+        "scored": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 512
+        },
+        "not_evaluated": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 512
+        },
+        "missing": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 512
+        }
+      }
+    },
+    "rbs_request": {
+      "$ref": "rbs-request-1.0.schema.json",
+      "propertyNames": {
+        "enum": [
+          "id",
+          "sequence",
+          "strand",
+          "anti_sd",
+          "temperature_c",
+          "host",
+          "start_positions"
+        ]
+      },
+      "required": [
+        "id",
+        "sequence",
+        "strand",
+        "anti_sd",
+        "temperature_c",
+        "host",
+        "start_positions"
+      ],
+      "properties": {
+        "id": {
+          "const": "transcript-rbs"
+        },
+        "sequence": {
+          "$ref": "#/$defs/dna"
+        },
+        "strand": {
+          "const": "+"
+        },
+        "anti_sd": {
+          "$ref": "supplied-transcript-request-1.schema.json#/$defs/rbs/properties/anti_sd"
+        },
+        "start_positions": {
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 10,
+          "items": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 4999
+          }
+        }
+      }
+    },
+    "promoter_request": {
+      "$ref": "promoter-request-1.0.schema.json#/$defs/single",
+      "propertyNames": {
+        "enum": [
+          "id",
+          "sequence",
+          "calibration",
+          "scan",
+          "output",
+          "host",
+          "projection"
+        ]
+      },
+      "required": [
+        "id",
+        "sequence",
+        "calibration",
+        "scan",
+        "output"
+      ],
+      "properties": {
+        "id": {
+          "const": "transcript-promoter"
+        },
+        "sequence": {
+          "$ref": "#/$defs/dna"
+        },
+        "scan": {
+          "$ref": "supplied-transcript-request-1.schema.json#/$defs/promoter/properties/scan"
+        },
+        "output": {
+          "const": {
+            "states": "selected",
+            "legacy_keys": false,
+            "elements": true
+          }
+        },
+        "projection": {
+          "$ref": "supplied-transcript-request-1.schema.json#/$defs/projection"
+        }
+      }
+    },
+    "normalized_rbs_input": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "host",
+        "sequence",
+        "oriented_sequence",
+        "anti_sd",
+        "strand",
+        "start_positions",
+        "temperature_c",
+        "input_sha256",
+        "normalized_sha256",
+        "oriented_sha256"
+      ],
+      "properties": {
+        "id": {
+          "const": "transcript-rbs"
+        },
+        "host": {
+          "$ref": "rbs-request-1.0.schema.json#/properties/host"
+        },
+        "sequence": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 5000,
+          "pattern": "^[ACGU]+(?![\\s\\S])"
+        },
+        "oriented_sequence": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 5000,
+          "pattern": "^[ACGU]+(?![\\s\\S])"
+        },
+        "anti_sd": {
+          "$ref": "supplied-transcript-request-1.schema.json#/$defs/rbs/properties/anti_sd"
+        },
+        "strand": {
+          "const": "+"
+        },
+        "start_positions": {
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 10,
+          "items": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 4999
+          }
+        },
+        "temperature_c": {
+          "$ref": "supplied-transcript-request-1.schema.json#/$defs/rbs/properties/temperature_c"
+        },
+        "input_sha256": {
+          "$ref": "#/$defs/digest"
+        },
+        "normalized_sha256": {
+          "$ref": "#/$defs/digest"
+        },
+        "oriented_sha256": {
+          "$ref": "#/$defs/digest"
+        }
+      }
+    },
+    "base_parameters": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "upstream_nt",
+        "downstream_nt",
+        "standby_nt",
+        "historical_footprint_nt",
+        "suboptimal_filter_kcal_mol",
+        "suboptimal_reference",
+        "energy_comparison_tolerance_kcal_mol",
+        "optimal_aligned_spacing",
+        "spacing_push",
+        "spacing_pull",
+        "rate_scale",
+        "effective_RT",
+        "start_energies_kcal_mol"
+      ],
+      "properties": {
+        "upstream_nt": {
+          "type": "integer"
+        },
+        "downstream_nt": {
+          "type": "integer"
+        },
+        "standby_nt": {
+          "type": "integer"
+        },
+        "historical_footprint_nt": {
+          "type": "integer"
+        },
+        "suboptimal_filter_kcal_mol": {
+          "$ref": "#/$defs/finite"
+        },
+        "suboptimal_reference": {
+          "$ref": "#/$defs/text"
+        },
+        "energy_comparison_tolerance_kcal_mol": {
+          "$ref": "#/$defs/finite"
+        },
+        "optimal_aligned_spacing": {
+          "type": "integer"
+        },
+        "spacing_push": {
+          "type": "array",
+          "minItems": 4,
+          "maxItems": 4,
+          "prefixItems": [
+            {
+              "$ref": "#/$defs/finite"
+            },
+            {
+              "$ref": "#/$defs/finite"
+            },
+            {
+              "$ref": "#/$defs/finite"
+            },
+            {
+              "$ref": "#/$defs/finite"
+            }
+          ],
+          "items": false
+        },
+        "spacing_pull": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "prefixItems": [
+            {
+              "$ref": "#/$defs/finite"
+            },
+            {
+              "$ref": "#/$defs/finite"
+            },
+            {
+              "$ref": "#/$defs/finite"
+            }
+          ],
+          "items": false
+        },
+        "rate_scale": {
+          "$ref": "#/$defs/finite"
+        },
+        "effective_RT": {
+          "$ref": "#/$defs/finite"
+        },
+        "start_energies_kcal_mol": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "AUG",
+            "GUG",
+            "UUG",
+            "CUG"
+          ],
+          "properties": {
+            "AUG": {
+              "$ref": "#/$defs/finite"
+            },
+            "GUG": {
+              "$ref": "#/$defs/finite"
+            },
+            "UUG": {
+              "$ref": "#/$defs/finite"
+            },
+            "CUG": {
+              "$ref": "#/$defs/finite"
+            }
+          }
+        }
+      }
+    },
+    "standby_parameters": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_doi",
+        "source_xml_sha256",
+        "supplement_pdf_sha256",
+        "distortion_coefficients",
+        "surface_area_offset_nt",
+        "accessibility_height_cap_nt",
+        "sliding_kcal_mol_per_nt",
+        "distortion_zero_area_nt",
+        "distortion_continuation",
+        "height_rule",
+        "opening_search",
+        "maximum_unique_states",
+        "energy_rule",
+        "tie_rule",
+        "binding_candidate_rule"
+      ],
+      "properties": {
+        "source_doi": {
+          "$ref": "#/$defs/text"
+        },
+        "source_xml_sha256": {
+          "$ref": "#/$defs/digest"
+        },
+        "supplement_pdf_sha256": {
+          "$ref": "#/$defs/digest"
+        },
+        "distortion_coefficients": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "prefixItems": [
+            {
+              "$ref": "#/$defs/finite"
+            },
+            {
+              "$ref": "#/$defs/finite"
+            },
+            {
+              "$ref": "#/$defs/finite"
+            }
+          ],
+          "items": false
+        },
+        "surface_area_offset_nt": {
+          "type": "integer"
+        },
+        "accessibility_height_cap_nt": {
+          "type": "integer"
+        },
+        "sliding_kcal_mol_per_nt": {
+          "$ref": "#/$defs/finite"
+        },
+        "distortion_zero_area_nt": {
+          "$ref": "#/$defs/finite"
+        },
+        "distortion_continuation": {
+          "$ref": "#/$defs/text"
+        },
+        "height_rule": {
+          "$ref": "#/$defs/text"
+        },
+        "opening_search": {
+          "$ref": "#/$defs/text"
+        },
+        "maximum_unique_states": {
+          "type": "integer"
+        },
+        "energy_rule": {
+          "$ref": "#/$defs/text"
+        },
+        "tie_rule": {
+          "$ref": "#/$defs/text"
+        },
+        "binding_candidate_rule": {
+          "$ref": "#/$defs/text"
+        }
+      }
+    },
+    "joint_parameters": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "objective",
+        "energy_summation",
+        "tie_rule",
+        "tie_tolerance_kcal_mol",
+        "candidate_deduplication",
+        "maximum_bound_state_attempts_per_site",
+        "maximum_fixed_states_per_process",
+        "prefix_suffix_fold_cache",
+        "incomplete_search"
+      ],
+      "properties": {
+        "objective": {
+          "$ref": "#/$defs/text"
+        },
+        "energy_summation": {
+          "$ref": "#/$defs/text"
+        },
+        "tie_rule": {
+          "$ref": "#/$defs/text"
+        },
+        "tie_tolerance_kcal_mol": {
+          "$ref": "#/$defs/finite"
+        },
+        "candidate_deduplication": {
+          "$ref": "#/$defs/text"
+        },
+        "maximum_bound_state_attempts_per_site": {
+          "type": "integer"
+        },
+        "maximum_fixed_states_per_process": {
+          "type": "integer"
+        },
+        "prefix_suffix_fold_cache": {
+          "$ref": "#/$defs/text"
+        },
+        "incomplete_search": {
+          "$ref": "#/$defs/text"
+        }
+      }
+    },
+    "profile": {
+      "oneOf": [
+        {
+          "const": {
+            "name": "historical",
+            "model_id": "salis-v1-rnastructure-6.6-reconstruction-1",
+            "upstream_nt": 35,
+            "downstream_nt": 35,
+            "footprint_nt": 1000
+          }
+        },
+        {
+          "const": {
+            "name": "footprint2017",
+            "model_id": "footprint2017-rnastructure-6.6-reconstruction-1",
+            "upstream_nt": 35,
+            "downstream_nt": 35,
+            "footprint_nt": 13
+          }
+        },
+        {
+          "const": {
+            "name": "context2017",
+            "model_id": "context2017-rnastructure-6.6-reconstruction-1",
+            "upstream_nt": 100,
+            "downstream_nt": 100,
+            "footprint_nt": 13
+          }
+        },
+        {
+          "const": {
+            "name": "standby2014",
+            "model_id": "standby2014-rnastructure-6.6-reconstruction-1",
+            "upstream_nt": 100,
+            "downstream_nt": 100,
+            "footprint_nt": 13
+          }
+        },
+        {
+          "const": {
+            "name": "joint_standby",
+            "model_id": "joint-standby-rnastructure-6.6-reconstruction-1",
+            "upstream_nt": 100,
+            "downstream_nt": 100,
+            "footprint_nt": 13
+          }
+        }
+      ]
+    },
+    "rbs_parameters": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/base_parameters"
+        },
+        {
+          "$ref": "#/$defs/refined_parameters"
+        },
+        {
+          "$ref": "#/$defs/standby_native_parameters"
+        },
+        {
+          "$ref": "#/$defs/joint_native_parameters"
+        }
+      ]
+    },
+    "refined_parameters": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "upstream_nt",
+        "downstream_nt",
+        "standby_nt",
+        "suboptimal_filter_kcal_mol",
+        "suboptimal_reference",
+        "energy_comparison_tolerance_kcal_mol",
+        "optimal_aligned_spacing",
+        "spacing_push",
+        "spacing_pull",
+        "rate_scale",
+        "effective_RT",
+        "start_energies_kcal_mol",
+        "coding_footprint_nt",
+        "footprint_coordinate",
+        "footprint_source",
+        "context_source",
+        "standby_model"
+      ],
+      "properties": {
+        "upstream_nt": {
+          "type": "integer"
+        },
+        "downstream_nt": {
+          "type": "integer"
+        },
+        "standby_nt": {
+          "type": "integer"
+        },
+        "suboptimal_filter_kcal_mol": {
+          "$ref": "#/$defs/finite"
+        },
+        "suboptimal_reference": {
+          "$ref": "#/$defs/text"
+        },
+        "energy_comparison_tolerance_kcal_mol": {
+          "$ref": "#/$defs/finite"
+        },
+        "optimal_aligned_spacing": {
+          "type": "integer"
+        },
+        "spacing_push": {
+          "type": "array",
+          "minItems": 4,
+          "maxItems": 4,
+          "prefixItems": [
+            {
+              "$ref": "#/$defs/finite"
+            },
+            {
+              "$ref": "#/$defs/finite"
+            },
+            {
+              "$ref": "#/$defs/finite"
+            },
+            {
+              "$ref": "#/$defs/finite"
+            }
+          ],
+          "items": false
+        },
+        "spacing_pull": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "prefixItems": [
+            {
+              "$ref": "#/$defs/finite"
+            },
+            {
+              "$ref": "#/$defs/finite"
+            },
+            {
+              "$ref": "#/$defs/finite"
+            }
+          ],
+          "items": false
+        },
+        "rate_scale": {
+          "$ref": "#/$defs/finite"
+        },
+        "effective_RT": {
+          "$ref": "#/$defs/finite"
+        },
+        "start_energies_kcal_mol": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "AUG",
+            "GUG",
+            "UUG",
+            "CUG"
+          ],
+          "properties": {
+            "AUG": {
+              "$ref": "#/$defs/finite"
+            },
+            "GUG": {
+              "$ref": "#/$defs/finite"
+            },
+            "UUG": {
+              "$ref": "#/$defs/finite"
+            },
+            "CUG": {
+              "$ref": "#/$defs/finite"
+            }
+          }
+        },
+        "coding_footprint_nt": {
+          "type": "integer",
+          "const": 13
+        },
+        "footprint_coordinate": {
+          "$ref": "#/$defs/text"
+        },
+        "footprint_source": {
+          "$ref": "#/$defs/text"
+        },
+        "context_source": {
+          "$ref": "#/$defs/text"
+        },
+        "standby_model": {
+          "$ref": "#/$defs/text"
+        }
+      }
+    },
+    "standby_native_parameters": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "upstream_nt",
+        "downstream_nt",
+        "suboptimal_filter_kcal_mol",
+        "suboptimal_reference",
+        "energy_comparison_tolerance_kcal_mol",
+        "optimal_aligned_spacing",
+        "spacing_push",
+        "spacing_pull",
+        "rate_scale",
+        "effective_RT",
+        "start_energies_kcal_mol",
+        "coding_footprint_nt",
+        "footprint_coordinate",
+        "footprint_source",
+        "context_source",
+        "standby_model"
+      ],
+      "properties": {
+        "upstream_nt": {
+          "type": "integer"
+        },
+        "downstream_nt": {
+          "type": "integer"
+        },
+        "suboptimal_filter_kcal_mol": {
+          "$ref": "#/$defs/finite"
+        },
+        "suboptimal_reference": {
+          "$ref": "#/$defs/text"
+        },
+        "energy_comparison_tolerance_kcal_mol": {
+          "$ref": "#/$defs/finite"
+        },
+        "optimal_aligned_spacing": {
+          "type": "integer"
+        },
+        "spacing_push": {
+          "type": "array",
+          "minItems": 4,
+          "maxItems": 4,
+          "prefixItems": [
+            {
+              "$ref": "#/$defs/finite"
+            },
+            {
+              "$ref": "#/$defs/finite"
+            },
+            {
+              "$ref": "#/$defs/finite"
+            },
+            {
+              "$ref": "#/$defs/finite"
+            }
+          ],
+          "items": false
+        },
+        "spacing_pull": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "prefixItems": [
+            {
+              "$ref": "#/$defs/finite"
+            },
+            {
+              "$ref": "#/$defs/finite"
+            },
+            {
+              "$ref": "#/$defs/finite"
+            }
+          ],
+          "items": false
+        },
+        "rate_scale": {
+          "$ref": "#/$defs/finite"
+        },
+        "effective_RT": {
+          "$ref": "#/$defs/finite"
+        },
+        "start_energies_kcal_mol": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "AUG",
+            "GUG",
+            "UUG",
+            "CUG"
+          ],
+          "properties": {
+            "AUG": {
+              "$ref": "#/$defs/finite"
+            },
+            "GUG": {
+              "$ref": "#/$defs/finite"
+            },
+            "UUG": {
+              "$ref": "#/$defs/finite"
+            },
+            "CUG": {
+              "$ref": "#/$defs/finite"
+            }
+          }
+        },
+        "coding_footprint_nt": {
+          "type": "integer",
+          "const": 13
+        },
+        "footprint_coordinate": {
+          "$ref": "#/$defs/text"
+        },
+        "footprint_source": {
+          "$ref": "#/$defs/text"
+        },
+        "context_source": {
+          "$ref": "#/$defs/text"
+        },
+        "standby_model": {
+          "$ref": "#/$defs/standby_parameters"
+        }
+      }
+    },
+    "joint_native_parameters": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "upstream_nt",
+        "downstream_nt",
+        "suboptimal_filter_kcal_mol",
+        "suboptimal_reference",
+        "energy_comparison_tolerance_kcal_mol",
+        "optimal_aligned_spacing",
+        "spacing_push",
+        "spacing_pull",
+        "rate_scale",
+        "effective_RT",
+        "start_energies_kcal_mol",
+        "coding_footprint_nt",
+        "footprint_coordinate",
+        "footprint_source",
+        "context_source",
+        "standby_model",
+        "joint_search"
+      ],
+      "properties": {
+        "upstream_nt": {
+          "type": "integer"
+        },
+        "downstream_nt": {
+          "type": "integer"
+        },
+        "suboptimal_filter_kcal_mol": {
+          "$ref": "#/$defs/finite"
+        },
+        "suboptimal_reference": {
+          "$ref": "#/$defs/text"
+        },
+        "energy_comparison_tolerance_kcal_mol": {
+          "$ref": "#/$defs/finite"
+        },
+        "optimal_aligned_spacing": {
+          "type": "integer"
+        },
+        "spacing_push": {
+          "type": "array",
+          "minItems": 4,
+          "maxItems": 4,
+          "prefixItems": [
+            {
+              "$ref": "#/$defs/finite"
+            },
+            {
+              "$ref": "#/$defs/finite"
+            },
+            {
+              "$ref": "#/$defs/finite"
+            },
+            {
+              "$ref": "#/$defs/finite"
+            }
+          ],
+          "items": false
+        },
+        "spacing_pull": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "prefixItems": [
+            {
+              "$ref": "#/$defs/finite"
+            },
+            {
+              "$ref": "#/$defs/finite"
+            },
+            {
+              "$ref": "#/$defs/finite"
+            }
+          ],
+          "items": false
+        },
+        "rate_scale": {
+          "$ref": "#/$defs/finite"
+        },
+        "effective_RT": {
+          "$ref": "#/$defs/finite"
+        },
+        "start_energies_kcal_mol": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "AUG",
+            "GUG",
+            "UUG",
+            "CUG"
+          ],
+          "properties": {
+            "AUG": {
+              "$ref": "#/$defs/finite"
+            },
+            "GUG": {
+              "$ref": "#/$defs/finite"
+            },
+            "UUG": {
+              "$ref": "#/$defs/finite"
+            },
+            "CUG": {
+              "$ref": "#/$defs/finite"
+            }
+          }
+        },
+        "coding_footprint_nt": {
+          "type": "integer",
+          "const": 13
+        },
+        "footprint_coordinate": {
+          "$ref": "#/$defs/text"
+        },
+        "footprint_source": {
+          "$ref": "#/$defs/text"
+        },
+        "context_source": {
+          "$ref": "#/$defs/text"
+        },
+        "standby_model": {
+          "$ref": "#/$defs/standby_parameters"
+        },
+        "joint_search": {
+          "$ref": "#/$defs/joint_parameters"
+        }
+      }
+    },
+    "rbs_model": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "source_commit",
+        "parameters",
+        "implementation_version"
+      ],
+      "properties": {
+        "id": {
+          "enum": [
+            "salis-v1-rnastructure-6.6-reconstruction-1",
+            "footprint2017-rnastructure-6.6-reconstruction-1",
+            "context2017-rnastructure-6.6-reconstruction-1",
+            "standby2014-rnastructure-6.6-reconstruction-1",
+            "joint-standby-rnastructure-6.6-reconstruction-1"
+          ]
+        },
+        "source_commit": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40}(?![\\s\\S])"
+        },
+        "parameters": {
+          "$ref": "#/$defs/rbs_parameters"
+        },
+        "implementation_version": {
+          "$ref": "#/$defs/text"
+        }
+      }
+    },
+    "native_rbs": {
+      "oneOf": [
+        {
+          "$ref": "rbs-result-1.0.schema.json#/properties/results/items"
+        },
+        {
+          "$ref": "rbs-result-1.1.schema.json#/properties/results/items"
+        },
+        {
+          "$ref": "rbs-result-1.2.schema.json#/properties/results/items"
+        },
+        {
+          "$ref": "rbs-result-1.3.schema.json#/properties/results/items"
+        }
+      ],
+      "properties": {
+        "id": {
+          "const": "transcript-rbs"
+        },
+        "status": {
+          "enum": [
+            "ok",
+            "no_candidate",
+            "unsupported",
+            "failed"
+          ]
+        },
+        "prediction_id": {
+          "$ref": "#/$defs/digest"
+        },
+        "input": {
+          "$ref": "#/$defs/normalized_rbs_input"
+        },
+        "model": {
+          "$ref": "#/$defs/rbs_model"
+        },
+        "backend": {
+          "$ref": "#/$defs/backend"
+        },
+        "sites": {
+          "maxItems": 10
+        }
+      }
+    },
+    "native_promoter": {
+      "$ref": "promoter-result-1.0.schema.json",
+      "properties": {
+        "batch": {
+          "properties": {
+            "record_count": {
+              "const": 1
+            },
+            "seconds_per_record": {
+              "$ref": "supplied-transcript-request-1.schema.json#/$defs/component_seconds"
+            },
+            "seconds_per_batch": {
+              "$ref": "supplied-transcript-request-1.schema.json#/$defs/component_seconds"
+            }
+          }
+        },
+        "results": {
+          "minItems": 1,
+          "maxItems": 1,
+          "items": {
+            "properties": {
+              "id": {
+                "const": "transcript-promoter"
+              },
+              "status": {
+                "enum": [
+                  "ok",
+                  "no_candidate",
+                  "failed",
+                  "unsupported"
+                ]
+              },
+              "sites": {
+                "maxItems": 512
+              },
+              "metadata": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      }
+    },
+    "rbs_component": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "request",
+        "roster",
+        "status",
+        "reason",
+        "declared_seconds",
+        "prediction",
+        "coverage"
+      ],
+      "properties": {
+        "request": {
+          "$ref": "#/$defs/rbs_request"
+        },
+        "roster": {
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 10,
+          "items": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 4999
+          },
+          "uniqueItems": true
+        },
+        "status": {
+          "enum": [
+            "ok",
+            "no_candidate",
+            "unsupported",
+            "failed",
+            "not_evaluated",
+            "not_applicable"
+          ]
+        },
+        "reason": {
+          "$ref": "#/$defs/reason"
+        },
+        "declared_seconds": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "supplied-transcript-request-1.schema.json#/$defs/component_seconds"
+            }
+          ]
+        },
+        "prediction": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/native_rbs"
+            }
+          ]
+        },
+        "coverage": {
+          "$ref": "#/$defs/rbs_coverage"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "not_evaluated"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prediction": {
+                "type": "null"
+              },
+              "declared_seconds": {
+                "type": "null"
+              },
+              "reason": {
+                "const": "deadline_exceeded"
+              },
+              "coverage": {
+                "properties": {
+                  "returned": {
+                    "const": 0
+                  },
+                  "scored": {
+                    "const": 0
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "not_applicable"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "roster": {
+                "maxItems": 0
+              },
+              "request": {
+                "properties": {
+                  "start_positions": {
+                    "maxItems": 0
+                  }
+                }
+              },
+              "prediction": {
+                "type": "null"
+              },
+              "declared_seconds": {
+                "type": "null"
+              },
+              "reason": {
+                "const": "no_eligible_cds"
+              },
+              "coverage": {
+                "properties": {
+                  "requested": {
+                    "const": 0
+                  },
+                  "returned": {
+                    "const": 0
+                  },
+                  "scored": {
+                    "const": 0
+                  },
+                  "not_evaluated": {
+                    "const": 0
+                  },
+                  "missing": {
+                    "const": 0
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "enum": [
+                  "ok",
+                  "no_candidate",
+                  "unsupported",
+                  "failed"
+                ]
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prediction": {
+                "$ref": "#/$defs/native_rbs"
+              },
+              "declared_seconds": {
+                "$ref": "supplied-transcript-request-1.schema.json#/$defs/component_seconds"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "ok"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prediction": {
+                "properties": {
+                  "status": {
+                    "const": "ok"
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "no_candidate"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prediction": {
+                "properties": {
+                  "status": {
+                    "const": "no_candidate"
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "unsupported"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prediction": {
+                "properties": {
+                  "status": {
+                    "const": "unsupported"
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "failed"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prediction": {
+                "properties": {
+                  "status": {
+                    "const": "failed"
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "promoter_component": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "request",
+        "roster",
+        "status",
+        "reason",
+        "declared_seconds",
+        "prediction",
+        "coverage"
+      ],
+      "properties": {
+        "request": {
+          "$ref": "#/$defs/promoter_request"
+        },
+        "roster": {
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 512,
+          "items": {
+            "type": "array",
+            "minItems": 2,
+            "maxItems": 2,
+            "prefixItems": [
+              {
+                "$ref": "#/$defs/strand"
+              },
+              {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 4999
+              }
+            ],
+            "items": false
+          },
+          "uniqueItems": true
+        },
+        "status": {
+          "enum": [
+            "ok",
+            "no_candidate",
+            "unsupported",
+            "failed",
+            "not_evaluated"
+          ]
+        },
+        "reason": {
+          "$ref": "#/$defs/reason"
+        },
+        "declared_seconds": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "supplied-transcript-request-1.schema.json#/$defs/component_seconds"
+            }
+          ]
+        },
+        "prediction": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/native_promoter"
+            }
+          ]
+        },
+        "coverage": {
+          "$ref": "#/$defs/promoter_coverage"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "not_evaluated"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prediction": {
+                "type": "null"
+              },
+              "declared_seconds": {
+                "type": "null"
+              },
+              "reason": {
+                "const": "deadline_exceeded"
+              },
+              "coverage": {
+                "properties": {
+                  "returned": {
+                    "const": 0
+                  },
+                  "scored": {
+                    "const": 0
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "enum": [
+                  "ok",
+                  "no_candidate",
+                  "unsupported",
+                  "failed"
+                ]
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prediction": {
+                "$ref": "#/$defs/native_promoter"
+              },
+              "declared_seconds": {
+                "$ref": "supplied-transcript-request-1.schema.json#/$defs/component_seconds"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "ok"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prediction": {
+                "properties": {
+                  "results": {
+                    "items": {
+                      "properties": {
+                        "status": {
+                          "const": "ok"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "no_candidate"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prediction": {
+                "properties": {
+                  "results": {
+                    "items": {
+                      "properties": {
+                        "status": {
+                          "const": "no_candidate"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "unsupported"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prediction": {
+                "properties": {
+                  "results": {
+                    "items": {
+                      "properties": {
+                        "status": {
+                          "const": "unsupported"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "failed"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prediction": {
+                "properties": {
+                  "results": {
+                    "items": {
+                      "properties": {
+                        "status": {
+                          "const": "failed"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "limits": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "max_input_json_bytes",
+        "max_json_depth",
+        "max_json_nodes",
+        "max_bases",
+        "max_cds",
+        "max_promoter_sites",
+        "max_seconds_per_component",
+        "max_seconds_total",
+        "max_result_json_bytes",
+        "predictors"
+      ],
+      "properties": {
+        "max_input_json_bytes": {
+          "type": "integer",
+          "const": 1000000
+        },
+        "max_json_depth": {
+          "type": "integer",
+          "const": 16
+        },
+        "max_json_nodes": {
+          "type": "integer",
+          "const": 20000
+        },
+        "max_bases": {
+          "type": "integer",
+          "const": 5000
+        },
+        "max_cds": {
+          "type": "integer",
+          "const": 10
+        },
+        "max_promoter_sites": {
+          "type": "integer",
+          "const": 512
+        },
+        "max_seconds_per_component": {
+          "type": "number",
+          "const": 120.0
+        },
+        "max_seconds_total": {
+          "type": "number",
+          "const": 240.0
+        },
+        "max_result_json_bytes": {
+          "type": "integer",
+          "const": 33554432
+        },
+        "predictors": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "rbs",
+            "promoter"
+          ],
+          "properties": {
+            "rbs": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "max_normalized_bases_per_record",
+                "max_explicit_or_scanned_starts",
+                "max_seconds_per_record"
+              ],
+              "properties": {
+                "max_normalized_bases_per_record": {
+                  "type": "integer",
+                  "const": 10000
+                },
+                "max_explicit_or_scanned_starts": {
+                  "type": "integer",
+                  "const": 1000
+                },
+                "max_seconds_per_record": {
+                  "type": "number",
+                  "const": 120
+                }
+              }
+            },
+            "promoter": {
+              "$ref": "promoter-result-1.0.schema.json#/$defs/limits",
+              "const": {
+                "max_input_json_bytes": 4000000,
+                "max_records_per_batch": 100,
+                "max_id_chars": 128,
+                "max_host_name_chars": 200,
+                "max_contig_chars": 128,
+                "max_raw_sequence_chars_per_record": 50000,
+                "max_normalized_bases_per_record": 5000,
+                "max_normalized_bases_per_batch": 100000,
+                "max_planned_sites_per_record": 1000,
+                "max_planned_sites_per_batch": 4000,
+                "max_all_state_sites_per_record": 100,
+                "max_all_states_per_record": 2000,
+                "max_all_states_per_batch": 2000,
+                "max_result_json_bytes": 67108864,
+                "max_metadata_json_bytes": 4096,
+                "max_metadata_depth": 4,
+                "default_seconds_per_record": 30.0,
+                "max_seconds_per_record": 120.0,
+                "default_seconds_per_batch": 300.0,
+                "max_seconds_per_batch": 3600.0
+              }
+            }
+          }
+        }
+      }
+    },
+    "promoter_model": {
+      "$ref": "promoter-result-1.0.schema.json#/$defs/model"
+    },
+    "calibration": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "profile",
+        "K",
+        "beta",
+        "native_host",
+        "host",
+        "host_status",
+        "warnings"
+      ],
+      "properties": {
+        "profile": {
+          "enum": [
+            "ecoli_mg1655",
+            "in_vitro"
+          ]
+        },
+        "K": {
+          "type": "integer",
+          "const": 42
+        },
+        "beta": {
+          "$ref": "promoter-result-1.0.schema.json#/$defs/finite"
+        },
+        "native_host": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "host": {
+          "anyOf": [
+            {
+              "$ref": "promoter-result-1.0.schema.json#/$defs/host"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "host_status": {
+          "enum": [
+            "calibration_native",
+            "in_vitro_reference",
+            "unspecified",
+            "extrapolated"
+          ]
+        },
+        "warnings": {
+          "type": "array",
+          "items": {
+            "$ref": "promoter-result-1.0.schema.json#/$defs/warning"
+          },
+          "uniqueItems": true
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "profile": {
+                "const": "ecoli_mg1655"
+              }
+            },
+            "required": [
+              "profile"
+            ]
+          },
+          "then": {
+            "properties": {
+              "beta": {
+                "const": 1.636217004872062
+              },
+              "native_host": {
+                "const": "Escherichia coli str. K-12 substr. MG1655"
+              },
+              "host_status": {
+                "enum": [
+                  "calibration_native",
+                  "unspecified",
+                  "extrapolated"
+                ]
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "beta": {
+                "const": 0.81632623
+              },
+              "native_host": {
+                "type": "null"
+              },
+              "host_status": {
+                "enum": [
+                  "in_vitro_reference",
+                  "extrapolated"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "host_status": {
+                "const": "calibration_native"
+              }
+            },
+            "required": [
+              "host_status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "host": {
+                "$ref": "promoter-result-1.0.schema.json#/$defs/host",
+                "properties": {
+                  "name": {
+                    "const": "Escherichia coli str. K-12 substr. MG1655"
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "host_status": {
+                "const": "unspecified"
+              }
+            },
+            "required": [
+              "host_status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "host": {
+                "type": "null"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "host_status": {
+                "const": "in_vitro_reference"
+              }
+            },
+            "required": [
+              "host_status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "host": {
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "promoter-result-1.0.schema.json#/$defs/host",
+                    "properties": {
+                      "name": {
+                        "const": "in vitro"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "host_status": {
+                "const": "extrapolated"
+              }
+            },
+            "required": [
+              "host_status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "host": {
+                "$ref": "promoter-result-1.0.schema.json#/$defs/host"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "profile": {
+                "const": "ecoli_mg1655"
+              },
+              "host": {
+                "type": "null"
+              }
+            },
+            "required": [
+              "profile",
+              "host"
+            ]
+          },
+          "then": {
+            "properties": {
+              "host_status": {
+                "const": "unspecified"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "profile": {
+                "const": "in_vitro"
+              },
+              "host": {
+                "type": "null"
+              }
+            },
+            "required": [
+              "profile",
+              "host"
+            ]
+          },
+          "then": {
+            "properties": {
+              "host_status": {
+                "const": "in_vitro_reference"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "profile": {
+                "const": "ecoli_mg1655"
+              },
+              "host": {
+                "type": "object",
+                "required": [
+                  "name"
+                ],
+                "properties": {
+                  "name": {
+                    "const": "Escherichia coli str. K-12 substr. MG1655"
+                  }
+                }
+              }
+            },
+            "required": [
+              "profile",
+              "host"
+            ]
+          },
+          "then": {
+            "properties": {
+              "host_status": {
+                "const": "calibration_native"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "profile": {
+                "const": "in_vitro"
+              },
+              "host": {
+                "type": "object",
+                "required": [
+                  "name"
+                ],
+                "properties": {
+                  "name": {
+                    "const": "in vitro"
+                  }
+                }
+              }
+            },
+            "required": [
+              "profile",
+              "host"
+            ]
+          },
+          "then": {
+            "properties": {
+              "host_status": {
+                "const": "in_vitro_reference"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "identities": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "rbs",
+        "promoter"
+      ],
+      "properties": {
+        "rbs": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "profile",
+            "source_commit",
+            "base_parameters",
+            "standby_parameters",
+            "joint_parameters",
+            "backend"
+          ],
+          "properties": {
+            "profile": {
+              "$ref": "#/$defs/profile"
+            },
+            "source_commit": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{40}(?![\\s\\S])"
+            },
+            "base_parameters": {
+              "$ref": "#/$defs/base_parameters"
+            },
+            "standby_parameters": {
+              "$ref": "#/$defs/standby_parameters"
+            },
+            "joint_parameters": {
+              "$ref": "#/$defs/joint_parameters"
+            },
+            "backend": {
+              "anyOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/$defs/backend"
+                }
+              ]
+            }
+          }
+        },
+        "promoter": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "model",
+            "calibration"
+          ],
+          "properties": {
+            "model": {
+              "$ref": "#/$defs/promoter_model"
+            },
+            "calibration": {
+              "$ref": "#/$defs/calibration"
+            }
+          }
+        }
+      }
+    },
+    "required_feature": {
+      "$ref": "#/$defs/feature",
+      "properties": {
+        "native_interval": {
+          "$ref": "#/$defs/interval"
+        },
+        "construct_interval": {
+          "$ref": "#/$defs/interval"
+        },
+        "reason": {
+          "type": "null"
+        }
+      }
+    },
+    "required_forward_feature": {
+      "$ref": "#/$defs/required_feature",
+      "properties": {
+        "local_strand": {
+          "const": "+"
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "complete"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "coverage": {
+            "properties": {
+              "complete": {
+                "const": true
+              },
+              "incompatible_cds": {
+                "const": 0
+              }
+            }
+          },
+          "components": {
+            "properties": {
+              "rbs": {
+                "properties": {
+                  "status": {
+                    "enum": [
+                      "ok",
+                      "no_candidate"
+                    ]
+                  }
+                }
+              },
+              "promoter": {
+                "properties": {
+                  "status": {
+                    "enum": [
+                      "ok",
+                      "no_candidate"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "coverage": {
+            "properties": {
+              "complete": {
+                "const": false
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "partial"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "coverage": {
+            "properties": {
+              "scored": {
+                "minimum": 1
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "unavailable"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "coverage": {
+            "properties": {
+              "scored": {
+                "const": 0
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "request": {
+            "properties": {
+              "rbs": {
+                "properties": {
+                  "profile": {
+                    "enum": [
+                      "historical",
+                      "salis-v1-rnastructure-6.6-reconstruction-1"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "required": [
+          "request"
+        ]
+      },
+      "then": {
+        "properties": {
+          "identities": {
+            "properties": {
+              "rbs": {
+                "properties": {
+                  "profile": {
+                    "const": {
+                      "name": "historical",
+                      "model_id": "salis-v1-rnastructure-6.6-reconstruction-1",
+                      "upstream_nt": 35,
+                      "downstream_nt": 35,
+                      "footprint_nt": 1000
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "components": {
+            "properties": {
+              "rbs": {
+                "properties": {
+                  "prediction": {
+                    "anyOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "$ref": "rbs-result-1.0.schema.json#/properties/results/items",
+                        "properties": {
+                          "model": {
+                            "properties": {
+                              "id": {
+                                "const": "salis-v1-rnastructure-6.6-reconstruction-1"
+                              },
+                              "parameters": {
+                                "$ref": "#/$defs/base_parameters"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "request": {
+            "properties": {
+              "rbs": {
+                "properties": {
+                  "profile": {
+                    "enum": [
+                      "footprint2017",
+                      "footprint2017-rnastructure-6.6-reconstruction-1"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "required": [
+          "request"
+        ]
+      },
+      "then": {
+        "properties": {
+          "identities": {
+            "properties": {
+              "rbs": {
+                "properties": {
+                  "profile": {
+                    "const": {
+                      "name": "footprint2017",
+                      "model_id": "footprint2017-rnastructure-6.6-reconstruction-1",
+                      "upstream_nt": 35,
+                      "downstream_nt": 35,
+                      "footprint_nt": 13
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "components": {
+            "properties": {
+              "rbs": {
+                "properties": {
+                  "prediction": {
+                    "anyOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "$ref": "rbs-result-1.1.schema.json#/properties/results/items",
+                        "properties": {
+                          "model": {
+                            "properties": {
+                              "id": {
+                                "const": "footprint2017-rnastructure-6.6-reconstruction-1"
+                              },
+                              "parameters": {
+                                "$ref": "#/$defs/refined_parameters"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "request": {
+            "properties": {
+              "rbs": {
+                "properties": {
+                  "profile": {
+                    "enum": [
+                      "context2017",
+                      "context2017-rnastructure-6.6-reconstruction-1"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "required": [
+          "request"
+        ]
+      },
+      "then": {
+        "properties": {
+          "identities": {
+            "properties": {
+              "rbs": {
+                "properties": {
+                  "profile": {
+                    "const": {
+                      "name": "context2017",
+                      "model_id": "context2017-rnastructure-6.6-reconstruction-1",
+                      "upstream_nt": 100,
+                      "downstream_nt": 100,
+                      "footprint_nt": 13
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "components": {
+            "properties": {
+              "rbs": {
+                "properties": {
+                  "prediction": {
+                    "anyOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "$ref": "rbs-result-1.1.schema.json#/properties/results/items",
+                        "properties": {
+                          "model": {
+                            "properties": {
+                              "id": {
+                                "const": "context2017-rnastructure-6.6-reconstruction-1"
+                              },
+                              "parameters": {
+                                "$ref": "#/$defs/refined_parameters"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "request": {
+            "properties": {
+              "rbs": {
+                "properties": {
+                  "profile": {
+                    "enum": [
+                      "standby2014",
+                      "standby2014-rnastructure-6.6-reconstruction-1"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "required": [
+          "request"
+        ]
+      },
+      "then": {
+        "properties": {
+          "identities": {
+            "properties": {
+              "rbs": {
+                "properties": {
+                  "profile": {
+                    "const": {
+                      "name": "standby2014",
+                      "model_id": "standby2014-rnastructure-6.6-reconstruction-1",
+                      "upstream_nt": 100,
+                      "downstream_nt": 100,
+                      "footprint_nt": 13
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "components": {
+            "properties": {
+              "rbs": {
+                "properties": {
+                  "prediction": {
+                    "anyOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "$ref": "rbs-result-1.2.schema.json#/properties/results/items",
+                        "properties": {
+                          "model": {
+                            "properties": {
+                              "id": {
+                                "const": "standby2014-rnastructure-6.6-reconstruction-1"
+                              },
+                              "parameters": {
+                                "$ref": "#/$defs/standby_native_parameters"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "request": {
+            "properties": {
+              "rbs": {
+                "properties": {
+                  "profile": {
+                    "enum": [
+                      "joint_standby",
+                      "joint-standby-rnastructure-6.6-reconstruction-1"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "required": [
+          "request"
+        ]
+      },
+      "then": {
+        "properties": {
+          "identities": {
+            "properties": {
+              "rbs": {
+                "properties": {
+                  "profile": {
+                    "const": {
+                      "name": "joint_standby",
+                      "model_id": "joint-standby-rnastructure-6.6-reconstruction-1",
+                      "upstream_nt": 100,
+                      "downstream_nt": 100,
+                      "footprint_nt": 13
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "components": {
+            "properties": {
+              "rbs": {
+                "properties": {
+                  "prediction": {
+                    "anyOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "$ref": "rbs-result-1.3.schema.json#/properties/results/items",
+                        "properties": {
+                          "model": {
+                            "properties": {
+                              "id": {
+                                "const": "joint-standby-rnastructure-6.6-reconstruction-1"
+                              },
+                              "parameters": {
+                                "$ref": "#/$defs/joint_native_parameters"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "request": {
+            "properties": {
+              "projection": {
+                "type": "null"
+              }
+            },
+            "required": [
+              "projection"
+            ]
+          }
+        },
+        "required": [
+          "request"
+        ]
+      },
+      "then": {
+        "properties": {
+          "components": {
+            "properties": {
+              "promoter": {
+                "properties": {
+                  "request": {
+                    "not": {
+                      "required": [
+                        "projection"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "components": {
+            "properties": {
+              "promoter": {
+                "properties": {
+                  "request": {
+                    "required": [
+                      "projection"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "request": {
+            "properties": {
+              "promoter": {
+                "properties": {
+                  "host": {
+                    "type": "null"
+                  }
+                },
+                "required": [
+                  "host"
+                ]
+              }
+            },
+            "required": [
+              "promoter"
+            ]
+          }
+        },
+        "required": [
+          "request"
+        ]
+      },
+      "then": {
+        "properties": {
+          "components": {
+            "properties": {
+              "promoter": {
+                "properties": {
+                  "request": {
+                    "not": {
+                      "required": [
+                        "host"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "components": {
+            "properties": {
+              "promoter": {
+                "properties": {
+                  "request": {
+                    "required": [
+                      "host"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

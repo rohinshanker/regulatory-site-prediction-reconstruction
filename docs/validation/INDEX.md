@@ -4,8 +4,14 @@ Verification dates cover the stated source observations or specification review;
 
 | Area | Purpose | Last verified | Document |
 | --- | --- | --- | --- |
+| supplied-transcript-contract | Explicit RNA context, supplied CDS eligibility, native component settings and portable coordinate/failure boundary. | 2026-10-18 | [supplied-transcript-contract.md](supplied-transcript-contract.md) |
+| supplied-transcript-runtime | Exact component results, stable declared-budget identities, features, missingness and local transport. | 2026-10-18 | [supplied-transcript-runtime.md](supplied-transcript-runtime.md) |
+| conditional-0.7-candidate | Immutable conditional package, reviewed numerical domain, installed synthetic/backend checks and structural portability boundary. | 2026-10-18 | [conditional-0.7-candidate.md](conditional-0.7-candidate.md) |
+| rbs-wave5-context-results | Independently audited unchanged-profile transcript-context sensitivity, repeated-input accounting and source-selection census. | 2026-10-19 | [rbs-wave5-context-results.md](rbs-wave5-context-results.md) |
+| current-recoded-results | Independently audited frozen paired candidate accounting, source arithmetic and unchanged-sequence controls. | 2026-10-19 | [current-recoded-results.md](current-recoded-results.md) |
 | promoter-wave5-results | Independently audited frozen native positive-TSS localization, all denominators and consumed-panel limits. | 2026-10-19 | [promoter-wave5-results.md](promoter-wave5-results.md) |
-| paired-0.6-candidate | Immutable paired package, source and installed resource receipts; independent comparison and RBS-context preparation gates. | 2026-10-18 | [paired-0.6-candidate.md](paired-0.6-candidate.md) |
+| supplied-transcript-boundaries | Public-contract-reconciled construct/transcript/CDS geometry, immutable fixtures and uncoupled component failure semantics. | 2026-10-19 | [supplied-transcript-boundaries.md](supplied-transcript-boundaries.md) |
+| paired-0.6-candidate | Immutable paired package, source/resource/CI receipts and completed independent comparison/context validation. | 2026-10-18 | [paired-0.6-candidate.md](paired-0.6-candidate.md) |
 | conditional-aptamer-runtime | Executable supplied-energy and canonical-state profiles, bounded JSON CLI, explicit failures and backend admission limits. | 2026-10-18 | [conditional-aptamer-runtime.md](conditional-aptamer-runtime.md) |
 | promoter-0.5-candidate | Immutable source/package/CI/resource receipts, rebuild procedure and bounded native-stage transport conditions. | 2026-10-18 | [promoter-0.5-candidate.md](promoter-0.5-candidate.md) |
 | conditional-aptamer-contract | Explicit supplied-energy/volume equations, canonical structural-state boundary and executable Decimal reference. | 2026-10-18 | [conditional-aptamer-contract.md](conditional-aptamer-contract.md) |
@@ -14,7 +20,8 @@ Verification dates cover the stated source observations or specification review;
 | calculator-delivery-program | Sustained Promoter, paired recoding comparison, supplied-operon and conditional aptamer delivery for portable cyano-consumer outputs. | 2026-10-18 | [calculator-delivery-program.md](calculator-delivery-program.md) |
 | promoter-runtime | Implemented core/batch/CLI contract, source identities, coordinates, calibration and candidate acceptance gates. | 2026-10-18 | [promoter-runtime.md](promoter-runtime.md) |
 | riboswitch-constrained-reference | Pinned canonical forced-pair/unpaired feasibility, immutable synthetic execution and offline integrity audit. | 2026-10-18 | [riboswitch-constrained-reference.md](riboswitch-constrained-reference.md) |
-| current-recoded-validation | Independent synthetic edit maps, candidate universes and failure-preserving comparison rules. | 2026-10-18 | [current-recoded-validation.md](current-recoded-validation.md) |
+| current-recoded-validation | Independent synthetic edit maps, candidate universes, failure-preserving checks and reviewed frozen-result reproduction. | 2026-10-19 | [current-recoded-validation.md](current-recoded-validation.md) |
+| rbs-context-collection | Frozen two-profile execution, durable private attempts, process ownership and read-only recovery. | 2026-10-19 | [rbs-context-collection.md](rbs-context-collection.md) |
 | rbs-context-metrics | Hash-bound unchanged-profile context comparisons, complete status accounting and private failure identities. | 2026-10-18 | [rbs-context-metrics.md](rbs-context-metrics.md) |
 | promoter-native-grouping | Fixed input-only label groups and validated cluster-bootstrap intervals from group sufficient statistics. | 2026-10-18 | [promoter-native-grouping.md](promoter-native-grouping.md) |
 | promoter-collection | Frozen one-attempt process collection, admission acknowledgement and private status evidence. | 2026-10-18 | [promoter-collection.md](promoter-collection.md) |

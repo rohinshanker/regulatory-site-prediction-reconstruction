@@ -1,0 +1,52 @@
+{
+  "absolute_tolerance": 1e-12,
+  "acknowledgement": "Session B 9677689a: once-only exact36 synthetic current/recoded jobs at candidate920215602a837b0fd2fed403512f3b3ed59bfda2; 18Promoter4108positions and18historicalRBS17starts, 3600swhole, 30sgrace insidewhole, one serial folding slot after context stage, no additional jobs/retries/tuning.",
+  "admission_sha256": "6cb1705b9e3c1d34713479c4da629a6de5f9715999de134a4926bfdd8ff132de",
+  "analysis_launcher_sha256": "18443db037e70e57cc6b826a629e39417368a836c1bc176e72d1f30f0d12e95b",
+  "candidate_commit": "920215602a837b0fd2fed403512f3b3ed59bfda2",
+  "candidates_by_calculator": {
+    "promoter": 4108,
+    "rbs": 17
+  },
+  "claims": {
+    "biological_recoding_effect": false,
+    "experimental_accuracy": false,
+    "native_calibration": false
+  },
+  "external_receipt_sha256": {
+    "backend-verification.json": "e72ea2ca2ca69925e5eca2a0234b3e43adab898fc532b12140b309ada7219f11",
+    "candidate.json": "b4d881f97873d0f9144c79578805f9b9d1e91ff5d8556af2656c058c1c9e041f",
+    "ci-admission.json": "6cb1705b9e3c1d34713479c4da629a6de5f9715999de134a4926bfdd8ff132de",
+    "ci-independent-verification.json": "43e2ab41a513a0601e6138e0674417a3ad44bdaddfd64738eb2e73abdd31f8b3",
+    "context-candidate.json": "0cdedfbd10b42501b7dad3563f5fbb2b9bc2deb58a10a34d1f374c53dc7c72a1",
+    "installation.json": "993e9a897e7798cecee02c5f60d27e1ba0056175795ea9c4c22e9bc4b9266ef2",
+    "paired-source-expectations.json": "9375d1a8ccd7f12ba4b661c9e798b52933e26b15724ebcdda33382283c87eb5e",
+    "schema-and-model-preparation.json": "534e8f14211631c59717a1b538c09c9cd21223c814d9e62c1a6270810aa2c328"
+  },
+  "extra_predictor_jobs": 0,
+  "job_count": 36,
+  "jobs_by_calculator": {
+    "promoter": 18,
+    "rbs": 18
+  },
+  "launcher_sha256": "37632fcd3d7063be2e97ab16c346584f35dc41d6f823bec8b355d3ba848818a1",
+  "max_concurrent_folding_processes": 1,
+  "owner": "Session B 9677689a-1792176763",
+  "plan_sha256": "5df11c70e9b963b93406cde6ab2d82249e241177ee86cceb0f69be4e6ce9579e",
+  "process_grace_seconds_inside_stage": 30.0,
+  "reference_oracle_sha256": "60b16654ca0f2fd44fa44795fc302c8c0d1223834013446ee84c91bd2aa0555f",
+  "reference_parameters_sha256": "f45bda817d1a0db323964b1ab8f37cb5d2e071dc9e09adf0ef5d791f2415f15e",
+  "relative_tolerance": 1e-12,
+  "request_list_sha256": "035ff8875ef9bca9c158a7b6ad7c72db15ef52fb242ce3247c7d7b8aa412ed8d",
+  "requires_context_process_cleanup_before_launch": true,
+  "retry": false,
+  "reviewed_collector_commit": "b041efc4c7a0d82a72c5ca0f2d52da3a908121c0",
+  "reviewed_process_helper_commit": "3e271727a1728d7925953e0cecb14e3f4b1056dd",
+  "schema_version": "paired-collection-ack-1",
+  "source_candidate_positions": 4108,
+  "source_expectations_builder_sha256": "0e6231c472b273019474c461073abf04fcdbeb3259c307ca5a25aac44cec590b",
+  "source_expectations_sha256": "9375d1a8ccd7f12ba4b661c9e798b52933e26b15724ebcdda33382283c87eb5e",
+  "source_states_enumerated": 123240,
+  "stage_seconds": 3600.0,
+  "state": "acknowledged_once_only_after_context_cleanup"
+}
