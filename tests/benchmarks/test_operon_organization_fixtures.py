@@ -40,6 +40,7 @@ class OrganizationFixturesTest(unittest.TestCase):
                 for index, cds in enumerate(supplied["cds"]):
                     start, end = cds["range"]
                     self.assertTrue(0 <= start < end <= len(sequence))
+                    self.assertGreaterEqual(end - start, 3)
                     self.assertEqual(
                         start - left, expected["signed_start_offsets"][index]
                     )

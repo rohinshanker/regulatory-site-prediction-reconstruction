@@ -5,7 +5,7 @@ Verification dates cover the stated source observations or specification review;
 | Area | Purpose | Last verified | Document |
 | --- | --- | --- | --- |
 | promoter-wave5-results | Independently audited frozen native positive-TSS localization, all denominators and consumed-panel limits. | 2026-10-19 | [promoter-wave5-results.md](promoter-wave5-results.md) |
-| supplied-transcript-boundaries | Supplied construct/transcript/CDS geometry, independent literal fixtures and uncoupled component failure semantics. | 2026-10-19 | [supplied-transcript-boundaries.md](supplied-transcript-boundaries.md) |
+| supplied-transcript-boundaries | Public-contract-reconciled construct/transcript/CDS geometry, immutable fixtures and uncoupled component failure semantics. | 2026-10-19 | [supplied-transcript-boundaries.md](supplied-transcript-boundaries.md) |
 | paired-0.6-candidate | Immutable paired package, source and installed resource receipts; independent comparison and RBS-context preparation gates. | 2026-10-18 | [paired-0.6-candidate.md](paired-0.6-candidate.md) |
 | conditional-aptamer-runtime | Executable supplied-energy and canonical-state profiles, bounded JSON CLI, explicit failures and backend admission limits. | 2026-10-18 | [conditional-aptamer-runtime.md](conditional-aptamer-runtime.md) |
 | promoter-0.5-candidate | Immutable source/package/CI/resource receipts, rebuild procedure and bounded native-stage transport conditions. | 2026-10-18 | [promoter-0.5-candidate.md](promoter-0.5-candidate.md) |
