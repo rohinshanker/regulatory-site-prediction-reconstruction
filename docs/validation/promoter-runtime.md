@@ -842,6 +842,15 @@ inform any limit.
 6. After B acknowledges the frozen protocol, any limit or deadline change needs a
    new candidate identity.
 
+Performance-only changes must retain validation at public entry points and preserve
+state/context checks, arithmetic order, coordinates, statuses and authoritative
+serialization. Verify the frozen synthetic source cases and compare complete output
+bytes for identical inputs before measuring capacity. Timing controls made before a
+commit must record source hashes; admission receipts must identify the committed
+candidate. Retain every repetition and earlier failed receipt. Local timing is
+platform-specific evidence and does not replace the complete CI matrix or justify
+relaxing its limits. Keep generated receipts outside Git.
+
 ## Packaging and licence
 
 - Ship in the existing `regsite` package; add `regsite-promoter` to
