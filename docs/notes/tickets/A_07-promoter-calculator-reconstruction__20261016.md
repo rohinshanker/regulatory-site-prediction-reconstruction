@@ -3,9 +3,9 @@
 - Scope: Recover and implement the production-oriented Promoter Calculator.
 - Status: active
 - Opened: 2026-10-16
-- Updated: 2026-10-18
-- Current State: Admitted source/parameters and 212-state reference are available. The reviewed local-reference request/result contract is in docs/validation/promoter-runtime.md; #33 owns the runtime slice and #34 the independent evaluation. The owner authorized isolated calculator implementation alongside RBS release preparation on 2026-10-18; #33 is active. Publication and native consumer admission remain separate gates.
-- Verification: Contract coordinate algebra, candidate retention, explicit calibration and limits reviewed; source-parity/runtime/fresh-install acceptance remains specified, not executed.
+- Updated: 2026-10-19
+- Current State: The historical local Promoter runtime and scoped #33/#34 delivery are complete; contracts and task-specific public evaluation reports are available. PR52 adds independently reviewed validation reuse with identical arithmetic and complete output bytes. All four unchanged resource jobs and four runtime/fresh-install jobs pass at `7fdfb6f` in CI run 39305475909. Broader hosted parity, strength prediction, host calibration and publication remain open; positive-TSS localization evidence does not establish those claims. Consumer admission remains separate.
+- Verification: Frozen 212-state source fixtures and the 22-record/424-state synthetic comparison pass at unchanged tolerances. The optimization passes 1,004 adjacent tests with 100% core/IO/CLI statement and branch coverage; independent review reproduced 239 focused tests and three mutation checks. All 168 CI resource measurements pass unchanged limits, with all maximum-state output hashes preserved. The public receipt checker binds its original consumed evaluation candidate and never transfers that evaluation to a new commit; see docs/validation/promoter-public-receipt-audit.md.
 - Cleanup: Owning session records final checks and unresolved findings, resolves the ticket, distills reusable guidance into docs/validation/, updates both indexes and linked GitHub issue, then removes the resolved ticket.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/7
 - Priority: P1

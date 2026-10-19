@@ -549,6 +549,16 @@ def score_state(
 ) -> StateScore:
     """Evaluate one complete state using basic float operations and accurate sums."""
     _dna(oriented)
+    return _score_validated_state(oriented, t, d, s, params)
+
+
+def _score_validated_state(
+    oriented: str, t: int, d: int, s: int, params: PromoterParameters
+) -> StateScore:
+    """Score a state on nonempty uppercase ACGT DNA already checked by _dna.
+
+    Only whole-sequence validation is omitted; state and context checks remain.
+    """
     windows = state_windows(t, d, s)
     if windows["UP"][0] < 0 or windows["itr"][1] > len(oriented):
         raise InputError("insufficient_context", "state")
@@ -692,7 +702,7 @@ def score_site(
     reason: str | None = "insufficient_context"
     try:
         for d, s in candidates:
-            state = score_state(oriented, t, d, s, params)
+            state = _score_validated_state(oriented, t, d, s, params)
             # Validate log arithmetic even when the caller does not serialize states.
             relative_score(
                 math.log(calibration.K) - calibration.beta * state.terms["total"]

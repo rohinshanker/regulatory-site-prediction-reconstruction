@@ -18,7 +18,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     timeout-minutes: 45
     env:
-      REGSITE_RNASTRUCTURE: ${{ github.workspace }}/.cache/RNAstructure
+      REGSITE_RNASTRUCTURE: ${{ github.workspace }}/.cache/original/RNAstructure
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
       - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
@@ -33,14 +33,11 @@ jobs:
         run: |
           mkdir -p .cache
           curl --fail --location --retry 2 https://rna.urmc.rochester.edu/Releases/rnastructure-6.6/RNAstructureSource.tgz -o .cache/RNAstructureSource.tgz
-          python -c 'import hashlib,pathlib; p=pathlib.Path(".cache/RNAstructureSource.tgz"); assert hashlib.sha256(p.read_bytes()).hexdigest()=="1bedc62aaab984279055caaa6234d48fca113f4b8e17a8060e0b3784d5a397c3"'
-          tar -xzf .cache/RNAstructureSource.tgz -C .cache
-          if [[ "$RUNNER_OS" == macOS ]]; then
-            sdk="$(xcrun --show-sdk-path)"
-            make -C "$REGSITE_RNASTRUCTURE" -j2 Fold bifold efn2 CXX="clang++ -isysroot $sdk -isystem $sdk/usr/include/c++/v1"
-          else
-            make -C "$REGSITE_RNASTRUCTURE" -j2 Fold bifold efn2
-          fi
+          python backends/rnastructure66/build.py --archive .cache/RNAstructureSource.tgz --destination .cache/original --jobs 2 --component rnastructure-6.6-original
+      - name: Verify every installer branch without compiler subprocesses
+        run: |
+          python -m coverage run --branch --source=backends/rnastructure66 -m unittest discover -s backends/rnastructure66/tests -p test_build.py -v
+          python -m coverage report --include='*/rnastructure66/build.py' --fail-under=100
       - name: Static and full runtime gates
         run: |
           ruff check src tests experiments tools

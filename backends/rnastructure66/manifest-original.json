@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "component": "rnastructure-6.6-original",
+  "license": "GPL-2.0-only",
+  "upstream": {
+    "version": "6.6",
+    "url": "https://rna.urmc.rochester.edu/Releases/rnastructure-6.6/RNAstructureSource.tgz",
+    "archive_sha256": "1bedc62aaab984279055caaa6234d48fca113f4b8e17a8060e0b3784d5a397c3",
+    "archive_bytes": 30765790,
+    "source_file": "src/algorithm.cpp",
+    "source_sha256": "c024b600aabfad624fa0d4dbcd2297b9aacdb654ad2e491686847b705fa343d8"
+  },
+  "patch": null,
+  "provenance": {
+    "basis": "Already admitted unmodified RNAstructure 6.6 source archive and GPL-2.0-only notices.",
+    "change": "None; no patch is applied."
+  }
+}
