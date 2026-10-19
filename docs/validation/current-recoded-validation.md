@@ -281,8 +281,8 @@ result mutations test missing/failure propagation separately from actual scoring
 
 The compact ASCII request-list SHA256 is
 `035ff8875ef9bca9c158a7b6ad7c72db15ef52fb242ce3247c7d7b8aa412ed8d`.
-Execution still requires a reviewed durable collector and explicit B
-acknowledgement. Candidate-universe changes remain separate from biologically
+The [stage acknowledgement](../../benchmarks/recoding/wave5-paired-collection-ack.json)
+binds the reviewed collector and complete execution plan. Candidate-universe changes remain separate from biologically
 lost/added regulation; the synthetic panel contains no experimental outcome.
 
 Root reproduced 264 tests and 17 subtests at 100% of 640 statements/256 branches
@@ -299,3 +299,36 @@ PYTHONPATH=. python -m coverage run --branch --source=benchmarks.recoding \
   tests/benchmarks/test_recoding_runtime_check.py
 python -m coverage report --fail-under=100
 ```
+
+## Durable execution and separate numerical checks
+
+The [collector](../../benchmarks/recoding/collect.py) archives all 36 compact
+request files before launching one process at a time. Its private journal records
+durable intent, the real exit before parsing, raw hashes, wrapper audit and final
+receipt. It uses the [context collector process boundary](rbs-context-collection.md);
+no retry/resume is possible. Read-only recovery requires exact types, ordered
+events, complete artifacts and every job before `ready: true`. That flag certifies
+wrapper audits only; full native schemas/model identity and source arithmetic are
+separate evaluator checks. Invalid output or failed persistence stops the stage,
+and all unstarted jobs stay in the roster.
+
+The pre-collection numerical fixture enumerates all 123,240 source states at the
+4,108 requested Promoter positions using the unchanged independent
+[reference oracle](../../benchmarks/promoter/reference_oracle.py) and
+[parameters](../../benchmarks/promoter/reference-parameters.json). For each request
+and side, orient the sequence on its requested strand, convert forward base `f`
+to `L-1-f` on the minus strand, enumerate `states`, and select `winner` using its
+fixed discriminator/spacer tie order. Compare the selected lengths, all learned
+terms, relative score and natural-log score at the existing 1e-12 absolute/relative
+tolerance. Exact expectation bytes, source/tool identities and construction-script
+hash are frozen in the stage acknowledgement before runtime output. Failed
+positions remain in all-case coverage; successful-position source agreement is
+reported separately. No experimental outcome or threshold fitting enters this
+synthetic check.
+
+The admitted public schemas validate every frozen request and each actual full
+result; native model/backend identities must equal the pinned candidate. These
+checks supplement the wrapper geometry/arithmetic audit. Existing source-parity
+and unchanged RBS implementation evidence remain separate from biological
+validation; no synthetic delta establishes expression accuracy or a gained/lost
+regulatory site.
