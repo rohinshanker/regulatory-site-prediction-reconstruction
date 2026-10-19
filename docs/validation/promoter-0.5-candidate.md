@@ -99,3 +99,14 @@ belong in its independent results document.
 No measured-strength, native cyanobacterial calibration, hosted equivalence,
 site-gain/loss or optimizer claim follows from this admission. See the
 [model card](promoter-model-card.md) for interpretation.
+
+## Independent native validation
+
+The [reviewed native report](promoter-wave5-results.md) and SHA-bound aggregate
+artifact complete this candidate's fixed-grid Tan 2018 localization evaluation.
+All 92 batches, 366 records and 364,416 positions completed once. Top-ten exact
+recovery was 36/292 in-window positives, with separate full-source and tolerance
+endpoints. The result is limited localization, not native strength calibration,
+specificity or hosted equivalence. The cohort is consumed. Source and transport
+repairs subsequently passed all eight 0.6.0rc1 CI gates without rewriting this
+candidate; see the [paired package admission](paired-0.6-candidate.md).

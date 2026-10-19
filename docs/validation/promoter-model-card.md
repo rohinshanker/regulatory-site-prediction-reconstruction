@@ -1,7 +1,7 @@
 # Promoter model card
 
 - Purpose: State what the implemented historical Promoter model is, what its checks establish and what it cannot support.
-- Scope: `promoter-lafleur2022-historical-1` in package 0.5.0rc1 (`regsite-promoter`); documentation only, no new measurement or model change. Tickets #33 and #7 remain open.
+- Scope: `promoter-lafleur2022-historical-1` in package 0.5.0rc1 (`regsite-promoter`); documentation only, no new measurement or model change. Scoped runtime #33 is complete; parent #7 remains open.
 - Last verified: 2026-10-18
 - Source candidate: `2dff23cb5697507281f7ffa73fc617d56989b40c`
 
@@ -23,7 +23,7 @@ cyanobacterial, hosted-service or design capability.
 | --- | --- |
 | Is it a runnable local predictor? | Yes. Offline, no accounts or network, Python 3.11+ standard library only. |
 | Does it match the admitted historical source? | Yes, on 212 synthetic states (below). That is fidelity, not accuracy. |
-| Is its biological accuracy measured here? | No. No new native or measured-strength result exists yet. |
+| Is its biological accuracy measured here? | Native positive-TSS localization is measured: top-ten exact recovery 36/292 in-window positives; measured-strength accuracy remains unestablished. |
 | Is it calibrated for cyanobacteria? | No. Calibration is *E. coli* MG1655 or *in vitro* *E. coli* RNAP only. |
 | Does it match the hosted De Novo DNA tool? | Unestablished. |
 | Is it released? | No. 0.5.0rc1 is a development candidate. |
@@ -92,8 +92,9 @@ holoenzyme measurement. `host` is metadata and never selects a profile. Result
 `host_extrapolation`). Any other host, including a cyanobacterium, retains the
 explicitly selected profile with an extrapolation warning: no host-specific
 calibration, sigma factor, temperature, growth condition or in vivo context is
-modelled (`model.not_modeled`). The `claims` object in every result keeps
-`native_accuracy_evaluated` and `hosted_parity` false.
+modelled (`model.not_modeled`). The immutable candidate's `claims` object keeps `native_accuracy_evaluated` and
+`hosted_parity` false. The later evaluation is a separately bound artifact; it
+does not rewrite frozen results or establish general native accuracy.
 
 ## Score units and selection
 
@@ -152,12 +153,19 @@ Three kinds of evidence are kept separate.
    benchmark-specific fitted calibration and non-independent splits. They replicate
    a published table; they are **not** a new runtime strength validation and are not
    restated here as accuracy for the shipped code or any new sequence.
-3. **Independent biological evaluation (not yet measured).** Native localization
-   on pinned Tan 2018 UTEX 2973 transcription starts, a measured-strength challenge
-   and context sensitivity are defined in the [Wave 5 evaluation protocol](promoter-wave5-evaluation.md).
-   Collection has not started and no result is reported. Tan 2018 starts are
-   transcription-start evidence for conditional localization, not promoter-bound,
-   translation-strength or labelled-negative evidence.
+3. **Independent native localization (measured, limited).** The
+   [reviewed Tan 2018 evaluation](promoter-wave5-results.md) completed every one
+   of 364,416 candidate positions in 366 requests. Top-ten predictions recovered
+   36/292 in-window positives exactly (12.33%, 95% group interval 8.97–16.74%)
+   and 47/292 within three bases (16.10%, 12.41–20.54%). The deterministic
+   constant-score control recovered 1/292 and 3/292, respectively. These are
+   descriptive comparisons, not a predeclared superiority test. The full source
+   has 4,808 positives, including 4,516 outside sampled windows; the conditional
+   denominator and replicon-biased sampling must remain visible. This model
+   localizes a minority of positives. No negative labels, specificity, native
+   strength calibration or recoding-effect evidence follows. This panel is now
+   consumed and must not be reused as an untouched improvement test. The
+   measured-strength challenge and separate RBS context diagnostic remain gated.
 
 Hosted-service equivalence is a fourth, unestablished question. The runtime's
 explicit calibration, corrected local coordinates and visible source quirks are
@@ -267,10 +275,10 @@ For a current sequence and a recoded sequence:
 | Installed offline wheel through the public interface (22 requests / 424 states) | Evaluated by an independent checker, passes |
 | Resource/full-runtime CI (Ubuntu 24.04 and macOS 14, Python 3.11 and 3.14) | All eight jobs passed at the frozen candidate; software checks are not biological accuracy |
 | Final candidate receipt and measured resource maxima | Available in the [candidate verification](promoter-0.5-candidate.md); known text-mode transport limitation restricts native collection to verified UTF-8/LF files |
-| Native localization of Tan transcription starts, fixed-grid | Not evaluated |
+| Native localization of Tan transcription starts, fixed-grid | Evaluated; limited recovery, all denominators and uncertainty in the [independent report](promoter-wave5-results.md) |
 | Measured promoter-strength challenge (GSE144621 lead) | Not admitted; rights and construct identity unresolved |
 | Context sensitivity of unchanged RBS (companion diagnostic) | Not evaluated |
-| Cyanobacterial calibration or accuracy | Not evaluated, not claimed |
+| Cyanobacterial strength calibration and specificity | Not established; positive-TSS localization does not supply either |
 | Hosted-tool equivalence | Not evaluated, not claimed |
 | New optimizer, site discovery, probability of a site | Not implemented, out of scope |
 

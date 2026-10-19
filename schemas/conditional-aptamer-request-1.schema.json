@@ -1,0 +1,532 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Conditional aptamer supported request, version 1",
+  "$comment": "Describes valid supported requests, not all documents accepted for diagnostics. JSON Schema cannot prove relational invariants: range containment/order, structure length/balancing, canonical/nested nonconflicting pairs, common energy bases, nonnegative ON-minus-OFF RNA cost, or seconds_per_job <= seconds_total. Runtime validation remains authoritative. It cannot prove hashes, biological validity, deadline sufficiency, byte/depth/node limits or duplicate keys. JSON Schema cannot distinguish integer-versus-float wire types (1.0 is an integer); booleans are excluded. Only finite JSON is admitted: bounds on finite binary64 conversion exclude infinities, while NaN is not JSON and must be rejected by the transport before schema validation.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "id",
+    "profile",
+    "input",
+    "provenance",
+    "settings"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "conditional-aptamer-request-1"
+    },
+    "id": {
+      "$ref": "#/$defs/name"
+    },
+    "profile": {
+      "enum": [
+        "canonical_structure_pair",
+        "supplied_energy_response"
+      ]
+    },
+    "input": {
+      "type": "object"
+    },
+    "provenance": {
+      "$ref": "#/$defs/provenance"
+    },
+    "settings": {
+      "type": "object"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "required": [
+          "profile"
+        ],
+        "properties": {
+          "profile": {
+            "const": "canonical_structure_pair"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "input": {
+            "$ref": "#/$defs/structural_input"
+          },
+          "settings": {
+            "$ref": "#/$defs/structural_settings"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "required": [
+          "profile"
+        ],
+        "properties": {
+          "profile": {
+            "const": "supplied_energy_response"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "input": {
+            "$ref": "#/$defs/response_input"
+          },
+          "settings": {
+            "$ref": "#/$defs/response_settings"
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+    },
+    "number": {
+      "type": "number",
+      "minimum": -179769313486231580793728971405303415079934132710037826936173778980444968292764750946649017977587207096330286416692887910946555547851940402630657488671505820681908902000708383676273854845817711531764475730270069855571366959622842914819860834936475292719074168444365510704342711559699508093042880177904174497791,
+      "maximum": 179769313486231580793728971405303415079934132710037826936173778980444968292764750946649017977587207096330286416692887910946555547851940402630657488671505820681908902000708383676273854845817711531764475730270069855571366959622842914819860834936475292719074168444365510704342711559699508093042880177904174497791,
+      "$comment": "Inclusive integer ceiling for finite float conversion: 2**1024 - 2**970 - 1. This includes integers just above the largest binary64 float that round down to it; the runtime retains original JSON input numbers."
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "reference"
+      ],
+      "properties": {
+        "kind": {
+          "enum": [
+            "user_supplied",
+            "synthetic"
+          ]
+        },
+        "reference": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1024
+        }
+      }
+    },
+    "structural_settings": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "seconds_per_job",
+        "seconds_total"
+      ],
+      "properties": {
+        "seconds_per_job": {
+          "$ref": "#/$defs/number",
+          "exclusiveMinimum": 0,
+          "maximum": 120
+        },
+        "seconds_total": {
+          "$ref": "#/$defs/number",
+          "exclusiveMinimum": 0,
+          "maximum": 480
+        }
+      }
+    },
+    "response_settings": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "seconds_total",
+        "max_iterations"
+      ],
+      "properties": {
+        "seconds_total": {
+          "$ref": "#/$defs/number",
+          "exclusiveMinimum": 0,
+          "maximum": 30
+        },
+        "max_iterations": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 256
+        }
+      }
+    },
+    "range": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "prefixItems": [
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 199
+        },
+        {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 200
+        }
+      ],
+      "items": false
+    },
+    "pair": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "prefixItems": [
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 199
+        },
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 199
+        }
+      ],
+      "items": false
+    },
+    "full_constraint": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mode",
+        "structure"
+      ],
+      "properties": {
+        "mode": {
+          "const": "full"
+        },
+        "structure": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200,
+          "pattern": "^[().]+(?![\\s\\S])"
+        }
+      }
+    },
+    "partial_constraint": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mode",
+        "pairs",
+        "unpaired"
+      ],
+      "properties": {
+        "mode": {
+          "const": "partial"
+        },
+        "pairs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/pair"
+          },
+          "uniqueItems": true,
+          "maxItems": 100
+        },
+        "unpaired": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 199
+          },
+          "uniqueItems": true,
+          "maxItems": 200
+        }
+      }
+    },
+    "basis": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_id",
+        "model_id",
+        "parameter_sha256",
+        "backend_sha256",
+        "sequence_sha256"
+      ],
+      "properties": {
+        "source_id": {
+          "$ref": "#/$defs/name"
+        },
+        "model_id": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/name"
+            }
+          ]
+        },
+        "parameter_sha256": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/hash"
+            }
+          ]
+        },
+        "backend_sha256": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/hash"
+            }
+          ]
+        },
+        "sequence_sha256": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/hash"
+            }
+          ]
+        }
+      }
+    },
+    "kd": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mode",
+        "kd_molar",
+        "standard_molar"
+      ],
+      "properties": {
+        "mode": {
+          "const": "kd"
+        },
+        "kd_molar": {
+          "$ref": "#/$defs/number",
+          "exclusiveMinimum": 0
+        },
+        "standard_molar": {
+          "$ref": "#/$defs/number",
+          "exclusiveMinimum": 0
+        }
+      }
+    },
+    "delta_g": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mode",
+        "delta_g_kcal_mol",
+        "standard_molar"
+      ],
+      "properties": {
+        "mode": {
+          "const": "delta_g"
+        },
+        "delta_g_kcal_mol": {
+          "$ref": "#/$defs/number"
+        },
+        "standard_molar": {
+          "$ref": "#/$defs/number",
+          "exclusiveMinimum": 0
+        }
+      }
+    },
+    "supplied_fraction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mode",
+        "fraction"
+      ],
+      "properties": {
+        "mode": {
+          "const": "supplied_fraction"
+        },
+        "fraction": {
+          "$ref": "#/$defs/number",
+          "minimum": 0,
+          "maximum": 1
+        }
+      }
+    },
+    "published_volume": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mode",
+        "mrna_total_molar",
+        "ligand_total_molar",
+        "solvent_molar",
+        "mrna_relative_volume",
+        "ligand_relative_volume"
+      ],
+      "properties": {
+        "mode": {
+          "const": "published2015_volume"
+        },
+        "mrna_total_molar": {
+          "$ref": "#/$defs/number",
+          "minimum": 0
+        },
+        "ligand_total_molar": {
+          "$ref": "#/$defs/number",
+          "minimum": 0
+        },
+        "solvent_molar": {
+          "$ref": "#/$defs/number",
+          "exclusiveMinimum": 0
+        },
+        "mrna_relative_volume": {
+          "$ref": "#/$defs/number",
+          "exclusiveMinimum": 0
+        },
+        "ligand_relative_volume": {
+          "$ref": "#/$defs/number",
+          "exclusiveMinimum": 0
+        }
+      }
+    },
+    "structural_input": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sequence",
+        "aptamer",
+        "temperature_kelvin"
+      ],
+      "properties": {
+        "sequence": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200,
+          "pattern": "^[ACGU]+(?![\\s\\S])"
+        },
+        "aptamer": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "range",
+            "constraint"
+          ],
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/name"
+            },
+            "range": {
+              "$ref": "#/$defs/range"
+            },
+            "constraint": {
+              "oneOf": [
+                {
+                  "$ref": "#/$defs/full_constraint"
+                },
+                {
+                  "$ref": "#/$defs/partial_constraint"
+                }
+              ]
+            }
+          }
+        },
+        "temperature_kelvin": {
+          "const": 310.15
+        }
+      }
+    },
+    "response_input": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "temperature_kelvin",
+        "beta_mol_per_kcal",
+        "energies",
+        "energy_basis",
+        "affinity",
+        "occupancy"
+      ],
+      "properties": {
+        "temperature_kelvin": {
+          "$ref": "#/$defs/number",
+          "exclusiveMinimum": 0
+        },
+        "beta_mol_per_kcal": {
+          "$ref": "#/$defs/number",
+          "exclusiveMinimum": 0
+        },
+        "energies": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "rna_off_kcal_mol",
+            "rna_on_kcal_mol",
+            "ribosome_off_kcal_mol",
+            "ribosome_on_kcal_mol"
+          ],
+          "properties": {
+            "rna_off_kcal_mol": {
+              "$ref": "#/$defs/number"
+            },
+            "rna_on_kcal_mol": {
+              "$ref": "#/$defs/number"
+            },
+            "ribosome_off_kcal_mol": {
+              "$ref": "#/$defs/number"
+            },
+            "ribosome_on_kcal_mol": {
+              "$ref": "#/$defs/number"
+            }
+          }
+        },
+        "energy_basis": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "rna",
+            "ribosome"
+          ],
+          "properties": {
+            "rna": {
+              "$ref": "#/$defs/basis"
+            },
+            "ribosome": {
+              "$ref": "#/$defs/basis"
+            }
+          }
+        },
+        "affinity": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/kd"
+            },
+            {
+              "$ref": "#/$defs/delta_g"
+            }
+          ]
+        },
+        "occupancy": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/supplied_fraction"
+            },
+            {
+              "$ref": "#/$defs/published_volume"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

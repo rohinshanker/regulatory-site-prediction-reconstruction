@@ -39,4 +39,16 @@ their optional dependencies and experimental measurements are not runtime wheel
 contents. See docs/validation/promoter-runtime.md and promoter-executed-reference.md
 for source, parameter and environment pins.
 
+src/regsite/conditional*.py independently implements the bounded canonical-state
+and supplied-energy relationships admitted from Espah Borujeni, Mishler, Wang,
+Huso and Salis (2015), doi:10.1093/nar/gkv1289, supplementary equations S4-S26.
+The source article and supplement are CC-BY-NC-4.0 and remain external: neither
+original prose/figures nor measurement tables are bundled in the required runtime.
+The newly expressed equations, numerical conventions, synthetic fixtures and new
+code use the repository GPL-3.0-or-later licence. Canonical folding uses separately
+installed original RNAstructure under its own GPL-2.0-only terms. This component
+does not recover constrained ribosome binding, pseudoknots or a complete
+sequence-to-switch model. See docs/validation/conditional-aptamer-contract.md
+and conditional-aptamer-runtime.md for source pins and explicit limits.
+
 No iDOG wrapper, ViennaRNA, NUPACK or private DNAc code is included.
