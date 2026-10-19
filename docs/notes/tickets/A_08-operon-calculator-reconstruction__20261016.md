@@ -1,15 +1,15 @@
-# O_08-operon-calculator-reconstruction__20261016 — Open
+# A_08-operon-calculator-reconstruction__20261016 — Active
 
 - Scope: Recover and implement the integrated Operon Calculator.
-- Status: open
+- Status: active
 - Opened: 2026-10-16
-- Updated: 2026-10-16
-- Current State: Planned; implementation has not started. See the work and acceptance criteria below.
-- Verification: Repository setup checked ticket H1/fields, queue membership and local links on 2026-10-16; implementation validation is specified below and has not run.
+- Updated: 2026-10-18
+- Current State: A owns bounded supplied-transcript component orchestration under #47; B #45 independently supplies organization/projection fixtures. Complete production Operon inference remains unfinished. Source admission found no complete open integrated engine; coupling, elongation, stability, termination and combined abundance require separate admitted implementations.
+- Verification: Existing RBS/Promoter source and package gates passed. New supplied-transcript implementation, exact-patch review, fresh installation and independent component comparison remain in #47/#45.
 - Cleanup: Owning session records final checks and unresolved findings, resolves the ticket, distills reusable guidance into docs/validation/, updates both indexes and linked GitHub issue, then removes the resolved ticket.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/8
 - Priority: P1
-- Owner: Unclaimed; the implementing session must claim this ticket before writing its scope.
+- Owner: Session A for runtime/integration; Session B retains independent evidence/benchmark ownership.
 - Dependencies: RBS milestone 06, Promoter 07, core 02, Operon source slice 01 and references 05.
 
 Reconstruct the production Operon Calculator as an integrated, fully open local model. This includes its documented submodels and outputs, not merely concatenating RBS and promoter results.

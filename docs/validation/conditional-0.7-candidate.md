@@ -51,6 +51,10 @@ approximations; the documentation does not claim interval-certified response rat
 
 The fresh installed package passed all three examples and six fixed synthetic
 resource/boundary cases. All nine results validate against the public schema.
+B independently rechecked the three saved examples without executing the predictor:
+[saved-control audit](../../benchmarks/riboswitch/conditional-saved-control-audit.json).
+It matched exact request/model/parameter identities, scalar ratios, occupancy-root
+bracket and canonical hairpin pairs. This does not extend to the full input domain.
 Known scalar ratios are 2.5 and 8/7; the hairpin control's efn2 energy is -11.2
 kcal/mol. Four structural requests used 16 sequential executable jobs in total.
 Deadline and one-iteration cases failed explicitly with complete diagnostic JSON.
