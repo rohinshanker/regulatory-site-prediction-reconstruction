@@ -4,15 +4,15 @@
 - Status: active
 - Opened: 2026-10-18
 - Updated: 2026-10-18
-- Current State: Owner authorized sustained calculator implementation on 2026-10-18. Parent #10 consumer admission stays separate. The proposed public contract is docs/validation/paired-regulatory-runtime.md, adopting B's exact paired-edit-input-1 geometry and independent candidate universes. Dependency-independent edit geometry is implemented at dba6b1c in its separate worktree and under exact-patch Claude review DEM-535 against B's literal fixtures. Predictor integration follows the frozen Promoter runtime and also works independently with existing RBS scoring.
-- Verification: Edit geometry has 48 tests at 100% of 123 statements/44 branches, plus clean Ruff/format/mypy. Predictor orchestration remains unimplemented; no biological improvement result claimed.
+- Current State: A real paired RBS/Promoter library, strict UTF-8 JSON/CSV CLI, versioned schemas and three runnable examples are integrated in wave5/paired-regulatory. Independent review DEM546 accepted the circular empty-feature and transport repairs through e2f8584; Claude DEM547 supplied schemas at4c308e1, reviewed and integrated by A. Package0.6.0rc1 has its own implementation identity; the frozen0.5Promoter evaluation candidate is preserved. Source/resource/fresh-install receipts and B's immutable producer comparison are being prepared.
+- Verification: Focused integration passes285tests with100%434statements/182branches across the paired core/CLI/I/O and corrected PromoterCLI. Six real sequential RBS records now also validate against the new result schema; unchanged, changed and circular reverse-standby cases pass. B's SHA-pinned19codon fixtures match exact paths and correspondence rows; those are geometry checks, not biological evidence. Earlier edit-map tests cover57cases/100%. Fifteen whole-CLI synthetic Promoter resource runs retain512candidates/side or132all-state candidate sites; largest result24206824bytes, longest run17.006seconds; tight deadlines retain all1024positions explicitly. Final immutable package/resource verification and independent B producer comparison remain.
 - Cleanup: Session A alone resolves this scoped ticket after tested implementation, reusable contract distillation and index cleanup.
 
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/41
 - Priority: P1
 - Dependencies: RBS runtime; Promoter #33 for its adapter; independent synthetic comparison fixtures #39.
 
-Owner: Session A (baf5b738-1792172297). Session B owns independent synthetic comparison fixtures and scientific evaluation. Implement independent edit geometry in a separate producer worktree while the Promoter candidate is reviewed. Bind predictor integration to the frozen candidate; preserve existing runtime profiles and all consumed benchmark panels.
+Owner: Session A (baf5b738-1792172297). Session B owns independent synthetic comparison fixtures and scientific evaluation. Implement independent edit geometry in a separate producer worktree while the Promoter candidate is reviewed. Bind final predictor integration/evaluation to an immutable candidate; preserve existing runtime profiles and all consumed benchmark panels.
 
 Deliver a local library/CLI accepting both supplied sequences, explicit host/model/backend settings, reference and recoded identities, scan/candidate universe and an explicit edit/alignment map. Support substitution-only recoding first and indels with validated maps; do not guess an alignment when ambiguity changes site identity. Preserve transcript orientation, genomic mappings, circular boundaries and original/recoded coordinates independently. Hash both exact sequences and all effective settings.
 

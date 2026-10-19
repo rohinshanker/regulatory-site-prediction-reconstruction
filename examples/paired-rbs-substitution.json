@@ -1,0 +1,45 @@
+{
+  "calculator": "rbs",
+  "current_request": {
+    "anti_sd": "ACCUCCUUA",
+    "host": null,
+    "id": "current",
+    "sequence": "AAAGGAGGAAAAAAATGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+    "strand": "+",
+    "temperature_c": 37
+  },
+  "pair": {
+    "current": {
+      "id": "current",
+      "sequence": "AAAGGAGGAAAAAAATGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "edits": [
+      {
+        "end": 26,
+        "id": "edit",
+        "replacement": "G",
+        "start": 25
+      }
+    ],
+    "pair_id": "paired-rbs-substitution",
+    "recoded": {
+      "id": "recoded",
+      "sequence": "AAAGGAGGAAAAAAATGAAAAAAAAGAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "schema_version": "paired-edit-input-1",
+    "topology": "linear"
+  },
+  "recoded_request": {
+    "anti_sd": "ACCUCCUUA",
+    "host": null,
+    "id": "recoded",
+    "sequence": "AAAGGAGGAAAAAAATGAAAAAAAAGAAAAAAAAAAAAAAAAAAAAAAAAAA",
+    "strand": "+",
+    "temperature_c": 37
+  },
+  "schema_version": "paired-regulatory-request-1",
+  "settings": {
+    "profile": "historical",
+    "seconds_per_side": 30.0
+  }
+}

@@ -1,0 +1,67 @@
+{
+  "calculator": "promoter",
+  "current_request": {
+    "calibration": "in_vitro",
+    "id": "current",
+    "output": {
+      "elements": true,
+      "legacy_keys": false,
+      "states": "selected"
+    },
+    "scan": {
+      "mode": "positions",
+      "positions": [
+        {
+          "strand": "+",
+          "tss": 100
+        },
+        {
+          "strand": "-",
+          "tss": 100
+        }
+      ]
+    },
+    "sequence": "ACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT"
+  },
+  "pair": {
+    "current": {
+      "id": "current",
+      "sequence": "ACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT"
+    },
+    "edits": [],
+    "pair_id": "paired-promoter-unchanged",
+    "recoded": {
+      "id": "recoded",
+      "sequence": "ACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT"
+    },
+    "schema_version": "paired-edit-input-1",
+    "topology": "linear"
+  },
+  "recoded_request": {
+    "calibration": "in_vitro",
+    "id": "recoded",
+    "output": {
+      "elements": true,
+      "legacy_keys": false,
+      "states": "selected"
+    },
+    "scan": {
+      "mode": "positions",
+      "positions": [
+        {
+          "strand": "+",
+          "tss": 100
+        },
+        {
+          "strand": "-",
+          "tss": 100
+        }
+      ]
+    },
+    "sequence": "ACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT"
+  },
+  "schema_version": "paired-regulatory-request-1",
+  "settings": {
+    "seconds_per_side": 30.0
+  }
+}
