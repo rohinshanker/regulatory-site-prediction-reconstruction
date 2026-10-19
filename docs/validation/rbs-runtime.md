@@ -6,6 +6,32 @@
 - Optional repaired backend: [source, installation and admission contract](rbs-backend-repair.md).
 - New standby profile/schema1.2: [complete bounded mechanism contract](rbs-standby.md).
 
+## External process deadlines
+
+The 0.6.0rc1 native RBS CLI starts trusted RNAstructure executables directly
+with `subprocess.run`, no shell and no new session/process group. They inherit
+an outer collector's process group. Operations are serial; the runtime does not
+launch background folding processes. The separately installed executables use
+one OpenMP thread (`OMP_NUM_THREADS=1`).
+
+Each folding call receives `min(15, remaining_record_seconds)` as its subprocess
+timeout. The record budget is shortened to the enclosing batch's remaining
+budget. Python's `subprocess.run` kills and waits for that direct child on a
+subprocess timeout before returning the failure. Once a budget is exhausted,
+subsequent calls refuse before spawning. This is cooperative between calls,
+not asynchronous interruption of Python normalization, parsing or serialization.
+Backend version/identity checks precede the native batch clock and have their
+own ten-second timeout per version call.
+
+An external collector should therefore create its own isolated process group,
+apply its declared overall timeout plus bounded serialization allowance, and
+terminate/wait for that group on an outer timeout before releasing a folding
+slot. Killing only the Python parent does not promise cleanup of a running
+child. The runtime does not promise arbitrary descendant cleanup for substituted
+executables; only the pinned trusted executables are admitted. Preserve the
+whole requested roster and explicit outer-timeout missingness rather than
+restarting an interrupted batch.
+
 ## Identity and equations
 
 This is a working reconstruction, with source equations from Salis v1 commit

@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "regulatory-site-prediction-reconstruction"
-version = "0.4.0rc1"
+version = "0.7.0rc1"
 description = "Explicit, reproducible open reconstructions of regulatory sequence models"
 readme = "README.md"
 requires-python = ">=3.11"
@@ -16,9 +16,12 @@ authors = [{name = "Regulatory site prediction reconstruction contributors"}]
 regsite = "regsite.cli:main"
 regsite-native = "regsite.native_cli:main"
 regsite-learned = "regsite.learned_cli:main"
+regsite-promoter = "regsite.promoter_cli:main"
+regsite-compare = "regsite.paired_cli:main"
+regsite-conditional = "regsite.conditional_cli:main"
 
 [tool.setuptools.package-data]
-regsite = ["data/*.json"]
+regsite = ["data/*.json", "data/*.txt"]
 
 [tool.setuptools.packages.find]
 where = ["src"]

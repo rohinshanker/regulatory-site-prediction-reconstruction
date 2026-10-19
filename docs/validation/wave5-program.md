@@ -20,14 +20,17 @@ produce a new independent accuracy result. Preserve those frozen models and
 negative findings. RBS development in this wave is release integration and
 explicit transcript-context diagnostics, not another fitted model.
 
-The existing rule makes actual RBS release a prerequisite for Promoter runtime
-implementation. A has asked the owner whether isolated Promoter development may
-proceed in parallel with release preparation. Until that decision arrives or
-the release dependency is actually met, do contracts, source/fixture admission,
-benchmark tooling and release review only. Record any owner-approved dependency
-change in this contract and the affected parent tickets; elapsed time is not
-approval. Main merges, tags, package publication and cyano writes are separate
-from branch implementation and are not authorized by this plan.
+On 2026-10-18 the owner instructed A to "keep working with session b to implement
+the next wave of work for the calculators" and to pursue long-horizon work across
+multiple ticket sets for current/recoded regulatory-site prediction in the cyano
+visualizer. This authorizes isolated branch implementation alongside RBS release
+preparation and supersedes the earlier wait for actual RBS publication. A and B
+may now execute Phase 2, retaining source/parameter admission, immutable candidate
+and independent-evaluation gates. Current-versus-recoded comparison and portable
+consumer outputs follow the Promoter runtime; supplied-operon and conditional
+riboswitch slices follow their admitted component contracts. Predictions remain
+distinct from measured regulation. Main merges, tags, package publication and
+canonical cyano edits remain separate from this implementation authorization.
 
 ## Ownership and worktrees
 
