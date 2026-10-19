@@ -1,0 +1,52 @@
+{
+  "id": "supplied-volume-fifth",
+  "input": {
+    "affinity": {
+      "delta_g_kcal_mol": -0.8368491901943191,
+      "mode": "delta_g",
+      "standard_molar": 1.0
+    },
+    "beta_mol_per_kcal": 1.0,
+    "energies": {
+      "ribosome_off_kcal_mol": 0.0,
+      "ribosome_on_kcal_mol": -1.3862943611198906,
+      "rna_off_kcal_mol": -2.0,
+      "rna_on_kcal_mol": 0.0
+    },
+    "energy_basis": {
+      "ribosome": {
+        "backend_sha256": null,
+        "model_id": "synthetic-algebra-1",
+        "parameter_sha256": null,
+        "sequence_sha256": null,
+        "source_id": "synthetic-explicit-energies"
+      },
+      "rna": {
+        "backend_sha256": null,
+        "model_id": "synthetic-algebra-1",
+        "parameter_sha256": null,
+        "sequence_sha256": null,
+        "source_id": "synthetic-explicit-energies"
+      }
+    },
+    "occupancy": {
+      "ligand_relative_volume": 1.0,
+      "ligand_total_molar": 1.0,
+      "mode": "published2015_volume",
+      "mrna_relative_volume": 2.0,
+      "mrna_total_molar": 1.0,
+      "solvent_molar": 4.0
+    },
+    "temperature_kelvin": 310.15
+  },
+  "profile": "supplied_energy_response",
+  "provenance": {
+    "kind": "synthetic",
+    "reference": "Independent hand-computable controls; no aptamer efficacy or native outcomes."
+  },
+  "schema_version": "conditional-aptamer-request-1",
+  "settings": {
+    "max_iterations": 256,
+    "seconds_total": 30.0
+  }
+}

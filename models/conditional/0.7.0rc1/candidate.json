@@ -1,0 +1,38 @@
+{
+  "candidate_commit": "163802fddd3e49c8d72380167d661c7d8291f41b",
+  "ci": {
+    "final_success_requires_separate_admission": true,
+    "required_job_count": 8,
+    "run_id": 39183611595
+  },
+  "claims": {
+    "cross_platform_structural_admission": false,
+    "full_riboswitch_calculator": false,
+    "hosted_parity": false,
+    "native_accuracy": false
+  },
+  "implementation_version": "0.7.0rc1",
+  "parameter_sha256": "99bb08423e2d321947e1cf5bb8cc3061bd99ab02414bff4d25377b5003f51b3f",
+  "receipt_sha256": "1026d320a470268786f47df0bb2a8844e226bbb2d666c832a9ca5dfd954de1fa",
+  "request_schema_sha256": "3cba6d13fa49f2b277b904e6df0e5436b4826f8822febfee32b54642b254459c",
+  "result_schema_sha256": "16f08348444f5a2d8a045ab056ffbf466b9aa8b78dfe44995c7875661b802fd8",
+  "review": "DEM554 final acceptance01a151ad-c8b2-77d8-adf3-dad5bbf4f1f8; no actionable remaining conditional findings",
+  "reviewed_runtime_commit": "624fa4f0d5b4d62c7cd6d87e8fb47bb40a1fbde4",
+  "runtime_contract_sha256": "63e8b4c8daf44e0d7cffefb4df555b7fd72a21cba8e309643593c3abccd19d2d",
+  "schema_version": "conditional-runtime-candidate-1",
+  "scope": "Supplied-energy profile is portable standard-library inference. Canonical structural profile admits only the independent original arm64 Fold/efn2/table hashes; other platform builds require a separate independent component admission. No model fitting or new assay outcomes.",
+  "source_manifest_sha256": "6c45d4f81cfb3dc035edaa839aa4ae49905281f62c020afac26d7e4d534f4821",
+  "validation": {
+    "coverage_percent": 100,
+    "covered_branches": 320,
+    "covered_statements": 747,
+    "focused_tests": 476,
+    "fresh_offline_json_schema_results": 9,
+    "fresh_structural_jobs": 16,
+    "independent_scalar_ratios": [
+      2.5,
+      1.1428571428571428
+    ],
+    "known_hairpin_efn2_kcal_mol": -11.2
+  }
+}

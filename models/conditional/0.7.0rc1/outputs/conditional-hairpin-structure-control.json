@@ -1,0 +1,171 @@
+{
+  "complete": true,
+  "errors": [],
+  "id": "hairpin-structure-control",
+  "input": {
+    "aptamer": {
+      "constraint": {
+        "mode": "full",
+        "structure": "((((((....))))))"
+      },
+      "id": "synthetic-hairpin",
+      "range": [
+        0,
+        16
+      ]
+    },
+    "sequence": "GGGAGCGAAAGCUCCC",
+    "temperature_kelvin": 310.15
+  },
+  "model": {
+    "backend": {
+      "efn2_sha256": "1084934450523428af0ef15258f16c3f1fa174cb4949cf62e78b4581190dd8aa",
+      "fold_sha256": "803a5322799779df276282601a393b3d31ea35fffc4359f6d609134643ade0f6",
+      "table_manifest_sha256": "5ff86be816a614c729a3d0a6e0ce50dcc277b3f156439e5aecf762d41f59fa0a"
+    },
+    "convention_id": "natural_logs_equal_rna_complex_volume_explicit_molar_standard_strict_positive_zero_uncorrected_binary64_kd_guarded_certified_min_total_bracket_3",
+    "id": "conditional-aptamer-1",
+    "implementation_version": "0.7.0rc1",
+    "parameter_sha256": "99bb08423e2d321947e1cf5bb8cc3061bd99ab02414bff4d25377b5003f51b3f",
+    "source_manifest_sha256": "ac4d7be48ba856dc6a713829425b584ffd55551743b10c51049de0ec70dc2f6e"
+  },
+  "profile": "canonical_structure_pair",
+  "provenance": {
+    "kind": "synthetic",
+    "reference": "Independent hand-computable controls; no aptamer efficacy or native outcomes."
+  },
+  "reasons": [],
+  "request_sha256": "2aeb3415a03fab2c9943398b7a2dfcb68d2e5a81cc1ec7335c3a588d7dbc8856",
+  "response": null,
+  "schema_version": "conditional-aptamer-result-1",
+  "settings": {
+    "seconds_per_job": 120.0,
+    "seconds_total": 480.0
+  },
+  "states": [
+    {
+      "constraint_sha256": null,
+      "efn2_energy_kcal_mol": -11.2,
+      "fold_energy_kcal_mol": -11.2,
+      "id": "unconstrained",
+      "jobs": [
+        {
+          "exit_code": 0,
+          "program": "Fold",
+          "status": "ok",
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "d8cf6de25db888f976d9aeacc8c5ccd7bc815119bd9c0a73cd10cd6a7fb213d7",
+          "timed_out": false
+        },
+        {
+          "exit_code": 0,
+          "program": "efn2",
+          "status": "ok",
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "5facb2579e20c9a9d576ce258c12123984943c86da53e1c6c192e1ae8008175a",
+          "timed_out": false
+        }
+      ],
+      "pairs": [
+        [
+          0,
+          15
+        ],
+        [
+          1,
+          14
+        ],
+        [
+          2,
+          13
+        ],
+        [
+          3,
+          12
+        ],
+        [
+          4,
+          11
+        ],
+        [
+          5,
+          10
+        ]
+      ],
+      "reasons": [],
+      "sequence_sha256": "393643607922bfc6ef9f23728543cf6ffe673c0fb4c259f2e929fb07b86a2953",
+      "status": "ok",
+      "structure": "((((((....))))))"
+    },
+    {
+      "constraint_sha256": "50e69a8f55e75ce4dedea6d8e266df73e4372b9d67309c7ecfe686fd11cf06b6",
+      "efn2_energy_kcal_mol": -11.2,
+      "fold_energy_kcal_mol": -11.2,
+      "id": "constraint_compatible",
+      "jobs": [
+        {
+          "exit_code": 0,
+          "program": "Fold",
+          "status": "ok",
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "6efcb80c8fda891c0680a1cbe9935f4432e688c3a516376cadb2ab6a1c9a1611",
+          "timed_out": false
+        },
+        {
+          "exit_code": 0,
+          "program": "efn2",
+          "status": "ok",
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "5facb2579e20c9a9d576ce258c12123984943c86da53e1c6c192e1ae8008175a",
+          "timed_out": false
+        }
+      ],
+      "pairs": [
+        [
+          0,
+          15
+        ],
+        [
+          1,
+          14
+        ],
+        [
+          2,
+          13
+        ],
+        [
+          3,
+          12
+        ],
+        [
+          4,
+          11
+        ],
+        [
+          5,
+          10
+        ]
+      ],
+      "reasons": [],
+      "sequence_sha256": "393643607922bfc6ef9f23728543cf6ffe673c0fb4c259f2e929fb07b86a2953",
+      "status": "ok",
+      "structure": "((((((....))))))"
+    }
+  ],
+  "status": "ok",
+  "structural_cost_kcal_mol": 0.0,
+  "warnings": [
+    {
+      "code": "no_native_calibration",
+      "message": "No native-host or biological accuracy calibration is established"
+    },
+    {
+      "code": "published_backend_difference",
+      "message": "Original RNAstructure canonical folding differs from the published ViennaRNA configurations"
+    },
+    {
+      "code": "structural_component_only",
+      "message": "Structural feasibility does not establish ligand binding or switching efficacy"
+    }
+  ]
+}
