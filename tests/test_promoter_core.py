@@ -311,7 +311,7 @@ def test_ulp_difference_is_not_a_tie(params, cal):
         first,
         terms={**first.terms, "total": math.nextafter(first.terms["total"], -math.inf)},
     )
-    with patch.object(p, "score_state", side_effect=[first, later, first]):
+    with patch.object(p, "_score_validated_state", side_effect=[first, later, first]):
         result = p.score_site("A" * 200, "+", 59, params, cal, keep_states=True)
     assert result.selected is later and result.tie_count == 1
 
