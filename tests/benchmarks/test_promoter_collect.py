@@ -12,6 +12,7 @@ import signal
 import subprocess
 import sys
 import tempfile
+import time
 import unittest
 import warnings
 from pathlib import Path
@@ -430,6 +431,8 @@ class JournalTest(FixtureMixin, unittest.TestCase):
         self.assertEqual(recovery["batches"][0]["actual_exit_code"], 0)
         unknown = recovery["batches"][1]
         self.assertIsNone(unknown["actual_exit_code"])
+        self.assertIsNone(unknown["timeout_seconds"])
+        self.assertGreater(unknown["timeout_ceiling_seconds"], 0)
         self.assertEqual(unknown["process_status"], "interrupted_unknown")
         self.assertIsNone(unknown["exit_code"])
         self.assertIsNone(unknown["synthetic_exit_code"])
@@ -697,8 +700,8 @@ class JournalTest(FixtureMixin, unittest.TestCase):
             mutate(0, output=[]),
             mutate(1, batch_index=True),
             mutate(1, argv=["wrong"]),
-            mutate(1, timeout_seconds=0),
-            mutate(1, timeout_seconds=3601),
+            mutate(1, timeout_ceiling_seconds=0),
+            mutate(1, timeout_ceiling_seconds=3601),
             mutate(1, extra=True),
             mutate(2, actual_exit_code=None),
             mutate(2, synthetic_exit_code=-9),
@@ -792,6 +795,352 @@ class JournalTest(FixtureMixin, unittest.TestCase):
             c.recover(self.output)
         self.write_events(events[:1], b' {"event":"started"}\n')
         with self.assertRaisesRegex(ValueError, "canonical"):
+            c.recover(self.output)
+
+
+class DeadlineTest(FixtureMixin, unittest.TestCase):
+    @contextlib.contextmanager
+    def delayed_sync(self, event_delay, directory_delay, *, real_time=False):
+        state = dict(now=0, pending=False, intents=0)
+        real_append, real_directory = c._append_event, c._sync_directory
+
+        def delay(seconds):
+            if real_time:
+                time.sleep(seconds)
+            else:
+                state["now"] += seconds
+
+        def append(stream, event):
+            real_append(stream, event)
+            if event["event"] == "started":
+                state["intents"] += 1
+                state["pending"] = True
+                delay(event_delay)
+
+        def directory(path):
+            real_directory(path)
+            if state["pending"]:
+                state["pending"] = False
+                delay(directory_delay)
+
+        with (
+            mock.patch.object(c, "_append_event", append),
+            mock.patch.object(c, "_sync_directory", directory),
+        ):
+            yield state
+
+    def events(self):
+        return [
+            json.loads(line)
+            for line in (self.output / c.JOURNAL_NAME).read_bytes().splitlines()
+        ]
+
+    def write_events(self, events):
+        (self.output / c.JOURNAL_NAME).write_bytes(
+            b"".join(canonical_bytes(event) for event in events)
+        )
+
+    def assert_cancelled(self):
+        collection, receipt = self.documents()
+        recovery = c.recover(self.output)
+        events = self.events()
+        self.assertEqual(
+            [event["event"] for event in events],
+            ["initialized", "started", "cancelled", "finalized"],
+        )
+        self.assertEqual(
+            events[2],
+            dict(
+                event="cancelled", batch_index=0, reason="stage_expired", launched=False
+            ),
+        )
+        self.assertTrue(recovery["adaptation_ready"])
+        self.assertEqual(recovery["batches"][0]["validation_state"], "not_launched")
+        self.assertEqual(recovery["batches"][0]["process_status"], "not_run")
+        self.assertTrue(
+            all(row["status"] == "not_run" for row in collection["batches"])
+        )
+        self.assertEqual(receipt["stop_reason"], "stage_expired")
+        self.assertEqual(receipt["batches"][0]["reason"], "stage_expired")
+        for row in recovery["batches"]:
+            self.assertIsNone(row["actual_exit_code"])
+            self.assertIsNone(row["synthetic_exit_code"])
+            self.assertIsNone(row["exit_code"])
+            self.assertIsNone(row["timeout_seconds"])
+            self.assertIsNone(row["duration_seconds"])
+            self.assertIsNone(row["result_sha256"])
+        self.assertEqual(receipt["batches"][1]["reason"], "not_started")
+        # Cancellation adds no cohort attempt or invented result to adaptation.
+        scores, _ = self.fixture.adapt(collection, {})
+        self.assertTrue(
+            all(row["runtime_status"] == "not_run" for row in scores["results"])
+        )
+        self.assertEqual(
+            len(scores["results"]), self.fixture.plan["totals"]["n_requests"]
+        )
+        for row in scores["results"]:
+            self.assertTrue(
+                all(
+                    candidate["status"] == "not_run" and candidate["score"] is None
+                    for candidate in row["candidates"]
+                )
+            )
+
+    def test_sync_exhausting_stage_cancels_without_launch_or_retry(self):
+        for number, (event_delay, directory_delay) in enumerate(
+            ((5, 0), (0, 5), (2, 3), (0, 6))
+        ):
+            self.output = self.root / f"expiry-{number}"
+            runner = mock.Mock(side_effect=AssertionError("no launch after deadline"))
+            with self.delayed_sync(event_delay, directory_delay) as state:
+                self.assertTrue(
+                    self.invoke(
+                        stage_seconds=5, clock=lambda: state["now"], runner=runner
+                    )
+                )
+            runner.assert_not_called()
+            self.assertEqual(state["intents"], 1)
+            self.assert_cancelled()
+
+    def test_partial_sync_reduces_actual_timeout_and_preserves_frozen_settings(self):
+        for number, (event_delay, directory_delay) in enumerate(
+            ((2, 0), (0, 2), (1, 1))
+        ):
+            self.output = self.root / f"partial-{number}"
+            seen = []
+            with self.delayed_sync(event_delay, directory_delay) as state:
+
+                def runner(argv, seen=seen, state=state, **kwargs):
+                    seen.append((argv, kwargs["timeout"]))
+                    self.assertEqual(kwargs["timeout"], 3)
+                    self.assertEqual(kwargs["timeout"], 5 - state["now"])
+                    state["now"] = 5
+                    return subprocess.CompletedProcess(argv, 2)
+
+                self.assertTrue(
+                    self.invoke(
+                        stage_seconds=5, clock=lambda: state["now"], runner=runner
+                    )
+                )
+            self.assertEqual(len(seen), 1)
+            self.assertEqual(state["intents"], 1)
+            collection, receipt = self.documents()
+            events = self.events()
+            self.assertEqual(events[1]["timeout_ceiling_seconds"], 5)
+            self.assertNotIn("timeout_seconds", events[1])
+            self.assertEqual(events[2]["timeout_seconds"], 3)
+            detail = receipt["batches"][0]
+            self.assertEqual(detail["timeout_ceiling_seconds"], 5)
+            self.assertEqual(detail["timeout_seconds"], 3)
+            self.assertEqual(detail["argv"], events[1]["argv"])
+            self.assertEqual(detail["argv"], seen[0][0])
+            self.assertEqual(
+                detail["argv"][-4:],
+                ["--seconds-per-record", "30.0", "--seconds-per-batch", "300.0"],
+            )
+            recovery = c.recover(self.output)
+            self.assertEqual(recovery["batches"][0]["timeout_seconds"], 3)
+            self.assertEqual(recovery["batches"][0]["timeout_ceiling_seconds"], 5)
+            self.assertEqual(
+                [row["status"] for row in collection["batches"]],
+                ["setup_failed", "not_run", "not_run", "not_run"],
+            )
+            scores, _ = self.fixture.adapt(collection, {})
+            self.assertEqual(scores["results"][0]["runtime_status"], "setup_failed")
+            self.assertTrue(
+                all(row["runtime_status"] == "not_run" for row in scores["results"][1:])
+            )
+
+    def test_second_intent_expiry_preserves_first_completed_batch_without_retry(self):
+        with self.delayed_sync(0, 0) as state:
+            real = c._sync_directory
+
+            def directory(path):
+                real(path)
+                if state["intents"] == 2:
+                    state["now"] = 5
+
+            with mock.patch.object(c, "_sync_directory", directory):
+                self.assertTrue(
+                    self.invoke(stage_seconds=5, clock=lambda: state["now"])
+                )
+        self.assertEqual(len(self.calls), 1)
+        self.assertEqual(state["intents"], 2)
+        collection, receipt = self.documents()
+        self.assertEqual(
+            [row["status"] for row in collection["batches"]],
+            ["completed", "not_run", "not_run", "not_run"],
+        )
+        self.assertEqual(receipt["batches"][1]["reason"], "stage_expired")
+        self.assertIsNone(receipt["batches"][1]["timeout_seconds"])
+        self.assertEqual(self.events()[-2]["event"], "cancelled")
+        recovery = c.recover(self.output)
+        self.assertEqual(recovery["batches"][1]["validation_state"], "not_launched")
+        self.assertTrue(recovery["adaptation_ready"])
+        raw = (self.output / "stdout-000000.bin").read_bytes()
+        scores, _ = self.fixture.adapt(collection, {digest(raw): raw})
+        self.assertEqual(scores["results"][0]["runtime_status"], "ok")
+        self.assertTrue(
+            all(row["runtime_status"] == "not_run" for row in scores["results"][1:])
+        )
+
+    def test_actual_timeout_also_respects_batch_plus_grace_ceiling(self):
+        self.fixture = Fixture(
+            queries=self.fixture.queries,
+            limits=dict(CEILINGS, records_per_batch=1),
+            seconds_per_batch=2.0,
+        )
+        self.plan.write_bytes(canonical_bytes(self.fixture.plan))
+        with self.delayed_sync(1, 1) as state:
+
+            def runner(argv, **kwargs):
+                self.calls.append(kwargs["timeout"])
+                raise subprocess.TimeoutExpired(argv, kwargs["timeout"])
+
+            self.assertTrue(
+                self.invoke(
+                    stage_seconds=10,
+                    process_grace_seconds=1,
+                    clock=lambda: state["now"],
+                    runner=runner,
+                )
+            )
+        self.assertEqual(self.calls, [3.0])
+        _, receipt = self.documents()
+        self.assertEqual(receipt["batches"][0]["timeout_ceiling_seconds"], 3.0)
+        self.assertEqual(receipt["batches"][0]["timeout_seconds"], 3.0)
+        row = c.recover(self.output)["batches"][0]
+        self.assertIsNone(row["actual_exit_code"])
+        self.assertEqual(row["synthetic_exit_code"], -9)
+        self.assertEqual(row["timeout_seconds"], 3.0)
+
+    def test_real_monotonic_delayed_sync_exhaustion_cancels(self):
+        runner = mock.Mock(side_effect=AssertionError("no launch after sync delay"))
+        with self.delayed_sync(0, 0.4, real_time=True) as state:
+            self.assertTrue(self.invoke(stage_seconds=0.3, runner=runner))
+        runner.assert_not_called()
+        self.assertEqual(state["intents"], 1)
+        self.assert_cancelled()
+
+    def test_real_monotonic_partial_delay_uses_fresh_budget_immediately(self):
+        readings, passed = [], []
+
+        def clock():
+            value = time.monotonic()
+            readings.append(value)
+            return value
+
+        def runner(argv, **kwargs):
+            actual = kwargs["timeout"]
+            ceiling = self.events()[1]["timeout_ceiling_seconds"]
+            self.assertGreater(actual, 0)
+            self.assertLess(actual, ceiling)
+            self.assertEqual(actual, min(ceiling, readings[0] + 2 - readings[-1]))
+            passed.append(actual)
+            raise subprocess.TimeoutExpired(argv, actual)
+
+        with self.delayed_sync(0.05, 0.05, real_time=True):
+            self.assertTrue(self.invoke(stage_seconds=2, clock=clock, runner=runner))
+        self.assertEqual(len(passed), 1)
+        row = c.recover(self.output)["batches"][0]
+        self.assertEqual(row["timeout_seconds"], passed[0])
+        self.assertLess(row["timeout_seconds"], row["timeout_ceiling_seconds"])
+
+    def test_cancel_persistence_failure_keeps_intent_unknown_and_never_launches(self):
+        runner = mock.Mock()
+        with self.delayed_sync(0, 5) as state:
+            real = c._append_event
+
+            def append(stream, event):
+                if event["event"] == "cancelled":
+                    raise OSError(errno.ENOSPC, "synthetic cancel journal failure")
+                real(stream, event)
+
+            with (
+                mock.patch.object(c, "_append_event", append),
+                self.assertRaises(OSError),
+            ):
+                self.invoke(stage_seconds=5, clock=lambda: state["now"], runner=runner)
+        runner.assert_not_called()
+        row = c.recover(self.output)["batches"][0]
+        self.assertEqual(row["status"], "interrupted_unknown")
+        self.assertIsNone(row["timeout_seconds"])
+        self.assertIsNone(row["actual_exit_code"])
+        self.assertEqual(row["timeout_ceiling_seconds"], 5)
+        self.assertFalse(c.recover(self.output)["adaptation_ready"])
+
+    def test_durable_cancellation_survives_final_ledger_failure(self):
+        runner = mock.Mock()
+        with (
+            self.delayed_sync(5, 0) as state,
+            mock.patch.object(
+                c, "write_exclusive", side_effect=OSError(errno.ENOSPC, "final ledger")
+            ),
+            self.assertRaises(OSError),
+        ):
+            self.invoke(stage_seconds=5, clock=lambda: state["now"], runner=runner)
+        runner.assert_not_called()
+        recovery = c.recover(self.output)
+        row = recovery["batches"][0]
+        self.assertEqual(row["status"], "not_run")
+        self.assertEqual(row["validation_state"], "not_launched")
+        self.assertIsNone(row["timeout_seconds"])
+        self.assertIsNone(row["actual_exit_code"])
+        self.assertFalse(recovery["adaptation_ready"])
+        self.assertEqual(recovery["blocking_reason"], "unfinished_journal")
+
+    def test_recovery_rejects_invalid_cancellation_and_actual_timeout_evidence(self):
+        with self.delayed_sync(5, 0) as state:
+            self.invoke(stage_seconds=5, clock=lambda: state["now"])
+        cancelled = self.events()
+        self.output = self.root / "observed"
+        self.invoke()
+        observed = self.events()
+        for number, events in enumerate(
+            (
+                cancelled[:1] + [cancelled[2]],
+                cancelled[:3] + [cancelled[2]],
+                cancelled[:3] + [observed[2]],
+                cancelled[:3] + [observed[3]],
+                cancelled[:3] + [cancelled[1]],
+                observed[:3] + [cancelled[2]],
+            )
+        ):
+            self.write_events(events)
+            with self.subTest(order=number), self.assertRaises(ValueError):
+                c.recover(self.output)
+        for changes in (
+            dict(launched=True),
+            dict(launched=0),
+            dict(reason="timeout"),
+            dict(extra=1),
+        ):
+            events = copy.deepcopy(cancelled)
+            events[2].update(changes)
+            self.write_events(events)
+            with self.subTest(cancel=changes), self.assertRaises(ValueError):
+                c.recover(self.output)
+        for value in (0, None, True, -1, 301):
+            events = copy.deepcopy(observed)
+            events[2]["timeout_seconds"] = value
+            self.write_events(events)
+            with self.subTest(timeout=value), self.assertRaises(ValueError):
+                c.recover(self.output)
+        for field in ("timeout_seconds", "timeout_ceiling_seconds"):
+            events = copy.deepcopy(observed)
+            events[3]["detail"][field] = 0
+            self.write_events(events)
+            with self.subTest(detail=field), self.assertRaises(ValueError):
+                c.recover(self.output)
+        events = copy.deepcopy(observed)
+        del events[2]["timeout_seconds"]
+        self.write_events(events)
+        with self.assertRaises(ValueError):
+            c.recover(self.output)
+        events = copy.deepcopy(observed)
+        events[0]["schema_version"] = "promoter-execution-journal-1"
+        self.write_events(events)
+        with self.assertRaisesRegex(ValueError, "journal schema"):
             c.recover(self.output)
 
 
