@@ -1,11 +1,14 @@
 # Promoter runtime contract
 
 - Purpose: Fix the public request, result, coordinate, calibration, limit and acceptance contract for the local Promoter runtime before independent writers start.
-- Scope: Ticket #33 (parent #7). Specified implementation contract for `regsite-promoter`; not an executed runtime, a hosted-parity claim or a scientific accuracy claim.
+- Scope: Ticket #33 (parent #7). Local `regsite-promoter` implementation and acceptance contract; no hosted-parity or scientific accuracy claim.
 - Last verified: 2026-10-18
 
-**Status.** The scoring runtime and CLI are not yet implemented. On 2026-10-18
-the owner authorized isolated implementation alongside RBS release preparation,
+**Status.** The scoring core, batch interface, CLI and result schema are implemented
+on the 0.5.0rc1 development branch. Fresh offline single/batch/CSV/GFF3 execution
+passes. Independent review, measured limits, final CI and independent evaluation
+remain candidate-admission gates; the ceiling values below are not a frozen receipt.
+On 2026-10-18 the owner authorized isolated implementation alongside RBS release preparation,
 as recorded in the [Wave 5 program](wave5-program.md). Equations,
 parameters and 212-state expectations come from the pinned
 [source and benchmark audit](promoter-source-and-benchmarks.md) and
@@ -21,14 +24,15 @@ synthetic examples are implemented structural contracts. With the locked
 development environment, run `python -m pytest tests/test_promoter_request_schema.py`.
 Schema acceptance does not run a prediction or replace parser, cross-field,
 normalized-coordinate, effective-limit or installed-model validation. Those
-semantic checks remain runtime requirements, explicitly listed in the schema's
-`$comment`. No result-schema execution or scientific accuracy is claimed here.
+semantic checks are implemented in the runtime and explicitly listed in the schema's
+`$comment`. The [result schema](../../schemas/promoter-result-1.0.schema.json)
+also has independent synthetic tests; neither schema proves scientific accuracy.
 
 ## Decisions
 
 | Topic | Decision |
 | --- | --- |
-| Model | Prospective identity `promoter-lafleur2022-historical-1`: the admitted historical equations with the fixed GPL-3.0-or-later arrays. Not the hosted tool, not a retrained model. |
+| Model | `promoter-lafleur2022-historical-1`: the admitted historical equations with the fixed GPL-3.0-or-later arrays. Not the hosted tool, not a retrained model. |
 | Engine | Standard-library direct inference in the existing `regsite` package; no NumPy, SciPy, scikit-learn or Biopython. Adoption requires independent source parity (see acceptance checks); on failure stop and report, never add the legacy stack to required dependencies. |
 | Interface | Console script `regsite-promoter`; JSON single/batch input; JSON or compact CSV output; optional GFF3 only with explicit projection metadata. Same wheel as RBS. |
 | Scores | Learned regression score terms (source `dG_*` notation), never new kcal/mol. Primary output is `log_relative_transcription_score`. |
@@ -213,6 +217,8 @@ the whole corresponding defaults object. Missing keys within the winning
 `output` object then receive the documented output defaults. An empty `records`
 envelope is a valid no-op batch with empty results, zero status counts and exit 0;
 a bare array remains invalid.
+Malformed envelope defaults are setup errors even when there are no records or
+a record would override them. Valid host defaults alone never supply a calibration.
 
 | Field | Type | Meaning |
 | --- | --- | --- |
@@ -240,6 +246,11 @@ It names the normalization policy, not a list of edits. It is `null`, together
 with normalized-DNA hash/length, if normalization fails or is not performed
 because an earlier sequence check fails. A later failure in another field does
 not erase successfully normalized input information.
+An unpaired Unicode surrogate in a sequence is `invalid_character` at its raw
+index. It has no UTF-8 representation, so its raw hash is null and valid sibling
+records still execute. Host names and contig identifiers must also encode as
+UTF-8; invalid values receive their field's validation error. If sequence length
+is unavailable, projection shape is checked but no extent or crossing is inferred.
 
 Omitted `metadata` emits `metadata:null`; explicit `{}` emits `{}`. A valid
 supplied object is echoed without Unicode, numeric or value normalization.
@@ -460,6 +471,12 @@ failed. Hashes or interpreted settings must never be fabricated for rejected
 values. The complete original input is bound by `batch_id`, not copied blindly
 into these validated result fields.
 
+`warnings` is an array of objects with `code` and `message` strings, not an
+array of bare codes. Current codes are `host_unspecified`, `host_extrapolation`
+and `legacy_key_not_coordinate`. Messages explain applicability and are not
+identity keys. Consumers select warning codes from each object's `code`; CSV
+joins those codes. Required extrapolation wording is supplied in the message.
+
 `coverage`: `planned_sites`, `scored_sites`, `partial_state_sites` (a subset of
 scored sites with fewer than 30 states), `insufficient_context_sites`, `failed_sites`
 (attempted but failed),
@@ -609,6 +626,8 @@ Record precedence: invalid_input → unsupported → failed → ok → no_candid
 statuses are authoritative: a consumer that needs full context checks
 `coverage.complete_context`, and one that needs every candidate scored checks that
 `insufficient_context_sites`, `failed_sites` and `unattempted_sites` are zero.
+An `ok` record has empty record-level `reasons`; insufficient-context reasons
+remain on its individual sites and in coverage counts.
 
 Stable error/reason codes: `schema_version_unsupported`, `invalid_type`,
 `missing_field`, `unknown_field`, `invalid_id`, `duplicate_id`, `empty_sequence`,
@@ -706,7 +725,11 @@ for the selected state: Name `tss` (single base), `hex35`, `hex10`, `UP`, `space
 generic `region`: no Sequence Ontology term is asserted, because specific names
 were not verified against the authoritative ontology in this contract, and the
 features are model windows, not experimentally observed boundaries; none is typed
-`promoter`. Mapping to specific ontology terms is a later non-breaking addition
+`promoter`. GFF feature IDs append `:record:<record_id>:<element>` to the site ID,
+so overlapping records have distinct features while sharing the same scientific
+site identity. A `record_id` attribute preserves the enclosing record. The CLI
+renders and UTF-8-checks the complete export before writing stdout; rendering
+errors cannot emit a partial header. Mapping to specific ontology terms is a later non-breaking addition
 that requires verification. The one-base gap and `extended10` stay JSON-only.
 
 ## Limits and refinement before freeze
@@ -721,13 +744,17 @@ changing semantics, requires measurements below and an amendment to this documen
 | Raw sequence text chars | 50,000 | record `limit_exceeded` |
 | Normalized bases per record | 5,000 | record `limit_exceeded` |
 | Normalized bases per batch | 100,000 | later records `limit_exceeded` |
-| Planned sites per record | 5,000 | record `limit_exceeded` |
-| Planned sites per batch | 20,000 | later records `limit_exceeded` |
-| `states:"all"` planned sites per record / emitted states per record / per batch | 100 / 3,000 / 10,000 | record `limit_exceeded` |
+| Planned sites per record | 1,000 | record `limit_exceeded` |
+| Planned sites per batch | 4,000 | later records `limit_exceeded` |
+| `states:"all"` planned sites per record / emitted states per record / per batch | 100 / 2,000 / 2,000 | record `limit_exceeded` |
 | Serialized result JSON | 64 MiB | setup error (exit 2), nothing written |
 | `metadata` | 4,096 bytes, depth 4 | record `limit_exceeded` |
 | `seconds_per_record` default / max | 30 / 120 | option error |
 | `seconds_per_batch` default / max | 300 / 3600 | option error |
+
+The effective candidate limits were lowered after synthetic resource probes;
+original ceiling probes remain in the measurement tool for reproducibility.
+Cross-platform admission and the candidate receipt are still pending.
 
 Single thread; no operating-system memory quota is claimed. Effective limits are
 echoed in `batch.limits`, with exactly the following keys. This object shows the
@@ -747,11 +774,11 @@ object, including unchanged limits, and the runtime must echo that object exactl
   "max_raw_sequence_chars_per_record": 50000,
   "max_normalized_bases_per_record": 5000,
   "max_normalized_bases_per_batch": 100000,
-  "max_planned_sites_per_record": 5000,
-  "max_planned_sites_per_batch": 20000,
+  "max_planned_sites_per_record": 1000,
+  "max_planned_sites_per_batch": 4000,
   "max_all_state_sites_per_record": 100,
-  "max_all_states_per_record": 3000,
-  "max_all_states_per_batch": 10000,
+  "max_all_states_per_record": 2000,
+  "max_all_states_per_batch": 2000,
   "max_result_json_bytes": 67108864,
   "max_metadata_json_bytes": 4096,
   "max_metadata_depth": 4,
@@ -803,8 +830,8 @@ inform any limit.
    whose range plans exactly the per-record site ceiling, the largest permitted
    batch, and `states:"all"` at its ceilings.
 2. On each CI platform/Python combination run three timed repetitions per input;
-   record wall time, peak RSS (`/usr/bin/time -l` on macOS, `-v` on Linux) and
-   serialized bytes. Take the maximum per-site wall time `c`.
+   record wall time, peak RSS (`resource.getrusage`: bytes on macOS, KiB on Linux)
+   and serialized bytes. Take the maximum per-site wall time `c`.
 3. Admit a site/record/batch limit `N` only if `N·c` is at most half of the
    corresponding default deadline on the slowest platform and the worst-case
    serialized result is at most half of the 64 MiB ceiling; otherwise lower `N`.
@@ -829,6 +856,10 @@ inform any limit.
   text and original 2021 copyright line. The wheel must contain no experimental
   measurement table.
 - Preserve every RBS profile, schema, model and frozen artifact byte-for-byte.
+  The shared package version advances to 0.5.0rc1 for this development candidate;
+  this changes implementation identities, as designed, while leaving the RBS
+  equations and immutable 0.4.0rc1 release artifacts intact. `src/regsite/__init__.py`
+  is the sole shared RBS-imported version-metadata change.
 
 ## Public Python surface and writer partition
 
@@ -841,15 +872,17 @@ Pure core (`regsite.promoter`, standard library only; Google style, typed):
 | `orient(local, strand) -> str` | Identity for local `+`, reverse complement for local `-`; the only reverse complement. |
 | `state_windows(t, d, s) -> dict[str, tuple[int,int]]` | Oriented intervals as defined above. |
 | `oriented_to_local_interval(length, strand, interval) -> tuple[int,int]` / `oriented_to_local_base(length, strand, oriented_t) -> int` | The only local-orientation converters. |
-| `project_base(projection, local_base) -> int` / `project_interval(projection, site_strand, interval) -> tuple[str, list[tuple[int,int]]]` | Genomic map above; returns genomic strand and runs in transcription order. Validates `check_projection(projection, length)`. |
+| `project_base(projection, local_base) -> int` / `project_interval(projection, site_strand, interval) -> tuple[str, list[tuple[int,int]]]` | Genomic map above; returns genomic strand and runs in transcription order. Caller must first validate the complete projection with `check_projection(projection, length)`. |
 | `legacy_source_key(length, strand, oriented_t) -> int` | `t` or `L-t`; not usable as a coordinate. |
 | `score_state(oriented, t, d, s, params) -> StateScore` | Terms as tabulated; no calibration. |
 | `relative_score(log_score) -> tuple[float \| None, str]` | Overflow/underflow policy. |
 | `score_site(local, strand, local_base, params, calibration, *, keep_states) -> SiteResult` | Visit order, strict-less selection, `tie_count`, `no_candidate`. |
-| `predict(request, params, *, seconds, clock) -> dict` | One validated record → record result. |
 
 I/O layer (`regsite.promoter_io`, `regsite.promoter_cli`): `load_requests`,
-`predict_batch`, `write_json`, `write_csv`, `write_gff3`, `main`. Disjoint ownership proposal for A's writers, freezing the core signatures
+`predict_batch`, `write_json`, `write_csv`, `write_gff3`, `main`. The internal
+`promoter_io.predict(PreparedRecord, params, *, seconds, clock, batch_deadline)`
+handles validated records and deadlines; consumers use `predict_batch` rather
+than constructing internal prepared records. Disjoint ownership proposal for A's writers, freezing the core signatures
 first: **core** `src/regsite/promoter.py`, the parameter JSON and `tools/derive_promoter_parameters.py`,
 `tests/test_promoter_core.py`, `tests/test_promoter_parity.py`, projection tests; **interface**
 `src/regsite/promoter_io.py`, `src/regsite/promoter_cli.py`,
@@ -878,7 +911,7 @@ In addition, the Promoter candidate passes the following before freeze.
 | 9 | Calibration | Required, no silent default; profiles K/beta; `host_status` matrix; extrapolation warning text present; no `sigma`/temperature field accepted or emitted; `claims` all false. |
 | 10 | Projection | The eight worked examples reproduced exactly (both local strands, both `sequence_strand` values, linear and circular crossing); brute-force per-base agreement for all combinations over small `L`, `contig_length`, `origin`; linear out-of-bounds, circular `L > contig_length`, undeclared and mismatched crossing, contig conflict; genomic strand composition; IDs change with `sequence_strand`/`origin`; GFF3 one-based inclusive, genomic strand column, unwrapped circular end, escaping and order along transcription. |
 | 11 | Exports | Identical JSON bytes across repeated runs on one platform/runtime using the literal authoritative serializer; numeric parity within 1e-12 across the CI platforms; CSV header, `genomic_strand` and null cells; schemas validate every example and test output; `states:"all"` bounded as limits state; exact-cap and one-byte-over checks for wire and authoritative JSON, compact-below/pretty-above rejection, whitespace inflation, Unicode escaping and trailing LF. |
-| 12 | RBS preservation | `git diff` against the baseline shows no change to RBS modules, schemas, models, examples or frozen artifacts; the unchanged RBS suite passes in A's single final full matrix. |
+| 12 | RBS preservation | `git diff` against the baseline shows no change to RBS model/runtime modules, schemas, models, examples or frozen artifacts, apart from shared package-version metadata above; the unchanged RBS suite passes in A's single final full matrix. |
 | 13 | Fresh offline | Wheel installed with `--no-index --no-deps` into a new venv; `regsite-promoter` runs the single, batch, CSV and GFF3 examples; importing and running loads no `numpy`, `scipy`, `sklearn` or `Bio`; a test that blocks sockets and subprocess passes. |
 | 14 | Source parity adoption | Independent source parity (2, plus B's separately executed pinned historical/fork inference on a B-frozen synthetic panel, compared through the public CLI/JSON only) passes before the stdlib engine is adopted. No expected values are copied from runtime output. |
 | 15 | Freeze receipt | Exact commit, wheel and parameter hashes, complete emitted model plus six-key identity model, full effective limits and measurements, resolved deadlines/CLI defaults and invocations, input manifest hash, test receipts; B acknowledges the frozen protocol before final collection. Never repair against final outcomes and call the rerun held out. |

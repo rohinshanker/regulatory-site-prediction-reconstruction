@@ -1,0 +1,2566 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Promoter result 1.0",
+  "description": "Structural public result contract; synthetic validation is not prediction or scientific validation. See ../docs/validation/promoter-runtime.md.",
+  "$comment": "Validate strict JSON first: reject duplicate keys and NaN/Infinity. Schema acceptance proves neither equations, term sums, score/log relations, hashes or stable IDs, coordinate transforms/bounds/nonempty intervals, deadlines, request/output resolution, eligible-state counts, tie selection nor array ordering. Runtime/adapters must check all these, coverage/status-count sums and denominators, complete_context, every requested candidate and complete state in order, one selected marker, IDs matching their parent coordinates and receipt, required warnings, host NFC, metadata canonical bytes/depth and all effective record/batch/all-state budgets. Resolved integer coordinates/counts and float settings must have the prescribed serialized numeric representation; JSON Schema treats integral floats as integers and integers as numbers. Hashes use compact sorted-key ensure_ascii=True allow_nan=False JSON, no newline. Authoritative result bytes use json.dumps(result, sort_keys=True, indent=2, ensure_ascii=True, allow_nan=False) plus exactly one LF, default indent separators, UTF-8 without BOM. Check both received uncompressed bytes and authoritative reserialization bytes <= max_result_json_bytes before accepting; this schema cannot measure either or enforce serialization. Empty valid supported scans preflight to no_candidate/empty_scan with complete zero coverage regardless of expired deadlines; rejected scans retain invalid_input/unsupported precedence. Full semantic validation and real-runtime/source parity remain required.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "model",
+    "batch",
+    "results"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "model": {
+      "$ref": "#/$defs/model"
+    },
+    "batch": {
+      "$ref": "#/$defs/batch"
+    },
+    "results": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/record"
+      },
+      "maxItems": 100
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "results": {
+            "contains": {
+              "properties": {
+                "status": {
+                  "const": "failed"
+                }
+              }
+            }
+          }
+        },
+        "required": [
+          "results"
+        ]
+      },
+      "then": {
+        "properties": {
+          "batch": {
+            "properties": {
+              "complete": {
+                "const": false
+              }
+            }
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "batch": {
+            "properties": {
+              "complete": {
+                "const": true
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "results": {
+            "maxItems": 0
+          }
+        },
+        "required": [
+          "results"
+        ]
+      },
+      "then": {
+        "properties": {
+          "batch": {
+            "properties": {
+              "record_count": {
+                "const": 0
+              },
+              "status_counts": {
+                "additionalProperties": {
+                  "const": 0
+                }
+              },
+              "complete": {
+                "const": true
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "digest": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*(?![\\s\\S])"
+    },
+    "text": {
+      "type": "string",
+      "minLength": 1
+    },
+    "strand": {
+      "enum": [
+        "+",
+        "-"
+      ]
+    },
+    "coordinate": {
+      "type": "integer",
+      "minimum": 0,
+      "$comment": "Resolved coordinates must serialize as JSON integers. JSON Schema integer also accepts integral floats; parser/runtime must enforce normalized representation, ascending nonempty intervals, lengths and bounds."
+    },
+    "finite": {
+      "type": "number",
+      "minimum": -1.7976931348623157e+308,
+      "maximum": 1.7976931348623157e+308,
+      "$comment": "Finite binary64 bounds reject infinities. NaN is not a JSON number; reject nonfinite tokens in the parser, before validation."
+    },
+    "json_value": {
+      "anyOf": [
+        {
+          "type": [
+            "null",
+            "boolean",
+            "string"
+          ]
+        },
+        {
+          "$ref": "#/$defs/finite"
+        },
+        {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/json_value"
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/json_value"
+          }
+        }
+      ]
+    },
+    "host": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "taxon_id"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "taxon_id": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "limits": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "max_input_json_bytes",
+        "max_records_per_batch",
+        "max_id_chars",
+        "max_host_name_chars",
+        "max_contig_chars",
+        "max_raw_sequence_chars_per_record",
+        "max_normalized_bases_per_record",
+        "max_normalized_bases_per_batch",
+        "max_planned_sites_per_record",
+        "max_planned_sites_per_batch",
+        "max_all_state_sites_per_record",
+        "max_all_states_per_record",
+        "max_all_states_per_batch",
+        "max_result_json_bytes",
+        "max_metadata_json_bytes",
+        "max_metadata_depth",
+        "default_seconds_per_record",
+        "max_seconds_per_record",
+        "default_seconds_per_batch",
+        "max_seconds_per_batch"
+      ],
+      "properties": {
+        "max_input_json_bytes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 4000000
+        },
+        "max_records_per_batch": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        },
+        "max_id_chars": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 128
+        },
+        "max_host_name_chars": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 200
+        },
+        "max_contig_chars": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 128
+        },
+        "max_raw_sequence_chars_per_record": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 50000
+        },
+        "max_normalized_bases_per_record": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 5000
+        },
+        "max_normalized_bases_per_batch": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100000
+        },
+        "max_planned_sites_per_record": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 5000
+        },
+        "max_planned_sites_per_batch": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 20000
+        },
+        "max_all_state_sites_per_record": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        },
+        "max_all_states_per_record": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 3000
+        },
+        "max_all_states_per_batch": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10000
+        },
+        "max_result_json_bytes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 67108864
+        },
+        "max_metadata_json_bytes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 4096
+        },
+        "max_metadata_depth": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 4
+        },
+        "default_seconds_per_record": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 30.0
+        },
+        "max_seconds_per_record": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 120.0
+        },
+        "default_seconds_per_batch": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 300.0
+        },
+        "max_seconds_per_batch": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 3600.0
+        }
+      },
+      "$comment": "Exactly the 20 effective limits, each positive and at most its published ceiling. Lower values are allowed. The four default/max deadline values must serialize as floats; JSON Schema cannot distinguish 30 from 30.0. Runtime checks defaults <= maxima and all effective cross-field budgets."
+    },
+    "deadline_record": {
+      "type": "number",
+      "exclusiveMinimum": 0,
+      "maximum": 120.0
+    },
+    "deadline_batch": {
+      "type": "number",
+      "exclusiveMinimum": 0,
+      "maximum": 3600.0
+    },
+    "terms": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "hex10",
+        "hex35",
+        "discriminator",
+        "extended10",
+        "itr",
+        "up",
+        "spacer",
+        "intercept",
+        "total",
+        "binding",
+        "source_apparent"
+      ],
+      "properties": {
+        "hex10": {
+          "$ref": "#/$defs/finite"
+        },
+        "hex35": {
+          "$ref": "#/$defs/finite"
+        },
+        "discriminator": {
+          "$ref": "#/$defs/finite"
+        },
+        "extended10": {
+          "$ref": "#/$defs/finite"
+        },
+        "itr": {
+          "$ref": "#/$defs/finite"
+        },
+        "up": {
+          "$ref": "#/$defs/finite"
+        },
+        "spacer": {
+          "$ref": "#/$defs/finite"
+        },
+        "intercept": {
+          "$ref": "#/$defs/finite"
+        },
+        "total": {
+          "$ref": "#/$defs/finite"
+        },
+        "binding": {
+          "$ref": "#/$defs/finite"
+        },
+        "source_apparent": {
+          "$ref": "#/$defs/finite"
+        }
+      }
+    },
+    "interval": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/coordinate"
+      },
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "intervals": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "UP",
+        "gap",
+        "hex35",
+        "spacer",
+        "extended10",
+        "hex10",
+        "discriminator",
+        "itr"
+      ],
+      "properties": {
+        "UP": {
+          "$ref": "#/$defs/interval"
+        },
+        "gap": {
+          "$ref": "#/$defs/interval"
+        },
+        "hex35": {
+          "$ref": "#/$defs/interval"
+        },
+        "spacer": {
+          "$ref": "#/$defs/interval"
+        },
+        "extended10": {
+          "$ref": "#/$defs/interval"
+        },
+        "hex10": {
+          "$ref": "#/$defs/interval"
+        },
+        "discriminator": {
+          "$ref": "#/$defs/interval"
+        },
+        "itr": {
+          "$ref": "#/$defs/interval"
+        }
+      }
+    },
+    "genomic_intervals": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "UP",
+        "gap",
+        "hex35",
+        "spacer",
+        "extended10",
+        "hex10",
+        "discriminator",
+        "itr"
+      ],
+      "properties": {
+        "UP": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/interval"
+          },
+          "minItems": 1,
+          "maxItems": 2
+        },
+        "gap": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/interval"
+          },
+          "minItems": 1,
+          "maxItems": 2
+        },
+        "hex35": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/interval"
+          },
+          "minItems": 1,
+          "maxItems": 2
+        },
+        "spacer": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/interval"
+          },
+          "minItems": 1,
+          "maxItems": 2
+        },
+        "extended10": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/interval"
+          },
+          "minItems": 1,
+          "maxItems": 2
+        },
+        "hex10": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/interval"
+          },
+          "minItems": 1,
+          "maxItems": 2
+        },
+        "discriminator": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/interval"
+          },
+          "minItems": 1,
+          "maxItems": 2
+        },
+        "itr": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/interval"
+          },
+          "minItems": 1,
+          "maxItems": 2
+        }
+      }
+    },
+    "elements": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "UP",
+        "hex35",
+        "spacer",
+        "hex10",
+        "discriminator",
+        "itr"
+      ],
+      "properties": {
+        "UP": {
+          "type": "string",
+          "pattern": "^[ACGT]+(?![\\s\\S])",
+          "minLength": 24,
+          "maxLength": 24
+        },
+        "hex35": {
+          "type": "string",
+          "pattern": "^[ACGT]+(?![\\s\\S])",
+          "minLength": 6,
+          "maxLength": 6
+        },
+        "spacer": {
+          "type": "string",
+          "pattern": "^[ACGT]+(?![\\s\\S])",
+          "minLength": 15,
+          "maxLength": 20
+        },
+        "hex10": {
+          "type": "string",
+          "pattern": "^[ACGT]+(?![\\s\\S])",
+          "minLength": 6,
+          "maxLength": 6
+        },
+        "discriminator": {
+          "type": "string",
+          "pattern": "^[ACGT]+(?![\\s\\S])",
+          "minLength": 6,
+          "maxLength": 10
+        },
+        "itr": {
+          "type": "string",
+          "pattern": "^[ACGT]+(?![\\s\\S])",
+          "minLength": 20,
+          "maxLength": 20
+        }
+      }
+    },
+    "genomic": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "contig",
+        "base",
+        "strand",
+        "sequence_strand"
+      ],
+      "properties": {
+        "contig": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "base": {
+          "$ref": "#/$defs/coordinate"
+        },
+        "strand": {
+          "$ref": "#/$defs/strand"
+        },
+        "sequence_strand": {
+          "$ref": "#/$defs/strand"
+        }
+      }
+    },
+    "diagnostic": {
+      "type": "object",
+      "required": [
+        "code",
+        "field",
+        "message"
+      ],
+      "properties": {
+        "code": {
+          "$ref": "#/$defs/text"
+        },
+        "field": {
+          "$ref": "#/$defs/text"
+        },
+        "message": {
+          "$ref": "#/$defs/text"
+        }
+      },
+      "additionalProperties": {
+        "$ref": "#/$defs/json_value"
+      },
+      "$comment": "Error code/field/message are required. Located normalization and limit diagnostics may add index, character, limit or observed data; their exact extra key set is not fixed by the public contract."
+    },
+    "warning": {
+      "type": "object",
+      "required": [
+        "code"
+      ],
+      "properties": {
+        "code": {
+          "$ref": "#/$defs/text"
+        },
+        "message": {
+          "$ref": "#/$defs/text"
+        }
+      },
+      "additionalProperties": {
+        "$ref": "#/$defs/json_value"
+      },
+      "$comment": "Warning payload interiors are not fixed; code is required. Runtime verifies required host/legacy warning codes and explanatory text."
+    },
+    "scan": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "mode",
+            "range",
+            "strands"
+          ],
+          "properties": {
+            "mode": {
+              "const": "scan"
+            },
+            "range": {
+              "type": "array",
+              "minItems": 2,
+              "maxItems": 2,
+              "items": {
+                "$ref": "#/$defs/coordinate"
+              },
+              "$comment": "[a,b) may be empty; runtime checks a <= b <= normalized sequence length and (b-a)*strand_count against the planned-site budget."
+            },
+            "strands": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 2,
+              "uniqueItems": true,
+              "items": {
+                "$ref": "#/$defs/strand"
+              }
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "mode",
+            "positions"
+          ],
+          "properties": {
+            "mode": {
+              "const": "positions"
+            },
+            "positions": {
+              "type": "array",
+              "maxItems": 5000,
+              "uniqueItems": true,
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "strand",
+                  "tss"
+                ],
+                "properties": {
+                  "strand": {
+                    "$ref": "#/$defs/strand"
+                  },
+                  "tss": {
+                    "$ref": "#/$defs/coordinate"
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "projection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "contig",
+        "origin",
+        "contig_length",
+        "topology",
+        "origin_crossing",
+        "sequence_strand"
+      ],
+      "properties": {
+        "contig": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "origin": {
+          "$ref": "#/$defs/coordinate"
+        },
+        "contig_length": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "sequence_strand": {
+          "$ref": "#/$defs/strand"
+        },
+        "topology": {
+          "enum": [
+            "linear",
+            "circular"
+          ]
+        },
+        "origin_crossing": {
+          "type": "boolean"
+        }
+      },
+      "if": {
+        "properties": {
+          "topology": {
+            "const": "linear"
+          }
+        },
+        "required": [
+          "topology"
+        ]
+      },
+      "then": {
+        "properties": {
+          "origin_crossing": {
+            "const": false
+          }
+        }
+      }
+    },
+    "calibration": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "profile",
+        "K",
+        "beta",
+        "native_host",
+        "host",
+        "host_status"
+      ],
+      "properties": {
+        "profile": {
+          "enum": [
+            "ecoli_mg1655",
+            "in_vitro"
+          ]
+        },
+        "K": {
+          "type": "integer",
+          "const": 42
+        },
+        "beta": {
+          "$ref": "#/$defs/finite"
+        },
+        "native_host": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "host": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/host"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "host_status": {
+          "enum": [
+            "calibration_native",
+            "in_vitro_reference",
+            "unspecified",
+            "extrapolated"
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "profile": {
+                "const": "ecoli_mg1655"
+              }
+            },
+            "required": [
+              "profile"
+            ]
+          },
+          "then": {
+            "properties": {
+              "beta": {
+                "const": 1.636217004872062
+              },
+              "native_host": {
+                "const": "Escherichia coli str. K-12 substr. MG1655"
+              },
+              "host_status": {
+                "enum": [
+                  "calibration_native",
+                  "unspecified",
+                  "extrapolated"
+                ]
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "beta": {
+                "const": 0.81632623
+              },
+              "native_host": {
+                "type": "null"
+              },
+              "host_status": {
+                "enum": [
+                  "in_vitro_reference",
+                  "extrapolated"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "host_status": {
+                "const": "calibration_native"
+              }
+            },
+            "required": [
+              "host_status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "host": {
+                "$ref": "#/$defs/host",
+                "properties": {
+                  "name": {
+                    "const": "Escherichia coli str. K-12 substr. MG1655"
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "host_status": {
+                "const": "unspecified"
+              }
+            },
+            "required": [
+              "host_status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "host": {
+                "type": "null"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "host_status": {
+                "const": "in_vitro_reference"
+              }
+            },
+            "required": [
+              "host_status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "host": {
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "#/$defs/host",
+                    "properties": {
+                      "name": {
+                        "const": "in vitro"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "host_status": {
+                "const": "extrapolated"
+              }
+            },
+            "required": [
+              "host_status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "host": {
+                "$ref": "#/$defs/host"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "profile": {
+                "const": "ecoli_mg1655"
+              },
+              "host": {
+                "type": "null"
+              }
+            },
+            "required": [
+              "profile",
+              "host"
+            ]
+          },
+          "then": {
+            "properties": {
+              "host_status": {
+                "const": "unspecified"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "profile": {
+                "const": "in_vitro"
+              },
+              "host": {
+                "type": "null"
+              }
+            },
+            "required": [
+              "profile",
+              "host"
+            ]
+          },
+          "then": {
+            "properties": {
+              "host_status": {
+                "const": "in_vitro_reference"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "profile": {
+                "const": "ecoli_mg1655"
+              },
+              "host": {
+                "type": "object",
+                "required": [
+                  "name"
+                ],
+                "properties": {
+                  "name": {
+                    "const": "Escherichia coli str. K-12 substr. MG1655"
+                  }
+                }
+              }
+            },
+            "required": [
+              "profile",
+              "host"
+            ]
+          },
+          "then": {
+            "properties": {
+              "host_status": {
+                "const": "calibration_native"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "profile": {
+                "const": "in_vitro"
+              },
+              "host": {
+                "type": "object",
+                "required": [
+                  "name"
+                ],
+                "properties": {
+                  "name": {
+                    "const": "in vitro"
+                  }
+                }
+              }
+            },
+            "required": [
+              "profile",
+              "host"
+            ]
+          },
+          "then": {
+            "properties": {
+              "host_status": {
+                "const": "in_vitro_reference"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "input": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "raw_sha256",
+        "normalized_dna_sha256",
+        "length",
+        "normalization"
+      ],
+      "properties": {
+        "raw_sha256": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/digest"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "normalized_dna_sha256": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/digest"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "length": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "normalization": {
+          "enum": [
+            "ascii-whitespace-uppercase-u-to-t-1",
+            null
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "normalization": {
+                "type": "null"
+              }
+            },
+            "required": [
+              "normalization"
+            ]
+          },
+          "then": {
+            "properties": {
+              "normalized_dna_sha256": {
+                "type": "null"
+              },
+              "length": {
+                "type": "null"
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "raw_sha256": {
+                "$ref": "#/$defs/digest"
+              },
+              "normalized_dna_sha256": {
+                "$ref": "#/$defs/digest"
+              },
+              "length": {
+                "type": "integer",
+                "minimum": 1
+              }
+            }
+          }
+        }
+      ]
+    },
+    "selected_state": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "state_id",
+        "discriminator_length",
+        "spacer_length",
+        "terms",
+        "log_relative_transcription_score",
+        "relative_transcription_score",
+        "score_status",
+        "intervals",
+        "oriented_intervals"
+      ],
+      "properties": {
+        "state_id": {
+          "type": "string",
+          "pattern": "^psite1:[0-9a-f]{32}:[+-]:(?:0|[1-9][0-9]*):d(?:[6-9]|10)s(?:1[5-9]|20)(?![\\s\\S])"
+        },
+        "discriminator_length": {
+          "type": "integer",
+          "minimum": 6,
+          "maximum": 10
+        },
+        "spacer_length": {
+          "type": "integer",
+          "minimum": 15,
+          "maximum": 20
+        },
+        "terms": {
+          "$ref": "#/$defs/terms"
+        },
+        "log_relative_transcription_score": {
+          "$ref": "#/$defs/finite"
+        },
+        "relative_transcription_score": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/finite"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "score_status": {
+          "enum": [
+            "ok",
+            "overflow",
+            "underflow"
+          ]
+        },
+        "intervals": {
+          "$ref": "#/$defs/intervals"
+        },
+        "oriented_intervals": {
+          "$ref": "#/$defs/intervals"
+        },
+        "genomic_intervals": {
+          "$ref": "#/$defs/genomic_intervals"
+        },
+        "elements": {
+          "$ref": "#/$defs/elements"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "score_status": {
+                "const": "ok"
+              }
+            },
+            "required": [
+              "score_status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "relative_transcription_score": {
+                "$ref": "#/$defs/finite",
+                "minimum": 2.2250738585072014e-308
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "relative_transcription_score": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      ],
+      "$comment": "Elements are optional only on the separate selected state copy. Listed states require a selected boolean, never elements. Genomic intervals appear iff projection is present; enforced at record scope. Equations, interval arithmetic, IDs, score bounds versus log and state visit/selection order require semantic validation."
+    },
+    "listed_state": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "state_id",
+        "discriminator_length",
+        "spacer_length",
+        "terms",
+        "log_relative_transcription_score",
+        "relative_transcription_score",
+        "score_status",
+        "intervals",
+        "oriented_intervals",
+        "selected"
+      ],
+      "properties": {
+        "state_id": {
+          "type": "string",
+          "pattern": "^psite1:[0-9a-f]{32}:[+-]:(?:0|[1-9][0-9]*):d(?:[6-9]|10)s(?:1[5-9]|20)(?![\\s\\S])"
+        },
+        "discriminator_length": {
+          "type": "integer",
+          "minimum": 6,
+          "maximum": 10
+        },
+        "spacer_length": {
+          "type": "integer",
+          "minimum": 15,
+          "maximum": 20
+        },
+        "terms": {
+          "$ref": "#/$defs/terms"
+        },
+        "log_relative_transcription_score": {
+          "$ref": "#/$defs/finite"
+        },
+        "relative_transcription_score": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/finite"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "score_status": {
+          "enum": [
+            "ok",
+            "overflow",
+            "underflow"
+          ]
+        },
+        "intervals": {
+          "$ref": "#/$defs/intervals"
+        },
+        "oriented_intervals": {
+          "$ref": "#/$defs/intervals"
+        },
+        "genomic_intervals": {
+          "$ref": "#/$defs/genomic_intervals"
+        },
+        "selected": {
+          "type": "boolean"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "score_status": {
+                "const": "ok"
+              }
+            },
+            "required": [
+              "score_status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "relative_transcription_score": {
+                "$ref": "#/$defs/finite",
+                "minimum": 2.2250738585072014e-308
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "relative_transcription_score": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      ],
+      "$comment": "Elements are optional only on the separate selected state copy. Listed states require a selected boolean, never elements. Genomic intervals appear iff projection is present; enforced at record scope. Equations, interval arithmetic, IDs, score bounds versus log and state visit/selection order require semantic validation."
+    },
+    "site": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "site_id",
+        "strand",
+        "tss",
+        "genomic",
+        "status",
+        "reason",
+        "context",
+        "state_count",
+        "complete_state_set",
+        "attempted",
+        "tie_count",
+        "selected"
+      ],
+      "properties": {
+        "site_id": {
+          "type": "string",
+          "pattern": "^psite1:[0-9a-f]{32}:[+-]:(?:0|[1-9][0-9]*)(?![\\s\\S])"
+        },
+        "strand": {
+          "$ref": "#/$defs/strand"
+        },
+        "tss": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "forward_base",
+            "oriented_base"
+          ],
+          "properties": {
+            "forward_base": {
+              "$ref": "#/$defs/coordinate"
+            },
+            "oriented_base": {
+              "$ref": "#/$defs/coordinate"
+            }
+          }
+        },
+        "genomic": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/genomic"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "status": {
+          "enum": [
+            "ok",
+            "no_candidate",
+            "failed"
+          ]
+        },
+        "reason": {
+          "enum": [
+            null,
+            "insufficient_context",
+            "deadline_exceeded",
+            "nonfinite_arithmetic"
+          ]
+        },
+        "context": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "required_upstream",
+            "required_downstream",
+            "available_upstream",
+            "available_downstream"
+          ],
+          "properties": {
+            "required_upstream": {
+              "type": "integer",
+              "const": 67
+            },
+            "required_downstream": {
+              "type": "integer",
+              "const": 19
+            },
+            "available_upstream": {
+              "$ref": "#/$defs/coordinate"
+            },
+            "available_downstream": {
+              "$ref": "#/$defs/coordinate"
+            }
+          }
+        },
+        "state_count": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 30
+        },
+        "complete_state_set": {
+          "type": "boolean"
+        },
+        "attempted": {
+          "type": "boolean"
+        },
+        "tie_count": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 30
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "selected": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/selected_state"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "states": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/listed_state"
+          },
+          "maxItems": 30
+        },
+        "legacy_source_key": {
+          "$ref": "#/$defs/coordinate"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "state_count": {
+                "const": 30
+              }
+            },
+            "required": [
+              "state_count"
+            ]
+          },
+          "then": {
+            "properties": {
+              "complete_state_set": {
+                "const": true
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "complete_state_set": {
+                "const": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "ok"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "reason": {
+                "type": "null"
+              },
+              "state_count": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 30
+              },
+              "attempted": {
+                "const": true
+              },
+              "tie_count": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 30
+              },
+              "selected": {
+                "$ref": "#/$defs/selected_state"
+              },
+              "states": {
+                "minItems": 1,
+                "contains": {
+                  "properties": {
+                    "selected": {
+                      "const": true
+                    }
+                  },
+                  "required": [
+                    "selected"
+                  ]
+                },
+                "minContains": 1,
+                "maxContains": 1
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "selected": {
+                "type": "null"
+              },
+              "tie_count": {
+                "type": "null"
+              },
+              "states": {
+                "maxItems": 0
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "no_candidate"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "reason": {
+                "const": "insufficient_context"
+              },
+              "state_count": {
+                "const": 0
+              },
+              "attempted": {
+                "const": true
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "failed"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "reason": {
+                "enum": [
+                  "deadline_exceeded",
+                  "nonfinite_arithmetic"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "attempted": {
+                "const": false
+              }
+            },
+            "required": [
+              "attempted"
+            ]
+          },
+          "then": {
+            "properties": {
+              "status": {
+                "const": "failed"
+              },
+              "reason": {
+                "const": "deadline_exceeded"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "reason": {
+                "const": "nonfinite_arithmetic"
+              }
+            },
+            "required": [
+              "reason"
+            ]
+          },
+          "then": {
+            "properties": {
+              "attempted": {
+                "const": true
+              }
+            }
+          }
+        }
+      ]
+    },
+    "truncation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "reason",
+        "attempted_sites",
+        "planned_sites"
+      ],
+      "properties": {
+        "reason": {
+          "enum": [
+            "deadline_exceeded",
+            "nonfinite_arithmetic"
+          ]
+        },
+        "attempted_sites": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 5000
+        },
+        "planned_sites": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 5000
+        }
+      }
+    },
+    "coverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "planned_sites",
+        "scored_sites",
+        "partial_state_sites",
+        "insufficient_context_sites",
+        "failed_sites",
+        "unattempted_sites",
+        "complete_context",
+        "complete",
+        "truncation"
+      ],
+      "properties": {
+        "planned_sites": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 5000
+        },
+        "scored_sites": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 5000
+        },
+        "partial_state_sites": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 5000
+        },
+        "insufficient_context_sites": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 5000
+        },
+        "failed_sites": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 5000
+        },
+        "unattempted_sites": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 5000
+        },
+        "complete_context": {
+          "type": "boolean"
+        },
+        "complete": {
+          "type": "boolean"
+        },
+        "truncation": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/truncation"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "planned_sites": {
+                "const": 0
+              }
+            },
+            "required": [
+              "planned_sites"
+            ]
+          },
+          "then": {
+            "properties": {
+              "planned_sites": {
+                "const": 0
+              },
+              "scored_sites": {
+                "const": 0
+              },
+              "partial_state_sites": {
+                "const": 0
+              },
+              "insufficient_context_sites": {
+                "const": 0
+              },
+              "failed_sites": {
+                "const": 0
+              },
+              "unattempted_sites": {
+                "const": 0
+              },
+              "complete_context": {
+                "const": true
+              },
+              "complete": {
+                "const": true
+              },
+              "truncation": {
+                "type": "null"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "complete": {
+                "const": true
+              }
+            },
+            "required": [
+              "complete"
+            ]
+          },
+          "then": {
+            "properties": {
+              "failed_sites": {
+                "const": 0
+              },
+              "unattempted_sites": {
+                "const": 0
+              },
+              "truncation": {
+                "type": "null"
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "planned_sites": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 5000
+              },
+              "truncation": {
+                "$ref": "#/$defs/truncation"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "record": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "status",
+        "reasons",
+        "prediction_id",
+        "input",
+        "calibration",
+        "scan",
+        "coverage",
+        "sites",
+        "projection",
+        "warnings",
+        "errors",
+        "metadata"
+      ],
+      "properties": {
+        "id": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "status": {
+          "enum": [
+            "ok",
+            "no_candidate",
+            "unsupported",
+            "invalid_input",
+            "failed"
+          ]
+        },
+        "reasons": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "schema_version_unsupported",
+              "invalid_type",
+              "missing_field",
+              "unknown_field",
+              "invalid_id",
+              "duplicate_id",
+              "empty_sequence",
+              "sequence_too_long",
+              "invalid_character",
+              "ambiguous_base",
+              "mixed_dna_rna",
+              "calibration_required",
+              "invalid_calibration",
+              "invalid_host",
+              "invalid_scan",
+              "invalid_strand",
+              "range_out_of_bounds",
+              "position_out_of_range",
+              "duplicate_position",
+              "invalid_projection",
+              "undeclared_origin_crossing",
+              "origin_crossing_mismatch",
+              "contig_metadata_conflict",
+              "invalid_output_option",
+              "limit_exceeded",
+              "unsupported_control",
+              "model_unavailable",
+              "scan_required",
+              "insufficient_context",
+              "empty_scan",
+              "deadline_exceeded",
+              "nonfinite_arithmetic"
+            ]
+          },
+          "uniqueItems": true
+        },
+        "prediction_id": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/digest"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "input": {
+          "$ref": "#/$defs/input"
+        },
+        "calibration": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/calibration"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "scan": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/scan"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "coverage": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/coverage"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "sites": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/site"
+          },
+          "maxItems": 5000
+        },
+        "projection": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/projection"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "warnings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/warning"
+          }
+        },
+        "errors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/diagnostic"
+          }
+        },
+        "metadata": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "object",
+              "additionalProperties": {
+                "$ref": "#/$defs/json_value"
+              }
+            }
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "enum": [
+                  "invalid_input",
+                  "unsupported"
+                ]
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prediction_id": {
+                "type": "null"
+              },
+              "coverage": {
+                "type": "null"
+              },
+              "sites": {
+                "maxItems": 0
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "id": {
+                "$ref": "#/$defs/id"
+              },
+              "prediction_id": {
+                "$ref": "#/$defs/digest"
+              },
+              "calibration": {
+                "$ref": "#/$defs/calibration"
+              },
+              "scan": {
+                "$ref": "#/$defs/scan"
+              },
+              "coverage": {
+                "$ref": "#/$defs/coverage"
+              },
+              "input": {
+                "properties": {
+                  "raw_sha256": {
+                    "$ref": "#/$defs/digest"
+                  },
+                  "normalized_dna_sha256": {
+                    "$ref": "#/$defs/digest"
+                  },
+                  "length": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 5000
+                  },
+                  "normalization": {
+                    "const": "ascii-whitespace-uppercase-u-to-t-1"
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "ok"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "reasons": {
+                "maxItems": 0
+              },
+              "sites": {
+                "minItems": 1,
+                "contains": {
+                  "properties": {
+                    "status": {
+                      "const": "ok"
+                    }
+                  }
+                },
+                "items": {
+                  "properties": {
+                    "status": {
+                      "enum": [
+                        "ok",
+                        "no_candidate"
+                      ]
+                    }
+                  }
+                }
+              },
+              "coverage": {
+                "properties": {
+                  "complete": {
+                    "const": true
+                  },
+                  "scored_sites": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 5000
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "failed"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "sites": {
+                "minItems": 1,
+                "contains": {
+                  "properties": {
+                    "status": {
+                      "const": "failed"
+                    }
+                  }
+                }
+              },
+              "coverage": {
+                "properties": {
+                  "complete": {
+                    "const": false
+                  },
+                  "truncation": {
+                    "$ref": "#/$defs/truncation"
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "no_candidate"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "errors": {
+                "maxItems": 0
+              },
+              "sites": {
+                "items": {
+                  "properties": {
+                    "status": {
+                      "const": "no_candidate"
+                    }
+                  }
+                }
+              },
+              "coverage": {
+                "properties": {
+                  "complete": {
+                    "const": true
+                  },
+                  "scored_sites": {
+                    "const": 0
+                  },
+                  "partial_state_sites": {
+                    "const": 0
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "enum": [
+                  "ok",
+                  "no_candidate",
+                  "failed"
+                ]
+              },
+              "sites": {
+                "maxItems": 0
+              }
+            },
+            "required": [
+              "status",
+              "sites"
+            ]
+          },
+          "then": {
+            "properties": {
+              "status": {
+                "const": "no_candidate"
+              },
+              "reasons": {
+                "const": [
+                  "empty_scan"
+                ]
+              },
+              "errors": {
+                "maxItems": 0
+              },
+              "coverage": {
+                "properties": {
+                  "planned_sites": {
+                    "const": 0
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "no_candidate"
+              },
+              "sites": {
+                "minItems": 1
+              }
+            },
+            "required": [
+              "status",
+              "sites"
+            ]
+          },
+          "then": {
+            "properties": {
+              "reasons": {
+                "const": [
+                  "insufficient_context"
+                ]
+              },
+              "coverage": {
+                "properties": {
+                  "planned_sites": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 5000
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "enum": [
+                  "ok",
+                  "no_candidate",
+                  "failed"
+                ]
+              },
+              "scan": {
+                "type": "object",
+                "required": [
+                  "mode",
+                  "positions"
+                ],
+                "properties": {
+                  "mode": {
+                    "const": "positions"
+                  },
+                  "positions": {
+                    "maxItems": 0
+                  }
+                }
+              }
+            },
+            "required": [
+              "status",
+              "scan"
+            ]
+          },
+          "then": {
+            "properties": {
+              "sites": {
+                "maxItems": 0
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "projection": {
+                "type": "null"
+              }
+            },
+            "required": [
+              "projection"
+            ]
+          },
+          "then": {
+            "properties": {
+              "sites": {
+                "items": {
+                  "properties": {
+                    "genomic": {
+                      "type": "null"
+                    },
+                    "selected": {
+                      "if": {
+                        "type": "object"
+                      },
+                      "then": {
+                        "not": {
+                          "required": [
+                            "genomic_intervals"
+                          ]
+                        }
+                      }
+                    },
+                    "states": {
+                      "items": {
+                        "not": {
+                          "required": [
+                            "genomic_intervals"
+                          ]
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "sites": {
+                "items": {
+                  "properties": {
+                    "genomic": {
+                      "$ref": "#/$defs/genomic"
+                    },
+                    "selected": {
+                      "if": {
+                        "type": "object"
+                      },
+                      "then": {
+                        "required": [
+                          "genomic_intervals"
+                        ]
+                      }
+                    },
+                    "states": {
+                      "items": {
+                        "required": [
+                          "genomic_intervals"
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "$comment": "Rejected fields echo null unless independently validated. Normalization information survives later rejection. Metadata is arbitrary parsed JSON, not controls; canonical bytes/depth and the validation history are runtime checks. Output options are not emitted: states/legacy/elements presence must be compared with the resolved request. Projection presence is enforced for every scored state here."
+    },
+    "model": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "implementation_version",
+        "kind",
+        "source",
+        "licence",
+        "parameters",
+        "term_source_names",
+        "terms_unit",
+        "terms_semantics",
+        "source_quirks",
+        "not_modeled",
+        "claims"
+      ],
+      "properties": {
+        "id": {
+          "const": "promoter-lafleur2022-historical-1"
+        },
+        "implementation_version": {
+          "$ref": "#/$defs/text"
+        },
+        "kind": {
+          "const": "historical_equation_reconstruction"
+        },
+        "source": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/json_value"
+          }
+        },
+        "licence": {
+          "const": "GPL-3.0-or-later"
+        },
+        "parameters": {
+          "type": "object",
+          "required": [
+            "parameter_json_sha256"
+          ],
+          "properties": {
+            "parameter_json_sha256": {
+              "$ref": "#/$defs/digest"
+            }
+          },
+          "additionalProperties": {
+            "$ref": "#/$defs/json_value"
+          }
+        },
+        "term_source_names": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/text"
+          }
+        },
+        "terms_unit": {
+          "const": "source_dG_units"
+        },
+        "terms_semantics": {
+          "$ref": "#/$defs/text"
+        },
+        "source_quirks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "behavior"
+            ],
+            "properties": {
+              "id": {
+                "$ref": "#/$defs/text"
+              },
+              "behavior": {
+                "$ref": "#/$defs/text"
+              }
+            }
+          },
+          "uniqueItems": true
+        },
+        "not_modeled": {
+          "const": [
+            "sigma_factor",
+            "temperature",
+            "host_specific_calibration",
+            "probability",
+            "absolute_rate",
+            "free_energy"
+          ]
+        },
+        "claims": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "physical_free_energy",
+            "absolute_rate",
+            "probability",
+            "native_accuracy_evaluated",
+            "hosted_parity"
+          ],
+          "properties": {
+            "physical_free_energy": {
+              "type": "boolean",
+              "const": false
+            },
+            "absolute_rate": {
+              "type": "boolean",
+              "const": false
+            },
+            "probability": {
+              "type": "boolean",
+              "const": false
+            },
+            "native_accuracy_evaluated": {
+              "type": "boolean",
+              "const": false
+            },
+            "hosted_parity": {
+              "type": "boolean",
+              "const": false
+            }
+          }
+        }
+      },
+      "$comment": "The 12 model keys are fixed. source and parameters interiors intentionally remain extensible typed JSON objects; only parameters.parameter_json_sha256 has an agreed required nested name. No candidate identity is invented. Verify source pins, array hashes/counts/unused indices, utility tables, exact term_source_names/terms_semantics and static source_quirks against the installed model and receipt. This structural schema does not certify their scientific content."
+    },
+    "batch": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "batch_id",
+        "record_count",
+        "status_counts",
+        "complete",
+        "limits",
+        "seconds_per_record",
+        "seconds_per_batch"
+      ],
+      "properties": {
+        "batch_id": {
+          "$ref": "#/$defs/digest"
+        },
+        "record_count": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "status_counts": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [],
+          "properties": {
+            "ok": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "no_candidate": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "unsupported": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "invalid_input": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "failed": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100
+            }
+          }
+        },
+        "complete": {
+          "type": "boolean"
+        },
+        "limits": {
+          "$ref": "#/$defs/limits"
+        },
+        "seconds_per_record": {
+          "$ref": "#/$defs/deadline_record"
+        },
+        "seconds_per_batch": {
+          "$ref": "#/$defs/deadline_batch"
+        }
+      },
+      "$comment": "Public synthetic adapter uses sparse status_counts; known status keys only, zero-valued entries may be present. Runtime verifies counts against results, actual deadlines <= effective maxima, and complete iff no failed record. Deadline values must serialize as floats, which JSON Schema cannot distinguish from integers."
+    }
+  }
+}

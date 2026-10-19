@@ -1,0 +1,3529 @@
+{
+  "calculator": "promoter",
+  "comparisons": [
+    {
+      "current_candidate_id": "pcandidate1:d47f3a7cbb0209849a3e116c5cbea663:current:promoter:+:100",
+      "deltas": {
+        "binding": {
+          "reason": null,
+          "unit": "source_dG_units",
+          "value": 0.0
+        },
+        "discriminator": {
+          "reason": null,
+          "unit": "source_dG_units",
+          "value": 0.0
+        },
+        "extended10": {
+          "reason": null,
+          "unit": "source_dG_units",
+          "value": 0.0
+        },
+        "hex10": {
+          "reason": null,
+          "unit": "source_dG_units",
+          "value": 0.0
+        },
+        "hex35": {
+          "reason": null,
+          "unit": "source_dG_units",
+          "value": 0.0
+        },
+        "intercept": {
+          "reason": null,
+          "unit": "source_dG_units",
+          "value": 0.0
+        },
+        "itr": {
+          "reason": null,
+          "unit": "source_dG_units",
+          "value": 0.0
+        },
+        "log_relative_transcription_score": {
+          "reason": null,
+          "unit": "ln_relative_transcription_score",
+          "value": 0.0
+        },
+        "relative_transcription_score": {
+          "reason": null,
+          "unit": "relative_transcription_score",
+          "value": 0.0
+        },
+        "spacer": {
+          "reason": null,
+          "unit": "source_dG_units",
+          "value": 0.0
+        },
+        "total": {
+          "reason": null,
+          "unit": "source_dG_units",
+          "value": 0.0
+        },
+        "up": {
+          "reason": null,
+          "unit": "source_dG_units",
+          "value": 0.0
+        }
+      },
+      "feature_changes": {
+        "UP": {
+          "mapped_bases_equal": true,
+          "reason": null
+        },
+        "discriminator": {
+          "mapped_bases_equal": true,
+          "reason": null
+        },
+        "extended10": {
+          "mapped_bases_equal": true,
+          "reason": null
+        },
+        "gap": {
+          "mapped_bases_equal": true,
+          "reason": null
+        },
+        "hex10": {
+          "mapped_bases_equal": true,
+          "reason": null
+        },
+        "hex35": {
+          "mapped_bases_equal": true,
+          "reason": null
+        },
+        "itr": {
+          "mapped_bases_equal": true,
+          "reason": null
+        },
+        "spacer": {
+          "mapped_bases_equal": true,
+          "reason": null
+        }
+      },
+      "identity_mismatches": [],
+      "reason": null,
+      "recoded_candidate_id": "pcandidate1:44c07972d7c84e924d7d300b903a210b:recoded:promoter:+:100",
+      "status": "paired"
+    },
+    {
+      "current_candidate_id": "pcandidate1:d47f3a7cbb0209849a3e116c5cbea663:current:promoter:-:100",
+      "deltas": {
+        "binding": {
+          "reason": null,
+          "unit": "source_dG_units",
+          "value": 0.0
+        },
+        "discriminator": {
+          "reason": null,
+          "unit": "source_dG_units",
+          "value": 0.0
+        },
+        "extended10": {
+          "reason": null,
+          "unit": "source_dG_units",
+          "value": 0.0
+        },
+        "hex10": {
+          "reason": null,
+          "unit": "source_dG_units",
+          "value": 0.0
+        },
+        "hex35": {
+          "reason": null,
+          "unit": "source_dG_units",
+          "value": 0.0
+        },
+        "intercept": {
+          "reason": null,
+          "unit": "source_dG_units",
+          "value": 0.0
+        },
+        "itr": {
+          "reason": null,
+          "unit": "source_dG_units",
+          "value": 0.0
+        },
+        "log_relative_transcription_score": {
+          "reason": null,
+          "unit": "ln_relative_transcription_score",
+          "value": 0.0
+        },
+        "relative_transcription_score": {
+          "reason": null,
+          "unit": "relative_transcription_score",
+          "value": 0.0
+        },
+        "spacer": {
+          "reason": null,
+          "unit": "source_dG_units",
+          "value": 0.0
+        },
+        "total": {
+          "reason": null,
+          "unit": "source_dG_units",
+          "value": 0.0
+        },
+        "up": {
+          "reason": null,
+          "unit": "source_dG_units",
+          "value": 0.0
+        }
+      },
+      "feature_changes": {
+        "UP": {
+          "mapped_bases_equal": true,
+          "reason": null
+        },
+        "discriminator": {
+          "mapped_bases_equal": true,
+          "reason": null
+        },
+        "extended10": {
+          "mapped_bases_equal": true,
+          "reason": null
+        },
+        "gap": {
+          "mapped_bases_equal": true,
+          "reason": null
+        },
+        "hex10": {
+          "mapped_bases_equal": true,
+          "reason": null
+        },
+        "hex35": {
+          "mapped_bases_equal": true,
+          "reason": null
+        },
+        "itr": {
+          "mapped_bases_equal": true,
+          "reason": null
+        },
+        "spacer": {
+          "mapped_bases_equal": true,
+          "reason": null
+        }
+      },
+      "identity_mismatches": [],
+      "reason": null,
+      "recoded_candidate_id": "pcandidate1:44c07972d7c84e924d7d300b903a210b:recoded:promoter:-:100",
+      "status": "paired"
+    }
+  ],
+  "coverage": {
+    "comparable": 2,
+    "complete": true,
+    "current": {
+      "complete": true,
+      "expected": 2,
+      "returned": 2,
+      "scored": 2
+    },
+    "diagnostic_only": false,
+    "paired": 2,
+    "recoded": {
+      "complete": true,
+      "expected": 2,
+      "returned": 2,
+      "scored": 2
+    },
+    "unmatched": 0
+  },
+  "edit_map": {
+    "current_declared_edited": [
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false
+    ],
+    "current_sha256": "2da1b55ddf19dbbbb50a561b0476995c5c236fd1c3d4eabe463476f86f8542ce",
+    "current_to_recoded": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51,
+      52,
+      53,
+      54,
+      55,
+      56,
+      57,
+      58,
+      59,
+      60,
+      61,
+      62,
+      63,
+      64,
+      65,
+      66,
+      67,
+      68,
+      69,
+      70,
+      71,
+      72,
+      73,
+      74,
+      75,
+      76,
+      77,
+      78,
+      79,
+      80,
+      81,
+      82,
+      83,
+      84,
+      85,
+      86,
+      87,
+      88,
+      89,
+      90,
+      91,
+      92,
+      93,
+      94,
+      95,
+      96,
+      97,
+      98,
+      99,
+      100,
+      101,
+      102,
+      103,
+      104,
+      105,
+      106,
+      107,
+      108,
+      109,
+      110,
+      111,
+      112,
+      113,
+      114,
+      115,
+      116,
+      117,
+      118,
+      119,
+      120,
+      121,
+      122,
+      123,
+      124,
+      125,
+      126,
+      127,
+      128,
+      129,
+      130,
+      131,
+      132,
+      133,
+      134,
+      135,
+      136,
+      137,
+      138,
+      139,
+      140,
+      141,
+      142,
+      143,
+      144,
+      145,
+      146,
+      147,
+      148,
+      149,
+      150,
+      151,
+      152,
+      153,
+      154,
+      155,
+      156,
+      157,
+      158,
+      159,
+      160,
+      161,
+      162,
+      163,
+      164,
+      165,
+      166,
+      167,
+      168,
+      169,
+      170,
+      171,
+      172,
+      173,
+      174,
+      175,
+      176,
+      177,
+      178,
+      179,
+      180,
+      181,
+      182,
+      183,
+      184,
+      185,
+      186,
+      187,
+      188,
+      189,
+      190,
+      191,
+      192,
+      193,
+      194,
+      195,
+      196,
+      197,
+      198,
+      199
+    ],
+    "current_unmatched": [],
+    "edits_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "pair_id": "paired-promoter-unchanged",
+    "recoded_sha256": "2da1b55ddf19dbbbb50a561b0476995c5c236fd1c3d4eabe463476f86f8542ce",
+    "recoded_to_current": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51,
+      52,
+      53,
+      54,
+      55,
+      56,
+      57,
+      58,
+      59,
+      60,
+      61,
+      62,
+      63,
+      64,
+      65,
+      66,
+      67,
+      68,
+      69,
+      70,
+      71,
+      72,
+      73,
+      74,
+      75,
+      76,
+      77,
+      78,
+      79,
+      80,
+      81,
+      82,
+      83,
+      84,
+      85,
+      86,
+      87,
+      88,
+      89,
+      90,
+      91,
+      92,
+      93,
+      94,
+      95,
+      96,
+      97,
+      98,
+      99,
+      100,
+      101,
+      102,
+      103,
+      104,
+      105,
+      106,
+      107,
+      108,
+      109,
+      110,
+      111,
+      112,
+      113,
+      114,
+      115,
+      116,
+      117,
+      118,
+      119,
+      120,
+      121,
+      122,
+      123,
+      124,
+      125,
+      126,
+      127,
+      128,
+      129,
+      130,
+      131,
+      132,
+      133,
+      134,
+      135,
+      136,
+      137,
+      138,
+      139,
+      140,
+      141,
+      142,
+      143,
+      144,
+      145,
+      146,
+      147,
+      148,
+      149,
+      150,
+      151,
+      152,
+      153,
+      154,
+      155,
+      156,
+      157,
+      158,
+      159,
+      160,
+      161,
+      162,
+      163,
+      164,
+      165,
+      166,
+      167,
+      168,
+      169,
+      170,
+      171,
+      172,
+      173,
+      174,
+      175,
+      176,
+      177,
+      178,
+      179,
+      180,
+      181,
+      182,
+      183,
+      184,
+      185,
+      186,
+      187,
+      188,
+      189,
+      190,
+      191,
+      192,
+      193,
+      194,
+      195,
+      196,
+      197,
+      198,
+      199
+    ],
+    "recoded_unmatched": [],
+    "schema_version": "paired-edit-map-1",
+    "topology": "linear"
+  },
+  "limits": {
+    "max_bases_per_side": 10000,
+    "max_candidates_per_side": 512,
+    "max_edits": 1000,
+    "max_feature_bases": 2000000,
+    "max_input_json_bytes": 2000000,
+    "max_json_depth": 20,
+    "max_json_nodes": 100000,
+    "max_result_json_bytes": 67108864,
+    "max_seconds_per_side": 120,
+    "predictors": {
+      "promoter": {
+        "default_seconds_per_batch": 300.0,
+        "default_seconds_per_record": 30.0,
+        "max_all_state_sites_per_record": 100,
+        "max_all_states_per_batch": 2000,
+        "max_all_states_per_record": 2000,
+        "max_contig_chars": 128,
+        "max_host_name_chars": 200,
+        "max_id_chars": 128,
+        "max_input_json_bytes": 4000000,
+        "max_metadata_depth": 4,
+        "max_metadata_json_bytes": 4096,
+        "max_normalized_bases_per_batch": 100000,
+        "max_normalized_bases_per_record": 5000,
+        "max_planned_sites_per_batch": 4000,
+        "max_planned_sites_per_record": 1000,
+        "max_raw_sequence_chars_per_record": 50000,
+        "max_records_per_batch": 100,
+        "max_result_json_bytes": 67108864,
+        "max_seconds_per_batch": 3600.0,
+        "max_seconds_per_record": 120.0
+      },
+      "rbs": {
+        "max_explicit_or_scanned_starts": 1000,
+        "max_normalized_bases_per_record": 10000,
+        "max_seconds_per_record": 120
+      }
+    }
+  },
+  "pair_id": "paired-promoter-unchanged",
+  "prediction_sha256": "a20f7cf8e32c8269d3e82e1aa85e3ede5b004bd78abcd2161c0f27dc23acb634",
+  "request_sha256": "68daa85e996d0f9f2b77157991bd6321fea2980916fb50ccd62534715284ddb5",
+  "schema_version": "paired-regulatory-result-1",
+  "settings": {
+    "seconds_per_side": 30.0
+  },
+  "sides": {
+    "current": {
+      "candidates": [
+        {
+          "anchor": 100,
+          "codon_bases": null,
+          "features": {
+            "UP": {
+              "genomic": null,
+              "interval": [
+                38,
+                62
+              ],
+              "mapping": {
+                "complete_base_mapping": true,
+                "contiguous_target_path": true,
+                "mapped_bases": [
+                  38,
+                  39,
+                  40,
+                  41,
+                  42,
+                  43,
+                  44,
+                  45,
+                  46,
+                  47,
+                  48,
+                  49,
+                  50,
+                  51,
+                  52,
+                  53,
+                  54,
+                  55,
+                  56,
+                  57,
+                  58,
+                  59,
+                  60,
+                  61
+                ],
+                "mapped_runs": [
+                  [
+                    38,
+                    62
+                  ]
+                ],
+                "source_bases": [
+                  38,
+                  39,
+                  40,
+                  41,
+                  42,
+                  43,
+                  44,
+                  45,
+                  46,
+                  47,
+                  48,
+                  49,
+                  50,
+                  51,
+                  52,
+                  53,
+                  54,
+                  55,
+                  56,
+                  57,
+                  58,
+                  59,
+                  60,
+                  61
+                ],
+                "unmatched_bases": 0
+              },
+              "reason": null,
+              "strand": "+"
+            },
+            "discriminator": {
+              "genomic": null,
+              "interval": [
+                92,
+                100
+              ],
+              "mapping": {
+                "complete_base_mapping": true,
+                "contiguous_target_path": true,
+                "mapped_bases": [
+                  92,
+                  93,
+                  94,
+                  95,
+                  96,
+                  97,
+                  98,
+                  99
+                ],
+                "mapped_runs": [
+                  [
+                    92,
+                    100
+                  ]
+                ],
+                "source_bases": [
+                  92,
+                  93,
+                  94,
+                  95,
+                  96,
+                  97,
+                  98,
+                  99
+                ],
+                "unmatched_bases": 0
+              },
+              "reason": null,
+              "strand": "+"
+            },
+            "extended10": {
+              "genomic": null,
+              "interval": [
+                83,
+                85
+              ],
+              "mapping": {
+                "complete_base_mapping": true,
+                "contiguous_target_path": true,
+                "mapped_bases": [
+                  83,
+                  84
+                ],
+                "mapped_runs": [
+                  [
+                    83,
+                    85
+                  ]
+                ],
+                "source_bases": [
+                  83,
+                  84
+                ],
+                "unmatched_bases": 0
+              },
+              "reason": null,
+              "strand": "+"
+            },
+            "gap": {
+              "genomic": null,
+              "interval": [
+                62,
+                63
+              ],
+              "mapping": {
+                "complete_base_mapping": true,
+                "contiguous_target_path": true,
+                "mapped_bases": [
+                  62
+                ],
+                "mapped_runs": [
+                  [
+                    62,
+                    63
+                  ]
+                ],
+                "source_bases": [
+                  62
+                ],
+                "unmatched_bases": 0
+              },
+              "reason": null,
+              "strand": "+"
+            },
+            "hex10": {
+              "genomic": null,
+              "interval": [
+                86,
+                92
+              ],
+              "mapping": {
+                "complete_base_mapping": true,
+                "contiguous_target_path": true,
+                "mapped_bases": [
+                  86,
+                  87,
+                  88,
+                  89,
+                  90,
+                  91
+                ],
+                "mapped_runs": [
+                  [
+                    86,
+                    92
+                  ]
+                ],
+                "source_bases": [
+                  86,
+                  87,
+                  88,
+                  89,
+                  90,
+                  91
+                ],
+                "unmatched_bases": 0
+              },
+              "reason": null,
+              "strand": "+"
+            },
+            "hex35": {
+              "genomic": null,
+              "interval": [
+                63,
+                69
+              ],
+              "mapping": {
+                "complete_base_mapping": true,
+                "contiguous_target_path": true,
+                "mapped_bases": [
+                  63,
+                  64,
+                  65,
+                  66,
+                  67,
+                  68
+                ],
+                "mapped_runs": [
+                  [
+                    63,
+                    69
+                  ]
+                ],
+                "source_bases": [
+                  63,
+                  64,
+                  65,
+                  66,
+                  67,
+                  68
+                ],
+                "unmatched_bases": 0
+              },
+              "reason": null,
+              "strand": "+"
+            },
+            "itr": {
+              "genomic": null,
+              "interval": [
+                100,
+                120
+              ],
+              "mapping": {
+                "complete_base_mapping": true,
+                "contiguous_target_path": true,
+                "mapped_bases": [
+                  100,
+                  101,
+                  102,
+                  103,
+                  104,
+                  105,
+                  106,
+                  107,
+                  108,
+                  109,
+                  110,
+                  111,
+                  112,
+                  113,
+                  114,
+                  115,
+                  116,
+                  117,
+                  118,
+                  119
+                ],
+                "mapped_runs": [
+                  [
+                    100,
+                    120
+                  ]
+                ],
+                "source_bases": [
+                  100,
+                  101,
+                  102,
+                  103,
+                  104,
+                  105,
+                  106,
+                  107,
+                  108,
+                  109,
+                  110,
+                  111,
+                  112,
+                  113,
+                  114,
+                  115,
+                  116,
+                  117,
+                  118,
+                  119
+                ],
+                "unmatched_bases": 0
+              },
+              "reason": null,
+              "strand": "+"
+            },
+            "spacer": {
+              "genomic": null,
+              "interval": [
+                69,
+                86
+              ],
+              "mapping": {
+                "complete_base_mapping": true,
+                "contiguous_target_path": true,
+                "mapped_bases": [
+                  69,
+                  70,
+                  71,
+                  72,
+                  73,
+                  74,
+                  75,
+                  76,
+                  77,
+                  78,
+                  79,
+                  80,
+                  81,
+                  82,
+                  83,
+                  84,
+                  85
+                ],
+                "mapped_runs": [
+                  [
+                    69,
+                    86
+                  ]
+                ],
+                "source_bases": [
+                  69,
+                  70,
+                  71,
+                  72,
+                  73,
+                  74,
+                  75,
+                  76,
+                  77,
+                  78,
+                  79,
+                  80,
+                  81,
+                  82,
+                  83,
+                  84,
+                  85
+                ],
+                "unmatched_bases": 0
+              },
+              "reason": null,
+              "strand": "+"
+            }
+          },
+          "genomic": null,
+          "id": "pcandidate1:d47f3a7cbb0209849a3e116c5cbea663:current:promoter:+:100",
+          "reason": null,
+          "scalars": {
+            "binding": {
+              "reason": null,
+              "unit": "source_dG_units",
+              "value": -0.693752568780986
+            },
+            "discriminator": {
+              "reason": null,
+              "unit": "source_dG_units",
+              "value": -0.020389208170715694
+            },
+            "extended10": {
+              "reason": null,
+              "unit": "source_dG_units",
+              "value": -0.139301362120528
+            },
+            "hex10": {
+              "reason": null,
+              "unit": "source_dG_units",
+              "value": -0.41945253280071704
+            },
+            "hex35": {
+              "reason": null,
+              "unit": "source_dG_units",
+              "value": -0.13741685547828716
+            },
+            "intercept": {
+              "reason": null,
+              "unit": "source_dG_units",
+              "value": -0.9583584537583338
+            },
+            "itr": {
+              "reason": null,
+              "unit": "source_dG_units",
+              "value": -0.03694553057560137
+            },
+            "log_relative_transcription_score": {
+              "reason": null,
+              "unit": "ln_relative_transcription_score",
+              "value": 5.133135031983152
+            },
+            "relative_transcription_score": {
+              "reason": null,
+              "unit": "relative_transcription_score",
+              "value": 169.54782357038962
+            },
+            "spacer": {
+              "reason": null,
+              "unit": "source_dG_units",
+              "value": -0.09239999999999071
+            },
+            "total": {
+              "reason": null,
+              "unit": "source_dG_units",
+              "value": -1.7094457612856369
+            },
+            "up": {
+              "reason": null,
+              "unit": "source_dG_units",
+              "value": 0.0948181816185369
+            }
+          },
+          "site_index": 0,
+          "status": "ok",
+          "strand": "+"
+        },
+        {
+          "anchor": 100,
+          "codon_bases": null,
+          "features": {
+            "UP": {
+              "genomic": null,
+              "interval": [
+                138,
+                162
+              ],
+              "mapping": {
+                "complete_base_mapping": true,
+                "contiguous_target_path": true,
+                "mapped_bases": [
+                  161,
+                  160,
+                  159,
+                  158,
+                  157,
+                  156,
+                  155,
+                  154,
+                  153,
+                  152,
+                  151,
+                  150,
+                  149,
+                  148,
+                  147,
+                  146,
+                  145,
+                  144,
+                  143,
+                  142,
+                  141,
+                  140,
+                  139,
+                  138
+                ],
+                "mapped_runs": [
+                  [
+                    138,
+                    162
+                  ]
+                ],
+                "source_bases": [
+                  161,
+                  160,
+                  159,
+                  158,
+                  157,
+                  156,
+                  155,
+                  154,
+                  153,
+                  152,
+                  151,
+                  150,
+                  149,
+                  148,
+                  147,
+                  146,
+                  145,
+                  144,
+                  143,
+                  142,
+                  141,
+                  140,
+                  139,
+                  138
+                ],
+                "unmatched_bases": 0
+              },
+              "reason": null,
+              "strand": "-"
+            },
+            "discriminator": {
+              "genomic": null,
+              "interval": [
+                101,
+                108
+              ],
+              "mapping": {
+                "complete_base_mapping": true,
+                "contiguous_target_path": true,
+                "mapped_bases": [
+                  107,
+                  106,
+                  105,
+                  104,
+                  103,
+                  102,
+                  101
+                ],
+                "mapped_runs": [
+                  [
+                    101,
+                    108
+                  ]
+                ],
+                "source_bases": [
+                  107,
+                  106,
+                  105,
+                  104,
+                  103,
+                  102,
+                  101
+                ],
+                "unmatched_bases": 0
+              },
+              "reason": null,
+              "strand": "-"
+            },
+            "extended10": {
+              "genomic": null,
+              "interval": [
+                115,
+                117
+              ],
+              "mapping": {
+                "complete_base_mapping": true,
+                "contiguous_target_path": true,
+                "mapped_bases": [
+                  116,
+                  115
+                ],
+                "mapped_runs": [
+                  [
+                    115,
+                    117
+                  ]
+                ],
+                "source_bases": [
+                  116,
+                  115
+                ],
+                "unmatched_bases": 0
+              },
+              "reason": null,
+              "strand": "-"
+            },
+            "gap": {
+              "genomic": null,
+              "interval": [
+                137,
+                138
+              ],
+              "mapping": {
+                "complete_base_mapping": true,
+                "contiguous_target_path": true,
+                "mapped_bases": [
+                  137
+                ],
+                "mapped_runs": [
+                  [
+                    137,
+                    138
+                  ]
+                ],
+                "source_bases": [
+                  137
+                ],
+                "unmatched_bases": 0
+              },
+              "reason": null,
+              "strand": "-"
+            },
+            "hex10": {
+              "genomic": null,
+              "interval": [
+                108,
+                114
+              ],
+              "mapping": {
+                "complete_base_mapping": true,
+                "contiguous_target_path": true,
+                "mapped_bases": [
+                  113,
+                  112,
+                  111,
+                  110,
+                  109,
+                  108
+                ],
+                "mapped_runs": [
+                  [
+                    108,
+                    114
+                  ]
+                ],
+                "source_bases": [
+                  113,
+                  112,
+                  111,
+                  110,
+                  109,
+                  108
+                ],
+                "unmatched_bases": 0
+              },
+              "reason": null,
+              "strand": "-"
+            },
+            "hex35": {
+              "genomic": null,
+              "interval": [
+                131,
+                137
+              ],
+              "mapping": {
+                "complete_base_mapping": true,
+                "contiguous_target_path": true,
+                "mapped_bases": [
+                  136,
+                  135,
+                  134,
+                  133,
+                  132,
+                  131
+                ],
+                "mapped_runs": [
+                  [
+                    131,
+                    137
+                  ]
+                ],
+                "source_bases": [
+                  136,
+                  135,
+                  134,
+                  133,
+                  132,
+                  131
+                ],
+                "unmatched_bases": 0
+              },
+              "reason": null,
+              "strand": "-"
+            },
+            "itr": {
+              "genomic": null,
+              "interval": [
+                81,
+                101
+              ],
+              "mapping": {
+                "complete_base_mapping": true,
+                "contiguous_target_path": true,
+                "mapped_bases": [
+                  100,
+                  99,
+                  98,
+                  97,
+                  96,
+                  95,
+                  94,
+                  93,
+                  92,
+                  91,
+                  90,
+                  89,
+                  88,
+                  87,
+                  86,
+                  85,
+                  84,
+                  83,
+                  82,
+                  81
+                ],
+                "mapped_runs": [
+                  [
+                    81,
+                    101
+                  ]
+                ],
+                "source_bases": [
+                  100,
+                  99,
+                  98,
+                  97,
+                  96,
+                  95,
+                  94,
+                  93,
+                  92,
+                  91,
+                  90,
+                  89,
+                  88,
+                  87,
+                  86,
+                  85,
+                  84,
+                  83,
+                  82,
+                  81
+                ],
+                "unmatched_bases": 0
+              },
+              "reason": null,
+              "strand": "-"
+            },
+            "spacer": {
+              "genomic": null,
+              "interval": [
+                114,
+                131
+              ],
+              "mapping": {
+                "complete_base_mapping": true,
+                "contiguous_target_path": true,
+                "mapped_bases": [
+                  130,
+                  129,
+                  128,
+                  127,
+                  126,
+                  125,
+                  124,
+                  123,
+                  122,
+                  121,
+                  120,
+                  119,
+                  118,
+                  117,
+                  116,
+                  115,
+                  114
+                ],
+                "mapped_runs": [
+                  [
+                    114,
+                    131
+                  ]
+                ],
+                "source_bases": [
+                  130,
+                  129,
+                  128,
+                  127,
+                  126,
+                  125,
+                  124,
+                  123,
+                  122,
+                  121,
+                  120,
+                  119,
+                  118,
+                  117,
+                  116,
+                  115,
+                  114
+                ],
+                "unmatched_bases": 0
+              },
+              "reason": null,
+              "strand": "-"
+            }
+          },
+          "genomic": null,
+          "id": "pcandidate1:d47f3a7cbb0209849a3e116c5cbea663:current:promoter:-:100",
+          "reason": null,
+          "scalars": {
+            "binding": {
+              "reason": null,
+              "unit": "source_dG_units",
+              "value": -0.693752568780986
+            },
+            "discriminator": {
+              "reason": null,
+              "unit": "source_dG_units",
+              "value": -0.020389208170715694
+            },
+            "extended10": {
+              "reason": null,
+              "unit": "source_dG_units",
+              "value": -0.139301362120528
+            },
+            "hex10": {
+              "reason": null,
+              "unit": "source_dG_units",
+              "value": -0.41945253280071704
+            },
+            "hex35": {
+              "reason": null,
+              "unit": "source_dG_units",
+              "value": -0.13741685547828716
+            },
+            "intercept": {
+              "reason": null,
+              "unit": "source_dG_units",
+              "value": -0.9583584537583338
+            },
+            "itr": {
+              "reason": null,
+              "unit": "source_dG_units",
+              "value": 0.10819762525711829
+            },
+            "log_relative_transcription_score": {
+              "reason": null,
+              "unit": "ln_relative_transcription_score",
+              "value": 5.014650866771926
+            },
+            "relative_transcription_score": {
+              "reason": null,
+              "unit": "relative_transcription_score",
+              "value": 150.60354688353047
+            },
+            "spacer": {
+              "reason": null,
+              "unit": "source_dG_units",
+              "value": -0.09239999999999071
+            },
+            "total": {
+              "reason": null,
+              "unit": "source_dG_units",
+              "value": -1.5643026054529172
+            },
+            "up": {
+              "reason": null,
+              "unit": "source_dG_units",
+              "value": 0.0948181816185369
+            }
+          },
+          "site_index": 1,
+          "status": "ok",
+          "strand": "-"
+        }
+      ],
+      "identities": {
+        "backend_sha256": "bec1a1542abae88db0c8ee22cb63350ef335190c6a0623ddac3ddf20874c6b1f",
+        "calibration_sha256": "8578fdb91502eb3a41ea67004382f9b9dc7b4703a5d4fdbda3877a856bf7e60e",
+        "model_sha256": "ffcff490fad69b510a4639e1ab5ab271021669136935e094dff9ffa7a10f0c04",
+        "settings_sha256": "63d5544b7901b68237d44b8d4c0ae56f72a882e04820f7f31e29228325636ee4"
+      },
+      "prediction": {
+        "batch": {
+          "batch_id": "ed6aaa3c3be9b7104ec60a9e1689977674ba301bd9d69c19a5b0b9d13a45e30e",
+          "complete": true,
+          "limits": {
+            "default_seconds_per_batch": 300.0,
+            "default_seconds_per_record": 30.0,
+            "max_all_state_sites_per_record": 100,
+            "max_all_states_per_batch": 2000,
+            "max_all_states_per_record": 2000,
+            "max_contig_chars": 128,
+            "max_host_name_chars": 200,
+            "max_id_chars": 128,
+            "max_input_json_bytes": 4000000,
+            "max_metadata_depth": 4,
+            "max_metadata_json_bytes": 4096,
+            "max_normalized_bases_per_batch": 100000,
+            "max_normalized_bases_per_record": 5000,
+            "max_planned_sites_per_batch": 4000,
+            "max_planned_sites_per_record": 1000,
+            "max_raw_sequence_chars_per_record": 50000,
+            "max_records_per_batch": 100,
+            "max_result_json_bytes": 67108864,
+            "max_seconds_per_batch": 3600.0,
+            "max_seconds_per_record": 120.0
+          },
+          "record_count": 1,
+          "seconds_per_batch": 30.0,
+          "seconds_per_record": 30.0,
+          "status_counts": {
+            "failed": 0,
+            "invalid_input": 0,
+            "no_candidate": 0,
+            "ok": 1,
+            "unsupported": 0
+          }
+        },
+        "model": {
+          "claims": {
+            "absolute_rate": false,
+            "hosted_parity": false,
+            "native_accuracy_evaluated": false,
+            "physical_free_energy": false,
+            "probability": false
+          },
+          "id": "promoter-lafleur2022-historical-1",
+          "implementation_version": "0.6.0rc1",
+          "kind": "historical_equation_reconstruction",
+          "licence": "GPL-3.0-or-later",
+          "not_modeled": [
+            "sigma_factor",
+            "temperature",
+            "host_specific_calibration",
+            "probability",
+            "absolute_rate",
+            "free_energy"
+          ],
+          "parameters": {
+            "array_sha256": {
+              "coefficients": "fddf16b38bf29799481e8a45890b669111e16cf2e3448e99d1934d19a8f0b8e9",
+              "intercept": "f7c66a8d838da71a6b2ab17936cd6ff2564e446af8c0676fba95de2116e99a7b"
+            },
+            "coefficient_count": 343,
+            "intercept_count": 1,
+            "parameter_json_sha256": "e2957d4687a5d5a2a20bcce231b4ea1446f269b383bbae94eed72860efa360dc",
+            "unused_coefficient_indices": [
+              336,
+              337,
+              338
+            ]
+          },
+          "source": {
+            "commit": "46da9132740bce30bccd107f02808adf2215e2f0",
+            "path": "Promoter_Calculator",
+            "reference_fork_commit": "0fe5f6f0fb2befc087556afa575f7241afd98fbf",
+            "repository": "https://github.com/hsalis/SalisLabCode"
+          },
+          "source_quirks": [
+            {
+              "behavior": "Corrected local base L-1-t; legacy L-t diagnostic only.",
+              "id": "reverse_key_l_minus_t"
+            },
+            {
+              "behavior": "Always retain the one-base UP/hex35 gap.",
+              "id": "arbitrary_scan_gap_omitted"
+            },
+            {
+              "behavior": "No sigma input accepted; source metadata had no effect.",
+              "id": "sigma_levels_ignored"
+            },
+            {
+              "behavior": "Calibration required, never inferred from host.",
+              "id": "unknown_organism_default_beta"
+            },
+            {
+              "behavior": "All coordinate-eligible states available on request.",
+              "id": "one_state_per_tss_public"
+            },
+            {
+              "behavior": "Preserve unused 336..338; use source quadratic.",
+              "id": "unused_spacer_coefficients"
+            },
+            {
+              "behavior": "Follow code: UP=24; discriminator lengths 6..10.",
+              "id": "paper_code_difference"
+            }
+          ],
+          "term_source_names": {
+            "binding": "dG_bind",
+            "discriminator": "dG_disc",
+            "extended10": "dG_ext10",
+            "hex10": "dG_10",
+            "hex35": "dG_35",
+            "intercept": "intercept",
+            "itr": "dG_ITR",
+            "source_apparent": "dG_apparent",
+            "spacer": "dG_spacer",
+            "total": "dG_total",
+            "up": "dG_UP"
+          },
+          "terms_semantics": "learned regression score contributions; not independently established free energies",
+          "terms_unit": "source_dG_units"
+        },
+        "results": [
+          {
+            "calibration": {
+              "K": 42,
+              "beta": 0.81632623,
+              "host": null,
+              "host_status": "in_vitro_reference",
+              "native_host": null,
+              "profile": "in_vitro"
+            },
+            "coverage": {
+              "complete": true,
+              "complete_context": true,
+              "failed_sites": 0,
+              "insufficient_context_sites": 0,
+              "partial_state_sites": 0,
+              "planned_sites": 2,
+              "scored_sites": 2,
+              "truncation": null,
+              "unattempted_sites": 0
+            },
+            "errors": [],
+            "id": "current",
+            "input": {
+              "length": 200,
+              "normalization": "ascii-whitespace-uppercase-u-to-t-1",
+              "normalized_dna_sha256": "2da1b55ddf19dbbbb50a561b0476995c5c236fd1c3d4eabe463476f86f8542ce",
+              "raw_sha256": "2da1b55ddf19dbbbb50a561b0476995c5c236fd1c3d4eabe463476f86f8542ce"
+            },
+            "metadata": null,
+            "prediction_id": "be8160186c56872c51a7b87d91a16d0488260ed031adeeb9e8f71a594b23de79",
+            "projection": null,
+            "reasons": [],
+            "scan": {
+              "mode": "positions",
+              "positions": [
+                {
+                  "strand": "+",
+                  "tss": 100
+                },
+                {
+                  "strand": "-",
+                  "tss": 100
+                }
+              ]
+            },
+            "sites": [
+              {
+                "attempted": true,
+                "complete_state_set": true,
+                "context": {
+                  "available_downstream": 99,
+                  "available_upstream": 100,
+                  "required_downstream": 19,
+                  "required_upstream": 67
+                },
+                "genomic": null,
+                "reason": null,
+                "selected": {
+                  "discriminator_length": 8,
+                  "elements": {
+                    "UP": "GTACGTACGTACGTACGTACGTAC",
+                    "discriminator": "ACGTACGT",
+                    "hex10": "GTACGT",
+                    "hex35": "TACGTA",
+                    "itr": "ACGTACGTACGTACGTACGT",
+                    "spacer": "CGTACGTACGTACGTAC"
+                  },
+                  "intervals": {
+                    "UP": [
+                      38,
+                      62
+                    ],
+                    "discriminator": [
+                      92,
+                      100
+                    ],
+                    "extended10": [
+                      83,
+                      85
+                    ],
+                    "gap": [
+                      62,
+                      63
+                    ],
+                    "hex10": [
+                      86,
+                      92
+                    ],
+                    "hex35": [
+                      63,
+                      69
+                    ],
+                    "itr": [
+                      100,
+                      120
+                    ],
+                    "spacer": [
+                      69,
+                      86
+                    ]
+                  },
+                  "log_relative_transcription_score": 5.133135031983152,
+                  "oriented_intervals": {
+                    "UP": [
+                      38,
+                      62
+                    ],
+                    "discriminator": [
+                      92,
+                      100
+                    ],
+                    "extended10": [
+                      83,
+                      85
+                    ],
+                    "gap": [
+                      62,
+                      63
+                    ],
+                    "hex10": [
+                      86,
+                      92
+                    ],
+                    "hex35": [
+                      63,
+                      69
+                    ],
+                    "itr": [
+                      100,
+                      120
+                    ],
+                    "spacer": [
+                      69,
+                      86
+                    ]
+                  },
+                  "relative_transcription_score": 169.54782357038962,
+                  "score_status": "ok",
+                  "spacer_length": 17,
+                  "state_id": "psite1:7a57c42a084b870327c099373477e1b7:+:100:d8s17",
+                  "terms": {
+                    "binding": -0.693752568780986,
+                    "discriminator": -0.020389208170715694,
+                    "extended10": -0.139301362120528,
+                    "hex10": -0.41945253280071704,
+                    "hex35": -0.13741685547828716,
+                    "intercept": -0.9583584537583338,
+                    "itr": -0.03694553057560137,
+                    "source_apparent": 1.3392513416044016,
+                    "spacer": -0.09239999999999071,
+                    "total": -1.7094457612856369,
+                    "up": 0.0948181816185369
+                  }
+                },
+                "site_id": "psite1:7a57c42a084b870327c099373477e1b7:+:100",
+                "state_count": 30,
+                "status": "ok",
+                "strand": "+",
+                "tie_count": 1,
+                "tss": {
+                  "forward_base": 100,
+                  "oriented_base": 100
+                }
+              },
+              {
+                "attempted": true,
+                "complete_state_set": true,
+                "context": {
+                  "available_downstream": 100,
+                  "available_upstream": 99,
+                  "required_downstream": 19,
+                  "required_upstream": 67
+                },
+                "genomic": null,
+                "reason": null,
+                "selected": {
+                  "discriminator_length": 7,
+                  "elements": {
+                    "UP": "GTACGTACGTACGTACGTACGTAC",
+                    "discriminator": "ACGTACG",
+                    "hex10": "GTACGT",
+                    "hex35": "TACGTA",
+                    "itr": "TACGTACGTACGTACGTACG",
+                    "spacer": "CGTACGTACGTACGTAC"
+                  },
+                  "intervals": {
+                    "UP": [
+                      138,
+                      162
+                    ],
+                    "discriminator": [
+                      101,
+                      108
+                    ],
+                    "extended10": [
+                      115,
+                      117
+                    ],
+                    "gap": [
+                      137,
+                      138
+                    ],
+                    "hex10": [
+                      108,
+                      114
+                    ],
+                    "hex35": [
+                      131,
+                      137
+                    ],
+                    "itr": [
+                      81,
+                      101
+                    ],
+                    "spacer": [
+                      114,
+                      131
+                    ]
+                  },
+                  "log_relative_transcription_score": 5.014650866771926,
+                  "oriented_intervals": {
+                    "UP": [
+                      38,
+                      62
+                    ],
+                    "discriminator": [
+                      92,
+                      99
+                    ],
+                    "extended10": [
+                      83,
+                      85
+                    ],
+                    "gap": [
+                      62,
+                      63
+                    ],
+                    "hex10": [
+                      86,
+                      92
+                    ],
+                    "hex35": [
+                      63,
+                      69
+                    ],
+                    "itr": [
+                      99,
+                      119
+                    ],
+                    "spacer": [
+                      69,
+                      86
+                    ]
+                  },
+                  "relative_transcription_score": 150.60354688353047,
+                  "score_status": "ok",
+                  "spacer_length": 17,
+                  "state_id": "psite1:7a57c42a084b870327c099373477e1b7:-:100:d7s17",
+                  "terms": {
+                    "binding": -0.693752568780986,
+                    "discriminator": -0.020389208170715694,
+                    "extended10": -0.139301362120528,
+                    "hex10": -0.41945253280071704,
+                    "hex35": -0.13741685547828716,
+                    "intercept": -0.9583584537583338,
+                    "itr": 0.10819762525711829,
+                    "source_apparent": 1.517051772974492,
+                    "spacer": -0.09239999999999071,
+                    "total": -1.5643026054529172,
+                    "up": 0.0948181816185369
+                  }
+                },
+                "site_id": "psite1:7a57c42a084b870327c099373477e1b7:-:100",
+                "state_count": 30,
+                "status": "ok",
+                "strand": "-",
+                "tie_count": 1,
+                "tss": {
+                  "forward_base": 100,
+                  "oriented_base": 99
+                }
+              }
+            ],
+            "status": "ok",
+            "warnings": []
+          }
+        ],
+        "schema_version": "1.0"
+      },
+      "prediction_sha256": "f418289c3e1661daff437b5361af9f19b9b70a65807ea656c929187110bfb3d4",
+      "projection": null,
+      "request": {
+        "calibration": "in_vitro",
+        "id": "current",
+        "output": {
+          "elements": true,
+          "legacy_keys": false,
+          "states": "selected"
+        },
+        "scan": {
+          "mode": "positions",
+          "positions": [
+            {
+              "strand": "+",
+              "tss": 100
+            },
+            {
+              "strand": "-",
+              "tss": 100
+            }
+          ]
+        },
+        "sequence": "ACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT"
+      },
+      "roster_status": "known"
+    },
+    "recoded": {
+      "candidates": [
+        {
+          "anchor": 100,
+          "codon_bases": null,
+          "features": {
+            "UP": {
+              "genomic": null,
+              "interval": [
+                38,
+                62
+              ],
+              "mapping": {
+                "complete_base_mapping": true,
+                "contiguous_target_path": true,
+                "mapped_bases": [
+                  38,
+                  39,
+                  40,
+                  41,
+                  42,
+                  43,
+                  44,
+                  45,
+                  46,
+                  47,
+                  48,
+                  49,
+                  50,
+                  51,
+                  52,
+                  53,
+                  54,
+                  55,
+                  56,
+                  57,
+                  58,
+                  59,
+                  60,
+                  61
+                ],
+                "mapped_runs": [
+                  [
+                    38,
+                    62
+                  ]
+                ],
+                "source_bases": [
+                  38,
+                  39,
+                  40,
+                  41,
+                  42,
+                  43,
+                  44,
+                  45,
+                  46,
+                  47,
+                  48,
+                  49,
+                  50,
+                  51,
+                  52,
+                  53,
+                  54,
+                  55,
+                  56,
+                  57,
+                  58,
+                  59,
+                  60,
+                  61
+                ],
+                "unmatched_bases": 0
+              },
+              "reason": null,
+              "strand": "+"
+            },
+            "discriminator": {
+              "genomic": null,
+              "interval": [
+                92,
+                100
+              ],
+              "mapping": {
+                "complete_base_mapping": true,
+                "contiguous_target_path": true,
+                "mapped_bases": [
+                  92,
+                  93,
+                  94,
+                  95,
+                  96,
+                  97,
+                  98,
+                  99
+                ],
+                "mapped_runs": [
+                  [
+                    92,
+                    100
+                  ]
+                ],
+                "source_bases": [
+                  92,
+                  93,
+                  94,
+                  95,
+                  96,
+                  97,
+                  98,
+                  99
+                ],
+                "unmatched_bases": 0
+              },
+              "reason": null,
+              "strand": "+"
+            },
+            "extended10": {
+              "genomic": null,
+              "interval": [
+                83,
+                85
+              ],
+              "mapping": {
+                "complete_base_mapping": true,
+                "contiguous_target_path": true,
+                "mapped_bases": [
+                  83,
+                  84
+                ],
+                "mapped_runs": [
+                  [
+                    83,
+                    85
+                  ]
+                ],
+                "source_bases": [
+                  83,
+                  84
+                ],
+                "unmatched_bases": 0
+              },
+              "reason": null,
+              "strand": "+"
+            },
+            "gap": {
+              "genomic": null,
+              "interval": [
+                62,
+                63
+              ],
+              "mapping": {
+                "complete_base_mapping": true,
+                "contiguous_target_path": true,
+                "mapped_bases": [
+                  62
+                ],
+                "mapped_runs": [
+                  [
+                    62,
+                    63
+                  ]
+                ],
+                "source_bases": [
+                  62
+                ],
+                "unmatched_bases": 0
+              },
+              "reason": null,
+              "strand": "+"
+            },
+            "hex10": {
+              "genomic": null,
+              "interval": [
+                86,
+                92
+              ],
+              "mapping": {
+                "complete_base_mapping": true,
+                "contiguous_target_path": true,
+                "mapped_bases": [
+                  86,
+                  87,
+                  88,
+                  89,
+                  90,
+                  91
+                ],
+                "mapped_runs": [
+                  [
+                    86,
+                    92
+                  ]
+                ],
+                "source_bases": [
+                  86,
+                  87,
+                  88,
+                  89,
+                  90,
+                  91
+                ],
+                "unmatched_bases": 0
+              },
+              "reason": null,
+              "strand": "+"
+            },
+            "hex35": {
+              "genomic": null,
+              "interval": [
+                63,
+                69
+              ],
+              "mapping": {
+                "complete_base_mapping": true,
+                "contiguous_target_path": true,
+                "mapped_bases": [
+                  63,
+                  64,
+                  65,
+                  66,
+                  67,
+                  68
+                ],
+                "mapped_runs": [
+                  [
+                    63,
+                    69
+                  ]
+                ],
+                "source_bases": [
+                  63,
+                  64,
+                  65,
+                  66,
+                  67,
+                  68
+                ],
+                "unmatched_bases": 0
+              },
+              "reason": null,
+              "strand": "+"
+            },
+            "itr": {
+              "genomic": null,
+              "interval": [
+                100,
+                120
+              ],
+              "mapping": {
+                "complete_base_mapping": true,
+                "contiguous_target_path": true,
+                "mapped_bases": [
+                  100,
+                  101,
+                  102,
+                  103,
+                  104,
+                  105,
+                  106,
+                  107,
+                  108,
+                  109,
+                  110,
+                  111,
+                  112,
+                  113,
+                  114,
+                  115,
+                  116,
+                  117,
+                  118,
+                  119
+                ],
+                "mapped_runs": [
+                  [
+                    100,
+                    120
+                  ]
+                ],
+                "source_bases": [
+                  100,
+                  101,
+                  102,
+                  103,
+                  104,
+                  105,
+                  106,
+                  107,
+                  108,
+                  109,
+                  110,
+                  111,
+                  112,
+                  113,
+                  114,
+                  115,
+                  116,
+                  117,
+                  118,
+                  119
+                ],
+                "unmatched_bases": 0
+              },
+              "reason": null,
+              "strand": "+"
+            },
+            "spacer": {
+              "genomic": null,
+              "interval": [
+                69,
+                86
+              ],
+              "mapping": {
+                "complete_base_mapping": true,
+                "contiguous_target_path": true,
+                "mapped_bases": [
+                  69,
+                  70,
+                  71,
+                  72,
+                  73,
+                  74,
+                  75,
+                  76,
+                  77,
+                  78,
+                  79,
+                  80,
+                  81,
+                  82,
+                  83,
+                  84,
+                  85
+                ],
+                "mapped_runs": [
+                  [
+                    69,
+                    86
+                  ]
+                ],
+                "source_bases": [
+                  69,
+                  70,
+                  71,
+                  72,
+                  73,
+                  74,
+                  75,
+                  76,
+                  77,
+                  78,
+                  79,
+                  80,
+                  81,
+                  82,
+                  83,
+                  84,
+                  85
+                ],
+                "unmatched_bases": 0
+              },
+              "reason": null,
+              "strand": "+"
+            }
+          },
+          "genomic": null,
+          "id": "pcandidate1:44c07972d7c84e924d7d300b903a210b:recoded:promoter:+:100",
+          "reason": null,
+          "scalars": {
+            "binding": {
+              "reason": null,
+              "unit": "source_dG_units",
+              "value": -0.693752568780986
+            },
+            "discriminator": {
+              "reason": null,
+              "unit": "source_dG_units",
+              "value": -0.020389208170715694
+            },
+            "extended10": {
+              "reason": null,
+              "unit": "source_dG_units",
+              "value": -0.139301362120528
+            },
+            "hex10": {
+              "reason": null,
+              "unit": "source_dG_units",
+              "value": -0.41945253280071704
+            },
+            "hex35": {
+              "reason": null,
+              "unit": "source_dG_units",
+              "value": -0.13741685547828716
+            },
+            "intercept": {
+              "reason": null,
+              "unit": "source_dG_units",
+              "value": -0.9583584537583338
+            },
+            "itr": {
+              "reason": null,
+              "unit": "source_dG_units",
+              "value": -0.03694553057560137
+            },
+            "log_relative_transcription_score": {
+              "reason": null,
+              "unit": "ln_relative_transcription_score",
+              "value": 5.133135031983152
+            },
+            "relative_transcription_score": {
+              "reason": null,
+              "unit": "relative_transcription_score",
+              "value": 169.54782357038962
+            },
+            "spacer": {
+              "reason": null,
+              "unit": "source_dG_units",
+              "value": -0.09239999999999071
+            },
+            "total": {
+              "reason": null,
+              "unit": "source_dG_units",
+              "value": -1.7094457612856369
+            },
+            "up": {
+              "reason": null,
+              "unit": "source_dG_units",
+              "value": 0.0948181816185369
+            }
+          },
+          "site_index": 0,
+          "status": "ok",
+          "strand": "+"
+        },
+        {
+          "anchor": 100,
+          "codon_bases": null,
+          "features": {
+            "UP": {
+              "genomic": null,
+              "interval": [
+                138,
+                162
+              ],
+              "mapping": {
+                "complete_base_mapping": true,
+                "contiguous_target_path": true,
+                "mapped_bases": [
+                  161,
+                  160,
+                  159,
+                  158,
+                  157,
+                  156,
+                  155,
+                  154,
+                  153,
+                  152,
+                  151,
+                  150,
+                  149,
+                  148,
+                  147,
+                  146,
+                  145,
+                  144,
+                  143,
+                  142,
+                  141,
+                  140,
+                  139,
+                  138
+                ],
+                "mapped_runs": [
+                  [
+                    138,
+                    162
+                  ]
+                ],
+                "source_bases": [
+                  161,
+                  160,
+                  159,
+                  158,
+                  157,
+                  156,
+                  155,
+                  154,
+                  153,
+                  152,
+                  151,
+                  150,
+                  149,
+                  148,
+                  147,
+                  146,
+                  145,
+                  144,
+                  143,
+                  142,
+                  141,
+                  140,
+                  139,
+                  138
+                ],
+                "unmatched_bases": 0
+              },
+              "reason": null,
+              "strand": "-"
+            },
+            "discriminator": {
+              "genomic": null,
+              "interval": [
+                101,
+                108
+              ],
+              "mapping": {
+                "complete_base_mapping": true,
+                "contiguous_target_path": true,
+                "mapped_bases": [
+                  107,
+                  106,
+                  105,
+                  104,
+                  103,
+                  102,
+                  101
+                ],
+                "mapped_runs": [
+                  [
+                    101,
+                    108
+                  ]
+                ],
+                "source_bases": [
+                  107,
+                  106,
+                  105,
+                  104,
+                  103,
+                  102,
+                  101
+                ],
+                "unmatched_bases": 0
+              },
+              "reason": null,
+              "strand": "-"
+            },
+            "extended10": {
+              "genomic": null,
+              "interval": [
+                115,
+                117
+              ],
+              "mapping": {
+                "complete_base_mapping": true,
+                "contiguous_target_path": true,
+                "mapped_bases": [
+                  116,
+                  115
+                ],
+                "mapped_runs": [
+                  [
+                    115,
+                    117
+                  ]
+                ],
+                "source_bases": [
+                  116,
+                  115
+                ],
+                "unmatched_bases": 0
+              },
+              "reason": null,
+              "strand": "-"
+            },
+            "gap": {
+              "genomic": null,
+              "interval": [
+                137,
+                138
+              ],
+              "mapping": {
+                "complete_base_mapping": true,
+                "contiguous_target_path": true,
+                "mapped_bases": [
+                  137
+                ],
+                "mapped_runs": [
+                  [
+                    137,
+                    138
+                  ]
+                ],
+                "source_bases": [
+                  137
+                ],
+                "unmatched_bases": 0
+              },
+              "reason": null,
+              "strand": "-"
+            },
+            "hex10": {
+              "genomic": null,
+              "interval": [
+                108,
+                114
+              ],
+              "mapping": {
+                "complete_base_mapping": true,
+                "contiguous_target_path": true,
+                "mapped_bases": [
+                  113,
+                  112,
+                  111,
+                  110,
+                  109,
+                  108
+                ],
+                "mapped_runs": [
+                  [
+                    108,
+                    114
+                  ]
+                ],
+                "source_bases": [
+                  113,
+                  112,
+                  111,
+                  110,
+                  109,
+                  108
+                ],
+                "unmatched_bases": 0
+              },
+              "reason": null,
+              "strand": "-"
+            },
+            "hex35": {
+              "genomic": null,
+              "interval": [
+                131,
+                137
+              ],
+              "mapping": {
+                "complete_base_mapping": true,
+                "contiguous_target_path": true,
+                "mapped_bases": [
+                  136,
+                  135,
+                  134,
+                  133,
+                  132,
+                  131
+                ],
+                "mapped_runs": [
+                  [
+                    131,
+                    137
+                  ]
+                ],
+                "source_bases": [
+                  136,
+                  135,
+                  134,
+                  133,
+                  132,
+                  131
+                ],
+                "unmatched_bases": 0
+              },
+              "reason": null,
+              "strand": "-"
+            },
+            "itr": {
+              "genomic": null,
+              "interval": [
+                81,
+                101
+              ],
+              "mapping": {
+                "complete_base_mapping": true,
+                "contiguous_target_path": true,
+                "mapped_bases": [
+                  100,
+                  99,
+                  98,
+                  97,
+                  96,
+                  95,
+                  94,
+                  93,
+                  92,
+                  91,
+                  90,
+                  89,
+                  88,
+                  87,
+                  86,
+                  85,
+                  84,
+                  83,
+                  82,
+                  81
+                ],
+                "mapped_runs": [
+                  [
+                    81,
+                    101
+                  ]
+                ],
+                "source_bases": [
+                  100,
+                  99,
+                  98,
+                  97,
+                  96,
+                  95,
+                  94,
+                  93,
+                  92,
+                  91,
+                  90,
+                  89,
+                  88,
+                  87,
+                  86,
+                  85,
+                  84,
+                  83,
+                  82,
+                  81
+                ],
+                "unmatched_bases": 0
+              },
+              "reason": null,
+              "strand": "-"
+            },
+            "spacer": {
+              "genomic": null,
+              "interval": [
+                114,
+                131
+              ],
+              "mapping": {
+                "complete_base_mapping": true,
+                "contiguous_target_path": true,
+                "mapped_bases": [
+                  130,
+                  129,
+                  128,
+                  127,
+                  126,
+                  125,
+                  124,
+                  123,
+                  122,
+                  121,
+                  120,
+                  119,
+                  118,
+                  117,
+                  116,
+                  115,
+                  114
+                ],
+                "mapped_runs": [
+                  [
+                    114,
+                    131
+                  ]
+                ],
+                "source_bases": [
+                  130,
+                  129,
+                  128,
+                  127,
+                  126,
+                  125,
+                  124,
+                  123,
+                  122,
+                  121,
+                  120,
+                  119,
+                  118,
+                  117,
+                  116,
+                  115,
+                  114
+                ],
+                "unmatched_bases": 0
+              },
+              "reason": null,
+              "strand": "-"
+            }
+          },
+          "genomic": null,
+          "id": "pcandidate1:44c07972d7c84e924d7d300b903a210b:recoded:promoter:-:100",
+          "reason": null,
+          "scalars": {
+            "binding": {
+              "reason": null,
+              "unit": "source_dG_units",
+              "value": -0.693752568780986
+            },
+            "discriminator": {
+              "reason": null,
+              "unit": "source_dG_units",
+              "value": -0.020389208170715694
+            },
+            "extended10": {
+              "reason": null,
+              "unit": "source_dG_units",
+              "value": -0.139301362120528
+            },
+            "hex10": {
+              "reason": null,
+              "unit": "source_dG_units",
+              "value": -0.41945253280071704
+            },
+            "hex35": {
+              "reason": null,
+              "unit": "source_dG_units",
+              "value": -0.13741685547828716
+            },
+            "intercept": {
+              "reason": null,
+              "unit": "source_dG_units",
+              "value": -0.9583584537583338
+            },
+            "itr": {
+              "reason": null,
+              "unit": "source_dG_units",
+              "value": 0.10819762525711829
+            },
+            "log_relative_transcription_score": {
+              "reason": null,
+              "unit": "ln_relative_transcription_score",
+              "value": 5.014650866771926
+            },
+            "relative_transcription_score": {
+              "reason": null,
+              "unit": "relative_transcription_score",
+              "value": 150.60354688353047
+            },
+            "spacer": {
+              "reason": null,
+              "unit": "source_dG_units",
+              "value": -0.09239999999999071
+            },
+            "total": {
+              "reason": null,
+              "unit": "source_dG_units",
+              "value": -1.5643026054529172
+            },
+            "up": {
+              "reason": null,
+              "unit": "source_dG_units",
+              "value": 0.0948181816185369
+            }
+          },
+          "site_index": 1,
+          "status": "ok",
+          "strand": "-"
+        }
+      ],
+      "identities": {
+        "backend_sha256": "bec1a1542abae88db0c8ee22cb63350ef335190c6a0623ddac3ddf20874c6b1f",
+        "calibration_sha256": "8578fdb91502eb3a41ea67004382f9b9dc7b4703a5d4fdbda3877a856bf7e60e",
+        "model_sha256": "ffcff490fad69b510a4639e1ab5ab271021669136935e094dff9ffa7a10f0c04",
+        "settings_sha256": "63d5544b7901b68237d44b8d4c0ae56f72a882e04820f7f31e29228325636ee4"
+      },
+      "prediction": {
+        "batch": {
+          "batch_id": "98815f42dd953ee580c08c727b6fded23560c06c0a6ecd480f5d6527479c220b",
+          "complete": true,
+          "limits": {
+            "default_seconds_per_batch": 300.0,
+            "default_seconds_per_record": 30.0,
+            "max_all_state_sites_per_record": 100,
+            "max_all_states_per_batch": 2000,
+            "max_all_states_per_record": 2000,
+            "max_contig_chars": 128,
+            "max_host_name_chars": 200,
+            "max_id_chars": 128,
+            "max_input_json_bytes": 4000000,
+            "max_metadata_depth": 4,
+            "max_metadata_json_bytes": 4096,
+            "max_normalized_bases_per_batch": 100000,
+            "max_normalized_bases_per_record": 5000,
+            "max_planned_sites_per_batch": 4000,
+            "max_planned_sites_per_record": 1000,
+            "max_raw_sequence_chars_per_record": 50000,
+            "max_records_per_batch": 100,
+            "max_result_json_bytes": 67108864,
+            "max_seconds_per_batch": 3600.0,
+            "max_seconds_per_record": 120.0
+          },
+          "record_count": 1,
+          "seconds_per_batch": 30.0,
+          "seconds_per_record": 30.0,
+          "status_counts": {
+            "failed": 0,
+            "invalid_input": 0,
+            "no_candidate": 0,
+            "ok": 1,
+            "unsupported": 0
+          }
+        },
+        "model": {
+          "claims": {
+            "absolute_rate": false,
+            "hosted_parity": false,
+            "native_accuracy_evaluated": false,
+            "physical_free_energy": false,
+            "probability": false
+          },
+          "id": "promoter-lafleur2022-historical-1",
+          "implementation_version": "0.6.0rc1",
+          "kind": "historical_equation_reconstruction",
+          "licence": "GPL-3.0-or-later",
+          "not_modeled": [
+            "sigma_factor",
+            "temperature",
+            "host_specific_calibration",
+            "probability",
+            "absolute_rate",
+            "free_energy"
+          ],
+          "parameters": {
+            "array_sha256": {
+              "coefficients": "fddf16b38bf29799481e8a45890b669111e16cf2e3448e99d1934d19a8f0b8e9",
+              "intercept": "f7c66a8d838da71a6b2ab17936cd6ff2564e446af8c0676fba95de2116e99a7b"
+            },
+            "coefficient_count": 343,
+            "intercept_count": 1,
+            "parameter_json_sha256": "e2957d4687a5d5a2a20bcce231b4ea1446f269b383bbae94eed72860efa360dc",
+            "unused_coefficient_indices": [
+              336,
+              337,
+              338
+            ]
+          },
+          "source": {
+            "commit": "46da9132740bce30bccd107f02808adf2215e2f0",
+            "path": "Promoter_Calculator",
+            "reference_fork_commit": "0fe5f6f0fb2befc087556afa575f7241afd98fbf",
+            "repository": "https://github.com/hsalis/SalisLabCode"
+          },
+          "source_quirks": [
+            {
+              "behavior": "Corrected local base L-1-t; legacy L-t diagnostic only.",
+              "id": "reverse_key_l_minus_t"
+            },
+            {
+              "behavior": "Always retain the one-base UP/hex35 gap.",
+              "id": "arbitrary_scan_gap_omitted"
+            },
+            {
+              "behavior": "No sigma input accepted; source metadata had no effect.",
+              "id": "sigma_levels_ignored"
+            },
+            {
+              "behavior": "Calibration required, never inferred from host.",
+              "id": "unknown_organism_default_beta"
+            },
+            {
+              "behavior": "All coordinate-eligible states available on request.",
+              "id": "one_state_per_tss_public"
+            },
+            {
+              "behavior": "Preserve unused 336..338; use source quadratic.",
+              "id": "unused_spacer_coefficients"
+            },
+            {
+              "behavior": "Follow code: UP=24; discriminator lengths 6..10.",
+              "id": "paper_code_difference"
+            }
+          ],
+          "term_source_names": {
+            "binding": "dG_bind",
+            "discriminator": "dG_disc",
+            "extended10": "dG_ext10",
+            "hex10": "dG_10",
+            "hex35": "dG_35",
+            "intercept": "intercept",
+            "itr": "dG_ITR",
+            "source_apparent": "dG_apparent",
+            "spacer": "dG_spacer",
+            "total": "dG_total",
+            "up": "dG_UP"
+          },
+          "terms_semantics": "learned regression score contributions; not independently established free energies",
+          "terms_unit": "source_dG_units"
+        },
+        "results": [
+          {
+            "calibration": {
+              "K": 42,
+              "beta": 0.81632623,
+              "host": null,
+              "host_status": "in_vitro_reference",
+              "native_host": null,
+              "profile": "in_vitro"
+            },
+            "coverage": {
+              "complete": true,
+              "complete_context": true,
+              "failed_sites": 0,
+              "insufficient_context_sites": 0,
+              "partial_state_sites": 0,
+              "planned_sites": 2,
+              "scored_sites": 2,
+              "truncation": null,
+              "unattempted_sites": 0
+            },
+            "errors": [],
+            "id": "recoded",
+            "input": {
+              "length": 200,
+              "normalization": "ascii-whitespace-uppercase-u-to-t-1",
+              "normalized_dna_sha256": "2da1b55ddf19dbbbb50a561b0476995c5c236fd1c3d4eabe463476f86f8542ce",
+              "raw_sha256": "2da1b55ddf19dbbbb50a561b0476995c5c236fd1c3d4eabe463476f86f8542ce"
+            },
+            "metadata": null,
+            "prediction_id": "be8160186c56872c51a7b87d91a16d0488260ed031adeeb9e8f71a594b23de79",
+            "projection": null,
+            "reasons": [],
+            "scan": {
+              "mode": "positions",
+              "positions": [
+                {
+                  "strand": "+",
+                  "tss": 100
+                },
+                {
+                  "strand": "-",
+                  "tss": 100
+                }
+              ]
+            },
+            "sites": [
+              {
+                "attempted": true,
+                "complete_state_set": true,
+                "context": {
+                  "available_downstream": 99,
+                  "available_upstream": 100,
+                  "required_downstream": 19,
+                  "required_upstream": 67
+                },
+                "genomic": null,
+                "reason": null,
+                "selected": {
+                  "discriminator_length": 8,
+                  "elements": {
+                    "UP": "GTACGTACGTACGTACGTACGTAC",
+                    "discriminator": "ACGTACGT",
+                    "hex10": "GTACGT",
+                    "hex35": "TACGTA",
+                    "itr": "ACGTACGTACGTACGTACGT",
+                    "spacer": "CGTACGTACGTACGTAC"
+                  },
+                  "intervals": {
+                    "UP": [
+                      38,
+                      62
+                    ],
+                    "discriminator": [
+                      92,
+                      100
+                    ],
+                    "extended10": [
+                      83,
+                      85
+                    ],
+                    "gap": [
+                      62,
+                      63
+                    ],
+                    "hex10": [
+                      86,
+                      92
+                    ],
+                    "hex35": [
+                      63,
+                      69
+                    ],
+                    "itr": [
+                      100,
+                      120
+                    ],
+                    "spacer": [
+                      69,
+                      86
+                    ]
+                  },
+                  "log_relative_transcription_score": 5.133135031983152,
+                  "oriented_intervals": {
+                    "UP": [
+                      38,
+                      62
+                    ],
+                    "discriminator": [
+                      92,
+                      100
+                    ],
+                    "extended10": [
+                      83,
+                      85
+                    ],
+                    "gap": [
+                      62,
+                      63
+                    ],
+                    "hex10": [
+                      86,
+                      92
+                    ],
+                    "hex35": [
+                      63,
+                      69
+                    ],
+                    "itr": [
+                      100,
+                      120
+                    ],
+                    "spacer": [
+                      69,
+                      86
+                    ]
+                  },
+                  "relative_transcription_score": 169.54782357038962,
+                  "score_status": "ok",
+                  "spacer_length": 17,
+                  "state_id": "psite1:7a57c42a084b870327c099373477e1b7:+:100:d8s17",
+                  "terms": {
+                    "binding": -0.693752568780986,
+                    "discriminator": -0.020389208170715694,
+                    "extended10": -0.139301362120528,
+                    "hex10": -0.41945253280071704,
+                    "hex35": -0.13741685547828716,
+                    "intercept": -0.9583584537583338,
+                    "itr": -0.03694553057560137,
+                    "source_apparent": 1.3392513416044016,
+                    "spacer": -0.09239999999999071,
+                    "total": -1.7094457612856369,
+                    "up": 0.0948181816185369
+                  }
+                },
+                "site_id": "psite1:7a57c42a084b870327c099373477e1b7:+:100",
+                "state_count": 30,
+                "status": "ok",
+                "strand": "+",
+                "tie_count": 1,
+                "tss": {
+                  "forward_base": 100,
+                  "oriented_base": 100
+                }
+              },
+              {
+                "attempted": true,
+                "complete_state_set": true,
+                "context": {
+                  "available_downstream": 100,
+                  "available_upstream": 99,
+                  "required_downstream": 19,
+                  "required_upstream": 67
+                },
+                "genomic": null,
+                "reason": null,
+                "selected": {
+                  "discriminator_length": 7,
+                  "elements": {
+                    "UP": "GTACGTACGTACGTACGTACGTAC",
+                    "discriminator": "ACGTACG",
+                    "hex10": "GTACGT",
+                    "hex35": "TACGTA",
+                    "itr": "TACGTACGTACGTACGTACG",
+                    "spacer": "CGTACGTACGTACGTAC"
+                  },
+                  "intervals": {
+                    "UP": [
+                      138,
+                      162
+                    ],
+                    "discriminator": [
+                      101,
+                      108
+                    ],
+                    "extended10": [
+                      115,
+                      117
+                    ],
+                    "gap": [
+                      137,
+                      138
+                    ],
+                    "hex10": [
+                      108,
+                      114
+                    ],
+                    "hex35": [
+                      131,
+                      137
+                    ],
+                    "itr": [
+                      81,
+                      101
+                    ],
+                    "spacer": [
+                      114,
+                      131
+                    ]
+                  },
+                  "log_relative_transcription_score": 5.014650866771926,
+                  "oriented_intervals": {
+                    "UP": [
+                      38,
+                      62
+                    ],
+                    "discriminator": [
+                      92,
+                      99
+                    ],
+                    "extended10": [
+                      83,
+                      85
+                    ],
+                    "gap": [
+                      62,
+                      63
+                    ],
+                    "hex10": [
+                      86,
+                      92
+                    ],
+                    "hex35": [
+                      63,
+                      69
+                    ],
+                    "itr": [
+                      99,
+                      119
+                    ],
+                    "spacer": [
+                      69,
+                      86
+                    ]
+                  },
+                  "relative_transcription_score": 150.60354688353047,
+                  "score_status": "ok",
+                  "spacer_length": 17,
+                  "state_id": "psite1:7a57c42a084b870327c099373477e1b7:-:100:d7s17",
+                  "terms": {
+                    "binding": -0.693752568780986,
+                    "discriminator": -0.020389208170715694,
+                    "extended10": -0.139301362120528,
+                    "hex10": -0.41945253280071704,
+                    "hex35": -0.13741685547828716,
+                    "intercept": -0.9583584537583338,
+                    "itr": 0.10819762525711829,
+                    "source_apparent": 1.517051772974492,
+                    "spacer": -0.09239999999999071,
+                    "total": -1.5643026054529172,
+                    "up": 0.0948181816185369
+                  }
+                },
+                "site_id": "psite1:7a57c42a084b870327c099373477e1b7:-:100",
+                "state_count": 30,
+                "status": "ok",
+                "strand": "-",
+                "tie_count": 1,
+                "tss": {
+                  "forward_base": 100,
+                  "oriented_base": 99
+                }
+              }
+            ],
+            "status": "ok",
+            "warnings": []
+          }
+        ],
+        "schema_version": "1.0"
+      },
+      "prediction_sha256": "cb4ff6149aea88091550edc75bb6953ceb0fe3750847acb6c2fcaaf6a965675d",
+      "projection": null,
+      "request": {
+        "calibration": "in_vitro",
+        "id": "recoded",
+        "output": {
+          "elements": true,
+          "legacy_keys": false,
+          "states": "selected"
+        },
+        "scan": {
+          "mode": "positions",
+          "positions": [
+            {
+              "strand": "+",
+              "tss": 100
+            },
+            {
+              "strand": "-",
+              "tss": 100
+            }
+          ]
+        },
+        "sequence": "ACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT"
+      },
+      "roster_status": "known"
+    }
+  },
+  "status": "complete",
+  "warnings": [
+    "predicted_differences_are_not_measured_regulatory_effects"
+  ]
+}

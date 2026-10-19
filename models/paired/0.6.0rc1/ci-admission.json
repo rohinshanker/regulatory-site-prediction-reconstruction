@@ -1,0 +1,784 @@
+{
+  "bound_receipts": {
+    "candidate.json": "b4d881f97873d0f9144c79578805f9b9d1e91ff5d8556af2656c058c1c9e041f",
+    "rbs-context-preparation/candidate.json": "0cdedfbd10b42501b7dad3563f5fbb2b9bc2deb58a10a34d1f374c53dc7c72a1",
+    "rbs-context-preparation/receipt.json": "00e9c931173c6097a062de99abbf641f5b83b8086c38216d059cad7ddaea217c",
+    "resources-memory/receipt.json": "a5d38e2dedb32752de6add7b318605cf9e6b59fe6b9334586678524472ad31a6",
+    "resources/receipt.json": "c157fb2d2784aeae9f4d617c3bfd910cdb2cb2a14bf13053eb7c08c2bfe36f46",
+    "source-manifest.json": "dadcbd5ef38ef52faa7bbf650a2f1fa5541a6ce5f95aad9c8dbf27a649800975"
+  },
+  "candidate_commit": "920215602a837b0fd2fed403512f3b3ed59bfda2",
+  "ci": {
+    "conclusion": "success",
+    "headSha": "920215602a837b0fd2fed403512f3b3ed59bfda2",
+    "jobs": [
+      {
+        "completedAt": "2026-10-19T00:27:12Z",
+        "conclusion": "success",
+        "databaseId": 117832519212,
+        "name": "promoter-resources (macos-14, 3.11)",
+        "startedAt": "2026-10-19T00:25:01Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completedAt": "2026-10-19T00:25:03Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "startedAt": "2026-10-19T00:25:02Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-19T00:25:05Z",
+            "conclusion": "success",
+            "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+            "number": 2,
+            "startedAt": "2026-10-19T00:25:03Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-19T00:25:06Z",
+            "conclusion": "success",
+            "name": "Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+            "number": 3,
+            "startedAt": "2026-10-19T00:25:05Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-19T00:27:08Z",
+            "conclusion": "success",
+            "name": "Measure and admit the complete synthetic candidate suite",
+            "number": 4,
+            "startedAt": "2026-10-19T00:25:06Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-19T00:27:09Z",
+            "conclusion": "success",
+            "name": "Preserve the complete resource receipt, including failures",
+            "number": 5,
+            "startedAt": "2026-10-19T00:27:08Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-19T00:27:10Z",
+            "conclusion": "success",
+            "name": "Post Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+            "number": 9,
+            "startedAt": "2026-10-19T00:27:09Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-19T00:27:10Z",
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+            "number": 10,
+            "startedAt": "2026-10-19T00:27:10Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-19T00:27:10Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 11,
+            "startedAt": "2026-10-19T00:27:10Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/actions/runs/39180666203/job/117832519212"
+      },
+      {
+        "completedAt": "2026-10-19T00:26:26Z",
+        "conclusion": "success",
+        "databaseId": 117832519359,
+        "name": "promoter-resources (ubuntu-24.04, 3.14)",
+        "startedAt": "2026-10-19T00:24:56Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completedAt": "2026-10-19T00:24:57Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "startedAt": "2026-10-19T00:24:57Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-19T00:24:58Z",
+            "conclusion": "success",
+            "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+            "number": 2,
+            "startedAt": "2026-10-19T00:24:57Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-19T00:24:59Z",
+            "conclusion": "success",
+            "name": "Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+            "number": 3,
+            "startedAt": "2026-10-19T00:24:58Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-19T00:26:24Z",
+            "conclusion": "success",
+            "name": "Measure and admit the complete synthetic candidate suite",
+            "number": 4,
+            "startedAt": "2026-10-19T00:24:59Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-19T00:26:25Z",
+            "conclusion": "success",
+            "name": "Preserve the complete resource receipt, including failures",
+            "number": 5,
+            "startedAt": "2026-10-19T00:26:24Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-19T00:26:25Z",
+            "conclusion": "success",
+            "name": "Post Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+            "number": 9,
+            "startedAt": "2026-10-19T00:26:25Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-19T00:26:25Z",
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+            "number": 10,
+            "startedAt": "2026-10-19T00:26:25Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-19T00:26:25Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 11,
+            "startedAt": "2026-10-19T00:26:25Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/actions/runs/39180666203/job/117832519359"
+      },
+      {
+        "completedAt": "2026-10-19T00:26:47Z",
+        "conclusion": "success",
+        "databaseId": 117832519362,
+        "name": "promoter-resources (ubuntu-24.04, 3.11)",
+        "startedAt": "2026-10-19T00:24:56Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completedAt": "2026-10-19T00:24:58Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "startedAt": "2026-10-19T00:24:57Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-19T00:24:59Z",
+            "conclusion": "success",
+            "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+            "number": 2,
+            "startedAt": "2026-10-19T00:24:58Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-19T00:24:59Z",
+            "conclusion": "success",
+            "name": "Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+            "number": 3,
+            "startedAt": "2026-10-19T00:24:59Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-19T00:26:44Z",
+            "conclusion": "success",
+            "name": "Measure and admit the complete synthetic candidate suite",
+            "number": 4,
+            "startedAt": "2026-10-19T00:24:59Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-19T00:26:45Z",
+            "conclusion": "success",
+            "name": "Preserve the complete resource receipt, including failures",
+            "number": 5,
+            "startedAt": "2026-10-19T00:26:44Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-19T00:26:45Z",
+            "conclusion": "success",
+            "name": "Post Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+            "number": 9,
+            "startedAt": "2026-10-19T00:26:45Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-19T00:26:46Z",
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+            "number": 10,
+            "startedAt": "2026-10-19T00:26:45Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-19T00:26:46Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 11,
+            "startedAt": "2026-10-19T00:26:46Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/actions/runs/39180666203/job/117832519362"
+      },
+      {
+        "completedAt": "2026-10-19T00:59:16Z",
+        "conclusion": "success",
+        "databaseId": 117832519377,
+        "name": "runtime (ubuntu-24.04, 3.11)",
+        "startedAt": "2026-10-19T00:24:56Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completedAt": "2026-10-19T00:24:57Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "startedAt": "2026-10-19T00:24:57Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-19T00:24:58Z",
+            "conclusion": "success",
+            "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+            "number": 2,
+            "startedAt": "2026-10-19T00:24:57Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-19T00:24:59Z",
+            "conclusion": "success",
+            "name": "Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+            "number": 3,
+            "startedAt": "2026-10-19T00:24:58Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-19T00:25:09Z",
+            "conclusion": "success",
+            "name": "Install locked development tools and package",
+            "number": 4,
+            "startedAt": "2026-10-19T00:24:59Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-19T00:26:12Z",
+            "conclusion": "success",
+            "name": "Build separately licensed, pinned RNAstructure executables",
+            "number": 5,
+            "startedAt": "2026-10-19T00:25:09Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-19T00:40:32Z",
+            "conclusion": "success",
+            "name": "Static and full runtime gates",
+            "number": 6,
+            "startedAt": "2026-10-19T00:26:12Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-19T00:57:44Z",
+            "conclusion": "success",
+            "name": "Build and validate both separately licensed repairs",
+            "number": 7,
+            "startedAt": "2026-10-19T00:40:32Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-19T00:59:14Z",
+            "conclusion": "success",
+            "name": "Build and run fresh offline wheel installation",
+            "number": 8,
+            "startedAt": "2026-10-19T00:57:44Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-19T00:59:14Z",
+            "conclusion": "success",
+            "name": "Post Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+            "number": 15,
+            "startedAt": "2026-10-19T00:59:14Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-19T00:59:14Z",
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+            "number": 16,
+            "startedAt": "2026-10-19T00:59:14Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-19T00:59:14Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 17,
+            "startedAt": "2026-10-19T00:59:14Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/actions/runs/39180666203/job/117832519377"
+      },
+      {
+        "completedAt": "2026-10-19T00:52:56Z",
+        "conclusion": "success",
+        "databaseId": 117832519394,
+        "name": "runtime (macos-14, 3.11)",
+        "startedAt": "2026-10-19T00:25:00Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completedAt": "2026-10-19T00:25:01Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "startedAt": "2026-10-19T00:25:01Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-19T00:25:04Z",
+            "conclusion": "success",
+            "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+            "number": 2,
+            "startedAt": "2026-10-19T00:25:01Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-19T00:25:04Z",
+            "conclusion": "success",
+            "name": "Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+            "number": 3,
+            "startedAt": "2026-10-19T00:25:04Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-19T00:25:13Z",
+            "conclusion": "success",
+            "name": "Install locked development tools and package",
+            "number": 4,
+            "startedAt": "2026-10-19T00:25:04Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-19T00:25:58Z",
+            "conclusion": "success",
+            "name": "Build separately licensed, pinned RNAstructure executables",
+            "number": 5,
+            "startedAt": "2026-10-19T00:25:13Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-19T00:35:29Z",
+            "conclusion": "success",
+            "name": "Static and full runtime gates",
+            "number": 6,
+            "startedAt": "2026-10-19T00:25:58Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-19T00:51:50Z",
+            "conclusion": "success",
+            "name": "Build and validate both separately licensed repairs",
+            "number": 7,
+            "startedAt": "2026-10-19T00:35:29Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-19T00:52:53Z",
+            "conclusion": "success",
+            "name": "Build and run fresh offline wheel installation",
+            "number": 8,
+            "startedAt": "2026-10-19T00:51:50Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-19T00:52:53Z",
+            "conclusion": "success",
+            "name": "Post Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+            "number": 15,
+            "startedAt": "2026-10-19T00:52:53Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-19T00:52:54Z",
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+            "number": 16,
+            "startedAt": "2026-10-19T00:52:53Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-19T00:52:54Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 17,
+            "startedAt": "2026-10-19T00:52:54Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/actions/runs/39180666203/job/117832519394"
+      },
+      {
+        "completedAt": "2026-10-19T00:49:39Z",
+        "conclusion": "success",
+        "databaseId": 117832519412,
+        "name": "runtime (ubuntu-24.04, 3.14)",
+        "startedAt": "2026-10-19T00:24:56Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completedAt": "2026-10-19T00:24:58Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "startedAt": "2026-10-19T00:24:57Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-19T00:25:00Z",
+            "conclusion": "success",
+            "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+            "number": 2,
+            "startedAt": "2026-10-19T00:24:58Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-19T00:25:00Z",
+            "conclusion": "success",
+            "name": "Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+            "number": 3,
+            "startedAt": "2026-10-19T00:25:00Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-19T00:25:14Z",
+            "conclusion": "success",
+            "name": "Install locked development tools and package",
+            "number": 4,
+            "startedAt": "2026-10-19T00:25:00Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-19T00:26:12Z",
+            "conclusion": "success",
+            "name": "Build separately licensed, pinned RNAstructure executables",
+            "number": 5,
+            "startedAt": "2026-10-19T00:25:14Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-19T00:30:45Z",
+            "conclusion": "success",
+            "name": "Static and full runtime gates",
+            "number": 6,
+            "startedAt": "2026-10-19T00:26:12Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-19T00:48:00Z",
+            "conclusion": "success",
+            "name": "Build and validate both separately licensed repairs",
+            "number": 7,
+            "startedAt": "2026-10-19T00:30:45Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-19T00:49:37Z",
+            "conclusion": "success",
+            "name": "Build and run fresh offline wheel installation",
+            "number": 8,
+            "startedAt": "2026-10-19T00:48:00Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-19T00:49:37Z",
+            "conclusion": "success",
+            "name": "Post Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+            "number": 15,
+            "startedAt": "2026-10-19T00:49:37Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-19T00:49:37Z",
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+            "number": 16,
+            "startedAt": "2026-10-19T00:49:37Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-19T00:49:37Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 17,
+            "startedAt": "2026-10-19T00:49:37Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/actions/runs/39180666203/job/117832519412"
+      },
+      {
+        "completedAt": "2026-10-19T00:48:03Z",
+        "conclusion": "success",
+        "databaseId": 117832519500,
+        "name": "runtime (macos-14, 3.14)",
+        "startedAt": "2026-10-19T00:25:02Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completedAt": "2026-10-19T00:25:03Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "startedAt": "2026-10-19T00:25:01Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-19T00:25:05Z",
+            "conclusion": "success",
+            "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+            "number": 2,
+            "startedAt": "2026-10-19T00:25:03Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-19T00:25:05Z",
+            "conclusion": "success",
+            "name": "Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+            "number": 3,
+            "startedAt": "2026-10-19T00:25:05Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-19T00:25:18Z",
+            "conclusion": "success",
+            "name": "Install locked development tools and package",
+            "number": 4,
+            "startedAt": "2026-10-19T00:25:05Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-19T00:26:10Z",
+            "conclusion": "success",
+            "name": "Build separately licensed, pinned RNAstructure executables",
+            "number": 5,
+            "startedAt": "2026-10-19T00:25:18Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-19T00:29:33Z",
+            "conclusion": "success",
+            "name": "Static and full runtime gates",
+            "number": 6,
+            "startedAt": "2026-10-19T00:26:10Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-19T00:46:51Z",
+            "conclusion": "success",
+            "name": "Build and validate both separately licensed repairs",
+            "number": 7,
+            "startedAt": "2026-10-19T00:29:33Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-19T00:48:00Z",
+            "conclusion": "success",
+            "name": "Build and run fresh offline wheel installation",
+            "number": 8,
+            "startedAt": "2026-10-19T00:46:51Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-19T00:48:00Z",
+            "conclusion": "success",
+            "name": "Post Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+            "number": 15,
+            "startedAt": "2026-10-19T00:48:00Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-19T00:48:01Z",
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+            "number": 16,
+            "startedAt": "2026-10-19T00:48:00Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-19T00:48:02Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 17,
+            "startedAt": "2026-10-19T00:48:01Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/actions/runs/39180666203/job/117832519500"
+      },
+      {
+        "completedAt": "2026-10-19T00:28:02Z",
+        "conclusion": "success",
+        "databaseId": 117832519515,
+        "name": "promoter-resources (macos-14, 3.14)",
+        "startedAt": "2026-10-19T00:26:12Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completedAt": "2026-10-19T00:26:14Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "startedAt": "2026-10-19T00:26:13Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-19T00:26:16Z",
+            "conclusion": "success",
+            "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+            "number": 2,
+            "startedAt": "2026-10-19T00:26:14Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-19T00:26:16Z",
+            "conclusion": "success",
+            "name": "Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+            "number": 3,
+            "startedAt": "2026-10-19T00:26:16Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-19T00:27:56Z",
+            "conclusion": "success",
+            "name": "Measure and admit the complete synthetic candidate suite",
+            "number": 4,
+            "startedAt": "2026-10-19T00:26:16Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-19T00:27:58Z",
+            "conclusion": "success",
+            "name": "Preserve the complete resource receipt, including failures",
+            "number": 5,
+            "startedAt": "2026-10-19T00:27:56Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-19T00:27:58Z",
+            "conclusion": "success",
+            "name": "Post Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+            "number": 9,
+            "startedAt": "2026-10-19T00:27:58Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-19T00:27:58Z",
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+            "number": 10,
+            "startedAt": "2026-10-19T00:27:58Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-19T00:27:59Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 11,
+            "startedAt": "2026-10-19T00:27:58Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/actions/runs/39180666203/job/117832519515"
+      }
+    ],
+    "status": "completed",
+    "url": "https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/actions/runs/39180666203"
+  },
+  "ci_log_sha256": "57f5a5739dab346bfbfc40bcd7f987ee224d3850f7204f8af9a509e525b8db36",
+  "implementation_version": "0.6.0rc1",
+  "independent_collection_gate": "Requires a separate frozen-input/settings/stage acknowledgement by B before each once-only collection. This is package admission, not a collection launch.",
+  "native_calibration": false,
+  "package_gate": "passed",
+  "publication": false,
+  "schema_version": "paired-package-ci-admission-1",
+  "test_summaries": [
+    {
+      "job": "runtime (ubuntu-24.04, 3.11)",
+      "step": "Static and full runtime gates",
+      "summary": "3152 passed, 6 warnings in 856.91s (0:14:16)"
+    },
+    {
+      "job": "runtime (ubuntu-24.04, 3.11)",
+      "step": "Build and validate both separately licensed repairs",
+      "summary": "1963 passed, 5 warnings in 137.06s (0:02:17)"
+    },
+    {
+      "job": "runtime (ubuntu-24.04, 3.11)",
+      "step": "Build and validate both separately licensed repairs",
+      "summary": "1963 passed, 5 warnings in 152.47s (0:02:32)"
+    },
+    {
+      "job": "runtime (macos-14, 3.11)",
+      "step": "Static and full runtime gates",
+      "summary": "3152 passed, 6 warnings in 568.91s (0:09:28)"
+    },
+    {
+      "job": "runtime (macos-14, 3.11)",
+      "step": "Build and validate both separately licensed repairs",
+      "summary": "1963 passed, 5 warnings in 103.29s (0:01:43)"
+    },
+    {
+      "job": "runtime (macos-14, 3.11)",
+      "step": "Build and validate both separately licensed repairs",
+      "summary": "1963 passed, 5 warnings in 108.76s (0:01:48)"
+    },
+    {
+      "job": "runtime (ubuntu-24.04, 3.14)",
+      "step": "Static and full runtime gates",
+      "summary": "3152 passed, 6 warnings in 269.37s (0:04:29)"
+    },
+    {
+      "job": "runtime (ubuntu-24.04, 3.14)",
+      "step": "Build and validate both separately licensed repairs",
+      "summary": "1963 passed, 5 warnings in 99.45s (0:01:39)"
+    },
+    {
+      "job": "runtime (ubuntu-24.04, 3.14)",
+      "step": "Build and validate both separately licensed repairs",
+      "summary": "1963 passed, 5 warnings in 118.35s (0:01:58)"
+    },
+    {
+      "job": "runtime (macos-14, 3.14)",
+      "step": "Static and full runtime gates",
+      "summary": "3152 passed, 6 warnings in 200.39s (0:03:20)"
+    },
+    {
+      "job": "runtime (macos-14, 3.14)",
+      "step": "Build and validate both separately licensed repairs",
+      "summary": "1963 passed, 5 warnings in 72.96s (0:01:12)"
+    },
+    {
+      "job": "runtime (macos-14, 3.14)",
+      "step": "Build and validate both separately licensed repairs",
+      "summary": "1963 passed, 5 warnings in 80.30s (0:01:20)"
+    }
+  ]
+}

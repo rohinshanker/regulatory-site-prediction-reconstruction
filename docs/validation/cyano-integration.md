@@ -2,7 +2,10 @@
 
 - Purpose: Separate reconstructed engines from downstream native-data admission and UI.
 - Scope: Versioned producer/consumer boundaries and conditional dependencies.
-- Last verified: 2026-10-16
+- Last verified: 2026-10-18
+
+This verification date covers the ownership/implementation boundary; the consumer
+baseline below remains historical.
 
 The canonical consumer is
 [isaacs-cyano-gene-selection](https://github.com/rohinshanker/isaacs-cyano-gene-selection),
@@ -12,9 +15,13 @@ calculator-assessment documentation. Read its current instructions and queue
 before touching it; baseline findings are not permission to overwrite later work.
 
 This repository owns calculator source, model parameters, dependency pins,
-reconstruction benchmarks and release artifacts. The consumer owns native
-sequence extraction, organism/assembly mapping, data admission, rendering and
-recoding comparisons. Integrate through a versioned package/CLI/result schema;
+reconstruction benchmarks and release artifacts, including paired prediction
+and coordinate comparison of caller-supplied current/recoded sequences under
+[the continuing program](calculator-delivery-program.md) and ticket #41. The
+consumer owns native sequence extraction, organism/assembly mapping, data
+admission, rendering and the presentation/interpretation of recoding comparisons.
+Producer work does not authorize canonical consumer edits or admit a UI layer.
+Integrate through a versioned package/CLI/result schema;
 do not copy model internals or point production at a mutable sibling directory.
 
 | Consumer ticket | Dependency on this repository |
@@ -48,3 +55,35 @@ their future layers are handled by ticket 10 rather than inferred from gene name
 - Consumer acceptance still requires its own tests, admission contract and any
   rendered UI validation. A successful calculator benchmark does not close a
   consumer integration or scientific-validity ticket automatically.
+
+## Available producer interfaces
+
+| Task in the visualizer | Producer interface | Interpretation boundary |
+| --- | --- | --- |
+| Score an annotated translation start under an explicit transcript context | `regsite-native`, `native-rbs-result-1` | Supplied-start score; transcript/annotation alternatives stay separate. Tan transcription starts are context evidence, not measured translation starts. |
+| Score explicit transcription-start candidates | `regsite-promoter`, schema `1.0` | Historical E. coli calibration; predicted windows and score terms remain separate from measured Tan TSS labels. |
+| Compare an existing sequence with a supplied recoded sequence | `regsite-compare`, `paired-regulatory-result-1` | Exact caller-supplied edits establish correspondence. Score differences require successful compatible predictions; unmatched positions do not establish biological site gain/loss. |
+| Inspect a supplied aptamer state or energy scenario | `regsite-conditional`, `conditional-aptamer-result-1` | Conditional components only. Neither an Rfam family hit nor a gene name supplies ligand affinity, a bound structure or constrained ribosome energies. |
+
+The paired [request/result contract](paired-regulatory-runtime.md) is the first
+producer interface designed directly for the current/recoded comparison. Store
+its full JSON and `prediction_sha256`; the CSV is a scalar summary bound to that
+JSON, not a replacement for its coordinate paths or structures. Use
+`coverage.current`, `coverage.recoded`, `coverage.paired`, `coverage.unmatched`
+and `coverage.comparable` separately. `roster_status=unknown` differs from a
+known empty list. Null deltas and their reasons must survive caching and display.
+A changed input, backend, profile, calibration or effective setting requires its
+own identity; do not cache only by gene name.
+
+Each side retains its own native prediction and coordinate frame. Use the emitted
+feature paths and split genomic segments for rendering, including reverse strands
+and circular-origin crossings. Never draw a bounding interval across an unmapped
+edit, reinterpret an empty interval as an origin base, or move a native structure
+into another frame without an established mapping. An interrupted start codon
+retains both unmatched candidate observations. Sequence-only positional
+correspondence does not establish unchanged protein or transcript identity.
+
+The [0.6.0rc1 candidate guide](paired-0.6-candidate.md) records package and
+resource evidence. Candidate validation can support consumer development, but
+production admission still requires the released artifact and consumer-owned
+checks above. No consumer files were changed as part of these producer contracts.

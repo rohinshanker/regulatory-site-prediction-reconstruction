@@ -27,11 +27,28 @@ including Supplementary Figure S3. The source article is CC BY 3.0. See
 docs/validation/rbs-standby.md for attribution, source pins and reconstruction
 choices. No source measurements or private model parameters are embedded.
 
-The optional benchmarks/promoter reference tools and parameter conversions derive
+The Promoter runtime and optional benchmarks/promoter reference tools derive
 from the GPL-3.0-or-later Promoter Calculator by Travis La Fleur, Ayaan Hossain
 and Howard Salis (Copyright 2021). The source distribution preserves that scope's
 NOTICE, ORIGINAL-NOTICE, COPYING and explicit historical compatibility patch.
-These reference artifacts are not included in the required Python runtime wheel;
-see docs/validation/promoter-executed-reference.md for source/environment pins.
+The runtime wheel includes independently converted coefficients and utility tables
+in src/regsite/data/promoter-parameters-1.json, the complete original copyright and
+licence notice in promoter-ORIGINAL-NOTICE.txt, and GPLv3 in LICENSE. The deterministic
+conversion script ships in the source distribution. Historical reference tools,
+their optional dependencies and experimental measurements are not runtime wheel
+contents. See docs/validation/promoter-runtime.md and promoter-executed-reference.md
+for source, parameter and environment pins.
+
+src/regsite/conditional*.py independently implements the bounded canonical-state
+and supplied-energy relationships admitted from Espah Borujeni, Mishler, Wang,
+Huso and Salis (2015), doi:10.1093/nar/gkv1289, supplementary equations S4-S26.
+The source article and supplement are CC-BY-NC-4.0 and remain external: neither
+original prose/figures nor measurement tables are bundled in the required runtime.
+The newly expressed equations, numerical conventions, synthetic fixtures and new
+code use the repository GPL-3.0-or-later licence. Canonical folding uses separately
+installed original RNAstructure under its own GPL-2.0-only terms. This component
+does not recover constrained ribosome binding, pseudoknots or a complete
+sequence-to-switch model. See docs/validation/conditional-aptamer-contract.md
+and conditional-aptamer-runtime.md for source pins and explicit limits.
 
 No iDOG wrapper, ViennaRNA, NUPACK or private DNAc code is included.

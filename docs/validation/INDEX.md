@@ -6,10 +6,16 @@ Verification dates cover the stated source observations or specification review;
 | --- | --- | --- | --- |
 | promoter-wave5-results | Independently audited frozen native positive-TSS localization, all denominators and consumed-panel limits. | 2026-10-19 | [promoter-wave5-results.md](promoter-wave5-results.md) |
 | supplied-transcript-boundaries | Supplied construct/transcript/CDS geometry, independent literal fixtures and uncoupled component failure semantics. | 2026-10-19 | [supplied-transcript-boundaries.md](supplied-transcript-boundaries.md) |
+| paired-0.6-candidate | Immutable paired package, source and installed resource receipts; independent comparison and RBS-context preparation gates. | 2026-10-18 | [paired-0.6-candidate.md](paired-0.6-candidate.md) |
+| conditional-aptamer-runtime | Executable supplied-energy and canonical-state profiles, bounded JSON CLI, explicit failures and backend admission limits. | 2026-10-18 | [conditional-aptamer-runtime.md](conditional-aptamer-runtime.md) |
+| promoter-0.5-candidate | Immutable source/package/CI/resource receipts, rebuild procedure and bounded native-stage transport conditions. | 2026-10-18 | [promoter-0.5-candidate.md](promoter-0.5-candidate.md) |
 | conditional-aptamer-contract | Explicit supplied-energy/volume equations, canonical structural-state boundary and executable Decimal reference. | 2026-10-18 | [conditional-aptamer-contract.md](conditional-aptamer-contract.md) |
+| promoter-model-card | Historical source and parameter pins, E. coli calibration and host-transfer limits, score semantics, fidelity versus biological evidence and current/recoded interpretation. | 2026-10-18 | [promoter-model-card.md](promoter-model-card.md) |
+| paired-regulatory-runtime | Planned exact-edit paired predictor execution, complete candidate/feature correspondence and comparable score differences. | 2026-10-18 | [paired-regulatory-runtime.md](paired-regulatory-runtime.md) |
+| calculator-delivery-program | Sustained Promoter, paired recoding comparison, supplied-operon and conditional aptamer delivery for portable cyano-consumer outputs. | 2026-10-18 | [calculator-delivery-program.md](calculator-delivery-program.md) |
+| promoter-runtime | Implemented core/batch/CLI contract, source identities, coordinates, calibration and candidate acceptance gates. | 2026-10-18 | [promoter-runtime.md](promoter-runtime.md) |
 | riboswitch-constrained-reference | Pinned canonical forced-pair/unpaired feasibility, immutable synthetic execution and offline integrity audit. | 2026-10-18 | [riboswitch-constrained-reference.md](riboswitch-constrained-reference.md) |
 | current-recoded-validation | Independent synthetic edit maps, candidate universes and failure-preserving comparison rules. | 2026-10-18 | [current-recoded-validation.md](current-recoded-validation.md) |
-| promoter-runtime | Specified request/result shapes, exact hash payloads/effective-limit keys, coordinate projection and calibration; isolated implementation authorized. | 2026-10-18 | [promoter-runtime.md](promoter-runtime.md) |
 | rbs-context-metrics | Hash-bound unchanged-profile context comparisons, complete status accounting and private failure identities. | 2026-10-18 | [rbs-context-metrics.md](rbs-context-metrics.md) |
 | promoter-native-grouping | Fixed input-only label groups and validated cluster-bootstrap intervals from group sufficient statistics. | 2026-10-18 | [promoter-native-grouping.md](promoter-native-grouping.md) |
 | promoter-collection | Frozen one-attempt process collection, admission acknowledgement and private status evidence. | 2026-10-18 | [promoter-collection.md](promoter-collection.md) |
@@ -27,7 +33,7 @@ Verification dates cover the stated source observations or specification review;
 | rbs-comparator-landscape | Mechanistic/ML comparator roster, artifact gates and specialist improvement strategy. | 2026-10-17 | [rbs-comparator-landscape.md](rbs-comparator-landscape.md) |
 | reconstruction-contract | Define reproducible, fully open calculator reconstruction and release requirements. | 2026-10-17 | [reconstruction-contract.md](reconstruction-contract.md) |
 | source-map | Preserve pinned starting sources and known recovery gaps. | 2026-10-16 | [source-map.md](source-map.md) |
-| cyano-integration | Separate reconstructed engines from downstream native-data admission and UI. | 2026-10-16 | [cyano-integration.md](cyano-integration.md) |
+| cyano-integration | Separate paired producer predictions from downstream native-data admission and UI. | 2026-10-18 | [cyano-integration.md](cyano-integration.md) |
 | benchmark-quality | Assess published benchmark limitations and define stronger evaluation. | 2026-10-16 | [benchmark-quality.md](benchmark-quality.md) |
 | rbs-source-decision | Pinned RBS sources, licences, open-backend decision and scalar fixtures. | 2026-10-16 | [rbs-source-decision.md](rbs-source-decision.md) |
 | rbs-standby | Published standby geometry, complete bounded opening search, explicit reconstruction choices and schema 1.2. | 2026-10-17 | [rbs-standby.md](rbs-standby.md) |

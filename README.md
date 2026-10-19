@@ -40,7 +40,24 @@ an advantage on this new study.
 scale-adapted OSTIR comparator was uncertain. The predeclared promotion criteria
 failed. These are experimental models with measured limitations, independent of
 De Novo DNA/Salis Lab. Production equivalence and native UTEX 2973 calibration
-remain unestablished; the other calculators remain planned.
+remain unestablished.
+
+**The historical Promoter model also runs locally.**
+It scores explicitly requested transcription-start candidates on either strand,
+returns the model's sequence windows and score contributions, and exports JSON,
+CSV or projected GFF3. It requires only Python's standard library. Its
+arithmetic reproduces the pinned historical source on synthetic states; that is
+fidelity. In the independently reviewed Tan 2018 UTEX 2973 fixed-grid evaluation,
+the top ten predictions recovered 36/292 in-window TSS positives exactly (12.33%)
+and 47/292 within three bases (16.10%). All 364,416 requested positions completed.
+The model localizes a minority of source positives; these positive-only labels
+cannot establish specificity or promoter strength. Calibration remains *E. coli*.
+See the [full native evaluation](docs/validation/promoter-wave5-results.md) for
+confidence intervals, all 4,808 source-positive denominators and sampling limits.
+This is not a released or cyanobacteria-calibrated predictor. See the
+[Promoter model card](docs/validation/promoter-model-card.md). Operon integration remains in preparation. The conditional Riboswitch component
+below has bounded structural and supplied-energy profiles; complete
+sequence-to-switch prediction remains unavailable.
 
 See the [independent results](docs/validation/rbs-wave2-results.md),
 [native validation](docs/validation/rbs-native-validation.md) and
@@ -128,10 +145,89 @@ These models are experimental; neither establishes native UTEX 2973 accuracy.
 The [public reporter model card](models/rbs/standby2014/README.md) describes the
 separate E. coli experiment and its limited sequence diversity.
 
+## Run the Promoter calculator
+
+```sh
+.venv/bin/regsite-promoter examples/promoter-contract-single.json
+.venv/bin/regsite-promoter examples/promoter-contract-batch.json
+.venv/bin/regsite-promoter examples/promoter-projected.json --format csv
+.venv/bin/regsite-promoter examples/promoter-projected.json --format gff3
+```
+
+Supply a sequence, explicit candidate positions or range, and either the
+`ecoli_mg1655` or `in_vitro` calibration profile. Host labels describe applicability;
+they do not calibrate the model. A supplied cyanobacterial host label retains
+the explicitly selected profile and adds an extrapolation warning. Every
+requested position is retained,
+including positions lacking enough flanking sequence and unfinished computations.
+Predicted windows are model features, not experimentally measured regulatory
+boundaries. A score difference between current and recoded sequences is a model
+difference at supplied positions, not measured site gain or loss. See the
+[model card](docs/validation/promoter-model-card.md),
+[runtime contract](docs/validation/promoter-runtime.md),
+[request schema](schemas/promoter-request-1.0.schema.json) and
+[result schema](schemas/promoter-result-1.0.schema.json).
+
 The [executed Promoter reference](docs/validation/promoter-executed-reference.md)
 checks 212 synthetic states against two pinned upstream versions and an independent
-numerical oracle. It prepares source, parameter and coordinate fixtures for the
-future Promoter runtime; it does not establish experimental accuracy.
+numerical oracle. This checks reconstruction fidelity separately from experimental
+accuracy. The relative transcription score is not a probability or an absolute
+transcription rate. No native cyanobacterial accuracy or hosted parity is claimed.
+
+## Compare current and recoded sequences
+
+The 0.6.0rc1 paired development runtime executes both supplied sequences with the existing
+RBS or Promoter calculator and compares candidates through an explicit edit map:
+
+```sh
+.venv/bin/regsite-compare examples/paired-promoter-unchanged.json
+.venv/bin/regsite-compare examples/paired-promoter-indel.json --format csv
+.venv/bin/regsite-compare examples/paired-rbs-substitution.json
+```
+
+RBS uses the separately installed backend above. The synthetic examples exercise
+unchanged scores, substitutions and an insertion; they are not validated designs.
+JSON retains both full predictions, mapped features, settings, missing values and
+coverage. CSV provides scalar comparisons bound to the full JSON hash. Differences
+are calculated only for successful candidates with compatible scientific settings.
+An interrupted start codon or unmatched position stays explicit, without a claim
+of biological site gain or loss. See the [paired contract](docs/validation/paired-regulatory-runtime.md).
+The core and transport passed independent review. Package/resource admission and
+the frozen producer comparison remain in progress; no canonical cyano integration
+or release is implied.
+The separate [0.5.0rc1 Promoter evaluation candidate](docs/validation/promoter-0.5-candidate.md)
+remains immutable. Package versions and result identities stay explicit even where
+the underlying calculator equations and parameter files are unchanged.
+
+The [continuing delivery program](docs/validation/calculator-delivery-program.md)
+then adds admitted supplied-operon and specified-aptamer components. The visualizer
+remains a downstream consumer of versioned predictions.
+
+## Conditional aptamer components
+
+The 0.7.0rc1 development runtime provides two explicit components:
+
+```sh
+.venv/bin/regsite-conditional examples/conditional-supplied-half-occupancy.json
+.venv/bin/regsite-conditional examples/conditional-supplied-volume-fifth.json
+.venv/bin/regsite-conditional examples/conditional-hairpin-structure-control.json \
+  --backend-root /path/to/admitted/original/RNAstructure
+```
+
+The supplied-energy profile computes response ratios from caller-supplied RNA and
+ribosome energies, affinity, and either an occupancy fraction or explicit
+concentrations and relative volumes. It needs only Python. The structural profile
+folds unconstrained RNA and RNA compatible with a supplied canonical aptamer
+structure. Its initial admission is limited to the recorded original macOS arm64
+RNAstructure binaries; repaired RBS engines are refused. Other builds require
+separate fixture validation.
+
+These examples are synthetic checks. The structural energies do not supply the
+missing ligand-constrained ribosome model, and the scalar calculation does not
+infer an aptamer or physiological concentrations. Every result retains source,
+parameter and backend identities, warnings, partial states and explicit failures.
+Review and package validation remain in progress. See the
+[conditional contract](docs/validation/conditional-aptamer-runtime.md).
 
 ## Start a new implementation session
 
@@ -154,7 +250,8 @@ reserved evidence. Preserve newer work, immutable candidate identities and owner
 3. Foundation 02, historical scoring 03 and portable native adapter 18 are
    complete. Tickets 04/06/13 retain remaining mechanisms, release work and
    experimentally justified improvements. Source recovery for other calculators
-   can proceed independently; implement those calculators after the RBS release.
+   can proceed independently. The owner authorizes isolated calculator implementation
+   alongside RBS release preparation; publication and consumer admission stay separate.
 4. The Wave 2 models, offsets and final comparison are frozen. Any new scientific
    change needs a new development cycle and untouched evaluation data. Do not
    tune against these exposed final outcomes. The original
