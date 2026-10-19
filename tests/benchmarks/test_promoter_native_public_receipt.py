@@ -817,3 +817,92 @@ def test_declared_hash_maps_only(field):
         c.references({field: {"opaque/file": True}})
     with pytest.raises(c.ReceiptError, match="invalid scalar SHA-256"):
         c.references({"nested": {field: {"opaque/file": H}}})
+
+
+@pytest.mark.parametrize("labelled", [0, 21])
+def test_in_window_labels_require_nonempty_bounded_query_set(tmp_path, labelled):
+    docs = fixture()
+    for metrics in docs[c.AGGREGATE]["results"].values():
+        metrics["coverage"]["n_queries_with_labels"] = labelled
+        metrics["coverage"]["n_queries_with_labels_ok"] = labelled
+    with pytest.raises(c.ReceiptError, match="in-window label/query bound"):
+        c.check(*write_fixture(tmp_path, docs))
+
+
+def test_multiple_in_window_labels_per_query_remain_valid(tmp_path):
+    docs = fixture()
+    for metrics in docs[c.AGGREGATE]["results"].values():
+        metrics["coverage"]["n_queries_with_labels"] = 10
+        metrics["coverage"]["n_queries_with_labels_ok"] = 10
+    assert c.check(*write_fixture(tmp_path, docs))["status"] == "consistent"
+
+
+def test_candidate_subset_requires_nonempty_ok_request_set(tmp_path):
+    docs = fixture()
+    set_request_statuses(docs, 0, labelled_ok=0)
+    for metrics in docs[c.AGGREGATE]["results"].values():
+        metrics["coverage"]["candidate_status_in_ok_requests"]["ok"] = 60
+    with pytest.raises(c.ReceiptError, match="candidates in empty OK request set"):
+        c.check(*write_fixture(tmp_path, docs))
+
+
+@pytest.mark.parametrize("empty_parent", ["complete", "labelled_ok"])
+def test_complete_label_credit_requires_eligible_query(tmp_path, empty_parent):
+    docs = fixture()
+    if empty_parent == "complete":
+        adapter = docs[c.AGGREGATE]["collection"]["adapter_counts"]
+        adapter["n_complete_requests"] = 0
+        adapter["n_incomplete_ok_requests"] = 30
+        for metrics in docs[c.AGGREGATE]["results"].values():
+            metrics["coverage"]["n_complete_queries"] = 0
+            metrics["coverage"]["n_incomplete_ok_queries"] = 30
+    else:
+        set_request_statuses(docs, 10, labelled_ok=0)
+    with pytest.raises(
+        c.ReceiptError, match="complete labels without eligible queries"
+    ):
+        c.check(*write_fixture(tmp_path, docs))
+
+
+def failed_query_fixture(diagnostic_scores):
+    """All-case credit is zero; optional non-OK scores remain secondary only."""
+    docs = fixture()
+    set_request_statuses(
+        docs, 0, labelled_ok=0, non_ok_scored=30 if diagnostic_scores else 0
+    )
+    adapter = docs[c.AGGREGATE]["collection"]["adapter_counts"]
+    if not diagnostic_scores:
+        adapter["candidate_status"].update(ok=0, failed=60)
+        adapter["selected_score_status"]["ok"] = 0
+    for metrics in docs[c.AGGREGATE]["results"].values():
+        metrics["coverage"]["candidate_status_all_requests"] = copy.deepcopy(
+            adapter["candidate_status"]
+        )
+        metrics["overall"] = summary(30, 20, 0, 20 if diagnostic_scores else 0)
+        metrics["subgroups"]["replicons"]["NZ_CP006471.1"] = copy.deepcopy(
+            metrics["overall"]
+        )
+        metrics["subgroups"]["source_categories"] = {
+            label: copy.deepcopy(metrics["overall"])
+            for label in metrics["subgroups"]["source_categories"]
+        }
+        for endpoint in metrics["uncertainty"]["endpoints"]:
+            endpoint["matched"] = 0
+            endpoint["point"] = 0.0
+            endpoint["interval"]["lower"] = 0.0
+            endpoint["interval"]["upper"] = 0.0
+    return docs
+
+
+@pytest.mark.parametrize("diagnostic_scores", [False, True])
+def test_failed_requests_retain_zero_credit_and_optional_diagnostics(
+    tmp_path, diagnostic_scores
+):
+    docs = failed_query_fixture(diagnostic_scores)
+    assert c.check(*write_fixture(tmp_path, docs))["status"] == "consistent"
+    for metrics in docs[c.AGGREGATE]["results"].values():
+        assert all(row["matched"] == 0 for row in metrics["overall"]["recovery"])
+        diagnostic = metrics["overall"]["conditional_successful_positions"]["recovery"]
+        assert all(
+            row["matched"] == (20 if diagnostic_scores else 0) for row in diagnostic
+        )

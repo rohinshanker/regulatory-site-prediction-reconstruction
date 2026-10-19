@@ -4,7 +4,7 @@
 - Status: active
 - Opened: 2026-10-19
 - Updated: 2026-10-19
-- Current State: Four B review findings repaired; awaiting B acceptance, then A review.
+- Current State: B fixes PRC-A1/A2; awaiting A finite arithmetic recheck.
 - Verification: Focused pytest and branch coverage; Ruff and documentation checks recorded below.
 - Cleanup: Keep active for coordinator acceptance; no closure by this worker.
 
@@ -51,7 +51,7 @@ all published hash references are explicit trust inputs; private artifacts remai
 not checked. The reusable contract is
 [public receipt audit](../../validation/promoter-public-receipt-audit.md).
 
-Focused validation: 103 tests passed; 100% of 357 statements and 122 branches.
+Focused validation: 111 tests passed; 100% of 364 statements and 126 branches.
 Ruff check/format and the scoped ticket/link checks passed. The shared home
 checker reports four pre-existing errors in the unrelated
 O_claude-doctor-cleanup__20261016.md; this repository is outside its automatic scope. Final command evidence and immutable
@@ -62,7 +62,12 @@ bounds, incompatible Unicode canonical serialization, and omitted malformed
 scalar hashes. Repairs add actual status-complement bounds, default ASCII JSON
 escapes plus LF, and scalar/map hash-type validation. Synthetic tests rebind
 their own byte/hash chains and exercise partial-status boundaries.
-A independent review follows B acceptance; no reviewer dispatched.
+A independently reproduced the prior 103-test gate and found PRC-A1/A2: positive
+in-window labels with no labelled queries, and subsets/complete-label credit
+with empty eligible request/query sets. B added direct bounds and synthetic
+regressions with rebound hashes, plus accepted all-failed zero-credit reports
+with and without separate diagnostic scores. A finite recheck is pending; no
+additional reviewer or worker was dispatched.
 
 ## Cleanup
 

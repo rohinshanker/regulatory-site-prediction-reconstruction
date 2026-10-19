@@ -723,6 +723,12 @@ def reconcile(freeze, ack, aggregate):
                 count(v, name) <= c["candidate_status_all_requests"][status],
                 f"{name}: scored status bound",
             )
+        if c["request_status"]["ok"] == 0:
+            same(
+                c["candidate_status_in_ok_requests"],
+                dict.fromkeys(STATUSES, 0),
+                f"{name}: candidates in empty OK request set",
+            )
         if c["request_status"]["ok"] == c["n_queries"]:
             same(
                 c["candidate_status_in_ok_requests"],
@@ -730,6 +736,18 @@ def reconcile(freeze, ack, aggregate):
                 name,
             )
         summary(metrics["overall"], metrics["settings"], name)
+        inside = metrics["overall"]["n_in_window"]
+        labelled_queries = c["n_queries_with_labels"]
+        require(
+            labelled_queries <= inside and (labelled_queries > 0 or inside == 0),
+            f"{name}: in-window label/query bound",
+        )
+        if c["n_complete_queries"] == 0 or c["n_queries_with_labels_ok"] == 0:
+            same(
+                metrics["overall"]["n_in_complete_query"],
+                0,
+                f"{name}: complete labels without eligible queries",
+            )
         sub = metrics["subgroups"]
         keys(
             sub,

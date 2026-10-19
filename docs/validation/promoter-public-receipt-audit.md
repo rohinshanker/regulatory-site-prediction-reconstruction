@@ -67,8 +67,14 @@ Batch/request/candidate status rosters and totals reconcile with acknowledgement
 counts and collection coverage. Non-ok requests with scored candidates are
 bounded by the number of non-ok requests. Labelled-ok counts and their
 labelled-not-ok complements must fit the corresponding request-status counts;
-in an all-ok collection every labelled request must also be labelled-ok. Label
-counts retain all-label, in-window,
+in an all-ok collection every labelled request must also be labelled-ok.
+Each labelled query has at least one in-window label; zero labelled queries
+therefore require zero in-window labels. Multiple labels may share a query.
+With no OK requests, the candidate subset attributed to OK requests is empty.
+Complete-query label credit requires both a complete query and a labelled OK
+query. Failed requests may still retain diagnostic candidate scores; these do
+not acquire all-case credit from these checks.
+Label counts retain all-label, in-window,
 out-of-window, complete-query and successful-own-candidate denominators.
 Recovery and exact-rank tie endpoint rosters, fractions, bounds and rank
 sum/mean relationships are checked for the overall report and every subgroup.
