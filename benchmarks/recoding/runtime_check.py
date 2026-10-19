@@ -87,6 +87,15 @@ def _integer(value, low, high):
     return value
 
 
+def _input_integer(value, low, high):
+    """Normalize permitted integral JSON input numbers, excluding booleans."""
+    _require(
+        type(value) in (int, float) and low <= value <= high and value == int(value),
+        "Invalid integral input/bounds",
+    )
+    return int(value)
+
+
 def _finite(value):
     return type(value) in (int, float) and math.isfinite(value)
 
@@ -251,8 +260,7 @@ def _roster(request, calculator, length):
             _require(strand in ("+", "-"), "Invalid strand")
             starts = request["start_positions"]
             _require(type(starts) is list, "Explicit starts required")
-            for start in starts:
-                _integer(start, 0, length - 3)
+            starts = [_input_integer(start, 0, length - 3) for start in starts]
             _require(len(starts) == len(set(starts)), "Duplicate starts")
             return [
                 (strand, s if strand == "+" else length - 1 - s) for s in sorted(starts)
@@ -475,14 +483,27 @@ def _side(document, side, supplied, mapping, roster, remaining):
         )
         projection = record["projection"]
         # A rejected projection may resolve to null, but cannot invent a projection.
-        _require(
-            projection == request.get("projection")
-            or (
-                projection is None
-                and record["status"] in ("invalid_input", "unsupported")
-            ),
-            "Native projection disagrees with request",
-        )
+        requested_projection = request.get("projection")
+        if projection is not None:
+            resolved_projection = {
+                **requested_projection,
+                "sequence_strand": requested_projection.get("sequence_strand", "+"),
+            }
+            for name, low in (("origin", 0), ("contig_length", 1)):
+                resolved_projection[name] = _input_integer(
+                    requested_projection[name], low, 10**9
+                )
+            _same(
+                projection,
+                resolved_projection,
+                "Native projection disagrees with request",
+            )
+        else:
+            _require(
+                requested_projection is None
+                or record["status"] in ("invalid_input", "unsupported"),
+                "Native projection disagrees with request",
+            )
         identities = dict(
             zip(
                 IDENTITIES,
@@ -510,6 +531,20 @@ def _side(document, side, supplied, mapping, roster, remaining):
             "Unknown native schema version",
         )
         projection = document.get("projections", dict.fromkeys(SIDES))[side]
+        settings = {
+            "anti_sd": request["anti_sd"],
+            "temperature_c": request["temperature_c"],
+        }
+        if record["status"] != "invalid_input":
+            anti_sd = "".join(request["anti_sd"].split()).upper().replace("T", "U")
+            _require(
+                len(anti_sd) == 9 and not set(anti_sd) - set("ACGU"),
+                "Invalid effective anti-SD",
+            )
+            settings = {
+                "anti_sd": anti_sd,
+                "temperature_c": float(request["temperature_c"]),
+            }
         identities = dict(
             zip(
                 IDENTITIES,
@@ -517,15 +552,7 @@ def _side(document, side, supplied, mapping, roster, remaining):
                     sha256,
                     (
                         prediction["model"],
-                        {
-                            "anti_sd": request["anti_sd"].upper().replace("T", "U"),
-                            "temperature_c": float(request["temperature_c"]),
-                        }
-                        if record["status"] != "invalid_input"
-                        else {
-                            "anti_sd": request["anti_sd"],
-                            "temperature_c": request["temperature_c"],
-                        },
+                        settings,
                         prediction["backend"],
                         {"host": request["host"], "host_calibration": "not_calibrated"},
                     ),

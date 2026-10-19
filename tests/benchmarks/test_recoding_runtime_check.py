@@ -521,6 +521,9 @@ def test_frozen_builder():
     assert manifest["jobs_sha256"] == (
         "035ff8875ef9bca9c158a7b6ad7c72db15ef52fb242ce3247c7d7b8aa412ed8d"
     )
+    assert digest(manifest) == (
+        "40bcda46764c955b788623cf926b3b4749d948bddeef0f962066a0613663881e"
+    )
     fixture = (
         Path(checker.__file__).with_name("runtime-pair-fixtures.json").read_bytes()
     )
@@ -1300,3 +1303,187 @@ def test_source_feature_budget_before_map_allocation():
     result = artificial_result(doc, preds, receipt)
     with pytest.raises(ValueError, match="Actual source feature"):
         check(doc, result, receipt)
+
+
+def rebind_raw_request(result, document, side):
+    """Rebind raw identity while preserving independently constructed native rows."""
+    value = result["sides"][side]
+    value["request"] = copy.deepcopy(document[side + "_request"])
+    scope = digest({k: value[k] for k in ("request", "identities", "projection")})[:32]
+    replacements = {}
+    for candidate in value["candidates"]:
+        name = (
+            f"pcandidate1:{scope}:{side}:{document['calculator']}:"
+            f"{candidate['strand']}:{candidate['anchor']}"
+        )
+        replacements[candidate["id"]] = name
+        candidate["id"] = name
+    for row in result["comparisons"]:
+        key = side + "_candidate_id"
+        row[key] = replacements.get(row[key], row[key])
+    result["request_sha256"] = digest(document)
+    return seal(result)
+
+
+@pytest.mark.parametrize(
+    "anti_sd", ["accu ccuuu", " \taccu\nccuuu\r\v\f", "acct ccttt"]
+)
+def test_effective_anti_sd_whitespace_normalization(anti_sd):
+    doc = request("rbs")
+    result = artificial_result(doc)
+    expected = digest({"anti_sd": "ACCUCCUUU", "temperature_c": 37.0})
+    doc["current_request"]["anti_sd"] = anti_sd
+    rebind_raw_request(result, doc, "current")
+    original = copy.deepcopy(doc)
+    audit = check(doc, result)
+    assert audit["identity_mismatches"] == []
+    assert result["sides"]["current"]["identities"]["settings_sha256"] == expected
+    assert doc == original
+    # Hashing whitespace-bearing text is specifically forbidden, even when all
+    # scope and whole-result hashes are recomputed to make it self-consistent.
+    result["sides"]["current"]["identities"]["settings_sha256"] = digest(
+        {
+            "anti_sd": anti_sd.upper().replace("T", "U"),
+            "temperature_c": 37.0,
+        }
+    )
+    rebind_raw_request(result, doc, "current")
+    with pytest.raises(ValueError, match="Scientific identity"):
+        check(doc, result)
+
+
+@pytest.mark.parametrize("strand", ["+", "-"])
+@pytest.mark.parametrize("integral_coordinates", [False, True])
+def test_promoter_projection_resolves_default_without_rewriting_request(
+    strand, integral_coordinates
+):
+    doc = request("promoter", strand)
+    projection = {
+        "contig": "artificial",
+        "contig_length": 20,
+        "origin": 2,
+        "sequence_strand": "+",
+        "topology": "linear",
+        "origin_crossing": False,
+    }
+    for side in checker.SIDES:
+        doc[side + "_request"]["projection"] = dict(projection)
+    result = copy.deepcopy(artificial_result(doc))
+    for side in checker.SIDES:
+        raw = doc[side + "_request"]["projection"]
+        del raw["sequence_strand"]
+        if integral_coordinates:
+            raw.update(origin=2.0, contig_length=20.0)
+        rebind_raw_request(result, doc, side)
+    original = copy.deepcopy(doc)
+    assert check(doc, result)["status"] == "complete"
+    assert result["sides"]["current"]["projection"] == projection
+    assert "sequence_strand" not in result["sides"]["current"]["request"]["projection"]
+    assert doc == original
+    doc["current_request"]["projection"]["sequence_strand"] = "-"
+    rebind_raw_request(result, doc, "current")
+    with pytest.raises(ValueError, match="projection disagrees"):
+        check(doc, result)
+
+
+@pytest.mark.parametrize("side", checker.SIDES)
+@pytest.mark.parametrize("strand", ["+", "-"])
+@pytest.mark.parametrize("start", [0.0, -0.0, 2.0])
+def test_rbs_integral_float_starts_retain_integer_geometry(side, strand, start):
+    doc = request("rbs", strand)
+    for s in checker.SIDES:
+        doc[s + "_request"]["start_positions"] = [int(start)]
+    result = artificial_result(doc)
+    original_scope = result["sides"][side]["candidates"][0]["id"]
+    doc[side + "_request"]["start_positions"] = [start]
+    rebind_raw_request(result, doc, side)
+    original = copy.deepcopy(doc)
+    audit = check(doc, result)
+    assert audit["coverage"][side]["expected"] == 1
+    assert audit["coverage"]["paired"] == 1
+    candidate = result["sides"][side]["candidates"][0]
+    assert type(candidate["anchor"]) is int
+    assert all(type(b) is int for b in candidate["codon_bases"])
+    assert candidate["id"] != original_scope
+    assert doc == original
+
+
+@pytest.mark.parametrize(
+    "anti_sd",
+    [None, 42, False, "", "ACCUCCUU", "ACCUCCUUUU", "ACCNCCUUU", "accu\x00ccuuu"],
+)
+def test_invalid_anti_sd_preserves_raw_diagnostic_identity(anti_sd):
+    doc = request("rbs")
+    preds = {s: native(doc, s) for s in checker.SIDES}
+    for value in preds.values():
+        value.update(status="invalid_input", sites=[])
+    result = artificial_result(doc, preds)
+    raw_identity = digest({"anti_sd": anti_sd, "temperature_c": 37.0})
+    for side in checker.SIDES:
+        doc[side + "_request"]["anti_sd"] = anti_sd
+        result["sides"][side]["identities"]["settings_sha256"] = raw_identity
+        rebind_raw_request(result, doc, side)
+    assert check(doc, result)["status"] == "unavailable"
+    # The same malformed scientific input cannot acquire a successful audit by
+    # retaining an otherwise successful artificial native result.
+    success_doc = request("rbs")
+    success = artificial_result(success_doc)
+    success_doc["current_request"]["anti_sd"] = anti_sd
+    rebind_raw_request(success, success_doc, "current")
+    with pytest.raises(ValueError):
+        check(success_doc, success)
+
+
+@pytest.mark.parametrize(
+    "starts", [[False], ["0"], [None], [0.5], [-0.5], [-1.0], [6.0], [0, 0.0], [1e20]]
+)
+def test_rbs_bad_numeric_starts_are_diagnostic_unknown(starts):
+    doc = request("rbs")
+    preds = {s: native(doc, s) for s in checker.SIDES}
+    preds["current"].update(status="invalid_input", sites=[])
+    doc["current_request"]["start_positions"] = starts
+    result = artificial_result(doc, preds)
+    audit = check(doc, result)
+    assert audit["coverage"]["current"]["expected"] is None
+    assert result["comparisons"][0]["reason"] == "counterpart_roster_unknown"
+    success_doc = request("rbs")
+    success = artificial_result(success_doc)
+    success_doc["current_request"]["start_positions"] = starts
+    rebind_raw_request(success, success_doc, "current")
+    with pytest.raises(ValueError, match="Roster status"):
+        check(success_doc, success)
+
+
+@pytest.mark.parametrize("number", [float("inf"), float("-inf"), float("nan")])
+def test_nonfinite_rbs_start_rejected(number):
+    doc = request("rbs")
+    doc["current_request"]["start_positions"] = [number]
+    with pytest.raises(ValueError, match="finite JSON"):
+        checker.check_result(doc, b"{}", limits())
+
+
+@pytest.mark.parametrize(
+    "field,value",
+    [
+        ("origin", False),
+        ("origin", 2.5),
+        ("origin", "2"),
+        ("contig_length", True),
+        ("contig_length", 20.5),
+    ],
+)
+def test_promoter_projection_rejects_bad_input_numbers(field, value):
+    doc = request()
+    doc["current_request"]["projection"] = {
+        "contig": "artificial",
+        "contig_length": 20,
+        "origin": 2,
+        "sequence_strand": "+",
+        "topology": "linear",
+        "origin_crossing": False,
+    }
+    result = copy.deepcopy(artificial_result(doc))
+    doc["current_request"]["projection"][field] = value
+    rebind_raw_request(result, doc, "current")
+    with pytest.raises(ValueError, match="integral input"):
+        check(doc, result)
