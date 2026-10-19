@@ -61,14 +61,19 @@ jobs:
           python -m unittest discover -s backends/rnastructure66/tests -v
           # The complete suite ran above. Repeat only RBS-dependent tests for
           # backend variants; Promoter/edit/reference tests do not use folding.
-          REGSITE_RNASTRUCTURE="$RNASTRUCTURE66_PATCHED" python -m pytest --ignore-glob='tests/test_promoter*' --ignore-glob='tests/benchmarks/test_promoter*' --ignore-glob='tests/benchmarks/test_recoding*' --ignore-glob='tests/benchmarks/test_riboswitch*' --cov=regsite.rbs --cov=regsite.backend --cov=regsite.standby --cov=regsite.structures --cov=regsite.native --cov=regsite.native_cli --cov=regsite.cli --cov=regsite.learned --cov=regsite.features --cov-report=term-missing
-          REGSITE_RNASTRUCTURE="$RNASTRUCTURE66_LINKER3" python -m pytest --ignore-glob='tests/test_promoter*' --ignore-glob='tests/benchmarks/test_promoter*' --ignore-glob='tests/benchmarks/test_recoding*' --ignore-glob='tests/benchmarks/test_riboswitch*' --cov=regsite.rbs --cov=regsite.backend --cov=regsite.standby --cov=regsite.structures --cov=regsite.native --cov=regsite.native_cli --cov=regsite.cli --cov=regsite.learned --cov=regsite.features --cov-report=term-missing
+          REGSITE_RNASTRUCTURE="$RNASTRUCTURE66_PATCHED" python -m pytest --ignore-glob='tests/test_promoter*' --ignore-glob='tests/benchmarks/test_promoter*' --ignore-glob='tests/benchmarks/test_recoding*' --ignore-glob='tests/benchmarks/test_riboswitch*' --ignore-glob='tests/test_conditional*' --cov=regsite.rbs --cov=regsite.backend --cov=regsite.standby --cov=regsite.structures --cov=regsite.native --cov=regsite.native_cli --cov=regsite.cli --cov=regsite.learned --cov=regsite.features --cov-report=term-missing
+          REGSITE_RNASTRUCTURE="$RNASTRUCTURE66_LINKER3" python -m pytest --ignore-glob='tests/test_promoter*' --ignore-glob='tests/benchmarks/test_promoter*' --ignore-glob='tests/benchmarks/test_recoding*' --ignore-glob='tests/benchmarks/test_riboswitch*' --ignore-glob='tests/test_conditional*' --cov=regsite.rbs --cov=regsite.backend --cov=regsite.standby --cov=regsite.structures --cov=regsite.native --cov=regsite.native_cli --cov=regsite.cli --cov=regsite.learned --cov=regsite.features --cov-report=term-missing
       - name: Build and run fresh offline wheel installation
         shell: bash
         run: |
           python -m build --no-isolation
           python -m venv .cache/fresh
           .cache/fresh/bin/python -m pip install --no-index --no-deps dist/*.whl
+          # Scalar conditional inference is portable and uses no folding engine.
+          # Exact original arm64 structural admission has a separate local receipt.
+          .cache/fresh/bin/regsite-conditional examples/conditional-supplied-half-occupancy.json > .cache/conditional-fraction.json
+          .cache/fresh/bin/regsite-conditional examples/conditional-supplied-volume-fifth.json > .cache/conditional-volume.json
+          .cache/fresh/bin/python -c 'import json,math; a=json.load(open(".cache/conditional-fraction.json")); b=json.load(open(".cache/conditional-volume.json")); assert all(r["status"]=="ok" and r["complete"] and r["model"]["backend"] is None for r in (a,b)); assert math.isclose(a["response"]["ar_actual"],2.5,rel_tol=1e-12); assert math.isclose(b["response"]["ar_actual"],8/7,rel_tol=1e-12)'
           .cache/fresh/bin/regsite-compare examples/paired-promoter-unchanged.json > .cache/paired-unchanged.json
           .cache/fresh/bin/regsite-compare examples/paired-promoter-indel.json > .cache/paired-indel.json
           .cache/fresh/bin/regsite-compare examples/paired-promoter-indel.json --format csv > .cache/paired.csv

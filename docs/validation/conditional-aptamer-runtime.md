@@ -1,5 +1,9 @@
 # Conditional aptamer library contract
 
+- Purpose: Define executable canonical-state and supplied-energy conditional profiles.
+- Scope: Bounded local library and CLI; original admitted backend identities only.
+- Last verified: 2026-10-18
+
 The library entry point is
 `regsite.conditional.predict_conditional(document: object, backend_root: str | Path | None = None) -> dict`.
 It accepts raw JSON-compatible objects and returns exactly the proposed

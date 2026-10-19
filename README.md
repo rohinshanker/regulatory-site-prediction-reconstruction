@@ -50,8 +50,9 @@ arithmetic reproduces the pinned historical source on synthetic states; that is
 fidelity, not demonstrated biological accuracy. Calibration is *E. coli* only,
 and independent native and measured-strength evaluation has not produced a result.
 This is not a released or cyanobacteria-calibrated predictor. See the
-[Promoter model card](docs/validation/promoter-model-card.md). Operon and
-Riboswitch runtime work remains pending admission of their component models.
+[Promoter model card](docs/validation/promoter-model-card.md). Operon integration remains in preparation. The conditional Riboswitch component
+below has bounded structural and supplied-energy profiles; complete
+sequence-to-switch prediction remains unavailable.
 
 See the [independent results](docs/validation/rbs-wave2-results.md),
 [native validation](docs/validation/rbs-native-validation.md) and
@@ -196,6 +197,32 @@ the underlying calculator equations and parameter files are unchanged.
 The [continuing delivery program](docs/validation/calculator-delivery-program.md)
 then adds admitted supplied-operon and specified-aptamer components. The visualizer
 remains a downstream consumer of versioned predictions.
+
+## Conditional aptamer components
+
+The 0.7.0rc1 development runtime provides two explicit components:
+
+```sh
+.venv/bin/regsite-conditional examples/conditional-supplied-half-occupancy.json
+.venv/bin/regsite-conditional examples/conditional-supplied-volume-fifth.json
+.venv/bin/regsite-conditional examples/conditional-hairpin-structure-control.json \
+  --backend-root /path/to/admitted/original/RNAstructure
+```
+
+The supplied-energy profile computes response ratios from caller-supplied RNA and
+ribosome energies, affinity, and either an occupancy fraction or explicit
+concentrations and relative volumes. It needs only Python. The structural profile
+folds unconstrained RNA and RNA compatible with a supplied canonical aptamer
+structure. Its initial admission is limited to the recorded original macOS arm64
+RNAstructure binaries; repaired RBS engines are refused. Other builds require
+separate fixture validation.
+
+These examples are synthetic checks. The structural energies do not supply the
+missing ligand-constrained ribosome model, and the scalar calculation does not
+infer an aptamer or physiological concentrations. Every result retains source,
+parameter and backend identities, warnings, partial states and explicit failures.
+Review and package validation remain in progress. See the
+[conditional contract](docs/validation/conditional-aptamer-runtime.md).
 
 ## Start a new implementation session
 
