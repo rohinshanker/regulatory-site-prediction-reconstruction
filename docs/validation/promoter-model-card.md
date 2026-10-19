@@ -2,7 +2,8 @@
 
 - Purpose: State what the implemented historical Promoter model is, what its checks establish and what it cannot support.
 - Scope: `promoter-lafleur2022-historical-1` in package 0.5.0rc1 (`regsite-promoter`); documentation only, no new measurement or model change. Tickets #33 and #7 remain open.
-- Last verified: 2026-10-18 against source candidate `2dff23cb5697507281f7ffa73fc617d56989b40c`
+- Last verified: 2026-10-18
+- Source candidate: `2dff23cb5697507281f7ffa73fc617d56989b40c`
 
 Normative detail is in the [runtime contract](promoter-runtime.md). This card
 summarizes meaning and limits; where they differ, the runtime contract and the
@@ -202,7 +203,8 @@ Single-thread, offline, no subprocess. Effective caps (echoed in `batch.limits`)
 | Seconds per record / batch, maximum | 120.0 / 3600.0 |
 
 These are enforced caps, not measured capacities or throughput. Measured
-cross-platform maxima belong to the final candidate receipt and are not stated here.
+cross-platform maxima and the frozen transport limitation are recorded in the
+[candidate verification](promoter-0.5-candidate.md).
 Exceeding a record limit is `invalid_input` / `limit_exceeded`; an over-limit
 whole input or batch size is a setup error (exit 2). Scans are never truncated.
 
@@ -263,8 +265,8 @@ For a current sequence and a recoded sequence:
 | --- | --- |
 | Historical equation, parameter and coordinate fidelity (212 synthetic states) | Evaluated, passes at 1e-12 |
 | Installed offline wheel through the public interface (22 requests / 424 states) | Evaluated by an independent checker, passes |
-| Resource-cap CI (Ubuntu 24.04 and macOS 14, Python 3.11 and 3.14) | The four resource jobs passed; the complete runtime, repair and fresh-install gates are not yet evidence for this card |
-| Final candidate receipt and measured resource maxima | Pending, to be linked by the integration owner |
+| Resource/full-runtime CI (Ubuntu 24.04 and macOS 14, Python 3.11 and 3.14) | All eight jobs passed at the frozen candidate; software checks are not biological accuracy |
+| Final candidate receipt and measured resource maxima | Available in the [candidate verification](promoter-0.5-candidate.md); known text-mode transport limitation restricts native collection to verified UTF-8/LF files |
 | Native localization of Tan transcription starts, fixed-grid | Not evaluated |
 | Measured promoter-strength challenge (GSE144621 lead) | Not admitted; rights and construct identity unresolved |
 | Context sensitivity of unchanged RBS (companion diagnostic) | Not evaluated |

@@ -1,0 +1,140 @@
+{
+  "identity": {
+    "candidate_commit": "2dff23cb5697507281f7ffa73fc617d56989b40c",
+    "expected_model": {
+      "claims": {
+        "absolute_rate": false,
+        "hosted_parity": false,
+        "native_accuracy_evaluated": false,
+        "physical_free_energy": false,
+        "probability": false
+      },
+      "id": "promoter-lafleur2022-historical-1",
+      "implementation_version": "0.5.0rc1",
+      "kind": "historical_equation_reconstruction",
+      "licence": "GPL-3.0-or-later",
+      "not_modeled": [
+        "sigma_factor",
+        "temperature",
+        "host_specific_calibration",
+        "probability",
+        "absolute_rate",
+        "free_energy"
+      ],
+      "parameters": {
+        "array_sha256": {
+          "coefficients": "fddf16b38bf29799481e8a45890b669111e16cf2e3448e99d1934d19a8f0b8e9",
+          "intercept": "f7c66a8d838da71a6b2ab17936cd6ff2564e446af8c0676fba95de2116e99a7b"
+        },
+        "coefficient_count": 343,
+        "intercept_count": 1,
+        "parameter_json_sha256": "e2957d4687a5d5a2a20bcce231b4ea1446f269b383bbae94eed72860efa360dc",
+        "unused_coefficient_indices": [
+          336,
+          337,
+          338
+        ]
+      },
+      "source": {
+        "commit": "46da9132740bce30bccd107f02808adf2215e2f0",
+        "path": "Promoter_Calculator",
+        "reference_fork_commit": "0fe5f6f0fb2befc087556afa575f7241afd98fbf",
+        "repository": "https://github.com/hsalis/SalisLabCode"
+      },
+      "source_quirks": [
+        {
+          "behavior": "Corrected local base L-1-t; legacy L-t diagnostic only.",
+          "id": "reverse_key_l_minus_t"
+        },
+        {
+          "behavior": "Always retain the one-base UP/hex35 gap.",
+          "id": "arbitrary_scan_gap_omitted"
+        },
+        {
+          "behavior": "No sigma input accepted; source metadata had no effect.",
+          "id": "sigma_levels_ignored"
+        },
+        {
+          "behavior": "Calibration required, never inferred from host.",
+          "id": "unknown_organism_default_beta"
+        },
+        {
+          "behavior": "All coordinate-eligible states available on request.",
+          "id": "one_state_per_tss_public"
+        },
+        {
+          "behavior": "Preserve unused 336..338; use source quadratic.",
+          "id": "unused_spacer_coefficients"
+        },
+        {
+          "behavior": "Follow code: UP=24; discriminator lengths 6..10.",
+          "id": "paper_code_difference"
+        }
+      ],
+      "term_source_names": {
+        "binding": "dG_bind",
+        "discriminator": "dG_disc",
+        "extended10": "dG_ext10",
+        "hex10": "dG_10",
+        "hex35": "dG_35",
+        "intercept": "intercept",
+        "itr": "dG_ITR",
+        "source_apparent": "dG_apparent",
+        "spacer": "dG_spacer",
+        "total": "dG_total",
+        "up": "dG_UP"
+      },
+      "terms_semantics": "learned regression score contributions; not independently established free energies",
+      "terms_unit": "source_dG_units"
+    },
+    "identity_model": {
+      "coefficient_array_sha256": "fddf16b38bf29799481e8a45890b669111e16cf2e3448e99d1934d19a8f0b8e9",
+      "id": "promoter-lafleur2022-historical-1",
+      "implementation_version": "0.5.0rc1",
+      "intercept_array_sha256": "f7c66a8d838da71a6b2ab17936cd6ff2564e446af8c0676fba95de2116e99a7b",
+      "parameter_json_sha256": "e2957d4687a5d5a2a20bcce231b4ea1446f269b383bbae94eed72860efa360dc",
+      "source_commit": "46da9132740bce30bccd107f02808adf2215e2f0"
+    },
+    "public_contract_commit": "2dff23cb5697507281f7ffa73fc617d56989b40c",
+    "wheel_sha256": "4443e3558c6c689373fe09af4eabc1530b4af2a166391773056a69053939b1ff"
+  },
+  "schema_version": "promoter-runtime-manifest-1",
+  "settings": {
+    "calibration": "ecoli_mg1655",
+    "cli_calibration": null,
+    "cli_states": null,
+    "host": null,
+    "limits": {
+      "bases_per_batch": 100000,
+      "bases_per_record": 5000,
+      "records_per_batch": 100,
+      "request_bytes": 4000000,
+      "sites_per_batch": 4000,
+      "sites_per_record": 1000
+    },
+    "runtime_limits": {
+      "default_seconds_per_batch": 300.0,
+      "default_seconds_per_record": 30.0,
+      "max_all_state_sites_per_record": 100,
+      "max_all_states_per_batch": 2000,
+      "max_all_states_per_record": 2000,
+      "max_contig_chars": 128,
+      "max_host_name_chars": 200,
+      "max_id_chars": 128,
+      "max_input_json_bytes": 4000000,
+      "max_metadata_depth": 4,
+      "max_metadata_json_bytes": 4096,
+      "max_normalized_bases_per_batch": 100000,
+      "max_normalized_bases_per_record": 5000,
+      "max_planned_sites_per_batch": 4000,
+      "max_planned_sites_per_record": 1000,
+      "max_raw_sequence_chars_per_record": 50000,
+      "max_records_per_batch": 100,
+      "max_result_json_bytes": 67108864,
+      "max_seconds_per_batch": 3600.0,
+      "max_seconds_per_record": 120.0
+    },
+    "seconds_per_batch": 300.0,
+    "seconds_per_record": 30.0
+  }
+}

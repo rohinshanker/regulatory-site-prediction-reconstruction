@@ -1,0 +1,518 @@
+{
+  "authorizations": {
+    "canonical_cyano_mutation": false,
+    "credential_or_privilege": false,
+    "main_merge_tag_publication": false,
+    "native_collection_after_protocol_ack": true,
+    "owner_instruction_commit": "457ac340d1bf66fed976896015f13f3ed8d08c54",
+    "website_or_coins": false
+  },
+  "candidate_commit": "2dff23cb5697507281f7ffa73fc617d56989b40c",
+  "candidate_receipt_sha256": "9d7c4f178ea550aa85af41f7927043f857498e01ecf710d261619eb1a18654ad",
+  "ci": {
+    "conclusion": "success",
+    "head_sha": "2dff23cb5697507281f7ffa73fc617d56989b40c",
+    "jobs": [
+      {
+        "completed_at": "2026-10-18T23:55:09Z",
+        "conclusion": "success",
+        "id": 117821953281,
+        "name": "runtime (ubuntu-24.04, 3.14)",
+        "started_at": "2026-10-18T23:34:54Z",
+        "status": "completed",
+        "steps": [
+          {
+            "conclusion": "success",
+            "name": "Set up job",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Install locked development tools and package",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Build separately licensed, pinned RNAstructure executables",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Static and full runtime gates",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Build and validate both separately licensed repairs",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Build and run fresh offline wheel installation",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Post Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Complete job",
+            "status": "completed"
+          }
+        ]
+      },
+      {
+        "completed_at": "2026-10-18T23:37:18Z",
+        "conclusion": "success",
+        "id": 117821953378,
+        "name": "promoter-resources (macos-14, 3.11)",
+        "started_at": "2026-10-18T23:34:58Z",
+        "status": "completed",
+        "steps": [
+          {
+            "conclusion": "success",
+            "name": "Set up job",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Measure and admit the complete synthetic candidate suite",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Preserve the complete resource receipt, including failures",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Post Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Complete job",
+            "status": "completed"
+          }
+        ]
+      },
+      {
+        "completed_at": "2026-10-18T23:56:00Z",
+        "conclusion": "success",
+        "id": 117821953397,
+        "name": "runtime (macos-14, 3.14)",
+        "started_at": "2026-10-18T23:35:00Z",
+        "status": "completed",
+        "steps": [
+          {
+            "conclusion": "success",
+            "name": "Set up job",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Install locked development tools and package",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Build separately licensed, pinned RNAstructure executables",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Static and full runtime gates",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Build and validate both separately licensed repairs",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Build and run fresh offline wheel installation",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Post Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Complete job",
+            "status": "completed"
+          }
+        ]
+      },
+      {
+        "completed_at": "2026-10-18T23:55:39Z",
+        "conclusion": "success",
+        "id": 117821953417,
+        "name": "runtime (ubuntu-24.04, 3.11)",
+        "started_at": "2026-10-18T23:34:54Z",
+        "status": "completed",
+        "steps": [
+          {
+            "conclusion": "success",
+            "name": "Set up job",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Install locked development tools and package",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Build separately licensed, pinned RNAstructure executables",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Static and full runtime gates",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Build and validate both separately licensed repairs",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Build and run fresh offline wheel installation",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Post Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Complete job",
+            "status": "completed"
+          }
+        ]
+      },
+      {
+        "completed_at": "2026-10-18T23:35:58Z",
+        "conclusion": "success",
+        "id": 117821953424,
+        "name": "promoter-resources (ubuntu-24.04, 3.11)",
+        "started_at": "2026-10-18T23:34:54Z",
+        "status": "completed",
+        "steps": [
+          {
+            "conclusion": "success",
+            "name": "Set up job",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Measure and admit the complete synthetic candidate suite",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Preserve the complete resource receipt, including failures",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Post Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Complete job",
+            "status": "completed"
+          }
+        ]
+      },
+      {
+        "completed_at": "2026-10-19T00:02:49Z",
+        "conclusion": "success",
+        "id": 117821953449,
+        "name": "runtime (macos-14, 3.11)",
+        "started_at": "2026-10-18T23:34:59Z",
+        "status": "completed",
+        "steps": [
+          {
+            "conclusion": "success",
+            "name": "Set up job",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Install locked development tools and package",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Build separately licensed, pinned RNAstructure executables",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Static and full runtime gates",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Build and validate both separately licensed repairs",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Build and run fresh offline wheel installation",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Post Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Complete job",
+            "status": "completed"
+          }
+        ]
+      },
+      {
+        "completed_at": "2026-10-18T23:38:55Z",
+        "conclusion": "success",
+        "id": 117821953485,
+        "name": "promoter-resources (macos-14, 3.14)",
+        "started_at": "2026-10-18T23:37:25Z",
+        "status": "completed",
+        "steps": [
+          {
+            "conclusion": "success",
+            "name": "Set up job",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Measure and admit the complete synthetic candidate suite",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Preserve the complete resource receipt, including failures",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Post Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Complete job",
+            "status": "completed"
+          }
+        ]
+      },
+      {
+        "completed_at": "2026-10-18T23:35:44Z",
+        "conclusion": "success",
+        "id": 117821953533,
+        "name": "promoter-resources (ubuntu-24.04, 3.14)",
+        "started_at": "2026-10-18T23:34:54Z",
+        "status": "completed",
+        "steps": [
+          {
+            "conclusion": "success",
+            "name": "Set up job",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Measure and admit the complete synthetic candidate suite",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Preserve the complete resource receipt, including failures",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Post Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Complete job",
+            "status": "completed"
+          }
+        ]
+      }
+    ],
+    "run_id": 39177114783,
+    "status": "completed",
+    "url": "https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/actions/runs/39177114783"
+  },
+  "ci_receipt_sha256": "b26e6427b65735873236379dac2682ffd7bc8ede6e489a4c401b08a254467538",
+  "claims": {
+    "hosted_equivalence": false,
+    "native_accuracy_evaluated": false,
+    "native_host_calibration": false,
+    "source_parity": {
+      "absolute_tolerance": 1e-12,
+      "no_candidate_records": 4,
+      "records": 22,
+      "relative_tolerance": 1e-12,
+      "states": 424
+    }
+  },
+  "schema_version": "promoter-candidate-admission-1",
+  "stage": {
+    "all_failed_unstarted_cases_retained": true,
+    "batches": 92,
+    "candidate_points": 364416,
+    "manifest_canonical_sha256": "c523578537899f05ac7fef7331a0d3288ebbefab6c88a2ab64ebe73fd5102d63",
+    "manifest_raw_sha256": "425d17247391f4099a5bf7b9d6528e592e716176764596352e9a4c7e1a6ce66e",
+    "outcomes_owner": "Session B; A receives reviewed aggregates only",
+    "owner": "Session B 9677689a-1792176763",
+    "plan_canonical_sha256": "90bdf3d60ef9bd7d66738c70265d0b5909539d8e57c5ff49d846c5797b349080",
+    "plan_raw_sha256": "981798c8090af83b8572482fccbf91dd683d6e7d68869dd57670de072df475e5",
+    "preparation_receipt_sha256": "803f023c9c24171e1a82bb62fc75d15fb61c2fe1ba04b6a0f776bdbee180dc33",
+    "protocol": "docs/validation/promoter-wave5-evaluation.md",
+    "protocol_acknowledgement_required_before_collection": true,
+    "query_sha256": "f71f7d82f9ebf8b1f58c40851436000fbff9e139d07210794961e82720e251f5",
+    "repacking_after_outcomes": false,
+    "request_host_taxon_id": "omitted; resolved output taxon_id is null",
+    "requests": 366,
+    "retries": 0,
+    "seconds_total": 3600.0,
+    "sequence_bases": 395892,
+    "settings_changes_after_outcomes": false
+  },
+  "status": "admitted_for_bounded_independent_native_evaluation"
+}
