@@ -3,6 +3,7 @@
 - Purpose: Report source parity and positive-TSS localization separately from native calibration and expression accuracy.
 - Scope: Wave 5 Session B, frozen Promoter 0.5.0rc1 candidate; no fitting, new website jobs or recoding-effect experiment.
 - Evaluation date: 2026-10-19 UTC.
+- Last verified: 2026-10-19
 
 The frozen model recovered **36 of 292 in-window TSS positives (12.33%) exactly within its top ten positions per tile**. Allowing ±3 nt recovered **47/292 (16.10%)**. The corresponding 95% group-bootstrap intervals are 8.97–16.74% and 12.41–20.54%. It therefore localizes a minority of these source positives within the sampled windows. All requested computations completed; execution coverage is separate from positional recovery.
 
