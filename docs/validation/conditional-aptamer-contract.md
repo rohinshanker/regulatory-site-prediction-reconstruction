@@ -315,3 +315,52 @@ assumptions; their fractions/ratios are algebraic expectations. No proposed
 producer request has been executed. Runtime acceptance still requires the exact
 frozen interface, independent input/result validation, real-backend checks,
 finite resource handling and a fresh-install receipt.
+
+
+## Executable independent reference
+
+[`conditional_reference.py`](../../benchmarks/riboswitch/conditional_reference.py)
+implements only `response(inputs)`, `affinity(inputs)` and
+`partition(inputs, max_iterations=256)` with standard-library Decimal arithmetic.
+Use the exact input dictionaries in the frozen fixture file. Returned values are
+Decimal objects, with explicit booleans/statuses and a null fraction when mRNA is
+absent. This reference is separate from the proposed producer JSON interface;
+it is not a sequence scorer, runtime validator or calibrated efficacy model.
+
+The arithmetic context is isolated at 80 digits, round-half-even, exponent limits
+±9999. Inputs are ASCII decimal strings of 1–128 characters; nonzero adjusted
+exponents must lie in [−1000,1000]. Nonfinite values, unsafe arithmetic and
+unresolved roots raise `ValueError`. Unequal Kd/standard values are refused when
+subtracting their logarithms loses more than 20 decimal orders; a rounded zero
+must not silently change the strict-positive correction branch. These bounds define the reference's supported
+numerical domain, not a physical admissibility criterion. The producer may use
+binary64 with its separately stated tolerances and explicit range failures.
+
+Bisection requires both bracket width divided by `min(m,l)` and derivative
+residual divided by `max(Vm,Vl,abs(beta*switching))` at most `1e-50`, within at most
+256 iterations. The bracket therefore also bounds absolute occupancy error.
+Outward-rounded derivative intervals must certify both bracket endpoint signs
+and the central residual tolerance. Logarithm error margins are explicit because
+Decimal logarithms ignore directed rounding. If precision cannot certify these
+bounds, the reference refuses rather than reporting a successful bracket.
+The result preserves the bracket, residual, scale and iteration count; zero-total
+boundaries use zero iterations and null residual/scale. It reports volume sums
+greater than one without adding a packing constraint. Equivalent convex sums
+retain small positive repression ratios without cancellation to zero.
+
+```sh
+PYTHONPATH=src:. python -m coverage run --branch \
+  --source=benchmarks.riboswitch.conditional_reference \
+  -m pytest -q tests/benchmarks/test_riboswitch_conditional_reference.py
+python -m coverage report --fail-under=100
+PYTHONPATH=src:. python -m pytest -q \
+  tests/benchmarks/test_riboswitch_conditional_contract.py
+```
+
+Tests cover all frozen numerical/refusal cases, mass balances, an independently
+expanded derivative and convex objective, ligand limitation, concentration scale
+changes, the declared zero discontinuity, tiny repression, iteration exhaustion,
+unsafe exponents, caller-context isolation and the earlier beta-0.45 fixtures.
+Independent 240-digit regressions cover near-equal affinity values and severely
+disproportionate concentrations/volumes that invalidate an 80-digit point estimate.
+No folding or biological measurements are used by these tests.
