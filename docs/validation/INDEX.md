@@ -4,6 +4,7 @@ Verification dates cover the stated source observations or specification review;
 
 | Area | Purpose | Last verified | Document |
 | --- | --- | --- | --- |
+| paired-consumer-preview | Minimal immutable paired 0.6 package and synthetic result handoff for the bounded consumer display, with expansion paused. | 2026-10-18 | [paired-consumer-preview.md](paired-consumer-preview.md) |
 | supplied-transcript-contract | Explicit RNA context, supplied CDS eligibility, native component settings and portable coordinate/failure boundary. | 2026-10-18 | [supplied-transcript-contract.md](supplied-transcript-contract.md) |
 | supplied-transcript-runtime | Exact component results, stable declared-budget identities, features, missingness and local transport. | 2026-10-18 | [supplied-transcript-runtime.md](supplied-transcript-runtime.md) |
 | transcript-0.8-candidate | Immutable reviewed transcript package, offline real examples, fixed resource receipts and separate CI/consumer gates. | 2026-10-18 | [transcript-0.8-candidate.md](transcript-0.8-candidate.md) |

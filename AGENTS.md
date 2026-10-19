@@ -2,6 +2,11 @@
 
 ## Scope and order
 
+- Current owner priority: pause broad calculator expansion and preserve reviewed
+  candidates. Session B coordinates the bounded cyano prediction display; Session A
+  supplies the immutable paired 0.6 candidate and preserves pending validation.
+  Do not start the unaccepted portable-backend or new transcript-adapter assignments.
+  Read `docs/validation/paired-consumer-preview.md` before consumer handoff work.
 - Read `README.md`, `docs/notes/tickets/INDEX.md`, and applicable validation
   contracts before significant work. The user authorized the complete four-tool
   reconstruction program; the first implemented runtime is the Wave 1 RBS reconstruction.

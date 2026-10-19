@@ -2,6 +2,12 @@
 
 Live queue of open and active tickets. Markdown is canonical; GitHub issues mirror scope and discussion.
 
+**Owner priority override:** broad calculator expansion is paused. Preserve frozen
+candidates and pending CI; do not start the unaccepted portable-backend or new
+transcript-adapter assignments. B coordinates the bounded consumer preview and A
+supplies the [immutable paired handoff](../../validation/paired-consumer-preview.md).
+Existing broad tickets remain open; their rows do not authorize resumed expansion.
+
 The [continuing delivery program](../../validation/calculator-delivery-program.md)
 orders current/recoded prediction and portable consumer outputs after the
 Promoter runtime, then admitted supplied-operon and conditional aptamer slices.

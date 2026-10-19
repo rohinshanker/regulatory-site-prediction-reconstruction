@@ -13,6 +13,12 @@
 - Priority: P1
 - Dependencies: Admitted RBS and Promoter predictors; source component admission; B #45 independent fixtures.
 
+Owner priority pauses expansion. Preserve the frozen 0.8 candidate and its pending
+CI; no new transcript-adapter assignment or collection starts. B instead owns the
+bounded consumer preview using the already admitted paired 0.6 artifact. A's
+handoff checks confirmed the existing wheel/archive, three synthetic result files,
+their canonical request/prediction hashes, both schemas and CI receipt pins.
+
 The consumer boundary now includes the supplied-transcript interface and its
 roster/missingness rules. Session A reserves no consumer paths; native extraction,
 release admission and rendered viewer integration remain consumer-owned under
