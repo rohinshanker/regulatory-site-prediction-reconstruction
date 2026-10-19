@@ -3,6 +3,7 @@
 import copy
 import hashlib
 import json
+import math
 from pathlib import Path
 
 import pytest
@@ -581,3 +582,130 @@ def test_uncertifiable_root_reports_numerical_range_and_keeps_bracket():
     assert response["occupancy"]["fraction"] is None
     assert response["occupancy"]["solver"]["bracket_molar"] == [0, 1]
     assert response["ar_conc"] is response["ar_actual"] is None
+
+
+@pytest.mark.parametrize("mode", ["supplied_fraction", "published2015_volume"])
+def test_kd_rounded_zero_refuses_composite_branch_with_partial_results(mode):
+    document = request()
+    data = document["input"]
+    data["energies"].update(rna_off_kcal_mol=0, rna_on_kcal_mol=0.06493699420623736)
+    data["affinity"] = dict(mode="kd", kd_molar=0.9, standard_molar=1)
+    if mode == "published2015_volume":
+        data["occupancy"] = dict(
+            mode=mode,
+            mrna_total_molar=1,
+            ligand_total_molar=1,
+            solvent_molar=1e-16,
+            mrna_relative_volume=1e-16,
+            ligand_relative_volume=1e-16,
+        )
+    result = c.predict_conditional(document)
+    assert result["status"] == "failed" and result["complete"] is False
+    assert result["reasons"] == ["numerical_range"]
+    assert (
+        result["request_sha256"]
+        == hashlib.sha256(canonical_bytes(document)).hexdigest()
+    )
+    assert result["structural_cost_kcal_mol"] == 0.06493699420623736
+    response = result["response"]
+    assert response["ligand_binding_kcal_mol"] == -0.06493699420623736
+    assert response["log_ar_max"] == math.log(4)
+    assert response["ar_max"] == 4
+    for field in (
+        "switching_kcal_mol",
+        "metastability_factor",
+        "metastability_applied",
+        "ar_actual",
+    ):
+        assert response[field] is None
+    occupancy = response["occupancy"]
+    if mode == "supplied_fraction":
+        assert occupancy["fraction"] == 0.5 and occupancy["status"] == "ok"
+        assert response["ar_conc"] == 2.5
+    else:
+        assert occupancy["status"] == "failed"
+        assert response["ar_conc"] is None
+        assert all(
+            occupancy[field] is None
+            for field in ("fraction", "concentrations", "volume_fractions", "solver")
+        )
+
+
+@pytest.mark.parametrize("direction,applied", [(-math.inf, False), (math.inf, True)])
+@pytest.mark.parametrize("volume", [False, True])
+def test_kd_adjacent_costs_and_physical_composite_root(direction, applied, volume):
+    from decimal import Context, Decimal, localcontext
+
+    from regsite.conditional_math import GAS_CONSTANT
+
+    document = request()
+    data = document["input"]
+    cost = math.nextafter(0.06493699420623736, direction)
+    data["energies"].update(rna_off_kcal_mol=0, rna_on_kcal_mol=cost)
+    data["affinity"] = dict(mode="kd", kd_molar=0.9, standard_molar=1)
+    if volume:
+        data["occupancy"] = dict(
+            mode="published2015_volume",
+            mrna_total_molar=1,
+            ligand_total_molar=1,
+            solvent_molar=1e-16,
+            mrna_relative_volume=1e-16,
+            ligand_relative_volume=1e-16,
+        )
+    result = c.predict_conditional(document)
+    assert result["status"] == "ok" and result["complete"]
+    response = result["response"]
+    assert response["metastability_applied"] is applied
+    assert (response["switching_kcal_mol"] > 0) is applied
+    if not volume:
+        assert response["ar_actual"] == pytest.approx(1.75 if applied else 2.5)
+    else:
+        occupancy = response["occupancy"]
+        assert occupancy["status"] == "ok"
+        low, high = occupancy["solver"]["bracket_molar"]
+        with localcontext(Context(prec=240)):
+            energy = (
+                Decimal(cost)
+                + Decimal(GAS_CONSTANT)
+                * Decimal(data["temperature_kelvin"])
+                * Decimal(0.9).ln()
+            )
+            assert (energy > 0) is applied
+            vm = Decimal(data["occupancy"]["mrna_relative_volume"])
+
+            def residual(b, switching):
+                b = Decimal(b)
+                return vm * (b / (1 - b)).ln() - vm * (1 - b).ln() + switching
+
+            assert residual(low, energy) < 0 < residual(high, energy)
+            rounded = Decimal(response["switching_kcal_mol"])
+            # The falsely exact rounded-affinity root is outside this bracket.
+            assert residual(high, rounded) < 0
+        assert low < high
+        assert high - low <= 1e-12
+
+
+@pytest.mark.parametrize("mode", ["supplied_fraction", "published2015_volume"])
+def test_kd_equal_standard_has_certified_exact_zero(mode):
+    document = request()
+    data = document["input"]
+    data["energies"].update(rna_off_kcal_mol=0, rna_on_kcal_mol=0)
+    data["affinity"] = dict(mode="kd", kd_molar=1e300, standard_molar=1e300)
+    if mode == "published2015_volume":
+        data["occupancy"] = dict(
+            mode=mode,
+            mrna_total_molar=1,
+            ligand_total_molar=1,
+            solvent_molar=0.5,
+            mrna_relative_volume=1,
+            ligand_relative_volume=1,
+        )
+    result = c.predict_conditional(document)
+    assert result["status"] == "ok" and result["complete"]
+    response = result["response"]
+    assert response["ligand_binding_kcal_mol"] == response["switching_kcal_mol"] == 0
+    assert response["metastability_applied"] is False
+    assert response["metastability_factor"] == 1
+    assert response["ar_actual"] == 2.5
+    if mode == "published2015_volume":
+        assert response["occupancy"]["solver"]["bracket_molar"] == [0.5, 0.5]

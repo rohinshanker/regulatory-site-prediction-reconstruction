@@ -409,3 +409,50 @@ def test_exact_switching_survives_unrepresentable_display_cost():
     assert actual["metastability_applied"] is True
     assert actual["ar_actual"] == 1
     assert errors and all(error.code == "numerical_range" for error in errors)
+
+
+def test_kd_certification_retry_refusal_and_deadline(monkeypatch):
+    affinity = dict(mode="kd", kd_molar=0.9, standard_molar=1)
+    rt = Fraction(cm.GAS_CONSTANT) * Fraction(310.15)
+    lower80, _ = cm.log_bounds(Fraction(0.9), 80)
+    calls = []
+    original = cm.log_bounds
+
+    def observe(ratio, precision):
+        calls.append(precision)
+        return original(ratio, precision)
+
+    monkeypatch.setattr(cm, "log_bounds", observe)
+    low, high = cm.kd_switching_bounds(
+        affinity, 310.15, -rt * lower80, Fraction(1), time.monotonic() + 5
+    )
+    assert 0 < low <= high
+    assert calls == [80, 160]
+    lower160, upper160 = original(Fraction(0.9), 160)
+    unresolved_cost = -rt * (lower160 + upper160) / 2
+    with pytest.raises(cm.ConditionalError, match="uncertifiable"):
+        cm.kd_switching_bounds(
+            affinity, 310.15, unresolved_cost, Fraction(1), time.monotonic() + 5
+        )
+    assert calls[-2:] == [80, 160]
+    with pytest.raises(cm.ConditionalError, match="changes the composite branch"):
+        cm.kd_switching_bounds(
+            dict(kd_molar=1, standard_molar=1),
+            310.15,
+            Fraction(0),
+            Fraction(1),
+            time.monotonic() + 5,
+        )
+    with pytest.raises(cm.ConditionalError, match="deadline"):
+        cm.kd_switching_bounds(affinity, 310.15, Fraction(0), Fraction(0), 0)
+
+
+def test_stationary_refuses_indeterminate_energy_interval():
+    with pytest.raises(cm.ConditionalError, match="uncertifiable"):
+        cm.certified_stationary(
+            0.5, 1, 1, 0.5, 1, 1, (Fraction(-1), Fraction(1)), time.monotonic() + 5
+        )
+    sign, residual, small = cm.certified_stationary(
+        0.5, 1, 1, 1, 1, 1, (Fraction(2), Fraction(3)), time.monotonic() + 5
+    )
+    assert sign == 1 and residual > 0 and not small

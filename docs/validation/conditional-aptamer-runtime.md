@@ -47,20 +47,50 @@ and null residual. Positive totals require a representable interior root;
 rounding to an endpoint, underflow, overflow or exhaustion is an explicit failure.
 
 The numerical convention is
-`natural_logs_equal_rna_complex_volume_explicit_molar_standard_strict_positive_zero_uncorrected_binary64_certified_min_total_bracket_2`.
+`natural_logs_equal_rna_complex_volume_explicit_molar_standard_strict_positive_zero_uncorrected_binary64_kd_guarded_certified_min_total_bracket_3`.
 The source manifest, physical constants, scientific assumptions and backend pins
 retain their existing identities; the parameter hash additionally binds the
 certification method below. The public result shape and error-code vocabulary
 are unchanged.
 
-Keep `G_on - G_off + G_bind` as one exact rational combination of the supplied
+With direct binding energy, keep `G_on - G_off + G_bind` as one exact rational
+combination of the supplied
 binary64 energies through the metastability sign decision, its beta product and
 the occupancy equation. The separately displayed structural cost is rounded
 once; it is not reused to form switching energy. Otherwise a small positive
 switching cost can round to zero and select the discontinuous wrong branch.
-With Kd input, the converted binding energy has the documented binary64 rounding
-before joining that exact combination. Unrepresentable displayed fields fail
-explicitly while other representable components survive.
+Unrepresentable displayed fields fail explicitly while other representable
+components survive.
+
+Kd continuation has an additional admission gate. Enclose
+`G_on-G_off + R*T*ln(Kd/standard)` from the exact input values and the binary64
+`GAS_CONSTANT`, using the same bounded 80/160-digit log method. The rounded
+binding energy remains an independent diagnostic. Scalar switching/correction
+and actual response may continue with the binary64 converted binding only when
+the composite enclosure proves the same strict-positive, negative or exact-zero
+branch. A rounded zero agrees only with a proven exact composite zero; there is
+no epsilon around zero. If a different branch is proved or the sign cannot be
+resolved within the two fixed precision stages and deadline, return `failed`,
+`numerical_range`, `complete=false`. Switching energy, metastability fields and
+actual response stay null. Cost, binding, log maximum ratio and its representable
+linear value survive. A supplied fraction and its concentration ratio are also
+independent and survive; dependent volume occupancy remains uncomputed, with
+null fraction, concentrations, volume fractions and solver.
+
+Even after branch admission, volume occupancy uses the **unrounded composite
+energy enclosure**, multiplied by exact beta. It never treats the displayed
+rounded affinity or switching energy as the exact energy of a physical root.
+Each stationary enclosure includes both endpoints of that energy interval and
+both possible residual-scale endpoints. Signs and stopping bounds are therefore
+conservative for the entire admitted composite enclosure. If that enclosure
+prevents a certified stationary sign at the two bounded precisions, fail with
+`numerical_range` and retain the last certified bracket. This may refuse a
+mathematically defined root; no wider precision search is promised. This is the
+exact admitted Kd domain: branch agreement and, for an interior volume solution,
+certifiable signs and both stopping bounds under the unrounded energy enclosure.
+Scalar response values remain binary64 approximations within the certified
+branch; their values are not advertised as interval-certified. Exact
+`Kd=standard` gives a zero binding enclosure and preserves the exact-zero rule.
 
 Every bisection update uses a certified stationary sign, not the sign of a
 rounded float residual. At each candidate, form `b/(m-b)` and `Vl*(l-b)/Cs` as
@@ -70,7 +100,8 @@ directed floor/ceiling rounding. Monotonicity of ln and Decimal's correctly
 rounded nearest/even ln give log enclosures by widening each endpoint result
 one adjacent Decimal value outward. `ln(1)` is exactly zero and needs no
 widening. Convert these finite decimal bounds back to exact fractions for
-weighted addition, the exact beta/switching energy, and residual scaling.
+weighted addition, the exact direct energy or Kd composite enclosure, its beta
+product, and residual scaling.
 Thus rounding of a large ligand total cannot erase its difference from free
 ligand, and a float zero cannot supply an interval guarantee.
 
@@ -86,7 +117,12 @@ interval for diagnostics; it is not itself the sign certificate. A nonzero
 midpoint outside binary64 range is an explicit numerical failure. Regression
 checks cover the strict-positive cancellation boundary, widely separated
 concentration scales, second-stage certification, unresolved near cancellation,
-and independent high-precision signs at the reported bracket endpoints.
+and independent high-precision signs at the reported bracket endpoints. Kd
+regressions cover rounded-zero refusal at 0.9 M versus a 1 M standard, both
+adjacent float RNA costs, equal Kd/standard, preserved independent partial values,
+and successful/refused volume continuation at small relative volumes. Independent
+240-digit endpoint checks distinguish the composite root from the root obtained
+by treating the displayed rounded affinity as exact.
 
 Both profiles preserve supplied assumptions and warn that native calibration is
 absent. Canonical RNA energies do not supply constrained ribosome binding,
