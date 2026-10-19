@@ -3,8 +3,8 @@
 - Scope: Validate and release the first fully usable open RBS calculator.
 - Status: active
 - Opened: 2026-10-16
-- Updated: 2026-10-18
-- Current State: Cumulative draft PR37 against main contains the complete RBS candidate plus documentation-only release corrections at 73dfbab. DEM-517 accepted the exact 9edb989 archives and independently accepted the corrections/staged bundle. Main merge, tag and publication remain unauthorized and incomplete; #7 retains the release dependency pending the owner's parallel-development decision. No frozen model or archive was changed.
+- Updated: 2026-10-19
+- Current State: Cumulative draft PR37 against main contains the complete RBS candidate plus documentation-only release corrections at 73dfbab. DEM-517 accepted the exact 9edb989 archives and independently accepted the corrections/staged bundle. Main merge, tag and publication remain unauthorized and incomplete; #7 retains the release dependency pending the owner's parallel-development decision. No frozen model or archive was changed. Separate draft PR52 supplies a reviewed pinned original-backend installer; it does not alter this release candidate or grant new binary/profile admission. Consult PR52 exact-head CI for the installation gate.
 - Verification: Exact archive-source CI39088709792 passed all four jobs; 1,624 integrated tests at 100% measured Python coverage and 35 three-engine checks remain the validated baseline. DEM-517 independently verified archive/wheel contents and six fresh offline outputs, then rechecked the corrected release body, unchanged archive hashes and SHA-preserving tag plan. Docs/index/link checks pass. New cumulative-PR CI is a separate run; consult its exact-head checks rather than assuming the prior green result applies to a different commit.
 - Cleanup: Owning session records final checks and unresolved findings, resolves the ticket, distills reusable guidance into docs/validation/, updates both indexes and linked GitHub issue, then removes the resolved ticket.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/6
