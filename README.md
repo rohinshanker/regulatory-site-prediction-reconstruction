@@ -228,7 +228,10 @@ This connects annotated transcript contexts to the existing component models.
 It does not discover operons, model translational coupling, or multiply scores
 into a protein-abundance estimate. JSON retains both complete native predictions;
 CSV retains component summaries and scalar rows bound to the full JSON hash.
-Core and transport tests pass; final schema/package admission remains in progress.
+Independent review, strict schemas and fresh offline examples pass. The fixed
+resource checks retain all requested cases, including partial and unavailable
+ones; cross-platform CI remains the final package gate. See the
+[immutable 0.8.0rc1 candidate](docs/validation/transcript-0.8-candidate.md).
 See the [request contract](docs/validation/supplied-transcript-contract.md) and
 [runtime and export semantics](docs/validation/supplied-transcript-runtime.md).
 
