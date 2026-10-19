@@ -4,7 +4,7 @@
 - Status: active
 - Opened: 2026-10-16
 - Updated: 2026-10-19
-- Current State: Cumulative draft PR37 against main contains the complete RBS candidate plus documentation-only release corrections at 73dfbab. DEM-517 accepted the exact 9edb989 archives and independently accepted the corrections/staged bundle. Main merge, tag and publication remain unauthorized and incomplete; #7 retains the release dependency pending the owner's parallel-development decision. No frozen model or archive was changed. Separate draft PR52 supplies a reviewed pinned original-backend installer; it does not alter this release candidate or grant new binary/profile admission. Consult PR52 exact-head CI for the installation gate.
+- Current State: Cumulative draft PR37 against main contains the complete RBS candidate plus documentation-only release corrections at 73dfbab. DEM-517 accepted the exact 9edb989 archives and independently accepted the corrections/staged bundle. Main merge, tag and publication remain outside this slice and incomplete. Isolated subsequent-calculator development is already authorized; publication and consumer admission retain separate gates. No frozen model or archive was changed. Separate draft PR52 supplies the reviewed pinned original-backend installer and output-preserving Promoter validation reuse. Its code head `7fdfb6f` passed all eight CI jobs in run 39305475909; it does not alter this older release candidate or grant new binary/profile admission. The final documentation cleanup preserves those tested runtime bytes; consult PR52 for current merge checks.
 - Verification: Exact archive-source CI39088709792 passed all four jobs; 1,624 integrated tests at 100% measured Python coverage and 35 three-engine checks remain the validated baseline. DEM-517 independently verified archive/wheel contents and six fresh offline outputs, then rechecked the corrected release body, unchanged archive hashes and SHA-preserving tag plan. Docs/index/link checks pass. New cumulative-PR CI is a separate run; consult its exact-head checks rather than assuming the prior green result applies to a different commit.
 - Cleanup: Owning session records final checks and unresolved findings, resolves the ticket, distills reusable guidance into docs/validation/, updates both indexes and linked GitHub issue, then removes the resolved ticket.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/6
@@ -12,7 +12,7 @@
 - Owner: Session A (`baf5b738-1792172297`), implementation/integration; suite-wide scope remains open where applicable.
 - Dependencies: 02–04; 05 for hosted claims; 12/16/17 independent evidence and comparisons; 18 for native-context exports. Scope claims to completed gates.
 
-Deliver the first installable, documented RBS prediction release. This is the milestone before implementation of the other calculators; source discovery for those tools may continue independently.
+Deliver the first installable, documented RBS prediction release. The owner permits isolated implementation of subsequent calculators alongside this release preparation; source, scientific validation, publication and consumer-admission boundaries still apply.
 
 ## Work
 
