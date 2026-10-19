@@ -13,6 +13,11 @@
 - Priority: P1
 - Dependencies: Admitted RBS and Promoter predictors; source component admission; B #45 independent fixtures.
 
+The consumer boundary now includes the supplied-transcript interface and its
+roster/missingness rules. Session A reserves no consumer paths; native extraction,
+release admission and rendered viewer integration remain consumer-owned under
+#10. The existing S6/PXD036717 viewer work has no new calculator dependency.
+
 Follow [supplied-transcript-contract](../../validation/supplied-transcript-contract.md).
 Deliver real local component calls, complete original results/identities, transcript
 context clipping without start invention, per-CDS mapping and failure coverage,
