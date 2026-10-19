@@ -34,8 +34,9 @@ span at least three bases and lie inside the construct; overlaps are allowed.
 The CDS annotation is preserved in full, without ORF/stop/protein validation.
 Only its first three bases `[s,s+3)` must fit inside `[u,v)` for RBS eligibility.
 An incompatible annotation remains in the result with signed offset `s-u`,
-original coordinates and explicit `incompatible_transcript` reason; no RBS start
-is clipped or invented. If its start fits but CDS end exceeds `v`, retain it with
+original coordinates and incompatible status. Eligibility reasons, in order,
+are `start_before_transcript` for `s<u`, `start_after_transcript` for `s>=v`,
+and `start_codon_after_transcript` for `s<v<s+3`; no RBS start is clipped or invented. If its start fits but CDS end exceeds `v`, retain it with
 `downstream_clipped` warning. Other eligible annotations can still run.
 
 `rbs` is exactly `{profile,anti_sd,temperature_c,host}`. Profile must be one of
