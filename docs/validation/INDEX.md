@@ -16,6 +16,7 @@ Verification dates cover the stated source observations or specification review;
 | promoter-runtime | Implemented core/batch/CLI contract, source identities, coordinates, calibration and candidate acceptance gates. | 2026-10-18 | [promoter-runtime.md](promoter-runtime.md) |
 | riboswitch-constrained-reference | Pinned canonical forced-pair/unpaired feasibility, immutable synthetic execution and offline integrity audit. | 2026-10-18 | [riboswitch-constrained-reference.md](riboswitch-constrained-reference.md) |
 | current-recoded-validation | Independent synthetic edit maps, candidate universes and failure-preserving comparison rules. | 2026-10-18 | [current-recoded-validation.md](current-recoded-validation.md) |
+| rbs-context-collection | Frozen two-profile execution, durable private attempts, process ownership and read-only recovery. | 2026-10-19 | [rbs-context-collection.md](rbs-context-collection.md) |
 | rbs-context-metrics | Hash-bound unchanged-profile context comparisons, complete status accounting and private failure identities. | 2026-10-18 | [rbs-context-metrics.md](rbs-context-metrics.md) |
 | promoter-native-grouping | Fixed input-only label groups and validated cluster-bootstrap intervals from group sufficient statistics. | 2026-10-18 | [promoter-native-grouping.md](promoter-native-grouping.md) |
 | promoter-collection | Frozen one-attempt process collection, admission acknowledgement and private status evidence. | 2026-10-18 | [promoter-collection.md](promoter-collection.md) |
