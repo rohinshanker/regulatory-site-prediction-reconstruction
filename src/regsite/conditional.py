@@ -24,13 +24,13 @@ from regsite.conditional_math import (
     evaluate_response,
 )
 
-PARAMETER_SHA256 = "551ca4da7af67303b74e494f56d4cf9b643b32a449792a8bb54c5b41cce662e8"
+PARAMETER_SHA256 = "99bb08423e2d321947e1cf5bb8cc3061bd99ab02414bff4d25377b5003f51b3f"
 SOURCE_MANIFEST_SHA256 = (
     "ac4d7be48ba856dc6a713829425b584ffd55551743b10c51049de0ec70dc2f6e"
 )
 CONVENTION_ID = (
     "natural_logs_equal_rna_complex_volume_explicit_molar_standard_"
-    "strict_positive_zero_uncorrected_binary64_certified_min_total_bracket_2"
+    "strict_positive_zero_uncorrected_binary64_kd_guarded_certified_min_total_bracket_3"
 )
 PROFILES = {"canonical_structure_pair", "supplied_energy_response"}
 INPUT_LIMIT = 65_536

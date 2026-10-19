@@ -46,7 +46,7 @@
     "source_archive_sha256": "1bedc62aaab984279055caaa6234d48fca113f4b8e17a8060e0b3784d5a397c3",
     "table_manifest_sha256": "5ff86be816a614c729a3d0a6e0ce50dcc277b3f156439e5aecf762d41f59fa0a"
   },
-  "convention_id": "natural_logs_equal_rna_complex_volume_explicit_molar_standard_strict_positive_zero_uncorrected_binary64_certified_min_total_bracket_2",
+  "convention_id": "natural_logs_equal_rna_complex_volume_explicit_molar_standard_strict_positive_zero_uncorrected_binary64_kd_guarded_certified_min_total_bracket_3",
   "gas_constant_joule_mol_kelvin": 8.31446261815324,
   "joules_per_kcal": 4184,
   "license": "GPL-3.0-or-later",
@@ -64,7 +64,10 @@
   },
   "numerics": {
     "arithmetic": "binary64 output; exact rational combined energies and stationary arguments; directed Decimal ln intervals; log-domain response mixtures",
+    "kd_continuation": "rounded continuation must certify the same strict-positive/negative/exact-zero branch as cost + exact binary64 R*T*ln(exact Kd/standard); otherwise numerical_range",
+    "kd_stationary_energy": "unrounded composite enclosure propagated through beta, stationary sign and residual scaling",
     "max_iterations": 256,
+    "max_kd_certification_stages": 2,
     "max_sign_certifications_per_iteration": 2,
     "relative_bracket_denominator": "min(mrna_total_molar,ligand_total_molar)",
     "relative_bracket_tolerance": 1e-12,

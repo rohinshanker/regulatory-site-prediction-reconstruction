@@ -106,6 +106,41 @@ def log_bounds(ratio: Fraction, precision: int) -> tuple[Fraction, Fraction]:
         return Fraction(low_log), Fraction(high_log)
 
 
+def kd_switching_bounds(
+    affinity: dict,
+    temperature: float,
+    cost: Fraction,
+    rounded: Fraction,
+    deadline: float,
+) -> tuple[Fraction, Fraction]:
+    """Admit rounded Kd continuation only when the composite branch agrees.
+
+    Keep the unrounded enclosure for dependent stationary certification. A
+    rounded zero agrees only with a proven exact composite zero, without an
+    epsilon. Two fixed log precisions bound the attempt; other cases refuse.
+    """
+    ratio = Fraction(affinity["kd_molar"]) / Fraction(affinity["standard_molar"])
+    rt = Fraction(GAS_CONSTANT) * Fraction(temperature)
+    for precision in SIGN_PRECISIONS:
+        check_deadline(deadline)
+        log_low, log_high = log_bounds(ratio, precision)
+        low, high = cost + rt * log_low, cost + rt * log_high
+        if (
+            (low > 0 and rounded > 0)
+            or (high < 0 and rounded < 0)
+            or low == high == rounded == 0
+        ):
+            return low, high
+        if low > 0 or high < 0 or low == high == 0:
+            raise ConditionalError(
+                "numerical_range",
+                "Rounded Kd continuation changes the composite branch",
+            )
+    raise ConditionalError(
+        "numerical_range", "Kd composite branch uncertifiable at bounded precision"
+    )
+
+
 def certified_stationary(
     bound: float,
     m: float,
@@ -113,7 +148,7 @@ def certified_stationary(
     solvent: float,
     vm: float,
     vl: float,
-    energy: Fraction,
+    energy: Fraction | tuple[Fraction, Fraction],
     deadline: float,
 ) -> tuple[int, float, bool]:
     """Certify D's sign and residual bound, or refuse unresolved cancellation.
@@ -125,13 +160,27 @@ def certified_stationary(
     b, fm, fl = Fraction(bound), Fraction(m), Fraction(ligand)
     rna_ratio = b / (fm - b)
     ligand_ratio = Fraction(vl) * (fl - b) / Fraction(solvent)
-    scale = max(Fraction(1), Fraction(vm), Fraction(vl), abs(energy))
+    energy_low, energy_high = energy if isinstance(energy, tuple) else (energy, energy)
+    magnitude_low = (
+        Fraction(0)
+        if energy_low <= 0 <= energy_high
+        else min(abs(energy_low), abs(energy_high))
+    )
+    scale_low = max(Fraction(1), Fraction(vm), Fraction(vl), magnitude_low)
+    scale_high = max(scale_low, abs(energy_low), abs(energy_high))
     for precision in SIGN_PRECISIONS:
         check_deadline(deadline)
         rna_low, rna_high = log_bounds(rna_ratio, precision)
         ligand_low, ligand_high = log_bounds(ligand_ratio, precision)
-        low = (Fraction(vm) * rna_low - Fraction(vl) * ligand_high + energy) / scale
-        high = (Fraction(vm) * rna_high - Fraction(vl) * ligand_low + energy) / scale
+        low = Fraction(vm) * rna_low - Fraction(vl) * ligand_high + energy_low
+        high = Fraction(vm) * rna_high - Fraction(vl) * ligand_low + energy_high
+        scaled = (
+            low / scale_low,
+            low / scale_high,
+            high / scale_low,
+            high / scale_high,
+        )
+        low, high = min(scaled), max(scaled)
         if low == high == 0:
             return 0, 0.0, True
         if low > 0 or high < 0:
@@ -148,7 +197,7 @@ def certified_stationary(
 def solve_occupancy(
     supplied: dict,
     beta: float,
-    switching: float | Fraction,
+    switching: float | Fraction | tuple[Fraction, Fraction],
     iterations: int,
     deadline: float,
     out: dict | None = None,
@@ -165,7 +214,11 @@ def solve_occupancy(
     out["solver"] = dict(iterations=0, bracket_molar=[low, high], scaled_residual=None)
     if m > 0 and ligand > 0:
         # Preserve the exact combined energy, including below a rounded RNA cost.
-        energy = Fraction(beta) * Fraction(switching)
+        energy = (
+            (Fraction(beta) * switching[0], Fraction(beta) * switching[1])
+            if isinstance(switching, tuple)
+            else Fraction(beta) * Fraction(switching)
+        )
         for step in range(1, iterations + 1):
             count = step
             check_deadline(deadline)
@@ -285,16 +338,46 @@ def evaluate_response(
     response["log_ar_max"] = log_ar
     if log_ar is not None:
         response["ar_max"] = attempt(lambda: exponential(log_ar))
+    supplied_fraction = data["occupancy"]["mode"] == "supplied_fraction"
+    if supplied_fraction:
+        attempt(
+            lambda: solve_occupancy(
+                data["occupancy"],
+                beta,
+                0,
+                settings["max_iterations"],
+                deadline,
+                response["occupancy"],
+            )
+        )
+    log_q: float | None = None
     if binding is not None:
-        exact_switching = exact_cost + Fraction(binding)
-        switching = attempt(lambda: represent(exact_switching))
+        continuation = exact_cost + Fraction(binding)
+        switching_bounds = (
+            attempt(
+                lambda: kd_switching_bounds(
+                    affinity,
+                    data["temperature_kelvin"],
+                    exact_cost,
+                    continuation,
+                    deadline,
+                )
+            )
+            if affinity["mode"] == "kd"
+            else (continuation, continuation)
+        )
+        switching = (
+            attempt(lambda: represent(continuation))
+            if switching_bounds is not None
+            else None
+        )
         response["switching_kcal_mol"] = switching
         if switching is not None:
-            applied = exact_switching > 0
+            applied = continuation > 0
             response["metastability_applied"] = applied
-            log_q: float | None = 0.0
+            log_q = 0.0
             if applied:
-                product = attempt(lambda: represent(Fraction(beta) * exact_switching))
+                product = attempt(lambda: represent(Fraction(beta) * continuation))
                 log_q = (
                     None
                     if product is None
@@ -302,22 +385,22 @@ def evaluate_response(
                 )
             if log_q is not None:
                 response["metastability_factor"] = attempt(lambda: exponential(log_q))
-            occupancy = attempt(
-                lambda: solve_occupancy(
-                    data["occupancy"],
-                    beta,
-                    exact_switching,
-                    settings["max_iterations"],
-                    deadline,
-                    response["occupancy"],
+            if not supplied_fraction:
+                attempt(
+                    lambda: solve_occupancy(
+                        data["occupancy"],
+                        beta,
+                        switching_bounds,
+                        settings["max_iterations"],
+                        deadline,
+                        response["occupancy"],
+                    )
                 )
-            )
-            occupancy = response["occupancy"] if occupancy is None else occupancy
-            f = occupancy["fraction"]
-            if f is not None and log_ar is not None:
-                log_f = None if f == 0 else math.log(f)
-                response["ar_conc"] = attempt(lambda: mixture(log_ar, log_f))
-                if log_q is not None:
-                    actual_f = None if log_f is None else log_f + log_q
-                    response["ar_actual"] = attempt(lambda: mixture(log_ar, actual_f))
+    f = response["occupancy"]["fraction"]
+    if f is not None and log_ar is not None:
+        log_f = None if f == 0 else math.log(f)
+        response["ar_conc"] = attempt(lambda: mixture(log_ar, log_f))
+        if log_q is not None:
+            actual_f = None if log_f is None else log_f + log_q
+            response["ar_actual"] = attempt(lambda: mixture(log_ar, actual_f))
     return response, cost, errors
