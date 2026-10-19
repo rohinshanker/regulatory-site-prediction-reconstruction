@@ -2,7 +2,7 @@
 
 - Purpose: Reproduce the explicit transcript/CDS component package and its bounded execution checks.
 - Scope: Immutable development candidate for portable annotated results; no integrated Operon or biological recoding-effect claim.
-- Last verified: 2026-10-18
+- Last verified: 2026-10-19
 
 Source `9e96bc00f56eb2dc107bc107860cdefa31731d2c` is frozen in
 [draft PR48](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/pull/48).
@@ -19,6 +19,7 @@ specified in [supplied-transcript-contract.md](supplied-transcript-contract.md).
 | Installed receipt | `d5ffcc574a52855bf801a53b419c2ca3474df4d6c5b5c20c734e3e20616fdbaa` |
 | Source manifest | `52ed05be2db05ec8fb3d75834228f3dca46e4e4bc4b5ff74e40a444763c08312` |
 | Candidate receipt | `c12777b775afd9b8608806bba46332c1863c864974ec67c276ad2018277f5140` |
+| CI admission receipt | `c979e61a9aedb1ae14ac1c0ea7bfc464387bf2ce525093415c9c849cab076886` |
 
 ## Reproduce the package
 
@@ -90,10 +91,21 @@ controls. Such controls require exit 1 and retained successful Promoter results.
 The correction changes the acceptance plan, not request bytes or runtime scoring.
 No partial or mismatched attempt is labeled a successful package admission.
 
-The eight jobs in [CI39193463857](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/actions/runs/39193463857)
-are a separate final gate on the exact frozen commit. Their successful completion
-must be recorded before full package admission or B collection. The installed
-macOS receipt alone does not establish cross-platform CI success.
+All eight jobs in [CI39193463857](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/actions/runs/39193463857)
+passed on the exact frozen commit. The separate
+[CI admission receipt](../../models/transcript/0.8.0rc1/ci-admission.json) binds
+the job/step results, log hash, original package receipts and test/coverage totals.
+Each of the four runtime jobs passed 5,044 full tests, with one documented skip,
+and 2,873 tests for each of the two repaired backends. Required statement/branch
+coverage was 100%; all four resource jobs also passed. The matrix covers Ubuntu
+24.04/macOS 14 with Python 3.11/3.14.
+
+The sole full-suite skip is the existing conditional original-binary integration
+test, which requires its separately admitted backend. Its installed structural
+checks remain in the [conditional candidate](conditional-0.7-candidate.md);
+this CI does not admit additional conditional structural binaries. Transcript
+runtime checks passed. The package gate is complete, independently of scientific
+accuracy, publication or consumer admission.
 
 ## Consumer and evidence boundary
 
@@ -107,6 +119,8 @@ contract remains the separate correspondence mechanism.
 
 Backend/model/parameter settings must match before comparing scalar predictions.
 Complete accounting may include unscored candidates; inspect component coverage
-and per-candidate status. B must bind exact inputs/settings and receive a bounded
-stage acknowledgement before an independent collection. Publication and cyano
-consumer admission remain separate, and parent #8 retains the full Operon scope.
+and per-candidate status. The owner has paused broad expansion, the new transcript
+adapter and further collection. The bounded consumer preview stays on the
+[paired 0.6 artifact](paired-consumer-preview.md); this completed 0.8 gate does not
+change that selection or authorize a new stage. Publication and cyano consumer
+admission remain separate, and parent #8 retains the full Operon scope.

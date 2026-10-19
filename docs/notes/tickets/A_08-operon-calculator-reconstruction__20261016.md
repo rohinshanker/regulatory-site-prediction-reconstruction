@@ -3,9 +3,9 @@
 - Scope: Recover and implement the integrated Operon Calculator.
 - Status: active
 - Opened: 2026-10-16
-- Updated: 2026-10-18
-- Current State: A implemented bounded supplied-transcript RBS/Promoter orchestration under #47, frozen at9e96bc0 (0.8.0rc1, PR48); B completed independent organization/projection fixtures. Complete production Operon inference remains unfinished. Source admission found no complete open integrated engine; coupling, elongation, stability, termination and combined abundance require separate admitted implementations.
-- Verification: Exact independent runtime/CLI/schema review passed. The transcript suite passed868tests with100%448statements184branches, plus3resource-plan regressions;12independent literal geometry fixtures match. Fresh offline installation passed8fixed JSON cases and1CSV replay, with complete identities and missingness. Final CI39193463857 remains the package gate. See docs/validation/transcript-0.8-candidate.md; no integrated abundance, native calibration or hosted equivalence follows.
+- Updated: 2026-10-19
+- Current State: Session A completed bounded supplied-transcript RBS/Promoter orchestration under #47, frozen at9e96bc0 (0.8.0rc1, PR48); B's independent organization/projection fixtures are integrated. All package gates passed. Broad expansion is paused by owner priority; no new transcript adapter or collection is authorized. Complete production Operon inference remains unfinished: coupling, elongation, stability, termination and combined abundance require separate admitted implementations.
+- Verification: Independent runtime/CLI/schema review passed;12literal geometry fixtures match. Fresh offline installation passed8fixed JSON cases and1CSV replay with complete identities and missingness. CI39193463857 passed all8jobs on the exact source; each full runtime passed5044tests with one explicit existing conditional original-binary skip, and each repaired-backend selection passed2873tests. Required coverage is100%. See docs/validation/transcript-0.8-candidate.md and its CI receipt; no integrated abundance, native calibration or hosted equivalence follows.
 - Cleanup: Owning session records final checks and unresolved findings, resolves the ticket, distills reusable guidance into docs/validation/, updates both indexes and linked GitHub issue, then removes the resolved ticket.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/8
 - Priority: P1

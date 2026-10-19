@@ -55,7 +55,8 @@ cannot establish specificity or promoter strength. Calibration remains *E. coli*
 See the [full native evaluation](docs/validation/promoter-wave5-results.md) for
 confidence intervals, all 4,808 source-positive denominators and sampling limits.
 This is not a released or cyanobacteria-calibrated predictor. See the
-[Promoter model card](docs/validation/promoter-model-card.md). Operon integration remains in preparation. The conditional Riboswitch component
+[Promoter model card](docs/validation/promoter-model-card.md). Supplied-transcript
+orchestration is available; full Operon inference remains incomplete. The conditional Riboswitch component
 below has bounded structural and supplied-energy profiles; complete
 sequence-to-switch prediction remains unavailable.
 
@@ -266,6 +267,11 @@ See the [conditional contract](docs/validation/conditional-aptamer-runtime.md)
 and [immutable package validation](docs/validation/conditional-0.7-candidate.md).
 
 ## Start a new implementation session
+
+**Broad calculator expansion is paused by owner priority.** B coordinates the
+bounded cyano preview using the [immutable paired 0.6 handoff](docs/validation/paired-consumer-preview.md).
+Preserve existing candidates and validation; the future scopes below are deferred.
+Do not start the unaccepted portable-backend or new transcript-adapter assignments.
 
 Read the [current release guide](docs/validation/rbs-0.4-release.md),
 [independent Wave 4 result](docs/validation/rbs-wave4-results.md) and live ticket
