@@ -2,6 +2,7 @@
 
 import argparse
 import json
+import os
 import sys
 from contextlib import nullcontext
 from typing import BinaryIO
@@ -71,10 +72,16 @@ def main(argv: list[str] | None = None) -> int:
             result = predict_conditional(request, args.backend_root)
         raw = result_bytes(result)
         sys.stdout.buffer.write(raw)
+        sys.stdout.flush()
         if result["status"] == "ok":
             return 0
         return 2 if result["status"] in ("invalid_input", "unsupported") else 1
     except (OSError, ConditionalError) as exc:
+        if isinstance(exc, BrokenPipeError):
+            # The interpreter flushes stdout again at exit. Redirect this failed
+            # pipe before returning so that shutdown cannot replace exit 2.
+            with open(os.devnull, "wb") as sink:
+                os.dup2(sink.fileno(), sys.stdout.fileno())
         # Do not expose local paths or write a second/partial JSON document.
         message = (
             "Result exceeds output byte limit"

@@ -172,7 +172,9 @@ serializer above, including when the terminal encoding differs from UTF-8.
 Exit 0 means `ok`; exit 1 means `failed` or `no_mrna`; exit 2 means
 `invalid_input` or `unsupported`. Every one of these statuses has a JSON receipt.
 An input/output access failure or output-size rejection also exits 2, with a
-fixed stderr message and no intentional partial JSON. A downstream broken pipe
+fixed stderr message and no intentional partial JSON. Stdout is flushed inside
+the handled I/O boundary; a failed pipe is redirected to the null device before
+interpreter shutdown, preserving exit 2 without a second flush error. A downstream broken pipe
 can of course have received a prefix before the operating system reports it.
 There are no retries. Raw I/O failures do not disclose installation paths.
 

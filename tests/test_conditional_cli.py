@@ -198,3 +198,38 @@ def test_module_entrypoint(monkeypatch, capsys):
         runpy.run_module("regsite.conditional_cli", run_name="__main__")
     assert exc.value.code == 0
     assert json.loads(capsys.readouterr().out)["status"] == "ok"
+
+
+def test_closed_stdout_pipe_has_documented_exit_and_no_shutdown_traceback():
+    process = subprocess.Popen(
+        [sys.executable, "-m", "regsite.conditional_cli", str(EXAMPLE)],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+    )
+    assert process.stdout is not None and process.stderr is not None
+    process.stdout.close()
+    error = process.stderr.read()
+    process.stderr.close()
+    assert process.wait(timeout=10) == 2
+    assert error == b"regsite-conditional: Input or output is unavailable\n"
+
+
+def test_broken_pipe_redirects_descriptor_inside_handled_boundary(monkeypatch, capsys):
+    class BrokenOutput:
+        buffer = io.BytesIO()
+
+        def flush(self):
+            raise BrokenPipeError("closed downstream")
+
+        def fileno(self):
+            return 123
+
+    observed = []
+    monkeypatch.setattr(sys, "stdout", BrokenOutput())
+    monkeypatch.setattr(os, "dup2", lambda source, target: observed.append(target))
+    assert cli.main([str(EXAMPLE)]) == 2
+    assert observed == [123]
+    assert (
+        capsys.readouterr().err
+        == "regsite-conditional: Input or output is unavailable\n"
+    )
