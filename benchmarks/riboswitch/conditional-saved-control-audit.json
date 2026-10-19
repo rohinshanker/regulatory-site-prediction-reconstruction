@@ -1,0 +1,53 @@
+{
+  "absolute_tolerance": 1e-12,
+  "artifact_commit": "92abb59701e02f99a3e89248c5805b5dcac8fed3",
+  "candidate_commit": "163802fddd3e49c8d72380167d661c7d8291f41b",
+  "candidate_receipt_sha256": "99a83e249d6e2927a938da29db1785215d17c1cd2c092667677ced8f88f43dba",
+  "controls": [
+    {
+      "checked": "saved states agree with pre-existing canonical hairpin fixture; no new backend execution",
+      "output_path": "models/conditional/0.7.0rc1/outputs/conditional-hairpin-structure-control.json",
+      "output_sha256": "618678f4f055c96ba24056a97067bc8bd0c2351eaf834ae3abf8f34d122dc314",
+      "public_request_sha256": "2aeb3415a03fab2c9943398b7a2dfcb68d2e5a81cc1ec7335c3a588d7dbc8856",
+      "request": "conditional-hairpin-structure-control",
+      "request_path": "models/conditional/0.7.0rc1/requests/conditional-hairpin-structure-control.json",
+      "request_settings": {
+        "seconds_per_job": 120.0,
+        "seconds_total": 480.0
+      },
+      "request_sha256": "838b5eef79d58d2a7ef0c75abd6de48f682f6b621612987ebc0e2255f1786407"
+    },
+    {
+      "checked": "saved response agrees with fixed-precision independent reference from exact supplied binary64 inputs; volume root enclosed where applicable",
+      "output_path": "models/conditional/0.7.0rc1/outputs/conditional-supplied-half-occupancy.json",
+      "output_sha256": "a441d59915651257bf4ce7be06d7ca15d6fe3f2120cf4164384739d870fd2d87",
+      "public_request_sha256": "29f00b659ec38f883431f34b219d6fa20b6e301556a442c8dacd4c51dda666a1",
+      "request": "conditional-supplied-half-occupancy",
+      "request_path": "models/conditional/0.7.0rc1/requests/conditional-supplied-half-occupancy.json",
+      "request_settings": {
+        "max_iterations": 256,
+        "seconds_total": 30.0
+      },
+      "request_sha256": "a87db53dab38a19b96647b0427d3bedc1a4da41cf6d7c3487c637182068b3898"
+    },
+    {
+      "checked": "saved response agrees with fixed-precision independent reference from exact supplied binary64 inputs; volume root enclosed where applicable",
+      "output_path": "models/conditional/0.7.0rc1/outputs/conditional-supplied-volume-fifth.json",
+      "output_sha256": "6a58877bf0978777b96a416de08bfb2ca28783c1238888896764215a1c19ff00",
+      "public_request_sha256": "00147de5bd878e13fb3da6037caaf10274a52affc957a0292ad5ba451c3b71b7",
+      "request": "conditional-supplied-volume-fifth",
+      "request_path": "models/conditional/0.7.0rc1/requests/conditional-supplied-volume-fifth.json",
+      "request_settings": {
+        "max_iterations": 256,
+        "seconds_total": 30.0
+      },
+      "request_sha256": "c2fa5809bc1b17c09667ef33aa59eccc6bda886f52227e470b74d6f39dbf0d87"
+    }
+  ],
+  "independent_examples_sha256": "c6a50607a75352861916ee816b128ba316a50d29af7f4d96e70e560cb9597877",
+  "new_predictor_or_backend_executions": 0,
+  "reference_tool_sha256": "e8a0d343f729680a898da6a7774b9322af1eeccd49c767f3e661e25bcc9bddab",
+  "relative_tolerance": 1e-12,
+  "schema_version": "conditional-saved-control-audit-1",
+  "scope": "Read-only saved synthetic controls, not full-domain parity, final package admission, hosted equivalence or biological accuracy. Runtime narrows structural deadlines from the original proposed example; all non-settings request fields are equal. No Kd case is present in these three saved controls."
+}
