@@ -2,8 +2,10 @@
 
 import contextlib
 import copy
+import errno
 import io
 import json
+import os
 import resource
 import runpy
 import signal
@@ -70,6 +72,9 @@ class FixtureMixin:
         return subprocess.CompletedProcess(argv, 0)
 
     def documents(self):
+        recovery = c.recover(self.output)
+        self.assertTrue(recovery["finalized"])
+        self.assertFalse(recovery["truncated"])
         return tuple(
             json.loads((self.output / name).read_bytes())
             for name in (
@@ -373,6 +378,423 @@ class CollectionTest(FixtureMixin, unittest.TestCase):
             self.invoke()
 
 
+class JournalTest(FixtureMixin, unittest.TestCase):
+    def events(self):
+        return [
+            json.loads(line)
+            for line in (self.output / c.JOURNAL_NAME).read_bytes().splitlines()
+        ]
+
+    def write_events(self, events, tail=b""):
+        (self.output / c.JOURNAL_NAME).write_bytes(
+            b"".join(canonical_bytes(event) for event in events) + tail
+        )
+
+    def assert_roster(self, recovery):
+        self.assertEqual(recovery["plan_sha256"], digest(self.plan.read_bytes()))
+        self.assertEqual(
+            recovery["planned_batches"],
+            [
+                {key: value for key, value in batch.items() if key != "request"}
+                for batch in self.fixture.plan["batches"]
+            ],
+        )
+        self.assertEqual(len(recovery["batches"]), 4)
+        self.assertEqual(
+            recovery["identities"]["admission_sha256"],
+            digest(self.admission.read_bytes()),
+        )
+
+    def test_keyboard_interrupt_second_attempt_preserves_unknown_actual_exit(self):
+        def runner(argv, **kwargs):
+            if not self.calls:
+                # The start is already durable and visible before any command.
+                recovery = c.recover(self.output)
+                self.assertEqual(
+                    recovery["batches"][0]["status"], "interrupted_unknown"
+                )
+                return self.fake(argv, **kwargs)
+            self.calls.append((argv, kwargs))
+            kwargs["stdout"].write(b"partial second attempt")
+            raise KeyboardInterrupt
+
+        with self.assertRaises(KeyboardInterrupt):
+            self.invoke(runner=runner)
+        self.assertEqual(len(self.calls), 2)
+        recovery = c.recover(self.output)
+        self.assert_roster(recovery)
+        self.assertEqual(
+            [row["status"] for row in recovery["batches"]],
+            ["completed", "interrupted_unknown", "not_run", "not_run"],
+        )
+        self.assertEqual(recovery["batches"][0]["actual_exit_code"], 0)
+        unknown = recovery["batches"][1]
+        self.assertIsNone(unknown["actual_exit_code"])
+        self.assertEqual(unknown["process_status"], "interrupted_unknown")
+        self.assertIsNone(unknown["exit_code"])
+        self.assertIsNone(unknown["synthetic_exit_code"])
+        self.assertTrue(unknown["argv"])
+        self.assertFalse(recovery["finalized"])
+        self.assertTrue(recovery["normal_adaptation_blocked"])
+        self.assertFalse((self.output / "collection.json").exists())
+        self.assertEqual(self.events()[0]["plan"], self.fixture.plan)
+
+    def test_enospc_second_request_retains_full_roster_and_first_completion(self):
+        real = c._open_private
+
+        def open_file(path):
+            if path.name == "request-000001.json":
+                raise OSError(errno.ENOSPC, "synthetic disk full")
+            return real(path)
+
+        with (
+            mock.patch.object(c, "_open_private", open_file),
+            self.assertRaises(OSError),
+        ):
+            self.invoke()
+        recovery = c.recover(self.output)
+        self.assert_roster(recovery)
+        self.assertEqual(len(self.calls), 1)
+        self.assertEqual(
+            [row["status"] for row in recovery["batches"]],
+            ["completed", "not_run", "not_run", "not_run"],
+        )
+        self.assertTrue(recovery["normal_adaptation_blocked"])
+
+    def test_final_artifact_write_failures_do_not_lose_completed_attempts(self):
+        real = c.write_exclusive
+        for name in ("collection.json", "execution-receipt.json"):
+            self.output = self.root / name.replace(".", "-")
+            self.calls = []
+
+            def write(path, value, mode, name=name):
+                if path.name == name:
+                    raise OSError(errno.ENOSPC, "synthetic disk full")
+                real(path, value, mode)
+
+            with (
+                mock.patch.object(c, "write_exclusive", write),
+                self.assertRaises(OSError),
+            ):
+                self.invoke()
+            recovery = c.recover(self.output)
+            self.assert_roster(recovery)
+            self.assertEqual(len(self.calls), 4)
+            self.assertTrue(
+                all(row["status"] == "completed" for row in recovery["batches"])
+            )
+            self.assertFalse(recovery["finalized"])
+            self.assertTrue(recovery["normal_adaptation_blocked"])
+
+    def test_journal_persistence_failure_stops_before_any_new_launch(self):
+        real = c._append_event
+        for kind, index, launches, status in (
+            ("initialized", None, 0, None),
+            ("started", 0, 0, "not_run"),
+            ("observed", 1, 2, "interrupted_unknown"),
+            ("finished", 1, 2, "returned_unvalidated"),
+            ("finalized", None, 4, "completed"),
+        ):
+            self.output = self.root / kind
+            self.calls = []
+
+            def append(stream, event, kind=kind, index=index):
+                if event["event"] == kind and event.get("batch_index") == index:
+                    raise OSError(errno.ENOSPC, "synthetic journal failure")
+                real(stream, event)
+
+            with (
+                mock.patch.object(c, "_append_event", append),
+                self.assertRaises(OSError),
+            ):
+                self.invoke()
+            self.assertEqual(len(self.calls), launches)
+            if kind == "initialized":
+                with self.assertRaisesRegex(
+                    ValueError, "No complete journal initialization"
+                ):
+                    c.recover(self.output)
+            else:
+                recovery = c.recover(self.output)
+                self.assert_roster(recovery)
+                self.assertEqual(recovery["batches"][index or 0]["status"], status)
+                self.assertTrue(recovery["normal_adaptation_blocked"])
+                if kind == "finished":
+                    self.assertEqual(recovery["batches"][1]["actual_exit_code"], 0)
+                    self.assertIsNone(recovery["batches"][1]["result_sha256"])
+                    self.assertEqual(
+                        recovery["batches"][1]["validation_state"], "unfinished"
+                    )
+
+    def test_return_is_recorded_before_output_sync_or_diagnostic_failure(self):
+        real_sync = c._sync_file
+        for where in ("sync", "diagnostic"):
+            self.output = self.root / where
+            self.calls = []
+
+            def sync(stream):
+                stdout = self.output / "stdout-000000.bin"
+                if (
+                    stdout.exists()
+                    and os.fstat(stream.fileno()).st_ino == stdout.stat().st_ino
+                ):
+                    raise OSError(errno.ENOSPC, "synthetic stream fsync failure")
+                real_sync(stream)
+
+            target = "_sync_file" if where == "sync" else "_diagnostic"
+            action = (
+                sync
+                if where == "sync"
+                else mock.Mock(side_effect=OSError("diagnostics unavailable"))
+            )
+            with mock.patch.object(c, target, action), self.assertRaises(OSError):
+                self.invoke()
+            recovery = c.recover(self.output)
+            self.assertEqual(len(self.calls), 1)
+            self.assertEqual(recovery["batches"][0]["status"], "returned_unvalidated")
+            self.assertEqual(recovery["batches"][0]["actual_exit_code"], 0)
+            self.assertTrue(recovery["normal_adaptation_blocked"])
+
+    def test_fsync_every_event_and_outputs_before_hash_completion(self):
+        synced = set()
+        real_sync, real_append = c.os.fsync, c._append_event
+
+        def sync(descriptor):
+            synced.add(os.fstat(descriptor).st_ino)
+            return real_sync(descriptor)
+
+        def append(stream, event):
+            if event["event"] == "finished":
+                for name in ("stdout", "stderr"):
+                    path = self.output / event["detail"][name]["path"]
+                    self.assertIn(path.stat().st_ino, synced)
+            real_append(stream, event)
+            self.assertIn(os.fstat(stream.fileno()).st_ino, synced)
+
+        with (
+            mock.patch.object(c.os, "fsync", sync),
+            mock.patch.object(c, "_append_event", append),
+        ):
+            self.assertTrue(self.invoke())
+        recovery = c.recover(self.output)
+        self.assertTrue(recovery["adaptation_ready"])
+        self.assertIn(self.output.stat().st_ino, synced)
+        self.assertIn(self.output.parent.stat().st_ino, synced)
+        self.assertEqual((self.output / c.JOURNAL_NAME).stat().st_mode & 0o777, 0o600)
+        self.assertEqual(self.output.stat().st_mode & 0o777, 0o700)
+        for name in ("collection.json", "execution-receipt.json"):
+            self.assertIn((self.output / name).stat().st_ino, synced)
+
+    def test_journal_byte_cap_refuses_before_launch_and_never_truncates(self):
+        with (
+            mock.patch.object(c, "MAX_JOURNAL_BYTES", 1),
+            self.assertRaisesRegex(ValueError, "Journal exceeds"),
+        ):
+            self.invoke()
+        self.assertFalse(self.calls)
+        self.assertEqual((self.output / c.JOURNAL_NAME).read_bytes(), b"")
+        path = self.root / "bounded-journal"
+        with c._open_private(path) as stream:
+            c._append_event(stream, dict(event="synthetic"))
+            before = path.read_bytes()
+            with (
+                mock.patch.object(c, "MAX_JOURNAL_BYTES", len(before)),
+                self.assertRaises(ValueError),
+            ):
+                c._append_event(stream, dict(event="too large"))
+        self.assertEqual(path.read_bytes(), before)
+
+    def test_initial_file_and_directory_fsync_failure_never_launches(self):
+        real = c.os.fsync
+        for fail_at in (1, 2, 3):
+            self.output = self.root / f"fsync-{fail_at}"
+            count = 0
+
+            def sync(descriptor, fail_at=fail_at):
+                nonlocal count
+                count += 1
+                if count == fail_at:
+                    raise OSError(errno.EINVAL, "synthetic unsupported fsync")
+                real(descriptor)
+
+            with mock.patch.object(c.os, "fsync", sync), self.assertRaises(OSError):
+                self.invoke()
+            self.assertFalse(self.calls)
+
+    def test_recovery_is_read_only_and_final_artifacts_are_required(self):
+        self.invoke()
+        before = {path.name: path.read_bytes() for path in self.output.iterdir()}
+        with mock.patch.object(
+            c.subprocess, "run", side_effect=AssertionError("no launch")
+        ):
+            recovery = c.recover(self.output)
+        self.assert_roster(recovery)
+        self.assertTrue(recovery["adaptation_ready"])
+        self.assertEqual(
+            before, {path.name: path.read_bytes() for path in self.output.iterdir()}
+        )
+        self.assertNotEqual(recovery["schema_version"], a.COLLECTION_SCHEMA)
+        receipt = self.output / "execution-receipt.json"
+        receipt.write_bytes(b"corrupted")
+        self.assertEqual(
+            c.recover(self.output)["blocking_reason"],
+            "final_artifacts_missing_or_mismatched",
+        )
+        receipt.unlink()
+        self.assertFalse(c.recover(self.output)["adaptation_ready"])
+        with (
+            mock.patch.object(c, "MAX_JOURNAL_BYTES", 1),
+            self.assertRaises(ValueError),
+        ):
+            c.recover(self.output)
+        event = self.events()[-1]
+        with mock.patch.object(c, "read_bounded", side_effect=ValueError("oversize")):
+            self.assertFalse(c._final_artifacts(self.output, event))
+
+    def test_recovery_checks_artifacts_in_the_directory_being_recovered(self):
+        self.invoke()
+        archive = self.root / "archive"
+        archive.mkdir()
+        for path in self.output.iterdir():
+            (archive / path.name).write_bytes(path.read_bytes())
+        (self.output / "collection.json").unlink()
+        self.assertTrue(c.recover(archive)["adaptation_ready"])
+        self.assertFalse(c.recover(self.output)["adaptation_ready"])
+        (archive / "execution-receipt.json").write_bytes(b"damaged archive")
+        self.assertFalse(c.recover(archive)["adaptation_ready"])
+
+    def test_truncated_tail_preserves_prefix_and_blocks_adaptation(self):
+        self.invoke()
+        original = self.events()
+        for count in (1, 2, 3, 4, len(original)):
+            self.write_events(original[:count], b'{"unfinished')
+            recovery = c.recover(self.output)
+            self.assertTrue(recovery["truncated"])
+            self.assertEqual(recovery["blocking_reason"], "truncated_journal")
+            self.assertFalse(recovery["adaptation_ready"])
+            self.assert_roster(recovery)
+        self.write_events(original[:2], canonical_bytes(original[2]).rstrip(b"\n"))
+        row = c.recover(self.output)["batches"][0]
+        self.assertEqual(row["status"], "interrupted_unknown")
+        self.assertIsNone(row["actual_exit_code"])
+        self.write_events([], b'{"partial initialization')
+        with self.assertRaises(ValueError):
+            c.recover(self.output)
+
+    def test_invalid_and_out_of_order_journals_are_refused(self):
+        self.invoke()
+        original = self.events()
+
+        def mutate(index, **changes):
+            events = copy.deepcopy(original)
+            events[index].update(changes)
+            return events
+
+        cases = [
+            mutate(0, schema_version="bad"),
+            mutate(0, extra=1),
+            mutate(0, executable="relative"),
+            mutate(0, output=[]),
+            mutate(1, batch_index=True),
+            mutate(1, argv=["wrong"]),
+            mutate(1, timeout_seconds=0),
+            mutate(1, timeout_seconds=3601),
+            mutate(1, extra=True),
+            mutate(2, actual_exit_code=None),
+            mutate(2, synthetic_exit_code=-9),
+            mutate(2, duration_seconds=-1),
+            mutate(2, reason="unknown"),
+            mutate(2, reason="timeout"),
+            mutate(
+                2, reason="timeout", actual_exit_code=None, synthetic_exit_code=True
+            ),
+            mutate(2, reason="timeout", actual_exit_code=None, synthetic_exit_code=-1),
+            mutate(3, validation_failure=1),
+            mutate(3, validation_failure=""),
+            mutate(-1, collection_sha256="0" * 64),
+            mutate(-1, receipt_sha256="0" * 64),
+            mutate(-1, stop_reason="stage_expired"),
+            mutate(-1, duration_seconds=-1),
+            original[:1] + [original[2]],  # observed without start
+            original[:1] + [original[3]],  # finished without observation
+            original[:2] + [original[1]],  # duplicate start
+            original[:2] + [original[-1]],  # finalize an unmatched start
+            original[:4] + [original[2]],  # duplicate old batch
+            original + [original[-1]],  # duplicate finalization
+            original + [original[1]],  # work after finalization
+            original[:-1] + [dict(event="unknown", batch_index=4)],
+            original[:1] + [dict(event="unknown", batch_index=0)],
+            original[:1] + [[]],
+        ]
+        for key, value in (
+            ("plan_sha256", "0" * 64),
+            ("manifest_sha256", "0" * 64),
+            ("admission_sha256", "bad"),
+            ("stage_seconds", 0),
+            ("process_grace_seconds", -1),
+            ("diagnostic_byte_cap", 0),
+        ):
+            events = copy.deepcopy(original)
+            events[0]["receipt"][key] = value
+            cases.append(events)
+        for key, value in (
+            ("status", "not_run"),
+            ("argv", []),
+            ("result_sha256", "0" * 64),
+            ("reason", "wrong"),
+            ("exit_code", 1),
+        ):
+            events = copy.deepcopy(original)
+            events[3]["detail"][key] = value
+            cases.append(events)
+        for key, value in (
+            ("path", "wrong"),
+            ("sha256", "bad"),
+            ("bytes", -1),
+            ("bytes", c.MAX_OUTPUT_BYTES + 1),
+        ):
+            events = copy.deepcopy(original)
+            events[3]["detail"]["stdout"][key] = value
+            cases.append(events)
+        events = copy.deepcopy(original)
+        events[3]["detail"]["stdout"].update(bytes=c.MAX_OUTPUT_BYTES + 1, sha256=None)
+        cases.append(events)
+        for number, events in enumerate(cases):
+            self.write_events(events)
+            with self.subTest(case=number), self.assertRaises(ValueError):
+                c.recover(self.output)
+        self.write_events(original[:1], b"{}\n")
+        with self.assertRaises(ValueError):
+            c.recover(self.output)
+        (self.output / c.JOURNAL_NAME).write_bytes(
+            json.dumps(original[0], indent=2).encode() + b"\n"
+        )
+        with self.assertRaises(ValueError):
+            c.recover(self.output)
+
+    def test_start_after_a_recorded_stop_is_refused(self):
+        def runner(argv, **kwargs):
+            raise subprocess.TimeoutExpired(argv, 1)
+
+        self.invoke(runner=runner)
+        events = self.events()
+        start = copy.deepcopy(events[1])
+        start["batch_index"] = 1
+        self.write_events(events[:-1] + [start])
+        with self.assertRaisesRegex(ValueError, "after a stop"):
+            c.recover(self.output)
+
+    def test_empty_complete_line_and_wrong_jsonl_encoding_are_refused(self):
+        self.invoke()
+        events = self.events()
+        self.write_events(events[:1], b"\n")
+        with self.assertRaises(ValueError):
+            c.recover(self.output)
+        self.write_events(events[:1], b' {"event":"started"}\n')
+        with self.assertRaisesRegex(ValueError, "canonical"):
+            c.recover(self.output)
+
+
 class RefusalTest(FixtureMixin, unittest.TestCase):
     def test_required_acknowledgement_and_time_bounds(self):
         for value in (False, 1, None):
@@ -661,6 +1083,15 @@ class CliTest(FixtureMixin, unittest.TestCase):
         self.assertEqual((self.output / "stdout-000000.bin").stat().st_size, 4096)
         _, receipt = self.documents()
         self.assertEqual(receipt["stop_reason"], "collector_validation_failed")
+
+    def test_io_failure_reports_errno_without_raw_outcomes(self):
+        with mock.patch.object(
+            c, "collect", side_effect=OSError(errno.EINVAL, "unsupported")
+        ):
+            code, out, err = self.run_main(self.argv())
+        self.assertEqual((code, out), (1, ""))
+        self.assertIn("errno 22", err)
+        self.assertIn("journal may be incomplete", err)
 
     def test_module_entry_point(self):
         self.plan.write_bytes(b"{}")
