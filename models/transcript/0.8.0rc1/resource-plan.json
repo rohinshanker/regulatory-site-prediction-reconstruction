@@ -19,19 +19,19 @@
       "request_sha256": "4437b53f597ae79d6cb6322499df5972a9ed5e2e2912ef64eb0eb0b3925a233f"
     },
     {
-      "expected_exit": 0,
+      "expected_exit": 1,
       "id": "maximum-A",
       "kind": "maximum_roster_without_supported_start_codons",
       "request_sha256": "0b2b2efcb5111109a95b76010c6b45cb4a22e7bd6c3ea3885bf423a1608884e8"
     },
     {
-      "expected_exit": 0,
+      "expected_exit": 1,
       "id": "maximum-GC",
       "kind": "maximum_roster_without_supported_start_codons",
       "request_sha256": "56f39d52ec6d18280f110f369f9c8f0700a4bbecdae5bc298efc50b8df64cf82"
     },
     {
-      "expected_exit": 0,
+      "expected_exit": 1,
       "id": "maximum-ACGT",
       "kind": "maximum_roster_without_supported_start_codons",
       "request_sha256": "aa180bc10cff31a7a3b5bdcc3facd08466265e0fe8192b0cc9601acb87e03ca4"
