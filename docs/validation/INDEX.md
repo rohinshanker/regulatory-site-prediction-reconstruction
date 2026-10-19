@@ -5,6 +5,7 @@ Verification dates cover the stated source observations or specification review;
 | Area | Purpose | Last verified | Document |
 | --- | --- | --- | --- |
 | promoter-wave5-results | Independently audited frozen native positive-TSS localization, all denominators and consumed-panel limits. | 2026-10-19 | [promoter-wave5-results.md](promoter-wave5-results.md) |
+| supplied-transcript-boundaries | Supplied construct/transcript/CDS geometry, independent literal fixtures and uncoupled component failure semantics. | 2026-10-19 | [supplied-transcript-boundaries.md](supplied-transcript-boundaries.md) |
 | conditional-aptamer-contract | Explicit supplied-energy/volume equations, canonical structural-state boundary and executable Decimal reference. | 2026-10-18 | [conditional-aptamer-contract.md](conditional-aptamer-contract.md) |
 | riboswitch-constrained-reference | Pinned canonical forced-pair/unpaired feasibility, immutable synthetic execution and offline integrity audit. | 2026-10-18 | [riboswitch-constrained-reference.md](riboswitch-constrained-reference.md) |
 | current-recoded-validation | Independent synthetic edit maps, candidate universes and failure-preserving comparison rules. | 2026-10-18 | [current-recoded-validation.md](current-recoded-validation.md) |

@@ -205,8 +205,8 @@ Proposed exact `settings` keys are profile-specific, with no omitted defaults:
 | `canonical_structure_pair` | `seconds_per_job`, `seconds_total`: positive finite numbers, resolved/emitted as floats; per-job ≤120, total ≤480, per-job ≤total. |
 | `supplied_energy_response` | `seconds_total`: positive finite number ≤30, resolved/emitted as float; `max_iterations`: genuine integer 1–256. |
 
-The proposed scalar stopping contract requires both an occupancy bracket of
-width ≤`1e-12` and a dimensionless residual divided by
+The proposed scalar stopping contract requires both the molarity bracket width
+divided by `min(m,l)` to be ≤`1e-12` and a dimensionless residual divided by
 `max(1,Vm,Vl,abs(beta*switching_energy))` of magnitude ≤`1e-12`. An exact interior
 zero may collapse its bracket. Boundary cases need no interior residual.
 Exhaustion or unrepresentable values fail explicitly. These tolerances belong
