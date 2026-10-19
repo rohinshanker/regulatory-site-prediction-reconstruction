@@ -534,6 +534,7 @@ def test_real_rbs_controls_changed_input_and_reverse_features(real_backend):
         request["pair"][side]["sequence"] = reverse
         request[side + "_request"].update(sequence=reverse, strand="-")
     request["settings"]["profile"] = "standby2014"
+    request["pair"]["topology"] = "circular"
     request["projections"] = {
         s: projection(length=len(dna), strand="-", origin=10, circular=True)
         for s in p.SIDES
@@ -547,6 +548,38 @@ def test_real_rbs_controls_changed_input_and_reverse_features(real_backend):
     assert (
         result["sides"]["current"]["prediction"]["sites"][0]["structures"] is not None
     )
+    for side in p.SIDES:
+        distal = result["sides"][side]["candidates"][0]["features"]["standby.distal"]
+        assert distal["interval"] == [len(dna), len(dna)]
+        assert distal["mapping"]["source_bases"] == []
+        assert distal["mapping"]["mapped_bases"] == []
+        assert distal["genomic"]["bases"] == []
+    assert all(
+        value["value"] == 0
+        for value in result["comparisons"][0]["deltas"].values()
+        if value["value"] is not None
+    )
+
+
+@pytest.mark.parametrize("side", p.SIDES)
+@pytest.mark.parametrize("strand", ["+", "-"])
+@pytest.mark.parametrize("topology", ["linear", "circular"])
+def test_empty_native_feature_at_boundary_preserves_interval(side, strand, topology):
+    request = document("rbs", current="A" * 20)
+    request["pair"]["topology"] = topology
+    geometry = build_edit_map(request["pair"])
+    raw = {"standby": {"distal": {"start": 20, "end": 20, "strand": strand}}}
+    feature = p._features(raw, "rbs", geometry, side, strand, None)["standby.distal"]
+    assert feature["interval"] == [20, 20]
+    assert feature["reason"] is None
+    assert feature["mapping"] == {
+        "source_bases": [],
+        "mapped_bases": [],
+        "mapped_runs": [],
+        "unmatched_bases": 0,
+        "complete_base_mapping": True,
+        "contiguous_target_path": True,
+    }
 
 
 def test_standby_feature_geometry_and_circular_unrolling():

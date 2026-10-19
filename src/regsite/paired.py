@@ -301,11 +301,16 @@ def _features(
             raw = item["interval"]
             intervals[f"standby.downstream_hairpins.{i}"] = [raw["start"], raw["end"]]
     features = {}
+    length = len(geometry.current if side == "current" else geometry.recoded)
     for name, interval in intervals.items():
+        # Native reverse standby may report an empty [L,L) interval. It has
+        # no bases even on a circular pair; keep its original interval while
+        # mapping the empty set without treating L as a circular base index.
+        path_interval = [0, 0] if interval == [length, length] else interval
         mapping = (
             None
-            if interval is None
-            else geometry.map_interval(side, interval[0], interval[1], strand)
+            if path_interval is None
+            else geometry.map_interval(side, path_interval[0], path_interval[1], strand)
         )
         features[name] = {
             "interval": interval,
