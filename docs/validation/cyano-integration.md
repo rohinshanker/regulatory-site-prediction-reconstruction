@@ -27,8 +27,7 @@ do not copy model internals or point production at a mutable sibling directory.
 | Consumer ticket | Dependency on this repository |
 | --- | --- |
 | `O_rbs-calculator-gene-visualizer__20260930` | RBS release (06) and adapter (10) before the new reconstructed RBS layer is admitted; existing claim-specific validity checks remain |
-| `O_idog-promoter-prediction__20260930` | Promoter reconstruction (07) and adapter (10) if selected as the scoring/comparison engine for the owner-authorized locator around iDOG; its locator scope and existing compatibility evidence remain separate |
-| `O_recoding-regulatory-site-change__20260930` | Adapter (10) plus the relevant released calculator for model-based original/recoded changes; measured-site comparisons continue independently |
+| [`O_recoding-regulatory-site-change__20260930`](https://github.com/rohinshanker/isaacs-cyano-gene-selection/blob/main/docs/notes/tickets/O_recoding-regulatory-site-change__20260930.md) | Adapter (10) plus the relevant released calculator for model-based original/recoded changes; measured-site comparisons continue independently. Its owner-authorized new-promoter locator around iDOG needs Promoter reconstruction (07) and adapter (10) only if that calculator is selected as the scoring/comparison engine; locator scope and existing compatibility evidence remain separate |
 | `O_folding-compute-backend__20260930` | Conditional interface/performance input from 02/10/11 if these calculators are selected as remote workloads; not a prerequisite for existing local folding |
 
 The current Tan-TSS edit-count work, Rfam family annotation and native RNA folding
