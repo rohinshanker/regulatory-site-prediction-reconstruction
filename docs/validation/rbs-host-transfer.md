@@ -8,6 +8,12 @@
 
 The [machine receipt](../../benchmarks/rbs/host-transfer-admission.json) records the current decision. No new UTEX RBS accuracy estimate has been calculated. The repository's existing [PCC 6803 evaluation](rbs-wave2-results.md) did not pass its prespecified model-promotion gate; this different organism is not UTEX validation. Tan TSS/count evidence concerns transcription and cannot substitute for translation measurements.
 
+The separate [failure-mode analysis](rbs-host-transfer-failure-analysis.md) uses
+only existing public aggregates. It distinguishes scale, ordering, context,
+measurement and coverage errors, with exact pinned fields in its own snapshot.
+It does not complete the thesis audit, identify a UTEX-specific causal mechanism
+or provide new accuracy measurements.
+
 The Edinburgh record for [Schiavon Osorio's 2022 thesis](https://era.ed.ac.uk/items/a4bb4f3a-d175-4eaa-bbc6-0c70fb5f659b), DOI 10.7488/era/2453, reports an RBS library compared across E. coli, PCC 6803 and UTEX 2973, with host-dependent activity. That abstract is a source lead only. Full construct identity, exact numerical measurements, normalization, repeat structure and rights have not been admitted here. No values were digitized from figures, no correlations reconstructed from an abstract, and no source absence inferred from an incomplete audit.
 
 The scoped source-admission assignment DEM-612 terminated with the provider's biology safeguard rejection before a dossier or source files were produced. It was cancelled without retry, disguise or rerouting. This is a provider execution block, not a finding that the thesis is unavailable or unusable. The audit and numerical evaluation remain pending; existing admission requirements are unchanged.
