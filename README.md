@@ -273,6 +273,8 @@ mechanism remains unresolved because two published expressions disagree.
 Scores are relative model quantities, not measured translation rates; native-host
 calibration remains absent. Read the [source boundary](docs/validation/operon-coupling-source.md)
 and [request/result contract](docs/validation/operon-coupling-runtime.md).
+The [0.9.0rc1 package receipt](docs/validation/coupling-0.9-candidate.md) pins its
+source and artifacts separately from earlier candidates.
 
 ## Conditional aptamer components
 
@@ -310,8 +312,10 @@ and [immutable package validation](docs/validation/conditional-0.7-candidate.md)
 B owns independent benchmark/evidence tooling. The completed
 [native Promoter pilot](docs/validation/promoter-native-pilot-results.md) and reviewed
 calculator components form the next baseline. A now owns bounded offline jobs
-with external artifact storage; owner-added C owns a separate Operon coupling
-component, subject to source/parameter admission. Agree scope and paths before starting another
+with external artifact storage; C completed the reviewed reinitiation component
+and now owns separate intrinsic-termination admission. B's public receipt checker
+is complete; its next evidence slice assesses experimental terminator datasets.
+Agree scope and paths before starting another
 assignment, preserve immutable candidates, and freeze new evaluation protocols.
 The cyano preview remains separately held on the
 [paired 0.6 handoff](docs/validation/paired-consumer-preview.md); this producer

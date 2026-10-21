@@ -4,6 +4,7 @@ Verification dates cover the stated source observations or specification review;
 
 | Area | Purpose | Last verified | Document |
 | --- | --- | --- | --- |
+| coupling-0.9-candidate | Exact reviewed reinitiation package, fresh offline installation and independent/local validation boundary. | 2026-10-21 | [coupling-0.9-candidate.md](coupling-0.9-candidate.md) |
 | rbs-host-transfer | Cross-host evaluation design, source-admission status and explicit unmeasured UTEX outcomes. | 2026-10-21 | [rbs-host-transfer.md](rbs-host-transfer.md) |
 | rbs-host-transfer-failure-analysis | Existing aggregate evidence separating scale, ordering, context, measurement and coverage failures; no new host-accuracy claim. | 2026-10-21 | [rbs-host-transfer-failure-analysis.md](rbs-host-transfer-failure-analysis.md) |
 | operon-coupling-source | Independently admitted supplied-energy reinitiation equations, narrow coefficient domains and explicit unresolved unfolding sign conflict. | 2026-10-21 | [operon-coupling-source.md](operon-coupling-source.md) |
