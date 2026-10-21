@@ -1,7 +1,7 @@
 # Intrinsic-termination source boundary
 
 - Purpose: Admit a complete external candidate scorer before implementing an optional adapter.
-- Scope: C child #62 of #8; DEM-619 admits complete source for separate build/synthetic smoke; corrected runtime contract and executable admission remain pending.
+- Scope: C child #62 of #8; DEM-619 admits the complete source and corrected narrow contract for adapter implementation; exact adapter verification and integration remain pending.
 - Last verified: 2026-10-21
 
 ## Source and terms
@@ -33,7 +33,7 @@ changes three `return false` pointer returns in `read_seq` to `return NULL` for
 modern compilers. It does not change scoring. Any compiled variant must identify
 that patch and the compiler; do not silently call it unmodified upstream code.
 Pin build flags to `-g -O3 -Wall -pedantic -std=c++11 -ffp-contract=off`,
-with assertions enabled and no `-DNDEBUG` or `-ffast-math`. Record compiler,
+with assertions enabled and no `-DNDEBUG`, `-ffast-math` or `-flto`/whole-program optimisation. Record compiler,
 version, standard library and full command. Any additional portability patch
 requires its own pinned identity and focused review.
 
@@ -129,7 +129,7 @@ fragment cap of 100,000 bases (engineering limit). Reject N/U/IUPAC, NUL, FASTA
 headers and every other symbol before native input. Pass exactly one fragment
 per process: native confidence preparation otherwise pools backgrounds across
 sequences. Generate a fixed safe chromosome ID, FASTA before coordinates, and
-no blank coordinate rows. Require stack limit at least 8 MiB; the native DP
+no blank coordinate rows. Raise only the owned child soft stack limit to at least 8 MiB, failing closed when the hard limit forbids it; the native DP
 allocates approximately 8 MB on its stack. Never approach the native one-million-
 base buffer boundary, which has an off-by-one write. `-S` is mandatory because
 native sequence display can read before the buffer for early forward hairpins.
@@ -201,3 +201,44 @@ binary emitted exactly one candidate at71..86, hairpin `-11.8`, tail `-3.87583`
 and score78. This resolves the earlier saturated control's inability to
 distinguish those two tables for this build. It does not establish biological
 accuracy or general numerical parity across compilers.
+
+
+## Admitted implementation profile
+
+DEM-619's focused reconciliation of8120d35..6758f72 found no remaining source
+or contract blocker to implementing this narrow adapter. It independently
+recomputed all19 original native confidences and tail costs and verified every
+raw-output/input identity. This is source admission; final adapter behavior,
+its exact patch, tests and packaging still need verification.
+
+The [admitted build receipt](../../benchmarks/termination/admitted-build-manifest.json)
+pins the selected prototype-corrected executable. The review found the existing
+int/void declaration discrepancy inert in the original separately compiled,
+non-LTO ARM64 build, and explicitly judged the one-token `int` to `void` header
+correction safe. C chooses the corrected declaration to match the definition.
+No scoring code changes. All12 complete native outputs match the original build
+byte-for-byte except the build-date and parameter-path lines, with identical
+exits. Keep both frozen receipts; the new variant does not rewrite old evidence.
+The selected build's binary hash, effective ARM64 architecture and Mach-O
+deployment/SDK target identify it; the compiler's default Rosetta target string
+is not its effective target. Any other build needs its own receipt and controls.
+
+The reviewer recommended tightening context and preamble checks. Normal hits
+must be F on+ and f on−. C retains the original source-proven G exception only
+for a forward start2 hairpin, with null admitted confidence; every other G or
+unexpected code fails the entire record. Check native gene/H2T counts against
+those context classes. This preserves geometry for the previously verified
+ambiguous event while withholding its confidence; it does not assume the11
+original controls enumerate every legal event ordering. Native '%AT' labels
+actually contain fractions. Compute fractions from precisely the normalized
+sequence passed to native, including deliberate lowercase-to-uppercase handling.
+
+Raise the owned child's soft stack limit to8MiB before exec, preserving its hard
+limit and failing closed on insufficient hard limit or setup error. This requires
+no privilege and changes no parent/host limit. A local pre-exec probe succeeded
+from the default8176KiB parent, and all12 repaired-build controls succeeded under
+an8MiB limit (except the intentional length74 error). Raising the already-running
+Python parent's limit failed with EINVAL; do not modify it or require a shell
+workaround in the adapter. The builder/runtime must reject LTO/fast-math/NDEBUG
+and verify required table bytes. No optional review recommendation expands the
+admitted biological meaning.

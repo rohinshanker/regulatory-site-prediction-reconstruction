@@ -1,7 +1,7 @@
 # Intrinsic-termination adapter contract
 
 - Purpose: Freeze the optional external-engine interface before parallel implementation.
-- Scope: Proposed bounded TransTermHP fragment adapter for #62; source reconciliation and runtime implementation pending.
+- Scope: Source-admitted bounded TransTermHP fragment adapter for #62; implementation and exact runtime verification in progress.
 - Last verified: 2026-10-21
 
 Read the [source boundary](intrinsic-termination-source.md) first. This interface
@@ -57,9 +57,9 @@ One fragment runs per process with a private temporary working directory and
 fixed filenames/identifier: `input.fasta`, `input.coords`, `expterm.dat`,
 `fragment`, `boundary_left`, `boundary_right`. Copy verified table bytes into the
 working directory. The exact arguments are `-p expterm.dat --all-context -c 0 -S
-input.fasta input.coords`. Keep default scientific settings. Require inherited
-stack limit at least8MiB; on this Mac launch under `ulimit -s 16384` before the
-Python process. The adapter does not change host limits or invoke a shell.
+input.fasta input.coords`. Keep default scientific settings. Raise only the owned child soft stack limit to at least8MiB before exec,
+preserving its hard limit; fail closed if that limit or setup forbids it. The
+adapter does not change parent/host limits or invoke a shell.
 
 Bound stdout to262144bytes, stderr to65536bytes and retained candidates to1000.
 A record uses the smaller of its per-record budget and remaining batch budget.

@@ -71,3 +71,19 @@ backend identity, runtime implementation/review and A integration remain open.
   control (27/100 AT) predicts78 from table26 versus76 from table28. Unchanged
   binary emitted one exact intended candidate with score78; input and full-output
   hashes frozen in native-tie-control.json. No empirical data or tuning.
+
+## Implementation admission and ownership
+
+DEM619 focused recheck of6758f72 admits source/contract for implementation. A
+accepted the exact runtime file split in a-termination-paths-accepted.md; B owns
+evaluation-sources.json and termination-benchmark-admission.md exclusively.
+C selects the explicitly reviewed safe one-token prototype correction, frozen
+by source-manifest and admitted-build-manifest. All12 full outputs/exits match
+original controls after only date/path normalization; stack8MiB replay passed.
+R1 no-LTO, R3 child-only stack setup, R4 effective-target identity and R5 explicit
+normalization are incorporated. R2's optional stronger context recommendation
+is reconciled with the first review's source-proven boundary G exception: keep
+only that geometry with null confidence and validated native preamble counts;
+reject every other unexpected context. Exact adapter review remains required.
+One scoped engine/parser/builder worker may now implement in its separate tree;
+C owns API/IO/CLI/schema and integration. Native/compiler slot remains C-owned.

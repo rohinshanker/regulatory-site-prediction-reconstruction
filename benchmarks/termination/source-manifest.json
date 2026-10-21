@@ -1,6 +1,6 @@
 {
   "schema_version": "intrinsic-termination-source-1",
-  "admission": "DEM-619 admits complete source/math/terms for separately verified build and synthetic smoke; runtime admission remains pending corrections and execution.",
+  "admission": "Independent DEM619 source reconciliation admits the narrow external optional adapter for implementation; exact adapter/runtime review and integration remain required.",
   "upstream_version": "2.09",
   "embedded_banner_version": "2.08",
   "manual_heading_version": "2.07",
@@ -278,6 +278,15 @@
       "-c",
       "0",
       "-S"
-    ]
+    ],
+    "link_time_optimization_allowed": false
+  },
+  "prototype_correction": {
+    "file": "search.h",
+    "operation": "Change the single set_max_len_loop return declaration from int to void, matching its existing definition; no other edit",
+    "original_sha256": "52f25b356ade6f666286e402373c323811d159f4d3b8338d29dac18925d5b2c6",
+    "result_sha256": "bf40c7d715f3c2a6541dda8a1a48808c6b9baa6a690b1124f0d8ab8f1644b690",
+    "patch_sha256": "5163cfac5056b67f8a0099f0f15fee683e1eb9ffe8842c20b82511d3779c0a75",
+    "review": "DEM619 explicitly reviewed this exact one-token correction as safe; all12 controls byte-identical except build date/table path"
   }
 }
