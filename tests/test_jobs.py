@@ -1447,8 +1447,18 @@ def test_resume_refuses_live_orphan_group(
     assert resumed["status"] == "complete" and resumed["attempts"] == 2
 
 
-def test_group_probe_treats_foreign_or_missing_groups_as_absent() -> None:
-    assert jobs._group_alive(1) is False
+def test_group_probe_treats_permission_error_as_absent(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    def denied(pgid: int, signum: int) -> None:
+        assert (pgid, signum) == (12345, 0)
+        raise PermissionError
+
+    monkeypatch.setattr(os, "killpg", denied)
+    assert jobs._group_alive(12345) is False
+
+
+def test_group_probe_detects_missing_owned_group() -> None:
     process = subprocess.Popen(["true"], start_new_session=True)
     process.wait()
     assert jobs._group_alive(process.pid) is False

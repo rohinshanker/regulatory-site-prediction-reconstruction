@@ -81,7 +81,9 @@ separate validation gates.
 Register complete files in explicit external storage and check their byte identity
 with the [offline artifact manifest tool](docs/validation/calculator-artifact-storage.md).
 
-The job runner is introduced in the separate [0.10.0rc1 development package](docs/validation/offline-jobs-0.10-candidate.md).
+The job runner is available in development source `0.10.0rc2`. The
+[initial package receipt](docs/validation/offline-jobs-0.10-candidate.md) records
+the preceding candidate and its CI test-portability limitation.
 Run explicit batches offline with the [calculator job runner](docs/validation/offline-calculator-jobs.md):
 
 ```sh

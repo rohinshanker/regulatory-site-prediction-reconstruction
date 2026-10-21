@@ -76,5 +76,10 @@ All 46 installed runtime files matched source bytes. These software cases do
 not establish native biological accuracy or hosted equivalence.
 
 [Exact-source CI](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/actions/runs/39694268202)
-is pending. Local checks do not imply remote success. Main merge, release/tag
-publication and consumer admission remain separate gates.
+failed its Linux/Python 3.14 job because a test assumed process group 1 was
+absent or inaccessible. That assumption does not hold on the GitHub runner.
+The replacement test uses a simulated permission error and a reaped process
+group owned by the test; runner logic is unchanged. This original candidate is
+not CI-approved. The correction is being validated as `0.10.0rc2`; its package
+receipt is separate. Main merge, release/tag publication and consumer admission
+remain separate gates.

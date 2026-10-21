@@ -253,6 +253,11 @@
     }
   ],
   "ci": {
+    "blocking_failure": {
+      "job_id": 119547710784,
+      "job_name": "runtime (ubuntu-24.04, 3.14)",
+      "reason": "A test assumed process group 1 was absent or inaccessible; the GitHub runner can probe that group. Runner logic is unchanged by the deterministic test correction."
+    },
     "head_sha": "95e95e0db455df332df6bf7b12e6eb4f03c39cf5",
     "run_id": 39694268202,
     "status_at_recording": "in_progress",
