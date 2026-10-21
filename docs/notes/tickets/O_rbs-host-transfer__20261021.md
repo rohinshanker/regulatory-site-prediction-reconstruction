@@ -4,8 +4,8 @@
 - Status: open
 - Opened: 2026-10-21
 - Updated: 2026-10-21
-- Current State: Owner requested Astra biological reasoning and optional independent Claude audit. Baseline 605d0c25066de937d124e69fe42be3c40bb2e749; separate branch quality/rbs-host-transfer-20261021. A new failure-mode analysis projects already public aggregates and distinguishes observed scale/context limits from unproven biological mechanisms. Finite review pending. DEM-612 thesis source audit remains failed/cancelled without retry/rerouting; no dossier/source files. DOI 10.7488/era/2453 remains abstract-only/unadmitted. No scoring, fitting or new biological accuracy result.
-- Verification: Seven explicit existing artifact pins and 35 aggregate projections; copied fields, denominators, local links, ticket/index and diff checks required. This documentation-only analysis does not rerun evaluation or validate source extraction; independent review remains pending.
+- Current State: Astra failure-mode analysis completed using existing public aggregates, separating observed scale/context limits from unproven biological mechanisms. Analysis commit 090b30f6ff75b1ea904ce69a31d0b385d404106b on quality/rbs-host-transfer-20261021. The independent Claude Opus review DEM-613 failed under provider biology safeguards before a review was produced; cancelled without retry/rerouting. DEM-612 thesis source audit also remains stopped, with no dossier/source files. DOI 10.7488/era/2453 remains abstract-only/unadmitted. No scoring, fitting or new biological accuracy result.
+- Verification: Seven exact artifact pins, 35 aggregate projections/116 copied fields, six native count partitions, eight context coverage partitions and 12 local links pass. Scoped ticket/index checker reports zero errors; diff check passes. This documentation-only analysis does not rerun evaluation or validate source extraction. New interpretation has coordinator verification only; historical independent reviews remain separate.
 - Cleanup: Distill admission, pins and reproducible results into validation guidance; close only this bounded child after evidence review. Parent #12 remains open; full native accuracy requires suitable evidence.
 - Owner: Session B cyano-calcs-B, 9677689a-1792176763. A owns runtime/integration; canonical and peer checkouts unchanged.
 
@@ -17,4 +17,4 @@ One scoped read-only evidence analyst may write a dossier in external scratch; n
 
 - GitHub: [#58](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/58).
 - Durable guides: [cross-host transfer](../../validation/rbs-host-transfer.md) and [failure analysis](../../validation/rbs-host-transfer-failure-analysis.md).
-- Remaining dependency: source admission; provider-rejected assignment remains stopped. A new finite read-only review of the aggregate-based analysis is permitted, with no source retrieval or child work.
+- Remaining dependencies: source admission and independent review of the new interpretation are incomplete. DEM-612 and DEM-613 remain stopped; no active child or replacement dispatch. GitHub #58 and parent #12 stay open.
