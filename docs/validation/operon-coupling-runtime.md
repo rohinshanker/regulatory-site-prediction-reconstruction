@@ -1,7 +1,7 @@
 # Supplied-energy reinitiation component
 
 - Purpose: Define a bounded, opt-in adjacent-CDS calculation with explicit inputs and missingness.
-- Scope: Implemented `coupling-request-1` / `coupling-result-1`; source admission complete, runtime review pending.
+- Scope: Implemented `coupling-request-1` / `coupling-result-1`; source and runtime review complete; common package integration tracked separately.
 - Last verified: 2026-10-21
 
 This component adds a historical reinitiation contribution to a supplied
@@ -90,6 +90,9 @@ It emits one complete JSON object after checking the 4,194,304-byte output cap.
 Exit codes are 0 complete, 1 partial and 2 invalid envelope/input/I/O failure.
 Inputs/outputs are local, with no credentials, service or runtime network access.
 Common command registration and fresh installation remain A's integration work.
+Independent DEM-618 review and its focused repair recheck cover the strict
+transport, arithmetic, geometry, missingness and schema contracts. This evidence
+does not establish experimental accuracy or verify the later package integration.
 
 ```sh
 PYTHONPATH=src python -m regsite.coupling_cli examples/coupling-single.json
