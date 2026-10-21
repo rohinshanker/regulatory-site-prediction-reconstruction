@@ -17,13 +17,13 @@ calculator components.
 The prior consumer priority does not pause this producer wave. It still limits
 the consumer: preserve the [immutable paired preview handoff](paired-consumer-preview.md),
 open PV-R1 and stopped DEM-577/568. Do not retry or reroute stopped work. This
-wave does not start a new transcript adapter or the unaccepted portable-original-
-backend assignment. Building an original backend does not grant conditional
+wave does not start a new transcript adapter or the unaccepted portable-original-backend
+assignment. Building an original backend does not grant conditional
 structural admission; its existing exact-binary gate remains unchanged.
 
 Publication and production consumer admission remain separate. This producer
-wave does not authorize new fitting, private-outcome tuning, paid collection,
-new credentials/privileges, main merges, tags or deployment. Prefer accurately
+wave does not authorize new fitting, changes to private-outcome access boundaries,
+paid collection, new credentials/privileges, main merges, tags or deployment. Prefer accurately
 scoped work through the established routing policy; never switch providers or
 disguise tasks to bypass safeguards.
 
