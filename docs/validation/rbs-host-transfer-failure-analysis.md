@@ -168,6 +168,13 @@ biological experiment, model job or paid collection occurred.
 
 ## Snapshot verification
 
+The aggregate projection and count checks were performed by the analysis author
+(GPT-6-Astra). An independent Claude Opus review did not complete because its
+provider rejected the task; no cross-provider approval is claimed. This limit
+applies to the new interpretation, not the historical evaluations' own recorded
+reviews. The machine snapshot retains the failed-review disposition separately
+from the scientific evidence.
+
 From the repository root, the following checks exact source bytes and copied
 JSON fields; it does not verify prose semantics or recompute scientific metrics.
 The file list is explicit in the new snapshot. No referenced private artifacts

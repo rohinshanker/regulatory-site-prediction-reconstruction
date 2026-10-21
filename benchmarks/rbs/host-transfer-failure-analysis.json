@@ -602,5 +602,30 @@
     }
   ],
   "purpose": "Exact public aggregate projection supporting failure-mode reasoning; no new scientific metric computation.",
-  "schema": "rbs-host-transfer-failure-analysis-1"
+  "schema": "rbs-host-transfer-failure-analysis-1",
+  "verification": {
+    "artifact_hashes": "pass",
+    "coordinator_model": "gpt-6-astra",
+    "copied_field_count": 116,
+    "copied_fields": "pass",
+    "count_partitions": "pass",
+    "historical_review_boundary": "Original evaluations retain their own reviews; those do not independently endorse this new interpretation.",
+    "independent_review": {
+      "completed_at": "2026-10-21T22:03:11Z",
+      "created_at": "2026-10-21T22:02:57Z",
+      "issue_id": "01a1607d-2763-7e06-94af-ef5428d1c22a",
+      "issue_status": "cancelled",
+      "model": "claude-opus-5-5",
+      "provider": "Claude",
+      "reason": "provider_biology_safeguard_rejection",
+      "rerouted": false,
+      "retried": false,
+      "review_produced": false,
+      "reviewed_head_requested": "090b30f6ff75b1ea904ce69a31d0b385d404106b",
+      "run_id": "01a1607d-277a-7c87-beb1-324edc0b507e",
+      "run_status": "failed",
+      "task": "DEM-613"
+    },
+    "independent_review_status": "not_completed"
+  }
 }
