@@ -4,6 +4,7 @@ Verification dates cover the stated source observations or specification review;
 
 | Area | Purpose | Last verified | Document |
 | --- | --- | --- | --- |
+| rbs-host-transfer | Cross-host evaluation design, source-admission status and explicit unmeasured UTEX outcomes. | 2026-10-21 | [rbs-host-transfer.md](rbs-host-transfer.md) |
 | integrated-runtime-build | Exact combined development package, offline installation, source identity and retained admission boundaries. | 2026-10-21 | [integrated-runtime-build.md](integrated-runtime-build.md) |
 | promoter-count-association | Frozen exploratory count association, independent offline evaluation and aggregate artifact receipt. | 2026-10-21 | [promoter-count-association.md](promoter-count-association.md) |
 | promoter-native-pilot-parity | Original-source native pilot kernel parity: frozen schema/protocol pins, outcome-free full-cohort identity, full denominators, tie/summary recomputation and explicit failure categories. | 2026-10-21 | [promoter-native-pilot-parity.md](promoter-native-pilot-parity.md) |
