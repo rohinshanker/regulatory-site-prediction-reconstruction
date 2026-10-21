@@ -1,0 +1,606 @@
+{
+  "analysis_status": "exploratory_existing_consumed_aggregates",
+  "artifacts": {
+    "context": {
+      "bytes": 32523,
+      "path": "benchmarks/rbs/wave5-context-aggregates.json",
+      "sha256": "01cd3e117fc017124703e994b6bc63014400e130ae488a673e583b2ca274c6c1"
+    },
+    "context_guide": {
+      "bytes": 6083,
+      "path": "docs/validation/rbs-wave5-context-results.md",
+      "sha256": "667a47db5cde0e1713612eb51851b8d1c52e992a5257a43a5717ac306ca4550e"
+    },
+    "native_data_card": {
+      "bytes": 7843,
+      "path": "docs/validation/rbs-native-data-card.md",
+      "sha256": "2e1b3abc1b57205b20641f5b767d438b8d3a2be6d54aa730b052199168268bb7"
+    },
+    "primary": {
+      "bytes": 47298,
+      "path": "benchmarks/rbs/results/karlsen2018-final.json",
+      "sha256": "b64fd03121c38c9fffc6f823d774946f9a230aeee8dda7815f8186e6cf7596c0"
+    },
+    "primary_guide": {
+      "bytes": 21988,
+      "path": "docs/validation/rbs-wave2-results.md",
+      "sha256": "1c921263aed0ffa83383b36f7b7de0b8b70494268143a60222fd61240633f104"
+    },
+    "reporter_contexts": {
+      "bytes": 40186,
+      "path": "benchmarks/rbs/thiel2018-contexts.json",
+      "sha256": "8fef97f56c2ead181f2b571f1e027fe0e10ce3a2ddd88024f3747b76cbdf280b"
+    },
+    "reporter_data_card": {
+      "bytes": 4533,
+      "path": "docs/validation/rbs-reporter-contexts.md",
+      "sha256": "8787e6faecebb94dd3043ad9fc3a84f10efa4995ca71417b9376a3a5a8614448"
+    }
+  },
+  "as_of": "2026-10-21",
+  "evidence_commit": "790114949ac23ccccb7fdd9810c56962578a8cfa",
+  "host_accuracy_estimate_utex": null,
+  "interpretation": {
+    "causal_attribution": "Host, assay, study, condition and sequence/context effects are not identified separately.",
+    "context_dependence": "Source associations and repeated prepared inputs are not independent biological replicates.",
+    "context_endpoint": "Model sensitivity to supplied transcript/annotation context; no measured translation endpoint.",
+    "context_host": "Synechococcus elongatus UTEX 2973",
+    "no_new_gate": "No new sample-size, practical threshold, model selection or acceptance gate is derived from these exposed outcomes.",
+    "not_a_reproduction": "Copies of public aggregates and byte pins do not independently reproduce evaluation or source extraction.",
+    "primary_calibration": "All selected methods already have target-development train-only intercept; affine variants additionally have train-only slope.",
+    "primary_denominators": "Error and rank conditional on method success; paired contrasts have their own common-success denominator.",
+    "primary_endpoint": "HC relative RPF/RNA TE proxy, not absolute initiation",
+    "primary_host": "Synechocystis sp. PCC 6803",
+    "primary_uncertainty": "Previously computed homology-group resampling, not biological-repeat uncertainty."
+  },
+  "new_fitting_jobs": 0,
+  "new_prediction_jobs": 0,
+  "new_private_reads": 0,
+  "new_source_admissions": 0,
+  "projections": [
+    {
+      "artifact": "primary",
+      "fields": {
+        "n_evaluated": 468,
+        "n_evaluation_groups": 423,
+        "n_train": 1465,
+        "stage": "final"
+      },
+      "pointer": ""
+    },
+    {
+      "artifact": "primary",
+      "fields": {
+        "coverage": 0.9508547008547008,
+        "failures": {
+          "failed": 2,
+          "no_candidate": 21
+        },
+        "mae_log2": 5.195557066432665,
+        "n_submitted": 468,
+        "n_success": 445,
+        "spearman_rho": 0.1598583541691025
+      },
+      "pointer": "/models/historical/evaluation/metrics"
+    },
+    {
+      "artifact": "primary",
+      "fields": {
+        "coverage": 0.9508547008547008,
+        "failures": {
+          "failed": 2,
+          "no_candidate": 21
+        },
+        "mae_log2": 0.9790962722223022,
+        "n_submitted": 468,
+        "n_success": 445,
+        "spearman_rho": 0.15982196860918843
+      },
+      "pointer": "/models/historical_affine/evaluation/metrics"
+    },
+    {
+      "artifact": "primary",
+      "fields": {
+        "coverage": 0.9978632478632479,
+        "failures": {
+          "no_candidate": 1
+        },
+        "mae_log2": 2.7966058965981513,
+        "n_submitted": 468,
+        "n_success": 467,
+        "spearman_rho": 0.20245879615115345
+      },
+      "pointer": "/models/ostir/evaluation/metrics"
+    },
+    {
+      "artifact": "primary",
+      "fields": {
+        "coverage": 0.9978632478632479,
+        "failures": {
+          "no_candidate": 1
+        },
+        "mae_log2": 0.9736708981901919,
+        "n_submitted": 468,
+        "n_success": 467,
+        "spearman_rho": 0.20245879615115345
+      },
+      "pointer": "/models/ostir_affine/evaluation/metrics"
+    },
+    {
+      "artifact": "primary",
+      "fields": {
+        "coverage": 1.0,
+        "failures": {},
+        "mae_log2": 0.9898862237055961,
+        "n_submitted": 468,
+        "n_success": 468,
+        "spearman_rho": null
+      },
+      "pointer": "/models/constant/evaluation/metrics"
+    },
+    {
+      "artifact": "primary",
+      "fields": {
+        "coverage": 1.0,
+        "failures": {},
+        "mae_log2": 0.9572264557770293,
+        "n_submitted": 468,
+        "n_success": 468,
+        "spearman_rho": 0.2439899025156824
+      },
+      "pointer": "/models/sequence_v1/evaluation/metrics"
+    },
+    {
+      "artifact": "primary",
+      "fields": {
+        "all_prespecified_gates_pass": false,
+        "bootstrap_repetitions": 10000,
+        "bootstrap_seed": 20261017,
+        "confidence": 0.975,
+        "mae_log2_gain": 0.032659767928566785,
+        "n_all_cases": 468,
+        "n_common_groups": 423,
+        "n_common_success": 468,
+        "paired_group_bootstrap_interval": [
+          0.01091186519285003,
+          0.0538401413203541
+        ]
+      },
+      "pointer": "/champion_contrasts/constant"
+    },
+    {
+      "artifact": "primary",
+      "fields": {
+        "all_prespecified_gates_pass": false,
+        "bootstrap_repetitions": 10000,
+        "bootstrap_seed": 20261017,
+        "confidence": 0.975,
+        "mae_log2_gain": 0.014808391194779563,
+        "n_all_cases": 468,
+        "n_common_groups": 423,
+        "n_common_success": 467,
+        "paired_group_bootstrap_interval": [
+          -0.009560061378820598,
+          0.03867963057411778
+        ]
+      },
+      "pointer": "/champion_contrasts/ostir_affine"
+    },
+    {
+      "artifact": "context",
+      "fields": {
+        "input_scenarios": 124,
+        "profile_jobs": 248,
+        "selected_loci": 24,
+        "selected_source_rows": 31
+      },
+      "pointer": "/panel/counts"
+    },
+    {
+      "artifact": "context",
+      "fields": {
+        "anti_sd": "ACCUCCUUU",
+        "temperature_c": 37.0
+      },
+      "pointer": "/panel/settings"
+    },
+    {
+      "artifact": "context",
+      "fields": {
+        "requested_source_associations": 31
+      },
+      "pointer": "/profiles/historical/anchors/current"
+    },
+    {
+      "artifact": "context",
+      "fields": {
+        "eligible": 15,
+        "identical_prepared_context": 8,
+        "ineligible": 16
+      },
+      "pointer": "/profiles/historical/anchors/current/pairs"
+    },
+    {
+      "artifact": "context",
+      "fields": {
+        "changed": 6,
+        "median": 0.0,
+        "n": 15
+      },
+      "pointer": "/profiles/historical/anchors/current/changes/log_tir"
+    },
+    {
+      "artifact": "context",
+      "fields": {
+        "changed": 14,
+        "n": 15
+      },
+      "pointer": "/profiles/historical/anchors/current/log_tir_rank_changes"
+    },
+    {
+      "artifact": "context",
+      "fields": {
+        "requested": 31,
+        "statuses": {
+          "failed": {
+            "rows": 0,
+            "with_prepared_context": 0
+          },
+          "invalid_input": {
+            "rows": 0,
+            "with_prepared_context": 0
+          },
+          "no_candidate": {
+            "rows": 1,
+            "with_prepared_context": 1
+          },
+          "not_collected": {
+            "rows": 0,
+            "with_prepared_context": 0
+          },
+          "ok": {
+            "rows": 15,
+            "with_prepared_context": 15
+          },
+          "unsupported": {
+            "rows": 15,
+            "with_prepared_context": 4
+          }
+        }
+      },
+      "pointer": "/profiles/historical/anchors/current/coverage/measured_tss"
+    },
+    {
+      "artifact": "context",
+      "fields": {
+        "requested": 31,
+        "statuses": {
+          "failed": {
+            "rows": 0,
+            "with_prepared_context": 0
+          },
+          "invalid_input": {
+            "rows": 0,
+            "with_prepared_context": 0
+          },
+          "no_candidate": {
+            "rows": 0,
+            "with_prepared_context": 0
+          },
+          "not_collected": {
+            "rows": 0,
+            "with_prepared_context": 0
+          },
+          "ok": {
+            "rows": 24,
+            "with_prepared_context": 24
+          },
+          "unsupported": {
+            "rows": 7,
+            "with_prepared_context": 0
+          }
+        }
+      },
+      "pointer": "/profiles/historical/anchors/current/coverage/genomic_flank"
+    },
+    {
+      "artifact": "context",
+      "fields": {
+        "requested_source_associations": 31
+      },
+      "pointer": "/profiles/historical/anchors/historical"
+    },
+    {
+      "artifact": "context",
+      "fields": {
+        "eligible": 25,
+        "identical_prepared_context": 14,
+        "ineligible": 6
+      },
+      "pointer": "/profiles/historical/anchors/historical/pairs"
+    },
+    {
+      "artifact": "context",
+      "fields": {
+        "changed": 9,
+        "median": 0.0,
+        "n": 25
+      },
+      "pointer": "/profiles/historical/anchors/historical/changes/log_tir"
+    },
+    {
+      "artifact": "context",
+      "fields": {
+        "changed": 22,
+        "n": 25
+      },
+      "pointer": "/profiles/historical/anchors/historical/log_tir_rank_changes"
+    },
+    {
+      "artifact": "context",
+      "fields": {
+        "requested": 31,
+        "statuses": {
+          "failed": {
+            "rows": 0,
+            "with_prepared_context": 0
+          },
+          "invalid_input": {
+            "rows": 0,
+            "with_prepared_context": 0
+          },
+          "no_candidate": {
+            "rows": 2,
+            "with_prepared_context": 2
+          },
+          "not_collected": {
+            "rows": 0,
+            "with_prepared_context": 0
+          },
+          "ok": {
+            "rows": 25,
+            "with_prepared_context": 25
+          },
+          "unsupported": {
+            "rows": 4,
+            "with_prepared_context": 4
+          }
+        }
+      },
+      "pointer": "/profiles/historical/anchors/historical/coverage/measured_tss"
+    },
+    {
+      "artifact": "context",
+      "fields": {
+        "requested": 31,
+        "statuses": {
+          "failed": {
+            "rows": 0,
+            "with_prepared_context": 0
+          },
+          "invalid_input": {
+            "rows": 0,
+            "with_prepared_context": 0
+          },
+          "no_candidate": {
+            "rows": 0,
+            "with_prepared_context": 0
+          },
+          "not_collected": {
+            "rows": 0,
+            "with_prepared_context": 0
+          },
+          "ok": {
+            "rows": 31,
+            "with_prepared_context": 31
+          },
+          "unsupported": {
+            "rows": 0,
+            "with_prepared_context": 0
+          }
+        }
+      },
+      "pointer": "/profiles/historical/anchors/historical/coverage/genomic_flank"
+    },
+    {
+      "artifact": "context",
+      "fields": {
+        "requested_source_associations": 31
+      },
+      "pointer": "/profiles/context2017/anchors/current"
+    },
+    {
+      "artifact": "context",
+      "fields": {
+        "eligible": 15,
+        "identical_prepared_context": 8,
+        "ineligible": 16
+      },
+      "pointer": "/profiles/context2017/anchors/current/pairs"
+    },
+    {
+      "artifact": "context",
+      "fields": {
+        "changed": 7,
+        "median": 0.0,
+        "n": 15
+      },
+      "pointer": "/profiles/context2017/anchors/current/changes/log_tir"
+    },
+    {
+      "artifact": "context",
+      "fields": {
+        "changed": 12,
+        "n": 15
+      },
+      "pointer": "/profiles/context2017/anchors/current/log_tir_rank_changes"
+    },
+    {
+      "artifact": "context",
+      "fields": {
+        "requested": 31,
+        "statuses": {
+          "failed": {
+            "rows": 0,
+            "with_prepared_context": 0
+          },
+          "invalid_input": {
+            "rows": 0,
+            "with_prepared_context": 0
+          },
+          "no_candidate": {
+            "rows": 1,
+            "with_prepared_context": 1
+          },
+          "not_collected": {
+            "rows": 0,
+            "with_prepared_context": 0
+          },
+          "ok": {
+            "rows": 15,
+            "with_prepared_context": 15
+          },
+          "unsupported": {
+            "rows": 15,
+            "with_prepared_context": 4
+          }
+        }
+      },
+      "pointer": "/profiles/context2017/anchors/current/coverage/measured_tss"
+    },
+    {
+      "artifact": "context",
+      "fields": {
+        "requested": 31,
+        "statuses": {
+          "failed": {
+            "rows": 0,
+            "with_prepared_context": 0
+          },
+          "invalid_input": {
+            "rows": 0,
+            "with_prepared_context": 0
+          },
+          "no_candidate": {
+            "rows": 0,
+            "with_prepared_context": 0
+          },
+          "not_collected": {
+            "rows": 0,
+            "with_prepared_context": 0
+          },
+          "ok": {
+            "rows": 24,
+            "with_prepared_context": 24
+          },
+          "unsupported": {
+            "rows": 7,
+            "with_prepared_context": 0
+          }
+        }
+      },
+      "pointer": "/profiles/context2017/anchors/current/coverage/genomic_flank"
+    },
+    {
+      "artifact": "context",
+      "fields": {
+        "requested_source_associations": 31
+      },
+      "pointer": "/profiles/context2017/anchors/historical"
+    },
+    {
+      "artifact": "context",
+      "fields": {
+        "eligible": 25,
+        "identical_prepared_context": 14,
+        "ineligible": 6
+      },
+      "pointer": "/profiles/context2017/anchors/historical/pairs"
+    },
+    {
+      "artifact": "context",
+      "fields": {
+        "changed": 11,
+        "median": 0.0,
+        "n": 25
+      },
+      "pointer": "/profiles/context2017/anchors/historical/changes/log_tir"
+    },
+    {
+      "artifact": "context",
+      "fields": {
+        "changed": 25,
+        "n": 25
+      },
+      "pointer": "/profiles/context2017/anchors/historical/log_tir_rank_changes"
+    },
+    {
+      "artifact": "context",
+      "fields": {
+        "requested": 31,
+        "statuses": {
+          "failed": {
+            "rows": 0,
+            "with_prepared_context": 0
+          },
+          "invalid_input": {
+            "rows": 0,
+            "with_prepared_context": 0
+          },
+          "no_candidate": {
+            "rows": 2,
+            "with_prepared_context": 2
+          },
+          "not_collected": {
+            "rows": 0,
+            "with_prepared_context": 0
+          },
+          "ok": {
+            "rows": 25,
+            "with_prepared_context": 25
+          },
+          "unsupported": {
+            "rows": 4,
+            "with_prepared_context": 4
+          }
+        }
+      },
+      "pointer": "/profiles/context2017/anchors/historical/coverage/measured_tss"
+    },
+    {
+      "artifact": "context",
+      "fields": {
+        "requested": 31,
+        "statuses": {
+          "failed": {
+            "rows": 0,
+            "with_prepared_context": 0
+          },
+          "invalid_input": {
+            "rows": 0,
+            "with_prepared_context": 0
+          },
+          "no_candidate": {
+            "rows": 0,
+            "with_prepared_context": 0
+          },
+          "not_collected": {
+            "rows": 0,
+            "with_prepared_context": 0
+          },
+          "ok": {
+            "rows": 31,
+            "with_prepared_context": 31
+          },
+          "unsupported": {
+            "rows": 0,
+            "with_prepared_context": 0
+          }
+        }
+      },
+      "pointer": "/profiles/context2017/anchors/historical/coverage/genomic_flank"
+    }
+  ],
+  "purpose": "Exact public aggregate projection supporting failure-mode reasoning; no new scientific metric computation.",
+  "schema": "rbs-host-transfer-failure-analysis-1"
+}
