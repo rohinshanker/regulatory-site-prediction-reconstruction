@@ -27,8 +27,7 @@ do not copy model internals or point production at a mutable sibling directory.
 | Consumer ticket | Dependency on this repository |
 | --- | --- |
 | `O_rbs-calculator-gene-visualizer__20260930` | RBS release (06) and adapter (10) before the new reconstructed RBS layer is admitted; existing claim-specific validity checks remain |
-| `O_idog-promoter-prediction__20260930` | Promoter reconstruction (07) and adapter (10) if selected as the scoring/comparison engine for the owner-authorized locator around iDOG; its locator scope and existing compatibility evidence remain separate |
-| `O_recoding-regulatory-site-change__20260930` | Adapter (10) plus the relevant released calculator for model-based original/recoded changes; measured-site comparisons continue independently |
+| [`O_recoding-regulatory-site-change__20260930`](https://github.com/rohinshanker/isaacs-cyano-gene-selection/blob/main/docs/notes/tickets/O_recoding-regulatory-site-change__20260930.md) | Adapter (10) plus the relevant released calculator for model-based original/recoded changes; measured-site comparisons continue independently. Its owner-authorized new-promoter locator around iDOG needs Promoter reconstruction (07) and adapter (10) only if that calculator is selected as the scoring/comparison engine; locator scope and existing compatibility evidence remain separate |
 | `O_folding-compute-backend__20260930` | Conditional interface/performance input from 02/10/11 if these calculators are selected as remote workloads; not a prerequisite for existing local folding |
 
 The current Tan-TSS edit-count work, Rfam family annotation and native RNA folding
@@ -64,6 +63,7 @@ their future layers are handled by ticket 10 rather than inferred from gene name
 | Score explicit transcription-start candidates | `regsite-promoter`, schema `1.0` | Historical E. coli calibration; predicted windows and score terms remain separate from measured Tan TSS labels. |
 | Compare an existing sequence with a supplied recoded sequence | `regsite-compare`, `paired-regulatory-result-1` | Exact caller-supplied edits establish correspondence. Score differences require successful compatible predictions; unmatched positions do not establish biological site gain/loss. |
 | Inspect a supplied aptamer state or energy scenario | `regsite-conditional`, `conditional-aptamer-result-1` | Conditional components only. Neither an Rfam family hit nor a gene name supplies ligand affinity, a bound structure or constrained ribosome energies. |
+| Score supplied CDSs sharing an explicit transcript and scan supplied Promoter candidates | `regsite-transcript`, `supplied-transcript-result-1` | Independent RBS/Promoter components with caller-supplied organization; no operon discovery, coupling or joint protein-output prediction. |
 
 The paired [request/result contract](paired-regulatory-runtime.md) is the first
 producer interface designed directly for the current/recoded comparison. Store
@@ -83,7 +83,25 @@ into another frame without an established mapping. An interrupted start codon
 retains both unmatched candidate observations. Sequence-only positional
 correspondence does not establish unchanged protein or transcript identity.
 
-The [0.6.0rc1 candidate guide](paired-0.6-candidate.md) records package and
-resource evidence. Candidate validation can support consumer development, but
+For supplied transcripts, retain the full native predictions, component rosters,
+per-CDS compatibility reasons and the complete JSON hash. The
+[transcript contract](supplied-transcript-runtime.md) distinguishes component
+`missing` from `not_evaluated`; an incompatible CDS remains in the annotation
+roster even though it has no native RBS site. A deadline can leave a component
+unstarted with a null prediction. `coverage.scored` counts successful sites
+across both components and is never a combined expression score. Complete
+accounting does not imply every candidate scored.
+
+Each transcript isoform and recoded construct needs its own explicit RNA/CDS
+coordinates. The transcript wrapper does not infer alignment between constructs;
+use the paired edit-map contract for current/recoded correspondence. An old
+chromosome projection does not establish genomic correspondence across an indel.
+
+The [paired 0.6](paired-0.6-candidate.md),
+[conditional 0.7](conditional-0.7-candidate.md) and
+[transcript 0.8](transcript-0.8-candidate.md) guides record immutable package
+identities, resource evidence and their separate admission gates. Select the
+reviewed artifact named by the guide, not a mutable branch or worktree head.
+Candidate validation can support consumer development, but
 production admission still requires the released artifact and consumer-owned
 checks above. No consumer files were changed as part of these producer contracts.

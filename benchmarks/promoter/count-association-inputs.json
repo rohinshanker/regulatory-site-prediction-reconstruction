@@ -1,0 +1,47 @@
+{
+  "consumer_commit": "f80836248243983beefbfe3f85c83914e5f9d01b",
+  "inputs": {
+    "crosswalk": {
+      "bytes": 3333032,
+      "path": "data/annotation/releases/GCF_000817325.1-RS_2026_05_13/identifier-crosswalk-v1.tsv",
+      "sha256": "97e3022e53cd1e31f5931ead37f425e1d99c032704e5ff8f02c0d75d1755e9ae"
+    },
+    "fasta": {
+      "bytes": 815693,
+      "path": "data/raw/GCF_000817325.1_ASM81732v1_genomic.fna.gz",
+      "sha256": "22a2b07881c1099c32454778de0e90b1c40f74f44c0f59e000507106c0deb567"
+    },
+    "terminators": {
+      "bytes": 1666851,
+      "path": "data/annotations/regulatory-transterm/native-v1.json",
+      "sha256": "f19003f1973e002ba8bb0edd52e420b878d0fbe4e46d2ca532e9b6d9c85f9629"
+    },
+    "terminators_release": {
+      "bytes": 989,
+      "path": "data/annotations/regulatory-transterm/release.json",
+      "sha256": "820b7587825edee61702668088039bd6d4edb83095c8280d4dca3d9a261c5847"
+    },
+    "tss": {
+      "bytes": 491394,
+      "path": "data/expression/tan2018_utex2973_tss_table_s1.tsv",
+      "sha256": "d06524cf492aa8f009bf004c596a5d305ac54acbe7537ec98bbc7992ce164bff"
+    },
+    "tu": {
+      "bytes": 2429486,
+      "path": "data/annotations/biocyc-utex-tu-membership/membership.json",
+      "sha256": "8eb68fcd33988e2b81940ff80d9ea471ef97fced87af3a4703f684c881dd60d0"
+    },
+    "tu_release": {
+      "bytes": 577,
+      "path": "data/annotations/biocyc-utex-tu-membership/release.json",
+      "sha256": "e791b76b45976449ff2cde1e6863eeabbfefc3eebfbede7c4361f470ecbd9e02"
+    }
+  },
+  "producer_baseline": "1ec44e5bfecc2ce2878427ef7222dc3fd344697c",
+  "rights": {
+    "terminators": "Retained computational proxy, not measured termination; external explicit input.",
+    "tss": "Existing public Tan Table S1 derivative; retain source attribution and measurement limitations.",
+    "tu": "Owner-approved attributed annotations only; external explicit input, no new redistribution or required runtime dependency."
+  },
+  "schema": "promoter-count-association-inputs-1"
+}

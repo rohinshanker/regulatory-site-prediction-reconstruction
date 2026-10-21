@@ -1,15 +1,15 @@
-# O_08-operon-calculator-reconstruction__20261016 — Open
+# A_08-operon-calculator-reconstruction__20261016 — Active
 
 - Scope: Recover and implement the integrated Operon Calculator.
-- Status: open
+- Status: active
 - Opened: 2026-10-16
-- Updated: 2026-10-16
-- Current State: Planned; implementation has not started. See the work and acceptance criteria below.
-- Verification: Repository setup checked ticket H1/fields, queue membership and local links on 2026-10-16; implementation validation is specified below and has not run.
+- Updated: 2026-10-21
+- Current State: Session A completed bounded supplied-transcript RBS/Promoter orchestration under #47, frozen at9e96bc0 (0.8.0rc1, PR48); B's independent organization/projection fixtures are integrated. All package gates passed. Producer work resumed on 2026-10-21; this wave consolidates the reviewed component alongside the separately authorized native Promoter pilot. It does not add a new transcript adapter or collect a new transcript evaluation. Complete production Operon inference remains unfinished: coupling, elongation, stability, termination and combined abundance require separate admitted implementations.
+- Verification: Independent runtime/CLI/schema review passed;12literal geometry fixtures match. Fresh offline installation passed8fixed JSON cases and1CSV replay with complete identities and missingness. CI39193463857 passed all8jobs on the exact source; each full runtime passed5044tests with one explicit existing conditional original-binary skip, and each repaired-backend selection passed2873tests. Required coverage is100%. See docs/validation/transcript-0.8-candidate.md and its CI receipt; no integrated abundance, native calibration or hosted equivalence follows.
 - Cleanup: Owning session records final checks and unresolved findings, resolves the ticket, distills reusable guidance into docs/validation/, updates both indexes and linked GitHub issue, then removes the resolved ticket.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/8
 - Priority: P1
-- Owner: Unclaimed; the implementing session must claim this ticket before writing its scope.
+- Owner: Session A for runtime/integration; Session B retains independent evidence/benchmark ownership.
 - Dependencies: RBS milestone 06, Promoter 07, core 02, Operon source slice 01 and references 05.
 
 Reconstruct the production Operon Calculator as an integrated, fully open local model. This includes its documented submodels and outputs, not merely concatenating RBS and promoter results.

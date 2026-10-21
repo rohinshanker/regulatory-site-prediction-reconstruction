@@ -4,19 +4,28 @@ Verification dates cover the stated source observations or specification review;
 
 | Area | Purpose | Last verified | Document |
 | --- | --- | --- | --- |
+| integrated-runtime-build | Exact combined development package, offline installation, source identity and retained admission boundaries. | 2026-10-21 | [integrated-runtime-build.md](integrated-runtime-build.md) |
+| promoter-count-association | Frozen exploratory count association, independent offline evaluation and aggregate artifact receipt. | 2026-10-21 | [promoter-count-association.md](promoter-count-association.md) |
+| promoter-native-pilot-parity | Original-source native pilot kernel parity: frozen schema/protocol pins, outcome-free full-cohort identity, full denominators, tie/summary recomputation and explicit failure categories. | 2026-10-21 | [promoter-native-pilot-parity.md](promoter-native-pilot-parity.md) |
+| promoter-native-pilot-results | Original-source anchor-centered Tan localization, complete cohort accounting, source/result pins and exposed-cohort limits. | 2026-10-21 | [promoter-native-pilot-results.md](promoter-native-pilot-results.md) |
 | promoter-public-receipt-audit | Public-only frozen receipt identities, arithmetic, unchecked dependencies and deterministic verification contract. | 2026-10-19 | [promoter-public-receipt-audit.md](promoter-public-receipt-audit.md) |
 | calculator-artifact-storage | Explicit external opaque artifacts, streaming offline SHA-256 checks, strict manifest/path limits and integrity-only boundaries. | 2026-10-19 | [calculator-artifact-storage.md](calculator-artifact-storage.md) |
+| paired-consumer-preview | Minimal immutable paired 0.6 package and synthetic result handoff for the separately held bounded consumer display. | 2026-10-21 | [paired-consumer-preview.md](paired-consumer-preview.md) |
+| supplied-transcript-contract | Explicit RNA context, supplied CDS eligibility, native component settings and portable coordinate/failure boundary. | 2026-10-18 | [supplied-transcript-contract.md](supplied-transcript-contract.md) |
+| supplied-transcript-runtime | Exact component results, stable declared-budget identities, features, missingness and local transport. | 2026-10-18 | [supplied-transcript-runtime.md](supplied-transcript-runtime.md) |
+| transcript-0.8-candidate | Immutable reviewed transcript package and exact-source CI/resource gates; combined development integration requires separate acceptance. | 2026-10-21 | [transcript-0.8-candidate.md](transcript-0.8-candidate.md) |
+| conditional-0.7-candidate | Immutable conditional package, reviewed numerical domain, installed synthetic/backend checks and structural portability boundary. | 2026-10-18 | [conditional-0.7-candidate.md](conditional-0.7-candidate.md) |
 | rbs-wave5-context-results | Independently audited unchanged-profile transcript-context sensitivity, repeated-input accounting and source-selection census. | 2026-10-19 | [rbs-wave5-context-results.md](rbs-wave5-context-results.md) |
 | current-recoded-results | Independently audited frozen paired candidate accounting, source arithmetic and unchanged-sequence controls. | 2026-10-19 | [current-recoded-results.md](current-recoded-results.md) |
 | promoter-wave5-results | Independently audited frozen native positive-TSS localization, all denominators and consumed-panel limits. | 2026-10-19 | [promoter-wave5-results.md](promoter-wave5-results.md) |
 | supplied-transcript-boundaries | Public-contract-reconciled construct/transcript/CDS geometry, immutable fixtures and uncoupled component failure semantics. | 2026-10-19 | [supplied-transcript-boundaries.md](supplied-transcript-boundaries.md) |
-| paired-0.6-candidate | Immutable paired package, source and installed resource receipts; independent comparison and RBS-context preparation gates. | 2026-10-18 | [paired-0.6-candidate.md](paired-0.6-candidate.md) |
+| paired-0.6-candidate | Immutable paired package, source/resource/CI receipts and completed independent comparison/context validation. | 2026-10-18 | [paired-0.6-candidate.md](paired-0.6-candidate.md) |
 | conditional-aptamer-runtime | Executable supplied-energy and canonical-state profiles, bounded JSON CLI, explicit failures and backend admission limits. | 2026-10-18 | [conditional-aptamer-runtime.md](conditional-aptamer-runtime.md) |
 | promoter-0.5-candidate | Immutable source/package/CI/resource receipts, rebuild procedure and bounded native-stage transport conditions. | 2026-10-18 | [promoter-0.5-candidate.md](promoter-0.5-candidate.md) |
 | conditional-aptamer-contract | Explicit supplied-energy/volume equations, canonical structural-state boundary and executable Decimal reference. | 2026-10-18 | [conditional-aptamer-contract.md](conditional-aptamer-contract.md) |
 | promoter-model-card | Historical source and parameter pins, E. coli calibration and host-transfer limits, score semantics, fidelity versus biological evidence and current/recoded interpretation. | 2026-10-18 | [promoter-model-card.md](promoter-model-card.md) |
 | paired-regulatory-runtime | Planned exact-edit paired predictor execution, complete candidate/feature correspondence and comparable score differences. | 2026-10-18 | [paired-regulatory-runtime.md](paired-regulatory-runtime.md) |
-| calculator-delivery-program | Sustained Promoter, paired recoding comparison, supplied-operon and conditional aptamer delivery for portable cyano-consumer outputs. | 2026-10-18 | [calculator-delivery-program.md](calculator-delivery-program.md) |
+| calculator-delivery-program | Sustained Promoter, paired recoding comparison, supplied-operon and conditional aptamer delivery for portable cyano-consumer outputs. | 2026-10-21 | [calculator-delivery-program.md](calculator-delivery-program.md) |
 | promoter-runtime | Implemented core/batch/CLI contract, source identities, coordinates, calibration and candidate acceptance gates. | 2026-10-18 | [promoter-runtime.md](promoter-runtime.md) |
 | riboswitch-constrained-reference | Pinned canonical forced-pair/unpaired feasibility, immutable synthetic execution and offline integrity audit. | 2026-10-18 | [riboswitch-constrained-reference.md](riboswitch-constrained-reference.md) |
 | current-recoded-validation | Independent synthetic edit maps, candidate universes, failure-preserving checks and reviewed frozen-result reproduction. | 2026-10-19 | [current-recoded-validation.md](current-recoded-validation.md) |
@@ -38,13 +47,13 @@ Verification dates cover the stated source observations or specification review;
 | rbs-comparator-landscape | Mechanistic/ML comparator roster, artifact gates and specialist improvement strategy. | 2026-10-17 | [rbs-comparator-landscape.md](rbs-comparator-landscape.md) |
 | reconstruction-contract | Define reproducible, fully open calculator reconstruction and release requirements. | 2026-10-17 | [reconstruction-contract.md](reconstruction-contract.md) |
 | source-map | Preserve pinned starting sources and known recovery gaps. | 2026-10-16 | [source-map.md](source-map.md) |
-| cyano-integration | Separate paired producer predictions from downstream native-data admission and UI. | 2026-10-18 | [cyano-integration.md](cyano-integration.md) |
+| cyano-integration | Versioned paired, conditional and supplied-transcript producer interfaces; downstream native-data admission and UI ownership. | 2026-10-18 | [cyano-integration.md](cyano-integration.md) |
 | benchmark-quality | Assess published benchmark limitations and define stronger evaluation. | 2026-10-16 | [benchmark-quality.md](benchmark-quality.md) |
 | rbs-source-decision | Pinned RBS sources, licences, open-backend decision and scalar fixtures. | 2026-10-16 | [rbs-source-decision.md](rbs-source-decision.md) |
 | rbs-standby | Published standby geometry, complete bounded opening search, explicit reconstruction choices and schema 1.2. | 2026-10-17 | [rbs-standby.md](rbs-standby.md) |
 | rbs-mechanisms | Versioned footprint/context profiles, primary parameter provenance, structures and ablation checks. | 2026-10-16 | [rbs-mechanisms.md](rbs-mechanisms.md) |
 | rbs-backend-repair | Separate GPL2 traceback/linker repairs, strict build receipts, source pins and three-engine validation. | 2026-10-17 | [rbs-backend-repair.md](rbs-backend-repair.md) |
-| rbs-runtime | Pinned original/repaired installation, schemas, equations/deviations, resource bounds and release gates. | 2026-10-19 | [rbs-runtime.md](rbs-runtime.md) |
+| rbs-runtime | Pinned original/repaired installation, schemas, equations/deviations, resource bounds and release gates. | 2026-10-17 | [rbs-runtime.md](rbs-runtime.md) |
 | rbs-evaluation-protocol | Frozen experimental split, normalization, eligibility and independent evaluator boundary. | 2026-10-17 | [rbs-evaluation-protocol.md](rbs-evaluation-protocol.md) |
 | rbs-benchmark-card | Independently reproduced metrics, harness defects, leakage and measurement limits. | 2026-10-17 | [rbs-benchmark-card.md](rbs-benchmark-card.md) |
 | rbs-live-reference | Diagnostic inputs, actual quoted pricing, private ledger and acquisition stop rules. | 2026-10-17 | [rbs-live-reference.md](rbs-live-reference.md) |

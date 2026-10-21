@@ -1,0 +1,29 @@
+{
+  "id": "noop-200",
+  "input": {
+    "aptamer": {
+      "constraint": {
+        "mode": "partial",
+        "pairs": [],
+        "unpaired": []
+      },
+      "id": "synthetic-resource",
+      "range": [
+        0,
+        200
+      ]
+    },
+    "sequence": "ACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGU",
+    "temperature_kelvin": 310.15
+  },
+  "profile": "canonical_structure_pair",
+  "provenance": {
+    "kind": "synthetic",
+    "reference": "Independent hand-computable controls; no aptamer efficacy or native outcomes."
+  },
+  "schema_version": "conditional-aptamer-request-1",
+  "settings": {
+    "seconds_per_job": 30.0,
+    "seconds_total": 120.0
+  }
+}

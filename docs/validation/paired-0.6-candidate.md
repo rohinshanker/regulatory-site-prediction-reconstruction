@@ -66,9 +66,13 @@ all passed on the exact source commit. The [CI admission receipt](../../models/p
 the synthetic receipts. The four runtime jobs each passed 3,152 full tests and
 1,963 tests per repaired-backend run, with 100% required coverage; their fresh
 offline wheel examples passed. The four resource jobs also passed. This covers
-Ubuntu 24.04/macOS 14 and Python 3.11/3.14. B must still bind exact inputs, settings
-and a finite stage acknowledgement before each independent collection. CI success
-does not establish biological accuracy, production equivalence or publication.
+Ubuntu 24.04/macOS 14 and Python 3.11/3.14. B's separate frozen collection is complete
+and independently reviewed: 36 jobs retained all 4,125 candidates and 53,404 scalar
+comparisons matched the independent oracle. The 12 unchanged jobs retained zero
+finite differences, including honest empty RBS controls. See the [complete
+denominators and limitations](current-recoded-results.md). CI and synthetic
+comparison success do not establish biological accuracy, production equivalence
+or publication.
 
 ## Unchanged RBS context preparation
 
@@ -85,15 +89,19 @@ cases come from the existing independent geometry panel; three additional
 preserves complete execution identities. No native inputs or outcomes informed
 these measurements.
 
-The proposed native context stage remains historical/context2017, supplied start,
+The completed native context stage used historical/context2017, supplied start,
 60.0 seconds per record and 3,600.0 per batch, with a 7,200-second whole-stage
-ceiling and one explicitly reserved local folding slot. B must bind its frozen
-Tan context panel, exact serialization, job counts and settings before collection.
+ceiling and one explicitly reserved local folding slot. B bound its frozen Tan
+context panel, exact serialization, job counts and settings before collection.
 The unchanged native CLI has a text loader: require explicit strict UTF-8,
 LF-only request files with raw size at most 40 MB, no stdin. Clear `PYTHONPATH`
 and `PYTHONHOME`, disable user sites and verify the installed package.
 Retain every failed/unstarted scenario; no retries or repacking after outcomes.
-This measures input-context sensitivity, not translation accuracy or improvement.
+Each 124-scenario profile retained 95 scores, 26 unsupported cases and three
+absent candidates, with no failed or unstarted record. The [independently reviewed
+report](rbs-wave5-context-results.md) preserves shared-input and locus denominators.
+This measures input-context sensitivity, not translation accuracy or improvement;
+the consumed panel cannot be reused as untouched improvement evidence.
 
 The [paired contract](paired-regulatory-runtime.md) and
 [independent comparison protocol](current-recoded-validation.md) define coordinate

@@ -1,0 +1,57 @@
+{
+  "complete": false,
+  "errors": [
+    {
+      "code": "deadline_exceeded",
+      "message": "Request deadline exhausted"
+    }
+  ],
+  "id": "expired-deadline",
+  "input": {
+    "aptamer": {
+      "constraint": {
+        "mode": "full",
+        "structure": "((((((....))))))"
+      },
+      "id": "synthetic-hairpin",
+      "range": [
+        0,
+        16
+      ]
+    },
+    "sequence": "GGGAGCGAAAGCUCCC",
+    "temperature_kelvin": 310.15
+  },
+  "model": {
+    "backend": null,
+    "convention_id": "natural_logs_equal_rna_complex_volume_explicit_molar_standard_strict_positive_zero_uncorrected_binary64_kd_guarded_certified_min_total_bracket_3",
+    "id": "conditional-aptamer-1",
+    "implementation_version": "0.7.0rc1",
+    "parameter_sha256": "99bb08423e2d321947e1cf5bb8cc3061bd99ab02414bff4d25377b5003f51b3f",
+    "source_manifest_sha256": "ac4d7be48ba856dc6a713829425b584ffd55551743b10c51049de0ec70dc2f6e"
+  },
+  "profile": "canonical_structure_pair",
+  "provenance": {
+    "kind": "synthetic",
+    "reference": "Independent hand-computable controls; no aptamer efficacy or native outcomes."
+  },
+  "reasons": [
+    "deadline_exceeded"
+  ],
+  "request_sha256": "1d12a6fce830878c689fcfe621ecadb8da58f4a3ab6a3918f75bb353c705d4b8",
+  "response": null,
+  "schema_version": "conditional-aptamer-result-1",
+  "settings": {
+    "seconds_per_job": 1e-300,
+    "seconds_total": 1e-300
+  },
+  "states": [],
+  "status": "failed",
+  "structural_cost_kcal_mol": null,
+  "warnings": [
+    {
+      "code": "no_native_calibration",
+      "message": "No native-host or biological accuracy calibration is established"
+    }
+  ]
+}

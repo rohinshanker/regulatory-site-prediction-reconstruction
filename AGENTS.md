@@ -2,6 +2,16 @@
 
 ## Scope and order
 
+- Owner authorization on 2026-10-21 resumes producer implementation, including
+  the named native Promoter download/pilot and reviewed calculator branch
+  integration. A owns runtime/source fidelity/integration; B owns independent
+  benchmark/evidence tooling. Agree disjoint paths and freeze each evaluation
+  before execution. Preserve source, backend and private-evaluation limits;
+  consumer admission, publication and new paid collection remain separate.
+  PV-R1 and stopped DEM-577/568 remain held. The bounded consumer preview remains
+  on the immutable paired 0.6 candidate. This wave does not start a new transcript
+  adapter or the unaccepted portable-original-backend assignment. A newly built
+  original backend must satisfy the unchanged conditional admission gate.
 - Read `README.md`, `docs/notes/tickets/INDEX.md`, and applicable validation
   contracts before significant work. The user authorized the complete four-tool
   reconstruction program; the first implemented runtime is the Wave 1 RBS reconstruction.
