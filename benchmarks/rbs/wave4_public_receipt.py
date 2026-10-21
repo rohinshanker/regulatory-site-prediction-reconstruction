@@ -270,6 +270,9 @@ def inventory(docs):
 def metadata(docs):
     """Only immutable metadata, never dynamic metric/count/gate output values."""
     a, r = docs[AGGREGATE], docs[REVIEW]
+    require(
+        type(a["publication_context"]) is dict, "publication context: expected object"
+    )
     publication = {
         k: v
         for k, v in a["publication_context"].items()
@@ -350,8 +353,26 @@ def summary(value):
         if executed == 2:
             close(total, 2 * median, "two-execution median")
             close(p95, maximum, "two-execution p95")
+        if executed >= 3:
+            # Sorted nonnegative times, ordinary median (averaged when even),
+            # and nearest-rank p95 give attainable lower/upper sum bounds.
+            rank = (95 * executed + 99) // 100
+            middle = executed // 2 + 1
+            lower = (
+                (rank - (executed + 1) // 2) * median
+                + (executed - rank) * p95
+                + maximum
+            )
+            upper = (
+                middle * median + (rank - middle) * p95 + (executed - rank) * maximum
+            )
+            require(
+                lower - 1e-12 <= total <= upper + 1e-12, "runtime: quantile sum bounds"
+            )
+            if rank == executed:
+                close(p95, maximum, "nearest-rank maximum")
     else:
-        same(total, 0, "empty runtime sum")
+        require(total == 0, "empty runtime sum: expected zero")
         for field in ("median", "p95_nearest_rank", "maximum"):
             same(runtime[field], None, "empty runtime quantile")
 
@@ -375,16 +396,17 @@ def point(value, left, right, minimum, eligible=True):
     )
     gain = value["rank_gain"]
     bounded(gain, 2, "rank gain")
+    a, b = left["spearman_rho"], right["spearman_rho"]
     if not eligible or common < minimum:
         same(gain, None, "unsupported point")
-    elif left["n_paired"] == right["n_paired"] == left["n_observed"]:
-        # Complete measured cohorts guarantee identical rows. Equal marginal
-        # success counts without this guarantee do not justify subtraction.
-        a, b = left["spearman_rho"], right["spearman_rho"]
-        if a is None or b is None:
-            same(gain, None, "undefined point")
-        else:
-            close(gain, b - a, "common-cohort rank gain")
+    elif a is None or b is None:
+        # With sufficient rows, undefined rho means a constant vector, which
+        # remains constant on any common subset under the frozen protocol.
+        same(gain, None, "undefined point")
+    elif common == left["n_paired"] == right["n_paired"]:
+        # Intersection cardinality proves equal cohorts, even if incomplete.
+        # Equal marginal counts alone do not justify subtraction.
+        close(gain, b - a, "common-cohort rank gain")
 
 
 def comparison(value, left, right, protocol):
@@ -487,7 +509,7 @@ def models(value, n=None, observed=None):
     require(len(counts) == 1, "panel: shared source counts")
 
 
-def point_group(group, contrast, secondary=False):
+def point_group(group, contrast, minimum, secondary=False):
     keys(
         group,
         ("models", "primary_pair", "role") if secondary else ("models", "primary_pair"),
@@ -503,7 +525,7 @@ def point_group(group, contrast, secondary=False):
         pair,
         group["models"][contrast["reference"]],
         group["models"][contrast["contender"]],
-        30,
+        minimum,
     )
 
 
@@ -564,6 +586,14 @@ def protocol_numbers(protocol):
         "frozen interval level",
     )
     secondary = protocol["secondary_endpoints"]
+    same(
+        count(
+            protocol["subgroups"]["minimum_common_rows_to_display_rank_difference"],
+            "subgroup setting",
+        ),
+        30,
+        "frozen subgroup setting",
+    )
     same(
         count(secondary["n_inputs_per_context"], "secondary setting"),
         87,
@@ -658,20 +688,31 @@ def reconcile(protocol, freeze, aggregate, review):
     )
     for name, value in descriptive.items():
         comparison(value, left, primary["models"][name], protocol)
-    complete_cohort_blocks = {
+    comparisons = (primary["comparison"], *descriptive.values())
+    reference_cohort_blocks = {
         value["n_common_blocks"]
-        for value in (primary["comparison"], *descriptive.values())
-        if value["n_common_measured"] == expected["n_observed"]
+        for value in comparisons
+        if value["n_common_measured"] == left["n_paired"]
     }
     require(
-        len(complete_cohort_blocks) <= 1,
-        "comparison: complete measured cohort blocks disagree",
+        len(reference_cohort_blocks) <= 1,
+        "comparison: reference measured cohort blocks disagree",
     )
+    if reference_cohort_blocks:
+        cap = next(iter(reference_cohort_blocks))
+        for value in comparisons:
+            require(
+                cap - (left["n_paired"] - value["n_common_measured"])
+                <= value["n_common_blocks"]
+                <= cap,
+                "comparison: reference subset blocks",
+            )
     strata = aggregate["descriptive_coding_gc_strata"]
     keys(strata, ("low", "middle", "high"), "GC strata")
+    minimum = protocol["subgroups"]["minimum_common_rows_to_display_rank_difference"]
     for group in strata.values():
         models(group["models"])
-        point_group(group, contrast)
+        point_group(group, contrast, minimum)
     same(
         sum(group["primary_pair"]["n_common_measured"] for group in strata.values()),
         primary["comparison"]["n_common_measured"],
@@ -699,11 +740,20 @@ def reconcile(protocol, freeze, aggregate, review):
             row["runtime_seconds"]["sum"],
             "GC partition runtime sum",
         )
+        maxima = [
+            part["runtime_seconds"]["maximum"]
+            for part in parts
+            if part["runtime_seconds"]["n_executed"]
+        ]
+        require(
+            row["runtime_seconds"]["maximum"] == (max(maxima) if maxima else None),
+            "GC partition runtime maximum: mismatch",
+        )
     secondary = aggregate["Kuo2020_secondary"]
     keys(secondary, protocol["secondary_endpoints"]["Kuo2020"], "secondary roster")
     for group in secondary.values():
         models(group["models"], protocol["secondary_endpoints"]["n_inputs_per_context"])
-        point_group(group, contrast, True)
+        point_group(group, contrast, minimum, True)
     for name in ROSTER:
         same(
             sum(g["models"][name]["n_observed"] for g in secondary.values()),

@@ -77,8 +77,10 @@ lost_reference_successes = Sl-S
 ```
 
 These are feasibility bounds, not inferred case identities. Correlation
-subtraction is checked only when both summaries cover every observed input.
-Equal marginal counts alone do not establish the same cohort. GC and secondary
+subtraction is checked when the common measured count equals both model paired
+counts, proving identical cohorts even when incomplete. Equal marginal counts
+alone do not establish the same cohort. Under the frozen constant-vector rule,
+an undefined model correlation also makes every supported subset gain null. GC and secondary
 point comparisons keep their own scopes; no pooled secondary endpoint is added.
 GC strata partition primary counts, statuses, failure counts, paired measured
 counts and runtime sums; correlations, medians and quantiles are not additive.
@@ -86,8 +88,13 @@ counts and runtime sums; correlations, medians and quantiles are not additive.
 Runtime execution count equals inputs minus `not_run`; unsuccessful executions
 still contribute time. Zero executions require sum zero and null quantiles.
 Positive execution times are finite and nonnegative, with ordered median/p95/max
-and feasible sum bounds; one/two-execution cases retain their estimator rules.
-A complete collection cannot contain unexecuted requests.
+and sum bounds derived from sorted times, the ordinary median (mean of the two
+middle values for even counts) and nearest-rank p95. When p95 selects the last
+execution it equals the maximum. The maximum across executed GC strata equals
+the primary maximum; null maxima are retained for zero executions. Integer zero
+and floating zero are valid runtime sums; nonzero sums with no executions fail.
+One/two-execution cases retain their estimator rules. A complete collection
+cannot contain unexecuted requests.
 
 ## Comparison states and advancement
 
@@ -95,15 +102,18 @@ Shared blocks cannot exceed either total blocks or shared measured rows; zero
 shared blocks and zero shared measured rows imply each other. Each block without
 a shared measured row needs at least one other input, so shared blocks must also
 be at least `max(0, total_blocks - (inputs - shared_measured))`. Comparisons
-covering every observed row share the same measured cohort and must agree on
-its block count. These constraints do not infer block identities. Frozen support
+covering every measured reference row share the same cohort and must agree on
+its block count, even for an incomplete reference. Other comparison cohorts are
+subsets of that reference: their block counts cannot increase, or decrease by
+more than the number of removed rows. These constraints do not infer block
+identities. Frozen support
 requires 30 measured rows and 10 blocks. Requested draws stay 10,000, separately
 from attempted, usable and undefined draws. Insufficient support and undefined
 points have null gain/interval and zero attempted draws. A finite supported
 point attempts every requested draw; fewer than 9,900 usable draws gives a null
 interval. Otherwise the finite ordered interval lies in [-2,2]. A percentile
-interval need not contain the point estimate. Small GC groups retain counts
-and null contrasts; secondary/GC point summaries never gain an interval.
+interval need not contain the point estimate. The subgroup display threshold is explicitly frozen at 30 common rows.
+Small GC groups retain counts and null contrasts; secondary/GC point summaries never gain an interval.
 
 The advancement conjunction retains its ordered reasons: collection/integrity,
 software readiness, coverage at least 0.95, no lost reference successes, gain at

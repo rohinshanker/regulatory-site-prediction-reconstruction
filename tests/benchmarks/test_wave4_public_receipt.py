@@ -2,10 +2,13 @@
 
 import copy
 import hashlib
+import itertools
 import json
 import os
 import runpy
+import statistics
 import sys
+from decimal import ROUND_CEILING, Decimal
 from pathlib import Path
 from unittest import mock
 
@@ -947,7 +950,7 @@ def test_gate_reasons_after_hash_refresh(tmp_path, kind):
         c.check(*write_fixture(tmp_path, docs))
 
 
-def test_partial_equal_counts_do_not_establish_common_cohorts(tmp_path):
+def partial_reference_fixture():
     docs = fixture()
     a = docs[c.AGGREGATE]
     # Equal marginal sizes331; public intersection330 does not identify equal sets.
@@ -976,6 +979,12 @@ def test_partial_equal_counts_do_not_establish_common_cohorts(tmp_path):
         "reasons": ["lost_reference_successes"],
     }
     docs[c.REVIEW]["independent_recomputation"]["advance"] = False
+    return docs
+
+
+def test_partial_equal_counts_do_not_establish_common_cohorts(tmp_path):
+    docs = partial_reference_fixture()
+    a = docs[c.AGGREGATE]
     assert c.check(*write_fixture(tmp_path, docs))["status"] == "consistent"
     a["primary"]["comparison"]["n_common_measured"] = 329
     with pytest.raises(c.ReceiptError, match="measured subset"):
@@ -1185,6 +1194,18 @@ def test_stratified_count_negative_after_all_hashes_refreshed(tmp_path):
         ("advancement", "minimum_rank_gain", 0.04, "frozen gate threshold"),
         ("advancement", "lost_baseline_successes_allowed", True, "integer"),
         ("primary_endpoint", "n_inputs", True, "integer"),
+        (
+            "subgroups",
+            "minimum_common_rows_to_display_rank_difference",
+            100,
+            "frozen subgroup setting",
+        ),
+        (
+            "subgroups",
+            "minimum_common_rows_to_display_rank_difference",
+            True,
+            "integer",
+        ),
     ],
 )
 def test_frozen_numerical_settings_after_trust_refresh(
@@ -1254,7 +1275,7 @@ def test_identical_complete_cohorts_require_same_block_count(tmp_path):
     docs[c.AGGREGATE]["primary"]["comparison"]["n_common_blocks"] = 54
     # Both 54 and 56 are individually feasible; they cannot describe the same
     # complete observed cohort in two comparisons over the same grouping.
-    with pytest.raises(c.ReceiptError, match="complete measured cohort blocks"):
+    with pytest.raises(c.ReceiptError, match="reference measured cohort blocks"):
         c.check(*write_fixture(tmp_path, docs))
 
 
@@ -1315,3 +1336,176 @@ def test_runtime_sum_cannot_be_negative_within_roundoff_allowance():
     row["runtime_seconds"].update(sum=-1e-13, median=0, p95_nearest_rank=0, maximum=0)
     with pytest.raises(c.ReceiptError, match="runtime: negative sum"):
         c.summary(row)
+
+
+def test_identical_incomplete_fepb_cohort_after_hash_refresh(tmp_path):
+    docs = fixture()
+    g = docs[c.AGGREGATE]["Kuo2020_secondary"]["fepB"]
+    for name, rho in (("standby2014-linker3", 0.2), ("joint_standby-linker3", 0.3)):
+        g["models"][name] = summary(87, 82, 81, 77, rho=rho)
+    g["primary_pair"].update(n_common_measured=77, rank_gain=0.1)
+    assert c.check(*write_fixture(tmp_path, docs))["status"] == "consistent"
+    g["primary_pair"]["rank_gain"] = 0.5
+    with pytest.raises(c.ReceiptError, match="common-cohort rank gain"):
+        c.check(*write_fixture(tmp_path, docs))
+
+
+def test_incomplete_reference_cohort_block_counts_must_agree(tmp_path):
+    docs = partial_reference_fixture()
+    docs[c.AGGREGATE]["descriptive_against_primary_reference"]["control-constant"][
+        "n_common_blocks"
+    ] = 55
+    with pytest.raises(c.ReceiptError, match="reference measured cohort blocks"):
+        c.check(*write_fixture(tmp_path, docs))
+
+
+@pytest.mark.parametrize(
+    "reference_blocks,subset_blocks,valid",
+    [(53, 56, False), (56, 54, False), (56, 55, True), (53, 52, True)],
+)
+def test_reference_subset_block_bounds_after_hash_refresh(
+    tmp_path, reference_blocks, subset_blocks, valid
+):
+    docs = partial_reference_fixture()
+    a = docs[c.AGGREGATE]
+    for pair in a["descriptive_against_primary_reference"].values():
+        pair["n_common_blocks"] = reference_blocks
+    a["primary"]["comparison"]["n_common_blocks"] = subset_blocks
+    args = write_fixture(tmp_path, docs)
+    if valid:
+        assert c.check(*args)["status"] == "consistent"
+    else:
+        with pytest.raises(c.ReceiptError, match="reference subset blocks"):
+            c.check(*args)
+
+
+def test_no_comparison_claims_complete_reference_cohort(tmp_path):
+    docs = partial_reference_fixture()
+    a = docs[c.AGGREGATE]
+    for name, pair in a["descriptive_against_primary_reference"].items():
+        a["primary"]["models"][name] = summary(335, 332, 334, 331, rho=0.3)
+        a["descriptive_coding_gc_strata"]["middle"]["models"][name] = summary(
+            303, 302, 302, 301, rho=0.3
+        )
+        pair.update(
+            n_common_success=333, n_common_measured=330, lost_reference_successes=1
+        )
+    assert c.check(*write_fixture(tmp_path, docs))["status"] == "consistent"
+
+
+def test_undefined_partial_cohort_correlation_propagates_after_hash_refresh(tmp_path):
+    docs = fixture()
+    a = docs[c.AGGREGATE]
+    name = "control-constant"
+    a["primary"]["models"][name] = summary(335, 332, 334, 331, rho=None)
+    a["descriptive_coding_gc_strata"]["middle"]["models"][name] = summary(
+        303, 302, 302, 301, rho=None
+    )
+    pair = a["descriptive_against_primary_reference"][name]
+    pair.update(n_common_success=334, n_common_measured=331, lost_reference_successes=1)
+    with pytest.raises(c.ReceiptError, match="undefined point"):
+        c.check(*write_fixture(tmp_path, docs))
+    pair.update(
+        rank_gain=None,
+        attempted_draws=0,
+        usable_draws=0,
+        interval95=None,
+        interval_status="undefined_point_correlation",
+    )
+    assert c.check(*write_fixture(tmp_path, docs))["status"] == "consistent"
+
+
+@pytest.mark.parametrize("n", [3, 4, 19, 20, 21, 40])
+def test_runtime_quantiles_from_actual_sorted_times(n):
+    # Independent stdlib median and explicit sorted samples, not validator formulas.
+    for times in itertools.combinations_with_replacement((0, 1, 3), n):
+        row = summary(n, n)
+        row["runtime_seconds"].update(
+            sum=sum(times),
+            median=statistics.median(times),
+            maximum=times[-1],
+        )
+        # nearest rank ceil(.95*n), expressed independently via Decimal ceiling
+        # below to avoid float rounding in the ordinary sample percentile.
+        rank = int((Decimal("0.95") * n).to_integral_value(rounding=ROUND_CEILING))
+        row["runtime_seconds"]["p95_nearest_rank"] = times[rank - 1]
+        c.summary(row)
+
+
+@pytest.mark.parametrize(
+    "n,median,p95,maximum,total",
+    [
+        (3, 1, 1, 1, 1),
+        (4, 1, 1, 1, 2),
+        (4, 1, 3, 3, 7),
+        (20, 1, 10, 12, 30),
+        (20, 1, 10, 12, 104),
+    ],
+)
+def test_impossible_quantile_sums(n, median, p95, maximum, total):
+    row = summary(n, n)
+    row["runtime_seconds"].update(
+        sum=total, median=median, p95_nearest_rank=p95, maximum=maximum
+    )
+    with pytest.raises(c.ReceiptError, match="quantile sum bounds"):
+        c.summary(row)
+
+
+def test_nearest_rank_equals_maximum_for_small_samples():
+    row = summary(3, 3)
+    row["runtime_seconds"].update(sum=3, median=1, p95_nearest_rank=1, maximum=2)
+    with pytest.raises(c.ReceiptError, match="nearest-rank maximum"):
+        c.summary(row)
+
+
+def test_impossible_runtime_sum_after_hash_refresh(tmp_path):
+    docs = fixture()
+    a = docs[c.AGGREGATE]
+    for panel, total in (
+        (a["primary"], 3),
+        (a["descriptive_coding_gc_strata"]["low"], 1),
+        (a["descriptive_coding_gc_strata"]["middle"], 1),
+        (a["descriptive_coding_gc_strata"]["high"], 1),
+    ):
+        panel["models"]["control-constant"]["runtime_seconds"]["sum"] = total
+    with pytest.raises(c.ReceiptError, match="quantile sum bounds"):
+        c.check(*write_fixture(tmp_path, docs))
+
+
+def test_gc_partition_maximum_after_hash_refresh(tmp_path):
+    docs = fixture()
+    a = docs[c.AGGREGATE]
+    # Each summary can come from actual times; only the cross-stratum maximum
+    # is inconsistent. Totals still sum to 339 and all other partitions agree.
+    a["primary"]["models"]["control-constant"]["runtime_seconds"].update(
+        sum=339, maximum=4
+    )
+    a["descriptive_coding_gc_strata"]["high"]["models"]["control-constant"][
+        "runtime_seconds"
+    ].update(sum=5, median=5, p95_nearest_rank=5, maximum=5)
+    with pytest.raises(c.ReceiptError, match="GC partition runtime maximum"):
+        c.check(*write_fixture(tmp_path, docs))
+
+
+def test_zero_runtime_sum_accepts_numeric_zero_only():
+    row = summary(3, 2, 0, 0, not_run=3)
+    row["runtime_seconds"]["sum"] = 0.0
+    c.summary(row)
+    row["runtime_seconds"]["sum"] = 1e-16
+    with pytest.raises(c.ReceiptError, match="empty runtime sum"):
+        c.summary(row)
+
+
+@pytest.mark.parametrize("value", [[], None, "unexpected", 0])
+def test_nonobject_publication_context_has_structured_cli_failure(
+    tmp_path, capsys, value
+):
+    root, manifest = write_fixture(tmp_path, fixture())
+    rewrite(root, manifest, c.AGGREGATE, lambda a: a.update(publication_context=value))
+    with pytest.raises(c.ReceiptError, match="publication context: expected object"):
+        c.check(root, manifest)
+    assert c.main(["--root", str(root), "--manifest", str(manifest)]) == 1
+    captured = capsys.readouterr()
+    assert captured.err == ""
+    assert captured.out.count("\n") == 1
+    assert json.loads(captured.out)["status"] == "failed"
