@@ -1,0 +1,83 @@
+{
+  "schema_version": "coupling-request-1",
+  "settings": {
+    "seconds_total": 10
+  },
+  "records": [
+    {
+      "id": "separated",
+      "sequence": "AUGCCCUAAGUGCCCUAG",
+      "strand": "+",
+      "upstream": {
+        "id": "first",
+        "interval": [
+          0,
+          9
+        ]
+      },
+      "downstream": {
+        "id": "second",
+        "interval": [
+          9,
+          18
+        ]
+      },
+      "energies": {
+        "upstream_total_kcal_mol": 0.0,
+        "downstream_independent_total_kcal_mol": 0.0,
+        "beta_mol_per_kcal": 0.45,
+        "provenance": "original synthetic zero-energy arithmetic control; not measured"
+      }
+    },
+    {
+      "id": "overlap",
+      "sequence": "AUGCCAUGACCUAA",
+      "strand": "+",
+      "upstream": {
+        "id": "first",
+        "interval": [
+          0,
+          9
+        ]
+      },
+      "downstream": {
+        "id": "second",
+        "interval": [
+          5,
+          14
+        ]
+      },
+      "energies": {
+        "upstream_total_kcal_mol": 0.0,
+        "downstream_independent_total_kcal_mol": 0.0,
+        "beta_mol_per_kcal": 0.45,
+        "provenance": "original synthetic zero-energy arithmetic control; not measured"
+      }
+    },
+    {
+      "id": "reverse_overlap",
+      "sequence": "UUAGGUCAUGGCAU",
+      "strand": "-",
+      "upstream": {
+        "id": "first",
+        "interval": [
+          5,
+          14
+        ]
+      },
+      "downstream": {
+        "id": "second",
+        "interval": [
+          0,
+          9
+        ]
+      },
+      "energies": {
+        "upstream_total_kcal_mol": 0.0,
+        "downstream_independent_total_kcal_mol": 0.0,
+        "beta_mol_per_kcal": 0.45,
+        "provenance": "original synthetic zero-energy arithmetic control; not measured"
+      }
+    }
+  ]
+}
