@@ -66,6 +66,12 @@ jobs:
           python -m build --no-isolation
           python -m venv .cache/fresh
           .cache/fresh/bin/python -m pip install --no-index --no-deps dist/*.whl
+          .cache/fresh/bin/regsite-coupling examples/coupling-single.json > .cache/coupling-single.json
+          .cache/fresh/bin/regsite-coupling examples/coupling-batch.json > .cache/coupling-batch.json
+          coupling_exit=0
+          .cache/fresh/bin/regsite-coupling examples/coupling-unsupported.json > .cache/coupling-unsupported.json || coupling_exit=$?
+          test "$coupling_exit" -eq 1
+          .cache/fresh/bin/python -c 'import json,math; a=json.load(open(".cache/coupling-single.json")); b=json.load(open(".cache/coupling-batch.json")); c=json.load(open(".cache/coupling-unsupported.json")); assert all(r["schema_version"]=="coupling-result-1" and r["status"]=="complete" and r["model"]["backend"] is None for r in (a,b)); assert math.isclose(a["records"][0]["scores"]["downstream_total"]["value"],1.072); assert len(b["records"])==3; assert all(math.isclose(r["scores"]["downstream_total"]["value"],1.22) for r in b["records"][1:]); assert c["status"]=="partial" and c["records"][0]["status"]=="unsupported_distance" and c["records"][0]["scores"] is None'
           # Scalar conditional inference is portable and uses no folding engine.
           # Exact original arm64 structural admission has a separate local receipt.
           .cache/fresh/bin/regsite-conditional examples/conditional-supplied-half-occupancy.json > .cache/conditional-fraction.json

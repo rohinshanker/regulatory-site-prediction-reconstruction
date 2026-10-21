@@ -252,6 +252,28 @@ is separate from the frozen candidate. See the
 See the [request contract](docs/validation/supplied-transcript-contract.md) and
 [runtime and export semantics](docs/validation/supplied-transcript-runtime.md).
 
+## Calculate a supplied-energy reinitiation contribution
+
+```sh
+.venv/bin/regsite-coupling examples/coupling-single.json
+.venv/bin/regsite-coupling examples/coupling-batch.json
+.venv/bin/regsite-coupling examples/coupling-unsupported.json
+```
+
+This separate component calculates the historical reinitiation contribution
+between two explicitly annotated CDSs using caller-supplied initiation energies.
+It handles either strand and supports only the published coefficient domains:
+stop-to-start distances of 0–25 nt and the specific −4 nt overlap. Unsupported
+geometry retains an explicit failure and null scores. It needs no folding backend.
+
+The component has independent source, arithmetic and implementation reviews,
+including fresh-install synthetic checks. It does not derive energies from
+sequence or implement the full Operon Calculator. The separate RNA-unfolding
+mechanism remains unresolved because two published expressions disagree.
+Scores are relative model quantities, not measured translation rates; native-host
+calibration remains absent. Read the [source boundary](docs/validation/operon-coupling-source.md)
+and [request/result contract](docs/validation/operon-coupling-runtime.md).
+
 ## Conditional aptamer components
 
 The 0.7.0rc1 development runtime provides two explicit components:
