@@ -174,8 +174,9 @@ accepted roster positions survive expiry.
 
 The [build receipt](../../benchmarks/termination/adapter-build-manifest.json)
 binds the original builder output, compiler, native binary and CLI outputs.
-The separate post-repair runtime receipt preserves the original frozen evidence;
-exact implementation recheck remains pending. The source-built ARM64 binary passed365 focused tests with zero
+The [post-repair runtime receipt](../../benchmarks/termination/adapter-runtime-validation.json)
+preserves the original frozen evidence and binds four complete CLI outputs,
+including the frozen boundary control. Exact implementation recheck remains pending. The source-built ARM64 binary passed365 focused tests with zero
 skips and100% coverage of706 statements/186 branches, including every original
 synthetic roster, automatic child stack setup, CLI invocation outside the checkout,
 strict schema validation and missingness. One warning is deliberately produced by
