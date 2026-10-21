@@ -45,7 +45,7 @@ jobs:
           ruff check benchmarks/rbs/structural.py benchmarks/rbs/new_data.py benchmarks/rbs/wave4_*.py benchmarks/rbs/context_panel.py benchmarks/rbs/context_metrics.py benchmarks/rbs/context_collect.py benchmarks/promoter benchmarks/recoding benchmarks/riboswitch
           ruff format --check benchmarks/rbs/structural.py benchmarks/rbs/new_data.py benchmarks/rbs/wave4_*.py benchmarks/rbs/context_panel.py benchmarks/rbs/context_metrics.py benchmarks/rbs/context_collect.py benchmarks/promoter benchmarks/recoding benchmarks/riboswitch
           mypy src/regsite experiments tools
-          python -m pytest --cov=regsite --cov=benchmarks.rbs --cov=benchmarks.promoter --cov=benchmarks.recoding --cov=benchmarks.riboswitch --cov=experiments.rbs --cov=tools.derive_promoter_parameters --cov=tools.measure_promoter_resources --cov=tools.calculator_artifacts --cov-report=term-missing
+          python -m pytest --cov=regsite --cov=benchmarks.rbs --cov=benchmarks.promoter --cov=benchmarks.recoding --cov=benchmarks.riboswitch --cov=experiments.rbs --cov=experiments.promoter --cov=tools.derive_promoter_parameters --cov=tools.measure_promoter_resources --cov=tools.calculator_artifacts --cov-report=term-missing
           git diff --check
       - name: Build and validate both separately licensed repairs
         shell: bash
