@@ -2,6 +2,12 @@
 
 ## Scope and order
 
+- Owner authorization on 2026-10-21 adds Session C for continued producer work.
+  A owns runtime/package integration and bounded offline job execution; B owns
+  independent evidence/evaluation; C owns the separately scoped Operon coupling
+  source/implementation child. Agree exact paths and bases before child dispatch.
+  Reviewed completion receipts trigger concrete next-task handoffs between the
+  coordinators; no duplicate workers or unattended unbounded task creation.
 - Owner authorization on 2026-10-21 resumes producer implementation, including
   the named native Promoter download/pilot and reviewed calculator branch
   integration. A owns runtime/source fidelity/integration; B owns independent

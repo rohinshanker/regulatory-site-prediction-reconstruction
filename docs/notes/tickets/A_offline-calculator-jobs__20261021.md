@@ -4,7 +4,7 @@
 - Status: active
 - Opened: 2026-10-21
 - Updated: 2026-10-21
-- Current State: A coordinates from accepted605d0c2; scoped worker implementation is being assigned. C independently owns Operon translational coupling and B independent scientific evidence/evaluation. No native scoring changes or consumer admission.
+- Current State: A coordinates from accepted605d0c2; Claude implementer DEM-614 owns the isolated jobs worktree froma0914a6. C independently owns Operon translational coupling #60 and B independent scientific evidence/evaluation. No native scoring changes or consumer admission.
 - Verification: Acceptance requires every-path tests, real offline examples, interrupted/resumed runs, identity/corruption rejection, resource measurements and independent exact-patch review; not yet run.
 - Cleanup: Distill accepted usage and integrity rules to validation, remove resolved ticket/queue row, and close only this owned child after final checks.
 - Owner: cyano-calcs-A / baf5b738-1792172297.

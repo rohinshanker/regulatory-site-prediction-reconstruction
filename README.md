@@ -285,9 +285,11 @@ and [immutable package validation](docs/validation/conditional-0.7-candidate.md)
 ## Start a new implementation session
 
 **Producer implementation resumed on 2026-10-21.** A owns runtime and integration;
-B owns independent benchmark/evidence tooling. The active wave combines the
-[native Promoter pilot](docs/validation/promoter-native-pilot-results.md) with
-reviewed calculator components. Agree scope and paths before starting another
+B owns independent benchmark/evidence tooling. The completed
+[native Promoter pilot](docs/validation/promoter-native-pilot-results.md) and reviewed
+calculator components form the next baseline. A now owns bounded offline jobs
+with external artifact storage; owner-added C owns a separate Operon coupling
+component, subject to source/parameter admission. Agree scope and paths before starting another
 assignment, preserve immutable candidates, and freeze new evaluation protocols.
 The cyano preview remains separately held on the
 [paired 0.6 handoff](docs/validation/paired-consumer-preview.md); this producer

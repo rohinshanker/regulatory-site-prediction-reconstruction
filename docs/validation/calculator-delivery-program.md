@@ -1,7 +1,7 @@
 # Calculator delivery for current and recoded sequences
 
 - Purpose: Deliver runnable predictors and comparable outputs for the cyano gene visualizer through a sustained sequence of implementation and independent validation tasks.
-- Scope: Owner-authorized branch development resumed on 2026-10-21; Sessions A and B remain the coordinators.
+- Scope: Owner-authorized branch development resumed on 2026-10-21; A handles integration, B independent evaluation and C the Operon coupling stream.
 - Last verified: 2026-10-21
 
 ## Current implementation and consumer boundaries
@@ -14,6 +14,15 @@ its evaluation protocol before execution, and retain complete failures and
 source identities. The [integrated development build](integrated-runtime-build.md) combines that
 pilot with already reviewed calculator components. Its local gates and exact
 archive identity do not replace publication or consumer admission.
+
+The next producer wave uses the accepted integrated source at
+`605d0c25066de937d124e69fe42be3c40bb2e749`. A owns bounded offline execution with
+external artifacts and verified resume. Owner-added C owns a separate Operon
+translational-coupling child, starting with source/parameter admission and
+independent mathematical fixtures. C may implement only mechanisms established
+by those sources; ambiguity remains explicit. This adds no host calibration,
+full Operon equivalence or consumer-admission claim. B retains evaluation
+independence and agrees any disjoint oracle paths before implementation.
 
 The prior consumer priority does not pause this producer wave. It still limits
 the consumer: preserve the [immutable paired preview handoff](paired-consumer-preview.md),
@@ -84,11 +93,25 @@ inform transcript context and conditional localization, not translation strength
 
 ## Execution and validation
 
-Use separate writer worktrees and the existing Multica roles; preserve one
-Claude implementer slot per coordinator where available. Terminal provider
+Use separate writer worktrees and the existing Multica roles; reserve available
+implementer slots explicitly rather than assuming one per coordinator. Terminal provider
 failure is checked before fallback; do not disguise scientific tasks. Each
 coordinator runs at most two child tasks concurrently and reviews exact patches.
-No additional coordinator or repeated broad source crawl is needed.
+The owner added C explicitly; do not launch further coordinators or repeat broad
+source crawls. A provider-refused task remains stopped, with no disguised retry
+or reroute. The #58 thesis-audit and subsequent refused analysis-review scopes
+are separate from C's new coupling component and stay stopped.
+
+On completion of a bounded child, send the integration owner exact base/result
+hashes, admitted contract decisions, tests, artifact locations, unresolved findings
+and one proposed unblocked next task. A reviews the receipt and sends the next
+concrete assignment; B or C may wake an idle A with that receipt and continuation
+request. Confirm ownership, dependencies, scientific evidence and resource budget
+before dispatch. Do not create empty message loops, duplicate coordinators or
+automatically promote unreviewed scientific results. Existing blocked work is not
+made ready by spare capacity. Continue through independent ready tickets during
+the authorized working period; pause a dependency only when its required evidence
+or owner decision is absent.
 
 During edits run focused tests. At integration run the required full gates once;
 repeat only for changed code or unresolved failures. Preserve old source/data
