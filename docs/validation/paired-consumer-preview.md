@@ -2,7 +2,7 @@
 
 - Purpose: Supply the smallest admitted RBS/Promoter paired artifact for a bounded visualizer preview.
 - Scope: Existing 0.6.0rc1 package and synthetic examples; no new calculator expansion or publication.
-- Last verified: 2026-10-18
+- Last verified: 2026-10-21
 
 ## Immutable inputs
 
@@ -77,8 +77,11 @@ against consumed/private outcomes. Any later bounded scoring uses the exact
 package and explicit caller settings; Promoter needs only Python, while RBS
 requires the separately admitted backend. No broad genome run is part of preview.
 
-Broad calculator expansion, the unaccepted portable-original-backend task and
-the new transcript-adapter task are paused. Preserve the existing 0.8 CI without
-making it a preview dependency. This handoff authorizes no new credentials,
+Producer implementation resumed on 2026-10-21 under the
+[delivery program](calculator-delivery-program.md), while this preview stays
+bounded and held by PV-R1. A new transcript adapter and the unaccepted
+portable-original-backend task are outside the current wave. Preserve the
+existing 0.8 CI without making it a preview dependency. This handoff authorizes
+no new credentials,
 privileges, account/coin use, main merge, tag, deployment or production admission.
 Consumer code and rendered tests stay with B; package integrity stays with A.

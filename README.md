@@ -279,7 +279,9 @@ reviewed calculator components. Agree scope and paths before starting another
 assignment, preserve immutable candidates, and freeze new evaluation protocols.
 The cyano preview remains separately held on the
 [paired 0.6 handoff](docs/validation/paired-consumer-preview.md); this producer
-wave does not authorize consumer admission or publication.
+wave does not authorize consumer admission or publication. A new transcript
+adapter and the unaccepted portable-original-backend assignment are outside
+this wave; a new backend build does not grant conditional admission.
 
 Read the [current release guide](docs/validation/rbs-0.4-release.md),
 [independent Wave 4 result](docs/validation/rbs-wave4-results.md) and live ticket

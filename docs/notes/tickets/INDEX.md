@@ -9,6 +9,8 @@ calculator components. Agree disjoint paths before dispatch; freeze evaluations
 before execution and preserve immutable evidence. Consumer preview PV-R1 and
 stopped DEM-577/568 remain held. The [paired handoff](../../validation/paired-consumer-preview.md)
 does not change, and consumer admission/publication retain separate gates.
+A new transcript adapter and the unaccepted portable-original-backend assignment
+are outside this wave; conditional admission does not follow from a new build.
 
 The [continuing delivery program](../../validation/calculator-delivery-program.md)
 orders current/recoded prediction and portable consumer outputs after the

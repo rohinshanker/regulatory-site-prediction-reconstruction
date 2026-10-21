@@ -1,29 +1,31 @@
 # Calculator delivery for current and recoded sequences
 
 - Purpose: Deliver runnable predictors and comparable outputs for the cyano gene visualizer through a sustained sequence of implementation and independent validation tasks.
-- Scope: Owner-authorized branch development on 2026-10-18; Sessions A and B remain the coordinators.
-- Last verified: 2026-10-18
+- Scope: Owner-authorized branch development resumed on 2026-10-21; Sessions A and B remain the coordinators.
+- Last verified: 2026-10-21
 
-## Current priority override
+## Current implementation and consumer boundaries
 
-The owner has paused broad calculator expansion in favor of a bounded cyano
-prediction display. Preserve all reviewed candidates and pending CI. The
-previously proposed portable original-backend and new supplied-transcript adapter
-assignments were not accepted or started by B and must not be launched.
-The delivery sequence below is retained as deferred scope, not an active mandate.
+The owner resumed producer implementation on 2026-10-21, explicitly including
+source download and the named native Promoter pilot. A owns runtime, source
+fidelity and integration; B owns independent benchmark/evidence tooling. Agree
+an exact base and disjoint paths before dispatching each bounded task, freeze
+its evaluation protocol before execution, and retain complete failures and
+source identities. The active wave combines that pilot with already reviewed
+calculator components.
 
-B coordinates `work/prediction-display-20261019` in an isolated consumer worktree
-from `07b27ed283241af9d964dabf62f0507f07d25310`. Existing TSS edit-count UI is
-already present. A supplies the [paired preview handoff](paired-consumer-preview.md)
-and owns producer integrity; B owns consumer inventory, implementation and rendered
-verification. Prefer accurately scoped Claude work through the established routing
-policy. Codex retains integration and allowed tasks Claude cannot perform; never
-disguise tasks or switch providers to bypass safeguards.
+The prior consumer priority does not pause this producer wave. It still limits
+the consumer: preserve the [immutable paired preview handoff](paired-consumer-preview.md),
+open PV-R1 and stopped DEM-577/568. Do not retry or reroute stopped work. This
+wave does not start a new transcript adapter or the unaccepted portable-original-
+backend assignment. Building an original backend does not grant conditional
+structural admission; its existing exact-binary gate remains unchanged.
 
-This preview does not authorize new fitting, private-outcome access, broad genome
-runs, new credentials/privileges, accounts/coins, main merges, tags or deployment.
-Publication and production consumer admission remain separate. New calculator
-expansion requires an explicit owner instruction to resume it.
+Publication and production consumer admission remain separate. This producer
+wave does not authorize new fitting, private-outcome tuning, paid collection,
+new credentials/privileges, main merges, tags or deployment. Prefer accurately
+scoped work through the established routing policy; never switch providers or
+disguise tasks to bypass safeguards.
 
 The owner requested continued long-horizon implementation across multiple ticket
 sets. The [Wave 5 program](wave5-program.md) records the parallel-development
