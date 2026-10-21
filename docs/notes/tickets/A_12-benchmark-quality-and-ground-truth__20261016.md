@@ -63,3 +63,5 @@ broader benchmark-quality parent remains active.
 Raw-data hashes/licences, metric reproduction commands, split-overlap audits,
 denominators/outlier sensitivity, confidence intervals, and an independent check
 of high-impact accuracy claims. A literature summary alone does not complete this ticket.
+
+The independent [count-association protocol](../../validation/promoter-count-association.md) is frozen for the new anchor-centered original-source pilot. This is an exposed-cohort association analysis, not held-out confirmation, calibration, or consumer admission. Session B owns its separate tooling child while Session A owns source execution and integration.
