@@ -4,7 +4,7 @@
 - Status: active
 - Opened: 2026-10-21
 - Updated: 2026-10-21
-- Current State: C activated A's queued continuation after reviewed coupling handoff `eed4b0f`. TransTermHP 2.09 is an unadmitted lead; public implementation/parameter/license intake only. No runtime or external executable run yet.
+- Current State: C activated A's queued continuation after reviewed coupling handoff `eed4b0f`. Pinned TransTermHP 2.09 source, required table and one maintained compiler-compatibility patch; proposed unannotated-fragment candidate contract and scalar fixtures frozen for independent review. No runtime or external executable run yet; C requested one bounded process slot from A before compilation/synthetic smoke.
 - Verification: Exact base `605d0c25066de937d124e69fe42be3c40bb2e749`, isolated `reconstruction-intrinsic-termination-20261021`, branch `wave7/intrinsic-termination`. Disk check shows 50 GiB available; acquisition cap 10 MiB total with each source archive capped at 5 MiB.
 - Cleanup: C alone resolves this child after review, validation and finding disposition; distill reusable source/runtime contracts, update indexes and linked issue, then delete resolved ticket. #8 and coupling-unfolding gate remain open.
 - Owner: cyano-calcs-c / 56abed60-1792619583; A owns common integration, B scientific evaluation.

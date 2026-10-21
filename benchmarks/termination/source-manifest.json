@@ -1,0 +1,240 @@
+{
+  "schema_version": "intrinsic-termination-source-1",
+  "admission": "pending independent source/math review and bounded executable smoke",
+  "upstream_version": "2.09",
+  "embedded_banner_version": "2.08",
+  "manual_heading_version": "2.07",
+  "source_archive": {
+    "name": "transterm_hp_v2.09.zip",
+    "url": "https://transterm.cbcb.umd.edu/transterm_hp_v2.09.zip",
+    "bytes": 1827662,
+    "sha256": "b636db1c0fe9731cc760d8f3639209d07f7f35309d83013cc9f9e40798ce8be0"
+  },
+  "paper": {
+    "name": "PMC1852404.xml",
+    "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC1852404/fullTextXML",
+    "bytes": 118573,
+    "sha256": "eed9e77999159b83040fe382a7b238b35912a39b315257f7c96c10a0af536e6e"
+  },
+  "source_members": [
+    {
+      "name": "seq.cc",
+      "bytes": 21734,
+      "sha256": "e4191d4e3413225b3c094ab8cbf90a5f18f8b6147bf62d04b5006063dba72fc9"
+    },
+    {
+      "name": "distr.cc",
+      "bytes": 1796,
+      "sha256": "a4904dddd89540659aaf9163de5ed45f16d6f89c9138a2e44fc4356716af2bb6"
+    },
+    {
+      "name": "util.cc",
+      "bytes": 1380,
+      "sha256": "ac96c5a7d74b84375c1be6f5e0b481f8ff9b5c0b40f6fc97387e3a04333fc0af"
+    },
+    {
+      "name": "map-output.cc",
+      "bytes": 11307,
+      "sha256": "7625987cea806fa3ac275b75d106604daedc289206c42298481c203b3e1ac916"
+    },
+    {
+      "name": "gene-reader.cc",
+      "bytes": 4322,
+      "sha256": "24f9c7c4646e46d74c8c31ddedd01930dbbf95ad05966756349e1b07b2d72561"
+    },
+    {
+      "name": "search.cc",
+      "bytes": 26860,
+      "sha256": "99485a83b2c7aa27ab7bc9e5e81c0a7abd55b9c02f3bd873d4d1ba29ebe366ce"
+    },
+    {
+      "name": "conf.cc",
+      "bytes": 22919,
+      "sha256": "7d516630057b9a00d75d53cc68e4469a936bad74ef4947ce2c85a507177283c9"
+    },
+    {
+      "name": "ermolaeva-score.cc",
+      "bytes": 2561,
+      "sha256": "b510b6957d2b76de57b35ad78eec96143d4322ab4c8da932ce26d9ba1ac29cc1"
+    },
+    {
+      "name": "ermolaeva-oldconf.cc",
+      "bytes": 11391,
+      "sha256": "17754139153a74a8631e07c69867a4bec6a8cc2926ca0a30c7b848e05c3a2ec2"
+    },
+    {
+      "name": "analysis.cc",
+      "bytes": 12913,
+      "sha256": "c85f4f989cc94be0ca643734dd16d409d34835c1de155d00bf9706a5e7022e42"
+    },
+    {
+      "name": "anti.cc",
+      "bytes": 1837,
+      "sha256": "da0d46b687dc9c70ebfb91c426c576645bf9342de74ee5b6497ce7a59be8a77d"
+    },
+    {
+      "name": "transterm.cc",
+      "bytes": 10652,
+      "sha256": "e4d3012ed66c8ae997431a3be0cfd2a93c2a08262574aaa3a552e0a5dc13971a"
+    },
+    {
+      "name": "2ndscore.cc",
+      "bytes": 7315,
+      "sha256": "dabbde3411c4b33d02f8d2cc6050bdd55068401aa80ba0c697da8cfc2ab29f74"
+    },
+    {
+      "name": "analysis.h",
+      "bytes": 382,
+      "sha256": "d148da0cc74d9190571a4f7c97d3ba7d350e51e1dc3f494bbfa5337967ca293f"
+    },
+    {
+      "name": "conf.h",
+      "bytes": 2770,
+      "sha256": "55ff2f6b7c2a3fb87f29b2b4f3a516f57c3cc1a4e4b7ba149a18a8d23b15ec7d"
+    },
+    {
+      "name": "distr.h",
+      "bytes": 1989,
+      "sha256": "83f192627886cd18477606faf3835eafa197eb1193d67207c68e3808c13caf2a"
+    },
+    {
+      "name": "ermolaeva-score.h",
+      "bytes": 3127,
+      "sha256": "118cf5cf3e581e61d5d15714c9f19d31db489e845d469574b916351fdb936f88"
+    },
+    {
+      "name": "gene-reader.h",
+      "bytes": 1101,
+      "sha256": "aed58d1d784db0a450997087cd7e4819220136b41e2edf2dfd029cfc54d08446"
+    },
+    {
+      "name": "map-output.h",
+      "bytes": 405,
+      "sha256": "8b20f0969c73b5896e8f1739929b843d86c7a876f53784d2a8d5f7464ced5ce4"
+    },
+    {
+      "name": "search.h",
+      "bytes": 199,
+      "sha256": "52f25b356ade6f666286e402373c323811d159f4d3b8338d29dac18925d5b2c6"
+    },
+    {
+      "name": "seq.h",
+      "bytes": 8112,
+      "sha256": "f082110f14faf61de918b4a18884feb536e10fbef95691f6fcc22c145644a8a9"
+    },
+    {
+      "name": "transterm.h",
+      "bytes": 374,
+      "sha256": "d7aad871e12bd7c5b322b2965449d2b7c26eca025b8f629964344356ab1aa426"
+    },
+    {
+      "name": "util.h",
+      "bytes": 479,
+      "sha256": "9f0efef911c924ce19cc44dd638e44412e8af7dcda4cb1cfa93ff8743fb77d9b"
+    },
+    {
+      "name": "USAGE.txt",
+      "bytes": 15919,
+      "sha256": "277728b462800a2cbae32587382e360c9d72bc41ae07674001324c6343679b3d"
+    },
+    {
+      "name": "expterm.dat",
+      "bytes": 45788,
+      "sha256": "fce89a92ab487aaea5a54015e859e1fb5e31f4f9985c9df7831ee09a367db1fe"
+    },
+    {
+      "name": "LICENSE.txt",
+      "bytes": 18009,
+      "sha256": "204d8eff92f95aac4df6c8122bc1505f468f3a901e5a4cc08940e0ede1938994"
+    },
+    {
+      "name": "RELEASE-NOTES.txt",
+      "bytes": 617,
+      "sha256": "6da090a4dab80c1b9f677ef360e46a46cca40ea0e2728e051d27ecb7edd19ec1"
+    },
+    {
+      "name": "calibrate.sh",
+      "bytes": 3314,
+      "sha256": "5b403e6093ff781479079448e680a750642eb4c219b3f9de3c41e6f95917fe9a"
+    },
+    {
+      "name": "random_fasta.py",
+      "bytes": 1016,
+      "sha256": "b9e889df172566d592d83e0e722f41b701b0639451c2cbbc99742a3825f15c15"
+    },
+    {
+      "name": "make_expterm.py",
+      "bytes": 5627,
+      "sha256": "1b8512f78ff243613e99b384423e885edd21f9ce3b65a8afd8f578f770071785"
+    },
+    {
+      "name": "mfold_rna.sh",
+      "bytes": 277,
+      "sha256": "f530db9743a3c369dd7571994a99ea63cc753d2b99fcb41f4f058a0b8d0f272b"
+    },
+    {
+      "name": "Makefile",
+      "bytes": 2432,
+      "sha256": "7f2bc92d9a024da22e5c160558adf42608c524b27a592c469d17b09e1d32f247"
+    }
+  ],
+  "compatibility_patch": {
+    "name": "0002-read_seq-return-NULL-instead-of-false.patch",
+    "url": "https://sources.debian.org/data/main/t/transtermhp/2.09-5/debian/patches/0002-read_seq-return-NULL-instead-of-false.patch",
+    "bytes": 1000,
+    "sha256": "9bbfc2ced3df5332ec41b61bf23ca9acaf030cce3a3688f6c1c7468a5961ba6c"
+  },
+  "background": {
+    "file": "expterm.dat",
+    "sha256": "fce89a92ab487aaea5a54015e859e1fb5e31f4f9985c9df7831ee09a367db1fe",
+    "sample_size": 20000000,
+    "bins_per_dimension": 25,
+    "at_percent_tables": [
+      26,
+      28,
+      30,
+      32,
+      34,
+      36,
+      38,
+      40,
+      42,
+      44,
+      46,
+      48,
+      50,
+      52,
+      54,
+      56,
+      58,
+      60,
+      62,
+      64,
+      66,
+      68,
+      70,
+      72,
+      74,
+      76,
+      78,
+      80,
+      82,
+      84
+    ]
+  },
+  "terms": {
+    "primary_headers": "GNU GPL version2.0; treat conservatively as GPL-2.0-only",
+    "debian_metadata": "GPL-2.0+; discrepancy not used to broaden primary grant",
+    "required_parameter_file": "included in upstream archive; no separate restrictive notice identified",
+    "distribution": "separately installed external executable/table; source archive/binaries not vendored"
+  },
+  "excluded": [
+    "termination_efficiency",
+    "readthrough_probability",
+    "expression",
+    "host_calibration",
+    "experimental_collection",
+    "parameter_refitting",
+    "De Novo DNA equivalence"
+  ]
+}
