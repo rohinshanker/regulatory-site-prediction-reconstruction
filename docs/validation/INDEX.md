@@ -4,6 +4,7 @@ Verification dates cover the stated source observations or specification review;
 
 | Area | Purpose | Last verified | Document |
 | --- | --- | --- | --- |
+| rbs-kinetics-source-admission | Supplied-rate drafting mathematics, exact scalar fixtures and explicit non-admission of automatic sequence-derived kinetics. | 2026-10-21 | [rbs-kinetics-source-admission.md](rbs-kinetics-source-admission.md) |
 | offline-calculator-jobs | Fixed local calculator commands, external byte-bound artifacts, process supervision, failure accounting and verified resume. | 2026-10-21 | [offline-calculator-jobs.md](offline-calculator-jobs.md) |
 | coupling-0.9-candidate | Exact reviewed reinitiation package, fresh offline installation and independent/local validation boundary. | 2026-10-21 | [coupling-0.9-candidate.md](coupling-0.9-candidate.md) |
 | rbs-host-transfer | Cross-host evaluation design, source-admission status and explicit unmeasured UTEX outcomes. | 2026-10-21 | [rbs-host-transfer.md](rbs-host-transfer.md) |
