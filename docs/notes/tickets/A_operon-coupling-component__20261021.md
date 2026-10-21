@@ -9,6 +9,7 @@
 - Cleanup: Session C alone closes this child after recording every finding and final validation, distilling reusable contracts, updating both indexes and the linked issue, then removing the resolved ticket. Broad #8 remains open.
 - Owner: cyano-calcs-c / 56abed60-1792619583; A owns integration and B independent evaluation.
 - Parent: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/8
+- GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/60
 
 ## Constraints and acceptance
 
@@ -43,3 +44,12 @@ Coordinate before any folding execution; two local folding processes globally.
 - C-SOURCE-2 open: energy decomposition/backend support and upstream source search.
 - C-REVIEW-1 open: independent source/math admission before model implementation.
 - C-REVIEW-2 open: exact implementation review and final package tests.
+
+## Active assignments
+
+- DEM-615: GPT-6 Astra independent source/mathematical review of `deb3e2f`.
+- DEM-616: GPT-6.1 Sol source-independent geometry validator only, separate
+  `reconstruction-coupling-geometry-20261021` worktree; no model calculations.
+- C retains runtime/contract integration. Initial source contract narrows the
+  proposed admitted scope to reinitiation; printed Eqs. 4/5 have an unresolved
+  unfolding/sign interpretation and negative-distance coefficients remain gated.
