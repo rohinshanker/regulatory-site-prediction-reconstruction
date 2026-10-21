@@ -1,5 +1,7 @@
 # Native Promoter count association
 
+- Purpose: Reproduce a frozen exploratory model/count association with honest source and uncertainty boundaries.
+- Scope: Offline producer benchmark tooling for the original-source native Promoter pilot; no runtime or browser admission.
 - Last verified: 2026-10-21
 
 This producer-side analysis uses a frozen, exposed Tan cohort to describe association between historical E. coli model rates at recorded UTEX TSS bases and source-reported initiation counts. It does not calibrate promoter strength, establish causal regulation, measure specificity, or admit predictions to the browser. The earlier fixed-grid Wave 5 analysis consumed Tan labels; this anchor-centered analysis is exploratory.
