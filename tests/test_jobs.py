@@ -2301,3 +2301,131 @@ def test_unpublished_launch_record_never_starts_calculator(
     assert not (attempt(out, "a", 1) / "launch.json").exists()
     resumed = jobs.resume_campaign(manifest, out)
     assert resumed["jobs"][0]["state"] == "succeeded" and os.path.exists(marker)
+
+
+# Remaining-boundary corrections (DEM-621 recheck R9/N1) -----------------------
+
+
+@pytest.mark.parametrize("rewrite", ["stored", "removed", "stale"])
+def test_late_summary_publication_reports_deadline(
+    area: Path, synthetic: None, monkeypatch: pytest.MonkeyPatch, rewrite: str
+) -> None:
+    manifest, out = campaign(area, [{"id": "a"}], seconds_total=1)
+    real_publish, real_unlink, writes = jobs._publish, os.unlink, []
+
+    def slow(parent: int, name: str, data: bytes, replace: bool = False) -> None:
+        if name == "summary.json":
+            writes.append(json.loads(data))
+            if len(writes) == 1:
+                time.sleep(1.2)  # Slow, but successful, final publication.
+            elif rewrite != "stored":
+                raise OSError(28, "No space left on device")
+        real_publish(parent, name, data, replace)
+
+    def unlink(path: str, *args: object, **kwargs: object) -> None:
+        if path == "summary.json":
+            raise OSError(13, "Permission denied")
+        real_unlink(path, *args, **kwargs)  # type: ignore[arg-type]
+
+    with monkeypatch.context() as patch:
+        patch.setattr(jobs, "_publish", slow)
+        if rewrite == "stale":
+            patch.setattr(jobs.os, "unlink", unlink)
+        summary = jobs.run_campaign(manifest, out)
+    assert summary["status"] == "complete"
+    assert summary["stop_reason"] == "campaign_deadline"
+    assert jobs.exit_code(summary) == 3
+    assert [write["stop_reason"] for write in writes] == [None, "campaign_deadline"]
+    stored = Path(out) / "summary.json"
+    if rewrite == "stored":
+        assert load(stored) == summary
+    elif rewrite == "removed":
+        assert not stored.exists()
+    else:
+        assert load(stored)["stop_reason"] is None  # Documented best-effort limit.
+    assert jobs.verify_campaign(manifest, out)["status"] == "complete"
+    resumed = jobs.resume_campaign(manifest, out)
+    assert (resumed["attempts"], jobs.exit_code(resumed)) == (1, 0)
+
+
+CACHE_PROBE = r"""
+import json, sys, time
+from regsite import jobs
+try:
+    jobs.code_fingerprint(sys.argv[1], time.monotonic() + 5)
+    print(json.dumps({"error": None}))
+except jobs.JobError as error:
+    print(json.dumps({"error": error.code}))
+"""
+
+
+def probe_caches(package: Path) -> str | None:
+    """Fingerprint in a finite child, so a blocking regression cannot hang tests."""
+    child = subprocess.run(
+        [sys.executable, "-c", CACHE_PROBE, str(package)],
+        capture_output=True,
+        timeout=20,
+        check=False,
+        env={**os.environ, "PYTHONDONTWRITEBYTECODE": "1"},
+    )
+    assert child.returncode == 0, child.stderr
+    return json.loads(child.stdout)["error"]
+
+
+@pytest.mark.parametrize(
+    ("kind", "error"),
+    [
+        ("missing", None),
+        ("valid", None),
+        ("fifo", "bytecode_unavailable"),
+        ("directory", "bytecode_unavailable"),
+        ("file_symlink", "bytecode_unavailable"),
+        ("directory_symlink", "bytecode_unavailable"),
+        ("pycache_file", "bytecode_unavailable"),
+    ],
+)
+def test_cache_paths_are_read_without_blocking_or_links(
+    area: Path, kind: str, error: str | None
+) -> None:
+    package = area / "package"
+    package.mkdir()
+    source = package / "ordinary.py"
+    source.write_text("value = 1\n")
+    cache = Path(importlib.util.cache_from_source(str(source)))
+    valid = area / "valid.pyc"
+    py_compile.compile(str(source), cfile=str(valid), doraise=True)
+    if kind == "valid":
+        cache.parent.mkdir()
+        shutil.copyfile(valid, cache)
+    elif kind == "fifo":
+        cache.parent.mkdir()
+        os.mkfifo(cache)
+    elif kind == "directory":
+        cache.mkdir(parents=True)
+    elif kind == "file_symlink":
+        cache.parent.mkdir()
+        cache.symlink_to(valid)
+    elif kind == "directory_symlink":
+        (area / "real-cache").mkdir()
+        shutil.copyfile(valid, area / "real-cache" / cache.name)
+        cache.parent.symlink_to(area / "real-cache")
+    elif kind == "pycache_file":
+        cache.parent.write_text("not a directory")
+    assert probe_caches(package) == error
+    if kind != "fifo":  # Cases that cannot block are also checked in-process.
+        if error is None:
+            assert jobs.code_fingerprint(str(package))["files"] == 1
+        else:
+            with pytest.raises(jobs.JobError, match=error):
+                jobs.code_fingerprint(str(package))
+
+
+def test_oversized_cache_is_refused(
+    area: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    source = area / "m.py"
+    source.write_text("value = 1\n")
+    py_compile.compile(str(source), doraise=True)
+    monkeypatch.setattr(jobs, "MAX_CACHE_BYTES", 10)
+    with pytest.raises(jobs.JobError, match="bytecode_too_large"):
+        jobs._check_bytecode(str(source), source.read_bytes())

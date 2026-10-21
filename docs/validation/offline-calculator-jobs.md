@@ -143,13 +143,24 @@ the budget refuses with `campaign_deadline` (exit 2; `run` creates nothing). A
 post-job identity check that cannot finish within the budget, or finishes after
 it, makes that attempt `campaign_deadline` (non-terminal; resume re-runs it).
 After the last job, an elapsed deadline sets `stop_reason: "campaign_deadline"`
-(exit 3), so an overrun never reports exit 0. Remaining limits: one
-`RnaStructure.open` call cannot be interrupted without changing that module and
-can overrun by its own bounds (three `--version` runs of at most 10 seconds each,
-plus hashing its tables and binaries). Individual filesystem calls and
-scheduling delays are not preempted. The budget is therefore a strict bound on
-calculator execution and a checked, slightly overrunnable bound on the whole
-invocation.
+(exit 3). Time is checked again after `summary.json` is stored: if storing it
+crossed the deadline, the summary is rewritten once with `campaign_deadline`;
+if that rewrite fails, the stored summary is removed (best effort) and the
+returned summary still reports `campaign_deadline`. No further check follows,
+so the deadline status is never revisited. Within these checks an overrun never
+reports exit 0.
+
+What is not bounded: the deadline is enforced by preemption only for calculator
+processes. Everything else runs to completion and is checked afterwards. That
+covers each package-file read and hash, each bytecode compile check, one
+`RnaStructure.open` call (three `--version` runs with a 10-second timeout each,
+plus hashing its tables and binaries; it cannot be interrupted without changing
+that module), each conditional-verifier read, every directory, file, fsync and
+publication call of setup, inspection, receipts and the summary, and process
+scheduling delays. The invocation's wall time can exceed `seconds_total` by the
+duration of whichever such step is in progress at the deadline, plus at most the
+two 2-second termination phases. No hard filesystem or whole-invocation wall
+bound is provided.
 
 ## Output directory and identity
 
@@ -185,8 +196,12 @@ a package source (`__pycache__` for the calculators' default and the runner's
 checked-hash and unchecked-hash rules) must hold code equal to compiling that
 source; otherwise identity refuses `stale_bytecode`. The source hash thus also
 binds the bytecode either process executes. Caches Python would reject and
-recompile are ignored, and legitimate caches do not change identity. The check
-is an observation at identity time, before and after each job. The interpreter
+recompile are ignored, and legitimate caches do not change identity. Caches are
+opened without blocking and without following a symlinked cache file or
+`__pycache__` directory; a FIFO, directory, symlink or cache over 67,108,864
+bytes at a cache path refuses with `bytecode_unavailable` or
+`bytecode_too_large` rather than being skipped. The check is an observation at
+identity time, before and after each job. The interpreter
 identity covers Python implementation, `sys.version`, cache tag, platform,
 machine and the resolved interpreter executable's SHA-256 (not the standard
 library tree). Backend identity reuses unchanged verifiers:

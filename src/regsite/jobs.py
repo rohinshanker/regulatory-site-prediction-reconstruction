@@ -50,6 +50,7 @@ KINDS = ("rbs", "promoter", "compare", "transcript", "conditional")
 MAX_MANIFEST_BYTES = 1_048_576
 MAX_RECORD_BYTES = 1_048_576
 MAX_REQUEST_BYTES = 4_000_000
+MAX_CACHE_BYTES = 67_108_864
 MAX_JOBS = 256
 MAX_ATTEMPTS = 8
 MAX_PATH = 1024
@@ -498,6 +499,29 @@ def _cache_accepted(data: bytes, info: os.stat_result, source: bytes) -> bool:
 _EQUIVALENT: dict[tuple[str, str, int], bool] = {}
 
 
+def _read_cache(cache: str) -> bytes | None:
+    """Read a cache that exists without blocking or following a final symlink.
+
+    A missing cache or cache directory is None. Anything Python might read but
+    this cannot verify (FIFO, directory, symlink, oversized) refuses.
+    """
+    directory, name = os.path.split(cache)
+    try:
+        fd = os.open(directory, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW)
+    except FileNotFoundError:
+        return None
+    except OSError as error:
+        raise JobError("bytecode_unavailable") from error
+    try:
+        try:
+            os.stat(name, dir_fd=fd, follow_symlinks=False)
+        except FileNotFoundError:
+            return None
+        return _read(fd, name, MAX_CACHE_BYTES, "bytecode")
+    finally:
+        os.close(fd)
+
+
 def _check_bytecode(path: str, source: bytes) -> None:
     """Refuse a cache import would accept unless its code equals the source's."""
     directory, name = os.path.split(path)
@@ -509,12 +533,8 @@ def _check_bytecode(path: str, source: bytes) -> None:
         (default, 0),
         (importlib.util.cache_from_source(path), sys.flags.optimize),
     }:
-        try:
-            with open(cache, "rb") as stream:
-                data = stream.read()
-        except FileNotFoundError:
-            continue
-        if not _cache_accepted(data, info, source):
+        data = _read_cache(cache)
+        if data is None or not _cache_accepted(data, info, source):
             continue
         key = (_sha256(source), _sha256(data), optimize)
         if key not in _EQUIVALENT:
@@ -1400,6 +1420,30 @@ def _create_campaign(
         raise JobError("storage_error") from error
 
 
+def _store_summary(out: int, summary: dict, deadline: float) -> dict:
+    """Persist the summary; a deadline crossed while storing is never success.
+
+    A late publication is rewritten once with campaign_deadline. If that rewrite
+    fails, the stale stored success claim is removed (best effort); receipts stay
+    authoritative and the returned summary reports the deadline either way.
+    """
+    try:
+        _publish(out, "summary.json", _encode(summary), replace=True)
+    except OSError:
+        summary["stop_reason"] = summary["stop_reason"] or "storage_error"
+        return summary
+    if summary["stop_reason"] is None and time.monotonic() >= deadline:
+        summary["stop_reason"] = "campaign_deadline"
+        try:
+            _publish(out, "summary.json", _encode(summary), replace=True)
+        except OSError:
+            try:
+                os.unlink("summary.json", dir_fd=out)
+            except OSError:
+                pass
+    return summary
+
+
 def _group_alive(pgid: int) -> bool:
     try:
         os.killpg(pgid, 0)
@@ -1457,11 +1501,7 @@ def _drive(
                 if stop is None and time.monotonic() >= deadline:
                     stop = "campaign_deadline"
                 summary = _summary(command, manifest, raw, campaign, states, stop)
-                try:
-                    _publish(out, "summary.json", _encode(summary), replace=True)
-                except OSError:
-                    summary["stop_reason"] = stop or "storage_error"
-                return summary
+                return _store_summary(out, summary, deadline)
             finally:
                 os.close(lock)
 
