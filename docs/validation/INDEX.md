@@ -5,7 +5,7 @@ Verification dates cover the stated source observations or specification review;
 | Area | Purpose | Last verified | Document |
 | --- | --- | --- | --- |
 | integrated-runtime-build | Exact combined development package, offline installation, source identity and retained admission boundaries. | 2026-10-21 | [integrated-runtime-build.md](integrated-runtime-build.md) |
-| promoter-count-association | Frozen exploratory count association, input-only context strata and independent offline evaluation. | 2026-10-21 | [promoter-count-association.md](promoter-count-association.md) |
+| promoter-count-association | Frozen exploratory count association, independent offline evaluation and aggregate artifact receipt. | 2026-10-21 | [promoter-count-association.md](promoter-count-association.md) |
 | promoter-native-pilot-parity | Original-source native pilot kernel parity: frozen schema/protocol pins, outcome-free full-cohort identity, full denominators, tie/summary recomputation and explicit failure categories. | 2026-10-21 | [promoter-native-pilot-parity.md](promoter-native-pilot-parity.md) |
 | promoter-native-pilot-results | Original-source anchor-centered Tan localization, complete cohort accounting, source/result pins and exposed-cohort limits. | 2026-10-21 | [promoter-native-pilot-results.md](promoter-native-pilot-results.md) |
 | promoter-public-receipt-audit | Public-only frozen receipt identities, arithmetic, unchecked dependencies and deterministic verification contract. | 2026-10-19 | [promoter-public-receipt-audit.md](promoter-public-receipt-audit.md) |
