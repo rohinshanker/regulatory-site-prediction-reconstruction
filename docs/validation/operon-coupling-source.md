@@ -25,7 +25,7 @@ No complete coupling implementation was found in the pinned SalisLabCode tree
 iDOG Operon implementation only as bytecode. This bounded search does not prove
 that no other implementation exists.
 
-## Unambiguous component proposed for admission
+## Admitted reinitiation component
 
 Equation (3), printed page 7141, gives the reinitiation contribution
 `q_reinit = k_P * k_reinit(d) * exp(-beta * G_upstream)`.
@@ -47,7 +47,7 @@ Logarithms are natural; retaining log quantities avoids exponential overflow.
 The source uses beta 0.45 and `k_P=10`; the latter converts the reporter-specific
 coefficient into its model contribution and is not a universal measured rate.
 The distance section, page 7142, states `k_reinit=0.0072` for `0 <= d <= 25`,
-and `0.0220` for `d=-4`. Those exact stated domains are the proposed preset.
+and `0.0220` for `d=-4`. Those exact stated domains are the admitted preset.
 The model does not extrapolate other negative distances or distances above 25.
 The described negative-distance slope alone does not uniquely specify the
 intercept, clipping and transition, so those cases remain unsupported.
@@ -84,7 +84,7 @@ complementing F or refitting C requires separate authoritative evidence.
 
 The full coupled-state energy, unfolding correction, structural fraction,
 protein abundance and complete Operon prediction therefore remain unavailable.
-The proposed result must explicitly identify `reinitiation_only` and carry this
+The result must explicitly identify reinitiation-only scope and carry this
 limitation alongside its numeric contribution. Source fidelity of these equations
 is distinct from an experimental accuracy claim.
 

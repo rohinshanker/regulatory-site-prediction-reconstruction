@@ -15,9 +15,13 @@ The JSON envelope has exactly `schema_version`, `records`, and `settings`.
 Schema version is `coupling-request-1`; `records` contains 1–100 objects;
 `settings` has exactly `seconds_total`, a finite number greater than zero and at
 most 60. A one-record envelope is the single-input form. Received input is
-limited to 1,048,576 bytes, not an advertised file size. JSON must be finite UTF-8
-with no duplicate keys. All limits are engineering limits, not biological ones.
-JSON container nesting is limited to 32 levels.
+limited to 1,048,576 bytes, not an advertised file size or the larger ASCII-escaped
+hash representation. Transport JSON must be finite UTF-8 with no duplicate keys
+and container nesting limited to 32 levels. Separately, the Python object API
+refuses canonical ASCII representations above 6,291,456 bytes with
+`api_object_byte_limit`. This larger guard accommodates Unicode escaping and
+number serialization expansion without changing the received-byte limit or
+deterministic hashes. All limits are engineering limits, not biological ones.
 
 A record has exactly `id`, `sequence`, `strand`, `upstream`, `downstream` and
 `energies`. IDs are 1–128 ASCII letters, digits or `_.:-`; record IDs are unique.

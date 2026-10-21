@@ -3,6 +3,7 @@
 import io
 import json
 import runpy
+import subprocess
 import sys
 from pathlib import Path
 from types import SimpleNamespace
@@ -10,6 +11,57 @@ from types import SimpleNamespace
 import pytest
 
 from regsite import coupling_cli, coupling_io
+
+
+@pytest.mark.parametrize("case", ["unicode-provenance", "unicode-whitespace"])
+def test_received_unicode_bytes_do_not_use_ascii_hash_limit(case):
+    request = json.loads(Path("examples/coupling-single.json").read_text())
+    if case == "unicode-provenance":
+        template = request["records"][0]
+        request["records"] = []
+        for index in range(100):
+            record = json.loads(json.dumps(template))
+            record["id"] = f"synthetic-{index}"
+            record["sequence"] += "C" * (8000 - len(record["sequence"]))
+            record["energies"]["provenance"] = "β" * 500
+            request["records"].append(record)
+    else:
+        request["records"][0]["sequence"] += "\u2003" * 180_000
+    raw = json.dumps(request, ensure_ascii=False, separators=(",", ":")).encode()
+    assert (
+        len(raw) < coupling_io.INPUT_LIMIT < len(coupling_io.canonical_bytes(request))
+    )
+    result = subprocess.run(
+        [sys.executable, "-m", "regsite.coupling_cli", "-"],
+        input=raw,
+        capture_output=True,
+        timeout=10,
+        check=True,
+    )
+    report = json.loads(result.stdout)
+    assert result.stderr == b""
+    assert report["status"] == "complete"
+    assert report["coverage"]["successful"] == len(request["records"])
+    assert all(
+        row["scores"]["downstream_total"]["value"] == pytest.approx(1.072)
+        for row in report["records"]
+    )
+    assert report["request_sha256"] == coupling_io.canonical_hash(request)
+
+
+def test_received_byte_limit_still_rejects_before_evaluation():
+    raw = Path("examples/coupling-single.json").read_bytes()
+    raw += b" " * (coupling_io.INPUT_LIMIT + 1 - len(raw))
+    result = subprocess.run(
+        [sys.executable, "-m", "regsite.coupling_cli", "-"],
+        input=raw,
+        capture_output=True,
+        timeout=10,
+    )
+    assert result.returncode == 2 and result.stderr == b""
+    report = json.loads(result.stdout)
+    assert report["reason"] == "invalid_json_or_input_limit"
+    assert report["records"] == [] and report["request_sha256"] is None
 
 
 def test_single_and_batch_cli(capsys):

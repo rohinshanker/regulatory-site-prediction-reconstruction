@@ -10,7 +10,7 @@ from collections.abc import Callable
 
 from regsite import __version__
 from regsite.coupling_geometry import CouplingGeometryError, validate_pair_geometry
-from regsite.coupling_io import INPUT_LIMIT, canonical_bytes, canonical_hash
+from regsite.coupling_io import OBJECT_LIMIT, canonical_bytes, canonical_hash
 
 MODEL_ID = "tian2015-reinitiation-only-1"
 BETA = 0.45
@@ -195,7 +195,9 @@ def predict_coupling(
     """Evaluate a bounded batch with explicit per-record failures and source scope.
 
     Args:
-        request: A coupling-request-1 envelope using supplied independent energies.
+        request: A coupling-request-1 envelope using supplied independent energies,
+            bounded to OBJECT_LIMIT bytes of canonical ASCII JSON. CLI received
+            bytes have a separate, smaller transport limit.
         clock: Monotonic seconds; injectable for deterministic deadline tests.
 
     Returns:
@@ -208,8 +210,8 @@ def predict_coupling(
         request_hash = canonical_hash(request)
     except (ValueError, TypeError, RecursionError):
         return invalid_result("request_is_not_finite_json")
-    if len(raw) > INPUT_LIMIT:
-        return invalid_result("input_byte_limit", request_hash)
+    if len(raw) > OBJECT_LIMIT:
+        return invalid_result("api_object_byte_limit", request_hash)
     if (
         not isinstance(request, dict)
         or request.keys() != {"schema_version", "records", "settings"}

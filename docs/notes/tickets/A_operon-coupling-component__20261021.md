@@ -4,8 +4,8 @@
 - Status: active
 - Opened: 2026-10-21
 - Updated: 2026-10-21
-- Current State: Source/math review DEM-615 admits only supplied-energy reinitiation; its two documentation findings are reconciled at `a5b43c7`. Geometry, strict JSON, log-space runtime, schemas and single/batch CLI examples are implemented. No folding jobs or biological evaluation executed. Runtime review and final integration gates remain.
-- Verification: Baseline `605d0c25066de937d124e69fe42be3c40bb2e749`; isolated worktree `reconstruction-operon-coupling-20261021`, branch `wave7/operon-coupling`. 271 focused tests pass with 100% new-module line/branch coverage; Ruff and mypy pass. Source/math review verified pinned paper bytes, all five synthetic controls and geometry identities independently.
+- Current State: Source/math review DEM-615 admits only supplied-energy reinitiation; its two documentation findings are reconciled at `a5b43c7`. Geometry, strict JSON, log-space runtime, schemas and single/batch CLI examples are implemented. No folding jobs or biological evaluation executed. DEM-618 found one received-byte/canonical-size mismatch; the repair separates the transport and API object bounds, preserving canonical hashes. Focused recheck and A-owned final integration gates remain.
+- Verification: Baseline `605d0c25066de937d124e69fe42be3c40bb2e749`; isolated worktree `reconstruction-operon-coupling-20261021`, branch `wave7/operon-coupling`. 274 focused tests pass with 100% new-module line/branch coverage; Ruff and mypy pass. Source/math review verified pinned paper bytes, all five synthetic controls and geometry identities independently.
 - Cleanup: Session C alone closes this child after recording every finding and final validation, distilling reusable contracts, updating both indexes and the linked issue, then removing the resolved ticket. Broad #8 remains open.
 - Owner: cyano-calcs-c / 56abed60-1792619583; A owns integration and B independent evaluation.
 - Parent: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/8
@@ -35,7 +35,7 @@ Coordinate before any folding execution; two local folding processes globally.
 - External cache: `/Users/Rohin/.cache/regsite-coupling-source-20261021`.
 - Terms: article CC-BY-NC-4.0; no article/data redistribution admitted.
 - Model equations appear as image graphics; text-only XML is insufficient to
-  verify their exact algebra. No coefficients adopted yet.
+  verify their exact algebra. The printed equations and admitted coefficients have now been checked visually and independently.
 - Direct Europe PMC PDF returned HTTP 403; no access control bypass attempted.
 
 ## Open findings
@@ -43,13 +43,12 @@ Coordinate before any folding execution; two local folding processes globally.
 - C-SOURCE-1 resolved for the explicitly narrow component by DEM-615 and `a5b43c7`; other negative-distance law remains a documented full-model dependency.
 - C-SOURCE-2 excluded from this component: sequence-derived energy decomposition/backend and unfolding formula conflict remain explicit broader #8 dependencies; no substitute or zero correction is supplied.
 - C-REVIEW-1 resolved by DEM-615 and `a5b43c7`; Figure 1D conflict and host-locator corrections are incorporated.
-- C-REVIEW-2 open: exact implementation review and final package tests.
+- C-REVIEW-2: DEM-618 reviewed `e4026e0`; its single P2 finding (ASCII canonical expansion incorrectly used as received size) is repaired with a distinct 6 MiB API object bound and real Unicode/over-cap CLI regressions. Exact repair recheck and A-owned package tests remain open.
 
-## Active assignments
+## Review and implementation ownership
 
-- DEM-615: GPT-6 Astra independent source/mathematical review of `deb3e2f`.
-- DEM-616: GPT-6.1 Sol source-independent geometry validator only, separate
+- DEM-615 completed: GPT-6 Astra source/mathematical review of `deb3e2f`; source findings resolved at `a5b43c7`.
+- DEM-616 completed: GPT-6.1 Sol source-independent geometry validator only, separate
   `reconstruction-coupling-geometry-20261021` worktree; no model calculations.
-- C retains runtime/contract integration. Initial source contract narrows the
-  proposed admitted scope to reinitiation; printed Eqs. 4/5 have an unresolved
-  unfolding/sign interpretation and negative-distance coefficients remain gated.
+- DEM-618 completed the exact runtime review of `e4026e0`; one focused repair recheck is required. C retains runtime/contract integration and all edits.
+- Printed Eq. 5/Figure 1D unfolding/sign interpretation and other negative-distance coefficients remain broader #8 dependencies, outside this complete bounded component.

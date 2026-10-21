@@ -6,6 +6,8 @@ import math
 from typing import BinaryIO
 
 INPUT_LIMIT = 1_048_576
+# Independent guard for Python objects, allowing escaped Unicode and number expansion.
+OBJECT_LIMIT = 6 * INPUT_LIMIT
 OUTPUT_LIMIT = 4_194_304
 
 

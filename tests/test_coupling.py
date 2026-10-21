@@ -8,7 +8,7 @@ from pathlib import Path
 import pytest
 
 from regsite.coupling import BETA, predict_coupling
-from regsite.coupling_io import canonical_hash
+from regsite.coupling_io import OBJECT_LIMIT, canonical_hash
 from regsite.sequence import reverse_complement
 
 
@@ -213,7 +213,7 @@ def test_envelope_fields(key, value):
 
 def test_duplicate_ids_and_input_cap():
     assert run(request(record(), record()))["reason"] == "duplicate_record_id"
-    assert run({"sequence": "A" * 1_048_576})["reason"] == "input_byte_limit"
+    assert run({"sequence": "A" * OBJECT_LIMIT})["reason"] == "api_object_byte_limit"
 
 
 def test_recursive_python_input_is_refused():
