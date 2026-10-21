@@ -78,3 +78,17 @@ The shuffled arm is a synthetic composition control, not a set of biological neg
 Independent SciPy/NumPy arithmetic reproduced all emitted point estimates and six primary interval bounds, with maximum scalar difference 1.12e-16; all selected record fields, condition/stratum denominators and grouping partitions were reconciled separately from the evaluator. The original-source localization endpoint is a separate analysis owned by A. This weak count association does not turn localization near known TSSs into a quantitative native-strength model. No adjustment, fit, outlier exclusion or subsequent endpoint selection was made from these results.
 
 The TU grouping and terminator strata are incomplete proxies. For selected anchors, 1,566 have observed source TU membership, five have no source TU data and 26 lack a current mapping. Same-strand predicted terminator/CDS overlap is observed for 111, complete-coverage non-overlap for 1,459, inapplicable for one and unmapped for 26. Empty declared strata remain explicit in the machine report. No positional or full-operon interpretation is inferred from source membership. All findings remain exploratory on an exposed, positive-only gTSS cohort, and do not establish regulatory effects of recoding.
+
+## External artifact preservation and review
+
+The small [artifact manifest](../../benchmarks/promoter/count-association-artifacts.json) binds 29 complete external files (56,792,947 bytes), including the seven source inputs, full original report, prepared/evaluation documents, frozen protocol, evaluator source and independent audit evidence. Only the manifest is committed; per-record data and limited-rights context remain external. Its declared producer identity describes this collection and does not establish the origin of every member. Original model/source provenance remains in the separate execution receipt. Hashes establish byte integrity, not authenticity or scientific validity.
+
+The preserved collection is rooted at `/Users/Rohin/.cache/regsite-promoter-count-association-20261021` on the execution host. It can be relocated without changing the manifest. Use its `inputs/` subdirectory as the preparation input root. The manifest SHA-256 is `8e6ed661111a368c344cbe9ee12b3b697039cea3bb648971745b4d599b04f5fa`; all 29 entries passed the existing offline artifact verifier.
+
+```sh
+python tools/calculator_artifacts.py verify \
+  --root /external/preserved-collection \
+  --manifest /absolute/producer/benchmarks/promoter/count-association-artifacts.json
+```
+
+Independent Claude review admitted exact code `7fe20c7` through head `12da1a3`, reproducing 156 tests/full coverage and additional rank, bootstrap and grouping oracles. Session A separately reproduced the fresh prepared-data digest and all 73 native point/interval comparisons. The subsequent guide clarifications change no code, pins, model settings or result bytes. This completes the bounded benchmark tooling and exploratory association slice; the broader experimental-quality and native-calibration work remains open.

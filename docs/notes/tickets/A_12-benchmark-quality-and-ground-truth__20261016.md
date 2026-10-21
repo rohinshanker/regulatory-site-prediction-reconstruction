@@ -9,7 +9,7 @@
 - Cleanup: Owning session records final checks and unresolved findings, distills reusable benchmark guidance, updates indexes and GitHub issue, then removes the resolved ticket.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/12
 - Priority: P0
-- Owner: Session B (`9677689a-1792176763`), Wave 5 evidence; branch `wave5/promoter-evidence`, baseline `d37ebd7d8eb2422389d003e3fc2ebab2aa5c6466`.
+- Owner: Session B (`9677689a-1792176763`), independent source/evidence/benchmark coordination; current branch `quality/promoter-count-association-20261021`. Earlier frozen worktrees and artifacts remain unchanged.
 - Dependencies: Start now from the source map; coordinate data pins/splits with 01, 05 and 06–09.
 
 The owner reports that older calculators were not close enough to ground truth
@@ -64,4 +64,4 @@ Raw-data hashes/licences, metric reproduction commands, split-overlap audits,
 denominators/outlier sensitivity, confidence intervals, and an independent check
 of high-impact accuracy claims. A literature summary alone does not complete this ticket.
 
-The independent [count-association protocol](../../validation/promoter-count-association.md) is frozen for the new anchor-centered original-source pilot. This is an exposed-cohort association analysis, not held-out confirmation, calibration, or consumer admission. Session B owns its separate tooling child while Session A owns source execution and integration.
+The independent [count-association analysis](../../validation/promoter-count-association.md) is complete and independently accepted: 156 tests/full coverage, all 1,597 selected anchors, 1,351 input-only groups, and a weak control-count Spearman association of 0.1726. Source identities, 2,000 paired bootstrap draws, all condition/stratum denominators and 29 preserved external artifacts are reproducible. Its bounded child #56 is complete; this remains exposed-cohort association, not held-out confirmation, native-strength calibration, or consumer admission. Broader benchmark-quality work stays open; Session A retains integration.
