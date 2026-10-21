@@ -1,0 +1,608 @@
+{
+  "admission": {
+    "experimental_execution": "not_authorized",
+    "held_out_partition": "not_created",
+    "native_cyanobacterial_accuracy": "not_established",
+    "outcomes_used_for_tuning": false,
+    "runtime": "not_admitted_by_this_dossier",
+    "source_dossier": "review_pending",
+    "unrestricted_redistributable_benchmark": "not_admitted"
+  },
+  "artifacts": [
+    {
+      "bytes": 1470079,
+      "cache_relative_path": "root/Cambray2013-supplements.zip",
+      "id": "Cambray2013-supplements.zip",
+      "origin": "public_download",
+      "redistributed": false,
+      "retrieved_utc": "2026-10-21T23:09:57.578488+00:00",
+      "sha256": "ec5bcbe684d08588c5b5334e874ce3624953a7d20d9824cb20456225121832f7",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC3643576/supplementaryFiles"
+    },
+    {
+      "bytes": 113899,
+      "cache_relative_path": "root/Cambray2013.xml",
+      "id": "Cambray2013.xml",
+      "origin": "public_download",
+      "redistributed": false,
+      "retrieved_utc": "2026-10-21T23:09:12.326287+00:00",
+      "sha256": "7a25991c775b82b936c0bf95c1c4d9fdd65251a9bbfe7f21d144e49dbe3fb47f",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC3643576/fullTextXML"
+    },
+    {
+      "bytes": 11976,
+      "cache_relative_path": "root/Cambray2016-correction.xml",
+      "id": "Cambray2016-correction.xml",
+      "origin": "public_download",
+      "redistributed": false,
+      "retrieved_utc": "2026-10-21T23:09:32.022003+00:00",
+      "sha256": "01e2c0db97eb057c1d66c1d1f5df78bb2411da9dd2e00849acb71ebd7eccbb35",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC5001589/fullTextXML"
+    },
+    {
+      "bytes": 58279,
+      "cache_relative_path": "root/Cambray2016-supplements.zip",
+      "id": "Cambray2016-supplements.zip",
+      "origin": "public_download",
+      "redistributed": false,
+      "retrieved_utc": "2026-10-21T23:10:02.151742+00:00",
+      "sha256": "5dea8885ac755e3ed45a8f10995e308b5321b35dacc8be1a1c5f19c38182bdb0",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC5001589/supplementaryFiles"
+    },
+    {
+      "bytes": 129803,
+      "cache_relative_path": "chen/addgene-natural.xlsx",
+      "document_status": "retrieved",
+      "id": "Chen2013:addgene-natural.xlsx",
+      "origin": "public_download",
+      "redistributed": false,
+      "retrieved_utc": "2026-10-21T23:12:48.261690+00:00",
+      "sha256": "1bfa6b6f97342890ccef8ecabc7661473714b2c0c1c0c0249af90fc6bf6a10b6",
+      "url": "https://media.addgene.org/cms/filer_public/13/ec/13ec3a5e-a022-4ef1-a720-65f1c303903d/voigt_natural_terminators.xlsx"
+    },
+    {
+      "bytes": 18544,
+      "cache_relative_path": "chen/addgene-removed.xlsx",
+      "document_status": "retrieved",
+      "id": "Chen2013:addgene-removed.xlsx",
+      "origin": "public_download",
+      "redistributed": false,
+      "retrieved_utc": "2026-10-21T23:12:49.401329+00:00",
+      "sha256": "47ac76d88f4edfa1dd4d3c26c29d07b0a554ea222df9f953b4abed052054367b",
+      "url": "https://media.addgene.org/cms/filer_public/69/8f/698fe38a-4698-4bf0-b09e-8d90dc69b95a/voigt_removed_terminators.xlsx"
+    },
+    {
+      "bytes": 96925,
+      "cache_relative_path": "chen/addgene-synthetic.xlsx",
+      "document_status": "retrieved",
+      "id": "Chen2013:addgene-synthetic.xlsx",
+      "origin": "public_download",
+      "redistributed": false,
+      "retrieved_utc": "2026-10-21T23:12:48.870856+00:00",
+      "sha256": "37bd3720f4b88d693bf531ef6855f8e176c0d500d7d5e37cb12cfc076bda940f",
+      "url": "https://media.addgene.org/cms/filer_public/b2/19/b219a2eb-fe65-42b1-be67-4a2e43b20283/voigt_synthetic_terminators.xlsx"
+    },
+    {
+      "bytes": 217620,
+      "cache_relative_path": "chen/addgene-terms.html",
+      "document_status": "retrieved",
+      "id": "Chen2013:addgene-terms.html",
+      "origin": "public_download",
+      "redistributed": false,
+      "retrieved_utc": "2026-10-21T23:11:23.601286+00:00",
+      "sha256": "5d1ede0f01910cab38bac165448c24f536487707cf2fff5a3fefffd34f1f40b0",
+      "url": "https://www.addgene.org/terms-of-use/"
+    },
+    {
+      "bytes": 212225,
+      "cache_relative_path": "chen/addgene.html",
+      "document_status": "retrieved",
+      "id": "Chen2013:addgene.html",
+      "origin": "public_download",
+      "redistributed": false,
+      "retrieved_utc": "2026-10-21T23:09:58.789842+00:00",
+      "sha256": "b5975d34e5ac15639f81ed23e77f9f35b31b2b93bd3fa1f9d3dfe6270e0b8713",
+      "url": "https://www.addgene.org/browse/article/6862/"
+    },
+    {
+      "bytes": 194573,
+      "cache_relative_path": "chen/nature-terms.html.redirect3",
+      "document_status": "retrieved",
+      "id": "Chen2013:nature-terms.html.redirect3",
+      "origin": "public_download",
+      "redistributed": false,
+      "retrieved_utc": "2026-10-21T23:11:41.100930+00:00",
+      "sha256": "501197a5bd313709c14a0c3c185f3d54c4b04b9693cbbbad24b97e2ba490b39e",
+      "url": "https://www.nature.com/info/terms-and-conditions"
+    },
+    {
+      "bytes": 325561,
+      "cache_relative_path": "chen/publisher.html.redirect3",
+      "document_status": "subscription_preview_with_public_supplement_links",
+      "id": "Chen2013:publisher.html.redirect3",
+      "origin": "public_download",
+      "redistributed": false,
+      "retrieved_utc": "2026-10-21T23:09:43.738209+00:00",
+      "sha256": "8a193c16344fab1e4d578ec269f1245b7f1e36bfa50ca77accc667b2ec829db8",
+      "url": "https://www.nature.com/articles/nmeth.2515"
+    },
+    {
+      "bytes": 1797817,
+      "cache_relative_path": "chen/supplement.pdf",
+      "document_status": "retrieved",
+      "id": "Chen2013:supplement.pdf",
+      "origin": "public_download",
+      "redistributed": false,
+      "retrieved_utc": "2026-10-21T23:10:10.655748+00:00",
+      "sha256": "da33f23aeb3d38348d71ec8ba83bca9f400a06d16c028f176330ec97bf3fb9ac",
+      "url": "https://media.springernature.com/original/springer-static/esm/art%3A10.1038%2Fnmeth.2515/MediaObjects/41592_2013_BFnmeth2515_MOESM205_ESM.pdf"
+    },
+    {
+      "bytes": 134079,
+      "cache_relative_path": "chen/table2-natural.xlsx",
+      "document_status": "retrieved",
+      "id": "Chen2013:table2-natural.xlsx",
+      "origin": "public_download",
+      "redistributed": false,
+      "retrieved_utc": "2026-10-21T23:10:18.277437+00:00",
+      "sha256": "2d4dade1fb45fd7bea60f7d03c8f4d24b7c04397aab7bc6710554b04c4925238",
+      "url": "https://media.springernature.com/original/springer-static/esm/art%3A10.1038%2Fnmeth.2515/MediaObjects/41592_2013_BFnmeth2515_MOESM206_ESM.xlsx"
+    },
+    {
+      "bytes": 96893,
+      "cache_relative_path": "chen/table3-synthetic.xlsx",
+      "document_status": "retrieved",
+      "id": "Chen2013:table3-synthetic.xlsx",
+      "origin": "public_download",
+      "redistributed": false,
+      "retrieved_utc": "2026-10-21T23:10:36.120972+00:00",
+      "sha256": "40924997b2d51a0a73d1c18ec4e7f659426ba7770265c9d5f77a49ec199b88ac",
+      "url": "https://media.springernature.com/original/springer-static/esm/art%3A10.1038%2Fnmeth.2515/MediaObjects/41592_2013_BFnmeth2515_MOESM207_ESM.xlsx"
+    },
+    {
+      "bytes": 18859,
+      "cache_relative_path": "chen/table4-removed.xlsx",
+      "document_status": "retrieved",
+      "id": "Chen2013:table4-removed.xlsx",
+      "origin": "public_download",
+      "redistributed": false,
+      "retrieved_utc": "2026-10-21T23:10:44.031388+00:00",
+      "sha256": "d71a5257aaa58bc3c200827de28d6e7f98fb520f521dc9ee2cffe9524c30accf",
+      "url": "https://media.springernature.com/original/springer-static/esm/art%3A10.1038%2Fnmeth.2515/MediaObjects/41592_2013_BFnmeth2515_MOESM208_ESM.xlsx"
+    },
+    {
+      "bytes": 118573,
+      "cache_relative_path": "Kingsford2007.xml",
+      "id": "Kingsford2007.xml",
+      "origin": "verified_existing_C_cache",
+      "redistributed": false,
+      "sha256": "eed9e77999159b83040fe382a7b238b35912a39b315257f7c96c10a0af536e6e"
+    },
+    {
+      "bytes": 260129,
+      "cache_relative_path": "root/deHoon2005-S1.txt",
+      "id": "deHoon2005-S1.txt",
+      "origin": "public_download",
+      "redistributed": false,
+      "retrieved_utc": "2026-10-21T23:10:31.185756+00:00",
+      "sha256": "2fcfe1ea662f3ca47bb91c13559db284ff5b676434ec52dd1be1004d35138dbb",
+      "url": "https://journals.plos.org/ploscompbiol/article/file?id=10.1371/journal.pcbi.0010025.sd001&type=supplementary"
+    },
+    {
+      "bytes": 226048,
+      "cache_relative_path": "root/deHoon2005-S2.txt",
+      "id": "deHoon2005-S2.txt",
+      "origin": "public_download",
+      "redistributed": false,
+      "retrieved_utc": "2026-10-21T23:10:32.063812+00:00",
+      "sha256": "ecb476595f2ebbe5ea772e408df3641c8c6da1c786ec13584885e17125c524ce",
+      "url": "https://journals.plos.org/ploscompbiol/article/file?id=10.1371/journal.pcbi.0010025.sd002&type=supplementary"
+    },
+    {
+      "bytes": 89947,
+      "cache_relative_path": "root/deHoon2005.xml",
+      "id": "deHoon2005.xml",
+      "origin": "public_download",
+      "redistributed": false,
+      "retrieved_utc": "2026-10-21T23:09:32.948683+00:00",
+      "sha256": "e83ea020782dd720b8d28c60b31ef15990ae2c4f5a1cdc24dcaabcc1a9fb1f35",
+      "url": "https://journals.plos.org/ploscompbiol/article/file?id=10.1371/journal.pcbi.0010025&type=manuscript"
+    },
+    {
+      "bytes": 7891,
+      "cache_relative_path": "source-admission-manifest.json",
+      "id": "source-admission-manifest.json",
+      "origin": "git_object_f4ff5e3",
+      "redistributed": false,
+      "sha256": "414d27c38207eb2935a130ea301a3c8f22531be8399e7eccdc766a79b72afeba"
+    },
+    {
+      "archive_id": "Cambray2013-supplements.zip",
+      "archive_member": "supp_gkt163_nar-00080-h-2013-File007.pdf",
+      "bytes": 1048063,
+      "cache_relative_path": "root/supp_gkt163_nar-00080-h-2013-File007.pdf",
+      "id": "supp_gkt163_nar-00080-h-2013-File007.pdf",
+      "origin": "archive_member",
+      "redistributed": false,
+      "sha256": "5fed66aa6c76bc20cacb1e91a1260e2533ba9683b0720d6aa7b70e9b5e98adb0"
+    },
+    {
+      "archive_id": "Cambray2013-supplements.zip",
+      "archive_member": "supp_gkt163_nar-00080-h-2013-File008.xls",
+      "bytes": 158720,
+      "cache_relative_path": "root/supp_gkt163_nar-00080-h-2013-File008.xls",
+      "id": "supp_gkt163_nar-00080-h-2013-File008.xls",
+      "origin": "archive_member",
+      "redistributed": false,
+      "sha256": "ec2e1f0ad030262f8eb3f4cd07570015c551877b4f3a172981a4f69b63dcdf2b"
+    },
+    {
+      "archive_id": "Cambray2016-supplements.zip",
+      "archive_member": "supp_gkw379_Supplementary_Table_1.xlsx",
+      "bytes": 63041,
+      "cache_relative_path": "root/supp_gkw379_Supplementary_Table_1.xlsx",
+      "id": "supp_gkw379_Supplementary_Table_1.xlsx",
+      "origin": "archive_member",
+      "redistributed": false,
+      "sha256": "fcfd6dca7200700ddfcb44847d8409b8e6109e7ff71b4b7a01fd091254bef021"
+    }
+  ],
+  "as_of": "2026-10-21",
+  "census": {
+    "budget_unit": "received response-body bytes; no TLS/headers; extracted/reused bytes not charged twice",
+    "cited_validation": "deHoon2005",
+    "download_cap_bytes": 104857600,
+    "inaccessible_resources": [
+      "Chen main article: subscription-only; not retrieved",
+      "Chen PubMed: JavaScript/cookie interstitial; not a verified record",
+      "PMC browser page challenge: no challenge attempt; public EuropePMC XML API used"
+    ],
+    "later_measured_libraries": [
+      "Cambray2013_corrected2016",
+      "Chen2013"
+    ],
+    "maximum_later_libraries": 2,
+    "primary_model": "Kingsford2007",
+    "root_cap_bytes": 62914560,
+    "root_saved_download_bytes": 2230357,
+    "total_recorded_body_bytes": 5479146,
+    "worker_HTTP_response_body_bytes": 3248789,
+    "worker_cap_bytes": 41943040
+  },
+  "next_stage": {
+    "dependencies": [
+      "Applicable reuse terms",
+      "Exact tested construct assembly/window/strand mapping",
+      "Input-only family graph and overlap audit",
+      "Immutable separately admitted runtime/backend/settings/resource receipt",
+      "Pre-execution evaluator protocol acknowledgement"
+    ],
+    "doubles_reported_separately": 7,
+    "extra_controls_not_outcome_labels": 13,
+    "kind": "input_only_context_and_terms_reconciliation",
+    "population": 61,
+    "preferred_study": "Cambray2013_corrected2016",
+    "scoring_allowed_now": false,
+    "source_defined_secondary_single_component_population": 54
+  },
+  "prohibited_inferences": [
+    "Candidate quality equals TE or probability",
+    "Missing candidate equals measured nontermination",
+    "Published genome proxy equals cyanobacterial measured sensitivity",
+    "New random split restores untouched held-out status",
+    "Historical regional labels provide exact experimental endpoint coordinates",
+    "Public download establishes unrestricted redistribution"
+  ],
+  "schema_version": "termination-evaluation-sources-1",
+  "scope": "bounded_experimental_benchmark_feasibility",
+  "source_dependency": {
+    "commit": "f4ff5e3a2ab0a8897cd10cb727a853683a61ce02",
+    "path": "benchmarks/termination/source-manifest.json",
+    "review": "DEM-619",
+    "runtime_admitted": false,
+    "sha256": "414d27c38207eb2935a130ea301a3c8f22531be8399e7eccdc766a79b72afeba",
+    "source_math_terms_admitted": true
+  },
+  "studies": [
+    {
+      "decision": "historical_reproduction_only_pending_exact_inputs",
+      "doi": "10.1186/gb-2007-8-2-r22",
+      "efficiency_measurements": false,
+      "host": "Bacillus subtilis; historical annotation",
+      "id": "Kingsford2007",
+      "locators": [
+        "Algorithm: hairpin costs / Table 1",
+        "Evaluating accuracy",
+        "Materials and methods: Genomic data and annotation"
+      ],
+      "measured_base_resolution_endpoints": false,
+      "paper_artifact": "Kingsford2007.xml",
+      "reported_negative_regions": 562,
+      "reported_positive_regions": 458,
+      "task": "operon_region_detection",
+      "terms": {
+        "article": "CC-BY-2.0 (reused C source admission)",
+        "data": "Exact historical genome/annotation/label reconstruction not admitted here"
+      },
+      "training_overlap": "Inherited hairpin costs trained on 70 known E. coli terminators; B. subtilis threshold selection uses historical labels."
+    },
+    {
+      "condition_identity": "No single matched assay or uniform strain/condition established by this dossier",
+      "data_artifacts": [
+        "deHoon2005-S1.txt",
+        "deHoon2005-S2.txt"
+      ],
+      "decision": "potential_open_historical_region_labels; exact old sequence/annotation/label derivation missing; not held out",
+      "doi": "10.1371/journal.pcbi.0010025",
+      "host": "Bacillus subtilis; heterogeneous literature conditions",
+      "id": "deHoon2005",
+      "label_boundary": "Literature operon ends/internal regions; proposed/computational structures and readthrough must remain distinct from mapped termination sites.",
+      "locators": [
+        "Results: Analysis of Rho-independent transcriptional terminators in B. subtilis",
+        "Materials and Methods",
+        "Datasets S1-S3; S1 header/evidence/comments; S2 header"
+      ],
+      "motif_structures_within_positive_regions": 425,
+      "noise": "Conditional operons/readthrough and RNA processing; unknown entries are not negative labels.",
+      "paper_artifact": "deHoon2005.xml",
+      "reported_negative_regions": 567,
+      "reported_positive_regions": 463,
+      "retrieved_gene_rows": 4227,
+      "retrieved_manual_operon_rows": 995,
+      "task": "operon_region_detection",
+      "terms": {
+        "article_and_attached_supplements": "Attribution-based open reuse stated in paper; CC version not specified in retrieved XML",
+        "licence_locator": "article/front/article-meta/permissions",
+        "source_tables_vendored": false,
+        "unrestricted_article_grant": true
+      }
+    },
+    {
+      "ascertainment": "Reference discovery used TransTermHP; study model uses its features; curated 31 subset has outcome/structure exclusions.",
+      "assay": "RIIIG pFAB763; normalized downstream/upstream single-cell fluorescence ratio against parallel reference",
+      "conditions": {
+        "error_bar_identity": "cell-to-cell standard deviation in Figure 3; not replicate-level standard error",
+        "growth_phase": "mid-exponential",
+        "instrument": "Guava EasyCyte",
+        "medium": "rich medium; exact formulation not independently established",
+        "raw_replicate_values_retrieved": false,
+        "replication_reported": "triplicate",
+        "selection": "kanamycin",
+        "temperature": "not independently established"
+      },
+      "correction": "Last two columns replaced; original XLS pinned but not parsed or cellwise compared.",
+      "counts": {
+        "double_component": 7,
+        "extra_mutants_missing_TE": 4,
+        "extra_normalized_reference": 1,
+        "extra_spacers_missing_TE": 8,
+        "insert_only_shorter_than_75_bases": 24,
+        "panel_missing_TE": 0,
+        "reported_measured_terminators": 61,
+        "single_component": 54,
+        "table1_rows": 74
+      },
+      "data_artifact": "supp_gkw379_Supplementary_Table_1.xlsx",
+      "decision": "conditional_noncommercial_research_option; no unrestricted packaged benchmark or runtime execution admitted",
+      "dois": [
+        "10.1093/nar/gkt163",
+        "10.1093/nar/gkw379"
+      ],
+      "fields": {
+        "ASCII_space_in_sequence": "G45",
+        "construct_links": "Suppl. Table 3",
+        "excluded_as_labels": [
+          "J: Predicted TE",
+          "K: Residuals"
+        ],
+        "measured": "I: Mean TE Cell",
+        "raw_insert_length_range": [
+          23,
+          220
+        ],
+        "reporter_backbone": "Suppl. Table 2, RIIIG/pFAB763",
+        "sequence": "G: Sequence (*)"
+      },
+      "host": "Escherichia coli BW25113",
+      "id": "Cambray2013_corrected2016",
+      "independent_grouping": "parent/core/variant/context families plus connected double-element components; exact graph not frozen",
+      "locators": [
+        "2013 Materials and Methods: TE measurements",
+        "2013 Figure 3 caption",
+        "2013 Supplementary PDF pages 3-5",
+        "Corrected workbook Suppl. Table 1 rows 5-78 / columns A-K; Tables 2-3",
+        "2016 correction paragraph"
+      ],
+      "paper_artifacts": [
+        "Cambray2013.xml",
+        "Cambray2016-correction.xml"
+      ],
+      "sequence_context_admission": "insert and backbone available; exact tested junction/window reconciliation pending; no synthetic padding",
+      "task": "construct_reporter_efficiency_association",
+      "terms": {
+        "article": "CC-BY-NC-3.0",
+        "correction": "CC-BY-NC-4.0",
+        "external_only": true,
+        "redistribution_admitted": false,
+        "separate_unrestricted_data_waiver": "not_established"
+      }
+    },
+    {
+      "assay": {
+        "TE_relation": "1 - 1/TS; reporter-model inference, not direct event counts",
+        "cohort_strain": "unverified; DH5alpha no-plasmid control shown only",
+        "endpoint": "TS = (GFP/RFP)_terminator / (GFP/RFP)_empty-pGR",
+        "medium_temperature_gating": "not_verified",
+        "normalization": "Partly average empty control rather than same-day control; correlated uncertainty",
+        "raw_day_replicates": "unavailable_in_retrieved_tables",
+        "reporter": "PBAD / GFP / terminator / RFP; 10mM L-arabinose induced and no-inducer control",
+        "row_specific_replicate_counts": "unavailable"
+      },
+      "context_admission": "insert cells and annotated reporter sequence available; tested junctions/orientation/windows not yet verified",
+      "correction_search": "No link on inspected landing page; no absence claim",
+      "counts": {
+        "L1_cloning_missing_positions": 2,
+        "L3_scaffold_identifier_groups": {
+          "S1": 25,
+          "S2": 25,
+          "S3": 25
+        },
+        "all_attempted_cloning_denominator": null,
+        "exact_retained_reverse_name_pairs": 75,
+        "exclusion_reasons": [
+          {
+            "n": 22,
+            "natural_forward": 21,
+            "reason": "uninduced_RFP_over_induced_RFP_above_0.50",
+            "reverse": 1
+          },
+          {
+            "n": 2,
+            "natural_forward": 0,
+            "reason": "induced_GFP_below_5000",
+            "reverse": 2
+          }
+        ],
+        "measured": {
+          "natural_forward": 248,
+          "reverse": 93,
+          "synthetic": 265,
+          "total": 606
+        },
+        "measured_sources": {
+          "Registry_forward": 13,
+          "Registry_reverse": 1,
+          "RegulonDB_forward": 216,
+          "RegulonDB_reverse": 92,
+          "Yager_von_Hippel_forward": 19
+        },
+        "nominal_L1_grid": 96,
+        "nomination_to_measured_mapping_complete": false,
+        "note1_nominated_source_counts": {
+          "Registry": 14,
+          "RegulonDB": 217,
+          "RegulonDB_reverse": 92,
+          "additional_literature": 19
+        },
+        "note4_reported_forward_reverse_pairs": 80,
+        "pair_mapping_reconciled": false,
+        "retained": {
+          "natural_forward": 227,
+          "reverse": 90,
+          "synthetic": 265,
+          "total": 582
+        },
+        "retained_sources": {
+          "Registry_forward": 11,
+          "Registry_reverse": 1,
+          "RegulonDB_forward": 199,
+          "RegulonDB_reverse": 89,
+          "Yager_von_Hippel_forward": 17
+        },
+        "source_excluded": {
+          "natural_forward": 21,
+          "reverse": 3,
+          "synthetic": 0,
+          "total": 24
+        },
+        "synthetic_libraries": {
+          "L1": 94,
+          "L2": 96,
+          "L3": 75
+        },
+        "unique_independent_family_count": null
+      },
+      "decision": "conditional_external_association_option; no unrestricted redistribution or empirical execution admitted",
+      "doi": "10.1038/nmeth.2515",
+      "evidence_worker": "DEM-622 (GPT-6-Astra); read-only, terminal completed",
+      "grouping": "source parent/reverse/scaffold/shared parts; attempted cloning and forward-reverse alias roster unresolved",
+      "id": "Chen2013",
+      "locators": [
+        "Supplementary PDF Notes 1-2 pp31-33; table dictionary pp29-30",
+        "Notes 8-9 pp41-45; Note 11 pp47-48",
+        "Tables 2/3/4 literal workbook headers and named sheets"
+      ],
+      "main_methods_verified": false,
+      "missingness": {
+        "high_RFP_excluded_rows_missing_all_six_SD": 2,
+        "high_RFP_excluded_rows_missing_stored_exclusion_ratio": 1,
+        "natural_rows_missing_uninduced_GFP_RFP_SD": 4,
+        "sequence_ASCII_space": "Table2 F28",
+        "synthetic_rows_missing_all_six_SD": 8
+      },
+      "paper_full_text_retrieved": false,
+      "source_organism": "E. coli intrinsic terminators and engineered/reverse derivatives",
+      "table_shapes": [
+        {
+          "file": "table2-natural.xlsx",
+          "formula_columns_not_labels": [
+            "AC"
+          ],
+          "records": 317,
+          "sequence_present": 317,
+          "sheet": "Fig2a-natural"
+        },
+        {
+          "file": "table3-synthetic.xlsx",
+          "formula_columns_not_labels": [
+            "AB"
+          ],
+          "records": 265,
+          "sequence_present": 265,
+          "sheet": "Sheet1"
+        },
+        {
+          "file": "table4-removed.xlsx",
+          "formula_columns_not_labels": [
+            "Z"
+          ],
+          "records": 22,
+          "sequence_present": 22,
+          "sheet": "RFP ratio > 0.5"
+        },
+        {
+          "file": "table4-removed.xlsx",
+          "formula_columns_not_labels": [
+            "Y"
+          ],
+          "records": 2,
+          "sequence_present": 2,
+          "sheet": "Induced GFP <5000"
+        }
+      ],
+      "task": "construct_reporter_strength_association",
+      "terms": {
+        "author_data": {
+          "located_sections": [
+            "Site Content",
+            "Scholarly Use",
+            "IP Restrictions",
+            "Use of Site"
+          ],
+          "open_runtime_fixture_admission": false,
+          "permission_requested": false,
+          "summary": "Informational noncommercial use with notices retained; commercial use requires consent. This is not unrestricted redistribution licensing.",
+          "terms_url": "https://www.addgene.org/terms-of-use/"
+        },
+        "paper": {
+          "article_specific_open_license_located": false,
+          "located_section": "Using Sites",
+          "subscription_preview": true,
+          "summary": "Private noncommercial viewing; redistribution and database/publication reuse restricted. No open paper redistribution permission established.",
+          "terms_url": "https://www.nature.com/info/terms-and-conditions"
+        },
+        "publisher_supplements": {
+          "open_runtime_fixture_admission": false,
+          "publicly_downloadable": true,
+          "separate_open_data_license_located": false
+        }
+      },
+      "training_overlap": "Chen fit all 582 retained records; prior TransTermHP sequence overlap unresolved",
+      "version_conflicts": {
+        "natural_name_cell_A10": "Publisher BBa_B0062-R; Addgene BBa_B0062",
+        "removed_table_differences": "56 and 5 stored calculated energy/prediction cells; not measured or sequence cells",
+        "synthetic_populated_cells": "identical"
+      }
+    }
+  ]
+}
