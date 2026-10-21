@@ -1,0 +1,167 @@
+{
+  "candidate_scores": 130954,
+  "cohort": {
+    "excluded": {
+      "identical_or_reverse_complement_window": 1,
+      "overlapping_window": 264,
+      "same_locus": 613
+    },
+    "input_anchors": 2475
+  },
+  "consumer_commit": "f80836248243983beefbfe3f85c83914e5f9d01b",
+  "consumer_repository": "https://github.com/rohinshanker/isaacs-cyano-gene-selection",
+  "evaluation": "exposed-cohort-anchor-centered-localization",
+  "execution": {
+    "exit_code": 0,
+    "finished": "2026-10-21T18:51:34.054873+00:00",
+    "python": "3.12.4",
+    "started": "2026-10-21T18:50:24.338959+00:00",
+    "thread_limits": {
+      "MKL_NUM_THREADS": "1",
+      "NUMEXPR_NUM_THREADS": "1",
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "VECLIB_MAXIMUM_THREADS": "1"
+    },
+    "versions": {
+      "Bio": "1.88",
+      "numpy": "2.5.3",
+      "scipy": "1.18.1",
+      "sklearn": "1.9.1"
+    },
+    "wall_seconds": 69.71563745802268
+  },
+  "input_sha256": {
+    "fasta_sha256": "22a2b07881c1099c32454778de0e90b1c40f74f44c0f59e000507106c0deb567",
+    "tss_sha256": "d06524cf492aa8f009bf004c596a5d305ac54acbe7537ec98bbc7992ce164bff"
+  },
+  "limitations": [
+    "E. coli calibration is not UTEX calibration; model rates are not measurements",
+    "TSS anchors are initiation bases, not full promoter boundaries",
+    "No UTEX training or tuning; fixed 5-nt descriptive localization radius",
+    "Distinct loci/nonoverlapping windows are not independent ortholog blocks",
+    "Shuffled windows are synthetic backgrounds, not verified biological negatives",
+    "A bounded TSS-centered sample does not estimate genome-wide specificity",
+    "Tan labels were exposed in earlier Wave5; this is not untouched confirmation",
+    "Complete prediction report is external; this manifest does not publish model or native data",
+    "Reconstructed source fidelity and count association are separate evaluations",
+    "No fitting, browser admission or release"
+  ],
+  "model_host": "Escherichia coli str. K-12 substr. MG1655",
+  "parameters": {
+    "candidate_offset_range_inclusive": [
+      -20,
+      20
+    ],
+    "control": "One mononucleotide shuffle per oriented window",
+    "coordinate_basis": "1-based circular native positions in transcription order",
+    "downstream_nt": 40,
+    "energy_tie_absolute_tolerance": 1e-12,
+    "layouts_per_candidate": 30,
+    "locus_basis": "Tan Table S1 source locus tags; no current-CDS join",
+    "max_sites": 2475,
+    "optimum": "minimum dG_total (maximum E. coli model Tx_rate)",
+    "seed": 2973,
+    "upstream_nt": 87
+  },
+  "prepared_files_sha256": {
+    "LICENSE": "45d25f34fe826d27d344175bd622cbf3d35cbf53bd993d1350d44ee706571ffd",
+    "Promoter_Calculator_v1_0.py": "142823781d1ef70eaf3a1fe6be9e4e005c73edf78b9f8bef9a3e12b86d9849ff",
+    "README.md": "a5f3269206f5425e2c21ca58d9cb638fe87a4cbb1dbdff537a676747dc4b26d2",
+    "free_energy_coeffs.npy": "fddf16b38bf29799481e8a45890b669111e16cf2e3448e99d1934d19a8f0b8e9",
+    "model_intercept.npy": "f7c66a8d838da71a6b2ab17936cd6ff2564e446af8c0676fba95de2116e99a7b",
+    "util.py": "f80c4bec9b0922e9ed92645bc68343f811ac713e6107343463a1747c16345b74"
+  },
+  "report": {
+    "bytes": 25515500,
+    "external_relative_path": "native-pilot/report.json",
+    "sha256": "f4021ed3941a66b656df9e40f4a6a406b4cf59c651ec00dd7c54865080ebbc5f"
+  },
+  "runner_files": [
+    {
+      "bytes": 4865,
+      "path": "tools/prepare_promoter_calculator.py",
+      "sha256": "344cab854839955d22a2cf53b2fe84e7b4330a2ef3089ea36becd194fb3fa440"
+    },
+    {
+      "bytes": 14958,
+      "path": "tools/regulatory_promoter.py",
+      "sha256": "7d3440ad5239f216ec072dbaac49b430bbaa17d7b28674e18effadcc131f4766"
+    },
+    {
+      "bytes": 33617,
+      "path": "tools/regulatory_transterm.py",
+      "sha256": "04e995bffe3161541e832e75c3694b6c3b01d988daa5574d198a9e2d628db105"
+    }
+  ],
+  "schema_version": "promoter-native-pilot-reference-1",
+  "source_commit": "46da9132740bce30bccd107f02808adf2215e2f0",
+  "source_files": [
+    {
+      "bytes": 16923,
+      "name": "Promoter_Calculator_v1_0.py",
+      "sha256": "67d2733b0be1968668c6710e56262b00d9b4725b98b4f94749519591b48d1cdb",
+      "url": "https://raw.githubusercontent.com/hsalis/SalisLabCode/46da9132740bce30bccd107f02808adf2215e2f0/Promoter_Calculator/Promoter_Calculator_v1_0.py"
+    },
+    {
+      "bytes": 7792,
+      "name": "util.py",
+      "sha256": "abd561c6f1a4669dace3f783903f2779133cdc4ce5319919302303982eba23cc",
+      "url": "https://raw.githubusercontent.com/hsalis/SalisLabCode/46da9132740bce30bccd107f02808adf2215e2f0/Promoter_Calculator/util.py"
+    },
+    {
+      "bytes": 2872,
+      "name": "free_energy_coeffs.npy",
+      "sha256": "fddf16b38bf29799481e8a45890b669111e16cf2e3448e99d1934d19a8f0b8e9",
+      "url": "https://raw.githubusercontent.com/hsalis/SalisLabCode/46da9132740bce30bccd107f02808adf2215e2f0/Promoter_Calculator/free_energy_coeffs.npy"
+    },
+    {
+      "bytes": 136,
+      "name": "model_intercept.npy",
+      "sha256": "f7c66a8d838da71a6b2ab17936cd6ff2564e446af8c0676fba95de2116e99a7b",
+      "url": "https://raw.githubusercontent.com/hsalis/SalisLabCode/46da9132740bce30bccd107f02808adf2215e2f0/Promoter_Calculator/model_intercept.npy"
+    },
+    {
+      "bytes": 724,
+      "name": "LICENSE",
+      "sha256": "45d25f34fe826d27d344175bd622cbf3d35cbf53bd993d1350d44ee706571ffd",
+      "url": "https://raw.githubusercontent.com/hsalis/SalisLabCode/46da9132740bce30bccd107f02808adf2215e2f0/Promoter_Calculator/LICENSE"
+    },
+    {
+      "bytes": 1303,
+      "name": "README.md",
+      "sha256": "a5f3269206f5425e2c21ca58d9cb638fe87a4cbb1dbdff537a676747dc4b26d2",
+      "url": "https://raw.githubusercontent.com/hsalis/SalisLabCode/46da9132740bce30bccd107f02808adf2215e2f0/Promoter_Calculator/README.md"
+    }
+  ],
+  "summary": {
+    "anchors": 1597,
+    "control": {
+      "all_best_within_5nt": 383,
+      "any_best_within_5nt": 398,
+      "median_anchor_rank_best": 22,
+      "median_anchor_rank_worst": 22
+    },
+    "native": {
+      "all_best_within_5nt": 890,
+      "any_best_within_5nt": 900,
+      "median_anchor_rank_best": 6,
+      "median_anchor_rank_worst": 6
+    },
+    "replicons": {
+      "NZ_CP006471.1": 1580,
+      "NZ_CP006472.1": 17
+    },
+    "strands": {
+      "+": 823,
+      "-": 774
+    }
+  },
+  "verification": {
+    "aggregate_recomputation": "independently matched by coordinator without model re-execution",
+    "focused_tests_passed": 77,
+    "focused_tests_skipped": 0,
+    "native_coordinate_positions_per_strand": 91
+  }
+}
