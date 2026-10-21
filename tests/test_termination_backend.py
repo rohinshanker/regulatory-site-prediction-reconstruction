@@ -480,3 +480,67 @@ def test_build_group_cleanup_before_leader_reap(tmp_path, monkeypatch, signal_fa
     )
     assert len(signals) == 1
     assert processes[0].returncode is not None
+
+
+def test_exec_uses_verified_bytes_after_installation_replacement(
+    installation, monkeypatch
+):
+    path, identity = installation
+    model = backend.load_backend(path)
+    original = backend._execute
+    captured = []
+
+    def execute(executable, directory, *args, **kwargs):
+        replacement = f"#!{sys.executable}\nprint('replacement')\n".encode()
+        (path.parent / "transterm").write_bytes(replacement)
+        assert executable == directory / "transterm"
+        assert executable.stat().st_mode & 0o777 == 0o700
+        assert digest(executable.read_bytes()) == identity["binary"]["sha256"]
+        captured.append(directory)
+        return original(executable, directory, *args, **kwargs)
+
+    monkeypatch.setattr(backend, "_execute", execute)
+    result = model.run(SEQUENCE, timeout_seconds=2)
+    assert result.stdout == b"complete\n"
+    assert model.identity == identity
+    assert not captured[0].exists()
+    with pytest.raises(TerminationBackendError) as error:
+        model.run(SEQUENCE, timeout_seconds=2)
+    assert error.value.code == "backend_identity"
+
+
+@pytest.mark.parametrize("operation", ["write_bytes", "chmod"])
+def test_private_executable_failure_removes_temporary_directory(
+    installation, monkeypatch, operation
+):
+    path, _ = installation
+    model = backend.load_backend(path)
+    original = getattr(Path, operation)
+    directories = []
+
+    def fail(executable, *args, **kwargs):
+        if executable.name == "transterm" and executable.parent != path.parent:
+            directories.append(executable.parent)
+            raise OSError("synthetic private executable failure")
+        return original(executable, *args, **kwargs)
+
+    monkeypatch.setattr(Path, operation, fail)
+    with pytest.raises(TerminationBackendError) as error:
+        model.run(SEQUENCE, timeout_seconds=2)
+    assert error.value.code == "native_io"
+    assert error.value.diagnostics is None
+    assert directories and all(not directory.exists() for directory in directories)
+
+
+def test_expired_deadline_never_spawns(tmp_path, monkeypatch):
+    monkeypatch.setattr(backend.time, "monotonic", lambda: 10)
+    spawn = Mock(side_effect=AssertionError("expired work must not spawn"))
+    monkeypatch.setattr(backend.subprocess, "Popen", spawn)
+    with pytest.raises(TerminationBackendError) as error:
+        backend._execute(Path(sys.executable), tmp_path, 10, None)
+    spawn.assert_not_called()
+    assert error.value.code == "native_timeout"
+    assert error.value.diagnostics["returncode"] is None
+    for stream in ("stdout", "stderr"):
+        assert error.value.diagnostics[f"{stream}_bytes"] == 0
+        assert error.value.diagnostics[f"{stream}_complete"] is False

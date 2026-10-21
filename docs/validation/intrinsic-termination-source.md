@@ -194,7 +194,7 @@ for build and verification commands, resource limits and remaining admission gat
 
 Normal context codes are F on + and f on -. Admit G only for a forward hairpin
 starting at zero-based index 1. Both F and G at that position retain geometry and
-printed costs with null admitted confidence; every other unexpected context fails
+printed costs with null admitted and native printed confidence; every other unexpected context fails
 the entire record. Check native gene/H2T counts against the retained context
 classes. Native '%AT' labels actually contain fractions. Compute backgrounds
 from exactly the normalized sequence sent to the engine.

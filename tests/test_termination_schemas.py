@@ -174,7 +174,7 @@ def test_boundary_missing_confidence_is_valid(completed):
         hairpin={"start": 1, "end": 60},
         tail={"start": 60, "end": 75},
     )
-    item["native"]["context"] = "G"
+    item["native"].update(context="G", printed_confidence=None)
     value["coverage"]["admitted_candidate_scores"] = 0
     validate("result", value)
 
@@ -236,3 +236,66 @@ def test_complete_cannot_hide_failed_record(completed):
     value["records"][0]["candidates"] = []
     with pytest.raises(jsonschema.ValidationError):
         validate("result", value)
+
+
+@pytest.mark.parametrize("context", ["F", "G"])
+def test_boundary_cannot_export_either_confidence(completed, context):
+    value = copy.deepcopy(completed)
+    item = value["records"][0]["candidates"][0]
+    item.update(hairpin={"start": 1, "end": 60}, tail={"start": 60, "end": 75})
+    item["native"]["context"] = context
+    with pytest.raises(jsonschema.ValidationError):
+        validate("result", value)
+    item.update(status="boundary_ambiguous", confidence=None)
+    with pytest.raises(jsonschema.ValidationError):
+        validate("result", value)
+    item["native"]["printed_confidence"] = None
+    validate("result", value)
+    item["confidence"] = 78
+    with pytest.raises(jsonschema.ValidationError):
+        validate("result", value)
+
+
+@pytest.mark.parametrize("context", ["G", "f"])
+def test_forward_normal_candidate_requires_context_f(completed, context):
+    value = copy.deepcopy(completed)
+    value["records"][0]["candidates"][0]["native"]["context"] = context
+    with pytest.raises(jsonschema.ValidationError):
+        validate("result", value)
+
+
+@pytest.mark.parametrize(
+    "path",
+    [
+        ("request_sha256",),
+        ("prediction_sha256",),
+        ("result_sha256",),
+        ("model", "backend", "build", "compiler"),
+        ("model", "backend", "build", "compiler_sha256"),
+        ("records", 0, "id"),
+        ("records", 0, "input", "sequence_sha256"),
+        ("records", 0, "candidates", 0, "candidate_id"),
+        ("records", 0, "candidates", 0, "hairpin_score"),
+        ("records", 0, "candidates", 0, "tail_score"),
+        ("records", 0, "candidates", 0, "native", "id"),
+    ],
+)
+def test_pattern_fields_reject_final_newline(completed, path):
+    value = copy.deepcopy(completed)
+    target = value
+    for key in path[:-1]:
+        target = target[key]
+    target[path[-1]] += "\n"
+    with pytest.raises(jsonschema.ValidationError):
+        validate("result", value)
+
+
+def test_request_id_rejects_final_newline():
+    with pytest.raises(jsonschema.ValidationError):
+        validate("request", request({"id": "a\n", "sequence": "AC"}))
+
+
+def test_normal_candidate_requires_printed_confidence(completed):
+    completed["records"][0]["candidates"][0]["native"]["printed_confidence"] = None
+    with pytest.raises(jsonschema.ValidationError):
+        validate("result", completed)

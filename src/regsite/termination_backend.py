@@ -223,14 +223,14 @@ class TerminationBackend:
         """Return JSON provenance without local paths or execution timing."""
         return copy.deepcopy(self._identity)
 
-    def _artifacts(self) -> bytes:
+    def _artifacts(self) -> tuple[bytes, bytes]:
         binary = _read_regular(
             self._directory / "transterm", BINARY_LIMIT, executable=True
         )
         table = _read_regular(self._directory / "expterm.dat", 45788)
         _verify(binary, self._identity["binary"])
         _verify(table, self._identity["table"])
-        return table
+        return binary, table
 
     def run(self, sequence: str, *, timeout_seconds: float) -> NativeRun:
         """Execute one admitted fragment, raising on any incomplete capture."""
@@ -256,7 +256,7 @@ class TerminationBackend:
         if not _PROCESS_LOCK.acquire(timeout=timeout_seconds):
             raise _error("native_timeout")
         try:
-            table = self._artifacts()
+            binary, table = self._artifacts()
             import resource
 
             try:
@@ -286,9 +286,12 @@ class TerminationBackend:
                         encoding="ascii",
                     )
                     (directory / "expterm.dat").write_bytes(table)
+                    executable = directory / "transterm"
+                    executable.write_bytes(binary)
+                    executable.chmod(0o700)
                     try:
                         result = _execute(
-                            self._directory / "transterm",
+                            executable,
                             directory,
                             deadline,
                             child_stack,
@@ -338,6 +341,8 @@ def _execute(
                 "input.coords",
             ]
         )
+        if time.monotonic() >= deadline:
+            raise _error("native_timeout")
         process = subprocess.Popen(
             [str(executable), *argv],
             cwd=directory,

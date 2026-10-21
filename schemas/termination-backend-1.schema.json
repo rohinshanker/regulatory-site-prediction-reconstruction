@@ -44,20 +44,20 @@
           "type": "string",
           "minLength": 1,
           "maxLength": 256,
-          "pattern": "^[\\x20-\\x7e]+$",
+          "pattern": "^[\\x20-\\x7e]+(?![\\s\\S])",
           "not": {
             "pattern": "[/\\\\]"
           }
         },
         "compiler_sha256": {
           "type": "string",
-          "pattern": "^[0-9a-f]{64}$"
+          "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
         },
         "compiler_version": {
           "type": "string",
           "minLength": 1,
           "maxLength": 256,
-          "pattern": "^[\\x20-\\x7e]+$",
+          "pattern": "^[\\x20-\\x7e]+(?![\\s\\S])",
           "not": {
             "pattern": "[/\\\\]"
           }
@@ -66,7 +66,7 @@
           "type": "string",
           "minLength": 1,
           "maxLength": 256,
-          "pattern": "^[\\x20-\\x7e]+$",
+          "pattern": "^[\\x20-\\x7e]+(?![\\s\\S])",
           "not": {
             "pattern": "[/\\\\]"
           }
@@ -75,7 +75,7 @@
           "type": "string",
           "minLength": 1,
           "maxLength": 256,
-          "pattern": "^[\\x20-\\x7e]+$",
+          "pattern": "^[\\x20-\\x7e]+(?![\\s\\S])",
           "not": {
             "pattern": "[/\\\\]"
           }
@@ -84,7 +84,7 @@
           "type": "string",
           "minLength": 1,
           "maxLength": 256,
-          "pattern": "^[\\x20-\\x7e]+$",
+          "pattern": "^[\\x20-\\x7e]+(?![\\s\\S])",
           "not": {
             "pattern": "[/\\\\]"
           }
@@ -101,7 +101,7 @@
         },
         "extra_flags_sha256": {
           "type": "string",
-          "pattern": "^[0-9a-f]{64}$"
+          "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
         }
       }
     },
@@ -120,7 +120,7 @@
         },
         "sha256": {
           "type": "string",
-          "pattern": "^[0-9a-f]{64}$"
+          "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
         }
       }
     },

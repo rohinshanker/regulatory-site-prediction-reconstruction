@@ -98,6 +98,7 @@ def test_exact_original_synthetic_roster(native_backend, case):
         f"candidate-{index:04d}" for index in range(1, len(actual) + 1)
     ]
     for item in record["candidates"]:
+        assert item["native"]["printed_confidence"] == item["confidence"]
         interval = item["hairpin"]
         expected = (
             {"start": interval["end"], "end": interval["end"] + 15}

@@ -89,7 +89,7 @@ def test_boundary_ambiguity(context):
     result = output.parse_output(raw, SEQUENCE)
     assert result[0]["status"] == "boundary_ambiguous"
     assert result[0]["confidence"] is None
-    assert result[0]["native"]["printed_confidence"] == 80
+    assert result[0]["native"]["printed_confidence"] is None
 
 
 @pytest.mark.parametrize(
@@ -157,7 +157,7 @@ def test_term_corruption(kwargs):
     invalid(text_output(rows=[term(**kwargs)]))
 
 
-def test_strict_stream_and_full_roster(monkeypatch):
+def test_strict_stream_and_full_roster():
     raw = text_output(rows=[term()])
     for bad in (
         b"",
@@ -173,8 +173,6 @@ def test_strict_stream_and_full_roster(monkeypatch):
     invalid(raw, "N" * 200)
     invalid(raw, "AC" * 20)
     invalid(raw, None)
-    monkeypatch.setattr(output, "MAX_CANDIDATES", 0)
-    invalid(raw)
 
 
 def test_map_order_and_duplicates():
@@ -213,3 +211,16 @@ def test_notes_and_scientific_notation():
 @pytest.mark.parametrize("value", ["-1e99999", "-1e9999999999999999999999999"])
 def test_unrepresentable_native_cost_is_typed(value):
     invalid(text_output(rows=[term(hp=value)]))
+
+
+def test_candidate_limit_is_distinct_from_malformed_output(monkeypatch):
+    monkeypatch.setattr(output, "MAX_CANDIDATES", 1)
+    raw = text_output(rows=[term(), term(index=2)])
+    with pytest.raises(TerminationBackendError) as error:
+        output.parse_output(raw, SEQUENCE)
+    assert error.value.code == "native_candidate_limit"
+    invalid(raw.replace(b"TERM 2", b"BROKEN 2"))
+
+
+def test_gene_candidate_must_precede_left_boundary_end():
+    invalid(text_output(rows=[term(start=2, end=60, context="G")], gene_terms=1))

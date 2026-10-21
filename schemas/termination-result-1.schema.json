@@ -68,17 +68,17 @@
         },
         {
           "type": "string",
-          "pattern": "^[0-9a-f]{64}$"
+          "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
         }
       ]
     },
     "prediction_sha256": {
       "type": "string",
-      "pattern": "^[0-9a-f]{64}$"
+      "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
     },
     "result_sha256": {
       "type": "string",
-      "pattern": "^[0-9a-f]{64}$"
+      "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
     },
     "status": {
       "enum": [
@@ -247,20 +247,20 @@
               "type": "string",
               "minLength": 1,
               "maxLength": 256,
-              "pattern": "^[\\x20-\\x7e]+$",
+              "pattern": "^[\\x20-\\x7e]+(?![\\s\\S])",
               "not": {
                 "pattern": "[/\\\\]"
               }
             },
             "compiler_sha256": {
               "type": "string",
-              "pattern": "^[0-9a-f]{64}$"
+              "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
             },
             "compiler_version": {
               "type": "string",
               "minLength": 1,
               "maxLength": 256,
-              "pattern": "^[\\x20-\\x7e]+$",
+              "pattern": "^[\\x20-\\x7e]+(?![\\s\\S])",
               "not": {
                 "pattern": "[/\\\\]"
               }
@@ -269,7 +269,7 @@
               "type": "string",
               "minLength": 1,
               "maxLength": 256,
-              "pattern": "^[\\x20-\\x7e]+$",
+              "pattern": "^[\\x20-\\x7e]+(?![\\s\\S])",
               "not": {
                 "pattern": "[/\\\\]"
               }
@@ -278,7 +278,7 @@
               "type": "string",
               "minLength": 1,
               "maxLength": 256,
-              "pattern": "^[\\x20-\\x7e]+$",
+              "pattern": "^[\\x20-\\x7e]+(?![\\s\\S])",
               "not": {
                 "pattern": "[/\\\\]"
               }
@@ -287,7 +287,7 @@
               "type": "string",
               "minLength": 1,
               "maxLength": 256,
-              "pattern": "^[\\x20-\\x7e]+$",
+              "pattern": "^[\\x20-\\x7e]+(?![\\s\\S])",
               "not": {
                 "pattern": "[/\\\\]"
               }
@@ -304,7 +304,7 @@
             },
             "extra_flags_sha256": {
               "type": "string",
-              "pattern": "^[0-9a-f]{64}$"
+              "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
             }
           }
         },
@@ -323,7 +323,7 @@
             },
             "sha256": {
               "type": "string",
-              "pattern": "^[0-9a-f]{64}$"
+              "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
             }
           }
         },
@@ -350,7 +350,7 @@
       "properties": {
         "stdout_sha256": {
           "type": "string",
-          "pattern": "^[0-9a-f]{64}$"
+          "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
         },
         "stdout_bytes": {
           "type": "integer",
@@ -362,7 +362,7 @@
         },
         "stderr_sha256": {
           "type": "string",
-          "pattern": "^[0-9a-f]{64}$"
+          "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
         },
         "stderr_bytes": {
           "type": "integer",
@@ -401,7 +401,7 @@
       "properties": {
         "candidate_id": {
           "type": "string",
-          "pattern": "^candidate-[0-9]{4}$"
+          "pattern": "^candidate-[0-9]{4}(?![\\s\\S])"
         },
         "strand": {
           "enum": [
@@ -470,12 +470,12 @@
         "hairpin_score": {
           "type": "string",
           "maxLength": 32,
-          "pattern": "^-(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?(?:e[+-]?[0-9]+)?$"
+          "pattern": "^-(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?(?:e[+-]?[0-9]+)?(?![\\s\\S])"
         },
         "tail_score": {
           "type": "string",
           "maxLength": 32,
-          "pattern": "^-(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?(?:e[+-]?[0-9]+)?$"
+          "pattern": "^-(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?(?:e[+-]?[0-9]+)?(?![\\s\\S])"
         },
         "native": {
           "type": "object",
@@ -489,7 +489,7 @@
           "properties": {
             "id": {
               "type": "string",
-              "pattern": "^TERM [1-9][0-9]{0,3}$"
+              "pattern": "^TERM [1-9][0-9]{0,3}(?![\\s\\S])"
             },
             "context": {
               "enum": [
@@ -499,9 +499,16 @@
               ]
             },
             "printed_confidence": {
-              "type": "integer",
-              "minimum": 0,
-              "maximum": 100
+              "anyOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 100
+                }
+              ]
             },
             "notes": {
               "type": "string",
@@ -541,6 +548,9 @@
                       "F",
                       "G"
                     ]
+                  },
+                  "printed_confidence": {
+                    "type": "null"
                   }
                 }
               }
@@ -552,6 +562,15 @@
                 "type": "integer",
                 "minimum": 0,
                 "maximum": 100
+              },
+              "native": {
+                "properties": {
+                  "printed_confidence": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 100
+                  }
+                }
               }
             }
           }
@@ -575,6 +594,72 @@
               },
               "status": {
                 "const": "ok"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "strand": {
+                "const": "+"
+              },
+              "hairpin": {
+                "properties": {
+                  "start": {
+                    "const": 1
+                  }
+                }
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "status": {
+                "const": "boundary_ambiguous"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "native": {
+                "properties": {
+                  "context": {
+                    "const": "G"
+                  }
+                }
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "status": {
+                "const": "boundary_ambiguous"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "strand": {
+                "const": "+"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "native": {
+                "properties": {
+                  "context": {
+                    "enum": [
+                      "F",
+                      "G"
+                    ]
+                  }
+                }
               }
             }
           }
@@ -609,7 +694,7 @@
             },
             {
               "type": "string",
-              "pattern": "^[A-Za-z0-9_.:-]{1,128}$"
+              "pattern": "^[A-Za-z0-9_.:-]{1,128}(?![\\s\\S])"
             }
           ]
         },
@@ -653,7 +738,7 @@
                 },
                 "sequence_sha256": {
                   "type": "string",
-                  "pattern": "^[0-9a-f]{64}$"
+                  "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
                 }
               }
             }
@@ -945,7 +1030,7 @@
               },
               "id": {
                 "type": "string",
-                "pattern": "^[A-Za-z0-9_.:-]{1,128}$"
+                "pattern": "^[A-Za-z0-9_.:-]{1,128}(?![\\s\\S])"
               },
               "input": {
                 "type": "object",
@@ -961,7 +1046,7 @@
                   },
                   "sequence_sha256": {
                     "type": "string",
-                    "pattern": "^[0-9a-f]{64}$"
+                    "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
                   }
                 }
               },
@@ -1307,7 +1392,7 @@
                   },
                   "sequence_sha256": {
                     "type": "string",
-                    "pattern": "^[0-9a-f]{64}$"
+                    "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
                   }
                 }
               },
@@ -1577,7 +1662,7 @@
           },
           "request_sha256": {
             "type": "string",
-            "pattern": "^[0-9a-f]{64}$"
+            "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
           },
           "settings": {
             "type": "object",
@@ -1707,5 +1792,6 @@
         }
       }
     }
-  ]
+  ],
+  "$comment": "Validates structure and fixed-state constraints. Cross-field arithmetic, roster totals and digest equality require producer checks; schema validation alone does not verify them."
 }

@@ -56,7 +56,9 @@ Common package configuration and console registration belong to A.
 One fragment runs per process with a private temporary working directory and
 fixed filenames/identifier: `input.fasta`, `input.coords`, `expterm.dat`,
 `fragment`, `boundary_left`, `boundary_right`. Copy verified table bytes into the
-working directory. The exact arguments are `-p expterm.dat --all-context -c 0 -S
+working directory. Copy the verified executable bytes there with mode 0700 and
+execute that private copy; concurrent replacement in the installation cannot
+change the bytes selected for this record. The exact arguments are `-p expterm.dat --all-context -c 0 -S
 input.fasta input.coords`. Keep default scientific settings. Raise only the owned child soft stack limit to at least8MiB before exec,
 preserving its hard limit; fail closed if that limit or setup forbids it. The
 adapter does not change parent/host limits or invoke a shell.
@@ -68,7 +70,17 @@ are distinct typed failures with null candidates. Retain captured byte hashes,
 byte counts and exit status when available; never mislabel a captured prefix as
 a complete output. Kill/reap only an owned unreaped child; no stale process-group
 signalling. All temporary resources are removed on every path. There is no
-parallel native execution inside one request.
+parallel native execution inside one request. The public native API is supported
+from a single-threaded Python process: child stack setup uses POSIX `preexec_fn`,
+which is unsafe in processes with running threads. Use separate worker processes
+for concurrency; the internal lock does not make threaded use supported.
+
+The 100000-base input bound is an admission limit, not a guarantee that every
+fragment completes within output, candidate or time limits. More than 1000
+retained candidates produces `native_candidate_limit`, with null candidates;
+no partial roster is returned and valid over-cap output is not called malformed.
+The candidate limit can apply below the length bound, depending on sequence.
+Long-fragment completeness and candidate-density estimates are unverified.
 
 ## Parsing and result identity
 
@@ -85,14 +97,19 @@ and derive the15-base tail interval on its strand. Preserve full native retained
 rosters, including overlapping candidates. Canonically sort by start/end/strand;
 numbered canonical candidate IDs do not reuse native TERM IDs. Preserve the
 native ID/context/notes as provenance. A forward candidate starting at index1
-retains its geometry/costs but has null admitted confidence and a boundary-
-ambiguity status. Every other admitted confidence is an integer background
+retains its geometry/costs but has null `confidence` and null
+`native.printed_confidence`, with a boundary-ambiguity status. Its native context
+and raw-output byte identity remain available; the ambiguous numeric score is
+not exported in the structured candidate. Every other admitted confidence is an integer background
 candidate score, never a probability. Do not restore pruned mirror candidates.
 
 `termination-result-1` binds the complete canonical request, fixed model profile,
 backend identity, settings, roster, coverage and warnings. Each record separates
-input/domain validation, attempted execution, successful parsing and candidate
-count. Null candidates mean unsupported, failed or unevaluated; an empty list is
+input/domain validation, backend invocation, successful parsing and candidate
+count. `attempted` means the adapter's `run` method was called; it does not assert
+that a native process started. Lock, artifact, stack or setup failures can have
+`attempted: true` and null `execution`. Capture-helper failures retain diagnostics
+when available; null `returncode` does not assert a launched native process. Null candidates mean unsupported, failed or unevaluated; an empty list is
 reserved for a successful native search with no retained candidates. Batch status
 is complete only when every record succeeds. Wall-clock timing and temporary
 paths are execution details and must not change prediction identity. `prediction_sha256` hashes the complete result after removing each record's
@@ -104,7 +121,10 @@ Thus execution receipts remain bound even when harmless timing bytes vary.
 
 Strict schemas, failure-path tests and real native fixture replay form the
 implementation gate. Independent exact-patch review and common packaging remain
-separate requirements.
+separate requirements. Schema validation checks structure and fixed state
+constraints, including boundary confidence, strand/context and strict string
+patterns. It does not prove cross-field arithmetic, candidate-tail adjacency,
+coverage totals or hash equality; those are checked by producer logic and tests.
 The [native smoke receipt](../../benchmarks/termination/native-smoke-manifest.json)
 is executable evidence for original artificial inputs, not biological validation.
 
@@ -147,17 +167,19 @@ per-record failure, never fallback predictions.
 `max_seconds` is a scheduling budget starting at the public API call. Request
 transport and backend loading precede it; final hashing/serialization follows
 scoring. Synchronous filesystem/setup operations can finish after the deadline
-before the next check reports a failure. It is not a hard wall-time guarantee for
+before the next check reports a failure. A final deadline check prevents
+launching a child when setup has already exhausted its budget. It is not a hard wall-time guarantee for
 input/output or filesystem calls. Native capture itself has a deadline, and all
 accepted roster positions survive expiry.
 
-The [adapter receipt](../../benchmarks/termination/adapter-build-manifest.json)
-binds the actual builder output, compiler and native binary, plus complete external
-CLI outputs. The source-built ARM64 binary passed342 focused tests with zero
-skips and100% coverage of700 statements/182 branches, including every original
+The [build receipt](../../benchmarks/termination/adapter-build-manifest.json)
+binds the original builder output, compiler, native binary and CLI outputs.
+The separate post-repair runtime receipt preserves the original frozen evidence;
+exact implementation recheck remains pending. The source-built ARM64 binary passed365 focused tests with zero
+skips and100% coverage of706 statements/186 branches, including every original
 synthetic roster, automatic child stack setup, CLI invocation outside the checkout,
 strict schema validation and missingness. One warning is deliberately produced by
-the rejected duplicate-ZIP-member test. Source-wide Ruff/format/mypy also passed.
+the rejected duplicate-ZIP-member test. CI-scoped Ruff/format (184 files) and mypy (56 source files) also passed.
 The builder took8.98seconds; its measured process had321,110,016bytes maximum
 resident memory and310,592,232bytes peak footprint. These include reading the
 selected compiler for identity and are not native scorer memory measurements.

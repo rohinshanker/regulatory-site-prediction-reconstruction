@@ -100,7 +100,7 @@ def _candidate(line: str, sequence: str, expected_id: int) -> dict[str, Any]:
         "native": {
             "id": f"TERM {native_id}",
             "context": context,
-            "printed_confidence": confidence,
+            "printed_confidence": None if ambiguous else confidence,
             "notes": _notes(notes, length),
         },
     }
@@ -174,9 +174,13 @@ def parse_output(stdout: bytes, sequence: str) -> list[dict[str, Any]]:
             _require(seen_left)
             seen_right = True
         else:
-            _require(len(candidates) < MAX_CANDIDATES)
             candidate = _candidate(line, sequence, len(candidates) + 1)
-            _require(seen_left or candidate["native"]["context"] == "G")
+            _require(seen_left != (candidate["native"]["context"] == "G"))
+            if len(candidates) >= MAX_CANDIDATES:
+                raise TerminationBackendError(
+                    "Native termination candidate limit exceeded.",
+                    code="native_candidate_limit",
+                )
             candidates.append(candidate)
     _require(seen_left and seen_right)
     _require(int(genes[2]) == sum(c["native"]["context"] == "G" for c in candidates))
