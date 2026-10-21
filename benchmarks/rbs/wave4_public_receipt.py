@@ -314,6 +314,7 @@ def summary(value):
         "model: measured-success intersection",
     )
     if n:
+        require(0 <= number(value["coverage"], "coverage") <= 1, "coverage: bounds")
         close(value["coverage"], success / n, "coverage")
     else:
         same(value["coverage"], None, "empty coverage")
@@ -332,6 +333,7 @@ def summary(value):
     executed = count(runtime["n_executed"], "executed")
     same(executed, n - value["status_counts"].get("not_run", 0), "runtime accounting")
     total = number(runtime["sum"], "runtime sum")
+    require(total >= 0, "runtime: negative sum")
     if executed:
         median, p95, maximum = (
             number(runtime[k], "runtime quantile")
@@ -420,7 +422,11 @@ def comparison(value, left, right, protocol):
     )
     blocks = count(value["n_common_blocks"], "common blocks")
     require(
-        blocks <= min(value["n_blocks"], measured) and bool(blocks) == bool(measured),
+        value["n_blocks"] <= n
+        and max(0, value["n_blocks"] - (n - measured))
+        <= blocks
+        <= min(value["n_blocks"], measured)
+        and bool(blocks) == bool(measured),
         "comparison: common blocks",
     )
     settings = protocol["bootstrap"]
@@ -652,11 +658,25 @@ def reconcile(protocol, freeze, aggregate, review):
     )
     for name, value in descriptive.items():
         comparison(value, left, primary["models"][name], protocol)
+    complete_cohort_blocks = {
+        value["n_common_blocks"]
+        for value in (primary["comparison"], *descriptive.values())
+        if value["n_common_measured"] == expected["n_observed"]
+    }
+    require(
+        len(complete_cohort_blocks) <= 1,
+        "comparison: complete measured cohort blocks disagree",
+    )
     strata = aggregate["descriptive_coding_gc_strata"]
     keys(strata, ("low", "middle", "high"), "GC strata")
     for group in strata.values():
         models(group["models"])
         point_group(group, contrast)
+    same(
+        sum(group["primary_pair"]["n_common_measured"] for group in strata.values()),
+        primary["comparison"]["n_common_measured"],
+        "GC partition common measured",
+    )
     for name, row in primary["models"].items():
         parts = [group["models"][name] for group in strata.values()]
         for field in SUMMARY_KEYS[:4]:

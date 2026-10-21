@@ -80,8 +80,8 @@ These are feasibility bounds, not inferred case identities. Correlation
 subtraction is checked only when both summaries cover every observed input.
 Equal marginal counts alone do not establish the same cohort. GC and secondary
 point comparisons keep their own scopes; no pooled secondary endpoint is added.
-GC strata partition primary counts, statuses, failure counts and runtime sums;
-correlations, medians and quantiles are not additive.
+GC strata partition primary counts, statuses, failure counts, paired measured
+counts and runtime sums; correlations, medians and quantiles are not additive.
 
 Runtime execution count equals inputs minus `not_run`; unsuccessful executions
 still contribute time. Zero executions require sum zero and null quantiles.
@@ -92,7 +92,11 @@ A complete collection cannot contain unexecuted requests.
 ## Comparison states and advancement
 
 Shared blocks cannot exceed either total blocks or shared measured rows; zero
-shared blocks and zero shared measured rows imply each other. Frozen support
+shared blocks and zero shared measured rows imply each other. Each block without
+a shared measured row needs at least one other input, so shared blocks must also
+be at least `max(0, total_blocks - (inputs - shared_measured))`. Comparisons
+covering every observed row share the same measured cohort and must agree on
+its block count. These constraints do not infer block identities. Frozen support
 requires 30 measured rows and 10 blocks. Requested draws stay 10,000, separately
 from attempted, usable and undefined draws. Insufficient support and undefined
 points have null gain/interval and zero attempted draws. A finite supported

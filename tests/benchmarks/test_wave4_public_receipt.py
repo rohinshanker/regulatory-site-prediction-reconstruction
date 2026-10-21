@@ -1216,3 +1216,102 @@ def test_both_stratified_intersection_bounds(
     else:
         with pytest.raises(c.ReceiptError, match="observed/unobserved intersection"):
             c.comparison(pair, left, right, fixture()[c.PROTOCOL])
+
+
+@pytest.mark.parametrize("blocks", [1, 52])
+def test_impossible_common_block_count_after_hash_refresh(tmp_path, blocks):
+    docs = fixture()
+    primary = docs[c.AGGREGATE]["primary"]
+    pair = primary["comparison"]
+    pair["n_common_blocks"] = blocks
+    if blocks == 1:
+        pair.update(
+            rank_gain=None,
+            attempted_draws=0,
+            usable_draws=0,
+            undefined_draws=0,
+            interval95=None,
+            interval_status="insufficient_support",
+        )
+        primary["advancement"] = {
+            "advance": False,
+            "reasons": [
+                "rank_gain_below_threshold_or_undefined",
+                "interval_not_above_zero_or_undefined",
+            ],
+        }
+        docs[c.REVIEW]["independent_recomputation"].update(
+            primary_usable_draws=0, advance=False
+        )
+    # At most three of the 56 nonempty input blocks can lack any of 332
+    # measured rows among 335 inputs. A count below 53 cannot be realized.
+    with pytest.raises(c.ReceiptError, match="comparison: common blocks"):
+        c.check(*write_fixture(tmp_path, docs))
+
+
+def test_identical_complete_cohorts_require_same_block_count(tmp_path):
+    docs = fixture()
+    docs[c.AGGREGATE]["primary"]["comparison"]["n_common_blocks"] = 54
+    # Both 54 and 56 are individually feasible; they cannot describe the same
+    # complete observed cohort in two comparisons over the same grouping.
+    with pytest.raises(c.ReceiptError, match="complete measured cohort blocks"):
+        c.check(*write_fixture(tmp_path, docs))
+
+
+def test_common_block_lower_boundary_is_feasible(tmp_path):
+    docs = fixture()
+    a = docs[c.AGGREGATE]
+    for pair in (
+        a["primary"]["comparison"],
+        *a["descriptive_against_primary_reference"].values(),
+    ):
+        pair["n_common_blocks"] = 53
+    assert c.check(*write_fixture(tmp_path, docs))["status"] == "consistent"
+
+
+@pytest.mark.parametrize("low_common,valid", [(27, False), (28, True)])
+def test_gc_common_measured_partition_after_hash_refresh(tmp_path, low_common, valid):
+    docs = fixture()
+    a = docs[c.AGGREGATE]
+    primary = a["primary"]
+    strata = a["descriptive_coding_gc_strata"]
+    for name in ("standby2014-linker3", "joint_standby-linker3"):
+        rho = 0.2 if name == "standby2014-linker3" else 0.3
+        primary["models"][name] = summary(335, 332, 333, 330, rho=rho)
+        strata["low"]["models"][name] = summary(31, 29, 30, 28, rho=rho)
+        strata["middle"]["models"][name] = summary(303, 302, 302, 301, rho=rho)
+    primary["comparison"].update(
+        n_common_success=332, n_common_measured=329, lost_reference_successes=1
+    )
+    primary["advancement"] = {
+        "advance": False,
+        "reasons": ["lost_reference_successes"],
+    }
+    docs[c.REVIEW]["independent_recomputation"]["advance"] = False
+    for pair in a["descriptive_against_primary_reference"].values():
+        pair.update(n_common_success=333, n_common_measured=330)
+    strata["low"]["primary_pair"]["n_common_measured"] = low_common
+    strata["middle"]["primary_pair"]["n_common_measured"] = 300
+    # Per-model counts and each paired intersection are feasible in both cases;
+    # only 28+300+1 partitions the primary 329 common measured rows.
+    args = write_fixture(tmp_path, docs)
+    if valid:
+        assert c.check(*args)["status"] == "consistent"
+    else:
+        with pytest.raises(c.ReceiptError, match="GC partition common measured"):
+            c.check(*args)
+
+
+@pytest.mark.parametrize("success,coverage", [(335, 1 + 5e-13), (0, -1e-16)])
+def test_coverage_range_is_strict_despite_arithmetic_tolerance(success, coverage):
+    row = summary(success=success, paired=332 if success else 0)
+    row["coverage"] = coverage
+    with pytest.raises(c.ReceiptError, match="coverage: bounds"):
+        c.summary(row)
+
+
+def test_runtime_sum_cannot_be_negative_within_roundoff_allowance():
+    row = summary(1, 1)
+    row["runtime_seconds"].update(sum=-1e-13, median=0, p95_nearest_rank=0, maximum=0)
+    with pytest.raises(c.ReceiptError, match="runtime: negative sum"):
+        c.summary(row)
