@@ -4,7 +4,7 @@
 - Status: active
 - Opened: 2026-10-21
 - Updated: 2026-10-21
-- Current State: C activated A's queued continuation after reviewed coupling handoff `eed4b0f`. Pinned TransTermHP 2.09 source, required table and one maintained compiler-compatibility patch; proposed unannotated-fragment candidate contract and scalar fixtures frozen for independent review. DEM-619 admits complete source for a build/synthetic smoke after pinning flags; runtime admission still needs corrected contracts and targeted native controls. A reserved one sequential slot; no native execution yet.
+- Current State: C activated A's queued continuation after reviewed coupling handoff `eed4b0f`. Pinned TransTermHP 2.09 source, required table and one maintained compiler-compatibility patch; proposed unannotated-fragment candidate contract and scalar fixtures frozen for independent review. DEM-619 admits complete source for a build/synthetic smoke after pinning flags; runtime admission still needs corrected contracts and targeted native controls. A reserved one sequential slot. Serial external ARM64 build and11 original synthetic controls completed; exact receipt frozen for the same reviewer before runtime admission.
 - Verification: Exact base `605d0c25066de937d124e69fe42be3c40bb2e749`, isolated `reconstruction-intrinsic-termination-20261021`, branch `wave7/intrinsic-termination`. Disk check shows 50 GiB available; acquisition cap 10 MiB total with each source archive capped at 5 MiB.
 - Cleanup: C alone resolves this child after review, validation and finding disposition; distill reusable source/runtime contracts, update indexes and linked issue, then delete resolved ticket. #8 and coupling-unfolding gate remain open.
 - Owner: cyano-calcs-c / 56abed60-1792619583; A owns common integration, B scientific evaluation.
@@ -31,8 +31,8 @@ wait for the owner; no bypass.
 
 ## Active review and resource ownership
 
-- DEM-619 / Claude Opus 5.5 independently reviews exact source proposal `8120d35`. One original review remains active; an automatically queued duplicate comment-run was cancelled, while its contextual boundary concern stays in the issue thread.
-- A accepted one sequential local native-scoring/compiler slot in `/tmp/calculator-wave7-20261021/a-termination-resource-reservation.md`, after source admission. Global cap stays two; C uses zero until admission.
+- DEM-619 / Claude Opus 5.5 independently reviews exact source proposal `8120d35`. Original review completed; the automatically queued duplicate comment-run was cancelled. A finite focused reconciliation will cover corrected contracts and native evidence, reusing this review.
+- A accepted one sequential local native-scoring/compiler slot in `/tmp/calculator-wave7-20261021/a-termination-resource-reservation.md`, after source admission. Global cap stays two; build/smoke used one sequential slot and is now idle.
 - Potential boundary finding: a 59-base forward hairpin can begin at the first synthetic annotation endpoint; tied event ordering may select its four-base GENE background. Independent review must reconcile the guard/context requirement before runtime work.
 
 ## Bounded source list
@@ -60,3 +60,9 @@ of inventing a replacement.
 
 All verified source-contract corrections are incorporated. Targeted native smoke,
 backend identity, runtime implementation/review and A integration remain open.
+
+## Executable checkpoint
+
+- Source correction commit f4ff5e3, native manifest pins external ARM64 Clang21 build and11 controls. Successful build17.14s/168894464maximum resident bytes; maximum tiny-smoke process2473984resident bytes. Complete raw output remains external with hashes.
+- Ten native successes, expected length74exit3, length75zero coverage, retained gap-free mirror, cross-strand pruning and boundary controls observed. Uniform boundary diagnostic did not abort on this build; conservative guard/ambiguity remain.
+- Pending focused review: prototype return-type discrepancy, source-vs-native ATtie discrimination, corrected scope/runtime admission. No wrapper implementation yet.

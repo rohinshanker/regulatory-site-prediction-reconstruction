@@ -152,3 +152,42 @@ lengths 74/75, simple gap-free mirrors, position-dependent bidirectional pruning
 bookkeeping-boundary overlap and the 27/100 AT tie. Source review does not
 certify compiled parity, candidate correctness, experimental accuracy or package
 integration.
+
+
+## External executable smoke boundary
+
+The [native smoke manifest](../../benchmarks/termination/native-smoke-manifest.json)
+pins the separate ARM64 executable, compiler flags, library versions and all11
+original artificial controls. Apple Clang21 needed explicit existing SDK and
+C++ header paths; no toolchain installation or additional source patch was used.
+Only the maintained three-line null-pointer patch changed source. The successful
+serial build took17.14seconds and reported168,894,464bytes maximum resident
+memory; `/usr/bin/time` separately reported3,507,232bytes peak footprint for its
+measured process. These are distinct measurements, not interchangeable whole-tree
+peak estimates. The largest smoke process reported2,473,984resident bytes and
+1,933,624bytes peak footprint. Runtime stack was16MiB, set in the launching shell
+before Python/native execution; the inherited8176KiB was below this contract.
+No host-wide resource limit changed.
+
+All11 cases completed:10 native successes and the expected length74 exit3.
+Length75 has zero anchors, while length76 has one per strand. Both positive and
+reverse controls retained the intended gap-free hairpin with the native printed
+scores, but their complete rosters differ; no universal mirror property is
+asserted. The rightmost bidirectional control retained only its reverse copy;
+placing another candidate to its right retained both copies. Both left-boundary
+controls used contextF in this build, including the uniform-GC diagnostic;
+this does not remove the source-level unstable-event ambiguity or justify a
+cross-build guarantee. The adapter still flags boundary overlap and withholds
+admitted confidence there. The27/100 AT control confirms executable acceptance;
+its saturated100 score cannot independently distinguish the26 and28 tables.
+The binary64 selection claim remains source/arithmetic evidence pending a
+non-saturated discriminating control or focused independent check.
+
+Full stdout/stderr and invocation receipts remain in the external source cache.
+The manifest records their byte identities and the complete candidate roster;
+these artificial outputs are not measurements. The native header's date and
+parameter-file path are execution metadata, not model version identity. Runtime
+admission and final adapter verification still require the focused DEM-619
+reconciliation and implementation review. The upstream cross-translation-unit
+`set_max_len_loop` return-type discrepancy is explicitly submitted for disposition;
+no silent extra compatibility patch was applied.
