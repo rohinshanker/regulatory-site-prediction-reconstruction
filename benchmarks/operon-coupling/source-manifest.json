@@ -13,9 +13,9 @@
     "locations": {
       "sum": "printed page 7140, Eq. 2",
       "reinitiation": "printed page 7141, Eq. 3 and distance definition",
-      "unfolding_ambiguity": "printed page 7141, Eqs. 4 and 5; page 7143 negative energy values",
+      "unfolding_ambiguity": "printed page 7140 Figure 1D negative exponent conflicts with page 7141 Eq. 5 positive exponent; Eq. 4 and page 7143 negative energy values",
       "coefficients": "printed page 7142, intergenic-distance-dependent model section",
-      "host": "printed page 7138, growth and fluorescence methods"
+      "host": "printed page 7139, growth and fluorescence methods; page 7142 direct DH10B reporter statement"
     }
   },
   "implementation_search": {
@@ -23,7 +23,7 @@
     "scope": "recursive public tree path inventory and existing operon-riboswitch admission",
     "complete_coupling_source_established": false
   },
-  "admission": "pending_independent_source_math_review",
+  "admission": "DEM-615: bounded supplied-energy reinitiation admitted; unfolding not admitted",
   "proposed_component": "reinitiation_only_supplied_energies",
   "excluded": ["rna_unfolding_correction", "sequence_energy_inference", "negative_distance_interpolation", "protein_abundance", "host_calibration", "full_operon_prediction"]
 }

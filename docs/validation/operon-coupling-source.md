@@ -1,7 +1,7 @@
 # Operon coupling source boundary
 
 - Purpose: Admit a bounded historical translational reinitiation calculation while retaining unresolved RNA-unfolding semantics.
-- Scope: Session C, child #60 of #8; source review pending, no implemented model yet.
+- Scope: Session C, child #60 of #8; bounded reinitiation admitted by independent review DEM-615.
 - Last verified: 2026-10-21
 
 ## Pinned source
@@ -75,6 +75,13 @@ source inconsistency; neither `F -> 1-F` nor a sign flip is silently admitted.
 Sequence-based partitioning of inhibitory structures, partial unfolding and
 backend equivalence are additional unimplemented dependencies.
 
+Figure 1D on printed page 7140 explicitly uses the factor
+`1/(1+C*exp(-beta*G_up))`, whereas Eq. (5) uses a positive exponent. These
+competing formulas disagree in the primary source itself. The Figure 1 factor
+is also not `1-F` at the same C: when `exp(-beta*G_up)=4` and C=0.81, they
+are approximately 0.235849 and 0.168399 respectively. Selecting a formula,
+complementing F or refitting C requires separate authoritative evidence.
+
 The full coupled-state energy, unfolding correction, structural fraction,
 protein abundance and complete Operon prediction therefore remain unavailable.
 The proposed result must explicitly identify `reinitiation_only` and carry this
@@ -88,9 +95,11 @@ hand-computable supplied exponential-scale inputs, never measurements.
 With zero energies, both independent rates equal one: `d=0` gives a reinitiation
 contribution of `0.072` and total `1.072`; `d=-4` gives `0.22` and total `1.22`.
 If upstream and downstream log rates are `ln(4)` and `ln(2)`, those totals are
-`2.288` and `2.88`. Disabling reinitiation produces the exact independent input.
+`2.288` and `2.88`. The independent score remains a separate reported quantity.
 Unsupported distances stay missing, not zero or an interpolated coefficient.
 
-Source and mathematical review must verify these proposed choices before model
-implementation. The runtime/geometry contract will be frozen separately after
-that admission; fixtures must retain their independent input/output identities.
+Independent GPT-6 Astra review DEM-615 checked exact sources, equations,
+coefficient domains, coordinate conversions and all fixtures using Decimal
+arithmetic. It admitted only this bounded component. Its Figure 1D conflict
+and host-page findings are incorporated here and in the manifest. The unresolved
+unfolding gate remains explicit. Fixtures retain their original byte identities.
