@@ -11,8 +11,9 @@ source download and the named native Promoter pilot. A owns runtime, source
 fidelity and integration; B owns independent benchmark/evidence tooling. Agree
 an exact base and disjoint paths before dispatching each bounded task, freeze
 its evaluation protocol before execution, and retain complete failures and
-source identities. The active wave combines that pilot with already reviewed
-calculator components.
+source identities. The [integrated development build](integrated-runtime-build.md) combines that
+pilot with already reviewed calculator components. Its local gates and exact
+archive identity do not replace publication or consumer admission.
 
 The prior consumer priority does not pause this producer wave. It still limits
 the consumer: preserve the [immutable paired preview handoff](paired-consumer-preview.md),

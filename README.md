@@ -245,8 +245,9 @@ into a protein-abundance estimate. JSON retains both complete native predictions
 CSV retains component summaries and scalar rows bound to the full JSON hash.
 Independent review, strict schemas and fresh offline examples pass. The fixed
 resource checks retain all requested cases, including partial and unavailable
-ones; the frozen source passed all eight cross-platform CI jobs. The combined
-integration requires its own final gates. See the
+ones; the frozen source passed all eight cross-platform CI jobs. The [combined development build](docs/validation/integrated-runtime-build.md)
+passed its full local suite and fresh offline checks; its source/artifact identity
+is separate from the frozen candidate. See the
 [immutable 0.8.0rc1 candidate](docs/validation/transcript-0.8-candidate.md).
 See the [request contract](docs/validation/supplied-transcript-contract.md) and
 [runtime and export semantics](docs/validation/supplied-transcript-runtime.md).
