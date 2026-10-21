@@ -1,6 +1,6 @@
 {
   "schema_version": "intrinsic-termination-source-1",
-  "admission": "pending independent source/math review and bounded executable smoke",
+  "admission": "DEM-619 admits complete source/math/terms for separately verified build and synthetic smoke; runtime admission remains pending corrections and execution.",
   "upstream_version": "2.09",
   "embedded_banner_version": "2.08",
   "manual_heading_version": "2.07",
@@ -236,5 +236,48 @@
     "experimental_collection",
     "parameter_refitting",
     "De Novo DNA equivalence"
-  ]
+  ],
+  "excluded_binary_members": [
+    {
+      "name": "transterm",
+      "bytes": 4260333
+    },
+    {
+      "name": "2ndscore",
+      "bytes": 2264150
+    }
+  ],
+  "debian_metadata": [
+    {
+      "name": "debian-copyright.txt",
+      "bytes": 1354,
+      "sha256": "f9d1bf786512bbfd0cadfc6962b7d8d594d11532f57b00d06d155925908cee52"
+    },
+    {
+      "name": "debian-patches-series.txt",
+      "bytes": 112,
+      "sha256": "21cf1531c5e3f404829b5497fa4c4b3149c486f2520b37eb40de737db3ba42b7"
+    }
+  ],
+  "build_contract": {
+    "flags": [
+      "-g",
+      "-O3",
+      "-Wall",
+      "-pedantic",
+      "-std=c++11",
+      "-ffp-contract=off"
+    ],
+    "assertions_required": true,
+    "fast_math_allowed": false,
+    "minimum_stack_bytes": 8388608,
+    "maximum_fragment_bases": 100000,
+    "one_fragment_per_process": true,
+    "mandatory_output_flags": [
+      "--all-context",
+      "-c",
+      "0",
+      "-S"
+    ]
+  }
 }
