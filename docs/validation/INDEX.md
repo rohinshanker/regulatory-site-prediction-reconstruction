@@ -4,6 +4,7 @@ Verification dates cover the stated source observations or specification review;
 
 | Area | Purpose | Last verified | Document |
 | --- | --- | --- | --- |
+| offline-calculator-jobs | Fixed local calculator commands, external byte-bound artifacts, process supervision, failure accounting and verified resume. | 2026-10-21 | [offline-calculator-jobs.md](offline-calculator-jobs.md) |
 | coupling-0.9-candidate | Exact reviewed reinitiation package, fresh offline installation and independent/local validation boundary. | 2026-10-21 | [coupling-0.9-candidate.md](coupling-0.9-candidate.md) |
 | rbs-host-transfer | Cross-host evaluation design, source-admission status and explicit unmeasured UTEX outcomes. | 2026-10-21 | [rbs-host-transfer.md](rbs-host-transfer.md) |
 | rbs-host-transfer-failure-analysis | Existing aggregate evidence separating scale, ordering, context, measurement and coverage failures; no new host-accuracy claim. | 2026-10-21 | [rbs-host-transfer-failure-analysis.md](rbs-host-transfer-failure-analysis.md) |

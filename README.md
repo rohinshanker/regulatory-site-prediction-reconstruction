@@ -81,6 +81,23 @@ separate validation gates.
 Register complete files in explicit external storage and check their byte identity
 with the [offline artifact manifest tool](docs/validation/calculator-artifact-storage.md).
 
+The job runner is introduced in the separate `0.10.0rc1` development package.
+Run explicit batches offline with the [calculator job runner](docs/validation/offline-calculator-jobs.md):
+
+```sh
+.venv/bin/regsite-jobs run --manifest examples/jobs-synthetic/manifest.json --output-dir /absolute/external/new-campaign
+.venv/bin/regsite-jobs verify --manifest examples/jobs-synthetic/manifest.json --output-dir /absolute/external/new-campaign
+.venv/bin/regsite-jobs resume --manifest examples/jobs-synthetic/manifest.json --output-dir /absolute/external/new-campaign
+```
+
+The output parent must already exist. Complete request/output bytes and receipts
+stay in that external directory. Resume checks input, runtime and backend identity
+and preserves verified terminal jobs, including failures. The runner executes
+existing commands sequentially; it does not change scores or split requests.
+Calculator execution and captured output have explicit limits. Filesystem and
+identity work use cooperative deadline checks; captured-byte accounting is not a
+machine-wide disk quota. See the contract for backend examples and failure semantics.
+
 ## Run the RBS calculator
 
 Follow the [installation and validation contract](docs/validation/rbs-runtime.md)
