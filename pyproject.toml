@@ -20,6 +20,7 @@ regsite-promoter = "regsite.promoter_cli:main"
 regsite-compare = "regsite.paired_cli:main"
 regsite-conditional = "regsite.conditional_cli:main"
 regsite-transcript = "regsite.transcript_cli:main"
+regsite-jobs = "regsite.jobs:main"
 
 [tool.setuptools.package-data]
 regsite = ["data/*.json", "data/*.txt"]
