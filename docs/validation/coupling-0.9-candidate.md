@@ -63,7 +63,7 @@ the existing exact admitted conditional binaries were enabled for the old
 components. Those checks do not expand conditional backend admission.
 
 [Cross-platform CI](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/actions/runs/39689533173)
-is recorded separately and was pending when this receipt was written. Local
-success does not establish a remote CI result, hosted equivalence, cyanobacterial
-accuracy or consumer approval. Main merge, package/tag publication and consumer
+passed all eight jobs at the exact source: Linux/macOS and Python3.11/3.14
+runtime and Promoter-resource matrices. This does not establish hosted equivalence,
+cyanobacterial accuracy or consumer approval. Main merge, package/tag publication and consumer
 admission remain separate gates.

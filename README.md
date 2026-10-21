@@ -81,7 +81,7 @@ separate validation gates.
 Register complete files in explicit external storage and check their byte identity
 with the [offline artifact manifest tool](docs/validation/calculator-artifact-storage.md).
 
-The job runner is introduced in the separate `0.10.0rc1` development package.
+The job runner is introduced in the separate [0.10.0rc1 development package](docs/validation/offline-jobs-0.10-candidate.md).
 Run explicit batches offline with the [calculator job runner](docs/validation/offline-calculator-jobs.md):
 
 ```sh

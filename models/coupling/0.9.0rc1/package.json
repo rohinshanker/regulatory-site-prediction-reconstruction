@@ -109,9 +109,60 @@
     }
   ],
   "ci": {
+    "conclusion": "success",
     "head_sha": "c74ff8fac2331ba1e1e1836d953ea69036133b85",
+    "jobs": [
+      {
+        "completedAt": "2026-10-21T22:52:57Z",
+        "conclusion": "success",
+        "name": "promoter-resources (macos-14, 3.11)",
+        "startedAt": "2026-10-21T22:51:58Z"
+      },
+      {
+        "completedAt": "2026-10-21T22:52:53Z",
+        "conclusion": "success",
+        "name": "promoter-resources (ubuntu-24.04, 3.14)",
+        "startedAt": "2026-10-21T22:51:59Z"
+      },
+      {
+        "completedAt": "2026-10-21T23:17:55Z",
+        "conclusion": "success",
+        "name": "runtime (macos-14, 3.14)",
+        "startedAt": "2026-10-21T22:51:59Z"
+      },
+      {
+        "completedAt": "2026-10-21T22:52:51Z",
+        "conclusion": "success",
+        "name": "promoter-resources (macos-14, 3.14)",
+        "startedAt": "2026-10-21T22:51:59Z"
+      },
+      {
+        "completedAt": "2026-10-21T23:09:11Z",
+        "conclusion": "success",
+        "name": "runtime (ubuntu-24.04, 3.14)",
+        "startedAt": "2026-10-21T22:51:59Z"
+      },
+      {
+        "completedAt": "2026-10-21T22:52:52Z",
+        "conclusion": "success",
+        "name": "promoter-resources (ubuntu-24.04, 3.11)",
+        "startedAt": "2026-10-21T22:51:59Z"
+      },
+      {
+        "completedAt": "2026-10-21T23:18:46Z",
+        "conclusion": "success",
+        "name": "runtime (ubuntu-24.04, 3.11)",
+        "startedAt": "2026-10-21T22:51:59Z"
+      },
+      {
+        "completedAt": "2026-10-21T23:28:39Z",
+        "conclusion": "success",
+        "name": "runtime (macos-14, 3.11)",
+        "startedAt": "2026-10-21T22:52:00Z"
+      }
+    ],
     "run_id": 39689533173,
-    "status_at_recording": "pending",
+    "status_at_recording": "completed",
     "url": "https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/actions/runs/39689533173"
   },
   "full_local_validation": {
@@ -128,6 +179,11 @@
       "mypy"
     ],
     "warnings": 8
+  },
+  "installed_runtime_check": {
+    "receipt_sha256": "a9febf1fd1ae3e31305ae9f432395e1c15c66a7dc5d2809fd46c84f9cbf59e06",
+    "sha256_and_bytes_equal": true,
+    "verified_runtime_members": 45
   },
   "native_or_hosted_accuracy_claim": false,
   "publication_or_consumer_admission": false,
