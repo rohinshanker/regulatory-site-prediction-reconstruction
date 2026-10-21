@@ -1,6 +1,8 @@
 # Intrinsic-termination benchmark admission
 
-This is a feasibility contract, not an evaluation result. No predictor, folding
+This is a provisional feasibility contract, not an evaluation result. Independent
+dossier review has not completed; source pins and structural checks alone do not
+constitute scientific acceptance. No predictor, folding
 engine, fit or threshold search was run. None of the inspected studies establishes
 UTEX 2973 accuracy. The smallest plausible next study is a fixed-model,
 construct-level association audit; an unrestricted, context-complete benchmark is
