@@ -1,0 +1,57 @@
+{
+  "case": "tie27_nonsaturated",
+  "sequence": "ACTTTTTTGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCAAAAAAAAGCGCGCAAAAGCGCGCTTTCCCTTTCCCTTTCAC",
+  "sequence_sha256": "5e56f2a11b0cbeb833e41367661310f630d09fed9694473400214f9fe13ad0c4",
+  "fasta_sha256": "06683a1df8dca7a695f861adb6736579fc92569da12d0f63589360fb03911f68",
+  "coords_sha256": "78c626df9a81fc1c3b34d2fd85448f07e4373896c022a5f70e0f3b9a01eb094b",
+  "interior_at_count": 27,
+  "interior_length": 100,
+  "source_expected": {
+    "hairpin_start_0based": 70,
+    "hairpin_end_0based": 86,
+    "strand": "+",
+    "hairpin_score": "-11.8",
+    "tail_score": "-3.87583",
+    "table_26_confidence": 78,
+    "table_28_confidence": 76
+  },
+  "provenance": "Independent DEM619 ordinary table arithmetic before engine execution; no measurements/fitting",
+  "execution": {
+    "command": [
+      "/Users/Rohin/.cache/regsite-termination-source-20261021/build-clang-original-review/transterm",
+      "-p",
+      "/Users/Rohin/.cache/regsite-termination-source-20261021/build-clang-original-review/expterm.dat",
+      "--all-context",
+      "-c",
+      "0",
+      "-S",
+      "/Users/Rohin/.cache/regsite-termination-source-20261021/synthetic/tie27_nonsaturated.fasta",
+      "/Users/Rohin/.cache/regsite-termination-source-20261021/synthetic/tie27_nonsaturated.coords"
+    ],
+    "binary_sha256": "f0ec6a56b03a0f3b6f9d628e22d05126780135d73a557c23b86de42cd60d04de",
+    "table_sha256": "fce89a92ab487aaea5a54015e859e1fb5e31f4f9985c9df7831ee09a367db1fe",
+    "input_fixture_sha256": "0e37380ce7e62a66367bf61c839c32412881d2543751d77321254f03f86f23b9",
+    "exit": 0,
+    "stdout_sha256": "e759155c76b89e6983620672e30fd1bbe69931305252624a04c5f43ef848ab64",
+    "stderr_sha256": "fed7f5be0ccd5e8297c09c6a69c3de0948de888c99ae202ad33de7b2ec21fa38",
+    "stdout_bytes": 976,
+    "stderr_bytes": 844,
+    "stack_limit": [
+      16777216,
+      67092480
+    ]
+  },
+  "native_candidates": [
+    {
+      "native_id": 1,
+      "start_1based": 71,
+      "end_1based": 86,
+      "strand": "+",
+      "context": "F",
+      "confidence": 78,
+      "hairpin_score": "-11.8",
+      "tail_score": "-3.87583",
+      "notes": ""
+    }
+  ]
+}

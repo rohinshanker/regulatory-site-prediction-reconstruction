@@ -66,3 +66,8 @@ backend identity, runtime implementation/review and A integration remain open.
 - Source correction commit f4ff5e3, native manifest pins external ARM64 Clang21 build and11 controls. Successful build17.14s/168894464maximum resident bytes; maximum tiny-smoke process2473984resident bytes. Complete raw output remains external with hashes.
 - Ten native successes, expected length74exit3, length75zero coverage, retained gap-free mirror, cross-strand pruning and boundary controls observed. Uniform boundary diagnostic did not abort on this build; conservative guard/ambiguity remain.
 - Pending focused review: prototype return-type discrepancy, source-vs-native ATtie discrimination, corrected scope/runtime admission. No wrapper implementation yet.
+
+- F1 focused native discrimination: the independent reviewer's original104-base
+  control (27/100 AT) predicts78 from table26 versus76 from table28. Unchanged
+  binary emitted one exact intended candidate with score78; input and full-output
+  hashes frozen in native-tie-control.json. No empirical data or tuning.

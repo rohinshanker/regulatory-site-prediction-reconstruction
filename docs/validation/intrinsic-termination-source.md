@@ -191,3 +191,13 @@ admission and final adapter verification still require the focused DEM-619
 reconciliation and implementation review. The upstream cross-translation-unit
 `set_max_len_loop` return-type discrepancy is explicitly submitted for disposition;
 no silent extra compatibility patch was applied.
+
+
+A subsequent [non-saturated original control](../../benchmarks/termination/native-tie-control.json)
+uses the independent reviewer's fixed tail `TTTCCCTTTCCCTTT` and preserves
+27 AT bases out of100 interior bases. Before execution, the pinned table gives
+78 at26% versus76 at28% for the proposed hairpin/cost cell. The unchanged native
+binary emitted exactly one candidate at71..86, hairpin `-11.8`, tail `-3.87583`
+and score78. This resolves the earlier saturated control's inability to
+distinguish those two tables for this build. It does not establish biological
+accuracy or general numerical parity across compilers.
