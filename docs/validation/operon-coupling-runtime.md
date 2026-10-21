@@ -1,7 +1,7 @@
 # Supplied-energy reinitiation component
 
 - Purpose: Define a bounded, opt-in adjacent-CDS calculation with explicit inputs and missingness.
-- Scope: Implemented `coupling-request-1` / `coupling-result-1`; source and runtime review complete; common package integration tracked separately.
+- Scope: Implemented `coupling-request-1` / `coupling-result-1`; independent review, fresh package installation, combined local tests and exact-source CI verified; publication and consumer admission remain separate.
 - Last verified: 2026-10-21
 
 This component adds a historical reinitiation contribution to a supplied
@@ -89,10 +89,12 @@ The module CLI is `python -m regsite.coupling_cli request.json` (`-` for stdin).
 It emits one complete JSON object after checking the 4,194,304-byte output cap.
 Exit codes are 0 complete, 1 partial and 2 invalid envelope/input/I/O failure.
 Inputs/outputs are local, with no credentials, service or runtime network access.
-Common command registration and fresh installation remain A's integration work.
+The separately pinned0.9.0rc1 development package registers `regsite-coupling`
+and has passed fresh offline installation.
 Independent DEM-618 review and its focused repair recheck cover the strict
 transport, arithmetic, geometry, missingness and schema contracts. This evidence
-does not establish experimental accuracy or verify the later package integration.
+does not establish experimental accuracy. The separate package evidence below
+verifies common integration without extending the biological scope.
 
 ```sh
 PYTHONPATH=src python -m regsite.coupling_cli examples/coupling-single.json
@@ -118,3 +120,26 @@ ruff check src/regsite/coupling*.py tests/test_coupling*.py
 ruff format --check src/regsite/coupling*.py tests/test_coupling*.py
 mypy src/regsite/coupling*.py
 ```
+
+
+## Verified package boundary
+
+Use source `c74ff8fac2331ba1e1e1836d953ea69036133b85` for the0.9.0rc1
+reinitiation development candidate. Its [immutable package receipt](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/blob/8452e14/models/coupling/0.9.0rc1/package.json)
+binds all45 runtime files and the produced wheel/source archives. The wheel
+SHA256 is `2c9a16b3a68ca90ddbc5be3d42d3b089bcfe80fc564989a4c766bb33bfc00643`;
+the source archive is `93effbd16311dbc5f8e00f6d4f53686b9d832e24dbc6831a811f17127c552be1`.
+All four coupling modules match independently reviewed code `180d8bd` byte-for-byte.
+
+Fresh offline build/installation checks include single, batch, unsupported,
+100-record Unicode transport and malformed-input CLI cases. The combined source
+passed5932 tests with zero skips,100% coverage of15365 statements and5970 branches,
+plus Ruff/format/mypy. [Exact-source CI](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/actions/runs/39689533173)
+passed all eight Linux/macOS and Python3.11/3.14 runtime/resource jobs. Earlier
+candidate artifacts remain separate; no byte-identical compressed rebuild claim
+is made. Reproduce the focused contract tests above when changing this component,
+and rerun common package/native-backend gates for a new integrated candidate.
+
+This completes the scoped supplied-energy reinitiation component. Full Operon
+inference, sequence-derived energy, RNA-unfolding/sign ambiguity, native-host
+calibration, consumer admission and publication retain their separate gates.
