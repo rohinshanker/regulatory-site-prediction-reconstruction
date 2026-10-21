@@ -1,0 +1,134 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://regsite.local/schemas/termination-backend-1.schema.json",
+  "title": "Termination backend v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "profile",
+    "source",
+    "build",
+    "binary",
+    "table"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "termination-backend-1"
+    },
+    "profile": {
+      "const": "transtermhp-2.09-fragment-1"
+    },
+    "source": {
+      "const": {
+        "archive_sha256": "b636db1c0fe9731cc760d8f3639209d07f7f35309d83013cc9f9e40798ce8be0",
+        "null_patch_sha256": "9bbfc2ced3df5332ec41b61bf23ca9acaf030cce3a3688f6c1c7468a5961ba6c",
+        "prototype_patch_sha256": "5163cfac5056b67f8a0099f0f15fee683e1eb9ffe8842c20b82511d3779c0a75"
+      }
+    },
+    "build": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "compiler",
+        "compiler_sha256",
+        "compiler_version",
+        "platform",
+        "machine",
+        "standard_library",
+        "flags",
+        "extra_flags_sha256"
+      ],
+      "properties": {
+        "compiler": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256,
+          "pattern": "^[\\x20-\\x7e]+$",
+          "not": {
+            "pattern": "[/\\\\]"
+          }
+        },
+        "compiler_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "compiler_version": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256,
+          "pattern": "^[\\x20-\\x7e]+$",
+          "not": {
+            "pattern": "[/\\\\]"
+          }
+        },
+        "platform": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256,
+          "pattern": "^[\\x20-\\x7e]+$",
+          "not": {
+            "pattern": "[/\\\\]"
+          }
+        },
+        "machine": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256,
+          "pattern": "^[\\x20-\\x7e]+$",
+          "not": {
+            "pattern": "[/\\\\]"
+          }
+        },
+        "standard_library": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256,
+          "pattern": "^[\\x20-\\x7e]+$",
+          "not": {
+            "pattern": "[/\\\\]"
+          }
+        },
+        "flags": {
+          "const": [
+            "-g",
+            "-O3",
+            "-Wall",
+            "-pedantic",
+            "-std=c++11",
+            "-ffp-contract=off"
+          ]
+        },
+        "extra_flags_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      }
+    },
+    "binary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "bytes",
+        "sha256"
+      ],
+      "properties": {
+        "bytes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 33554432
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      }
+    },
+    "table": {
+      "const": {
+        "bytes": 45788,
+        "sha256": "fce89a92ab487aaea5a54015e859e1fb5e31f4f9985c9df7831ee09a367db1fe"
+      }
+    }
+  }
+}

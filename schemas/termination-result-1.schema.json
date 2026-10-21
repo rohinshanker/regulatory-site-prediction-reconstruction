@@ -1,0 +1,1711 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://regsite.local/schemas/termination-result-1.schema.json",
+  "title": "Termination result v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "model",
+    "request_sha256",
+    "prediction_sha256",
+    "result_sha256",
+    "status",
+    "reason",
+    "settings",
+    "coverage",
+    "warnings",
+    "records"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "termination-result-1"
+    },
+    "model": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "implementation_version",
+        "source_doi",
+        "source_archive_sha256",
+        "background_sha256",
+        "backend"
+      ],
+      "properties": {
+        "id": {
+          "const": "transtermhp-2.09-fragment-1"
+        },
+        "implementation_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_doi": {
+          "const": "10.1186/gb-2007-8-2-r22"
+        },
+        "source_archive_sha256": {
+          "const": "b636db1c0fe9731cc760d8f3639209d07f7f35309d83013cc9f9e40798ce8be0"
+        },
+        "background_sha256": {
+          "const": "fce89a92ab487aaea5a54015e859e1fb5e31f4f9985c9df7831ee09a367db1fe"
+        },
+        "backend": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/backend"
+            }
+          ]
+        }
+      }
+    },
+    "request_sha256": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      ]
+    },
+    "prediction_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "result_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "status": {
+      "enum": [
+        "complete",
+        "partial",
+        "invalid_input"
+      ]
+    },
+    "reason": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "string",
+          "minLength": 1
+        }
+      ]
+    },
+    "settings": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "max_seconds",
+            "per_record_seconds"
+          ],
+          "properties": {
+            "max_seconds": {
+              "type": "number",
+              "minimum": 0.001,
+              "maximum": 300
+            },
+            "per_record_seconds": {
+              "type": "number",
+              "minimum": 0.001,
+              "maximum": 60
+            }
+          }
+        }
+      ]
+    },
+    "coverage": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "requested_records",
+            "domain_eligible_records",
+            "attempted_records",
+            "successful_records",
+            "not_evaluated_records",
+            "failed_records",
+            "retained_candidates",
+            "admitted_candidate_scores"
+          ],
+          "properties": {
+            "requested_records": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 20
+            },
+            "domain_eligible_records": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 20
+            },
+            "attempted_records": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 20
+            },
+            "successful_records": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 20
+            },
+            "not_evaluated_records": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 20
+            },
+            "failed_records": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 20
+            },
+            "retained_candidates": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 20000
+            },
+            "admitted_candidate_scores": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 20000
+            }
+          }
+        }
+      ]
+    },
+    "warnings": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    },
+    "records": {
+      "type": "array",
+      "maxItems": 20,
+      "items": {
+        "$ref": "#/$defs/record"
+      }
+    }
+  },
+  "$defs": {
+    "backend": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "profile",
+        "source",
+        "build",
+        "binary",
+        "table"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "termination-backend-1"
+        },
+        "profile": {
+          "const": "transtermhp-2.09-fragment-1"
+        },
+        "source": {
+          "const": {
+            "archive_sha256": "b636db1c0fe9731cc760d8f3639209d07f7f35309d83013cc9f9e40798ce8be0",
+            "null_patch_sha256": "9bbfc2ced3df5332ec41b61bf23ca9acaf030cce3a3688f6c1c7468a5961ba6c",
+            "prototype_patch_sha256": "5163cfac5056b67f8a0099f0f15fee683e1eb9ffe8842c20b82511d3779c0a75"
+          }
+        },
+        "build": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "compiler",
+            "compiler_sha256",
+            "compiler_version",
+            "platform",
+            "machine",
+            "standard_library",
+            "flags",
+            "extra_flags_sha256"
+          ],
+          "properties": {
+            "compiler": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256,
+              "pattern": "^[\\x20-\\x7e]+$",
+              "not": {
+                "pattern": "[/\\\\]"
+              }
+            },
+            "compiler_sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "compiler_version": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256,
+              "pattern": "^[\\x20-\\x7e]+$",
+              "not": {
+                "pattern": "[/\\\\]"
+              }
+            },
+            "platform": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256,
+              "pattern": "^[\\x20-\\x7e]+$",
+              "not": {
+                "pattern": "[/\\\\]"
+              }
+            },
+            "machine": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256,
+              "pattern": "^[\\x20-\\x7e]+$",
+              "not": {
+                "pattern": "[/\\\\]"
+              }
+            },
+            "standard_library": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256,
+              "pattern": "^[\\x20-\\x7e]+$",
+              "not": {
+                "pattern": "[/\\\\]"
+              }
+            },
+            "flags": {
+              "const": [
+                "-g",
+                "-O3",
+                "-Wall",
+                "-pedantic",
+                "-std=c++11",
+                "-ffp-contract=off"
+              ]
+            },
+            "extra_flags_sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            }
+          }
+        },
+        "binary": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "bytes",
+            "sha256"
+          ],
+          "properties": {
+            "bytes": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 33554432
+            },
+            "sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            }
+          }
+        },
+        "table": {
+          "const": {
+            "bytes": 45788,
+            "sha256": "fce89a92ab487aaea5a54015e859e1fb5e31f4f9985c9df7831ee09a367db1fe"
+          }
+        }
+      }
+    },
+    "diagnostics": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "stdout_sha256",
+        "stdout_bytes",
+        "stdout_complete",
+        "stderr_sha256",
+        "stderr_bytes",
+        "stderr_complete",
+        "returncode"
+      ],
+      "properties": {
+        "stdout_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "stdout_bytes": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 262144
+        },
+        "stdout_complete": {
+          "type": "boolean"
+        },
+        "stderr_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "stderr_bytes": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 65536
+        },
+        "stderr_complete": {
+          "type": "boolean"
+        },
+        "returncode": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "integer"
+            }
+          ]
+        }
+      }
+    },
+    "candidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "candidate_id",
+        "strand",
+        "hairpin",
+        "tail",
+        "status",
+        "confidence",
+        "hairpin_score",
+        "tail_score",
+        "native"
+      ],
+      "properties": {
+        "candidate_id": {
+          "type": "string",
+          "pattern": "^candidate-[0-9]{4}$"
+        },
+        "strand": {
+          "enum": [
+            "+",
+            "-"
+          ]
+        },
+        "hairpin": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "start",
+            "end"
+          ],
+          "properties": {
+            "start": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000
+            },
+            "end": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100000
+            }
+          }
+        },
+        "tail": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "start",
+            "end"
+          ],
+          "properties": {
+            "start": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000
+            },
+            "end": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100000
+            }
+          }
+        },
+        "status": {
+          "enum": [
+            "ok",
+            "boundary_ambiguous"
+          ]
+        },
+        "confidence": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100
+            }
+          ]
+        },
+        "hairpin_score": {
+          "type": "string",
+          "maxLength": 32,
+          "pattern": "^-(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?(?:e[+-]?[0-9]+)?$"
+        },
+        "tail_score": {
+          "type": "string",
+          "maxLength": 32,
+          "pattern": "^-(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?(?:e[+-]?[0-9]+)?$"
+        },
+        "native": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "context",
+            "printed_confidence",
+            "notes"
+          ],
+          "properties": {
+            "id": {
+              "type": "string",
+              "pattern": "^TERM [1-9][0-9]{0,3}$"
+            },
+            "context": {
+              "enum": [
+                "F",
+                "f",
+                "G"
+              ]
+            },
+            "printed_confidence": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "notes": {
+              "type": "string",
+              "maxLength": 16384
+            }
+          }
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "boundary_ambiguous"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "confidence": {
+                "type": "null"
+              },
+              "strand": {
+                "const": "+"
+              },
+              "hairpin": {
+                "properties": {
+                  "start": {
+                    "const": 1
+                  }
+                }
+              },
+              "native": {
+                "properties": {
+                  "context": {
+                    "enum": [
+                      "F",
+                      "G"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "confidence": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 100
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "strand": {
+                "const": "-"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "native": {
+                "properties": {
+                  "context": {
+                    "const": "f"
+                  }
+                }
+              },
+              "status": {
+                "const": "ok"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "record": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "index",
+        "id",
+        "status",
+        "reason",
+        "input",
+        "coverage",
+        "backgrounds",
+        "attempted",
+        "execution",
+        "candidates"
+      ],
+      "properties": {
+        "index": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 19
+        },
+        "id": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_.:-]{1,128}$"
+            }
+          ]
+        },
+        "status": {
+          "enum": [
+            "ok",
+            "invalid_input",
+            "unsupported_domain",
+            "not_evaluated",
+            "backend_failure"
+          ]
+        },
+        "reason": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            }
+          ]
+        },
+        "input": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "sequence_length",
+                "sequence_sha256"
+              ],
+              "properties": {
+                "sequence_length": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "sequence_sha256": {
+                  "type": "string",
+                  "pattern": "^[0-9a-f]{64}$"
+                }
+              }
+            }
+          ]
+        },
+        "coverage": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "forward_anchors",
+                "reverse_anchors",
+                "total_anchor_positions"
+              ],
+              "properties": {
+                "forward_anchors": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "start",
+                    "end",
+                    "count"
+                  ],
+                  "properties": {
+                    "start": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 100000
+                    },
+                    "end": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 100000
+                    },
+                    "count": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 99925
+                    }
+                  }
+                },
+                "reverse_anchors": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "start",
+                    "end",
+                    "count"
+                  ],
+                  "properties": {
+                    "start": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 100000
+                    },
+                    "end": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 100000
+                    },
+                    "count": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 99925
+                    }
+                  }
+                },
+                "total_anchor_positions": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 199850
+                }
+              }
+            }
+          ]
+        },
+        "backgrounds": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "interior",
+                "synthetic_boundary"
+              ],
+              "properties": {
+                "interior": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "at_count",
+                    "gc_count",
+                    "length",
+                    "at_fraction",
+                    "selected_at_percent",
+                    "exact_table_tie",
+                    "endpoint_clamped"
+                  ],
+                  "properties": {
+                    "at_count": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 100000
+                    },
+                    "gc_count": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 100000
+                    },
+                    "length": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 100000
+                    },
+                    "at_fraction": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 1
+                    },
+                    "selected_at_percent": {
+                      "enum": [
+                        26,
+                        28,
+                        30,
+                        32,
+                        34,
+                        36,
+                        38,
+                        40,
+                        42,
+                        44,
+                        46,
+                        48,
+                        50,
+                        52,
+                        54,
+                        56,
+                        58,
+                        60,
+                        62,
+                        64,
+                        66,
+                        68,
+                        70,
+                        72,
+                        74,
+                        76,
+                        78,
+                        80,
+                        82,
+                        84
+                      ]
+                    },
+                    "exact_table_tie": {
+                      "type": "boolean"
+                    },
+                    "endpoint_clamped": {
+                      "type": "boolean"
+                    }
+                  }
+                },
+                "synthetic_boundary": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "at_count",
+                    "gc_count",
+                    "length",
+                    "at_fraction",
+                    "selected_at_percent",
+                    "exact_table_tie",
+                    "endpoint_clamped"
+                  ],
+                  "properties": {
+                    "at_count": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 100000
+                    },
+                    "gc_count": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 100000
+                    },
+                    "length": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 100000
+                    },
+                    "at_fraction": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 1
+                    },
+                    "selected_at_percent": {
+                      "enum": [
+                        26,
+                        28,
+                        30,
+                        32,
+                        34,
+                        36,
+                        38,
+                        40,
+                        42,
+                        44,
+                        46,
+                        48,
+                        50,
+                        52,
+                        54,
+                        56,
+                        58,
+                        60,
+                        62,
+                        64,
+                        66,
+                        68,
+                        70,
+                        72,
+                        74,
+                        76,
+                        78,
+                        80,
+                        82,
+                        84
+                      ]
+                    },
+                    "exact_table_tie": {
+                      "type": "boolean"
+                    },
+                    "endpoint_clamped": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "attempted": {
+          "type": "boolean"
+        },
+        "execution": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/diagnostics"
+            }
+          ]
+        },
+        "candidates": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "maxItems": 1000,
+              "items": {
+                "$ref": "#/$defs/candidate"
+              }
+            }
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "ok"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "reason": {
+                "type": "null"
+              },
+              "id": {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9_.:-]{1,128}$"
+              },
+              "input": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "sequence_length",
+                  "sequence_sha256"
+                ],
+                "properties": {
+                  "sequence_length": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "sequence_sha256": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  }
+                }
+              },
+              "coverage": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "forward_anchors",
+                  "reverse_anchors",
+                  "total_anchor_positions"
+                ],
+                "properties": {
+                  "forward_anchors": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "start",
+                      "end",
+                      "count"
+                    ],
+                    "properties": {
+                      "start": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 100000
+                      },
+                      "end": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 100000
+                      },
+                      "count": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 99925
+                      }
+                    }
+                  },
+                  "reverse_anchors": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "start",
+                      "end",
+                      "count"
+                    ],
+                    "properties": {
+                      "start": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 100000
+                      },
+                      "end": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 100000
+                      },
+                      "count": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 99925
+                      }
+                    }
+                  },
+                  "total_anchor_positions": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 199850
+                  }
+                }
+              },
+              "backgrounds": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "interior",
+                  "synthetic_boundary"
+                ],
+                "properties": {
+                  "interior": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "at_count",
+                      "gc_count",
+                      "length",
+                      "at_fraction",
+                      "selected_at_percent",
+                      "exact_table_tie",
+                      "endpoint_clamped"
+                    ],
+                    "properties": {
+                      "at_count": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 100000
+                      },
+                      "gc_count": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 100000
+                      },
+                      "length": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 100000
+                      },
+                      "at_fraction": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "selected_at_percent": {
+                        "enum": [
+                          26,
+                          28,
+                          30,
+                          32,
+                          34,
+                          36,
+                          38,
+                          40,
+                          42,
+                          44,
+                          46,
+                          48,
+                          50,
+                          52,
+                          54,
+                          56,
+                          58,
+                          60,
+                          62,
+                          64,
+                          66,
+                          68,
+                          70,
+                          72,
+                          74,
+                          76,
+                          78,
+                          80,
+                          82,
+                          84
+                        ]
+                      },
+                      "exact_table_tie": {
+                        "type": "boolean"
+                      },
+                      "endpoint_clamped": {
+                        "type": "boolean"
+                      }
+                    }
+                  },
+                  "synthetic_boundary": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "at_count",
+                      "gc_count",
+                      "length",
+                      "at_fraction",
+                      "selected_at_percent",
+                      "exact_table_tie",
+                      "endpoint_clamped"
+                    ],
+                    "properties": {
+                      "at_count": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 100000
+                      },
+                      "gc_count": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 100000
+                      },
+                      "length": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 100000
+                      },
+                      "at_fraction": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "selected_at_percent": {
+                        "enum": [
+                          26,
+                          28,
+                          30,
+                          32,
+                          34,
+                          36,
+                          38,
+                          40,
+                          42,
+                          44,
+                          46,
+                          48,
+                          50,
+                          52,
+                          54,
+                          56,
+                          58,
+                          60,
+                          62,
+                          64,
+                          66,
+                          68,
+                          70,
+                          72,
+                          74,
+                          76,
+                          78,
+                          80,
+                          82,
+                          84
+                        ]
+                      },
+                      "exact_table_tie": {
+                        "type": "boolean"
+                      },
+                      "endpoint_clamped": {
+                        "type": "boolean"
+                      }
+                    }
+                  }
+                }
+              },
+              "attempted": {
+                "const": true
+              },
+              "execution": {
+                "allOf": [
+                  {
+                    "$ref": "#/$defs/diagnostics"
+                  },
+                  {
+                    "properties": {
+                      "returncode": {
+                        "const": 0
+                      },
+                      "stdout_complete": {
+                        "const": true
+                      },
+                      "stderr_complete": {
+                        "const": true
+                      }
+                    }
+                  }
+                ]
+              },
+              "candidates": {
+                "type": "array",
+                "maxItems": 1000,
+                "items": {
+                  "$ref": "#/$defs/candidate"
+                }
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "reason": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 128
+              },
+              "candidates": {
+                "type": "null"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "enum": [
+                  "invalid_input",
+                  "unsupported_domain",
+                  "not_evaluated"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "attempted": {
+                "const": false
+              },
+              "execution": {
+                "type": "null"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "invalid_input"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "input": {
+                "type": "null"
+              },
+              "backgrounds": {
+                "type": "null"
+              },
+              "coverage": {
+                "type": "null"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "backend_failure"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "input": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "sequence_length",
+                  "sequence_sha256"
+                ],
+                "properties": {
+                  "sequence_length": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "sequence_sha256": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  }
+                }
+              },
+              "coverage": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "forward_anchors",
+                  "reverse_anchors",
+                  "total_anchor_positions"
+                ],
+                "properties": {
+                  "forward_anchors": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "start",
+                      "end",
+                      "count"
+                    ],
+                    "properties": {
+                      "start": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 100000
+                      },
+                      "end": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 100000
+                      },
+                      "count": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 99925
+                      }
+                    }
+                  },
+                  "reverse_anchors": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "start",
+                      "end",
+                      "count"
+                    ],
+                    "properties": {
+                      "start": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 100000
+                      },
+                      "end": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 100000
+                      },
+                      "count": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 99925
+                      }
+                    }
+                  },
+                  "total_anchor_positions": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 199850
+                  }
+                }
+              },
+              "backgrounds": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "interior",
+                  "synthetic_boundary"
+                ],
+                "properties": {
+                  "interior": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "at_count",
+                      "gc_count",
+                      "length",
+                      "at_fraction",
+                      "selected_at_percent",
+                      "exact_table_tie",
+                      "endpoint_clamped"
+                    ],
+                    "properties": {
+                      "at_count": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 100000
+                      },
+                      "gc_count": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 100000
+                      },
+                      "length": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 100000
+                      },
+                      "at_fraction": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "selected_at_percent": {
+                        "enum": [
+                          26,
+                          28,
+                          30,
+                          32,
+                          34,
+                          36,
+                          38,
+                          40,
+                          42,
+                          44,
+                          46,
+                          48,
+                          50,
+                          52,
+                          54,
+                          56,
+                          58,
+                          60,
+                          62,
+                          64,
+                          66,
+                          68,
+                          70,
+                          72,
+                          74,
+                          76,
+                          78,
+                          80,
+                          82,
+                          84
+                        ]
+                      },
+                      "exact_table_tie": {
+                        "type": "boolean"
+                      },
+                      "endpoint_clamped": {
+                        "type": "boolean"
+                      }
+                    }
+                  },
+                  "synthetic_boundary": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "at_count",
+                      "gc_count",
+                      "length",
+                      "at_fraction",
+                      "selected_at_percent",
+                      "exact_table_tie",
+                      "endpoint_clamped"
+                    ],
+                    "properties": {
+                      "at_count": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 100000
+                      },
+                      "gc_count": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 100000
+                      },
+                      "length": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 100000
+                      },
+                      "at_fraction": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "selected_at_percent": {
+                        "enum": [
+                          26,
+                          28,
+                          30,
+                          32,
+                          34,
+                          36,
+                          38,
+                          40,
+                          42,
+                          44,
+                          46,
+                          48,
+                          50,
+                          52,
+                          54,
+                          56,
+                          58,
+                          60,
+                          62,
+                          64,
+                          66,
+                          68,
+                          70,
+                          72,
+                          74,
+                          76,
+                          78,
+                          80,
+                          82,
+                          84
+                        ]
+                      },
+                      "exact_table_tie": {
+                        "type": "boolean"
+                      },
+                      "endpoint_clamped": {
+                        "type": "boolean"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "invalid_input"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "reason": {
+            "type": "string"
+          },
+          "settings": {
+            "type": "null"
+          },
+          "coverage": {
+            "type": "null"
+          },
+          "records": {
+            "maxItems": 0
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "reason": {
+            "type": "null"
+          },
+          "request_sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "settings": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "max_seconds",
+              "per_record_seconds"
+            ],
+            "properties": {
+              "max_seconds": {
+                "type": "number",
+                "minimum": 0.001,
+                "maximum": 300
+              },
+              "per_record_seconds": {
+                "type": "number",
+                "minimum": 0.001,
+                "maximum": 60
+              }
+            }
+          },
+          "coverage": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "requested_records",
+              "domain_eligible_records",
+              "attempted_records",
+              "successful_records",
+              "not_evaluated_records",
+              "failed_records",
+              "retained_candidates",
+              "admitted_candidate_scores"
+            ],
+            "properties": {
+              "requested_records": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 20
+              },
+              "domain_eligible_records": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 20
+              },
+              "attempted_records": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 20
+              },
+              "successful_records": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 20
+              },
+              "not_evaluated_records": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 20
+              },
+              "failed_records": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 20
+              },
+              "retained_candidates": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 20000
+              },
+              "admitted_candidate_scores": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 20000
+              }
+            }
+          },
+          "records": {
+            "minItems": 1
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "complete"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "records": {
+            "items": {
+              "properties": {
+                "status": {
+                  "const": "ok"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "partial"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "records": {
+            "contains": {
+              "properties": {
+                "status": {
+                  "not": {
+                    "const": "ok"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

@@ -4,7 +4,7 @@
 - Status: active
 - Opened: 2026-10-21
 - Updated: 2026-10-21
-- Current State: C activated A's queued continuation after reviewed coupling handoff `eed4b0f`. Pinned TransTermHP 2.09 source, required table and one maintained compiler-compatibility patch; proposed unannotated-fragment candidate contract and scalar fixtures frozen for independent review. DEM-619 admits complete source for a build/synthetic smoke after pinning flags; runtime admission still needs corrected contracts and targeted native controls. A reserved one sequential slot. Serial external ARM64 build and11 original synthetic controls completed; exact receipt frozen for the same reviewer before runtime admission.
+- Current State: Source/terms/math independently admitted at fb1c908. DEM623 implements the reserved backend/parser/builder; C API/IO/CLI/schema/examples are implemented with focused tests. Exact committed integration, real offline builder/CLI replay, finite independent runtime review and A package gates remain.
 - Verification: Exact base `605d0c25066de937d124e69fe42be3c40bb2e749`, isolated `reconstruction-intrinsic-termination-20261021`, branch `wave7/intrinsic-termination`. Disk check shows 50 GiB available; acquisition cap 10 MiB total with each source archive capped at 5 MiB.
 - Cleanup: C alone resolves this child after review, validation and finding disposition; distill reusable source/runtime contracts, update indexes and linked issue, then delete resolved ticket. #8 and coupling-unfolding gate remain open.
 - Owner: cyano-calcs-c / 56abed60-1792619583; A owns common integration, B scientific evaluation.
@@ -87,3 +87,18 @@ only that geometry with null confidence and validated native preamble counts;
 reject every other unexpected context. Exact adapter review remains required.
 One scoped engine/parser/builder worker may now implement in its separate tree;
 C owns API/IO/CLI/schema and integration. Native/compiler slot remains C-owned.
+
+## Active engineering
+
+DEM623 scoped codex-implementer owns backend/parser/builder and focused tests in
+reconstruction-termination-engine-20261021 from fb1c908. C owns API/IO/CLI/schema
+and examples. Source review is complete; no new review or native execution is
+assigned to the worker. Initial C scheduling/transport tests pass102 cases with
+full159-statement/48-branch coverage against an isolated provisional interface
+snapshot; final integration must rerun on the exact committed worker patch.
+
+C API/CLI/schema/transport validation now passes173 focused tests with full
+215-statement/60-branch coverage against the immutable scratch snapshot of the
+worker interfaces. Native stderr elapsed-time bytes are separated from prediction
+identity; result_sha256 still binds the complete execution receipt. Exact worker
+commit/native integration is pending; this is not final runtime admission.

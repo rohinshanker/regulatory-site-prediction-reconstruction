@@ -95,8 +95,12 @@ input/domain validation, attempted execution, successful parsing and candidate
 count. Null candidates mean unsupported, failed or unevaluated; an empty list is
 reserved for a successful native search with no retained candidates. Batch status
 is complete only when every record succeeds. Wall-clock timing and temporary
-paths are execution details and must not change prediction identity. Hash the
-complete result excluding only its own `prediction_sha256` field.
+paths are execution details and must not change prediction identity. `prediction_sha256` hashes the complete result after removing each record's
+`execution` capture and the hash fields. Native stderr contains elapsed wall-clock
+text, so its raw byte identity must not influence prediction identity.
+`result_sha256` separately hashes every result field, including the complete raw
+capture identities and `prediction_sha256`, excluding only `result_sha256` itself.
+Thus execution receipts remain bound even when harmless timing bytes vary.
 
 Implementation, strict schemas, every-path tests, real native fixture replay and
 finite independent exact-patch review must verify this contract before completion.
