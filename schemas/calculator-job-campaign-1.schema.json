@@ -1,0 +1,128 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/raw/main/schemas/calculator-job-campaign-1.schema.json",
+  "title": "Offline calculator job campaign identity 1",
+  "description": "Identity bound by every receipt: exact manifest bytes, installed regsite code/data and interpreter, and backend identities from the unchanged RNAstructure and conditional exact-original verifiers. Runtime checks additionally enforce strict JSON syntax, byte limits and filesystem rules; hashes bind bytes only and establish neither scientific validity nor authenticity.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "backend",
+    "manifest",
+    "runtime",
+    "schema_version"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "calculator-job-campaign-1"
+    },
+    "manifest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "bytes",
+        "path",
+        "sha256"
+      ],
+      "properties": {
+        "path": {
+          "const": "manifest.json"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+        },
+        "bytes": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "runtime": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "code",
+        "python",
+        "regsite_version"
+      ],
+      "properties": {
+        "regsite_version": {
+          "type": "string"
+        },
+        "code": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "files",
+            "sha256"
+          ],
+          "properties": {
+            "sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+            },
+            "files": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        },
+        "python": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "cache_tag",
+            "executable_sha256",
+            "implementation",
+            "machine",
+            "platform",
+            "version"
+          ],
+          "properties": {
+            "implementation": {
+              "type": "string"
+            },
+            "version": {
+              "type": "string"
+            },
+            "cache_tag": {
+              "type": "string"
+            },
+            "platform": {
+              "type": "string"
+            },
+            "machine": {
+              "type": "string"
+            },
+            "executable_sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+            }
+          }
+        }
+      }
+    },
+    "backend": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "conditional_original",
+        "rnastructure"
+      ],
+      "properties": {
+        "rnastructure": {
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "conditional_original": {
+          "type": [
+            "object",
+            "null"
+          ]
+        }
+      }
+    }
+  }
+}

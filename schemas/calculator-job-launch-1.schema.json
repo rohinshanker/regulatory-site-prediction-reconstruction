@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/raw/main/schemas/calculator-job-launch-1.schema.json",
+  "title": "Offline calculator job launch record 1",
+  "description": "Process-group ID owned by the runner's anchor process, published before the calculator can start, so that resume can refuse while an unreceipted attempt's group may still run and an attempt without this record never started a calculator. Runtime checks additionally enforce strict JSON syntax, byte limits and filesystem rules; hashes bind bytes only and establish neither scientific validity nor authenticity.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "pgid",
+    "schema_version"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "calculator-job-launch-1"
+    },
+    "pgid": {
+      "type": "integer",
+      "minimum": 2
+    }
+  }
+}
