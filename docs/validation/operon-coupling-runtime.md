@@ -89,7 +89,7 @@ The module CLI is `python -m regsite.coupling_cli request.json` (`-` for stdin).
 It emits one complete JSON object after checking the 4,194,304-byte output cap.
 Exit codes are 0 complete, 1 partial and 2 invalid envelope/input/I/O failure.
 Inputs/outputs are local, with no credentials, service or runtime network access.
-The separately pinned0.9.0rc1 development package registers `regsite-coupling`
+The separately pinned 0.9.0rc1 development package registers `regsite-coupling`
 and has passed fresh offline installation.
 Independent DEM-618 review and its focused repair recheck cover the strict
 transport, arithmetic, geometry, missingness and schema contracts. This evidence
@@ -124,18 +124,18 @@ mypy src/regsite/coupling*.py
 
 ## Verified package boundary
 
-Use source `c74ff8fac2331ba1e1e1836d953ea69036133b85` for the0.9.0rc1
+Use source `c74ff8fac2331ba1e1e1836d953ea69036133b85` for the 0.9.0rc1
 reinitiation development candidate. Its [immutable package receipt](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/blob/8452e14/models/coupling/0.9.0rc1/package.json)
-binds all45 runtime files and the produced wheel/source archives. The wheel
+binds all 45 runtime files and the produced wheel/source archives. The wheel
 SHA256 is `2c9a16b3a68ca90ddbc5be3d42d3b089bcfe80fc564989a4c766bb33bfc00643`;
 the source archive is `93effbd16311dbc5f8e00f6d4f53686b9d832e24dbc6831a811f17127c552be1`.
 All four coupling modules match independently reviewed code `180d8bd` byte-for-byte.
 
 Fresh offline build/installation checks include single, batch, unsupported,
 100-record Unicode transport and malformed-input CLI cases. The combined source
-passed5932 tests with zero skips,100% coverage of15365 statements and5970 branches,
+passed 5,932 tests with zero skips, 100% coverage of 15,365 statements and 5,970 branches,
 plus Ruff/format/mypy. [Exact-source CI](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/actions/runs/39689533173)
-passed all eight Linux/macOS and Python3.11/3.14 runtime/resource jobs. Earlier
+passed all eight Linux/macOS and Python 3.11/3.14 runtime/resource jobs. Earlier
 candidate artifacts remain separate; no byte-identical compressed rebuild claim
 is made. Reproduce the focused contract tests above when changing this component,
 and rerun common package/native-backend gates for a new integrated candidate.
