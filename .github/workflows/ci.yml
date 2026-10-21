@@ -42,8 +42,8 @@ jobs:
         run: |
           ruff check src tests experiments tools
           ruff format --check src tests experiments tools
-          ruff check benchmarks/rbs/structural.py benchmarks/rbs/new_data.py benchmarks/rbs/wave4_*.py benchmarks/rbs/context_panel.py benchmarks/rbs/context_metrics.py benchmarks/promoter benchmarks/recoding benchmarks/riboswitch
-          ruff format --check benchmarks/rbs/structural.py benchmarks/rbs/new_data.py benchmarks/rbs/wave4_*.py benchmarks/rbs/context_panel.py benchmarks/rbs/context_metrics.py benchmarks/promoter benchmarks/recoding benchmarks/riboswitch
+          ruff check benchmarks/rbs/structural.py benchmarks/rbs/new_data.py benchmarks/rbs/wave4_*.py benchmarks/rbs/context_panel.py benchmarks/rbs/context_metrics.py benchmarks/rbs/context_collect.py benchmarks/promoter benchmarks/recoding benchmarks/riboswitch
+          ruff format --check benchmarks/rbs/structural.py benchmarks/rbs/new_data.py benchmarks/rbs/wave4_*.py benchmarks/rbs/context_panel.py benchmarks/rbs/context_metrics.py benchmarks/rbs/context_collect.py benchmarks/promoter benchmarks/recoding benchmarks/riboswitch
           mypy src/regsite experiments tools
           python -m pytest --cov=regsite --cov=benchmarks.rbs --cov=benchmarks.promoter --cov=benchmarks.recoding --cov=benchmarks.riboswitch --cov=experiments.rbs --cov=tools.derive_promoter_parameters --cov=tools.measure_promoter_resources --cov=tools.calculator_artifacts --cov-report=term-missing
           git diff --check
@@ -71,6 +71,14 @@ jobs:
           .cache/fresh/bin/regsite-conditional examples/conditional-supplied-half-occupancy.json > .cache/conditional-fraction.json
           .cache/fresh/bin/regsite-conditional examples/conditional-supplied-volume-fifth.json > .cache/conditional-volume.json
           .cache/fresh/bin/python -c 'import json,math; a=json.load(open(".cache/conditional-fraction.json")); b=json.load(open(".cache/conditional-volume.json")); assert all(r["status"]=="ok" and r["complete"] and r["model"]["backend"] is None for r in (a,b)); assert math.isclose(a["response"]["ar_actual"],2.5,rel_tol=1e-12); assert math.isclose(b["response"]["ar_actual"],8/7,rel_tol=1e-12)'
+          REGSITE_RNASTRUCTURE="$GITHUB_WORKSPACE/.cache/linker-fixed/RNAstructure" .cache/fresh/bin/regsite-transcript examples/supplied-transcript-single.json > .cache/transcript-single.json
+          REGSITE_RNASTRUCTURE="$GITHUB_WORKSPACE/.cache/linker-fixed/RNAstructure" .cache/fresh/bin/regsite-transcript examples/supplied-transcript-two-cds.json > .cache/transcript-two.json
+          REGSITE_RNASTRUCTURE="$GITHUB_WORKSPACE/.cache/linker-fixed/RNAstructure" .cache/fresh/bin/regsite-transcript examples/supplied-transcript-two-cds.json --format csv > .cache/transcript-two.csv
+          # An incompatible annotation remains explicit, with a partial-result exit.
+          transcript_exit=0
+          REGSITE_RNASTRUCTURE="$GITHUB_WORKSPACE/.cache/linker-fixed/RNAstructure" .cache/fresh/bin/regsite-transcript examples/supplied-transcript-incompatible.json > .cache/transcript-incompatible.json || transcript_exit=$?
+          test "$transcript_exit" -eq 1
+          .cache/fresh/bin/python -c 'import csv,json; a=json.load(open(".cache/transcript-single.json")); b=json.load(open(".cache/transcript-two.json")); c=json.load(open(".cache/transcript-incompatible.json")); assert all(r["schema_version"]=="supplied-transcript-result-1" and r["status"]=="complete" and r["coverage"]["complete"] for r in (a,b)); assert b["components"]["rbs"]["coverage"]["requested"]==2; assert c["status"]=="partial" and c["cds"][0]["status"]=="incompatible_transcript"; rows=list(csv.DictReader(open(".cache/transcript-two.csv"))); assert sum(r["row_type"]=="component" for r in rows)==2; assert all(r["prediction_sha256"]==b["prediction_sha256"] for r in rows)'
           .cache/fresh/bin/regsite-compare examples/paired-promoter-unchanged.json > .cache/paired-unchanged.json
           .cache/fresh/bin/regsite-compare examples/paired-promoter-indel.json > .cache/paired-indel.json
           .cache/fresh/bin/regsite-compare examples/paired-promoter-indel.json --format csv > .cache/paired.csv

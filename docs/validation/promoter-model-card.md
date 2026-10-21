@@ -165,7 +165,11 @@ Three kinds of evidence are kept separate.
    localizes a minority of positives. No negative labels, specificity, native
    strength calibration or recoding-effect evidence follows. This panel is now
    consumed and must not be reused as an untouched improvement test. The
-   measured-strength challenge and separate RBS context diagnostic remain gated.
+   measured-strength challenge remains gated. The separate
+   [RBS context diagnostic](rbs-wave5-context-results.md) is complete: each profile
+   retained 95 scored, 26 unsupported and three no-candidate scenarios out of 124.
+   Different transcript boundaries changed some scores and rankings; Tan supplies
+   no translation-strength labels to determine which context is more accurate.
 
 Hosted-service equivalence is a fourth, unestablished question. The runtime's
 explicit calibration, corrected local coordinates and visible source quirks are
@@ -277,7 +281,7 @@ For a current sequence and a recoded sequence:
 | Final candidate receipt and measured resource maxima | Available in the [candidate verification](promoter-0.5-candidate.md); known text-mode transport limitation restricts native collection to verified UTF-8/LF files |
 | Native localization of Tan transcription starts, fixed-grid | Evaluated; limited recovery, all denominators and uncertainty in the [independent report](promoter-wave5-results.md) |
 | Measured promoter-strength challenge (GSE144621 lead) | Not admitted; rights and construct identity unresolved |
-| Context sensitivity of unchanged RBS (companion diagnostic) | Not evaluated |
+| Context sensitivity of unchanged RBS (companion diagnostic) | Evaluated on 124 scenarios per profile; score sensitivity, not translation accuracy; [report](rbs-wave5-context-results.md) |
 | Cyanobacterial strength calibration and specificity | Not established; positive-TSS localization does not supply either |
 | Hosted-tool equivalence | Not evaluated, not claimed |
 | New optimizer, site discovery, probability of a site | Not implemented, out of scope |

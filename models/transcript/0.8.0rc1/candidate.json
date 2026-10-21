@@ -1,0 +1,297 @@
+{
+  "artifacts": {
+    "regulatory_site_prediction_reconstruction-0.8.0rc1-py3-none-any.whl": "35633a1641ca3851a4ad171b37faff578794b9723a6625353cd9d8ad29f287af",
+    "regulatory_site_prediction_reconstruction-0.8.0rc1.tar.gz": "805ce2e48829749f24472ea184b4cf2b93b1e00e08050fc9b2dac14efc320ec3"
+  },
+  "candidate_commit": "9e96bc00f56eb2dc107bc107860cdefa31731d2c",
+  "ci": {
+    "required_run_id": 39193463857,
+    "separate_successful_admission_required": true,
+    "source_commit": "9e96bc00f56eb2dc107bc107860cdefa31731d2c"
+  },
+  "claims": {
+    "biological_recoding_effects": false,
+    "consumer_admission": false,
+    "full_operon_model": false,
+    "hosted_equivalence": false,
+    "native_host_calibration": false,
+    "publication": false
+  },
+  "example_identities": {
+    "promoter": {
+      "calibration": {
+        "K": 42,
+        "beta": 1.636217004872062,
+        "host": null,
+        "host_status": "unspecified",
+        "native_host": "Escherichia coli str. K-12 substr. MG1655",
+        "profile": "ecoli_mg1655",
+        "warnings": [
+          {
+            "code": "host_unspecified",
+            "message": "No target host supplied."
+          }
+        ]
+      },
+      "model": {
+        "claims": {
+          "absolute_rate": false,
+          "hosted_parity": false,
+          "native_accuracy_evaluated": false,
+          "physical_free_energy": false,
+          "probability": false
+        },
+        "id": "promoter-lafleur2022-historical-1",
+        "implementation_version": "0.8.0rc1",
+        "kind": "historical_equation_reconstruction",
+        "licence": "GPL-3.0-or-later",
+        "not_modeled": [
+          "sigma_factor",
+          "temperature",
+          "host_specific_calibration",
+          "probability",
+          "absolute_rate",
+          "free_energy"
+        ],
+        "parameters": {
+          "array_sha256": {
+            "coefficients": "fddf16b38bf29799481e8a45890b669111e16cf2e3448e99d1934d19a8f0b8e9",
+            "intercept": "f7c66a8d838da71a6b2ab17936cd6ff2564e446af8c0676fba95de2116e99a7b"
+          },
+          "coefficient_count": 343,
+          "intercept_count": 1,
+          "parameter_json_sha256": "e2957d4687a5d5a2a20bcce231b4ea1446f269b383bbae94eed72860efa360dc",
+          "unused_coefficient_indices": [
+            336,
+            337,
+            338
+          ]
+        },
+        "source": {
+          "commit": "46da9132740bce30bccd107f02808adf2215e2f0",
+          "path": "Promoter_Calculator",
+          "reference_fork_commit": "0fe5f6f0fb2befc087556afa575f7241afd98fbf",
+          "repository": "https://github.com/hsalis/SalisLabCode"
+        },
+        "source_quirks": [
+          {
+            "behavior": "Corrected local base L-1-t; legacy L-t diagnostic only.",
+            "id": "reverse_key_l_minus_t"
+          },
+          {
+            "behavior": "Always retain the one-base UP/hex35 gap.",
+            "id": "arbitrary_scan_gap_omitted"
+          },
+          {
+            "behavior": "No sigma input accepted; source metadata had no effect.",
+            "id": "sigma_levels_ignored"
+          },
+          {
+            "behavior": "Calibration required, never inferred from host.",
+            "id": "unknown_organism_default_beta"
+          },
+          {
+            "behavior": "All coordinate-eligible states available on request.",
+            "id": "one_state_per_tss_public"
+          },
+          {
+            "behavior": "Preserve unused 336..338; use source quadratic.",
+            "id": "unused_spacer_coefficients"
+          },
+          {
+            "behavior": "Follow code: UP=24; discriminator lengths 6..10.",
+            "id": "paper_code_difference"
+          }
+        ],
+        "term_source_names": {
+          "binding": "dG_bind",
+          "discriminator": "dG_disc",
+          "extended10": "dG_ext10",
+          "hex10": "dG_10",
+          "hex35": "dG_35",
+          "intercept": "intercept",
+          "itr": "dG_ITR",
+          "source_apparent": "dG_apparent",
+          "spacer": "dG_spacer",
+          "total": "dG_total",
+          "up": "dG_UP"
+        },
+        "terms_semantics": "learned regression score contributions; not independently established free energies",
+        "terms_unit": "source_dG_units"
+      }
+    },
+    "rbs": {
+      "backend": {
+        "binary_sha256": {
+          "Fold": "81f962573b7f43c023dd23eab4ae1e8e7f6402d8679e89a6a1a539cfdc6a5458",
+          "bifold": "9f8156cabaf8e13f91e90d410c46aef1cff1c2badda1c4243b194f54eb1f8136",
+          "efn2": "f0b2ce5971d482f50867615e3870b4743d42d6b0e266e05c0c0c1f1bc63d8b4d"
+        },
+        "build_provenance": {
+          "component": "rnastructure-6.6-linker-3",
+          "license": "GPL-2.0-only",
+          "patch_sha256": "2ef6ef61496b034110f4151e2fc1aec77cbd011c88a36bcef574be0dfecebb2d",
+          "patched_source_sha256": "b19a9ad1634f7e8f7669410b1eb7f5e8c27542f073054acb65647891e62ddbc7",
+          "source_archive_sha256": "1bedc62aaab984279055caaa6234d48fca113f4b8e17a8060e0b3784d5a397c3"
+        },
+        "build_receipt_sha256": "7fabba75b3f49cb9be9a5633f8fb149e318e6e48a971487acf7cceb743b806e2",
+        "expected_source_archive_sha256": "1bedc62aaab984279055caaa6234d48fca113f4b8e17a8060e0b3784d5a397c3",
+        "interface": "independent executables via sequence/CT files",
+        "licence": "GPL-2.0-only (separate installation)",
+        "name": "RNAstructure",
+        "settings": {
+          "alphabet": "rna",
+          "bifold_maximum": 100,
+          "bifold_percent": 100,
+          "bifold_window": 0,
+          "coaxial_stacking": true,
+          "dangles": "RNAstructure 6.6 native; no historical auto-dangle switch",
+          "efn2_multibranch_model": "simple",
+          "energy_evaluation": "efn2 --simple for every structure",
+          "fold_maximum": 1,
+          "fold_mfe_only": true,
+          "fold_window": 0,
+          "intramolecular_pairs": true,
+          "isolated_pairs": false,
+          "maximum_loop": 30
+        },
+        "table_manifest_sha256": "ece4c4b535783cb4e03c7ce8f243d09be84a165ecd113b1d20941b5ed8b69501",
+        "variant": "rnastructure-6.6-linker-3",
+        "version": "6.6"
+      },
+      "base_parameters": {
+        "downstream_nt": 35,
+        "effective_RT": 2.222,
+        "energy_comparison_tolerance_kcal_mol": 1e-09,
+        "historical_footprint_nt": 1000,
+        "optimal_aligned_spacing": 5,
+        "rate_scale": 2500.0,
+        "spacing_pull": [
+          0.048,
+          0.24,
+          0.0
+        ],
+        "spacing_push": [
+          12.2,
+          2.5,
+          2.0,
+          3.0
+        ],
+        "standby_nt": 4,
+        "start_energies_kcal_mol": {
+          "AUG": -1.194,
+          "CUG": -0.03406,
+          "GUG": -0.0748,
+          "UUG": -0.0435
+        },
+        "suboptimal_filter_kcal_mol": 3.0,
+        "suboptimal_reference": "lowest_interstrand_connected_complex",
+        "upstream_nt": 35
+      },
+      "joint_parameters": {
+        "candidate_deduplication": "none; each returned traceback retains its index",
+        "energy_summation": "math.fsum(complex, spacing, start, -unbound, standby)",
+        "incomplete_search": "no winner or site score after any candidate failure or limit",
+        "maximum_bound_state_attempts_per_site": 4096,
+        "maximum_fixed_states_per_process": 100,
+        "objective": "minimum complete initiation energy over eligible returned candidates",
+        "prefix_suffix_fold_cache": "per-site sequence cache; no bound-state deduplication",
+        "tie_rule": "lowest backend index within absolute tolerance of global minimum",
+        "tie_tolerance_kcal_mol": 1e-09
+      },
+      "profile": {
+        "downstream_nt": 35,
+        "footprint_nt": 1000,
+        "model_id": "salis-v1-rnastructure-6.6-reconstruction-1",
+        "name": "historical",
+        "upstream_nt": 35
+      },
+      "source_commit": "8a9c1de1bdd847bb90d2ab6ceaa3c20feceda307",
+      "standby_parameters": {
+        "accessibility_height_cap_nt": 15,
+        "binding_candidate_rule": "historical cofold-plus-spacing selection before standby",
+        "distortion_coefficients": [
+          0.038,
+          -1.629,
+          17.359
+        ],
+        "distortion_continuation": "zero at and above first quadratic root",
+        "distortion_zero_area_nt": 19.81878754370649,
+        "energy_rule": "nonnegative fixed whole-complex energy difference",
+        "height_rule": "mean contour sides; recursive base-only/individual branch average",
+        "maximum_unique_states": 512,
+        "opening_search": "ancestor-closed pair removals within one original module",
+        "sliding_kcal_mol_per_nt": 0.2,
+        "source_doi": "10.1093/nar/gkt1139",
+        "source_xml_sha256": "3410c14d94f74845fe5ffa8d879bd33144909c0fc72e439bc91e9ca032333a39",
+        "supplement_pdf_sha256": "a36ae7d252442865f4dc813ceb34022e2c0e01899c02fca61012d97c6558ffaf",
+        "surface_area_offset_nt": 15,
+        "tie_rule": "cost, opened pair count, original module order, remaining core order"
+      }
+    }
+  },
+  "final_independent_review": {
+    "commit": "9e96bc00f56eb2dc107bc107860cdefa31731d2c",
+    "core_repair": "18cb8a1bb5fc63a60fea6a1afc3d8b662eea2126",
+    "disposition": "accepted; no actionable findings remain",
+    "final_review_tests": 127,
+    "issue": "DEM-562",
+    "real_folding_in_final_review": false
+  },
+  "implementation_version": "0.8.0rc1",
+  "independent_collection": "Requires B to bind exact input/settings/model/limits and obtain an explicit bounded stage acknowledgement after final CI admission; this receipt does not launch collection.",
+  "installed_receipt_sha256": "d5ffcc574a52855bf801a53b419c2ca3474df4d6c5b5c20c734e3e20616fdbaa",
+  "limits": {
+    "max_bases": 5000,
+    "max_cds": 10,
+    "max_input_json_bytes": 1000000,
+    "max_json_depth": 16,
+    "max_json_nodes": 20000,
+    "max_promoter_sites": 512,
+    "max_result_json_bytes": 33554432,
+    "max_seconds_per_component": 120.0,
+    "max_seconds_total": 240.0,
+    "predictors": {
+      "promoter": {
+        "default_seconds_per_batch": 300.0,
+        "default_seconds_per_record": 30.0,
+        "max_all_state_sites_per_record": 100,
+        "max_all_states_per_batch": 2000,
+        "max_all_states_per_record": 2000,
+        "max_contig_chars": 128,
+        "max_host_name_chars": 200,
+        "max_id_chars": 128,
+        "max_input_json_bytes": 4000000,
+        "max_metadata_depth": 4,
+        "max_metadata_json_bytes": 4096,
+        "max_normalized_bases_per_batch": 100000,
+        "max_normalized_bases_per_record": 5000,
+        "max_planned_sites_per_batch": 4000,
+        "max_planned_sites_per_record": 1000,
+        "max_raw_sequence_chars_per_record": 50000,
+        "max_records_per_batch": 100,
+        "max_result_json_bytes": 67108864,
+        "max_seconds_per_batch": 3600.0,
+        "max_seconds_per_record": 120.0
+      },
+      "rbs": {
+        "max_explicit_or_scanned_starts": 1000,
+        "max_normalized_bases_per_record": 10000,
+        "max_seconds_per_record": 120.0
+      }
+    }
+  },
+  "pull_request": "https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/pull/48",
+  "resource_plan_sha256": "7ee9c7214c549f52997730487d833070c45ecc3f863570243c2476814a71991d",
+  "schema_version": "supplied-transcript-candidate-1",
+  "schemas": {
+    "supplied-transcript-request-1.schema.json": "f072350d0ef435464fefde046e134ca629909f7b91249fab40a1dac377956879",
+    "supplied-transcript-result-1.schema.json": "e5ec0fbb06bcaf20e609b03c2befdb547198a4c56a57416decf248dbcb3a5b45"
+  },
+  "serialization": {
+    "full_json": "json.dumps(sort_keys=True,indent=2,ensure_ascii=True,allow_nan=False) plus one LF, ASCII bytes",
+    "prediction_sha256": "Same canonical serialization of complete result with prediction_sha256 omitted only",
+    "request_sha256": "SHA-256 of original parsed JSON; sort_keys=True, separators=(comma,colon), ensure_ascii=True, allow_nan=False; no newline"
+  },
+  "source_manifest_sha256": "52ed05be2db05ec8fb3d75834228f3dca46e4e4bc4b5ff74e40a444763c08312"
+}

@@ -2,6 +2,14 @@
 
 Live queue of open and active tickets. Markdown is canonical; GitHub issues mirror scope and discussion.
 
+**Current owner priority (2026-10-21):** resume producer implementation with A
+owning runtime/integration and B independent benchmark/evidence tooling. The
+active wave runs the named native Promoter pilot and consolidates reviewed
+calculator components. Agree disjoint paths before dispatch; freeze evaluations
+before execution and preserve immutable evidence. Consumer preview PV-R1 and
+stopped DEM-577/568 remain held. The [paired handoff](../../validation/paired-consumer-preview.md)
+does not change, and consumer admission/publication retain separate gates.
+
 The [continuing delivery program](../../validation/calculator-delivery-program.md)
 orders current/recoded prediction and portable consumer outputs after the
 Promoter runtime, then admitted supplied-operon and conditional aptamer slices.
@@ -19,11 +27,10 @@ A owns remaining runtime/release/improvement scopes 04/06/13; B owns broader sou
 | A | 2026-10-19 | [A_05-live-calculator-reference-benchmarks__20261016.md](A_05-live-calculator-reference-benchmarks__20261016.md) | P0 | Reuse completed RBS panel; debit unreconciled; no new purchase recommended for preview; any later paid panel needs new freeze/pricing; [issue #5](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/5) |
 | A | 2026-10-19 | [A_06-rbs-validation-and-first-release__20261016.md](A_06-rbs-validation-and-first-release__20261016.md) | P0 | Cumulative release handoff and reviewed installer/Promoter efficiency PR52; eight CI jobs pass, publication pending; [issue #6](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/6) |
 | A | 2026-10-19 | [A_07-promoter-calculator-reconstruction__20261016.md](A_07-promoter-calculator-reconstruction__20261016.md) | P1 | Historical runtime and scoped evaluation delivered; unchanged-output optimization admitted, broader parity/calibration open; [issue #7](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/7) |
-| O | 2026-10-16 | [O_08-operon-calculator-reconstruction__20261016.md](O_08-operon-calculator-reconstruction__20261016.md) | P1 | Recover and implement the integrated Operon Calculator; [issue #8](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/8) |
-| O | 2026-10-16 | [O_09-riboswitch-calculator-reconstruction__20261016.md](O_09-riboswitch-calculator-reconstruction__20261016.md) | P1 | Recover and implement the conditional Riboswitch Calculator; [issue #9](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/9) |
+| A | 2026-10-19 | [A_08-operon-calculator-reconstruction__20261016.md](A_08-operon-calculator-reconstruction__20261016.md) | P1 | Supplied-transcript component completed; full Operon mechanisms remain open; [issue #8](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/8) |
+| A | 2026-10-18 | [A_09-riboswitch-calculator-reconstruction__20261016.md](A_09-riboswitch-calculator-reconstruction__20261016.md) | P1 | Recover and implement the conditional Riboswitch Calculator; [issue #9](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/9) |
 | O | 2026-10-16 | [O_10-cyano-consumer-adapter__20261016.md](O_10-cyano-consumer-adapter__20261016.md) | P1 | Integrate released calculator outputs into the cyano consumer; [issue #10](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/10) |
 | O | 2026-10-16 | [O_11-design-modes-and-open-suite-release__20261016.md](O_11-design-modes-and-open-suite-release__20261016.md) | P1 | Complete design modes and release the fully usable open calculator suite; [issue #11](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/11) |
 | A | 2026-10-19 | [A_12-benchmark-quality-and-ground-truth__20261016.md](A_12-benchmark-quality-and-ground-truth__20261016.md) | P0 | Frozen native Promoter, transcript-context, paired results and public receipt checker independently reviewed; broader experimental/source gaps remain; [issue #12](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/12) |
 | A | 2026-10-17 | [A_13-ground-truth-model-improvements__20261016.md](A_13-ground-truth-model-improvements__20261016.md) | P0 | Joint advancement failed on the independent panel; new-cycle improvement/native promotion remain; [issue #13](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/13) |
-| A | 2026-10-18 | [A_43-conditional-aptamer-runtime__20261018.md](A_43-conditional-aptamer-runtime__20261018.md) | P1 | Session A: Admitted canonical structural-state and supplied-energy profiles; full sequence-to-switch remains under #9. [issue #43](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/43) |
-| A | 2026-10-18 | [A_41-paired-regulatory-recoding__20261018.md](A_41-paired-regulatory-recoding__20261018.md) | P1 | Session A: Reviewed real paired runtime, CLI and schemas; immutable 0.6 package/resources and eight CI gates passed; independent producer comparison remains; [issue #41](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/41) |
+| A | 2026-10-21 | [A_reviewed-suite-integration__20261021.md](A_reviewed-suite-integration__20261021.md) | P1 | DEM-608: merge reviewed transcript admission with current installer/Promoter; coordinator review and combined gates remain |

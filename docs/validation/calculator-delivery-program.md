@@ -4,6 +4,27 @@
 - Scope: Owner-authorized branch development on 2026-10-18; Sessions A and B remain the coordinators.
 - Last verified: 2026-10-18
 
+## Current priority override
+
+The owner has paused broad calculator expansion in favor of a bounded cyano
+prediction display. Preserve all reviewed candidates and pending CI. The
+previously proposed portable original-backend and new supplied-transcript adapter
+assignments were not accepted or started by B and must not be launched.
+The delivery sequence below is retained as deferred scope, not an active mandate.
+
+B coordinates `work/prediction-display-20261019` in an isolated consumer worktree
+from `07b27ed283241af9d964dabf62f0507f07d25310`. Existing TSS edit-count UI is
+already present. A supplies the [paired preview handoff](paired-consumer-preview.md)
+and owns producer integrity; B owns consumer inventory, implementation and rendered
+verification. Prefer accurately scoped Claude work through the established routing
+policy. Codex retains integration and allowed tasks Claude cannot perform; never
+disguise tasks or switch providers to bypass safeguards.
+
+This preview does not authorize new fitting, private-outcome access, broad genome
+runs, new credentials/privileges, accounts/coins, main merges, tags or deployment.
+Publication and production consumer admission remain separate. New calculator
+expansion requires an explicit owner instruction to resume it.
+
 The owner requested continued long-horizon implementation across multiple ticket
 sets. The [Wave 5 program](wave5-program.md) records the parallel-development
 authorization. Publication, account spending and canonical consumer edits remain

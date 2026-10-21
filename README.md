@@ -55,7 +55,8 @@ cannot establish specificity or promoter strength. Calibration remains *E. coli*
 See the [full native evaluation](docs/validation/promoter-wave5-results.md) for
 confidence intervals, all 4,808 source-positive denominators and sampling limits.
 This is not a released or cyanobacteria-calibrated predictor. See the
-[Promoter model card](docs/validation/promoter-model-card.md). Operon integration remains in preparation. The conditional Riboswitch component
+[Promoter model card](docs/validation/promoter-model-card.md). Supplied-transcript
+orchestration is available; full Operon inference remains incomplete. The conditional Riboswitch component
 below has bounded structural and supplied-energy profiles; complete
 sequence-to-switch prediction remains unavailable.
 
@@ -195,16 +196,49 @@ coverage. CSV provides scalar comparisons bound to the full JSON hash. Differenc
 are calculated only for successful candidates with compatible scientific settings.
 An interrupted start codon or unmatched position stays explicit, without a claim
 of biological site gain or loss. See the [paired contract](docs/validation/paired-regulatory-runtime.md).
-The core and transport passed independent review. Package/resource admission and
-the frozen producer comparison remain in progress; no canonical cyano integration
-or release is implied.
+The core, transport, fresh installation and eight CI gates passed. The independent
+synthetic comparison retained all 4,125 candidates across 36 jobs and matched
+53,404 scalar comparisons to its separate oracle. Unchanged controls had zero
+finite score differences. These checks establish accounting and arithmetic,
+not biological effects of recoding. See the [independent paired results](docs/validation/current-recoded-results.md)
+and [immutable package receipt](docs/validation/paired-0.6-candidate.md).
 The separate [0.5.0rc1 Promoter evaluation candidate](docs/validation/promoter-0.5-candidate.md)
 remains immutable. Package versions and result identities stay explicit even where
 the underlying calculator equations and parameter files are unchanged.
 
 The [continuing delivery program](docs/validation/calculator-delivery-program.md)
-then adds admitted supplied-operon and specified-aptamer components. The visualizer
-remains a downstream consumer of versioned predictions.
+adds explicit transcript and specified-aptamer components. The visualizer remains
+a downstream consumer of versioned predictions.
+
+## Analyze a supplied transcript and its CDS annotations
+
+The 0.8.0rc1 development command runs RBS scoring on the exact supplied RNA
+segment and Promoter scoring on the full construct:
+
+```sh
+.venv/bin/regsite-transcript examples/supplied-transcript-single.json
+.venv/bin/regsite-transcript examples/supplied-transcript-two-cds.json --format csv
+.venv/bin/regsite-transcript examples/supplied-transcript-incompatible.json
+```
+
+Supply transcript and CDS intervals explicitly, with their annotation provenance.
+All eligible starts share one RBS calculation and its time budget. A CDS whose
+start does not fit the transcript remains visible as incompatible; downstream
+clipping, unsupported starts and failed calculations retain separate warnings or
+missing values. Optional genomic projection handles reverse strands and circular
+origins without adding sequence to the supplied RNA.
+
+This connects annotated transcript contexts to the existing component models.
+It does not discover operons, model translational coupling, or multiply scores
+into a protein-abundance estimate. JSON retains both complete native predictions;
+CSV retains component summaries and scalar rows bound to the full JSON hash.
+Independent review, strict schemas and fresh offline examples pass. The fixed
+resource checks retain all requested cases, including partial and unavailable
+ones; the frozen source passed all eight cross-platform CI jobs. The combined
+integration requires its own final gates. See the
+[immutable 0.8.0rc1 candidate](docs/validation/transcript-0.8-candidate.md).
+See the [request contract](docs/validation/supplied-transcript-contract.md) and
+[runtime and export semantics](docs/validation/supplied-transcript-runtime.md).
 
 ## Conditional aptamer components
 
@@ -229,10 +263,23 @@ These examples are synthetic checks. The structural energies do not supply the
 missing ligand-constrained ribosome model, and the scalar calculation does not
 infer an aptamer or physiological concentrations. Every result retains source,
 parameter and backend identities, warnings, partial states and explicit failures.
-Review and package validation remain in progress. See the
-[conditional contract](docs/validation/conditional-aptamer-runtime.md).
+Independent review, fresh offline examples, measured resources and all eight CI
+gates passed for the bounded candidate. Its three saved controls also passed an
+independent equation/structure audit. Cross-platform CI validates the portable
+scalar profile; structural admission remains limited to the exact original build.
+See the [conditional contract](docs/validation/conditional-aptamer-runtime.md)
+and [immutable package validation](docs/validation/conditional-0.7-candidate.md).
 
 ## Start a new implementation session
+
+**Producer implementation resumed on 2026-10-21.** A owns runtime and integration;
+B owns independent benchmark/evidence tooling. The active wave combines the
+[native Promoter pilot](docs/validation/promoter-native-pilot-results.md) with
+reviewed calculator components. Agree scope and paths before starting another
+assignment, preserve immutable candidates, and freeze new evaluation protocols.
+The cyano preview remains separately held on the
+[paired 0.6 handoff](docs/validation/paired-consumer-preview.md); this producer
+wave does not authorize consumer admission or publication.
 
 Read the [current release guide](docs/validation/rbs-0.4-release.md),
 [independent Wave 4 result](docs/validation/rbs-wave4-results.md) and live ticket
