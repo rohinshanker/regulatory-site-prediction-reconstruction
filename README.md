@@ -260,7 +260,7 @@ See the [request contract](docs/validation/supplied-transcript-contract.md) and
 .venv/bin/regsite-coupling examples/coupling-unsupported.json
 ```
 
-This separate component calculates the historical reinitiation contribution
+The 0.9.0rc1 development component calculates the historical reinitiation contribution
 between two explicitly annotated CDSs using caller-supplied initiation energies.
 It handles either strand and supports only the published coefficient domains:
 stop-to-start distances of 0–25 nt and the specific −4 nt overlap. Unsupported
