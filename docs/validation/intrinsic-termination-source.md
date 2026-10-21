@@ -1,7 +1,7 @@
 # Intrinsic-termination source boundary
 
-- Purpose: Admit a complete external candidate scorer before implementing an optional adapter.
-- Scope: C child #62 of #8; DEM-619 admits the complete source and corrected narrow contract for adapter implementation; exact adapter verification and integration remain pending.
+- Purpose: Define the pinned source, numerical behavior and meaning of the optional external candidate scorer.
+- Scope: Source-admitted TransTermHP fragment profile; exact adapter review and common package integration remain separate gates.
 - Last verified: 2026-10-21
 
 ## Source and terms
@@ -37,7 +37,7 @@ with assertions enabled and no `-DNDEBUG`, `-ffast-math` or `-flto`/whole-progra
 version, standard library and full command. Any additional portability patch
 requires its own pinned identity and focused review.
 
-## Admitted meaning proposed for review
+## Admitted score meaning
 
 This is a **candidate motif score**, not a termination-efficiency or readthrough
 model. The primary paper defines a hairpin-plus-T-tail search on both strands,
@@ -86,7 +86,7 @@ native DP uses float32 and output uses six significant digits. Parse printed
 costs as decimal strings; printed hairpin `-2` can represent a native value just
 below the strict cutoff and must not be rejected by reapplying `< -2`.
 
-## Proposed fragment contract and open checks
+## Fragment contract
 
 Use the manual's section 10 mode for an explicitly supplied unannotated fragment:
 two two-base bookkeeping annotations at 1..2 and (N-1)..N, both forward, exactly
@@ -144,101 +144,68 @@ historical table; retain the table bytes as the source of truth. No inherited
 76-point biological decision threshold is applied. The table footer also spells
 `--uwin-length`, while the actual option is `--uwin-size`; do not execute it.
 
-DEM-619 independently verified source completeness/terms, scalar formulas,
-parameter bins, fragment geometry and source limits. Its source finding ledger
-is retained in the active ticket; runtime admission awaits targeted native
-controls and exact implementation review. Tiny smoke controls must include
-lengths 74/75, simple gap-free mirrors, position-dependent bidirectional pruning,
-bookkeeping-boundary overlap and the 27/100 AT tie. Source review does not
-certify compiled parity, candidate correctness, experimental accuracy or package
-integration.
+## Source admission and frozen controls
 
-
-## External executable smoke boundary
+Independent source review verified completeness, terms, scalar formulas, parameter
+bins, fragment geometry and source limits. Its focused reconciliation recomputed
+all 19 original native confidences and tail costs and checked the input/output
+identities. This admits the source contract; it does not certify biological
+accuracy, genome-scale behavior or other toolchains.
 
 The [native smoke manifest](../../benchmarks/termination/native-smoke-manifest.json)
-pins the separate ARM64 executable, compiler flags, library versions and all11
-original artificial controls. Apple Clang21 needed explicit existing SDK and
-C++ header paths; no toolchain installation or additional source patch was used.
-Only the maintained three-line null-pointer patch changed source. The successful
-serial build took17.14seconds and reported168,894,464bytes maximum resident
-memory; `/usr/bin/time` separately reported3,507,232bytes peak footprint for its
-measured process. These are distinct measurements, not interchangeable whole-tree
-peak estimates. The largest smoke process reported2,473,984resident bytes and
-1,933,624bytes peak footprint. Runtime stack was16MiB, set in the launching shell
-before Python/native execution; the inherited8176KiB was below this contract.
-No host-wide resource limit changed.
+pins the original separately built ARM64 executable and 11 artificial controls.
+They cover lengths 74/75/76, gap-free reverse orientation, cross-strand pruning,
+boundary overlap and a saturated AT tie. Preserve their complete rosters and raw
+byte identities. Ten controls exit successfully; length 74 deliberately exits 3.
+Length 75 has no reference anchors. Both boundary controls emit context F on the
+recorded build; this does not remove the source-proven G event-order possibility.
 
-All11 cases completed:10 native successes and the expected length74 exit3.
-Length75 has zero anchors, while length76 has one per strand. Both positive and
-reverse controls retained the intended gap-free hairpin with the native printed
-scores, but their complete rosters differ; no universal mirror property is
-asserted. The rightmost bidirectional control retained only its reverse copy;
-placing another candidate to its right retained both copies. Both left-boundary
-controls used contextF in this build, including the uniform-GC diagnostic;
-this does not remove the source-level unstable-event ambiguity or justify a
-cross-build guarantee. The adapter still flags boundary overlap and withholds
-admitted confidence there. The27/100 AT control confirms executable acceptance;
-its saturated100 score cannot independently distinguish the26 and28 tables.
-The binary64 selection claim remains source/arithmetic evidence pending a
-non-saturated discriminating control or focused independent check.
+The [non-saturated tie control](../../benchmarks/termination/native-tie-control.json)
+was constructed independently before execution. Its interior has 27 AT bases
+out of 100. The pinned table predicts score 78 at table 26 versus 76 at table 28.
+The native binary emits one candidate at one-based 71..86, hairpin `-11.8`, tail
+`-3.87583`, score 78. This distinguishes those tables on the recorded build;
+it is neither an empirical measurement nor universal compiler-parity evidence.
 
-Full stdout/stderr and invocation receipts remain in the external source cache.
-The manifest records their byte identities and the complete candidate roster;
-these artificial outputs are not measurements. The native header's date and
-parameter-file path are execution metadata, not model version identity. Runtime
-admission and final adapter verification still require the focused DEM-619
-reconciliation and implementation review. The upstream cross-translation-unit
-`set_max_len_loop` return-type discrepancy is explicitly submitted for disposition;
-no silent extra compatibility patch was applied.
+## Selected build profile
 
-
-A subsequent [non-saturated original control](../../benchmarks/termination/native-tie-control.json)
-uses the independent reviewer's fixed tail `TTTCCCTTTCCCTTT` and preserves
-27 AT bases out of100 interior bases. Before execution, the pinned table gives
-78 at26% versus76 at28% for the proposed hairpin/cost cell. The unchanged native
-binary emitted exactly one candidate at71..86, hairpin `-11.8`, tail `-3.87583`
-and score78. This resolves the earlier saturated control's inability to
-distinguish those two tables for this build. It does not establish biological
-accuracy or general numerical parity across compilers.
-
-
-## Admitted implementation profile
-
-DEM-619's focused reconciliation of8120d35..6758f72 found no remaining source
-or contract blocker to implementing this narrow adapter. It independently
-recomputed all19 original native confidences and tail costs and verified every
-raw-output/input identity. This is source admission; final adapter behavior,
-its exact patch, tests and packaging still need verification.
+In addition to the three-return Debian NULL patch, the selected build corrects
+`search.h`'s `set_max_len_loop` declaration from `int` to `void`, matching its
+definition. The independent reviewer found the mismatch inert in the original
+separately compiled, non-LTO build and explicitly admitted the one-token fix.
+No scoring implementation is changed. The source manifest pins the original and
+patched bytes. Do not apply additional compatibility patches without pinning and
+focused review.
 
 The [admitted build receipt](../../benchmarks/termination/admitted-build-manifest.json)
-pins the selected prototype-corrected executable. The review found the existing
-int/void declaration discrepancy inert in the original separately compiled,
-non-LTO ARM64 build, and explicitly judged the one-token `int` to `void` header
-correction safe. C chooses the corrected declaration to match the definition.
-No scoring code changes. All12 complete native outputs match the original build
-byte-for-byte except the build-date and parameter-path lines, with identical
-exits. Keep both frozen receipts; the new variant does not rewrite old evidence.
-The selected build's binary hash, effective ARM64 architecture and Mach-O
-deployment/SDK target identify it; the compiler's default Rosetta target string
-is not its effective target. Any other build needs its own receipt and controls.
+records the corrected executable and complete replay of all 12 controls.
+Outputs and exit statuses match the original build after normalizing only the
+build-date and parameter-file-path lines. The original fixtures and receipts
+remain unchanged. Record the effective binary architecture and deployment/SDK
+target; a compiler's default target banner does not prove its selected target.
 
-The reviewer recommended tightening context and preamble checks. Normal hits
-must be F on+ and f on−. C retains the original source-proven G exception only
-for a forward start2 hairpin, with null admitted confidence; every other G or
-unexpected code fails the entire record. Check native gene/H2T counts against
-those context classes. This preserves geometry for the previously verified
-ambiguous event while withholding its confidence; it does not assume the11
-original controls enumerate every legal event ordering. Native '%AT' labels
-actually contain fractions. Compute fractions from precisely the normalized
-sequence passed to native, including deliberate lowercase-to-uppercase handling.
+The [adapter build receipt](../../benchmarks/termination/adapter-build-manifest.json)
+records the output of the repository's actual offline builder, its compiler and
+source identities, and complete CLI outputs. Every separate build needs its own
+receipt and the unchanged controls. See the [runtime guide](intrinsic-termination-runtime.md)
+for build and verification commands, resource limits and remaining admission gates.
 
-Raise the owned child's soft stack limit to8MiB before exec, preserving its hard
-limit and failing closed on insufficient hard limit or setup error. This requires
-no privilege and changes no parent/host limit. A local pre-exec probe succeeded
-from the default8176KiB parent, and all12 repaired-build controls succeeded under
-an8MiB limit (except the intentional length74 error). Raising the already-running
-Python parent's limit failed with EINVAL; do not modify it or require a shell
-workaround in the adapter. The builder/runtime must reject LTO/fast-math/NDEBUG
-and verify required table bytes. No optional review recommendation expands the
-admitted biological meaning.
+## Source-to-adapter checks
+
+Normal context codes are F on + and f on -. Admit G only for a forward hairpin
+starting at zero-based index 1. Both F and G at that position retain geometry and
+printed costs with null admitted confidence; every other unexpected context fails
+the entire record. Check native gene/H2T counts against the retained context
+classes. Native '%AT' labels actually contain fractions. Compute backgrounds
+from exactly the normalized sequence sent to the engine.
+
+Raise the owned child's soft stack limit to at least 8 MiB before exec, preserving
+its hard limit and failing closed on insufficient hard limit or setup error.
+The actual adapter works from the recorded 8176 KiB parent limit without changing
+the parent or host. The selected-build controls have also been replayed under an
+8 MiB child limit. No privilege or shell workaround is part of the adapter.
+
+Source identity, build parity, wrapper correctness and experimental accuracy are
+distinct checks. Preserve every failed, unsupported and unevaluated input in the
+wrapper receipt. Successful native empty rosters establish only that this fixed
+search retained no candidate for the supplied fragment.

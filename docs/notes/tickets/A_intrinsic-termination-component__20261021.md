@@ -1,116 +1,65 @@
 # A_intrinsic-termination-component__20261021 — Active
 
-- Scope: Admit and, only with complete open evidence, implement a bounded intrinsic-termination candidate scorer; child of #8.
+- Scope: Implement and verify a bounded intrinsic-termination candidate scorer using the admitted external TransTermHP engine; child of #8.
 - Status: active
 - Opened: 2026-10-21
 - Updated: 2026-10-21
-- Current State: Source/terms/math independently admitted at fb1c908. DEM623 implements the reserved backend/parser/builder; C API/IO/CLI/schema/examples are implemented with focused tests. Exact committed integration, real offline builder/CLI replay, finite independent runtime review and A package gates remain.
-- Verification: Exact base `605d0c25066de937d124e69fe42be3c40bb2e749`, isolated `reconstruction-intrinsic-termination-20261021`, branch `wave7/intrinsic-termination`. Disk check shows 50 GiB available; acquisition cap 10 MiB total with each source archive capped at 5 MiB.
-- Cleanup: C alone resolves this child after review, validation and finding disposition; distill reusable source/runtime contracts, update indexes and linked issue, then delete resolved ticket. #8 and coupling-unfolding gate remain open.
-- Owner: cyano-calcs-c / 56abed60-1792619583; A owns common integration, B scientific evaluation.
+- Current State: Complete implementation frozen at `2276af4f78c2497135fce2de99d0f28f2ef079c1`. Same independent DEM619 reviewer is checking the exact runtime patch. Review disposition and A common package/full-suite/CI gates remain.
+- Verification: 342 focused tests pass with zero skips and full 700-statement/182-branch coverage, using the actual offline builder output. Full-tree Ruff/format/mypy, ticket validation and diff checks pass. Source and math admission is independently complete; runtime acceptance is pending.
+- Cleanup: C alone resolves after review, repairs and required integration evidence; rename/H1/status to resolved, retain reusable contracts, update indexes, delete resolved ticket and close linked issue. #8 remains open.
+- Owner: cyano-calcs-c / 56abed60-1792619583; A owns common integration, B independent experimental/source evaluation.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/62
 - Parent: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/8
 
-## Boundaries
+## Ownership and next gate
 
-Initial reserved paths are new `docs/validation/intrinsic-termination*.md`,
-`benchmarks/termination/` source/parameter manifests and artificial fixtures,
-and this ticket/index row. Propose runtime/schema/example paths after source
-admission. Do not change shared modules, packaging, CI, README, canonical or peers.
-At most two bounded children, no new coordinator or duplicate ownership.
+Canonical checkout is read-only. C writes only in
+`reconstruction-intrinsic-termination-20261021` on `wave7/intrinsic-termination`
+from `605d0c25066de937d124e69fe42be3c40bb2e749`. A accepted the five termination
+runtime modules, offline builder, three schemas, three examples, eight test files,
+termination source/runtime docs and fixtures, and C's ticket/index rows. Shared
+package/entry-point/version/CI/README changes belong to A. B exclusively owns
+`benchmarks/termination/evaluation-sources.json` and
+`docs/validation/termination-benchmark-admission.md`.
 
-Inspect source, required data and terms separately. Preserve complete candidate
-rosters, strand/coordinates, failures and bounds. Do not interpret motif/confidence
-scores as termination efficiency, readthrough or expression. No native calibration,
-De Novo DNA equivalence, fitting, consumed/private outcomes, large scans, paid jobs
-or publication. Pin sources externally; do not redistribute empirical panels.
-Coordinate process/folding resources with A before execution. Existing PV-R1,
-DEM-577/568 and refused DEM-612/613/#58 remain stopped; never reroute a refusal.
-Disclose any required new credential/admin/sudo/keychain/macOS approval first and
-wait for the owner; no bypass.
+DEM623's isolated backend/parser/builder implementation is integrated at c7f7864.
+C added API/IO/CLI/schema integration and fixed Make compiler-path metacharacters
+at 989031d. Runtime review uses a separate clean snapshot at 2276af4; no duplicate
+source review, writer or reviewer is authorized. Same DEM619 run
+`01a160d2-aefe-7eab-a7f3-d7a19430b4c4` owns the finite exact-patch review; C owns
+finding reproduction, fixes and any scoped repair recheck.
 
-## Active review and resource ownership
+A reserves C one sequential native/compiler slot within the global cap of two.
+That slot is temporarily delegated to the active reviewer for at most 20
+sequential already-frozen tiny inputs, with no compiler or new source acquisition.
+C must recover the slot before further native execution.
 
-- DEM-619 / Claude Opus 5.5 independently reviews exact source proposal `8120d35`. Original review completed; the automatically queued duplicate comment-run was cancelled. A finite focused reconciliation will cover corrected contracts and native evidence, reusing this review.
-- A accepted one sequential local native-scoring/compiler slot in `/tmp/calculator-wave7-20261021/a-termination-resource-reservation.md`, after source admission. Global cap stays two; build/smoke used one sequential slot and is now idle.
-- Potential boundary finding: a 59-base forward hairpin can begin at the first synthetic annotation endpoint; tied event ordering may select its four-base GENE background. Independent review must reconcile the guard/context requirement before runtime work.
+## Contracts and evidence
 
-## Bounded source list
+The [source contract](../../validation/intrinsic-termination-source.md) records
+all admitted numerical, licensing and boundary decisions. The
+[runtime contract](../../validation/intrinsic-termination-runtime.md) specifies
+strict input/output, process handling, missingness and reproduction commands.
+Source admission does not imply biological accuracy or full Operon reconstruction.
 
-1. Author site `https://transterm.cbcb.umd.edu/` and its 2.09 source ZIP.
-2. Debian maintained 2.09-5 source metadata, original archive and packaging terms/patches when needed to verify completeness and provenance.
-3. Kingsford et al. 2007 primary article, DOI `10.1186/gb-2007-8-2-r22`, PMC1852404; text/XML only unless formula rendering is needed.
+The actual external builder output is
+`/Users/Rohin/.cache/regsite-termination-adapter-20261021/backend.json`;
+its executable SHA256 is
+`b01d8d864eb6f41d36cdbf4d0e46255ce3f702c463c838afdaf21770d3d7cb4d`.
+The [adapter receipt](../../../benchmarks/termination/adapter-build-manifest.json)
+pins that build, focused checks and complete CLI captures. Original scalar,
+11-case native, non-saturated tie and 12-case corrected-build fixtures remain
+immutable. No original fixture or empirical outcome is retuned.
 
-No prediction download, experimental supplement or genome collection is in scope.
-Acceptance requires complete open source/parameters, executable identity, independent
-synthetic source/math checks, strict interfaces and full boundary/failure tests.
-If admission fails, record the exact evidence gap and stop that component instead
-of inventing a replacement.
+## Constraints
 
-## DEM-619 findings disposition
+Candidate motif/background scores are not termination efficiency, readthrough,
+expression, native calibration or De Novo DNA equivalence. Preserve complete
+rosters, coordinates, failure states and withheld boundary confidence. External
+engine source, table, executable and notices remain outside the Python package.
 
-- F1/F7: pin contraction-off compiler flags and forbid fast-math/NDEBUG; preserve binary64 table selection and rational tie flag. Additional compiler portability edits require exact source pins/review.
-- F2: require mixed interior and four-base boundary backgrounds; preserve boundary-touching candidates with null admitted confidence, flag synthetic context and retain native failures. Targeted native control remains required.
-- F3/F10: disclose native cross-strand pruning and genomic-right-arm stem check; no restored candidates or universal mirror guarantee.
-- F4/F5/F6: cap normalized input at100000 A/C/G/T bases, one fragment per native process, safe generated identifiers, mandatory -S and8MiB stack; enforce before execution.
-- F8: preserve printed costs as decimal strings and permit printed hp=-2. Frozen exact-math fixtures are retained with tolerance; cosmetic signed-zero rewrite declined to preserve fixture identity.
-- F9: preserve context dependence and bin saturation; no calibration, per-length false-positive or efficiency interpretation. Historical calibration generation remains unverified.
-- F11: retain independent external executable/source/table and notices; no engine linking or vendoring into Python package. Conservative primary GPL2 label unchanged.
-- F12: pin excluded binaries/metadata, disclose non-executable footer typo and synthetic contexts, canonically order candidates.
-
-All verified source-contract corrections are incorporated. Targeted native smoke,
-backend identity, runtime implementation/review and A integration remain open.
-
-## Executable checkpoint
-
-- Source correction commit f4ff5e3, native manifest pins external ARM64 Clang21 build and11 controls. Successful build17.14s/168894464maximum resident bytes; maximum tiny-smoke process2473984resident bytes. Complete raw output remains external with hashes.
-- Ten native successes, expected length74exit3, length75zero coverage, retained gap-free mirror, cross-strand pruning and boundary controls observed. Uniform boundary diagnostic did not abort on this build; conservative guard/ambiguity remain.
-- Pending focused review: prototype return-type discrepancy, source-vs-native ATtie discrimination, corrected scope/runtime admission. No wrapper implementation yet.
-
-- F1 focused native discrimination: the independent reviewer's original104-base
-  control (27/100 AT) predicts78 from table26 versus76 from table28. Unchanged
-  binary emitted one exact intended candidate with score78; input and full-output
-  hashes frozen in native-tie-control.json. No empirical data or tuning.
-
-## Implementation admission and ownership
-
-DEM619 focused recheck of6758f72 admits source/contract for implementation. A
-accepted the exact runtime file split in a-termination-paths-accepted.md; B owns
-evaluation-sources.json and termination-benchmark-admission.md exclusively.
-C selects the explicitly reviewed safe one-token prototype correction, frozen
-by source-manifest and admitted-build-manifest. All12 full outputs/exits match
-original controls after only date/path normalization; stack8MiB replay passed.
-R1 no-LTO, R3 child-only stack setup, R4 effective-target identity and R5 explicit
-normalization are incorporated. R2's optional stronger context recommendation
-is reconciled with the first review's source-proven boundary G exception: keep
-only that geometry with null confidence and validated native preamble counts;
-reject every other unexpected context. Exact adapter review remains required.
-One scoped engine/parser/builder worker may now implement in its separate tree;
-C owns API/IO/CLI/schema and integration. Native/compiler slot remains C-owned.
-
-## Active engineering
-
-DEM623 scoped codex-implementer owns backend/parser/builder and focused tests in
-reconstruction-termination-engine-20261021 from fb1c908. C owns API/IO/CLI/schema
-and examples. Source review is complete; no new review or native execution is
-assigned to the worker. Initial C scheduling/transport tests pass102 cases with
-full159-statement/48-branch coverage against an isolated provisional interface
-snapshot; final integration must rerun on the exact committed worker patch.
-
-C API/CLI/schema/transport validation now passes173 focused tests with full
-215-statement/60-branch coverage against the immutable scratch snapshot of the
-worker interfaces. Native stderr elapsed-time bytes are separated from prediction
-identity; result_sha256 still binds the complete execution receipt. Exact worker
-commit/native integration is pending; this is not final runtime admission.
-
-## Exact implementation checkpoint
-
-DEM623 delivered c845962; integrated as c7f7864. Coordinator path-syntax repair
-and native integration tests are at989031d. The real offline builder produced
-binary b01d8d864eb6f41d36cdbf4d0e46255ce3f702c463c838afdaf21770d3d7cb4d;
-all342 focused tests pass with zero skips, one expected ZIP warning and full
-700-statement/182-branch coverage. Full-tree Ruff/format/mypy, ticket validation
-and diff checks pass. External CLI single/batch/unsupported receipts are pinned
-in adapter-build-manifest.json. Full raw outputs remain external. Source review
-was independent and complete; exact implementation review is now the remaining
-C gate before A common package/integration work. No biological claim or publication.
+No private/consumed outcomes, fitting, large scans, paid jobs, canonical/peer or
+consumer writes, main merge or publication. PV-R1, DEM577/568 and refused
+DEM612/613/#58 remain stopped. Before any new credential/admin/sudo/keychain/macOS
+permission, disclose the exact action, resource and reason and wait for the
+owner; no bypass. No child may reroute or duplicate its assignment.

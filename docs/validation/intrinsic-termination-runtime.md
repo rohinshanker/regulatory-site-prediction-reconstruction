@@ -1,6 +1,6 @@
 # Intrinsic-termination adapter contract
 
-- Purpose: Freeze the optional external-engine interface before parallel implementation.
+- Purpose: Specify the optional external-engine interface and reproducible offline verification.
 - Scope: Implemented optional TransTermHP fragment adapter for #62; exact implementation review and common packaging pending.
 - Last verified: 2026-10-21
 
@@ -102,12 +102,11 @@ text, so its raw byte identity must not influence prediction identity.
 capture identities and `prediction_sha256`, excluding only `result_sha256` itself.
 Thus execution receipts remain bound even when harmless timing bytes vary.
 
-Strict schemas, every-path tests and the real native fixture replay verify the
-implementation. Finite independent exact-patch review and common packaging
-remain separate requirements.
+Strict schemas, failure-path tests and real native fixture replay form the
+implementation gate. Independent exact-patch review and common packaging remain
+separate requirements.
 The [native smoke receipt](../../benchmarks/termination/native-smoke-manifest.json)
 is executable evidence for original artificial inputs, not biological validation.
-
 
 ## Offline use and validation
 
