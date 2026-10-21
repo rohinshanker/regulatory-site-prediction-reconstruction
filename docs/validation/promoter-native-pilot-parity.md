@@ -19,13 +19,15 @@ PYTHONPATH=src:. python -m experiments.promoter.pilot_parity \
 ```
 
 The output must not exist; the checker never overwrites it or its input. It
-records the result in all three outcomes.
+records the result in all three outcomes. The report is fully serialized
+before the output file is created, so a serialization failure exits 2 without
+leaving an empty file.
 
 | Exit | Meaning |
 | --- | --- |
-| 0 | Every position, numeric field and summary agrees, on a full eligible cohort. Bounded cohorts also exit 0 when `--allow-bounded-cohort` is given. |
+| 0 | Every position, numeric field and summary agrees, on the frozen full cohort below. Bounded cohorts also exit 0 when `--allow-bounded-cohort` is given. |
 | 1 | Parity failure: calculation failure, numeric mismatch or summary mismatch. |
-| 2 | Input integrity failure (report written) or setup error: unreadable input, existing output, broken core parameters. |
+| 2 | Input integrity failure (report written) or setup error: unreadable input, existing output, broken core parameters, unserializable report. |
 | 3 | A bounded sample passed, but the full cohort was required. |
 
 ## Input contract
@@ -33,7 +35,7 @@ records the result in all three outcomes.
 The input is refused before scoring if it exceeds the tool-local 128 MiB limit,
 if its SHA-256 does not match `--sha256`, or if it is not strict UTF-8 JSON.
 Duplicate keys, `NaN`/`Infinity`, overflowing numbers and integers outside the
-float range are also refused. A full 2,475-case report is about 37 MiB.
+float range are also refused. The full 1,597-case report should be about 24 MiB.
 
 Exactly these items are pinned:
 
@@ -58,9 +60,33 @@ windows on one replicon must not overlap. The selected plus excluded counts must
 equal the input anchors. A `sample_limit` exclusion requires the selected count to
 equal `max_sites`.
 
-The cohort is `full_eligible` only at `max_sites` 2,475 with no `sample_limit`
-exclusion. Any other cohort is `bounded_sample`. A bounded report never counts
-as the full pilot.
+### Frozen full cohort
+
+`max_sites` is only a selection ceiling, so it cannot prove the population. The
+full pilot is pinned to an outcome-free identity instead. It comes from the
+original pre-scoring `input-only-cohort.json`, which was independently
+recomputed by running the unchanged selection alone, with no model import or
+scoring. It uses no sequences, Tan count values or per-case model outcomes.
+
+| Field | Pinned value |
+| --- | --- |
+| Input anchors | 2,475 |
+| Selected | 1,597 (1,580 on `NZ_CP006471.1`, 17 on `NZ_CP006472.1`; 823 `+`, 774 `−`) |
+| Excluded | 613 `same_locus`, 264 `overlapping_window`, 1 `identical_or_reverse_complement_window` |
+| Ordered selected-id SHA-256 | `da8dab4627396d7ffe75aa120a438a01925fb9447438f785cbf210015ebb1923` |
+
+The id hash covers the UTF-8 bytes of `json.dumps(ids, ensure_ascii=True,
+separators=(", ", ": "), allow_nan=False)`, with no trailing newline. `ids` is
+the list of selected id strings in report order.
+
+A report claims the full pilot when `max_sites` is 2,475 and it declares 2,475
+input anchors. Such a claim must match every pinned field exactly. Truncated,
+reordered, duplicated or replaced rosters, and any changed exclusion, strand or
+replicon tally, fail with `full_cohort_identity` (exit 2). Every other
+population is `bounded_sample`, including synthetic and one-case reports at the
+2,475-site ceiling. It exits 3 unless `--allow-bounded-cohort` is given, and it
+never counts as the full pilot. The report records the computed identity in all
+cases.
 
 ## Comparison contract
 
@@ -70,8 +96,13 @@ as the full pilot.
   `calculation_failure`. The start stays in the denominator.
 - `dG_total` and `ecoli_model_Tx_rate` are compared at the predeclared `rel_tol`
   and `abs_tol` of `1e-12`. These values were fixed before any native comparison;
-  never tune them on observed results. The report gives the maximum absolute and
-  relative differences.
+  never tune them on observed results. The report gives the maximum finite
+  absolute and relative differences. These are diagnostics only and never decide
+  a match. An unrepresentable difference is recorded as null, never capped, and
+  counted as `abs_diff_overflow` or `rel_diff_overflow`; a zero reference is
+  counted as `rel_diff_zero_reference`. A mismatching position keeps its indexed
+  failure, with the flag in `detail`. Finite extremes, including subnormal
+  references, therefore still yield a complete finite report.
 - The tie set, best/worst anchor ranks, distance bounds and
   `best_native_tss_positions` are recomputed at abs `1e-12`, rel 0. This is done
   twice: from the reference curve (`source_summary_mismatch`) and from the
@@ -98,6 +129,8 @@ The independent success case is the frozen pre-runtime homopolymer fixture. Its
 minimum state gives the expected energy and rate at every start of a poly(A)
 window. Other reports are scored by the core itself. They exercise every
 validation, mismatch, kernel-failure, CLI and determinism branch; they are not
-parity evidence. A mocked kernel appears only in deliberate failure tests. Real
-native results come from the separate source execution, compared at a reviewed,
-frozen checker commit.
+parity evidence. A mocked kernel appears only in deliberate failure tests.
+Cohort classification is tested directly on synthetic ordered-id rosters with an
+explicit expected identity. One CLI test substitutes such a synthetic pin, only
+to exercise the full-cohort exit path. Real native results come from the
+separate source execution, compared at a reviewed, frozen checker commit.

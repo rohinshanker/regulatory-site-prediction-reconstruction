@@ -14,6 +14,7 @@ import random
 import runpy
 import sys
 from pathlib import Path
+from types import SimpleNamespace
 
 import pytest
 
@@ -176,11 +177,12 @@ MIXED = [
         ]
     )
 ]
-FULL = make_report([HOMOPOLYMER, *MIXED], 2475, {"same_locus": 2})
+SYNTHETIC = make_report([HOMOPOLYMER, *MIXED], 2475, {"same_locus": 2})
 
 
-def full():
-    return copy.deepcopy(FULL)
+def synthetic():
+    """Four-case self-consistent report; always a bounded population."""
+    return copy.deepcopy(SYNTHETIC)
 
 
 def run(tmp_path, document, **kwargs):
@@ -245,18 +247,21 @@ def test_independent_homopolymer_fixture_passes_with_real_core(tmp_path):
     assert (native["best_distance_min_nt"], native["best_distance_max_nt"]) == (0, 20)
 
 
-def test_full_cohort_report_and_identities(tmp_path):
-    report = run(tmp_path, full())
+def test_synthetic_report_identities_stay_bounded(tmp_path):
+    report = run(tmp_path, synthetic())
     assert report["status"] == "pass"
     assert report["schema"] == "regsite-promoter-pilot-parity-1"
     assert "not biological accuracy" in report["claim"]
     assert report["cohort"] == {
-        "completeness": "full_eligible",
+        "completeness": "bounded_sample",
         "max_sites": 2475,
         "seed": 2973,
         "input_anchors": 6,
         "selected": 4,
         "excluded": {"same_locus": 2},
+        "strands": {"+": 3, "-": 1},
+        "replicons": {"NZ_CP006471.1": 2, "NZ_CP006472.1": 1, "NZ_CP006473.1": 1},
+        "ordered_selected_ids_sha256": pp.ordered_ids_sha256(["A", "m0", "m1", "m2"]),
     }
     assert report["comparison"]["denominators"]["positions"] == 328
     assert report["comparison"]["evaluated"]["positions"] == 328
@@ -635,7 +640,7 @@ INTEGRITY = [
     ids=[case[0] for case in INTEGRITY],
 )
 def test_integrity_failures_are_explicit(tmp_path, mutate, code):
-    document = full()
+    document = synthetic()
     mutate(document)
     report = run(tmp_path, document)
     assert report["status"] == "input_integrity_failure"
@@ -663,7 +668,7 @@ def test_parse_failures(tmp_path, raw, code):
 
 
 def test_size_limit_and_hash_pin(tmp_path):
-    raw = json.dumps(full()).encode()
+    raw = json.dumps(synthetic()).encode()
     oversized = run(tmp_path, raw, max_bytes=len(raw) - 1)
     assert oversized["integrity_failure"] == {"code": "input_too_large", "path": "$"}
     assert oversized["input"]["bytes"] is None and oversized["input"]["sha256"] is None
@@ -683,7 +688,7 @@ def test_bounded_sample_limit_is_labelled(tmp_path):
 
 
 def test_numeric_mismatch_is_indexed(tmp_path):
-    document = full()
+    document = synthetic()
     row = document["results"][2]["control"]["score_curve"][7]
     expected = row["dG_total"] + 1e-9
     row["dG_total"] = expected
@@ -710,7 +715,7 @@ def test_numeric_mismatch_is_indexed(tmp_path):
 
 
 def test_within_tolerance_near_tie_stays_visible(tmp_path):
-    document = full()
+    document = synthetic()
     # |dG| 1.34 gives numeric tolerance 1.34e-12; a 1.2e-12 shift passes
     # numerically but leaves the source tie class at abs 1e-12.
     document["results"][0]["native"]["score_curve"][30]["dG_total"] += 1.2e-12
@@ -745,7 +750,7 @@ def test_within_tolerance_near_tie_stays_visible(tmp_path):
     ],
 )
 def test_case_summary_mutations_fail_both_sides(tmp_path, path, value, field):
-    document = full()
+    document = synthetic()
     _set(path, value)(document)
     report = run(tmp_path, document)
     failures = report["comparison"]["failures"]
@@ -779,7 +784,7 @@ def test_case_summary_mutations_fail_both_sides(tmp_path, path, value, field):
     ],
 )
 def test_cohort_summary_mutations_fail_both_sides(tmp_path, path, value, field):
-    document = full()
+    document = synthetic()
     _set(path, value)(document)
     report = run(tmp_path, document)
     assert [(f["category"], f["field"]) for f in report["comparison"]["failures"]] == [
@@ -789,7 +794,7 @@ def test_cohort_summary_mutations_fail_both_sides(tmp_path, path, value, field):
 
 
 def test_integer_median_equals_float_median(tmp_path):
-    document = full()
+    document = synthetic()
     summary = document["summary"]["native"]
     summary["median_anchor_rank_best"] = float(summary["median_anchor_rank_best"])
     assert run(tmp_path, document)["status"] == "pass"
@@ -832,7 +837,7 @@ def test_kernel_failures_are_retained_not_dropped(tmp_path):
             (control, 5): "overflow",
         }
     )
-    report = run(tmp_path, full(), scorer=scorer)
+    report = run(tmp_path, synthetic(), scorer=scorer)
     comparison = report["comparison"]
     assert report["status"] == "parity_failure"
     assert categories(report) == {"calculation_failure": 4}
@@ -876,12 +881,18 @@ def test_zero_reference_energy_has_no_relative_difference(tmp_path):
     report = run(tmp_path, make_report([case], 1, {}), scorer=zero)
     assert report["status"] == "pass"
     maxima = report["comparison"]["maxima"]
-    assert maxima["dG_total"] == {"abs_diff": 0.0, "rel_diff": None}
+    assert maxima["dG_total"] == {
+        "abs_diff": 0.0,
+        "rel_diff": None,
+        "abs_diff_overflow": 0,
+        "rel_diff_overflow": 0,
+        "rel_diff_zero_reference": 82,
+    }
     assert maxima["ecoli_model_Tx_rate"]["rel_diff"] <= 1e-15
 
 
 def test_cli_pass_is_deterministic_and_never_overwrites(tmp_path, capsys):
-    raw = json.dumps(full()).encode()
+    raw = json.dumps(synthetic()).encode()
     reference = tmp_path / "reference.json"
     reference.write_bytes(raw)
     digest = hashlib.sha256(raw).hexdigest()
@@ -894,6 +905,7 @@ def test_cli_pass_is_deterministic_and_never_overwrites(tmp_path, capsys):
             digest,
             "--output",
             str(output),
+            "--allow-bounded-cohort",
         ]
         assert pp.main(argv) == 0
     assert first.read_bytes() == second.read_bytes()
@@ -938,10 +950,10 @@ def test_cli_exit_codes(tmp_path, capsys):
     assert _cli(tmp_path / "a", bounded)[0] == 3
     assert "Bounded cohort" in capsys.readouterr().err
     assert _cli(tmp_path / "b", bounded, "--allow-bounded-cohort")[0] == 0
-    mismatch = full()
+    mismatch = synthetic()
     mismatch["summary"]["anchors"] = 9
     assert _cli(tmp_path / "c", mismatch)[0] == 1
-    broken = full()
+    broken = synthetic()
     broken["scope"] = "other"
     code, report = _cli(tmp_path / "d", broken)
     assert code == 2 and report["integrity_failure"]["code"] == "scope"
@@ -985,3 +997,211 @@ def test_module_entry_point(tmp_path, monkeypatch):
     with pytest.raises(SystemExit) as exc:
         runpy.run_module("experiments.promoter.pilot_parity", run_name="__main__")
     assert exc.value.code == 2
+
+
+# Synthetic roster identity; explicit expected hash of '["x", "y", "z"]'.
+ROSTER = ["x", "y", "z"]
+ROSTER_SHA256 = "567a648207b52b5108eb64cb246c1b20eb4347c1f39ba0752ece72883d1c2904"
+ROSTER_COHORT = {
+    "input_anchors": 5,
+    "selected": 3,
+    "excluded": {"same_locus": 2},
+    "strands": {"+": 3},
+    "replicons": {"NZ_CP006471.1": 3},
+    "ordered_selected_ids_sha256": ROSTER_SHA256,
+}
+
+
+def roster_identity(ids, **changes):
+    return {
+        **ROSTER_COHORT,
+        "selected": len(ids),
+        "ordered_selected_ids_sha256": pp.ordered_ids_sha256(ids),
+        **changes,
+    }
+
+
+def test_full_cohort_pin_is_the_input_only_receipt():
+    assert pp.FULL_COHORT == {
+        "input_anchors": 2475,
+        "selected": 1597,
+        "excluded": {
+            "identical_or_reverse_complement_window": 1,
+            "overlapping_window": 264,
+            "same_locus": 613,
+        },
+        "strands": {"+": 823, "-": 774},
+        "replicons": {"NZ_CP006471.1": 1580, "NZ_CP006472.1": 17},
+        "ordered_selected_ids_sha256": (
+            "da8dab4627396d7ffe75aa120a438a01925fb9447438f785cbf210015ebb1923"
+        ),
+    }
+    assert 1597 + sum(pp.FULL_COHORT["excluded"].values()) == 2475
+
+
+def test_ordered_id_serialization_is_exact():
+    assert pp.ordered_ids_sha256(ROSTER) == ROSTER_SHA256
+    assert pp.ordered_ids_sha256(["é"]) == (
+        "d8f81e7a2fa1455720e881bd1d164699bdc9bd7dd91641754a2ead7107c1ea0a"
+    )
+
+
+def test_classify_exact_roster_as_full():
+    identity = roster_identity(ROSTER)
+    assert pp.classify_cohort(2475, identity, ROSTER_COHORT) == "full_eligible"
+
+
+@pytest.mark.parametrize(
+    "identity",
+    [
+        roster_identity(["x", "y"]),  # truncated
+        roster_identity(["y", "x", "z"]),  # reordered
+        roster_identity(["x", "y", "y"]),  # duplicated
+        roster_identity(["x"], selected=3),  # roster replaced, count kept
+        roster_identity(ROSTER, excluded={"same_locus": 1, "sample_limit": 1}),
+        roster_identity(ROSTER, strands={"+": 2, "-": 1}),
+        roster_identity(ROSTER, replicons={"NZ_CP006472.1": 3}),
+    ],
+    ids=[
+        "truncated",
+        "reordered",
+        "duplicate",
+        "replaced",
+        "excluded",
+        "strands",
+        "replicons",
+    ],
+)
+def test_complete_claim_with_other_roster_is_refused(identity):
+    with pytest.raises(pp.IntegrityError) as exc:
+        pp.classify_cohort(2475, identity, ROSTER_COHORT)
+    assert exc.value.code == "full_cohort_identity"
+
+
+def test_classify_without_complete_claim_is_bounded():
+    exact = roster_identity(ROSTER)
+    assert pp.classify_cohort(2474, exact, ROSTER_COHORT) == "bounded_sample"
+    other_total = roster_identity(["x"], input_anchors=1)
+    assert pp.classify_cohort(2475, other_total, ROSTER_COHORT) == "bounded_sample"
+
+
+def test_one_case_report_cannot_pass_as_full_pilot(tmp_path, capsys):
+    # Review probe: one internally valid case at the 2475-site ceiling.
+    code, report = _cli(tmp_path / "small", make_report([HOMOPOLYMER], 2475, {}))
+    assert code == 3
+    assert report["status"] == "pass"
+    assert report["cohort"]["completeness"] == "bounded_sample"
+    assert "Bounded cohort" in capsys.readouterr().err
+    # The same case claiming the complete 2475-anchor population is refused.
+    claim = make_report([HOMOPOLYMER], 2475, {"same_locus": 2474})
+    code, report = _cli(tmp_path / "claim", claim)
+    assert code == 2
+    assert report["integrity_failure"] == {
+        "code": "full_cohort_identity",
+        "path": "cohort",
+    }
+
+
+@pytest.mark.parametrize(
+    ("observed", "expected", "result"),
+    [
+        (1.0, 1.0, (0.0, 0.0, None)),
+        (0.5, 0.0, (0.5, None, "rel_diff_zero_reference")),
+        (-1.0, 5e-324, (1.0, None, "rel_diff_overflow")),
+        (-sys.float_info.max, sys.float_info.max, (None, None, "abs_diff_overflow")),
+        (-1.0, -sys.float_info.max, (sys.float_info.max, 1.0, None)),
+    ],
+)
+def test_difference_diagnostics_stay_finite(observed, expected, result):
+    assert pp.differences(observed, expected) == result
+
+
+@pytest.mark.parametrize("field", pp.FIELDS)
+def test_cli_subnormal_reference_keeps_indexed_failure(tmp_path, field):
+    document = make_report([HOMOPOLYMER], 1, {})
+    document["results"][0]["native"]["score_curve"][0][field] = 5e-324
+    code, report = _cli(tmp_path / field, refresh(document))
+    assert code == 1
+    assert report["status"] == "parity_failure"
+    comparison = report["comparison"]
+    numeric = [f for f in comparison["failures"] if f["category"] == "numeric_mismatch"]
+    assert numeric == [
+        {
+            "category": "numeric_mismatch",
+            "source_id": "A",
+            "arm": "native",
+            "offset_nt": -20,
+            "field": field,
+            "reference": 5e-324,
+            "observed": numeric[0]["observed"],
+            "detail": "rel_diff_overflow",
+        }
+    ]
+    assert comparison["evaluated"]["positions"] == 82
+    assert comparison["denominators"]["numeric_comparisons"] == 164
+    assert comparison["maxima"][field]["rel_diff_overflow"] == 1
+    assert comparison["maxima"][field]["rel_diff"] <= 1e-12
+
+
+def test_serializer_failure_creates_no_output(tmp_path, monkeypatch, capsys):
+    def broken(_report):
+        raise ValueError("Out of range float values are not JSON compliant")
+
+    monkeypatch.setattr(pp, "report_bytes", broken)
+    raw = json.dumps(make_report([HOMOPOLYMER], 1, {})).encode()
+    reference = tmp_path / "reference.json"
+    reference.write_bytes(raw)
+    output = tmp_path / "report.json"
+    digest = hashlib.sha256(raw).hexdigest()
+    argv = ["--reference", str(reference), "--sha256", digest]
+    assert pp.main([*argv, "--output", str(output)]) == 2
+    assert not output.exists()
+    assert "failed to run" in capsys.readouterr().err
+
+
+def test_cli_exact_frozen_identity_exits_full(tmp_path, monkeypatch):
+    """Exit path only: the pin is replaced by this synthetic report's identity."""
+    document = synthetic()
+    cases = document["results"]
+    identity = pp.cohort_identity(cases, 6, {"same_locus": 2})
+    monkeypatch.setattr(pp, "FULL_COHORT", {**identity, "input_anchors": 6})
+    code, report = _cli(tmp_path / "pinned", document)
+    assert code == 0
+    assert report["cohort"]["completeness"] == "full_eligible"
+
+
+def test_absolute_difference_overflow_keeps_indexed_mismatch(tmp_path):
+    """Deliberately mocked extreme kernel value against a finite extreme reference."""
+    extreme = SimpleNamespace(
+        state_count=30,
+        status="ok",
+        reason=None,
+        selected=SimpleNamespace(
+            terms={"total": -sys.float_info.max},
+            to_dict=lambda *args, **kwargs: {
+                "score_status": "ok",
+                "relative_transcription_score": A_RATE,
+            },
+        ),
+    )
+
+    def scorer(sequence, strand, start, params, calibration, *, keep_states):
+        if start == 87 - 20:
+            return extreme
+        return p.score_site(
+            sequence, strand, start, params, calibration, keep_states=keep_states
+        )
+
+    document = make_report([HOMOPOLYMER], 1, {})
+    for name in pp.ARMS:
+        document["results"][0][name]["score_curve"][0]["dG_total"] = sys.float_info.max
+    report = run(tmp_path, refresh(document), scorer=scorer)
+    comparison = report["comparison"]
+    numeric = [f for f in comparison["failures"] if f["category"] == "numeric_mismatch"]
+    assert [(f["arm"], f["offset_nt"], f["detail"]) for f in numeric] == [
+        ("native", -20, "abs_diff_overflow"),
+        ("control", -20, "abs_diff_overflow"),
+    ]
+    assert comparison["maxima"]["dG_total"]["abs_diff_overflow"] == 2
+    assert comparison["evaluated"]["positions"] == 82
+    pp.report_bytes(report)  # Remains finite and serializable.

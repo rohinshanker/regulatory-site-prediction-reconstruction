@@ -44,6 +44,22 @@ OFFSETS = tuple(range(-RADIUS, RADIUS + 1))
 LAYOUTS = 30
 LOCAL_NT = 5
 FULL_MAX_SITES = 2475
+# Outcome-free full-pilot population: the original pre-scoring input-only cohort,
+# independently recomputed by selection alone (no model import or scoring).
+FULL_COHORT = {
+    "input_anchors": 2475,
+    "selected": 1597,
+    "excluded": {
+        "identical_or_reverse_complement_window": 1,
+        "overlapping_window": 264,
+        "same_locus": 613,
+    },
+    "strands": {"+": 823, "-": 774},
+    "replicons": {"NZ_CP006471.1": 1580, "NZ_CP006472.1": 17},
+    "ordered_selected_ids_sha256": (
+        "da8dab4627396d7ffe75aa120a438a01925fb9447438f785cbf210015ebb1923"
+    ),
+}
 
 # Frozen source protocol, consumer commit f80836248243983beefbfe3f85c83914e5f9d01b.
 PRODUCER_SHA256 = "7d3440ad5239f216ec072dbaac49b430bbaa17d7b28674e18effadcc131f4766"
@@ -360,11 +376,47 @@ def _validate_cohort(cases: list[dict]) -> None:
         occupied[case["replicon"]].update(positions)
 
 
-def validate_reference(document: object) -> tuple[dict, str]:
-    """Validate the complete frozen-protocol report; return it and completeness.
+def ordered_ids_sha256(ids: list[str]) -> str:
+    """Hash UTF-8 json.dumps(ids, ensure_ascii, ", "/": " separators), no newline."""
+    text = json.dumps(ids, ensure_ascii=True, separators=(", ", ": "), allow_nan=False)
+    return _sha256(text.encode("utf-8"))
 
-    Completeness is "full_eligible" only for the 2475-site limit without
-    sample-limit exclusions; any smaller run is an explicit "bounded_sample".
+
+def cohort_identity(cases: list[dict], input_anchors: int, excluded: dict) -> dict:
+    """Return the outcome-free population identity of a validated report."""
+    return {
+        "input_anchors": input_anchors,
+        "selected": len(cases),
+        "excluded": dict(excluded),
+        "strands": dict(Counter(case["strand"] for case in cases)),
+        "replicons": dict(Counter(case["replicon"] for case in cases)),
+        "ordered_selected_ids_sha256": ordered_ids_sha256(
+            [case["id"] for case in cases]
+        ),
+    }
+
+
+def classify_cohort(max_sites: int, identity: dict, expected: dict) -> str:
+    """Classify a population; a complete claim must equal the frozen identity.
+
+    A report claims the full pilot when it uses the 2475-site ceiling and the
+    expected input total. Such a claim with any other selected roster, order,
+    exclusion or tally is refused; every other population is "bounded_sample".
+    """
+    claims_full = (
+        max_sites == FULL_MAX_SITES
+        and identity["input_anchors"] == expected["input_anchors"]
+    )
+    if not claims_full:
+        return "bounded_sample"
+    _require(_same(identity, expected), "full_cohort_identity", "cohort")
+    return "full_eligible"
+
+
+def validate_reference(document: object) -> tuple[dict, str, dict]:
+    """Validate the complete frozen-protocol report.
+
+    Returns the report, its completeness class and its population identity.
     """
     report = _object(document, TOP_KEYS, "$")
     _require(_same(report["schema_version"], 1), "schema_version", "schema_version")
@@ -433,8 +485,8 @@ def validate_reference(document: object) -> tuple[dict, str]:
     )
     for arm in ARMS:
         _object(summary[arm], ARM_SUMMARY_KEYS, f"summary.{arm}")
-    full = max_sites == FULL_MAX_SITES and "sample_limit" not in excluded
-    return report, "full_eligible" if full else "bounded_sample"
+    identity = cohort_identity(cases, cohort["input_anchors"], excluded)
+    return report, classify_cohort(max_sites, identity, FULL_COHORT), identity
 
 
 def localization(energies: list[float]) -> dict:
@@ -519,6 +571,27 @@ def _failure(
     }
 
 
+def differences(
+    observed: float, expected: float
+) -> tuple[float | None, float | None, str | None]:
+    """Return finite absolute/relative differences, or null plus the reason.
+
+    Diagnostics only: the tolerance decision never uses these values.
+    """
+    absolute = abs(observed - expected)
+    if not math.isfinite(absolute):
+        return None, None, "abs_diff_overflow"
+    if not expected:
+        return absolute, None, "rel_diff_zero_reference"
+    relative = absolute / abs(expected)
+    if not math.isfinite(relative):
+        return absolute, None, "rel_diff_overflow"
+    return absolute, relative, None
+
+
+DIFFERENCE_FLAGS = ("abs_diff_overflow", "rel_diff_overflow", "rel_diff_zero_reference")
+
+
 def _score(
     scorer: Scorer,
     sequence: str,
@@ -552,6 +625,7 @@ class _Evaluation:
         self.reconstructed_arms = 0
         self.abs_diff: dict[str, list[float]] = {field: [] for field in FIELDS}
         self.rel_diff: dict[str, list[float]] = {field: [] for field in FIELDS}
+        self.flags: dict[str, Counter] = {field: Counter() for field in FIELDS}
 
     def localization(
         self, category: str, reported: dict, recomputed: dict, case: dict, arm: str
@@ -630,10 +704,12 @@ class _Evaluation:
             energies.append(values[0])
             for field, observed in zip(FIELDS, values, strict=True):
                 expected = row[field]
-                difference = abs(observed - expected)
-                self.abs_diff[field].append(difference)
-                if expected:
-                    self.rel_diff[field].append(difference / abs(expected))
+                absolute, relative, flag = differences(observed, expected)
+                if absolute is not None:
+                    self.abs_diff[field].append(absolute)
+                if relative is not None:
+                    self.rel_diff[field].append(relative)
+                self.flags[field][flag] += 1
                 if not math.isclose(
                     observed, expected, rel_tol=REL_TOL, abs_tol=ABS_TOL
                 ):
@@ -646,6 +722,7 @@ class _Evaluation:
                             source_id=case["id"],
                             arm=arm,
                             offset=offset,
+                            detail=flag,
                         )
                     )
         if len(energies) != len(OFFSETS):
@@ -709,6 +786,7 @@ def evaluate(
             field: {
                 "abs_diff": max(run.abs_diff[field], default=None),
                 "rel_diff": max(run.rel_diff[field], default=None),
+                **{flag: run.flags[field][flag] for flag in DIFFERENCE_FLAGS},
             }
             for field in FIELDS
         },
@@ -783,7 +861,7 @@ def check(
         _require(
             result["input"]["sha256"] == expected_sha256, "input_sha256_mismatch", "$"
         )
-        document, completeness = validate_reference(parse_reference(raw))
+        document, completeness, identity = validate_reference(parse_reference(raw))
     except IntegrityError as exc:
         result["integrity_failure"] = {"code": exc.code, "path": exc.path}
         return result
@@ -798,9 +876,7 @@ def check(
         "completeness": completeness,
         "max_sites": document["parameters"]["max_sites"],
         "seed": document["parameters"]["seed"],
-        "input_anchors": document["cohort"]["input_anchors"],
-        "selected": len(document["results"]),
-        "excluded": document["cohort"]["excluded"],
+        **identity,
     }
     comparison = evaluate(document, scorer, params, calibration)
     result["comparison"] = comparison
@@ -838,9 +914,10 @@ def main(argv: list[str] | None = None) -> int:
         return 2
     try:
         report = check(args.reference, args.sha256)
+        data = report_bytes(report)  # Serialize before creating the output.
         with args.output.open("xb") as handle:
-            handle.write(report_bytes(report))
-    except (OSError, core.ParameterError) as exc:
+            handle.write(data)
+    except (OSError, ValueError) as exc:  # ValueError includes ParameterError.
         print(f"Promoter pilot parity failed to run: {exc}", file=sys.stderr)
         return 2
     print(json.dumps({"status": report["status"], "cohort": report["cohort"]}))
