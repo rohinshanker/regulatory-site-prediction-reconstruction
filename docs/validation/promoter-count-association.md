@@ -20,7 +20,7 @@ The primary three endpoints use 2,000 paired cluster bootstrap draws with seed 2
 
 ## Offline boundary
 
-Preparation reads only the seven manifest paths under an explicitly supplied external input root. Evaluation reads only the explicit prepared artifact and report with caller-supplied digests. Both retain the protocol and manifest hashes. The tool does not discover private paths, import a scorer, resolve opaque provenance references, execute a predictor, retrieve sources or modify frozen inputs. Strict bounded reads and deterministic, atomic no-clobber output apply. New input or method versions require a new freeze before outcomes, never regeneration of pins to accept a failing artifact.
+Preparation reads only the seven manifest paths under an explicitly supplied external input root. Evaluation reads only the explicit prepared artifact and report with caller-supplied digests. Both retain the protocol and manifest hashes. An evaluation is admissible for this frozen analysis only when its `read_artifacts.prepared_sha256` matches the output of a fresh `prepare` from the pinned input root (the recorded native digest is `55077acaaf5d4cb4449801257c3cab0abbf16ce66033a11f1395fc5ad6c2bbce`). `trust.preparation_verified_input_bytes` is manifest metadata carried from preparation, not an evaluate-time check of those seven files. An internally consistent edited artifact with a newly supplied caller digest does not establish this provenance. A separately reproduced the fresh preparation digest before accepting the arithmetic. The tool does not discover private paths, import a scorer, resolve opaque provenance references, execute a predictor, retrieve sources or modify frozen inputs. Strict bounded reads and deterministic, atomic no-clobber output apply. New input or method versions require a new freeze before outcomes, never regeneration of pins to accept a failing artifact.
 
 ## Reproduce locally
 
@@ -42,9 +42,11 @@ PYTHONPATH=src:. python -m coverage run --branch \
 python -m coverage report -m
 ```
 
-Both outputs require fresh paths. Data/admission/write/link failures return exit 2 without a newly published result; collisions preserve the existing path. Successful exclusive linking is the publication commit point. A later temporary-file cleanup failure emits a warning naming the residual path and retains exit 0 and the complete final result. If cleanup fails after an earlier write/link error, that original error remains authoritative. The tool never requests elevated access or changes permissions.
+Both outputs require fresh paths. Data/admission/write/link failures return exit 2 without a newly published result; collisions preserve the existing path. Successful exclusive linking is the publication commit point. A later temporary-file cleanup failure emits a warning naming the residual path and retains exit 0 and the complete final result. If cleanup fails after an earlier write/link error, that original error remains authoritative. New outputs are private mode `0600`; existing permissions are not changed. The tool never requests elevated access.
 
-Input JSON is limited to 64 MiB and depth 64; decoded FASTA is limited to 8,000,000 bytes. Output keys are sorted with indent 2, ASCII escapes, finite numbers and one trailing LF. Opaque model/source references remain explicitly unverified by this evaluator. Its source and tests at `7fe20c70a203280e5a05ba33c0836bd4b2d22d57` passed 156 synthetic tests, 100% of 574 statements and 136 branches.
+Use immutable local snapshots during a read: pathname checks are not a filesystem lock or protection against concurrent path replacement. Frozen position parsing follows the pinned original runner; this is not an admission interface for new data formats.
+
+Input JSON is limited to 64 MiB and depth 64; decoded FASTA is limited to 8,000,000 bytes. Output keys are sorted with indent 2, ASCII escapes, finite numbers and one trailing LF. Opaque model/source references remain explicitly unverified by this evaluator. The recorded execution and focused validation used Python 3.14.7. Its source and tests at `7fe20c70a203280e5a05ba33c0836bd4b2d22d57` passed 156 synthetic tests, 100% of 574 statements and 136 branches.
 
 ## Pinned exploratory result
 
@@ -64,7 +66,7 @@ All 2,475 gTSS source rows are accounted for: 1,597 selected; 613 excluded for r
 | Shuffled anchor rate | 0.0487794005 | [0.0021191541, 0.0964237923] |
 | Native minus shuffled | 0.1238522659 | [0.0570631506, 0.1879017844] |
 
-Every primary interval has 2,000 valid draws and zero undefined draws. The secondary condition means below use the same 1,597 anchors; they have no inferential intervals or significance claims. Repeated conditions and replicates are not pooled as independent observations.
+The shuffled arm is a synthetic composition control, not a set of biological negatives. Every primary interval has 2,000 valid draws and zero undefined draws. Resampling includes all selected input groups; endpoint missingness is applied within each draw, so a future admitted cohort with missing counts could have varying eligible draw sizes. The secondary condition means below use the same 1,597 anchors; they have no inferential intervals or significance claims. Repeated conditions and replicates are not pooled as independent observations. Extra shuffled and paired point values emitted for secondary condition/replicate views are non-preregistered descriptive diagnostics; they are not additional frozen endpoints and are not used for the interpretation here. Omitted predefined aggregate exclusion reasons have zero rows; each source row still carries its explicit exclusion or selection state.
 
 | Condition | Native-rate/count-mean correlation | Replicate-count agreement |
 | --- | ---: | ---: |
