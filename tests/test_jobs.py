@@ -2,8 +2,11 @@
 
 import fcntl
 import hashlib
+import importlib.util
 import json
 import os
+import py_compile
+import shutil
 import signal
 import subprocess
 import sys
@@ -68,7 +71,21 @@ elif action == "ignore":
 elif action == "kill":
     os.kill(os.getpid(), signal.SIGKILL)
 elif action == "group":
-    sys.stdout.write(str(os.getpgrp()))
+    sys.stdout.write(f"{os.getpid()} {os.getpgrp()}")
+elif action == "touch":
+    open(request["path"], "a").close()
+elif action == "close_ignore":
+    signal.signal(signal.SIGTERM, signal.SIG_IGN)
+    os.close(1)
+    os.close(2)
+    time.sleep(60)
+elif action == "shutdown":
+    def stop(*_):
+        os.write(1, request["shutdown"].encode())
+        raise SystemExit(0)
+    signal.signal(signal.SIGTERM, stop)
+    os.write(1, b"initial output\n")
+    time.sleep(60)
 elif action == "close":
     os.close(1)
     os.close(2)
@@ -168,6 +185,28 @@ def wait_gone(pid: int) -> None:
             return
         time.sleep(0.05)
     raise AssertionError(f"process {pid} survived")
+
+
+def assert_group_gone(out: str, job: str, number: int = 1) -> None:
+    """The attempt's owned group and its anchor leader were reaped."""
+    pgid = load(attempt(out, job, number) / "launch.json")["pgid"]
+    with pytest.raises(ProcessLookupError):
+        os.killpg(pgid, 0)
+    with pytest.raises(ProcessLookupError):
+        os.kill(pgid, 0)
+
+
+def reap_group(pgid: int) -> None:
+    """Kill and reap only this test's own leaked group (children of pytest)."""
+    try:
+        os.killpg(pgid, signal.SIGKILL)
+    except (ProcessLookupError, PermissionError):
+        pass
+    while True:
+        try:
+            os.waitpid(-pgid, 0)
+        except ChildProcessError:
+            return
 
 
 def manifest_value() -> dict:
@@ -705,32 +744,46 @@ def test_resume_refuses_changed_runtime(
     jobs.run_campaign(manifest, out)
     real = jobs.runtime_identity()
     monkeypatch.setattr(
-        jobs, "runtime_identity", lambda: {**real, "regsite_version": "other"}
+        jobs,
+        "runtime_identity",
+        lambda deadline=None: {**real, "regsite_version": "other"},
     )
     with pytest.raises(jobs.JobError, match="runtime_mismatch"):
         jobs.resume_campaign(manifest, out)
 
 
-@pytest.mark.parametrize("failure", ["changed", "unverifiable"])
+@pytest.mark.parametrize(
+    ("failure", "outcome"),
+    [
+        ("changed", "runtime_changed"),
+        ("unverifiable", "runtime_changed"),
+        ("deadline", "campaign_deadline"),
+    ],
+)
 def test_identity_change_during_job_is_not_terminal(
-    area: Path, synthetic: None, monkeypatch: pytest.MonkeyPatch, failure: str
+    area: Path,
+    synthetic: None,
+    monkeypatch: pytest.MonkeyPatch,
+    failure: str,
+    outcome: str,
 ) -> None:
     manifest, out = campaign(area, [{"id": "a"}, {"id": "b"}])
     original, calls = jobs._identity, []
 
-    def drifting(manifest: dict, backend_root: str | None) -> dict:
-        value = original(manifest, backend_root)
+    def drifting(manifest: dict, backend_root: str | None, deadline: float) -> dict:
+        value = original(manifest, backend_root, deadline)
         calls.append(value)
         if len(calls) > 1 and failure == "changed":
             return {**value, "runtime": {**value["runtime"], "code": {}}}
         if len(calls) > 1:
-            raise jobs.JobError("runtime_identity")
+            code = "runtime_identity" if failure == "unverifiable" else failure
+            raise jobs.JobError(code.replace("deadline", "campaign_deadline"))
         return value
 
     monkeypatch.setattr(jobs, "_identity", drifting)
     summary = jobs.run_campaign(manifest, out)
-    assert summary["stop_reason"] == "runtime_changed"
-    assert receipt(out, "a")["outcome"] == "runtime_changed"
+    assert summary["stop_reason"] == outcome
+    assert receipt(out, "a")["outcome"] == outcome
     assert receipt(out, "a")["exit_code"] == 0
     assert [row["state"] for row in summary["jobs"]] == ["unfinished", "unstarted"]
     assert jobs.exit_code(summary) == 3
@@ -902,14 +955,31 @@ def test_campaign_deadline_then_resume_keeps_history(
     assert_documents(out)
 
 
-def test_campaign_deadline_before_any_job(area: Path, synthetic: None) -> None:
+def test_setup_beyond_campaign_time_refuses(area: Path, synthetic: None) -> None:
     manifest, out = campaign(area, [{"id": "a"}], seconds_total=1e-9)
+    with pytest.raises(jobs.JobError, match="campaign_deadline"):
+        jobs.run_campaign(manifest, out)
+    assert not Path(out).exists()
+
+
+def test_campaign_deadline_before_next_job(
+    area: Path, synthetic: None, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    manifest, out = campaign(area, [{"id": "a"}, {"id": "b"}], seconds_total=2)
+    real = jobs._run_attempt
+
+    def slow(context: object, *args: object) -> tuple:
+        result = real(context, *args)  # type: ignore[arg-type]
+        time.sleep(max(0.0, context.deadline - time.monotonic()))  # type: ignore[attr-defined]
+        return result
+
+    monkeypatch.setattr(jobs, "_run_attempt", slow)
     summary = jobs.run_campaign(manifest, out)
     assert summary["stop_reason"] == "campaign_deadline"
-    assert summary["counts"]["unstarted"] == 1 and summary["attempts"] == 0
-    assert os.listdir(Path(out) / "jobs" / "a") == ["request.json"]
-    assert summary["jobs"][0] == {
-        "id": "a",
+    assert summary["counts"]["unstarted"] == 1 and summary["attempts"] == 1
+    assert os.listdir(Path(out) / "jobs" / "b") == ["request.json"]
+    assert summary["jobs"][1] == {
+        "id": "b",
         "kind": "promoter",
         "state": "unstarted",
         "attempts": 0,
@@ -918,6 +988,49 @@ def test_campaign_deadline_before_any_job(area: Path, synthetic: None) -> None:
         "stdout": None,
         "error": None,
     }
+
+
+def test_elapsed_campaign_time_is_never_success(
+    area: Path, synthetic: None, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    manifest, out = campaign(area, [{"id": "a"}], seconds_total=2)
+    real = jobs._execute
+
+    def late(context: object, states: dict) -> str | None:
+        stop = real(context, states)  # type: ignore[arg-type]
+        time.sleep(max(0.0, context.deadline - time.monotonic()))  # type: ignore[attr-defined]
+        return stop
+
+    monkeypatch.setattr(jobs, "_execute", late)
+    summary = jobs.run_campaign(manifest, out)
+    assert summary["status"] == "complete"
+    assert summary["stop_reason"] == "campaign_deadline"
+    assert jobs.exit_code(summary) == 3
+
+
+def test_slow_post_job_identity_is_a_deadline_not_success(
+    area: Path, synthetic: None, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    manifest, out = campaign(area, [{"id": "a"}], seconds_total=1)
+    original, calls = jobs._identity, []
+
+    def slow(*args: object) -> dict:
+        calls.append(1)
+        result = original(*args)  # type: ignore[arg-type]
+        if len(calls) == 2:
+            time.sleep(1.2)  # A slow but unchanged filesystem/backend check.
+        return result
+
+    with monkeypatch.context() as patch:
+        patch.setattr(jobs, "_identity", slow)
+        summary = jobs.run_campaign(manifest, out)
+    assert summary["stop_reason"] == "campaign_deadline"
+    assert receipt(out, "a")["outcome"] == "campaign_deadline"
+    assert jobs.exit_code(summary) == 3
+    assert jobs.verify_campaign(manifest, out)["jobs"][0]["state"] == "unfinished"
+    resumed = jobs.resume_campaign(manifest, out)
+    assert resumed["jobs"][0]["state"] == "succeeded"
+    assert jobs.exit_code(resumed) == 0
 
 
 def test_output_budget_reserves_full_caps(area: Path, synthetic: None) -> None:
@@ -975,7 +1088,7 @@ def test_capture_write_failure_stops_child(
     stored = receipt(out, "a")
     assert stored["outcome"] == "storage_error" and stored["signal"] is not None
     assert summary["stop_reason"] == "storage_error"
-    wait_gone(load(attempt(out, "a", 1) / "launch.json")["pid"])
+    assert_group_gone(out, "a")
 
 
 def test_fsync_failure_is_not_a_completed_receipt(
@@ -1042,9 +1155,13 @@ def test_attempt_directory_failure_stops(
     assert os.listdir(Path(out) / "jobs" / "a") == ["request.json"]
 
 
-def test_empty_abandoned_attempt_is_counted(area: Path, synthetic: None) -> None:
-    manifest, out = campaign(area, [{"id": "a"}], seconds_total=1e-9)
-    jobs.run_campaign(manifest, out)
+def test_empty_abandoned_attempt_is_counted(
+    area: Path, synthetic: None, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    manifest, out = campaign(area, [{"id": "a"}])
+    with monkeypatch.context() as patch:
+        patch.setattr(jobs, "_execute", lambda context, states: "campaign_deadline")
+        jobs.run_campaign(manifest, out)
     attempt(out, "a", 1).mkdir()
     checked = jobs.verify_campaign(manifest, out)
     assert checked["jobs"][0]["state"] == "unfinished"
@@ -1147,17 +1264,17 @@ def test_group_signals_only_target_an_owned_unreaped_leader(
         job: load(attempt(out, job, 1) / "launch.json")
         for job in ("group", "orphan", "slow")
     }
-    group = int((attempt(out, "group", 1) / "stdout").read_text())
-    assert group == launches["group"]["pgid"] != launches["group"]["pid"]
+    pid, group = map(int, (attempt(out, "group", 1) / "stdout").read_text().split())
+    assert group == launches["group"]["pgid"] != pid
     assert {pgid for pgid, _ in signalled} == {
         launch["pgid"] for launch in launches.values()
     }
     slow = [number for pgid, number in signalled if pgid == launches["slow"]["pgid"]]
     assert slow[0] == signal.SIGTERM and slow[-1] == signal.SIGKILL
-    for launch in launches.values():
-        for pid in (launch["pgid"], launch["pid"]):
-            with pytest.raises(ProcessLookupError):
-                os.kill(pid, 0)
+    for job in launches:
+        assert_group_gone(out, job)
+    with pytest.raises(ProcessLookupError):
+        os.kill(pid, 0)
     for job in ("orphan", "slow"):
         wait_gone(int((attempt(out, job, 1) / "stdout").read_text()))
 
@@ -1240,7 +1357,7 @@ def test_signal_stops_running_job_and_restores_handlers(
     assert receipt(out, "a")["outcome"] == "interrupted"
     assert [row["state"] for row in summary["jobs"]] == ["unfinished", "unstarted"]
     assert signal.getsignal(signal.SIGTERM) is before
-    wait_gone(load(attempt(out, "a", 1) / "launch.json")["pid"])
+    assert_group_gone(out, "a")
     assert jobs.exit_code(summary) == 3
 
 
@@ -1295,12 +1412,7 @@ def test_unexpected_exception_cleans_up(
         patch.setattr(jobs, "_pump", broken)
         with pytest.raises(RuntimeError):
             jobs.run_campaign(manifest, out)
-    launch = load(attempt(out, "a", 1) / "launch.json")
-    for pid in (launch["pgid"], launch["pid"]):
-        with pytest.raises(ProcessLookupError):
-            os.kill(pid, 0)
-    with pytest.raises(ProcessLookupError):
-        os.killpg(launch["pgid"], 0)
+    assert_group_gone(out, "a")
     assert signal.getsignal(signal.SIGINT) is before
     resumed = jobs.resume_campaign(manifest, out)
     assert resumed["status"] == "complete" and resumed["abandoned_attempts"] == 1
@@ -1321,7 +1433,7 @@ def test_resume_refuses_live_orphan_group(
 
     with monkeypatch.context() as patch:
         patch.setattr(jobs, "_pump", crash)
-        patch.setattr(jobs, "_stop", lambda process, pgid: None)
+        patch.setattr(jobs, "_stop", lambda *args: True)
         patch.setattr(jobs, "_release", lambda anchor: None)
         with pytest.raises(RuntimeError):
             jobs.run_campaign(manifest, out)
@@ -1330,12 +1442,7 @@ def test_resume_refuses_live_orphan_group(
         with pytest.raises(jobs.JobError, match="orphan_process"):
             jobs.resume_campaign(manifest, out)
     finally:
-        os.killpg(launch["pgid"], signal.SIGKILL)
-        for pid in (launch["pid"], launch["pgid"]):
-            try:
-                os.waitpid(pid, 0)
-            except ChildProcessError:
-                pass
+        reap_group(launch["pgid"])
     resumed = jobs.resume_campaign(manifest, out)
     assert resumed["status"] == "complete" and resumed["attempts"] == 2
 
@@ -1602,18 +1709,20 @@ def test_cli_exit_codes(
     manifest2, _ = campaign(area / "x", [{"id": "p", "request": {"exit": 1}}])
     code, _ = run_main(capfd, "run", "--manifest", manifest2, "--output-dir", second)
     assert code == 1
-    value = load(Path(manifest2))
-    value["limits"]["seconds_total"] = 1e-9
-    dump(Path(manifest2), value)
-    code, document = run_main(
-        capfd,
-        "run",
-        "--manifest",
-        manifest2,
-        "--output-dir",
-        third,
-        "--allow-repository-output",
-    )
+    patch = pytest.MonkeyPatch()
+    patch.setattr(jobs, "_execute", lambda context, states: "campaign_deadline")
+    try:
+        code, document = run_main(
+            capfd,
+            "run",
+            "--manifest",
+            manifest2,
+            "--output-dir",
+            third,
+            "--allow-repository-output",
+        )
+    finally:
+        patch.undo()
     assert (code, document["stop_reason"]) == (3, "campaign_deadline")
     code, document = run_main(
         capfd,
@@ -1695,3 +1804,500 @@ def test_examples_are_valid_and_bound(area: Path) -> None:
         schema("manifest").validate(value)
         requests = jobs._load_requests(str(path), value)
         assert set(requests) == {row["id"] for row in value["jobs"]}
+
+
+# Review repair regressions (DEM-621) ------------------------------------------
+
+SUPERVISOR = r"""
+import os, signal, sys, time
+from regsite import jobs
+manifest, out, script, boundary, marker = sys.argv[1:]
+for kind in jobs.KINDS:
+    jobs.ENTRY_POINTS[kind] = ("-c", script)
+if boundary == "launch":
+    real = jobs._publish
+    def publish(fd, name, data, replace=False):
+        real(fd, name, data, replace)
+        if name == "launch.json":
+            os.kill(os.getpid(), signal.SIGKILL)
+    jobs._publish = publish
+else:
+    def pump(*args):
+        while not os.path.exists(marker):
+            time.sleep(0.01)
+        os.kill(os.getpid(), signal.SIGKILL)
+    jobs._pump = pump
+jobs.run_campaign(manifest, out)
+"""
+
+
+def wait_group_gone(pgid: int) -> None:
+    limit = time.monotonic() + 10
+    while time.monotonic() < limit:
+        if not jobs._group_alive(pgid):
+            return
+        time.sleep(0.05)
+    raise AssertionError(f"group {pgid} survived")
+
+
+@pytest.mark.parametrize("boundary", ["launch", "running"])
+def test_runner_killed_at_launch_boundaries_never_overlaps(
+    area: Path, synthetic: None, boundary: str
+) -> None:
+    marker = str(area / "marker")
+    action = "touch" if boundary == "launch" else "marker"
+    manifest, out = campaign(
+        area, [{"id": "a", "request": {"action": action, "path": marker}}]
+    )
+    launch = attempt(out, "a", 1) / "launch.json"
+    try:
+        child = subprocess.run(
+            [sys.executable, "-c", SUPERVISOR, manifest, out, SCRIPT, boundary, marker],
+            capture_output=True,
+            timeout=30,
+            check=False,
+        )
+        assert child.returncode == -signal.SIGKILL, child.stderr
+        pgid = load(launch)["pgid"]
+        assert not (attempt(out, "a", 1) / "receipt.json").exists()
+        if boundary == "launch":
+            # Ownership was committed before any calculator could start.
+            wait_group_gone(pgid)
+            assert not os.path.exists(marker)
+        else:
+            assert jobs._group_alive(pgid)
+            with pytest.raises(jobs.JobError, match="orphan_process"):
+                jobs.resume_campaign(manifest, out)
+            os.killpg(pgid, signal.SIGKILL)
+            wait_group_gone(pgid)
+        resumed = jobs.resume_campaign(manifest, out)
+        assert resumed["status"] == "complete" and resumed["attempts"] == 2
+        assert resumed["abandoned_attempts"] == 1 and os.path.exists(marker)
+        assert jobs.verify_campaign(manifest, out)["status"] == "complete"
+    finally:
+        if launch.exists():
+            try:
+                os.killpg(load(launch)["pgid"], signal.SIGKILL)
+            except (ProcessLookupError, PermissionError):
+                pass
+
+
+def owned_package(area: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
+    package = area / "package" / "regsite"
+    shutil.copytree(
+        jobs.PACKAGE_DIR, package, ignore=shutil.ignore_patterns("__pycache__")
+    )
+    monkeypatch.setattr(jobs, "PACKAGE_DIR", str(package))
+    return package
+
+
+def stale_cache(source: Path, mode: py_compile.PycInvalidationMode) -> None:
+    """Compile a same-size code change, then restore the source bytes and mtime."""
+    original, info = source.read_bytes(), source.stat()
+    changed = original.replace(b"return 0", b"return 1", 1)
+    assert changed != original and len(changed) == len(original)
+    source.write_bytes(changed)
+    os.utime(source, ns=(info.st_atime_ns, info.st_mtime_ns))
+    py_compile.compile(str(source), doraise=True, invalidation_mode=mode)
+    source.write_bytes(original)
+    os.utime(source, ns=(info.st_atime_ns, info.st_mtime_ns))
+
+
+def test_legitimate_bytecode_caches_keep_identity(
+    area: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    package = owned_package(area, monkeypatch)
+    before = jobs.runtime_identity()
+    for mode in py_compile.PycInvalidationMode:
+        for source in package.glob("*.py"):
+            py_compile.compile(str(source), doraise=True, invalidation_mode=mode)
+        assert jobs.runtime_identity() == before
+
+
+@pytest.mark.parametrize(
+    ("mode", "refused"),
+    [
+        (py_compile.PycInvalidationMode.TIMESTAMP, True),
+        (py_compile.PycInvalidationMode.UNCHECKED_HASH, True),
+        (py_compile.PycInvalidationMode.CHECKED_HASH, False),
+    ],
+)
+def test_stale_bytecode_import_would_accept_is_refused(
+    area: Path,
+    synthetic: None,
+    monkeypatch: pytest.MonkeyPatch,
+    mode: py_compile.PycInvalidationMode,
+    refused: bool,
+) -> None:
+    package = owned_package(area, monkeypatch)
+    manifest, out = campaign(area, [{"id": "a"}])
+    assert jobs.run_campaign(manifest, out)["status"] == "complete"
+    stale_cache(package / "conditional_cli.py", mode)
+    if not refused:
+        # Python would reject this cache and recompile the unchanged source.
+        assert jobs.verify_campaign(manifest, out)["status"] == "complete"
+        assert jobs.resume_campaign(manifest, out)["status"] == "complete"
+        return
+    with pytest.raises(jobs.JobError, match="stale_bytecode"):
+        jobs.runtime_identity()
+    with pytest.raises(jobs.JobError, match="stale_bytecode"):
+        jobs.resume_campaign(manifest, out)
+    with pytest.raises(jobs.JobError, match="stale_bytecode"):
+        jobs.run_campaign(manifest, str(area / "second"))
+    assert not (area / "second").exists()
+    shutil.rmtree(package / "__pycache__")
+    assert jobs.resume_campaign(manifest, out)["status"] == "complete"
+
+
+def test_stale_bytecode_in_runner_cache_prefix_is_refused(
+    area: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    package = owned_package(area, monkeypatch)
+    monkeypatch.setattr(sys, "pycache_prefix", str(area / "prefix"))
+    source = package / "conditional_cli.py"
+    stale_cache(source, py_compile.PycInvalidationMode.TIMESTAMP)
+    target = Path(importlib.util.cache_from_source(str(source)))
+    assert str(target).startswith(str(area / "prefix"))
+    with pytest.raises(jobs.JobError, match="stale_bytecode"):
+        jobs.runtime_identity()
+
+
+def test_cache_acceptance_mirrors_importlib(
+    area: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    source = area / "m.py"
+    source.write_bytes(b"x = 1\n")
+    info, data = source.stat(), source.read_bytes()
+    magic = importlib.util.MAGIC_NUMBER
+    stamp = (int(info.st_mtime) & 0xFFFFFFFF).to_bytes(4, "little") + (
+        info.st_size & 0xFFFFFFFF
+    ).to_bytes(4, "little")
+    digest = importlib.util.source_hash(data)
+
+    def header(flags: int, tail: bytes) -> bytes:
+        return magic + flags.to_bytes(4, "little") + tail + b"code"
+
+    accepted = jobs._cache_accepted
+    assert accepted(header(0, stamp), info, data)
+    assert not accepted(header(0, b"\0" * 8), info, data)
+    assert accepted(header(2, stamp), info, data)
+    assert accepted(header(1, b"\0" * 8), info, data)
+    assert accepted(header(3, digest), info, data)
+    assert not accepted(header(3, b"\0" * 8), info, data)
+    assert not accepted(header(4, stamp), info, data)
+    assert not accepted(b"xxxx" + header(0, stamp)[4:], info, data)
+    assert not accepted(magic, info, data)
+    cache = Path(importlib.util.cache_from_source(str(source)))
+    cache.parent.mkdir()
+    cache.write_bytes(header(1, b"\0" * 8))  # Accepted but unmarshallable.
+    with pytest.raises(jobs.JobError, match="stale_bytecode"):
+        jobs._check_bytecode(str(source), data)
+
+
+@pytest.mark.parametrize("failure", ["storage_error", "runtime_changed"])
+def test_truncated_nonterminal_receipts_verify_and_resume(
+    area: Path, synthetic: None, monkeypatch: pytest.MonkeyPatch, failure: str
+) -> None:
+    manifest, out = campaign(
+        area,
+        [{"id": "a", "request": {"action": "flood", "bytes": 5000}}],
+        stdout_bytes_per_job=100,
+    )
+    real = os.fsync
+
+    def failing(fd: int) -> None:
+        if os.fstat(fd).st_size == 100:
+            raise OSError(5, "EIO")
+        real(fd)
+
+    with monkeypatch.context() as patch:
+        if failure == "storage_error":
+            patch.setattr(jobs.os, "fsync", failing)
+        else:
+            patch.setattr(
+                jobs,
+                "_verified",
+                lambda context, outcome: (
+                    "runtime_changed" if outcome in jobs.TERMINAL else outcome
+                ),
+            )
+        summary = jobs.run_campaign(manifest, out)
+    stored = receipt(out, "a")
+    assert summary["stop_reason"] == failure == stored["outcome"]
+    assert stored["stdout"]["truncated"] and not stored["terminal"]
+    checked = jobs.verify_campaign(manifest, out)
+    assert checked["jobs"][0]["state"] == "unfinished"
+    assert checked["jobs"][0]["error"] is None
+    resumed = jobs.resume_campaign(manifest, out)
+    assert resumed["jobs"][0]["state"] == "output_limit"
+    assert resumed["attempts"] == 2 and jobs.exit_code(resumed) == 1
+    assert_documents(out)
+
+
+def test_short_write_then_failure_accounts_the_stored_prefix(
+    area: Path, synthetic: None, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    manifest, out = campaign(area, [{"id": "a", "request": {"stdout": "abcdefgh"}}])
+    real = os.write
+
+    def write(fd: int, data: bytes) -> int:
+        if bytes(data) == b"abcdefgh":
+            return real(fd, data[:3])
+        if bytes(data) == b"defgh":
+            raise OSError(28, "No space left on device")
+        return real(fd, data)
+
+    with monkeypatch.context() as patch:
+        patch.setattr(jobs.os, "write", write)
+        summary = jobs.run_campaign(manifest, out)
+    assert summary["stop_reason"] == "storage_error"
+    stored = receipt(out, "a")
+    assert (attempt(out, "a", 1) / "stdout").read_bytes() == b"abc"
+    assert stored["stdout"]["bytes"] == 3
+    assert stored["stdout"]["sha256"] == sha(b"abc")
+    assert jobs.verify_campaign(manifest, out)["jobs"][0]["error"] is None
+    resumed = jobs.resume_campaign(manifest, out)
+    assert resumed["jobs"][0]["state"] == "succeeded"
+    assert (attempt(out, "a", 2) / "stdout").read_bytes() == b"abcdefgh"
+
+
+@pytest.mark.parametrize(
+    ("text", "kept", "truncated"),
+    [
+        ("shutdown diagnostic\n", b"initial output\nshutdown diagnostic\n", False),
+        ("y" * 200, b"initial output\n" + b"y" * 85, True),
+    ],
+)
+def test_shutdown_output_is_captured_under_the_cap(
+    area: Path,
+    synthetic: None,
+    fast_stop: None,
+    text: str,
+    kept: bytes,
+    truncated: bool,
+) -> None:
+    manifest, out = campaign(
+        area,
+        [{"id": "a", "request": {"action": "shutdown", "shutdown": text}}],
+        seconds_per_job=0.5,
+        stdout_bytes_per_job=100,
+    )
+    summary = jobs.run_campaign(manifest, out)
+    stored = receipt(out, "a")
+    assert summary["jobs"][0]["state"] == "timed_out"
+    assert (attempt(out, "a", 1) / "stdout").read_bytes() == kept
+    assert stored["stdout"]["truncated"] is truncated
+    assert stored["exit_code"] == 0
+    assert jobs.verify_campaign(manifest, out)["status"] == "complete"
+    assert jobs.resume_campaign(manifest, out)["attempts"] == 1
+
+
+@pytest.mark.parametrize("phase", [1, 2])
+def test_shutdown_capture_failure_still_reaps(
+    area: Path,
+    synthetic: None,
+    fast_stop: None,
+    monkeypatch: pytest.MonkeyPatch,
+    phase: int,
+) -> None:
+    manifest, out = campaign(
+        area,
+        [{"id": "a", "request": {"action": "shutdown", "shutdown": "late\n"}}],
+        seconds_per_job=0.5,
+    )
+    real, calls = jobs._drain, []
+
+    def failing(*args: object) -> None:
+        calls.append(1)
+        if len(calls) == phase:
+            raise OSError(28, "No space left on device")
+        real(*args)  # type: ignore[arg-type]
+
+    monkeypatch.setattr(jobs, "_drain", failing)
+    summary = jobs.run_campaign(manifest, out)
+    assert summary["stop_reason"] == "storage_error"
+    assert receipt(out, "a")["outcome"] == "storage_error"
+    assert_group_gone(out, "a")
+    assert jobs.verify_campaign(manifest, out)["jobs"][0]["error"] is None
+
+
+def test_child_that_closes_pipes_and_ignores_term_is_killed(
+    area: Path, synthetic: None, fast_stop: None
+) -> None:
+    manifest, out = campaign(
+        area, [{"id": "a", "request": {"action": "close_ignore"}}], seconds_per_job=0.5
+    )
+    jobs.run_campaign(manifest, out)
+    stored = receipt(out, "a")
+    assert (stored["outcome"], stored["signal"]) == ("timed_out", signal.SIGKILL)
+    assert_group_gone(out, "a")
+
+
+@pytest.mark.parametrize("kind", ["fifo", "directory", "symlink"])
+def test_special_lock_files_are_refused_without_blocking(
+    finished: tuple[str, str], kind: str
+) -> None:
+    manifest, out = finished
+    lock = Path(out) / "lock"
+    lock.unlink()
+    if kind == "fifo":
+        os.mkfifo(lock)
+    elif kind == "directory":
+        lock.mkdir()
+    else:
+        lock.symlink_to(Path(out) / "manifest.json")
+    for action in (jobs.verify_campaign, jobs.resume_campaign):
+        with pytest.raises(jobs.JobError, match="layout_invalid"):
+            action(manifest, out)
+
+
+@pytest.mark.parametrize("damage", ["special", "oversized"])
+def test_abandoned_outputs_must_be_regular_and_capped(
+    area: Path, synthetic: None, monkeypatch: pytest.MonkeyPatch, damage: str
+) -> None:
+    manifest, out = campaign(area, [{"id": "a"}, {"id": "b"}])
+    with monkeypatch.context() as patch:
+        patch.setattr(jobs, "_execute", lambda context, states: "campaign_deadline")
+        jobs.run_campaign(manifest, out)
+    directory = attempt(out, "a", 1)
+    directory.mkdir()
+    if damage == "special":
+        (directory / "stdout").symlink_to(area / "unrelated-missing-file")
+        os.mkfifo(directory / "stderr")
+    else:
+        (directory / "stdout").write_bytes(b"x" * (LIMITS["stdout_bytes_per_job"] + 1))
+    checked = jobs.verify_campaign(manifest, out)
+    assert checked["status"] == "corrupted"
+    assert checked["jobs"][0]["error"] == "abandoned_output"
+    with pytest.raises(jobs.JobError, match="corrupted"):
+        jobs.resume_campaign(manifest, out)
+
+
+def test_failed_attempt_accounting_comes_from_disk(
+    area: Path, synthetic: None, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    manifest, out = campaign(area, [{"id": "a"}])
+    jobs_dir = Path(out) / "jobs"
+
+    def unavailable(*_: object) -> tuple:
+        jobs_dir.chmod(0)
+        raise OSError(5, "EIO")
+
+    with monkeypatch.context() as patch:
+        patch.setattr(jobs, "_run_attempt", unavailable)
+        try:
+            summary = jobs.run_campaign(manifest, out)
+        finally:
+            jobs_dir.chmod(0o700)
+    assert summary["stop_reason"] == "storage_error"
+    assert summary["jobs"][0]["error"] == "job_unavailable"
+    assert summary["status"] == "corrupted" and jobs.exit_code(summary) == 2
+    checked = jobs.verify_campaign(manifest, out)
+    assert checked["jobs"][0]["state"] == "unstarted" and checked["attempts"] == 0
+
+
+def test_huge_json_integers_are_structured_refusals(
+    area: Path, capfd: pytest.CaptureFixture
+) -> None:
+    manifest, out = campaign(area, [{"id": "a"}], seconds_total=10**400)
+    code, document = run_main(capfd, "run", "--manifest", manifest, "--output-dir", out)
+    assert (code, document["error"]) == (2, "limits")
+    value = manifest_value()
+    value["jobs"][0]["options"]["seconds_per_batch"] = 10**400
+    jobs.validate_manifest(value)  # Finite; the native range check applies later.
+    value["limits"]["stdout_bytes_per_job"] = 10**400
+    with pytest.raises(jobs.JobError, match="limits"):
+        jobs.validate_manifest(value)
+
+
+@pytest.mark.parametrize(
+    "runtime",
+    [
+        {},
+        {"regsite_version": "x", "code": {"sha256": "0" * 64}, "python": {}},
+        "change_code_files",
+        "change_python_key",
+        "change_executable",
+        "change_version_type",
+        "code_not_object",
+    ],
+)
+def test_verify_checks_stored_runtime_shape(
+    area: Path,
+    synthetic: None,
+    monkeypatch: pytest.MonkeyPatch,
+    runtime: object,
+) -> None:
+    manifest, out = campaign(area, [{"id": "a"}])
+    with monkeypatch.context() as patch:
+        patch.setattr(jobs, "_execute", lambda context, states: "campaign_deadline")
+        jobs.run_campaign(manifest, out)
+    path = Path(out) / "campaign.json"
+    value = load(path)
+    stored = value["runtime"]
+    if runtime == "change_code_files":
+        stored["code"]["files"] = 0
+    elif runtime == "change_python_key":
+        stored["python"]["extra"] = "x"
+    elif runtime == "change_executable":
+        stored["python"]["executable_sha256"] = "x"
+    elif runtime == "change_version_type":
+        stored["regsite_version"] = 1
+    elif runtime == "code_not_object":
+        stored["code"] = []
+    else:
+        value["runtime"] = runtime
+    dump(path, value)
+    assert not schema("campaign").is_valid(value)
+    with pytest.raises(jobs.JobError, match="campaign_invalid"):
+        jobs.verify_campaign(manifest, out)
+
+
+def test_backend_identity_honours_campaign_time(
+    area: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setattr(jobs, "RnaStructure", FakeRna)
+    value = manifest_value()
+    rbs, promoter = value["jobs"][1], value["jobs"][0]
+    conditional = {**promoter, "id": "c", "kind": "conditional", "backend": True}
+    root = str(area)
+    with pytest.raises(jobs.JobError, match="campaign_deadline"):
+        jobs.backend_identity({"jobs": [rbs]}, root, time.monotonic() - 1)
+    seen = []
+
+    def slow_refusal(root: str, parameters: dict, deadline: float) -> tuple:
+        seen.append(deadline)
+        time.sleep(max(0.0, deadline - time.monotonic()))
+        raise ConditionalError("deadline_exceeded", "late")
+
+    monkeypatch.setattr(jobs, "verify_backend", slow_refusal)
+    deadline = time.monotonic() + 0.2
+    with pytest.raises(jobs.JobError, match="campaign_deadline"):
+        jobs.backend_identity({"jobs": [conditional]}, root, deadline)
+    assert seen == [deadline]
+
+
+def test_unpublished_launch_record_never_starts_calculator(
+    area: Path, synthetic: None, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    marker = str(area / "marker")
+    manifest, out = campaign(
+        area, [{"id": "a", "request": {"action": "touch", "path": marker}}]
+    )
+    real = jobs._publish
+
+    def failing(parent: int, name: str, data: bytes, replace: bool = False) -> None:
+        if name == "launch.json":
+            raise OSError(28, "No space left on device")
+        real(parent, name, data, replace)
+
+    with monkeypatch.context() as patch:
+        patch.setattr(jobs, "_publish", failing)
+        summary = jobs.run_campaign(manifest, out)
+    stored = receipt(out, "a")
+    assert summary["stop_reason"] == "storage_error" == stored["outcome"]
+    assert (stored["exit_code"], stored["signal"]) == (None, None)
+    assert not os.path.exists(marker)
+    assert not (attempt(out, "a", 1) / "launch.json").exists()
+    resumed = jobs.resume_campaign(manifest, out)
+    assert resumed["jobs"][0]["state"] == "succeeded" and os.path.exists(marker)

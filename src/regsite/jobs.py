@@ -10,7 +10,9 @@ from __future__ import annotations
 import argparse
 import fcntl
 import hashlib
+import importlib.util
 import json
+import marshal
 import math
 import os
 import platform
@@ -127,6 +129,23 @@ STOP_REASONS = {
 }
 TOP_FILES = {"lock", "manifest.json", "campaign.json", "summary.json", "jobs"}
 ATTEMPT_FILES = {"stdout", "stderr", "launch.json", "receipt.json"}
+# Outcomes whose stop may follow a capped capture or discard shutdown output.
+TRUNCATABLE = (
+    "output_limit",
+    "timed_out",
+    "interrupted",
+    "campaign_deadline",
+    "storage_error",
+    "runtime_changed",
+)
+PYTHON_KEYS = {
+    "implementation",
+    "version",
+    "cache_tag",
+    "platform",
+    "machine",
+    "executable_sha256",
+}
 PACKAGE_DIR = os.path.dirname(os.path.abspath(regsite.__file__))
 END = r"(?![\s\S])"
 ID_PATTERN = r"^[A-Za-z0-9][A-Za-z0-9._-]{0,63}" + END
@@ -163,7 +182,12 @@ def _integer(value: Any) -> bool:
 
 
 def _finite(value: Any) -> bool:
-    return type(value) in (int, float) and math.isfinite(value)
+    """Accept any JSON integer or finite float without converting the integer."""
+    return type(value) is int or (type(value) is float and math.isfinite(value))
+
+
+def _check_time(deadline: float | None) -> None:
+    _require(deadline is None or time.monotonic() < deadline, "campaign_deadline")
 
 
 def _sha256(data: bytes) -> str:
@@ -458,21 +482,76 @@ def _file_sha256(path: str) -> str:
     return digest.hexdigest()
 
 
-def code_fingerprint(directory: str) -> dict:
-    """Hash every regular package file except __pycache__; refuse other types."""
+def _cache_accepted(data: bytes, info: os.stat_result, source: bytes) -> bool:
+    """Mirror importlib's acceptance of a cached .pyc for this source."""
+    if len(data) < 16 or data[:4] != importlib.util.MAGIC_NUMBER:
+        return False
+    flags = int.from_bytes(data[4:8], "little")
+    if flags & ~0b11:
+        return False
+    if flags & 0b1:
+        return not flags & 0b10 or data[8:16] == importlib.util.source_hash(source)
+    stamp = (int(info.st_mtime) & 0xFFFFFFFF, info.st_size & 0xFFFFFFFF)
+    return data[8:16] == b"".join(value.to_bytes(4, "little") for value in stamp)
+
+
+_EQUIVALENT: dict[tuple[str, str, int], bool] = {}
+
+
+def _check_bytecode(path: str, source: bytes) -> None:
+    """Refuse a cache import would accept unless its code equals the source's."""
+    directory, name = os.path.split(path)
+    default = os.path.join(
+        directory, "__pycache__", f"{name[:-3]}.{sys.implementation.cache_tag}.pyc"
+    )
+    info = os.stat(path)
+    for cache, optimize in {
+        (default, 0),
+        (importlib.util.cache_from_source(path), sys.flags.optimize),
+    }:
+        try:
+            with open(cache, "rb") as stream:
+                data = stream.read()
+        except FileNotFoundError:
+            continue
+        if not _cache_accepted(data, info, source):
+            continue
+        key = (_sha256(source), _sha256(data), optimize)
+        if key not in _EQUIVALENT:
+            try:
+                cached = marshal.loads(data[16:])
+            except (EOFError, ValueError, TypeError):
+                cached = None
+            _EQUIVALENT[key] = cached == compile(
+                source, path, "exec", dont_inherit=True, optimize=optimize
+            )
+        _require(_EQUIVALENT[key], "stale_bytecode")
+
+
+def code_fingerprint(directory: str, deadline: float | None = None) -> dict:
+    """Hash every regular package file except __pycache__; refuse other types.
+
+    Caches that Python would accept must hold code equal to compiling their
+    source, so the source hash also binds the bytecode actually executed.
+    """
     rows = []
     try:
         for current, directories, names in os.walk(directory):
             directories[:] = sorted(d for d in directories if d != "__pycache__")
             for name in [*directories, *names]:
+                _check_time(deadline)
                 path = os.path.join(current, name)
                 mode = os.lstat(path).st_mode
                 if name in directories:
                     _require(stat.S_ISDIR(mode), "runtime_identity")
                     continue
                 _require(stat.S_ISREG(mode), "runtime_identity")
+                with open(path, "rb") as stream:
+                    data = stream.read()
+                if name.endswith(".py"):
+                    _check_bytecode(path, data)
                 relative = os.path.relpath(path, directory).replace(os.sep, "/")
-                rows.append(f"{relative}\0{_file_sha256(path)}\n")
+                rows.append(f"{relative}\0{_sha256(data)}\n")
     except OSError as error:
         raise JobError("runtime_identity") from error
     _require(bool(rows), "runtime_identity")
@@ -482,7 +561,7 @@ def code_fingerprint(directory: str) -> dict:
     }
 
 
-def runtime_identity() -> dict:
+def runtime_identity(deadline: float | None = None) -> dict:
     """Identify the installed regsite code/data and the running interpreter."""
     executable = sys.executable
     _require(bool(executable) and os.path.isabs(executable), "runtime_identity")
@@ -492,7 +571,7 @@ def runtime_identity() -> dict:
         raise JobError("runtime_identity") from error
     return {
         "regsite_version": regsite.__version__,
-        "code": code_fingerprint(PACKAGE_DIR),
+        "code": code_fingerprint(PACKAGE_DIR, deadline),
         "python": {
             "implementation": sys.implementation.name,
             "version": sys.version,
@@ -504,8 +583,14 @@ def runtime_identity() -> dict:
     }
 
 
-def backend_identity(manifest: dict, backend_root: str | None) -> dict:
-    """Reuse the unchanged RNAstructure and conditional exact-original verifiers."""
+def backend_identity(
+    manifest: dict, backend_root: str | None, deadline: float | None = None
+) -> dict:
+    """Reuse the unchanged RNAstructure and conditional exact-original verifiers.
+
+    The deadline is checked between verifier steps and passed to the conditional
+    verifier; one RnaStructure.open step is bounded only by its own timeouts.
+    """
     used = [job["kind"] for job in manifest["jobs"] if job["backend"]]
     _require(backend_root is not None or not used, "backend_root_required")
     _require(backend_root is None or bool(used), "backend_root_unused")
@@ -516,10 +601,13 @@ def backend_identity(manifest: dict, backend_root: str | None) -> dict:
     if backend_root is None:
         return identity
     _require(os.path.isabs(backend_root), "backend_root_path")
+    limit = time.monotonic() + 120 if deadline is None else deadline
     try:
         if any(kind != "conditional" for kind in used):
+            _check_time(deadline)
             identity["rnastructure"] = RnaStructure.open(backend_root).identity
         if "conditional" in used:
+            _check_time(deadline)
             raw = (
                 files("regsite")
                 .joinpath("data/conditional-parameters-1.json")
@@ -527,17 +615,20 @@ def backend_identity(manifest: dict, backend_root: str | None) -> dict:
             )
             _require(_sha256(raw) == PARAMETER_SHA256, "backend_identity")
             identity["conditional_original"] = verify_backend(
-                backend_root, json.loads(raw), time.monotonic() + 120
+                backend_root, json.loads(raw), min(limit, time.monotonic() + 120)
             )[1]
     except (BackendError, ConditionalError, OSError) as error:
+        _check_time(deadline)
         raise JobError("backend_identity") from error
     return identity
 
 
-def _identity(manifest: dict, backend_root: str | None) -> dict:
+def _identity(
+    manifest: dict, backend_root: str | None, deadline: float | None = None
+) -> dict:
     return {
-        "runtime": runtime_identity(),
-        "backend": backend_identity(manifest, backend_root),
+        "runtime": runtime_identity(deadline),
+        "backend": backend_identity(manifest, backend_root, deadline),
     }
 
 
@@ -588,12 +679,17 @@ class _Capture:
         self.digest = hashlib.sha256()
 
     def accept(self, chunk: bytes) -> bool:
-        part = chunk[: self.limit - self.size]
-        _write_all(self.fd, part)
-        self.size += len(part)
-        self.digest.update(part)
-        self.truncated = len(part) < len(chunk)
-        return not self.truncated
+        """Store up to the cap, accounting each successful (possibly short) write."""
+        room = self.limit - self.size
+        view = memoryview(chunk)[:room]
+        while view:
+            written = os.write(self.fd, view)
+            self.digest.update(view[:written])
+            self.size += written
+            view = view[written:]
+        if len(chunk) > room:
+            self.truncated = True
+        return len(chunk) <= room
 
     def record(self) -> dict:
         return {
@@ -612,52 +708,83 @@ def _signal_group(pgid: int, number: int) -> None:
         pass
 
 
-def _stop(process: subprocess.Popen, pgid: int) -> None:
-    """Terminate the calculator's group and reap the calculator; no member stays."""
-    if process.poll() is None:
-        _signal_group(pgid, signal.SIGTERM)
-        limit = time.monotonic() + TERMINATION_GRACE_SECONDS
-        while process.poll() is None and time.monotonic() < limit:
+def _read_ready(selector: selectors.BaseSelector, timeout: float) -> bool:
+    """Read each ready pipe once; return False if a capture exceeded its cap."""
+    within = True
+    for key, _ in selector.select(timeout):
+        chunk = os.read(key.fd, CHUNK_BYTES)
+        if not chunk:
+            selector.unregister(key.fileobj)
+        elif not key.data.accept(chunk):
+            within = False
+    return within
+
+
+def _drain(
+    selector: selectors.BaseSelector,
+    process: subprocess.Popen | None,
+    until: float,
+) -> None:
+    """Keep capturing until EOF (or until process exits, if given) or until."""
+    while time.monotonic() < until and (process is None or process.poll() is None):
+        if not selector.get_map():
+            if process is None:
+                return
             time.sleep(POLL_SECONDS)
-    # The unreaped anchor keeps pgid owned; kill every remaining member.
+            continue
+        _read_ready(selector, min(POLL_SECONDS, max(0.0, until - time.monotonic())))
+
+
+def _stop(
+    process: subprocess.Popen, pgid: int, selector: selectors.BaseSelector
+) -> bool:
+    """Terminate the group, capture shutdown output and reap the calculator.
+
+    Returns False if storing drained output failed. Termination and reaping
+    happen regardless; the unreaped anchor keeps pgid owned throughout.
+    """
+    stored = True
+    try:
+        if process.poll() is None:
+            _signal_group(pgid, signal.SIGTERM)
+            _drain(selector, process, time.monotonic() + TERMINATION_GRACE_SECONDS)
+    except OSError:
+        stored = False
     _signal_group(pgid, signal.SIGKILL)
     process.wait()
+    if stored:
+        try:
+            _drain(selector, None, time.monotonic() + TERMINATION_GRACE_SECONDS)
+        except OSError:
+            stored = False
     cast(IO[bytes], process.stdout).close()
     cast(IO[bytes], process.stderr).close()
+    return stored
 
 
 def _pump(
     process: subprocess.Popen,
     pgid: int,
-    captures: tuple[_Capture, _Capture],
+    selector: selectors.BaseSelector,
     deadline: float,
     signals: _Signals,
 ) -> str | None:
-    """Drain both pipes until exit and EOF; return a stop reason or None."""
+    """Capture both pipes until exit and EOF; return a stop reason or None."""
     exited = False
-    with selectors.DefaultSelector() as selector:
-        for stream, capture in zip(
-            (process.stdout, process.stderr), captures, strict=True
-        ):
-            selector.register(stream, selectors.EVENT_READ, capture)  # type: ignore[arg-type]
-        while selector.get_map() or not exited:
-            if signals.received is not None:
-                return "interrupted"
-            remaining = deadline - time.monotonic()
-            if remaining <= 0:
-                return "deadline"
-            if not exited and process.poll() is not None:
-                exited = True
-                _signal_group(pgid, signal.SIGKILL)
-            if not selector.get_map():
-                time.sleep(min(POLL_SECONDS, remaining))
-                continue
-            for key, _ in selector.select(min(POLL_SECONDS, remaining)):
-                chunk = os.read(key.fd, CHUNK_BYTES)
-                if not chunk:
-                    selector.unregister(key.fileobj)
-                elif not key.data.accept(chunk):
-                    return "output_limit"
+    while selector.get_map() or not exited:
+        if signals.received is not None:
+            return "interrupted"
+        remaining = deadline - time.monotonic()
+        if remaining <= 0:
+            return "deadline"
+        if not exited and process.poll() is not None:
+            exited = True
+            _signal_group(pgid, signal.SIGKILL)
+        if not selector.get_map():
+            time.sleep(min(POLL_SECONDS, remaining))
+            continue
+        if not _read_ready(selector, min(POLL_SECONDS, remaining)):
+            return "output_limit"
     return None
 
 
@@ -729,7 +856,7 @@ def _exit_ok(receipt: dict) -> bool:
     truncated = receipt["stdout"]["truncated"] or receipt["stderr"]["truncated"]
     if outcome == "output_limit":
         return truncated
-    if truncated:
+    if truncated and outcome not in TRUNCATABLE:
         return False
     if outcome in EXIT_OUTCOMES.values():
         return EXIT_OUTCOMES.get(code) == outcome  # type: ignore[arg-type]
@@ -813,21 +940,27 @@ def _inspect_attempt(
         pid = None
         if "launch.json" in names:
             launch = _record(fd, "launch.json")
-            _object(launch, {"schema_version", "pgid", "pid"}, "launch_invalid")
+            _object(launch, {"schema_version", "pgid"}, "launch_invalid")
             _require(
                 launch["schema_version"] == LAUNCH_VERSION
-                and all(
-                    _integer(launch[key]) and launch[key] > 1 for key in ("pgid", "pid")
-                ),
+                and _integer(launch["pgid"])
+                and launch["pgid"] > 1,
                 "launch_invalid",
             )
             pid = launch["pgid"]
         if "receipt.json" not in names:
-            used = sum(
-                os.stat(name, dir_fd=fd, follow_symlinks=False).st_size
-                for name in ("stdout", "stderr")
-                if name in names
-            )
+            used = 0
+            for name, limit in (
+                ("stdout", limits["stdout_bytes_per_job"]),
+                ("stderr", limits["stderr_bytes_per_job"]),
+            ):
+                if name in names:
+                    info = os.stat(name, dir_fd=fd, follow_symlinks=False)
+                    _require(
+                        stat.S_ISREG(info.st_mode) and info.st_size <= limit,
+                        "abandoned_output",
+                    )
+                    used += info.st_size
             return None, used, pid
         receipt = _record(fd, "receipt.json")
         _check_receipt(receipt, job, number, campaign, limits, request)
@@ -896,6 +1029,27 @@ def _inspect(out: int, manifest: dict, campaign: str) -> dict[str, _JobState]:
         raise JobError("layout_invalid") from error
 
 
+def _runtime_ok(value: Any) -> bool:
+    """Structural check of a stored runtime identity, without comparing values."""
+    if not (
+        type(value) is dict
+        and set(value) == {"regsite_version", "code", "python"}
+        and type(value["code"]) is dict
+        and set(value["code"]) == {"sha256", "files"}
+        and type(value["python"]) is dict
+        and set(value["python"]) == PYTHON_KEYS
+    ):
+        return False
+    return (
+        type(value["regsite_version"]) is str
+        and _matches(value["code"]["sha256"], SHA_PATTERN)
+        and _integer(value["code"]["files"])
+        and value["code"]["files"] >= 1
+        and all(type(item) is str for item in value["python"].values())
+        and _matches(value["python"]["executable_sha256"], SHA_PATTERN)
+    )
+
+
 def _read_campaign(out: int, raw: bytes) -> tuple[dict, str]:
     """Load campaign.json and require it to bind exactly these manifest bytes."""
     data = _read(out, "campaign.json", MAX_RECORD_BYTES, "campaign")
@@ -907,7 +1061,7 @@ def _read_campaign(out: int, raw: bytes) -> tuple[dict, str]:
     )
     _require(
         campaign["schema_version"] == CAMPAIGN_VERSION
-        and type(campaign["runtime"]) is dict,
+        and _runtime_ok(campaign["runtime"]),
         "campaign_invalid",
     )
     _object(
@@ -935,9 +1089,12 @@ def _lock(out: int, shared: bool = False) -> int:
     """Take the campaign flock; refuse rather than wait when it is held."""
     flags = os.O_RDONLY if shared else os.O_RDWR | os.O_CREAT
     try:
-        fd = os.open("lock", flags | os.O_NOFOLLOW, 0o600, dir_fd=out)
+        fd = os.open("lock", flags | os.O_NOFOLLOW | os.O_NONBLOCK, 0o600, dir_fd=out)
     except OSError as error:
         raise JobError("layout_invalid") from error
+    if not stat.S_ISREG(os.fstat(fd).st_mode):
+        os.close(fd)
+        raise JobError("layout_invalid")
     try:
         fcntl.flock(fd, (fcntl.LOCK_SH if shared else fcntl.LOCK_EX) | fcntl.LOCK_NB)
     except OSError as error:
@@ -1002,39 +1159,49 @@ def _launch(
         )
     except OSError:
         return "launch_failed", None
-    try:
-        process = subprocess.Popen(
-            _argv(job, context.backend_root),
-            stdin=stdin,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            cwd="/",
-            env=_environment(),
-            close_fds=True,
-            process_group=anchor.pid,
-        )
-    except OSError:
-        _release(anchor)
-        return "launch_failed", None
     reason: str | None
     try:
+        # Commit group ownership before any calculator work can start, so an
+        # attempt without launch.json never ran a calculator.
         try:
             record = {"schema_version": LAUNCH_VERSION, "pgid": anchor.pid}
-            _publish(fd, "launch.json", _encode({**record, "pid": process.pid}))
-            reason = _pump(
-                process,
-                anchor.pid,
-                captures,
-                min(job_deadline, context.deadline),
-                context.signals,
+            _publish(fd, "launch.json", _encode(record))
+        except OSError:
+            return "storage_error", None
+        try:
+            process = subprocess.Popen(
+                _argv(job, context.backend_root),
+                stdin=stdin,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                cwd="/",
+                env=_environment(),
+                close_fds=True,
+                process_group=anchor.pid,
             )
-        finally:
+        except OSError:
+            return "launch_failed", None
+        with selectors.DefaultSelector() as selector:
+            for stream, capture in zip(
+                (process.stdout, process.stderr), captures, strict=True
+            ):
+                selector.register(stream, selectors.EVENT_READ, capture)  # type: ignore[arg-type]
             try:
-                _stop(process, anchor.pid)
+                reason = _pump(
+                    process,
+                    anchor.pid,
+                    selector,
+                    min(job_deadline, context.deadline),
+                    context.signals,
+                )
+            except OSError:
+                reason = "storage_error"
             finally:
-                _release(anchor)
-    except OSError:
-        reason = "storage_error"
+                stored = _stop(process, anchor.pid, selector)
+        if not stored:
+            reason = "storage_error"
+    finally:
+        _release(anchor)
     if reason == "deadline":
         reason = (
             "timed_out" if job_deadline <= context.deadline else "campaign_deadline"
@@ -1085,9 +1252,10 @@ def _run_attempt(
                 os.close(stderr.fd)
         finally:
             os.close(stdout.fd)
-        outcome = reason or EXIT_OUTCOMES.get(code, "abnormal_exit")  # type: ignore[arg-type]
-        if outcome in TERMINAL and not _unchanged(context):
-            outcome = "runtime_changed"
+        outcome = _verified(
+            context,
+            reason or EXIT_OUTCOMES.get(code, "abnormal_exit"),  # type: ignore[arg-type]
+        )
         receipt = {
             "schema_version": RECEIPT_VERSION,
             "campaign_sha256": context.campaign,
@@ -1112,11 +1280,32 @@ def _run_attempt(
         return receipt, stdout.size + stderr.size
 
 
-def _unchanged(context: _Context) -> bool:
+def _verified(context: _Context, outcome: str) -> str:
+    """Recheck identity within the campaign time before a terminal outcome stands."""
+    if outcome not in TERMINAL:
+        return outcome
     try:
-        return _identity(context.manifest, context.backend_root) == context.identity
-    except JobError:
-        return False
+        same = (
+            _identity(context.manifest, context.backend_root, context.deadline)
+            == context.identity
+        )
+    except JobError as error:
+        late = error.code == "campaign_deadline"
+        return "campaign_deadline" if late else "runtime_changed"
+    if not same:
+        return "runtime_changed"
+    return outcome if time.monotonic() < context.deadline else "campaign_deadline"
+
+
+def _reinspect(context: _Context, job: dict) -> _JobState:
+    """Account a failed attempt from what is actually stored on disk."""
+    try:
+        with _directory(["jobs"], context.out) as jobs_fd:
+            return _inspect_job(
+                jobs_fd, job, context.campaign, context.manifest["limits"]
+            )
+    except OSError:
+        return _JobState(error="job_unavailable")
 
 
 def _execute(context: _Context, states: dict[str, _JobState]) -> str | None:
@@ -1142,7 +1331,7 @@ def _execute(context: _Context, states: dict[str, _JobState]) -> str | None:
             with _directory(["jobs", job["id"]], context.out) as job_fd:
                 receipt, size = _run_attempt(context, job, job_fd, state.attempts + 1)
         except OSError:
-            state.record(None, 0)
+            states[job["id"]] = _reinspect(context, job)
             return "storage_error"
         state.record(receipt, size)
         if receipt["outcome"] in STOP_REASONS:
@@ -1233,7 +1422,8 @@ def _drive(
         parts = _output_parts(
             output_dir, manifest_path, manifest, allow_repository_output
         )
-        identity = _identity(manifest, backend_root)
+        deadline = started + manifest["limits"]["seconds_total"]
+        identity = _identity(manifest, backend_root, deadline)
         with _output(parts, create=command == "run") as out:
             lock = _lock(out)
             try:
@@ -1260,10 +1450,12 @@ def _drive(
                     campaign,
                     identity,
                     backend_root,
-                    started + manifest["limits"]["seconds_total"],
+                    deadline,
                     signals,
                 )
                 stop = _execute(context, states)
+                if stop is None and time.monotonic() >= deadline:
+                    stop = "campaign_deadline"
                 summary = _summary(command, manifest, raw, campaign, states, stop)
                 try:
                     _publish(out, "summary.json", _encode(summary), replace=True)
