@@ -4,8 +4,8 @@
 - Status: active
 - Opened: 2026-10-21
 - Updated: 2026-10-21
-- Current State: Independent exact runtime review completed for `2276af4`. C repaired F1–F4 and the bounded deadline/schema issues; finite exact repair recheck and A common package/full-suite/CI gates remain.
-- Verification: 365 focused tests pass with zero skips and full 706-statement/186-branch coverage, using the actual offline builder output. CI-scoped Ruff/format/mypy, ticket validation and diff checks pass. Source and math admission is independently complete; runtime acceptance is pending.
+- Current State: Independent exact runtime review completed for `2276af4`. Independent recheck confirms F1–F4 and bounded deadline/schema repairs. C also fixed its nonblocking R1 overflow-trailer classification edge; a final narrow R1 check and A common package/full-suite/CI gates remain.
+- Verification: 370 focused tests pass with zero skips and full 712-statement/188-branch coverage, using the actual offline builder output. CI-scoped Ruff/format/mypy, ticket validation and diff checks pass. Source and math admission is independently complete; runtime acceptance is pending.
 - Cleanup: C alone resolves after review, repairs and required integration evidence; rename/H1/status to resolved, retain reusable contracts, update indexes, delete resolved ticket and close linked issue. #8 remains open.
 - Owner: cyano-calcs-c / 56abed60-1792619583; A owns common integration, B independent experimental/source evaluation.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/62
@@ -74,3 +74,8 @@ owner; no bypass. No child may reroute or duplicate its assignment.
 - F8: strict regex end assertions reject final newlines consistently, including schema-only checks.
 - F9: retain disclosed caller-asserted toolchain provenance; no new attestation or toolchain surface.
 - F10: reject G after the left gene-end row, consistent with pinned map/scan events. Do not impose an unproved 11-base extent minimum: the source admission already distinguishes the genomic-right-arm check from gapped opposite-arm length. No scoring-code change.
+
+R1 from the completed repair recheck is fixed by bounded total/G/F counters and
+complete validation of rows/trailer/counts after retention stops. Five negative
+cases cover missing trailer, trailing garbage, nonconsecutive IDs and both
+context-count mismatches. No new source, engine build or empirical input.

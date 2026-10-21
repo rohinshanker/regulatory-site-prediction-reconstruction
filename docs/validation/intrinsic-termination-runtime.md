@@ -78,7 +78,9 @@ for concurrency; the internal lock does not make threaded use supported.
 The 100000-base input bound is an admission limit, not a guarantee that every
 fragment completes within output, candidate or time limits. More than 1000
 retained candidates produces `native_candidate_limit`, with null candidates;
-no partial roster is returned and valid over-cap output is not called malformed.
+no partial roster is returned. The parser still checks every remaining row,
+trailer and context count before reporting overflow, so later corruption remains
+`native_output_invalid`. Retained candidate storage stays capped at1000.
 The candidate limit can apply below the length bound, depending on sequence.
 Long-fragment completeness and candidate-density estimates are unverified.
 
@@ -176,8 +178,8 @@ The [build receipt](../../benchmarks/termination/adapter-build-manifest.json)
 binds the original builder output, compiler, native binary and CLI outputs.
 The [post-repair runtime receipt](../../benchmarks/termination/adapter-runtime-validation.json)
 preserves the original frozen evidence and binds four complete CLI outputs,
-including the frozen boundary control. Exact implementation recheck remains pending. The source-built ARM64 binary passed365 focused tests with zero
-skips and100% coverage of706 statements/186 branches, including every original
+including the frozen boundary control. Exact implementation recheck remains pending. The source-built ARM64 binary passed370 focused tests with zero
+skips and100% coverage of712 statements/188 branches, including every original
 synthetic roster, automatic child stack setup, CLI invocation outside the checkout,
 strict schema validation and missingness. One warning is deliberately produced by
 the rejected duplicate-ZIP-member test. CI-scoped Ruff/format (184 files) and mypy (56 source files) also passed.

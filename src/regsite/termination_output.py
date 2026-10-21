@@ -161,32 +161,34 @@ def parse_output(stdout: bytes, sequence: str) -> list[dict[str, Any]]:
         rf"boundary_right\s+{len(sequence) - 1} - {len(sequence)}\s+\+ \|"
     )
     candidates: list[dict[str, Any]] = []
+    candidate_count = 0
+    gene_count = 0
+    forward_count = 0
     seen_left = False
     seen_right = False
     for line in lines[15:]:
         _require(not seen_right)
         if left.fullmatch(line):
-            _require(
-                not seen_left and all(c["native"]["context"] == "G" for c in candidates)
-            )
+            _require(not seen_left and gene_count == candidate_count)
             seen_left = True
         elif right.fullmatch(line):
             _require(seen_left)
             seen_right = True
         else:
-            candidate = _candidate(line, sequence, len(candidates) + 1)
+            candidate = _candidate(line, sequence, candidate_count + 1)
             _require(seen_left != (candidate["native"]["context"] == "G"))
-            if len(candidates) >= MAX_CANDIDATES:
-                raise TerminationBackendError(
-                    "Native termination candidate limit exceeded.",
-                    code="native_candidate_limit",
-                )
-            candidates.append(candidate)
+            candidate_count += 1
+            gene_count += candidate["native"]["context"] == "G"
+            forward_count += candidate["native"]["context"] == "F"
+            if candidate_count <= MAX_CANDIDATES:
+                candidates.append(candidate)
     _require(seen_left and seen_right)
-    _require(int(genes[2]) == sum(c["native"]["context"] == "G" for c in candidates))
-    _require(
-        int(intergenic[3]) == sum(c["native"]["context"] == "F" for c in candidates)
-    )
+    _require(int(genes[2]) == gene_count and int(intergenic[3]) == forward_count)
+    if candidate_count > MAX_CANDIDATES:
+        raise TerminationBackendError(
+            "Native termination candidate limit exceeded.",
+            code="native_candidate_limit",
+        )
     candidates.sort(
         key=lambda c: (c["hairpin"]["start"], c["hairpin"]["end"], c["strand"])
     )

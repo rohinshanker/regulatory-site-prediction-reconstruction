@@ -215,11 +215,28 @@ def test_unrepresentable_native_cost_is_typed(value):
 
 def test_candidate_limit_is_distinct_from_malformed_output(monkeypatch):
     monkeypatch.setattr(output, "MAX_CANDIDATES", 1)
-    raw = text_output(rows=[term(), term(index=2)])
+    raw = text_output(rows=[term(), term(index=2), term(index=3)])
     with pytest.raises(TerminationBackendError) as error:
         output.parse_output(raw, SEQUENCE)
     assert error.value.code == "native_candidate_limit"
     invalid(raw.replace(b"TERM 2", b"BROKEN 2"))
+
+
+@pytest.mark.parametrize(
+    "old,new",
+    [
+        (b"boundary_right 199 - 200 + |", b""),
+        (b"boundary_right", b"GARBAGE\nboundary_right"),
+        (b"TERM 3", b"TERM 4"),
+        (b"196 nt, 3 terms", b"196 nt, 2 terms"),
+        (b"4 nt, 0 terms", b"4 nt, 1 terms"),
+    ],
+)
+def test_candidate_overflow_validates_remaining_output(monkeypatch, old, new):
+    monkeypatch.setattr(output, "MAX_CANDIDATES", 1)
+    raw = text_output(rows=[term(), term(index=2), term(index=3)])
+    assert old in raw
+    invalid(raw.replace(old, new))
 
 
 def test_gene_candidate_must_precede_left_boundary_end():
