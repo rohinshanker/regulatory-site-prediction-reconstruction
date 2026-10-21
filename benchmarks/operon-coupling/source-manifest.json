@@ -1,0 +1,29 @@
+{
+  "schema_version": "operon-coupling-source-1",
+  "retrieved": "2026-10-21",
+  "paper": {
+    "doi": "10.1093/nar/gkv635",
+    "pmcid": "PMC4538824",
+    "license": "CC-BY-NC-4.0",
+    "redistributed": false,
+    "xml_sha256": "fcd1558c2ebab38782b48b11a2484c16aa73e24ac4299b9e26516e3cd6f1a089",
+    "pdf_sha256": "83bbe3bcd87380b4716c93ad0844134ed71cf4f977d6486ef3d3d38f0a566ff7",
+    "supplement_bundle_sha256": "6f556d328afe975e1b66d1be3397090e70fc4a4b169044c094f374fece36410d",
+    "supplement_pdf_sha256": "7385b5593c8bb632a6510267f83f335c6384672578ebb22280e8f100809224d1",
+    "locations": {
+      "sum": "printed page 7140, Eq. 2",
+      "reinitiation": "printed page 7141, Eq. 3 and distance definition",
+      "unfolding_ambiguity": "printed page 7141, Eqs. 4 and 5; page 7143 negative energy values",
+      "coefficients": "printed page 7142, intergenic-distance-dependent model section",
+      "host": "printed page 7138, growth and fluorescence methods"
+    }
+  },
+  "implementation_search": {
+    "salislabcode_commit": "46da9132740bce30bccd107f02808adf2215e2f0",
+    "scope": "recursive public tree path inventory and existing operon-riboswitch admission",
+    "complete_coupling_source_established": false
+  },
+  "admission": "pending_independent_source_math_review",
+  "proposed_component": "reinitiation_only_supplied_energies",
+  "excluded": ["rna_unfolding_correction", "sequence_energy_inference", "negative_distance_interpolation", "protein_abundance", "host_calibration", "full_operon_prediction"]
+}

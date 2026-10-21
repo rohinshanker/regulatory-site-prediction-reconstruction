@@ -1,0 +1,13 @@
+{
+  "schema_version": "operon-coupling-synthetic-1",
+  "identity": "original arithmetic fixtures; no biological measurements",
+  "scale": "dimensionless exp(-beta*G), not intercept-scaled RBS units",
+  "cases": [
+    {"id": "separated_equal", "distance_nt": 0, "upstream_rate": "1", "independent_rate": "1", "k_p": "10", "k_reinit": "0.0072", "reinitiation_rate": "0.072", "total_rate": "1.072"},
+    {"id": "separated_upper_boundary", "distance_nt": 25, "upstream_rate": "1", "independent_rate": "1", "k_p": "10", "k_reinit": "0.0072", "reinitiation_rate": "0.072", "total_rate": "1.072"},
+    {"id": "four_base_overlap", "distance_nt": -4, "upstream_rate": "1", "independent_rate": "1", "k_p": "10", "k_reinit": "0.0220", "reinitiation_rate": "0.22", "total_rate": "1.22"},
+    {"id": "separated_unequal", "distance_nt": 3, "upstream_rate": "4", "independent_rate": "2", "k_p": "10", "k_reinit": "0.0072", "reinitiation_rate": "0.288", "total_rate": "2.288"},
+    {"id": "overlap_unequal", "distance_nt": -4, "upstream_rate": "4", "independent_rate": "2", "k_p": "10", "k_reinit": "0.0220", "reinitiation_rate": "0.88", "total_rate": "2.88"}
+  ],
+  "unsupported_distances_nt": [-26, -25, -10, -5, -3, -1, 26]
+}
