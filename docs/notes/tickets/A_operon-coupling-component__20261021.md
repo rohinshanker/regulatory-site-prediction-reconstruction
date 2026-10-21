@@ -4,8 +4,8 @@
 - Status: active
 - Opened: 2026-10-21
 - Updated: 2026-10-21
-- Current State: Session C accepted A's bounded Wave 7 assignment. Source and parameter intake precedes model implementation; source-independent geometry and input validation may proceed. No folding jobs or biological evaluation executed.
-- Verification: Baseline `605d0c25066de937d124e69fe42be3c40bb2e749`; isolated worktree `reconstruction-operon-coupling-20261021`, branch `wave7/operon-coupling`. Europe PMC primary XML retrieved and hashed; equation images and supplemental definitions still require inspection. Independent source/math and exact-patch reviews pending.
+- Current State: Source/math review DEM-615 admits only supplied-energy reinitiation; its two documentation findings are reconciled at `a5b43c7`. Geometry, strict JSON, log-space runtime, schemas and single/batch CLI examples are implemented. No folding jobs or biological evaluation executed. Runtime review and final integration gates remain.
+- Verification: Baseline `605d0c25066de937d124e69fe42be3c40bb2e749`; isolated worktree `reconstruction-operon-coupling-20261021`, branch `wave7/operon-coupling`. 271 focused tests pass with 100% new-module line/branch coverage; Ruff and mypy pass. Source/math review verified pinned paper bytes, all five synthetic controls and geometry identities independently.
 - Cleanup: Session C alone closes this child after recording every finding and final validation, distilling reusable contracts, updating both indexes and the linked issue, then removing the resolved ticket. Broad #8 remains open.
 - Owner: cyano-calcs-c / 56abed60-1792619583; A owns integration and B independent evaluation.
 - Parent: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/8
@@ -40,9 +40,9 @@ Coordinate before any folding execution; two local folding processes globally.
 
 ## Open findings
 
-- C-SOURCE-1 open: exact equations, distance law/domain and rate normalization.
-- C-SOURCE-2 open: energy decomposition/backend support and upstream source search.
-- C-REVIEW-1 open: independent source/math admission before model implementation.
+- C-SOURCE-1 resolved for the explicitly narrow component by DEM-615 and `a5b43c7`; other negative-distance law remains a documented full-model dependency.
+- C-SOURCE-2 excluded from this component: sequence-derived energy decomposition/backend and unfolding formula conflict remain explicit broader #8 dependencies; no substitute or zero correction is supplied.
+- C-REVIEW-1 resolved by DEM-615 and `a5b43c7`; Figure 1D conflict and host-locator corrections are incorporated.
 - C-REVIEW-2 open: exact implementation review and final package tests.
 
 ## Active assignments

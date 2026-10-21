@@ -1,7 +1,7 @@
 # Supplied-energy reinitiation component
 
 - Purpose: Define a bounded, opt-in adjacent-CDS calculation with explicit inputs and missingness.
-- Scope: Proposed `coupling-request-1` / `coupling-result-1`; source admission and implementation pending.
+- Scope: Implemented `coupling-request-1` / `coupling-result-1`; source admission complete, runtime review pending.
 - Last verified: 2026-10-21
 
 This component adds a historical reinitiation contribution to a supplied
@@ -17,6 +17,7 @@ Schema version is `coupling-request-1`; `records` contains 1–100 objects;
 most 60. A one-record envelope is the single-input form. Received input is
 limited to 1,048,576 bytes, not an advertised file size. JSON must be finite UTF-8
 with no duplicate keys. All limits are engineering limits, not biological ones.
+JSON container nesting is limited to 32 levels.
 
 A record has exactly `id`, `sequence`, `strand`, `upstream`, `downstream` and
 `energies`. IDs are 1–128 ASCII letters, digits or `_.:-`; record IDs are unique.
@@ -85,3 +86,28 @@ It emits one complete JSON object after checking the 4,194,304-byte output cap.
 Exit codes are 0 complete, 1 partial and 2 invalid envelope/input/I/O failure.
 Inputs/outputs are local, with no credentials, service or runtime network access.
 Common command registration and fresh installation remain A's integration work.
+
+```sh
+PYTHONPATH=src python -m regsite.coupling_cli examples/coupling-single.json
+PYTHONPATH=src python -m regsite.coupling_cli examples/coupling-batch.json
+PYTHONPATH=src python -m regsite.coupling_cli examples/coupling-unsupported.json
+```
+
+The first two examples exit 0; the unsupported-distance example exits 1 with a
+null score. They are synthetic arithmetic/coordinate controls, not validated
+biological predictions. Request and result shapes are specified by the
+[request schema](../../schemas/coupling-request-1.schema.json) and
+[result schema](../../schemas/coupling-result-1.schema.json). Runtime validation
+additionally checks codons/order, normalized coordinates, duplicate IDs, byte
+caps and coefficient domains; schema acceptance alone is insufficient.
+
+Focused verification:
+
+```sh
+PYTHONPATH=src python -m pytest -q tests/test_coupling*.py \
+  --cov=regsite.coupling --cov=regsite.coupling_geometry \
+  --cov=regsite.coupling_io --cov=regsite.coupling_cli --cov-report=term-missing
+ruff check src/regsite/coupling*.py tests/test_coupling*.py
+ruff format --check src/regsite/coupling*.py tests/test_coupling*.py
+mypy src/regsite/coupling*.py
+```

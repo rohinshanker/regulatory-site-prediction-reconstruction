@@ -4,6 +4,8 @@ Verification dates cover the stated source observations or specification review;
 
 | Area | Purpose | Last verified | Document |
 | --- | --- | --- | --- |
+| operon-coupling-source | Independently admitted supplied-energy reinitiation equations, narrow coefficient domains and explicit unresolved unfolding sign conflict. | 2026-10-21 | [operon-coupling-source.md](operon-coupling-source.md) |
+| operon-coupling-runtime | Bounded single/batch transport, complete-CDS geometry, log-space contributions, strict schemas and failure accounting. | 2026-10-21 | [operon-coupling-runtime.md](operon-coupling-runtime.md) |
 | integrated-runtime-build | Exact combined development package, offline installation, source identity and retained admission boundaries. | 2026-10-21 | [integrated-runtime-build.md](integrated-runtime-build.md) |
 | promoter-count-association | Frozen exploratory count association, independent offline evaluation and aggregate artifact receipt. | 2026-10-21 | [promoter-count-association.md](promoter-count-association.md) |
 | promoter-native-pilot-parity | Original-source native pilot kernel parity: frozen schema/protocol pins, outcome-free full-cohort identity, full denominators, tie/summary recomputation and explicit failure categories. | 2026-10-21 | [promoter-native-pilot-parity.md](promoter-native-pilot-parity.md) |
