@@ -9,6 +9,7 @@ import random
 import runpy
 import statistics
 import sys
+from pathlib import Path
 
 import pytest
 
@@ -1099,3 +1100,137 @@ def test_all_synthetic_missing_source_tokens(inputs):
     assert result["conditions"]["dark"]["mean"]["eligible"] == 3
     source = next(row for row in result["rows"] if row["id"] == "a")
     assert source["counts"]["high_light"][0] == 12.5
+
+
+def test_committed_publication_cleanup_warning_exits_successfully(
+    tmp_path, monkeypatch, capsys
+):
+    payload = {"synthetic": True}
+    monkeypatch.setattr(ca, "freezes", lambda: (None, None))
+    monkeypatch.setattr(ca, "prepare", lambda *args: payload)
+    output = tmp_path / "output.json"
+    residuals = []
+
+    def denied_unlink(path):
+        residuals.append(path)
+        raise PermissionError("synthetic cleanup denied")
+
+    with monkeypatch.context() as cleanup_patch:
+        cleanup_patch.setattr(Path, "unlink", denied_unlink)
+        assert (
+            ca.main(["prepare", "--input-root", str(tmp_path), "--output", str(output)])
+            == 0
+        )
+    assert output.read_bytes() == ca.canonical(payload)
+    assert len(residuals) == 1
+    temporary = residuals[0]
+    assert temporary.read_bytes() == output.read_bytes()
+    assert temporary.stat().st_ino == output.stat().st_ino
+    captured = capsys.readouterr()
+    assert captured.out == ""
+    assert captured.err == (
+        f"count association: warning: could not remove temporary file "
+        f"{temporary}: synthetic cleanup denied\n"
+    )
+    temporary.unlink()
+    assert output.read_bytes() == ca.canonical(payload)
+
+
+@pytest.mark.parametrize("stage", ["write", "link"])
+def test_publication_failure_keeps_original_error_when_cleanup_denied(
+    tmp_path, monkeypatch, capsys, stage
+):
+    payload = {"synthetic": True}
+    output = tmp_path / "absent.json"
+    original_error = OSError(f"synthetic original {stage} failure")
+    residuals = []
+
+    def fail_operation(*args):
+        raise original_error
+
+    def denied_unlink(path):
+        residuals.append(path)
+        raise PermissionError("synthetic cleanup denied")
+
+    monkeypatch.setattr(ca, "freezes", lambda: (None, None))
+    monkeypatch.setattr(ca, "prepare", lambda *args: payload)
+    if stage == "write":
+        named_temporary_file = ca.tempfile.NamedTemporaryFile
+
+        def failed_write_file(**kwargs):
+            stream = named_temporary_file(**kwargs)
+            stream.write = fail_operation
+            return stream
+
+        monkeypatch.setattr(ca.tempfile, "NamedTemporaryFile", failed_write_file)
+    else:
+        monkeypatch.setattr(ca.os, "link", fail_operation)
+    with monkeypatch.context() as cleanup_patch:
+        cleanup_patch.setattr(Path, "unlink", denied_unlink)
+        with pytest.raises(OSError) as error:
+            ca.publish(output, payload)
+        assert error.value is original_error
+        assert not output.exists()
+        assert (
+            ca.main(["prepare", "--input-root", str(tmp_path), "--output", str(output)])
+            == 2
+        )
+    assert not output.exists()
+    assert len(residuals) == 2 and len(set(residuals)) == 2
+    captured = capsys.readouterr()
+    assert captured.out == ""
+    for temporary in residuals:
+        assert temporary.is_file()
+        assert str(temporary) in captured.err
+        assert temporary.read_bytes() == (
+            b"" if stage == "write" else ca.canonical(payload)
+        )
+        temporary.unlink()
+    assert captured.err.count("warning:") == 2
+    assert captured.err.endswith(f"count association: {original_error}\n")
+
+
+@pytest.mark.parametrize("destination", ["file", "symlink", "dangling-symlink"])
+def test_existing_destination_preserved_when_cleanup_denied(
+    tmp_path, monkeypatch, capsys, destination
+):
+    output, target = tmp_path / "existing", tmp_path / "target"
+    sentinel = b"preserve these exact bytes\n"
+    if destination == "file":
+        output.write_bytes(sentinel)
+    else:
+        if destination == "symlink":
+            target.write_bytes(sentinel)
+        output.symlink_to(target)
+    before = output.lstat()
+    residuals = []
+
+    def denied_unlink(path):
+        residuals.append(path)
+        raise PermissionError("synthetic cleanup denied")
+
+    monkeypatch.setattr(ca, "freezes", lambda: (None, None))
+    monkeypatch.setattr(ca, "prepare", lambda *args: {"replacement": True})
+    with monkeypatch.context() as cleanup_patch:
+        cleanup_patch.setattr(Path, "unlink", denied_unlink)
+        with pytest.raises(FileExistsError):
+            ca.publish(output, {"replacement": True})
+        assert (
+            ca.main(["prepare", "--input-root", str(tmp_path), "--output", str(output)])
+            == 2
+        )
+    after = output.lstat()
+    assert (before.st_ino, before.st_mode) == (after.st_ino, after.st_mode)
+    if destination == "dangling-symlink":
+        assert not target.exists() and output.is_symlink()
+    else:
+        assert output.read_bytes() == sentinel
+    if destination == "symlink":
+        assert target.read_bytes() == sentinel and output.is_symlink()
+    captured = capsys.readouterr()
+    assert captured.out == "" and "File exists" in captured.err
+    assert captured.err.count("warning:") == 2
+    assert len(residuals) == 2
+    for temporary in residuals:
+        assert str(temporary) in captured.err
+        temporary.unlink()

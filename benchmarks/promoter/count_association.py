@@ -182,7 +182,7 @@ def pinned_bytes(path, pin):
 
 
 def publish(path, value):
-    """Atomically link a complete sibling temporary file without clobbering."""
+    """Atomically link without clobbering; treat cleanup failures as warnings."""
     raw = canonical(value)
     path = Path(path)
     stream = tempfile.NamedTemporaryFile(
@@ -196,7 +196,14 @@ def publish(path, value):
             os.fsync(stream.fileno())
         os.link(temporary, path)
     finally:
-        temporary.unlink()
+        try:
+            temporary.unlink()
+        except OSError as exc:
+            print(
+                f"count association: warning: could not remove temporary file "
+                f"{temporary}: {exc}",
+                file=sys.stderr,
+            )
 
 
 def freezes():
