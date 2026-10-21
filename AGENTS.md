@@ -2,6 +2,11 @@
 
 ## Scope and order
 
+- Owner authorization on 2026-10-21 resumes bounded reviewed calculator branch
+  integration alongside the native Promoter pilot. Preserve all source, backend,
+  private-evaluation and publication limits; this does not authorize collection,
+  consumer admission or the unaccepted portable-backend/transcript-adapter work.
+  The bounded consumer preview remains on the immutable paired 0.6 candidate.
 - Read `README.md`, `docs/notes/tickets/INDEX.md`, and applicable validation
   contracts before significant work. The user authorized the complete four-tool
   reconstruction program; the first implemented runtime is the Wave 1 RBS reconstruction.

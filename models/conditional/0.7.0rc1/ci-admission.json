@@ -1,0 +1,448 @@
+{
+  "bound_receipts": {
+    "candidate.json": "99a83e249d6e2927a938da29db1785215d17c1cd2c092667677ced8f88f43dba",
+    "receipt.json": "1026d320a470268786f47df0bb2a8844e226bbb2d666c832a9ca5dfd954de1fa",
+    "source-manifest.json": "6c45d4f81cfb3dc035edaa839aa4ae49905281f62c020afac26d7e4d534f4821"
+  },
+  "candidate_commit": "163802fddd3e49c8d72380167d661c7d8291f41b",
+  "ci": {
+    "conclusion": "success",
+    "createdAt": "2026-10-19T01:04:09Z",
+    "headSha": "163802fddd3e49c8d72380167d661c7d8291f41b",
+    "status": "completed",
+    "updatedAt": "2026-10-19T01:40:04Z",
+    "url": "https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/actions/runs/39183611595"
+  },
+  "ci_log_sha256": "6c9df03bf6583e0898ce1e031dc1e9b626420d8e1aeca3374f8f6e5291e12fb9",
+  "coverage": "Each full runtime and each repaired-backend selection met its required 100% statement/branch threshold; four resource jobs and fresh offline scalar examples passed.",
+  "implementation_version": "0.7.0rc1",
+  "independent_saved_control_audit": {
+    "path": "benchmarks/riboswitch/conditional-saved-control-audit.json",
+    "sha256": "01ce0d8626a235d2a48dd7a394ad314d6750a48b473da45250b8fd8463d08622"
+  },
+  "jobs": [
+    {
+      "conclusion": "success",
+      "database_id": 117841359378,
+      "name": "promoter-resources (ubuntu-24.04, 3.11)",
+      "steps": [
+        {
+          "conclusion": "success",
+          "name": "Set up job"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065"
+        },
+        {
+          "conclusion": "success",
+          "name": "Measure and admit the complete synthetic candidate suite"
+        },
+        {
+          "conclusion": "success",
+          "name": "Preserve the complete resource receipt, including failures"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262"
+        },
+        {
+          "conclusion": "success",
+          "name": "Complete job"
+        }
+      ],
+      "url": "https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/actions/runs/39183611595/job/117841359378"
+    },
+    {
+      "conclusion": "success",
+      "database_id": 117841359519,
+      "name": "runtime (macos-14, 3.14)",
+      "steps": [
+        {
+          "conclusion": "success",
+          "name": "Set up job"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065"
+        },
+        {
+          "conclusion": "success",
+          "name": "Install locked development tools and package"
+        },
+        {
+          "conclusion": "success",
+          "name": "Build separately licensed, pinned RNAstructure executables"
+        },
+        {
+          "conclusion": "success",
+          "name": "Static and full runtime gates"
+        },
+        {
+          "conclusion": "success",
+          "name": "Build and validate both separately licensed repairs"
+        },
+        {
+          "conclusion": "success",
+          "name": "Build and run fresh offline wheel installation"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262"
+        },
+        {
+          "conclusion": "success",
+          "name": "Complete job"
+        }
+      ],
+      "url": "https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/actions/runs/39183611595/job/117841359519"
+    },
+    {
+      "conclusion": "success",
+      "database_id": 117841359533,
+      "name": "promoter-resources (ubuntu-24.04, 3.14)",
+      "steps": [
+        {
+          "conclusion": "success",
+          "name": "Set up job"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065"
+        },
+        {
+          "conclusion": "success",
+          "name": "Measure and admit the complete synthetic candidate suite"
+        },
+        {
+          "conclusion": "success",
+          "name": "Preserve the complete resource receipt, including failures"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262"
+        },
+        {
+          "conclusion": "success",
+          "name": "Complete job"
+        }
+      ],
+      "url": "https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/actions/runs/39183611595/job/117841359533"
+    },
+    {
+      "conclusion": "success",
+      "database_id": 117841359542,
+      "name": "runtime (macos-14, 3.11)",
+      "steps": [
+        {
+          "conclusion": "success",
+          "name": "Set up job"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065"
+        },
+        {
+          "conclusion": "success",
+          "name": "Install locked development tools and package"
+        },
+        {
+          "conclusion": "success",
+          "name": "Build separately licensed, pinned RNAstructure executables"
+        },
+        {
+          "conclusion": "success",
+          "name": "Static and full runtime gates"
+        },
+        {
+          "conclusion": "success",
+          "name": "Build and validate both separately licensed repairs"
+        },
+        {
+          "conclusion": "success",
+          "name": "Build and run fresh offline wheel installation"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262"
+        },
+        {
+          "conclusion": "success",
+          "name": "Complete job"
+        }
+      ],
+      "url": "https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/actions/runs/39183611595/job/117841359542"
+    },
+    {
+      "conclusion": "success",
+      "database_id": 117841359575,
+      "name": "runtime (ubuntu-24.04, 3.11)",
+      "steps": [
+        {
+          "conclusion": "success",
+          "name": "Set up job"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065"
+        },
+        {
+          "conclusion": "success",
+          "name": "Install locked development tools and package"
+        },
+        {
+          "conclusion": "success",
+          "name": "Build separately licensed, pinned RNAstructure executables"
+        },
+        {
+          "conclusion": "success",
+          "name": "Static and full runtime gates"
+        },
+        {
+          "conclusion": "success",
+          "name": "Build and validate both separately licensed repairs"
+        },
+        {
+          "conclusion": "success",
+          "name": "Build and run fresh offline wheel installation"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262"
+        },
+        {
+          "conclusion": "success",
+          "name": "Complete job"
+        }
+      ],
+      "url": "https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/actions/runs/39183611595/job/117841359575"
+    },
+    {
+      "conclusion": "success",
+      "database_id": 117841359580,
+      "name": "promoter-resources (macos-14, 3.14)",
+      "steps": [
+        {
+          "conclusion": "success",
+          "name": "Set up job"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065"
+        },
+        {
+          "conclusion": "success",
+          "name": "Measure and admit the complete synthetic candidate suite"
+        },
+        {
+          "conclusion": "success",
+          "name": "Preserve the complete resource receipt, including failures"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262"
+        },
+        {
+          "conclusion": "success",
+          "name": "Complete job"
+        }
+      ],
+      "url": "https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/actions/runs/39183611595/job/117841359580"
+    },
+    {
+      "conclusion": "success",
+      "database_id": 117841359585,
+      "name": "runtime (ubuntu-24.04, 3.14)",
+      "steps": [
+        {
+          "conclusion": "success",
+          "name": "Set up job"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065"
+        },
+        {
+          "conclusion": "success",
+          "name": "Install locked development tools and package"
+        },
+        {
+          "conclusion": "success",
+          "name": "Build separately licensed, pinned RNAstructure executables"
+        },
+        {
+          "conclusion": "success",
+          "name": "Static and full runtime gates"
+        },
+        {
+          "conclusion": "success",
+          "name": "Build and validate both separately licensed repairs"
+        },
+        {
+          "conclusion": "success",
+          "name": "Build and run fresh offline wheel installation"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262"
+        },
+        {
+          "conclusion": "success",
+          "name": "Complete job"
+        }
+      ],
+      "url": "https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/actions/runs/39183611595/job/117841359585"
+    },
+    {
+      "conclusion": "success",
+      "database_id": 117841359618,
+      "name": "promoter-resources (macos-14, 3.11)",
+      "steps": [
+        {
+          "conclusion": "success",
+          "name": "Set up job"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065"
+        },
+        {
+          "conclusion": "success",
+          "name": "Measure and admit the complete synthetic candidate suite"
+        },
+        {
+          "conclusion": "success",
+          "name": "Preserve the complete resource receipt, including failures"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262"
+        },
+        {
+          "conclusion": "success",
+          "name": "Complete job"
+        }
+      ],
+      "url": "https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/actions/runs/39183611595/job/117841359618"
+    }
+  ],
+  "native_calibration": false,
+  "package_gate": "passed",
+  "publication": false,
+  "schema_version": "conditional-package-ci-admission-1",
+  "structural_scope": "The platform CI does not admit its newly built structural binaries. Its one conditional original-binary integration test is explicitly skipped. The separately recorded installed macOS arm64 receipt validates the exact admitted original binary pair; no other platform structural claim follows.",
+  "test_summaries": [
+    {
+      "job": "runtime (macos-14, 3.14)",
+      "summary": "3842 passed, 1 skipped, 7 warnings in 203.14s (0:03:23)"
+    },
+    {
+      "job": "runtime (macos-14, 3.14)",
+      "summary": "1963 passed, 5 warnings in 72.37s (0:01:12)"
+    },
+    {
+      "job": "runtime (macos-14, 3.14)",
+      "summary": "1963 passed, 5 warnings in 80.69s (0:01:20)"
+    },
+    {
+      "job": "runtime (macos-14, 3.11)",
+      "summary": "3842 passed, 1 skipped, 7 warnings in 837.60s (0:13:57)"
+    },
+    {
+      "job": "runtime (macos-14, 3.11)",
+      "summary": "1963 passed, 5 warnings in 118.60s (0:01:58)"
+    },
+    {
+      "job": "runtime (macos-14, 3.11)",
+      "summary": "1963 passed, 5 warnings in 124.05s (0:02:04)"
+    },
+    {
+      "job": "runtime (ubuntu-24.04, 3.11)",
+      "summary": "3842 passed, 1 skipped, 7 warnings in 904.50s (0:15:04)"
+    },
+    {
+      "job": "runtime (ubuntu-24.04, 3.11)",
+      "summary": "1963 passed, 5 warnings in 139.03s (0:02:19)"
+    },
+    {
+      "job": "runtime (ubuntu-24.04, 3.11)",
+      "summary": "1963 passed, 5 warnings in 154.12s (0:02:34)"
+    },
+    {
+      "job": "runtime (ubuntu-24.04, 3.14)",
+      "summary": "3842 passed, 1 skipped, 7 warnings in 177.57s (0:02:57)"
+    },
+    {
+      "job": "runtime (ubuntu-24.04, 3.14)",
+      "summary": "1963 passed, 5 warnings in 64.89s (0:01:04)"
+    },
+    {
+      "job": "runtime (ubuntu-24.04, 3.14)",
+      "summary": "1963 passed, 5 warnings in 74.95s (0:01:14)"
+    }
+  ]
+}
