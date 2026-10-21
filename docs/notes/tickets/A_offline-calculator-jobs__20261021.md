@@ -4,8 +4,8 @@
 - Status: active
 - Opened: 2026-10-21
 - Updated: 2026-10-21
-- Current State: A coordinates from accepted605d0c2; Claude implementer DEM-614 owns the isolated jobs worktree froma0914a6. C independently owns Operon translational coupling #60 and B independent scientific evidence/evaluation. No native scoring changes or consumer admission.
-- Verification: Acceptance requires every-path tests, real offline examples, interrupted/resumed runs, identity/corruption rejection, resource measurements and independent exact-patch review; not yet run.
+- Current State: A coordinates from accepted605d0c2; Claude implementer DEM-614 owns the isolated jobs worktree froma0914a6. Draft installed Promoter/conditional execution and resume checks pass. A identified process-group ownership and unbounded attempt-history defects; the same worker is repairing them before independent review. C's separately reviewed reinitiation component is integrated at077e65a with command registration f8670b4; C now owns intrinsic-termination admission #62. B owns the independent public Wave4 receipt checker and proposed termination evidence slice. No native scoring changes or consumer admission.
+- Verification: Runner acceptance still requires final every-path tests, interruption/resume and resource checks, immutable independent review, real backend examples and combined CI. The separate coupling fresh installation passed8checks with45wheel runtime files matching source; external receipt /Users/Rohin/.cache/regsite-wave7-integration-20261021/coupling-only/receipt.json. No combined-runner acceptance is inferred.
 - Cleanup: Distill accepted usage and integrity rules to validation, remove resolved ticket/queue row, and close only this owned child after final checks.
 - Owner: cyano-calcs-A / baf5b738-1792172297.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/59
