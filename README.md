@@ -60,6 +60,17 @@ orchestration is available; full Operon inference remains incomplete. The condit
 below has bounded structural and supplied-energy profiles; complete
 sequence-to-switch prediction remains unavailable.
 
+The separate [anchor-centered native pilot](docs/validation/promoter-native-pilot-results.md)
+completed 1,597 known-TSS neighborhoods. A best prediction fell within five bases
+of the known start in 56.36% of native windows versus 24.92% of shuffled controls.
+This easier, previously exposed task does not demonstrate an improvement over the
+fixed-grid evaluation. The reconstruction matched all 130,954 historical-source
+candidate scores at predeclared tolerances. Its rate at the known start had only
+a weak association with measured control-condition counts: Spearman 0.173,
+95% interval 0.126–0.219. See the
+[independent count analysis](docs/validation/promoter-count-association.md).
+Source fidelity is strong on this pilot; native strength calibration remains absent.
+
 See the [independent results](docs/validation/rbs-wave2-results.md),
 [native validation](docs/validation/rbs-native-validation.md) and
 [comparator roster](docs/validation/rbs-comparator-landscape.md).

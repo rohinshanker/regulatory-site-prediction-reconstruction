@@ -127,3 +127,22 @@ windows. It does not establish current hosted equivalence or improve the
 model's biological accuracy. Original-source localization, reconstruction
 fidelity and association with measured RNA counts remain separate checks;
 none alone admits a runtime release or visualizer predictions.
+
+## Association with native count measurements
+
+The separately frozen [count analysis](promoter-count-association.md) retains
+all 1,597 selected anchors and compares the model rate at the annotated base
+with the mean of both control-condition counts. Its Spearman correlation is
+0.1726 (95% paired group-bootstrap interval 0.1258–0.2191); the shuffled control
+is 0.0488. The paired difference is 0.1239 (0.0571–0.1879). All 2,000 draws were
+defined. This weak association does not establish quantitative native strength,
+condition responses or biological effects of recoding. The input-only TU groups
+and terminator/CDS overlap strata are incomplete context proxies, not removal of
+causal confounding. No fit or outcome-dependent endpoint change was performed.
+
+The [external artifact manifest](../../benchmarks/promoter/count-association-artifacts.json)
+preserves the complete count inputs, report, evaluation and independent audits.
+Large per-record results and limited-rights context remain outside Git and the
+visualizer bundle. Preserve these exact artifacts when relocating the analysis;
+new data or model improvements need a new prospective protocol and suitable
+reserved evidence. Reusing this exposed cohort cannot supply untouched validation.
