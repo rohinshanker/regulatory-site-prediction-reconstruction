@@ -1,7 +1,7 @@
 # Intrinsic-termination adapter contract
 
 - Purpose: Freeze the optional external-engine interface before parallel implementation.
-- Scope: Source-admitted bounded TransTermHP fragment adapter for #62; implementation and exact runtime verification in progress.
+- Scope: Implemented optional TransTermHP fragment adapter for #62; exact implementation review and common packaging pending.
 - Last verified: 2026-10-21
 
 Read the [source boundary](intrinsic-termination-source.md) first. This interface
@@ -102,7 +102,80 @@ text, so its raw byte identity must not influence prediction identity.
 capture identities and `prediction_sha256`, excluding only `result_sha256` itself.
 Thus execution receipts remain bound even when harmless timing bytes vary.
 
-Implementation, strict schemas, every-path tests, real native fixture replay and
-finite independent exact-patch review must verify this contract before completion.
+Strict schemas, every-path tests and the real native fixture replay verify the
+implementation. Finite independent exact-patch review and common packaging
+remain separate requirements.
 The [native smoke receipt](../../benchmarks/termination/native-smoke-manifest.json)
 is executable evidence for original artificial inputs, not biological validation.
+
+
+## Offline use and validation
+
+The Python runtime ships no native engine or background table. With the exact
+source ZIP and Debian patch already available, run the repository builder:
+
+```sh
+PYTHONPATH=src python tools/build_termination_backend.py \
+  --archive /external/transterm_hp_v2.09.zip \
+  --patch /external/0002-read_seq-return-NULL-instead-of-false.patch \
+  --compiler /existing/compiler/clang++ --output /external/new-backend
+```
+
+For the verified Mac build, also pass `--arch arm64`, `--sysroot` with the existing
+MacOSX26.5 SDK, `--cxx-include` with its `usr/include/c++/v1`, and
+`--standard-library libc++`. The builder restricts paths passed through Make's
+shell recipes, forbids extra scientific flags, and records explicit SDK options
+in the external build receipt. It writes the backend manifest last; failed builds
+cannot produce a successful receipt. Keep the separate source/notices and build
+receipt with the executable. No download, installation or privilege is implicit.
+
+```sh
+PYTHONPATH=src python -m regsite.termination_cli \
+  examples/termination-single.json --backend-manifest /external/new-backend/backend.json
+PYTHONPATH=src python -m regsite.termination_cli \
+  examples/termination-batch.json --backend-manifest /external/new-backend/backend.json
+PYTHONPATH=src python -m regsite.termination_cli \
+  examples/termination-unsupported.json --backend-manifest /external/new-backend/backend.json
+```
+
+The CLI writes one bounded JSON result. Exit0 means complete,1 means a retained
+partial roster, and2 means an invalid envelope/transport failure. The unsupported
+example deliberately exits1 with null candidates. Request files must be regular,
+with final symlinks rejected; `-` reads stdin. There is no environment-based native
+backend discovery. An absent or invalid explicitly supplied backend produces
+per-record failure, never fallback predictions.
+
+`max_seconds` is a scheduling budget starting at the public API call. Request
+transport and backend loading precede it; final hashing/serialization follows
+scoring. Synchronous filesystem/setup operations can finish after the deadline
+before the next check reports a failure. It is not a hard wall-time guarantee for
+input/output or filesystem calls. Native capture itself has a deadline, and all
+accepted roster positions survive expiry.
+
+The [adapter receipt](../../benchmarks/termination/adapter-build-manifest.json)
+binds the actual builder output, compiler and native binary, plus complete external
+CLI outputs. The source-built ARM64 binary passed342 focused tests with zero
+skips and100% coverage of700 statements/182 branches, including every original
+synthetic roster, automatic child stack setup, CLI invocation outside the checkout,
+strict schema validation and missingness. One warning is deliberately produced by
+the rejected duplicate-ZIP-member test. Source-wide Ruff/format/mypy also passed.
+The builder took8.98seconds; its measured process had321,110,016bytes maximum
+resident memory and310,592,232bytes peak footprint. These include reading the
+selected compiler for identity and are not native scorer memory measurements.
+
+Reproduce the focused gate with the separately built backend:
+
+```sh
+PYTHONPATH=src REGSITE_TERMINATION_TEST_BACKEND=/external/new-backend/backend.json \
+  python -m pytest tests/test_termination*.py \
+  --cov=regsite.termination --cov=regsite.termination_io \
+  --cov=regsite.termination_cli --cov=regsite.termination_backend \
+  --cov=regsite.termination_output --cov=tools.build_termination_backend \
+  --cov-branch --cov-report=term-missing --cov-fail-under=100
+```
+
+Without that explicit test backend,17 native release checks are skipped and must
+not be reported as verified. Other toolchains/platforms, genome-scale behavior,
+biological accuracy and common package/CI admission are not established by this
+local receipt. A owns shared console registration, package version and CI; the
+module command works directly in this isolated implementation.

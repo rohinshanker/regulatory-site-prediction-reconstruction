@@ -102,3 +102,15 @@ C API/CLI/schema/transport validation now passes173 focused tests with full
 worker interfaces. Native stderr elapsed-time bytes are separated from prediction
 identity; result_sha256 still binds the complete execution receipt. Exact worker
 commit/native integration is pending; this is not final runtime admission.
+
+## Exact implementation checkpoint
+
+DEM623 delivered c845962; integrated as c7f7864. Coordinator path-syntax repair
+and native integration tests are at989031d. The real offline builder produced
+binary b01d8d864eb6f41d36cdbf4d0e46255ce3f702c463c838afdaf21770d3d7cb4d;
+all342 focused tests pass with zero skips, one expected ZIP warning and full
+700-statement/182-branch coverage. Full-tree Ruff/format/mypy, ticket validation
+and diff checks pass. External CLI single/batch/unsupported receipts are pinned
+in adapter-build-manifest.json. Full raw outputs remain external. Source review
+was independent and complete; exact implementation review is now the remaining
+C gate before A common package/integration work. No biological claim or publication.
