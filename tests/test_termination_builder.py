@@ -307,3 +307,23 @@ def test_invalid_root_entry(build_inputs, tmp_path):
         archive.writestr(root + "2ndscore", b"excluded")
     with pytest.raises(backend.TerminationBackendError, match="builder_archive"):
         builder._extract(stream.getvalue(), tmp_path)
+
+
+@pytest.mark.parametrize(
+    "name",
+    [
+        "cxx;true",
+        "cxx&echo",
+        "cxx|cat",
+        "cxx`date`",
+        'cxx"quoted"',
+        "cxx'quoted'",
+        "cxx*(glob)",
+    ],
+)
+def test_make_compiler_path_cannot_introduce_shell_syntax(build_inputs, name):
+    args, _ = build_inputs
+    unsafe = args["compiler"].with_name(name)
+    unsafe.symlink_to(args["compiler"])
+    with pytest.raises(backend.TerminationBackendError, match="builder_tool"):
+        builder._tool(unsafe)

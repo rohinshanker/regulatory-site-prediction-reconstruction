@@ -253,7 +253,8 @@ def _tool(path: Path) -> tuple[Path, bytes]:
     data = _read_regular(
         selected.resolve(strict=True), 512 * 1024 * 1024, executable=True
     )
-    if any(c in str(selected) for c in "\n\r\x00$#\\") or " " in str(selected):
+    # Make expands CXX inside a shell recipe even though make itself uses argv.
+    if re.fullmatch(r"/[A-Za-z0-9_./+-]+", str(selected)) is None:
         raise _error("builder_tool")
     return selected, data
 
