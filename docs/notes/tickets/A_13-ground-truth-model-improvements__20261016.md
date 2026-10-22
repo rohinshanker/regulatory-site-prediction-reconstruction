@@ -4,7 +4,7 @@
 - Status: active
 - Opened: 2026-10-16
 - Updated: 2026-10-22
-- Current State: Owner prioritizes biological evaluation using admitted data, then other unblocked calculators when further progress requires unavailable evidence. A proposes an unchanged-profile PCC 6803 development recheck after backend repairs; B owns protocol/tooling and C independent review. No new experimental collection has begun. Wave 4 joint selection failed its predeclared advancement gate (rho gain -0.0001661354, interval spanning zero) despite complete coverage and about 3.45-fold greater median time. Frozen scientific artifacts remain unchanged; Cambray is consumed and Kuo exposed secondary. Native promotion and a broadly better predictor remain unestablished.
+- Current State: Owner prioritizes biological evaluation using admitted data, then other unblocked calculators when further progress requires unavailable evidence. A proposes an unchanged-profile PCC 6803 development recheck after backend repairs; B owns protocol/tooling and C independent review. C independently accepted the pinned candidate identity/preparation; B protocol/tooling and the final execution freeze remain pending. No new experimental collection has begun. Wave 4 joint selection failed its predeclared advancement gate (rho gain -0.0001661354, interval spanning zero) despite complete coverage and about 3.45-fold greater median time. Frozen scientific artifacts remain unchanged; Cambray is consumed and Kuo exposed secondary. Native promotion and a broadly better predictor remain unestablished.
 - Verification: The full 6,556-job collection completed without retries/artifact changes; 6,520 ok and 36 explicit no-candidate results. DEM-516 independently matched 464 floating/659 exact fields, maximum discrepancy zero, and accepted the publication metadata. Results, uncertainty, comparators, exposure caveats and ranked falsifiable next-cycle hypotheses are in rbs-wave4-results.md. Public development and consumed final panels cannot become untouched confirmation.
 - Cleanup: Owning session records results including negative findings, distills reusable model/evaluation contracts, updates indexes and GitHub issue, then removes the resolved ticket.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/13
@@ -44,7 +44,16 @@ their exact model/backend objects and no-candidate statuses matched. These check
 ran no folding or experimental predictions. The provisional identity is external
 at `/Users/Rohin/.cache/regsite-wave9-20261022/native-rbs-recheck/candidate-provisional.json`,
 SHA256 `cb6fcb06c8db41c2c6ed5edb543de60363d1a18af500a4535facc629627e72c9`;
-`runner-preflight/` retains its bounded controls. B's exact scope is prepared at
+`runner-preflight/` retains its bounded controls. C independently accepted this
+exact candidate for identity/preparation only after checking all 54 installed
+runtime members, both archives, runtime fingerprint, six binaries, 90 required
+table files, four complete model objects and saved control bindings/identities.
+No scientific data or outcomes were opened and no predictor was rerun. A checked
+the review artifact pins; external review receipt SHA256 is
+`0ec9ecf69646a7d151836c2cbb1fe59d2cdf4a4ced412c3a833be7748773932b`, at
+`/tmp/calculator-wave9-20261022/c-native-candidate-review/receipt.json`.
+This does not approve the final benchmark or authorize collection.
+B's exact scope is prepared at
 `/tmp/calculator-wave9-20261022/b-native-development-scope.md`; delivery is blocked
 by Agent Deck's unresolved prior submission, and the owner has been asked to
 submit it manually. This is not a scientific failure or an authorization to
