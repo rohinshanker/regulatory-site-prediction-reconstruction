@@ -24,7 +24,6 @@ A owns remaining runtime/release/improvement scopes 04/06/13; B owns broader sou
 
 | Status | Updated | Ticket | Priority | Scope |
 | --- | --- | --- | --- | --- |
-| A | 2026-10-21 | [A_drafting-numeric-validation__20261021.md](A_drafting-numeric-validation__20261021.md) | P1 | B: final integration-safe test repair; [#67](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/67), parents #12/#66 |
 | A | 2026-10-21 | [A_rbs-supplied-rate-drafting__20261021.md](A_rbs-supplied-rate-drafting__20261021.md) | P1 | A: supplied-rate stationary drafting runtime; B independent scalar expectations; [issue #66](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/66) |
 | A | 2026-10-21 | [A_offline-calculator-jobs__20261021.md](A_offline-calculator-jobs__20261021.md) | P1 | A: bounded offline calculator jobs, external artifacts and verified resume; [issue #59](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/59) |
 | O | 2026-10-21 | [O_rbs-host-transfer__20261021.md](O_rbs-host-transfer__20261021.md) | P0 | Session B: existing-aggregate failure analysis recorded; source audit/independent review provider-blocked, no new UTEX accuracy result; [#58](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/58), parent #12 |
