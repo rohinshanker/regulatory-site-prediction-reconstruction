@@ -1,0 +1,133 @@
+{
+  "cases": [
+    {
+      "expected": {
+        "P1": "1/3",
+        "P2": "1/3",
+        "P3": "1/3",
+        "fast_fold_limit_flux": "2/3",
+        "flux": "2/3",
+        "ratio_to_fast_fold_limit": "1"
+      },
+      "id": "equal_binding_rates",
+      "rates": {
+        "a1": "1",
+        "a2": "1",
+        "a_elong": "2",
+        "a_fold": "1"
+      }
+    },
+    {
+      "expected": {
+        "P1": "2/9",
+        "P2": "2/3",
+        "P3": "1/9",
+        "fast_fold_limit_flux": "10/11",
+        "flux": "10/9",
+        "ratio_to_fast_fold_limit": "11/9"
+      },
+      "id": "finite_folding_competition",
+      "rates": {
+        "a1": "2",
+        "a2": "1",
+        "a_elong": "10",
+        "a_fold": "3"
+      }
+    },
+    {
+      "expected": {
+        "P1": "5/6",
+        "P2": "0",
+        "P3": "1/6",
+        "fast_fold_limit_flux": "10/11",
+        "flux": "5/3",
+        "ratio_to_fast_fold_limit": "11/6"
+      },
+      "id": "no_refolding_limit",
+      "rates": {
+        "a1": "2",
+        "a2": "1",
+        "a_elong": "10",
+        "a_fold": "0"
+      }
+    },
+    {
+      "expected": {
+        "P1": "5/556",
+        "P2": "125/139",
+        "P3": "51/556",
+        "fast_fold_limit_flux": "10/11",
+        "flux": "255/278",
+        "ratio_to_fast_fold_limit": "561/556"
+      },
+      "id": "strong_refolding",
+      "rates": {
+        "a1": "2",
+        "a2": "1",
+        "a_elong": "10",
+        "a_fold": "100"
+      }
+    },
+    {
+      "expected": {
+        "P1": "2/9",
+        "P2": "2/3",
+        "P3": "1/9",
+        "fast_fold_limit_flux": "70/11",
+        "flux": "70/9",
+        "ratio_to_fast_fold_limit": "11/9"
+      },
+      "id": "common_rate_scale_seven",
+      "rates": {
+        "a1": "14",
+        "a2": "7",
+        "a_elong": "70",
+        "a_fold": "21"
+      }
+    },
+    {
+      "expected": {
+        "P1": "3/17",
+        "P2": "9/17",
+        "P3": "5/17",
+        "fast_fold_limit_flux": "3/4",
+        "flux": "15/17",
+        "ratio_to_fast_fold_limit": "20/17"
+      },
+      "id": "finite_clearance",
+      "rates": {
+        "a1": "2",
+        "a2": "1",
+        "a_elong": "3",
+        "a_fold": "3"
+      }
+    }
+  ],
+  "domain": {
+    "a1": "positive",
+    "a2": "positive",
+    "a_elong": "greater_than_a1",
+    "a_fold": "nonnegative",
+    "zero_binding_or_clearance": "outside_this_fixture_domain"
+  },
+  "encoding": "All rates and expectations are canonical exact rational strings, not measured values or implementation defaults.",
+  "provenance": {
+    "derivation": "Stationary balances plus probability normalization; exact rational Gaussian elimination checked against independent closed form.",
+    "empirical": false,
+    "kind": "independently_derived_artificial_supplied_rates",
+    "locations": [
+      "S15 stationary balances",
+      "S16 equation S11"
+    ],
+    "source_doi": "10.1021/jacs.6b01453.s001",
+    "source_sha256": "a9ded599cbb0313d610267cb9fbdfd21abb1bdb7a467894701fa9b295f3fd6d6"
+  },
+  "schema": "rbs-kinetics-scalar-fixtures-1",
+  "units": {
+    "flux": "inverse_arbitrary_common_model_time",
+    "physical_seconds_calibrated": false,
+    "probabilities": "dimensionless",
+    "rates": "inverse_arbitrary_common_model_time",
+    "ratio": "dimensionless"
+  }
+}
