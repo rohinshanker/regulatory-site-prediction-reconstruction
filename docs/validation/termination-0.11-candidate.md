@@ -1,7 +1,7 @@
 # Intrinsic-termination 0.11.0rc1 development candidate
 
 - Purpose: Bind the reviewed optional native adapter to a locally installed package.
-- Scope: Retained intrinsic motif candidates and software verification; platform matrix and integration review pending.
+- Scope: Retained intrinsic motif candidates and software verification; platform matrix pending; integration review accepted after a workflow repair.
 - Last verified: 2026-10-21
 
 The [package receipt](../../models/termination/0.11.0rc1/package.json) binds exact
@@ -66,7 +66,11 @@ The artificial table-boundary control reproduces hairpin `[70,86)`, forward
 strand, costs `-11.8` and `-3.87583`, and confidence 78. These are original software
 controls, not experimental observations.
 
-Independent source/runtime reviews are reused. The separate common package/CI
-patch review and cross-platform native matrix remain pending. This is a local
-development candidate; no hosted equivalence, cyanobacterial calibration,
+Independent source/runtime reviews are reused. Separate package integration review
+accepted the unchanged package after workflow-only repair `950b833`: the backend
+variable now uses a supported step-level context, and installed smoke assertions
+pin the exact score, geometry, empty roster and unsupported reasons. The same
+reviewer reproduced positive and mutation controls with no remaining finding.
+The cross-platform native matrix remains pending. This is a local development
+candidate; no hosted equivalence, cyanobacterial calibration,
 empirical benchmark admission, consumer release or publication is claimed.

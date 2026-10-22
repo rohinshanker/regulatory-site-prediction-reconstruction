@@ -348,9 +348,21 @@
     "verified_runtime_members": 51
   },
   "integration_review": {
-    "exact_commit": "a00cdb59714d431aeb226d9af7473a3a7327fc16",
     "issue": "DEM-628",
-    "status": "pending"
+    "reports": [
+      {
+        "name": "termination-package-review.md",
+        "sha256": "31dc1b0202cd95ac7c12384817e1ad3f595c94ed8d251756d5c9323e95a7ea4a"
+      },
+      {
+        "name": "termination-package-recheck.md",
+        "sha256": "97072eeaa64266d24cfeb2b9e3cbd516d6700cf06b5f8b04705c23c1e0dd3f86"
+      }
+    ],
+    "reviewed_package_source": "a00cdb59714d431aeb226d9af7473a3a7327fc16",
+    "runtime_and_package_configuration_unchanged": true,
+    "status": "accepted_after_focused_ci_repair",
+    "workflow_repair_commit": "950b833c50b9b0fa5f766f9464d077eef9a15ada"
   },
   "job_checks": [
     {
