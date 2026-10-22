@@ -1,6 +1,7 @@
 """Real subprocess, private receipt, integrity and collection-deadline tests."""
 
 import copy
+import errno
 import io
 import json
 import runpy
@@ -9,6 +10,7 @@ import tempfile
 import time
 import unittest
 from pathlib import Path
+from types import SimpleNamespace
 from unittest.mock import Mock, patch
 
 from benchmarks.rbs import wave4_collect as c
@@ -304,7 +306,7 @@ class CollectionTest(unittest.TestCase):
             3,
         )
         self.assertEqual(result["reason"], "process_start")
-        process = Mock(pid=123)
+        process = Mock(pid=123, returncode=None)
         with patch.object(c.os, "killpg", side_effect=ProcessLookupError):
             c.stop_process(process)
         self.script.write_text("import time;time.sleep(1)")
@@ -477,6 +479,316 @@ class CollectionTest(unittest.TestCase):
         self.assertEqual(read.call_count, 1)
         with self.assertRaises(ValueError):
             c.checked_bytes(spec)
+
+    def test_released_group_identity_is_never_signalled(self):
+        with patch.object(c.os, "killpg") as send:
+            with self.assertRaises(ChildProcessError):
+                c.stop_process(Mock(pid=123, returncode=0))
+        send.assert_not_called()
+
+    def test_startup_resource_failures_identify_phase(self):
+        config = self.receipt["configurations"][0]
+        real_popen = c.subprocess.Popen
+        for target in ("capture_setup", "anchor_start", "process_start"):
+            calls = 0
+
+            def launch(*args, target=target, **kwargs):
+                nonlocal calls
+                calls += 1
+                if calls == (1 if target == "anchor_start" else 2):
+                    raise OSError(errno.EMFILE, "synthetic descriptor exhaustion")
+                return real_popen(*args, **kwargs)
+
+            with self.subTest(target=target):
+                if target == "capture_setup":
+                    with patch.object(
+                        c.selectors,
+                        "DefaultSelector",
+                        side_effect=OSError(errno.EMFILE, "synthetic"),
+                    ):
+                        event, code, out, err, details = c.run_process(
+                            config, b"{}", time.monotonic() + 2
+                        )
+                else:
+                    with patch.object(c.subprocess, "Popen", side_effect=launch):
+                        event, code, out, err, details = c.run_process(
+                            config, b"{}", time.monotonic() + 2
+                        )
+                self.assertEqual(
+                    (event, code, out, err), ("process_start", None, b"", b"")
+                )
+                self.assertFalse(details["started"])
+                self.assertEqual(
+                    details["errors"],
+                    [{"phase": target, "type": "OSError", "errno": errno.EMFILE}],
+                )
+                self.assertTrue(details["cleanup_complete"])
+
+    def test_large_stdin_and_both_raw_streams(self):
+        self.script.write_text(
+            "import sys;d=sys.stdin.buffer.read();"
+            "sys.stdout.buffer.write(d);sys.stderr.buffer.write(d[::-1])"
+        )
+        packet = bytes(range(256)) * 1024
+        event, code, out, err, details = c.run_process(
+            self.receipt["configurations"][0], packet, time.monotonic() + 5
+        )
+        self.assertEqual(
+            (event, code, out, err), ("completed", 0, packet, packet[::-1])
+        )
+        self.assertTrue(details["stdout_complete"] and details["stderr_complete"])
+        self.assertTrue(details["cleanup_complete"])
+
+    def test_nonblocking_pipe_conditions(self):
+        # Deterministic readiness races and early stdin closure, no real signal.
+        for label, exception in (
+            ("stdin", BrokenPipeError()),
+            ("stdout", BlockingIOError()),
+        ):
+            stream = Mock()
+            selector = Mock()
+            selector.get_map.side_effect = [{1: True}, {}]
+            selector.select.return_value = [
+                (SimpleNamespace(data=label, fd=101, fileobj=stream), None)
+            ]
+            capture = {"stdin": bytearray(b"input"), "stdout": bytearray()}
+            with patch.object(
+                c.os, "write" if label == "stdin" else "read", side_effect=exception
+            ):
+                result = c.pump(
+                    Mock(poll=lambda: 0), selector, capture, time.monotonic() + 1
+                )
+            self.assertEqual(result, "completed")
+            if label == "stdin":
+                self.assertEqual(capture["stdin"], b"")
+                stream.close.assert_called_once()
+            else:
+                self.assertEqual(capture["stdout"], b"")
+
+    def test_post_start_io_error_retains_prefix_and_remaining_bytes(self):
+        self.script.write_text(
+            self.script.read_text() + "sys.stderr.write('diagnostic')\n"
+        )
+        original, read = c.pump, c.os.read
+        calls = 0
+
+        def exchange(*args):
+            nonlocal calls
+            calls += 1
+            if calls != 1:
+                return original(*args)
+            captured = False
+
+            def read_error(fd, size):
+                nonlocal captured
+                if captured:
+                    raise OSError(errno.EIO, "synthetic read error")
+                chunk = read(fd, size)
+                captured = bool(chunk)
+                return chunk
+
+            with patch.object(c.os, "read", side_effect=read_error):
+                return original(*args)
+
+        with patch.object(c, "pump", side_effect=exchange):
+            result = c.execute(
+                self.inputs["records"][0],
+                self.receipt["configurations"][0],
+                2,
+                time.monotonic() + 5,
+                self.root,
+                201,
+            )
+        self.assertEqual(result["execution"], "process_io")
+        self.assertTrue(result["process"]["started"])
+        self.assertEqual(result["process"]["errors"][0]["phase"], "communication")
+        self.assertEqual(result["process"]["errors"][0]["errno"], errno.EIO)
+        self.assertTrue(
+            result["process"]["stdout_complete"]
+            and result["process"]["stderr_complete"]
+        )
+        self.assertIsNone(result["predicted"])
+        raw = (self.root / "job-000201.stdout").read_bytes()
+        self.assertEqual(json.loads(raw)["predicted"], 2.5)
+        self.assertEqual((self.root / "job-000201.stderr").read_bytes(), b"diagnostic")
+        self.assertEqual(result["stdout_sha256"], digest(raw))
+
+    def test_pipe_setup_failure_still_stops_started_child(self):
+        with patch.object(
+            c.os, "set_blocking", side_effect=OSError(errno.EMFILE, "synthetic")
+        ):
+            event, code, _, _, details = c.run_process(
+                self.receipt["configurations"][0], b"{}", time.monotonic() + 2
+            )
+        self.assertEqual(event, "process_io")
+        self.assertTrue(details["started"] and details["cleanup_complete"])
+        self.assertEqual(details["errors"][0]["phase"], "pipe_setup")
+        self.assertLess(code, 0)
+        self.assertFalse(details["stdout_complete"] or details["stderr_complete"])
+
+    def test_cleanup_denial_retains_exit_bytes_and_never_claims_success(self):
+        stop = c.stop_process
+        seen = []
+
+        def deny_after_stop(anchor):
+            self.assertIsNone(anchor.returncode)
+            seen.append(anchor.pid)
+            stop(anchor)  # Actual test processes are terminated before fault injection.
+            raise PermissionError(errno.EPERM, "synthetic cleanup denial")
+
+        with patch.object(c, "stop_process", side_effect=deny_after_stop):
+            result = c.execute(
+                self.inputs["records"][0],
+                self.receipt["configurations"][0],
+                2,
+                time.monotonic() + 5,
+                self.root,
+                202,
+            )
+        self.assertEqual(
+            (result["status"], result["execution"], result["exit_code"]),
+            ("failed", "process_cleanup", 0),
+        )
+        self.assertIsNone(result["predicted"])
+        self.assertEqual(result["process"]["primary_event"], "completed")
+        self.assertFalse(result["process"]["cleanup_complete"])
+        self.assertEqual(
+            result["process"]["errors"],
+            [
+                {
+                    "phase": "cleanup_signal",
+                    "type": "PermissionError",
+                    "errno": errno.EPERM,
+                }
+            ],
+        )
+        self.assertEqual(len(seen), 1)
+        raw = (self.root / "job-000202.stdout").read_bytes()
+        self.assertEqual(json.loads(raw)["predicted"], 2.5)
+        self.assertEqual(result["stdout_sha256"], digest(raw))
+
+    def test_cleanup_drain_failures_remain_failures(self):
+        original = c.pump
+        for failure in ("timeout", OSError(errno.EIO, "synthetic drain")):
+            calls = 0
+
+            def exchange(*args, failure=failure):
+                nonlocal calls
+                calls += 1
+                result = original(*args)
+                if calls == 2:
+                    if isinstance(failure, Exception):
+                        raise failure
+                    return failure
+                return result
+
+            with patch.object(c, "pump", side_effect=exchange):
+                event, code, out, _, details = c.run_process(
+                    self.receipt["configurations"][0],
+                    c.encoded(c.request(self.inputs["records"][0])),
+                    time.monotonic() + 2,
+                )
+            self.assertEqual((event, code), ("process_cleanup", 0))
+            self.assertEqual(json.loads(out)["predicted"], 2.5)
+            self.assertEqual(details["errors"][0]["phase"], "cleanup_drain")
+
+    def test_timeout_cleanup_error_keeps_deadline_and_raw_evidence(self):
+        self.script.write_text(
+            "import sys,time;print('started',flush=True);"
+            "sys.stderr.write('diagnostic');sys.stderr.flush();time.sleep(5)"
+        )
+        stop = c.stop_process
+
+        def fail_after_signal(anchor):
+            stop(anchor)
+            raise PermissionError(errno.EPERM, "synthetic")
+
+        with patch.object(c, "stop_process", side_effect=fail_after_signal):
+            result = c.execute(
+                self.inputs["records"][0],
+                self.receipt["configurations"][0],
+                0.5,
+                time.monotonic() + 5,
+                self.root,
+                203,
+            )
+        self.assertEqual(result["execution"], "process_cleanup")
+        self.assertEqual(result["process"]["primary_event"], "timeout")
+        self.assertEqual(result["process"]["timeout_reason"], "record_deadline")
+        self.assertLess(result["exit_code"], 0)
+        self.assertIsNone(result["predicted"])
+        self.assertEqual((self.root / "job-000203.stdout").read_bytes(), b"started\n")
+        self.assertEqual((self.root / "job-000203.stderr").read_bytes(), b"diagnostic")
+        self.assertTrue(result["process"]["stdout_complete"])
+        self.assertTrue(result["process"]["stderr_complete"])
+
+    def test_wait_and_close_failures_keep_known_exit(self):
+        real_popen = c.subprocess.Popen
+        for target in ("cleanup_wait", "cleanup_anchor_wait", "cleanup_pipe_close"):
+            calls = 0
+
+            def launch(*args, target=target, **kwargs):
+                nonlocal calls
+                calls += 1
+                p = real_popen(*args, **kwargs)
+                if calls == (1 if target == "cleanup_anchor_wait" else 2):
+                    if target == "cleanup_pipe_close":
+                        stream = p.stdout
+
+                        def fail_close():
+                            stream.close()
+                            raise OSError(errno.EIO, "synthetic close")
+
+                        p.stdout = SimpleNamespace(
+                            fileno=stream.fileno, close=fail_close
+                        )
+                    else:
+                        wait = p.wait
+
+                        def fail_wait(*a, **kw):
+                            wait(*a, **kw)
+                            raise OSError(errno.ECHILD, "synthetic wait")
+
+                        p.wait = fail_wait
+                return p
+
+            with patch.object(c.subprocess, "Popen", side_effect=launch):
+                event, code, out, _, details = c.run_process(
+                    self.receipt["configurations"][0],
+                    c.encoded(c.request(self.inputs["records"][0])),
+                    time.monotonic() + 2,
+                )
+            self.assertEqual((event, code), ("process_cleanup", 0))
+            self.assertEqual(json.loads(out)["predicted"], 2.5)
+            self.assertEqual(details["errors"][0]["phase"], target)
+
+    def test_uncertain_cleanup_halts_collection_preserving_full_roster(self):
+        self.protocol["collection"]["max_processes"] = 1
+        self.save()
+        stop = c.stop_process
+
+        def fail_after_signal(anchor):
+            stop(anchor)
+            raise PermissionError(errno.EPERM, "synthetic")
+
+        with patch.object(c, "stop_process", side_effect=fail_after_signal):
+            result = c.collect(self.receipt_path, self.root / "cleanup-failed")
+        rows = [
+            r for group in result["records_by_configuration"].values() for r in group
+        ]
+        self.assertEqual(len(rows), 12)
+        self.assertFalse(result["complete"] or result["cleanup_complete"])
+        self.assertEqual(sum(r["execution"] == "process_cleanup" for r in rows), 1)
+        self.assertEqual(
+            sum(
+                r["status"] == "not_run" and r["reason"] == "collection_cleanup_failure"
+                for r in rows
+            ),
+            11,
+        )
+        self.assertEqual(
+            len(list((self.root / "cleanup-failed").glob("job-*.json"))), 12
+        )
 
     def test_cli_summary_only(self):
         self.protocol["collection"]["total_seconds"] = 1e-9

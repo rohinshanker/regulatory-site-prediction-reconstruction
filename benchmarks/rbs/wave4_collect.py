@@ -6,10 +6,13 @@ This module never reads experimental measurements or imports a scoring model.
 
 import argparse
 import concurrent.futures as futures
+import errno
 import json
 import os
+import selectors
 import signal
 import subprocess
+import sys
 import time
 from datetime import UTC, datetime
 from pathlib import Path
@@ -172,7 +175,7 @@ def request(row):
 def schedule(rows, configs):
     """Deterministic complete record-major roster with rotated model priority."""
     ordered = sorted(configs, key=lambda c: c["id"])
-    jobs = []
+    jobs: list = []
     for study in ("Cambray2018", "Kuo2020"):
         selected = sorted(
             (r for r in rows if r["study"] == study), key=lambda r: r["id"]
@@ -198,12 +201,163 @@ def normalized(raw, packet):
     return {"status": status, "predicted": score, "reason": result["reason"]}
 
 
-def stop_process(process):
-    """Terminate the whole POSIX process group, including folding descendants."""
+def stop_process(anchor):
+    """Signal only a group whose dedicated anchor has not been reaped.
+
+    Never poll/wait the anchor before this call: its unreaped PID prevents group
+    ID reuse even when the command and all its descendants have exited.
+    """
+    if anchor.returncode is not None:
+        raise ChildProcessError(errno.ECHILD, "Process group ownership released")
     try:
-        os.killpg(process.pid, signal.SIGKILL)
+        os.killpg(anchor.pid, signal.SIGKILL)
     except ProcessLookupError:
         pass
+
+
+def pump(process, selector, capture, deadline):
+    """Exchange input/output without losing captured prefixes on an OS error."""
+    while selector.get_map() or process.poll() is None:
+        remaining = deadline - time.monotonic()
+        if remaining <= 0:
+            return "timeout"
+        for key, _ in selector.select(min(remaining, 0.05)):
+            label = key.data
+            try:
+                if label == "stdin":
+                    try:
+                        count = os.write(key.fd, capture["stdin"][:4096])
+                        del capture["stdin"][:count]
+                    except BrokenPipeError:
+                        capture["stdin"].clear()
+                    if not capture["stdin"]:
+                        selector.unregister(key.fileobj)
+                        key.fileobj.close()
+                else:
+                    chunk = os.read(key.fd, 65_536)
+                    capture[label].extend(chunk)
+                    if not chunk:
+                        selector.unregister(key.fileobj)
+                        capture[label + "_complete"] = True
+            except BlockingIOError:
+                continue
+    return "completed"
+
+
+def run_process(config, packet, deadline):
+    """Keep an unreaped group anchor through capture, teardown and diagnostics.
+
+    One extra stdlib process holds the group identity. No model is imported;
+    the command, cwd and environment remain explicit. Cleanup gets a bounded
+    one-second drain/wait allowance per operation, separate from execution.
+    """
+    capture: dict = {
+        "stdin": bytearray(packet),
+        "stdout": bytearray(),
+        "stderr": bytearray(),
+    }
+    capture.update(stdout_complete=False, stderr_complete=False)
+    details: dict = {"started": False, "pid": None, "pgid": None, "errors": []}
+    anchor = process = selector = None
+    event, phase = "process_start", "capture_setup"
+
+    def error(where, exc):
+        details["errors"].append(
+            {
+                "phase": where,
+                "type": type(exc).__name__,
+                "errno": getattr(exc, "errno", None),
+            }
+        )
+
+    def close(stream, where):
+        try:
+            stream.close()
+        except OSError as exc:
+            error(where, exc)
+
+    env = {"PATH": os.defpath, "LANG": "C.UTF-8", **config["environment"], **THREAD_ENV}
+    try:
+        selector = selectors.DefaultSelector()
+        phase = "anchor_start"
+        anchor = subprocess.Popen(
+            [sys.executable, "-I", "-S", "-c", "import sys;sys.stdin.buffer.read()"],
+            stdin=subprocess.PIPE,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+            env=env,
+            cwd=config["cwd"],
+            process_group=0,
+        )
+        details["pgid"] = anchor.pid
+        phase = "process_start"
+        process = subprocess.Popen(
+            config["command"],
+            stdin=subprocess.PIPE,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            env=env,
+            cwd=config["cwd"],
+            process_group=anchor.pid,
+        )
+        details.update(started=True, pid=process.pid)
+        event, phase = "process_io", "pipe_setup"
+        for label in ("stdout", "stderr", "stdin"):
+            stream = getattr(process, label)
+            os.set_blocking(stream.fileno(), False)
+            selector.register(
+                stream,
+                selectors.EVENT_WRITE if label == "stdin" else selectors.EVENT_READ,
+                label,
+            )
+        phase = "communication"
+        event = pump(process, selector, capture, deadline)
+    except (OSError, ValueError) as exc:
+        error(phase, exc)
+    finally:
+        details["primary_event"] = event
+        initial_errors = len(details["errors"])
+        if anchor is not None:
+            try:
+                stop_process(anchor)
+            except OSError as exc:
+                error("cleanup_signal", exc)
+        if process is not None:
+            try:
+                if pump(process, selector, capture, time.monotonic() + 1) == "timeout":
+                    error(
+                        "cleanup_drain", subprocess.TimeoutExpired(config["command"], 1)
+                    )
+            except (OSError, ValueError) as exc:
+                error("cleanup_drain", exc)
+            try:
+                process.wait(timeout=1)
+            except (OSError, subprocess.TimeoutExpired) as exc:
+                error("cleanup_wait", exc)
+            for stream in (process.stdin, process.stdout, process.stderr):
+                close(stream, "cleanup_pipe_close")
+        if selector is not None:
+            close(selector, "cleanup_selector_close")
+        if anchor is not None:
+            close(anchor.stdin, "cleanup_anchor_close")
+            try:
+                anchor.wait(timeout=1)
+            except (OSError, subprocess.TimeoutExpired) as exc:
+                error("cleanup_anchor_wait", exc)
+        details["cleanup_complete"] = len(details["errors"]) == initial_errors
+    details.update(
+        stdout_complete=capture["stdout_complete"],
+        stderr_complete=capture["stderr_complete"],
+    )
+    if not details["cleanup_complete"]:
+        event = "process_cleanup"
+    return (
+        event,
+        None if process is None else process.returncode,
+        bytes(capture["stdout"]),
+        bytes(capture["stderr"]),
+        details,
+    )
 
 
 def control_score(row, kind):
@@ -212,7 +366,15 @@ def control_score(row, kind):
     return 1.0 if kind == "constant" else sum(b in "GC" for b in seq) / len(seq)
 
 
-def execute(row, config, seconds, deadline, directory, number):
+def execute(
+    row,
+    config,
+    seconds,
+    deadline,
+    directory,
+    number,
+    not_run_reason="collection_deadline",
+):
     """Run one input, preserve raw evidence and never retry a failed prediction."""
     began = time.monotonic()
     remaining = deadline - began
@@ -223,10 +385,11 @@ def execute(row, config, seconds, deadline, directory, number):
         "configuration_sha256": digest(encoded(config)),
         "status": "not_run",
         "predicted": None,
-        "reason": "collection_deadline",
+        "reason": not_run_reason,
         "seconds": 0,
         "execution": "not_run",
         "exit_code": None,
+        "process": None,
     }
     stdout, stderr = b"", b""
     if remaining > 0:
@@ -238,61 +401,39 @@ def execute(row, config, seconds, deadline, directory, number):
                 execution="control",
             )
         else:
-            env = {
-                "PATH": os.defpath,
-                "LANG": "C.UTF-8",
-                **config["environment"],
-                **THREAD_ENV,
-            }
-            try:
-                process = subprocess.Popen(
-                    config["command"],
-                    stdin=subprocess.PIPE,
-                    stdout=subprocess.PIPE,
-                    stderr=subprocess.PIPE,
-                    env=env,
-                    cwd=config["cwd"],
-                    start_new_session=True,
-                )
-                try:
-                    stdout, stderr = process.communicate(
-                        packet, timeout=min(seconds, remaining)
-                    )
-                    if process.returncode:
-                        result.update(
-                            status="failed",
-                            reason="process_exit",
-                            execution="process_exit",
-                        )
-                    else:
-                        try:
-                            result.update(normalized(stdout, packet))
-                            result["execution"] = "returned"
-                        except (ValueError, KeyError, TypeError, OverflowError):
-                            result.update(
-                                status="failed",
-                                reason="invalid_output",
-                                execution="invalid_output",
-                            )
-                except subprocess.TimeoutExpired:
-                    stop_process(process)
-                    stdout, stderr = process.communicate()
-                    result.update(
-                        status="timeout",
-                        reason="record_deadline"
-                        if seconds < remaining
-                        else "collection_deadline",
-                        execution="timeout",
-                    )
-                finally:
-                    # A successful parent can leave silent same-group descendants.
-                    # Clear the group before releasing this bounded worker slot.
-                    stop_process(process)
-                result["exit_code"] = process.returncode
-            except OSError:
+            event, code, stdout, stderr, details = run_process(
+                config, packet, min(began + seconds, deadline)
+            )
+            details["timeout_reason"] = (
+                ("record_deadline" if seconds < remaining else "collection_deadline")
+                if details["primary_event"] == "timeout"
+                else None
+            )
+            result.update(exit_code=code, process=details)
+            if event == "timeout":
                 result.update(
-                    status="failed", reason="process_start", execution="process_start"
+                    status="timeout",
+                    execution="timeout",
+                    reason="record_deadline"
+                    if seconds < remaining
+                    else "collection_deadline",
                 )
+            elif event != "completed":
+                result.update(status="failed", reason=event, execution=event)
+            elif code:
+                result.update(
+                    status="failed", reason="process_exit", execution="process_exit"
+                )
+            else:
+                try:
+                    result.update(normalized(stdout, packet))
+                    result["execution"] = "returned"
+                except (ValueError, KeyError, TypeError, OverflowError):
+                    result.update(
+                        status="failed",
+                        reason="invalid_output",
+                        execution="invalid_output",
+                    )
         result["seconds"] = time.monotonic() - began
     result.update(stdout_sha256=digest(stdout), stderr_sha256=digest(stderr))
     stem = directory / f"job-{number:06d}"
@@ -317,11 +458,13 @@ def collect(receipt_path, directory):
     jobs = schedule(rows, configs)
     results = {}
     cursor = 0
+    cleanup_failed = False
     with futures.ThreadPoolExecutor(max_workers=limits["max_processes"]) as pool:
-        active = {}
+        active: dict = {}
         while cursor < len(jobs) or active:
             while (
                 cursor < len(jobs)
+                and not cleanup_failed
                 and len(active) < limits["max_processes"]
                 and time.monotonic() < deadline
             ):
@@ -344,10 +487,19 @@ def collect(receipt_path, directory):
             for future in done:
                 number = active.pop(future)
                 results[number] = future.result()
+                details = results[number].get("process")
+                if details is not None and not details["cleanup_complete"]:
+                    cleanup_failed = True
     for number in range(cursor, len(jobs)):
         row, config = jobs[number]
         results[number] = execute(
-            row, config, limits["seconds_per_record"], float("-inf"), directory, number
+            row,
+            config,
+            limits["seconds_per_record"],
+            float("-inf"),
+            directory,
+            number,
+            "collection_cleanup_failure" if cleanup_failed else "collection_deadline",
         )
     # A changed file invalidates collection; it is never silently relabelled.
     valid = True
@@ -357,16 +509,19 @@ def collect(receipt_path, directory):
             valid = False
     except (OSError, ValueError):
         valid = False
-    model_records = {c["id"]: [] for c in configs}
+    model_records: dict = {c["id"]: [] for c in configs}
     for number, (_, config) in enumerate(jobs):
         model_records[config["id"]].append(results[number])
-    complete = valid and not any(
-        r["reason"] == "collection_deadline" for r in results.values()
+    complete = (
+        valid
+        and not cleanup_failed
+        and not any(r["reason"] == "collection_deadline" for r in results.values())
     )
     payload = {
         "schema_version": "rbs-wave4-collection-1",
         "complete": complete,
         "artifacts_unchanged": valid,
+        "cleanup_complete": not cleanup_failed,
         "freeze_sha256": digest(raw_receipt),
         "protocol_sha256": receipt["protocol"]["sha256"],
         "input_sha256": receipt["inputs"]["sha256"],
