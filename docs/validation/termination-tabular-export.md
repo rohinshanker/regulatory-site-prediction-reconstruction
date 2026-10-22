@@ -93,3 +93,11 @@ record and one candidate: hairpin `[70,86)`, tail `[86,101)`, strand `+`, confid
 `78`, and native cost strings `-11.8`/`-3.87583`. This is an original artificial
 transport control, not biological accuracy evidence. Independent exact-patch
 review and combined package/platform gates remain separate from focused checks.
+
+Independent software review accepted
+[`c964fc5`](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/commit/c964fc5d732f5c21113f9e0fd6a0d0493ab6656c):
+62 focused tests cover all 95 statements and 24 branches. Retain the independent
+regression checks against frozen 0.12 JSON bytes and matching CSV status/hash/row
+rosters for malformed JSON, invalid envelopes and unsupported records. Acceptance
+covers this fragment-only projection; biological calibration, release and consumer
+approval remain separate.
