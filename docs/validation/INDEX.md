@@ -4,6 +4,7 @@ Verification dates cover the stated source observations or specification review;
 
 | Area | Purpose | Last verified | Document |
 | --- | --- | --- | --- |
+| rbs-drafting-numeric-validation | Frozen independent artificial oracle, explicit candidate receipt and bounded all-case external result checking. | 2026-10-21 | [rbs-drafting-numeric-validation.md](rbs-drafting-numeric-validation.md) |
 | stability-inference-source | Bounded public source inventory, exact schema partitions and explicit missing featurizer/frozen-model admission. | 2026-10-21 | [stability-inference-source.md](stability-inference-source.md) |
 | component-calculator-jobs | Version-2 eight-kind job dispatch, backend identity and compatibility contract; implementation pending. | 2026-10-21 | [component-calculator-jobs.md](component-calculator-jobs.md) |
 | drafting-0.12-candidate | Frozen supplied-rate package, independent software review and passing eight-job platform matrix. | 2026-10-21 | [drafting-0.12-candidate.md](drafting-0.12-candidate.md) |
