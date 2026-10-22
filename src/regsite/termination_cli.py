@@ -10,6 +10,7 @@ from typing import BinaryIO
 
 from regsite.termination import BackendInput, invalid_result, predict_termination
 from regsite.termination_backend import TerminationBackendError, load_backend
+from regsite.termination_export import csv_bytes
 from regsite.termination_io import TerminationInputError, load_request, result_bytes
 
 
@@ -34,6 +35,7 @@ def main(argv: list[str] | None = None) -> int:
     """Write one result; exit 0 complete, 1 partial, 2 invalid or transport error."""
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("input", help="termination-request-1 JSON; '-' reads stdin")
+    parser.add_argument("--format", choices=("json", "csv"), default="json")
     parser.add_argument(
         "--backend-manifest", help="explicit local verified backend JSON"
     )
@@ -52,7 +54,7 @@ def main(argv: list[str] | None = None) -> int:
                 except TerminationBackendError as exc:
                     backend = exc
             result = predict_termination(request, backend=backend)
-        raw = result_bytes(result)
+        raw = csv_bytes(result) if args.format == "csv" else result_bytes(result)
         sys.stdout.buffer.write(raw)
         sys.stdout.flush()
         return {"complete": 0, "partial": 1, "invalid_input": 2}[result["status"]]

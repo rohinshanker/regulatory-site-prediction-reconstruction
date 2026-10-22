@@ -76,6 +76,20 @@ Use the existing artificial requests in `examples/termination-*.json`. Focused
 verification must cover exact headers/row order, both strands, overlaps, boundary
 ambiguity, every envelope/record status, null versus zero, text escaping, byte
 limits, CLI inputs/options/errors/broken output, and default/explicit JSON identity.
-Run full statement/branch coverage for the exporter and CLI, with scoped static
-and typing checks. A owns independent exact-patch review and combined package/CI
-gates; local checks do not imply biological or publication acceptance.
+From a development environment with `PYTHONPATH=src`, run the following focused
+checks. Exclude `MULTICA_TOKEN` and `TYPESAFE_API_KEY` from child-test environments;
+do not print environment or authentication values.
+
+```sh
+python -m pytest tests/test_termination_export.py tests/test_termination_cli.py --cov=regsite.termination_export --cov=regsite.termination_cli --cov-branch --cov-report=term-missing --cov-fail-under=100
+python -m ruff check src/regsite/termination_export.py src/regsite/termination_cli.py tests/test_termination_export.py tests/test_termination_cli.py
+python -m ruff format --check src/regsite/termination_export.py src/regsite/termination_cli.py tests/test_termination_export.py tests/test_termination_cli.py
+python -m mypy src/regsite/termination_export.py src/regsite/termination_cli.py
+```
+
+An optional native export smoke uses `examples/termination-single.json` and an
+explicit already verified backend manifest. It should produce one envelope, one
+record and one candidate: hairpin `[70,86)`, tail `[86,101)`, strand `+`, confidence
+`78`, and native cost strings `-11.8`/`-3.87583`. This is an original artificial
+transport control, not biological accuracy evidence. Independent exact-patch
+review and combined package/platform gates remain separate from focused checks.

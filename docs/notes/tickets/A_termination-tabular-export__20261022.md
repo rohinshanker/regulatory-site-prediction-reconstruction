@@ -4,8 +4,8 @@
 - Status: active
 - Opened: 2026-10-22
 - Updated: 2026-10-22
-- Current State: field contract fixed before implementation; local writer C, independent exact-patch reviewer A.
-- Verification: focused static/type and full statement/branch checks, JSON regression comparison, and at most one existing artificial native smoke.
+- Current State: local implementation and checks complete; awaiting A's independent exact-patch review.
+- Verification: 62 focused tests pass with 100% statement/branch coverage for exporter/CLI; Ruff and mypy pass; default/explicit JSON regression passes. One existing artificial native process produced the expected 3 CSV rows and candidate fields, exit 0.
 - Cleanup: after A's review, distill the reusable contract, resolve/remove this ticket and its queue row, and close this child only.
 
 Branch `wave8/termination-csv` starts at
