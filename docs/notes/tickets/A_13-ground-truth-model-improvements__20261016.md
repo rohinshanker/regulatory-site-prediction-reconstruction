@@ -37,6 +37,20 @@ unstarted/failed accounting precede execution; no outcome-driven retry or new
 variant loop. If the remaining dependency is target-host measurements, record it
 and move to a separately reserved unblocked calculator slice.
 
+A's candidate preflight verified all 54 installed files against both the frozen
+source and original wheel, plus archive/backend/table identities. Four artificial
+empty-scan requests passed the installed job runner and read-only verification;
+their exact model/backend objects and no-candidate statuses matched. These checks
+ran no folding or experimental predictions. The provisional identity is external
+at `/Users/Rohin/.cache/regsite-wave9-20261022/native-rbs-recheck/candidate-provisional.json`,
+SHA256 `cb6fcb06c8db41c2c6ed5edb543de60363d1a18af500a4535facc629627e72c9`;
+`runner-preflight/` retains its bounded controls. B's exact scope is prepared at
+`/tmp/calculator-wave9-20261022/b-native-development-scope.md`; delivery is blocked
+by Agent Deck's unresolved prior submission, and the owner has been asked to
+submit it manually. This is not a scientific failure or an authorization to
+replace B. Protocol/tooling review and an acknowledged execution freeze remain
+required before the 1,916 proposed record predictions.
+
 The owner plans UTEX 2973 genomics, RNA-seq and ordinary ribosome profiling,
 with an unrecoded parental control and independent biological replicates under
 matched conditions. Each recoded genotype is intended to change one of six
