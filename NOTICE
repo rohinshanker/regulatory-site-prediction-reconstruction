@@ -52,3 +52,13 @@ sequence-to-switch model. See docs/validation/conditional-aptamer-contract.md
 and conditional-aptamer-runtime.md for source pins and explicit limits.
 
 No iDOG wrapper, ViennaRNA, NUPACK or private DNAc code is included.
+
+The optional intrinsic-termination adapter exchanges FASTA/coordinate files with
+separately installed TransTermHP 2.09. Its original source headers specify GNU
+GPL version 2; this project conservatively treats that external component as
+GPL-2.0-only. No TransTermHP source, executable or expterm.dat parameter table is
+bundled in the Python package. The offline builder preserves the external source,
+notices and exact compatibility-patch identities with its installation. See
+docs/validation/intrinsic-termination-source.md for authorship, source hashes,
+parameter provenance and the archive/banner version discrepancy. Native motif
+scores are not termination efficiencies or readthrough probabilities.

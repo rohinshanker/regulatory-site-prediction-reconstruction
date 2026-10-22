@@ -19,6 +19,7 @@ jobs:
     timeout-minutes: 45
     env:
       REGSITE_RNASTRUCTURE: ${{ github.workspace }}/.cache/original/RNAstructure
+      REGSITE_TERMINATION_TEST_BACKEND: ${{ runner.temp }}/regsite-termination/backend.json
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
       - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
@@ -38,6 +39,20 @@ jobs:
         run: |
           python -m coverage run --branch --source=backends/rnastructure66 -m unittest discover -s backends/rnastructure66/tests -p test_build.py -v
           python -m coverage report --include='*/rnastructure66/build.py' --fail-under=100
+      - name: Build the separately licensed pinned termination engine
+        shell: bash
+        run: |
+          curl --fail --location --retry 2 --max-time 120 https://transterm.cbcb.umd.edu/transterm_hp_v2.09.zip -o "$RUNNER_TEMP/transterm_hp_v2.09.zip"
+          curl --fail --location --retry 2 --max-time 120 https://sources.debian.org/data/main/t/transtermhp/2.09-5/debian/patches/0002-read_seq-return-NULL-instead-of-false.patch -o "$RUNNER_TEMP/transterm-null.patch"
+          if [ "$RUNNER_OS" = macOS ]; then
+            term_compiler="$(xcrun --find clang++)"
+            term_sdk="$(xcrun --show-sdk-path)"
+            term_options=(--arch "$(uname -m)" --sysroot "$term_sdk" --cxx-include "$term_sdk/usr/include/c++/v1" --standard-library libc++)
+          else
+            term_compiler="$(command -v g++)"
+            term_options=(--standard-library libstdc++)
+          fi
+          python tools/build_termination_backend.py --archive "$RUNNER_TEMP/transterm_hp_v2.09.zip" --patch "$RUNNER_TEMP/transterm-null.patch" --compiler "$term_compiler" --output "$RUNNER_TEMP/regsite-termination" "${term_options[@]}"
       - name: Static and full runtime gates
         run: |
           ruff check src tests experiments tools
@@ -45,7 +60,7 @@ jobs:
           ruff check benchmarks/rbs/structural.py benchmarks/rbs/new_data.py benchmarks/rbs/wave4_*.py benchmarks/rbs/context_panel.py benchmarks/rbs/context_metrics.py benchmarks/rbs/context_collect.py benchmarks/promoter benchmarks/recoding benchmarks/riboswitch
           ruff format --check benchmarks/rbs/structural.py benchmarks/rbs/new_data.py benchmarks/rbs/wave4_*.py benchmarks/rbs/context_panel.py benchmarks/rbs/context_metrics.py benchmarks/rbs/context_collect.py benchmarks/promoter benchmarks/recoding benchmarks/riboswitch
           mypy src/regsite experiments tools
-          python -m pytest --cov=regsite --cov=benchmarks.rbs --cov=benchmarks.promoter --cov=benchmarks.recoding --cov=benchmarks.riboswitch --cov=experiments.rbs --cov=experiments.promoter --cov=tools.derive_promoter_parameters --cov=tools.measure_promoter_resources --cov=tools.calculator_artifacts --cov-report=term-missing
+          python -m pytest --cov=regsite --cov=benchmarks.rbs --cov=benchmarks.promoter --cov=benchmarks.recoding --cov=benchmarks.riboswitch --cov=experiments.rbs --cov=experiments.promoter --cov=tools.derive_promoter_parameters --cov=tools.measure_promoter_resources --cov=tools.calculator_artifacts --cov=tools.build_termination_backend --cov-report=term-missing
           git diff --check
       - name: Build and validate both separately licensed repairs
         shell: bash
@@ -58,14 +73,20 @@ jobs:
           python -m unittest discover -s backends/rnastructure66/tests -v
           # The complete suite ran above. Repeat only RBS-dependent tests for
           # backend variants; Promoter/edit/reference tests do not use folding.
-          REGSITE_RNASTRUCTURE="$RNASTRUCTURE66_PATCHED" python -m pytest --ignore-glob='tests/test_promoter*' --ignore-glob='tests/benchmarks/test_promoter*' --ignore-glob='tests/benchmarks/test_recoding*' --ignore-glob='tests/benchmarks/test_riboswitch*' --ignore-glob='tests/test_conditional*' --ignore-glob='tests/test_coupling*' --ignore=tests/benchmarks/test_wave4_public_receipt.py --cov=regsite.rbs --cov=regsite.backend --cov=regsite.standby --cov=regsite.structures --cov=regsite.native --cov=regsite.native_cli --cov=regsite.cli --cov=regsite.learned --cov=regsite.features --cov-report=term-missing
-          REGSITE_RNASTRUCTURE="$RNASTRUCTURE66_LINKER3" python -m pytest --ignore-glob='tests/test_promoter*' --ignore-glob='tests/benchmarks/test_promoter*' --ignore-glob='tests/benchmarks/test_recoding*' --ignore-glob='tests/benchmarks/test_riboswitch*' --ignore-glob='tests/test_conditional*' --ignore-glob='tests/test_coupling*' --ignore=tests/benchmarks/test_wave4_public_receipt.py --cov=regsite.rbs --cov=regsite.backend --cov=regsite.standby --cov=regsite.structures --cov=regsite.native --cov=regsite.native_cli --cov=regsite.cli --cov=regsite.learned --cov=regsite.features --cov-report=term-missing
+          REGSITE_RNASTRUCTURE="$RNASTRUCTURE66_PATCHED" python -m pytest --ignore-glob='tests/test_promoter*' --ignore-glob='tests/benchmarks/test_promoter*' --ignore-glob='tests/benchmarks/test_recoding*' --ignore-glob='tests/benchmarks/test_riboswitch*' --ignore-glob='tests/test_conditional*' --ignore-glob='tests/test_coupling*' --ignore-glob='tests/test_termination*' --ignore-glob='tests/test_jobs*' --ignore=tests/benchmarks/test_wave4_public_receipt.py --cov=regsite.rbs --cov=regsite.backend --cov=regsite.standby --cov=regsite.structures --cov=regsite.native --cov=regsite.native_cli --cov=regsite.cli --cov=regsite.learned --cov=regsite.features --cov-report=term-missing
+          REGSITE_RNASTRUCTURE="$RNASTRUCTURE66_LINKER3" python -m pytest --ignore-glob='tests/test_promoter*' --ignore-glob='tests/benchmarks/test_promoter*' --ignore-glob='tests/benchmarks/test_recoding*' --ignore-glob='tests/benchmarks/test_riboswitch*' --ignore-glob='tests/test_conditional*' --ignore-glob='tests/test_coupling*' --ignore-glob='tests/test_termination*' --ignore-glob='tests/test_jobs*' --ignore=tests/benchmarks/test_wave4_public_receipt.py --cov=regsite.rbs --cov=regsite.backend --cov=regsite.standby --cov=regsite.structures --cov=regsite.native --cov=regsite.native_cli --cov=regsite.cli --cov=regsite.learned --cov=regsite.features --cov-report=term-missing
       - name: Build and run fresh offline wheel installation
         shell: bash
         run: |
           python -m build --no-isolation
           python -m venv .cache/fresh
           .cache/fresh/bin/python -m pip install --no-index --no-deps dist/*.whl
+          .cache/fresh/bin/regsite-termination examples/termination-single.json --backend-manifest "$REGSITE_TERMINATION_TEST_BACKEND" > .cache/termination-single.json
+          .cache/fresh/bin/regsite-termination examples/termination-batch.json --backend-manifest "$REGSITE_TERMINATION_TEST_BACKEND" > .cache/termination-batch.json
+          termination_exit=0
+          .cache/fresh/bin/regsite-termination examples/termination-unsupported.json --backend-manifest "$REGSITE_TERMINATION_TEST_BACKEND" > .cache/termination-unsupported.json || termination_exit=$?
+          test "$termination_exit" -eq 1
+          .cache/fresh/bin/python -c 'import json; a=json.load(open(".cache/termination-single.json")); b=json.load(open(".cache/termination-batch.json")); c=json.load(open(".cache/termination-unsupported.json")); assert all(r["schema_version"]=="termination-result-1" and r["status"]=="complete" and r["coverage"]["retained_candidates"]==1 for r in (a,b)); assert c["status"]=="partial" and all(r["candidates"] is None for r in c["records"]); assert all(r["prediction_sha256"] and r["result_sha256"] for r in (a,b,c))'
           .cache/fresh/bin/regsite-coupling examples/coupling-single.json > .cache/coupling-single.json
           .cache/fresh/bin/regsite-coupling examples/coupling-batch.json > .cache/coupling-batch.json
           coupling_exit=0

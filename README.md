@@ -81,9 +81,11 @@ separate validation gates.
 Register complete files in explicit external storage and check their byte identity
 with the [offline artifact manifest tool](docs/validation/calculator-artifact-storage.md).
 
-The job runner is available in development source `0.10.0rc2`. The
-[initial package receipt](docs/validation/offline-jobs-0.10-candidate.md) records
-the preceding candidate and its CI test-portability limitation.
+The job runner has a frozen [0.10.0rc2 package](docs/validation/offline-jobs-0.10rc2-candidate.md)
+with installed-byte checks and explicit CI status. Current development source
+`0.11.0rc1` additionally integrates the independently reviewed optional
+[intrinsic-termination adapter](docs/validation/intrinsic-termination-runtime.md);
+its combined package validation is pending. Frozen older candidates remain intact.
 Run explicit batches offline with the [calculator job runner](docs/validation/offline-calculator-jobs.md):
 
 ```sh
@@ -99,6 +101,20 @@ existing commands sequentially; it does not change scores or split requests.
 Calculator execution and captured output have explicit limits. Filesystem and
 identity work use cooperative deadline checks; captured-byte accounting is not a
 machine-wide disk quota. See the contract for backend examples and failure semantics.
+
+For intrinsic motif candidates, supply the separately built, identified
+TransTermHP backend explicitly:
+
+```sh
+.venv/bin/regsite-termination examples/termination-single.json --backend-manifest /absolute/external/termination/backend.json
+```
+
+Read the [source and build contract](docs/validation/intrinsic-termination-source.md)
+and [runtime limits](docs/validation/intrinsic-termination-runtime.md) first.
+The Python package bundles neither the native executable nor its background
+table. Returned scores describe retained motif candidates; they are not
+termination efficiencies, readthrough probabilities or cyanobacterial calibration.
+This command is separate from the job runner's unchanged five-kind interface.
 
 ## Run the RBS calculator
 
