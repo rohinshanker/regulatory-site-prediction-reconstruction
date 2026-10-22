@@ -3,7 +3,7 @@
 - Purpose: Describe coverage and rank association for four fixed configurations on existing public PCC 6803 development-validation inputs.
 - Scope: Consumed-study exploratory analysis; no fitting, promotion, final outcomes or new experimental planning.
 - Last verified: 2026-10-22
-- State: Initial protocol/feasibility proposal; tooling, independent review and execution freeze remain pending. No native prediction has run for this task.
+- State: Local tooling and artificial verification implemented; finite C/A review and final execution freeze remain pending. No native prediction has run for this task.
 
 The [protocol](../../benchmarks/rbs/native-development-recheck-protocol.json)
 fixes the cohort, candidate, configurations, packing, resources and endpoints
@@ -79,14 +79,19 @@ receipt consistency and stream hashes without executing a prediction. The
 proposed separation has A run and pin those two verification summaries, while B
 binds them and verifies every consumed receipt/output byte before semantics.
 This avoids importing scorer modules through the runner library in B tooling.
-A must confirm this separation before its dependent implementation; it does not
-weaken the requirement for the existing runner's complete verification.
+The artifact interface below implements this proposed separation for finite A/C
+review. Final acceptance and execution acknowledgement remain required; the
+interface does not weaken the installed runner verification requirement.
 
 A complete valid exit-1 JSON batch may retain successful rows beside explicit
 native failures. Timed-out, truncated, refused, abnormal, interrupted or unstarted
 jobs contribute explicit missing predictions for every assigned record; no
 successful-looking prefix is salvaged. Preserve original bytes and reason codes.
-An `ok` score must be finite; missing/failed values remain null, never zero.
+An `ok` score must satisfy its native schema (finite, strictly positive TIR);
+missing/failed values remain null, never zero. A native `invalid_input` record
+with null input/prediction identity and no sites remains unsuccessful: its
+assigned request is still bound by the runner request-copy hash. All other
+records require exact normalized input/settings and a prediction identity.
 
 Report each configuration's all-479 coverage, status/failure counts and
 successful-measured Spearman correlation with denominators. Use the tested
@@ -119,3 +124,114 @@ Final collection requires their accepted tooling and a separate acknowledged
 execution freeze. The provisional preparation receipt is not authorization.
 No worker dispatch, scoring import, predictor call, new source, private outcome,
 consumer change or publication belongs to B's tooling step.
+
+
+## Offline preparation and evaluation interface
+
+Run the benchmark module from the reviewed producer tree using the existing
+locked development environment (`jsonschema`/`referencing` are already present;
+no runtime package dependency is added). It imports no `regsite` or scorer
+module, spawns no process and makes no network call. Committed schemas use only
+local references; an empty reference registry prevents external resolution.
+
+```sh
+python -m benchmarks.rbs.native_development_recheck prepare \
+  --candidate "$CANDIDATE_RECEIPT" --output "$NEW_PREPARED_DIRECTORY"
+python -m benchmarks.rbs.native_development_recheck evaluate \
+  --candidate "$CANDIDATE_RECEIPT" --plan "$PREPARED_PLAN" \
+  --freeze "$EXECUTION_FREEZE" --freeze-sha256 "$FREEZE_SHA256" \
+  --acquisition "$ACQUISITION_RECEIPT" --acquisition-sha256 "$ACQUISITION_SHA256" \
+  --output "$NEW_EVALUATION_DIRECTORY"
+```
+
+`prepare` writes outcome-free requests, two runner manifests, the protocol and
+`plan.json` last. The plan binds full model/backend objects, input/packing
+identities and hashes of this tool, reused helpers and committed schemas.
+A must review/acknowledge those exact bytes before execution. The
+`execution_authorized: false` field in the protocol means the protocol itself
+grants no execution permission; a separate pre-execution acknowledgement is
+required. Never substitute the current installed package for frozen 0.12.
+
+A supplies two external trust documents. The evaluator requires their independently
+communicated SHA256 values, not hashes silently computed to admit arbitrary files:
+
+- `native-rbs-development-freeze-1`: `execution_authorized: true`,
+  `protocol_sha256`, `candidate_receipt_sha256`, `plan_sha256`, and the complete
+  `runtime` object from the reviewed installed runner. Runtime version,
+  executable hash and 54-file code fingerprint must match the pinned candidate.
+  Additional review/resource/pre-post identity receipts may be retained as opaque
+  fields; this checker does not resolve their paths.
+- `native-rbs-development-acquisition-1`: `freeze_sha256` and exactly two
+  `campaigns`, `original` and `linker3`. Each contains an absolute `root` and a
+  `files` map from explicit relative paths to exactly `{bytes, sha256}`. This
+  is A's post-run attestation binding installed-runner verification to preserved
+  bytes, not cryptographic proof of who generated them.
+
+Each acquisition root is an external **evidence directory**, with the original
+runner output beneath `campaign/`. Its siblings `run-summary.json` and
+`verification.json` contain the complete returned run and read-only verify JSON.
+Do not put these siblings inside the runner campaign or alter its layout.
+The file map contains exactly the consumed files:
+
+- `campaign/campaign.json`, `campaign/manifest.json`, both sibling summaries;
+- `campaign/jobs/<fixed-job-id>/request.json` for every planned job;
+- for each one-attempt job with a receipt,
+  `campaign/jobs/<fixed-job-id>/attempt-0001/{receipt.json,stdout,stderr}`;
+- an existing `launch.json` may be included and is hashed as opaque runner-verified
+  evidence; a receipt-less abandoned attempt may include either/both captured
+  streams and that launch file. Absent partial streams remain absent.
+
+The evaluator follows only these derived paths; unconsumed map entries reject.
+It rejects symlinks, traversal, duplicate/nonfinite/malformed JSON, unsupported
+schemas, substitutions, retries, inconsistent counts, incompatible result
+identities and mismatched raw bytes. All planned request copies are checked,
+including unstarted jobs. Valid abandoned/unfinished attempts retain all assigned
+cases as missing; complete transport failures never contribute score prefixes.
+The runner's original run stop reason is retained separately from verify status.
+Run and verify roster/state/accounting must agree. If the runner cannot verify a
+corrupted campaign, no scientific report is produced; preserve the evidence and
+return the concrete admission failure, without rerunning jobs.
+
+All native-result schemas and input/coordinate/identity checks precede extraction
+of successful TIR. Both campaigns must pass before measurement fields are joined.
+The report preserves job state/attempt/elapsed/exit diagnostics, raw artifact
+hashes and fixed aggregate endpoints. It contains no per-record measurements or
+predicted scores. Positive/negative values are not scientific approval: rank
+association and coverage remain separate descriptive endpoints.
+
+Outputs use deterministic sorted-key, two-space, ASCII-escaped finite JSON with
+one trailing LF. New output directories are exclusive, outside repositories,
+mode 0700; atomically published files are mode 0600. Existing files/directories
+are never overwritten. A preparation write failure preserves its incomplete
+new directory; `plan.json` is published last. A failed evaluation admits no report.
+Successful CLI operations return 0 with a small summary; validation/I/O failures
+return 2 with a diagnostic. No resume or retry is provided. The local filesystem
+must remain owner-controlled: checks do not lock all ancestors against a
+concurrent path replacement. Keep original external artifacts immutable.
+
+## Focused verification
+
+The focused test uses artificial requests, schema-valid synthetic native records
+and runner receipts, plus a separate exact-public-input pin check. It verifies
+packing/no label leakage, all four profiles, strict identity/coordinate/null
+semantics, ordinary failures/abandonment, every-case denominators, deterministic
+ranks and group intervals, consistently rehashed semantic mutations, output
+collision/failure behavior and no scorer imports. Synthetic fixtures test
+contracts; they do not establish producer fidelity or biological accuracy.
+
+```sh
+PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 python -m pytest -p pytest_cov \
+  --confcutdir=tests/benchmarks \
+  tests/benchmarks/test_native_development_recheck.py \
+  tests/benchmarks/test_wave4_metrics.py tests/benchmarks/test_metrics.py \
+  --cov=benchmarks.rbs.native_development_recheck --cov-branch \
+  --cov-report=term-missing --cov-fail-under=100
+python -m ruff check benchmarks/rbs/native_development_recheck.py \
+  tests/benchmarks/test_native_development_recheck.py
+python -m mypy --follow-imports=silent --ignore-missing-imports \
+  benchmarks/rbs/native_development_recheck.py
+```
+
+These checks reuse the existing independently reviewed rank helpers. They do not
+repeat a native collection or the full runtime suite. A/C review of the immutable
+patch and A's execution acknowledgement remain separate gates.

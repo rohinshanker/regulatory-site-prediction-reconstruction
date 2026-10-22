@@ -6,15 +6,25 @@
       "reuse frozen installed runner verification for both campaigns; check exactly zero or one attempt per planned job",
       "verify preserved raw artifacts, all result IDs/order, explicit requested starts, settings, schema, complete model/backend objects and status/value consistency"
     ],
+    "external_receipts": {
+      "acquisition_schema": "native-rbs-development-acquisition-1",
+      "freeze_schema": "native-rbs-development-freeze-1",
+      "trust": "Both receipt byte hashes are explicit evaluator arguments; never infer authorization or regenerate expected pins from outputs."
+    },
     "identity_or_schema_substitution": "fail admission; do not classify substituted results as ordinary model failure",
+    "invalid_input": "An explicit invalid_input row may have null input/prediction_id and no sites; the exact runner request-copy hash retains its assigned identity/settings. It remains an unsuccessful all-case record.",
     "native_exit1": "complete valid JSON may retain successful records beside explicit native failures; no roster reduction",
     "transport_failure": "retain every record assigned to a timed-out/truncated/refused/abnormal/interrupted/unstarted job as explicit missing prediction; do not salvage score prefixes",
-    "verification_transport": "pending A confirmation: A runs and pins installed verify summaries; B validates their binding and every consumed receipt/raw-output byte without importing scoring modules"
+    "verification_transport": "A runs the frozen installed runner verify for each campaign and pins verification/run summaries plus consumed artifacts in native-rbs-development-acquisition-1; B checks hashes and semantics without scorer imports. Final A/C protocol acceptance remains required."
   },
   "candidate": {
     "final_execution_freeze": "Requires A/B/C reviewed tooling/protocol and separately acknowledged immutable execution receipt.",
     "identity_review_receipt_sha256": "0ec9ecf69646a7d151836c2cbb1fe59d2cdf4a4ced412c3a833be7748773932b",
     "provisional_receipt_sha256": "cb6fcb06c8db41c2c6ed5edb543de60363d1a18af500a4535facc629627e72c9",
+    "runtime_code": {
+      "files": 54,
+      "sha256": "5cec9199dff52c7000cd3d1fd1639125f222d61ff02467c4daaff86daff069e2"
+    },
     "source_commit": "356abc2d40198a95f807967a38126a14b0f3d0c9",
     "version": "0.12.0rc1",
     "wheel_sha256": "a95abeeca03360e94b2d79a469520c62cfb8d45ff505dc6395032d9aa2f6c11b"
