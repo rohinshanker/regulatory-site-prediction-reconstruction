@@ -4,14 +4,14 @@
 - Status: active
 - Opened: 2026-10-16
 - Updated: 2026-10-21
-- Current State: Historical, footprint/context and standby2014 profiles remain preserved. Joint binding/standby and separately identified linker-3 are implemented, reviewed and independently evaluated. Joint selection did not advance on the frozen Cambray experiment; the scoped source repair and bounded optimizer are complete. Drafting, kinetics, distinct production stacking, folding-search completeness and hosted parity remain open.
+- Current State: Historical, footprint/context, standby2014 and joint profiles remain frozen; joint selection failed its independent advancement gate. B completed source/math admission #65. Separate supplied-rate stationary drafting #66 is implemented at 7c277da and under independent review; it does not derive rates from sequence or modify existing profiles. Sequence-derived kinetics, production stacking, folding-search completeness and hosted parity remain open.
 - Verification: Scientific a11cb5b and integration 1d4b622 passed four-platform CI; 1,624 integrated tests at 100% measured Python coverage and 35 three-engine component checks pass. Frozen Wave 4 review independently reproduces the negative advancement result. Runtime/model/source contracts retain bounded enumeration and energy discrepancies; no native or hosted equivalence is established.
 - Cleanup: Owning session records final checks and unresolved findings, resolves the ticket, distills reusable guidance into docs/validation/, updates both indexes and linked GitHub issue, then removes the resolved ticket.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/4
 - Priority: P0
 - Owner: Session A (`baf5b738-1792172297`), implementation/integration; suite-wide scope remains open where applicable.
 - Dependencies: 03 baseline; 05 supplies hosted evidence as available.
-- Current source dependency: B owns distinct child [#65](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/65), admitting or precisely rejecting the published 2016 kinetic/drafting calculation from primary theory/methods. No runtime term, empirical collection or tuning is authorized by that source task. It is separate from the held termination-data review #64 and stopped native-host thesis audit #58.
+- Current source dependency: [Admitted supplied-rate theory](../../validation/rbs-kinetics-source-admission.md) and six original rational fixtures are integrated unchanged from B abd9f286. [Child #66](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/66) owns implementation; B’s distinct independent numerical checker is reserved and awaiting session delivery. Sequence-to-rate timescales/calibration and the source energy-accounting ambiguity remain unadmitted. Held termination review #64 and native-host audit #58 stay separate.
 
 Extend the tested baseline toward the current production RBS Calculator using papers, supplementary equations/data and legitimate reference outputs. A version label or improved fit does not prove a faithful reconstruction.
 
