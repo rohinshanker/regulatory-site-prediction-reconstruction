@@ -4,7 +4,7 @@
 - Status: active
 - Opened: 2026-10-21
 - Updated: 2026-10-21
-- Current State: source recovery reserved; no sequence inference or training authorized.
+- Current State: DEM-633 source-location evidence inspected; precise non-admission dossier and machine-readable schema partitions prepared for independent Codex review. No sequence inference or training authorized.
 - Verification: exact source pins, located primary evidence, count reconciliation, independent Codex dossier review, documentation checker and diff checks.
 - Cleanup: distill the admission decision into the validation contract and source manifest, remove this ticket and its index row, and close only this bounded child after verification.
 
