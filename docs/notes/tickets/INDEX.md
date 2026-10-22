@@ -24,7 +24,6 @@ A owns remaining runtime/release/improvement scopes 04/06/13; B owns broader sou
 
 | Status | Updated | Ticket | Priority | Scope |
 | --- | --- | --- | --- | --- |
-| A | 2026-10-22 | [A_termination-tabular-export__20261022.md](A_termination-tabular-export__20261022.md) | P1 | C: termination CSV implemented; focused checks pass; awaiting A exact-patch review; [issue #71](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/71) |
 | A | 2026-10-21 | [A_component-calculator-jobs__20261021.md](A_component-calculator-jobs__20261021.md) | P1 | A: version-2 offline dispatch for all eight reviewed components with separate native identities; [issue #68](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/68) |
 | O | 2026-10-21 | [O_rbs-host-transfer__20261021.md](O_rbs-host-transfer__20261021.md) | P0 | Session B: existing-aggregate failure analysis recorded; source audit/independent review provider-blocked, no new UTEX accuracy result; [#58](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/58), parent #12 |
 | A | 2026-10-18 | [A_01-source-recovery-and-open-licensing__20261016.md](A_01-source-recovery-and-open-licensing__20261016.md) | P0 | RBS/Promoter evidence, bounded Operon/Riboswitch admission and canonical constrained-folding fixtures delivered; complete later-tool inference unresolved; [issue #1](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/1) |
