@@ -4,6 +4,7 @@ Verification dates cover the stated source observations or specification review;
 
 | Area | Purpose | Last verified | Document |
 | --- | --- | --- | --- |
+| offline-jobs-0.10rc2-candidate | Frozen revised package, installed-byte binding and explicit cross-platform test/coverage status. | 2026-10-21 | [offline-jobs-0.10rc2-candidate.md](offline-jobs-0.10rc2-candidate.md) |
 | offline-jobs-0.10-candidate | Exact combined development package, installed five-kind execution/resume checks and independent validation boundary. | 2026-10-21 | [offline-jobs-0.10-candidate.md](offline-jobs-0.10-candidate.md) |
 | rbs-kinetics-source-admission | Supplied-rate drafting mathematics, exact scalar fixtures and explicit non-admission of automatic sequence-derived kinetics. | 2026-10-21 | [rbs-kinetics-source-admission.md](rbs-kinetics-source-admission.md) |
 | offline-calculator-jobs | Fixed local calculator commands, external byte-bound artifacts, process supervision, failure accounting and verified resume. | 2026-10-21 | [offline-calculator-jobs.md](offline-calculator-jobs.md) |

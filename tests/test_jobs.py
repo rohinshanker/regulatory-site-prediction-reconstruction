@@ -1464,6 +1464,18 @@ def test_group_probe_detects_missing_owned_group() -> None:
     assert jobs._group_alive(process.pid) is False
 
 
+@pytest.mark.parametrize("error", [ProcessLookupError, PermissionError])
+def test_group_signal_tolerates_absent_or_inaccessible_group(
+    monkeypatch: pytest.MonkeyPatch, error: type[OSError]
+) -> None:
+    def unavailable(pgid: int, signum: int) -> None:
+        assert (pgid, signum) == (12345, signal.SIGTERM)
+        raise error
+
+    monkeypatch.setattr(os, "killpg", unavailable)
+    jobs._signal_group(12345, signal.SIGTERM)
+
+
 def test_lock_refuses_concurrent_use(area: Path, synthetic: None) -> None:
     manifest, out = campaign(area, [{"id": "a"}])
     jobs.run_campaign(manifest, out)
