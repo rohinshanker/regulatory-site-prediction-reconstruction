@@ -1,0 +1,291 @@
+{
+  "schema_version": "termination-admitted-build-1",
+  "scope": "Source-admitted build for adapter implementation; not finished runtime or biological approval",
+  "source_manifest_sha256": "c75eb8a37c1fa6b68489a498019fee7e04ef112661925e490c8c028d8672d454",
+  "source_review_sha256": "9a4b0662e9fdb3d944428a95aa9807a04ff9a0ab38b0bc2d369b0bbe050188dd",
+  "source_recheck_sha256": "1f3fd548f810e3bf67771ae1e508ffe72f22cf161c343561ddb32d64bd4231f3",
+  "build": {
+    "command": [
+      "/usr/bin/make",
+      "-j1",
+      "transterm",
+      "CXX=/Library/Developer/CommandLineTools/usr/bin/clang++",
+      "CXXFLAGS=-g -O3 -Wall -pedantic -std=c++11 -ffp-contract=off -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX26.5.sdk -isystem /Library/Developer/CommandLineTools/SDKs/MacOSX26.5.sdk/usr/include/c++/v1"
+    ],
+    "compiler": "/Library/Developer/CommandLineTools/usr/bin/clang++",
+    "compiler_version": "Apple clang version 21.0.0 (clang-2100.1.1.101)\nTarget: x86_64-apple-darwin25.6.0\nThread model: posix\nInstalledDir: /Library/Developer/CommandLineTools/usr/bin\n",
+    "platform": "macOS-26.6.2-x86_64-i386-64bit",
+    "machine": "x86_64",
+    "stack_limit": [
+      8372224,
+      67092480
+    ],
+    "source_archive_sha256": "b636db1c0fe9731cc760d8f3639209d07f7f35309d83013cc9f9e40798ce8be0",
+    "patch_sha256": "9bbfc2ced3df5332ec41b61bf23ca9acaf030cce3a3688f6c1c7468a5961ba6c",
+    "flags": "-g -O3 -Wall -pedantic -std=c++11 -ffp-contract=off -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX26.5.sdk -isystem /Library/Developer/CommandLineTools/SDKs/MacOSX26.5.sdk/usr/include/c++/v1",
+    "started_unix": 1792624058.100218,
+    "returncode": 0,
+    "elapsed_seconds": 16.936267852783203,
+    "prototype_patch_sha256": "5163cfac5056b67f8a0099f0f15fee683e1eb9ffe8842c20b82511d3779c0a75",
+    "patched_header_sha256": "bf40c7d715f3c2a6541dda8a1a48808c6b9baa6a690b1124f0d8ab8f1644b690",
+    "admission": "Exact one-token correction independently accepted; identical12-control replay verified by C",
+    "binary_sha256": "cb46ec98035b20e3dee1817302f0ff84e8123c18727c7924c87011439806fbc5",
+    "binary_bytes": 241256
+  },
+  "effective_architecture": "arm64",
+  "macho_build_version": "cmd LC_BUILD_VERSION\n  cmdsize 32\n platform 1\n    minos 26.0\n      sdk 26.5\n   ntools 1\n     tool 3\n  version 1267.0",
+  "smoke": {
+    "binary_sha256": "cb46ec98035b20e3dee1817302f0ff84e8123c18727c7924c87011439806fbc5",
+    "prototype_patch_sha256": "5163cfac5056b67f8a0099f0f15fee683e1eb9ffe8842c20b82511d3779c0a75",
+    "table_sha256": "fce89a92ab487aaea5a54015e859e1fb5e31f4f9985c9df7831ee09a367db1fe",
+    "stack_limit": [
+      8388608,
+      67092480
+    ],
+    "cases": [
+      {
+        "case": "positive",
+        "command": [
+          "/Users/Rohin/.cache/regsite-termination-source-20261021/build-prototype-review/transterm",
+          "-p",
+          "/Users/Rohin/.cache/regsite-termination-source-20261021/build-prototype-review/expterm.dat",
+          "--all-context",
+          "-c",
+          "0",
+          "-S",
+          "/Users/Rohin/.cache/regsite-termination-source-20261021/synthetic/positive.fasta",
+          "/Users/Rohin/.cache/regsite-termination-source-20261021/synthetic/positive.coords"
+        ],
+        "exit": 0,
+        "stdout_sha256": "27ae6d3e451f90bc6c42e6e0c8e6090f8c6d05fbe0df7fdc4785c5ccecdf221f",
+        "stderr_sha256": "cbc5aec726447fcc6b3c9a794edbeaf5a8542ccd6fd57f40b1df737fbb6a08e2",
+        "stdout_bytes": 1064,
+        "stderr_bytes": 844,
+        "identical_to_original_except_date_and_table_path": true
+      },
+      {
+        "case": "negative",
+        "command": [
+          "/Users/Rohin/.cache/regsite-termination-source-20261021/build-prototype-review/transterm",
+          "-p",
+          "/Users/Rohin/.cache/regsite-termination-source-20261021/build-prototype-review/expterm.dat",
+          "--all-context",
+          "-c",
+          "0",
+          "-S",
+          "/Users/Rohin/.cache/regsite-termination-source-20261021/synthetic/negative.fasta",
+          "/Users/Rohin/.cache/regsite-termination-source-20261021/synthetic/negative.coords"
+        ],
+        "exit": 0,
+        "stdout_sha256": "b5b53e53b881c976e630243c56dc436ce05b2f7d9655a8643759c744bf372324",
+        "stderr_sha256": "f5b213f5226dfed5d22bc1d65f7ea518e37f7a48f3ccb4a0a6b3791357c22720",
+        "stdout_bytes": 909,
+        "stderr_bytes": 844,
+        "identical_to_original_except_date_and_table_path": true
+      },
+      {
+        "case": "reverse",
+        "command": [
+          "/Users/Rohin/.cache/regsite-termination-source-20261021/build-prototype-review/transterm",
+          "-p",
+          "/Users/Rohin/.cache/regsite-termination-source-20261021/build-prototype-review/expterm.dat",
+          "--all-context",
+          "-c",
+          "0",
+          "-S",
+          "/Users/Rohin/.cache/regsite-termination-source-20261021/synthetic/reverse.fasta",
+          "/Users/Rohin/.cache/regsite-termination-source-20261021/synthetic/reverse.coords"
+        ],
+        "exit": 0,
+        "stdout_sha256": "ef98cb98401ddc48dadaf77727682c79a9d90c30222c86cbdce9a4e99758756e",
+        "stderr_sha256": "639d63b26598744ef447d0369eb1abc4de97f44079c7abdb5abb1968165b71b8",
+        "stdout_bytes": 1374,
+        "stderr_bytes": 844,
+        "identical_to_original_except_date_and_table_path": true
+      },
+      {
+        "case": "length75",
+        "command": [
+          "/Users/Rohin/.cache/regsite-termination-source-20261021/build-prototype-review/transterm",
+          "-p",
+          "/Users/Rohin/.cache/regsite-termination-source-20261021/build-prototype-review/expterm.dat",
+          "--all-context",
+          "-c",
+          "0",
+          "-S",
+          "/Users/Rohin/.cache/regsite-termination-source-20261021/synthetic/length75.fasta",
+          "/Users/Rohin/.cache/regsite-termination-source-20261021/synthetic/length75.coords"
+        ],
+        "exit": 0,
+        "stdout_sha256": "3f05286971e922ac1992cae836d085e9bb625487522e70346ef08ce76b305f82",
+        "stderr_sha256": "b590117dbb805a6d372d7d64bdd7b4926238bba1bb0db530c84432650f1ef4bd",
+        "stdout_bytes": 912,
+        "stderr_bytes": 843,
+        "identical_to_original_except_date_and_table_path": true
+      },
+      {
+        "case": "length76",
+        "command": [
+          "/Users/Rohin/.cache/regsite-termination-source-20261021/build-prototype-review/transterm",
+          "-p",
+          "/Users/Rohin/.cache/regsite-termination-source-20261021/build-prototype-review/expterm.dat",
+          "--all-context",
+          "-c",
+          "0",
+          "-S",
+          "/Users/Rohin/.cache/regsite-termination-source-20261021/synthetic/length76.fasta",
+          "/Users/Rohin/.cache/regsite-termination-source-20261021/synthetic/length76.coords"
+        ],
+        "exit": 0,
+        "stdout_sha256": "83477a24a79b07c456385684fefaaefaf773bc0efb0c9228ce899087ac64d97f",
+        "stderr_sha256": "10e6108ba53edd95045d596ed6ab00e49056faff14aaea65ae0d81166175bc46",
+        "stdout_bytes": 907,
+        "stderr_bytes": 843,
+        "identical_to_original_except_date_and_table_path": true
+      },
+      {
+        "case": "length74",
+        "command": [
+          "/Users/Rohin/.cache/regsite-termination-source-20261021/build-prototype-review/transterm",
+          "-p",
+          "/Users/Rohin/.cache/regsite-termination-source-20261021/build-prototype-review/expterm.dat",
+          "--all-context",
+          "-c",
+          "0",
+          "-S",
+          "/Users/Rohin/.cache/regsite-termination-source-20261021/synthetic/length74.fasta",
+          "/Users/Rohin/.cache/regsite-termination-source-20261021/synthetic/length74.coords"
+        ],
+        "exit": 3,
+        "stdout_sha256": "44b2552421b3414e112e91fc6b653945e8b29304d45b4a1a5ab35fb6bd4fb251",
+        "stderr_sha256": "9721c3868f07ef0aa0ef1cecf75b5c0137e66893af148bfad215aea9c2d4a2a4",
+        "stdout_bytes": 417,
+        "stderr_bytes": 858,
+        "identical_to_original_except_date_and_table_path": true
+      },
+      {
+        "case": "tie27of100",
+        "command": [
+          "/Users/Rohin/.cache/regsite-termination-source-20261021/build-prototype-review/transterm",
+          "-p",
+          "/Users/Rohin/.cache/regsite-termination-source-20261021/build-prototype-review/expterm.dat",
+          "--all-context",
+          "-c",
+          "0",
+          "-S",
+          "/Users/Rohin/.cache/regsite-termination-source-20261021/synthetic/tie27of100.fasta",
+          "/Users/Rohin/.cache/regsite-termination-source-20261021/synthetic/tie27of100.coords"
+        ],
+        "exit": 0,
+        "stdout_sha256": "324fa190ee89a510ab6bfe6357f3f5ef310e493d37bfa312040c6257e6928501",
+        "stderr_sha256": "4dad48cbed09eba4ab86aec2f71a26211c0a598d99ea9da673b219d0201f7321",
+        "stdout_bytes": 968,
+        "stderr_bytes": 844,
+        "identical_to_original_except_date_and_table_path": true
+      },
+      {
+        "case": "boundary_mixed",
+        "command": [
+          "/Users/Rohin/.cache/regsite-termination-source-20261021/build-prototype-review/transterm",
+          "-p",
+          "/Users/Rohin/.cache/regsite-termination-source-20261021/build-prototype-review/expterm.dat",
+          "--all-context",
+          "-c",
+          "0",
+          "-S",
+          "/Users/Rohin/.cache/regsite-termination-source-20261021/synthetic/boundary_mixed.fasta",
+          "/Users/Rohin/.cache/regsite-termination-source-20261021/synthetic/boundary_mixed.coords"
+        ],
+        "exit": 0,
+        "stdout_sha256": "9c2f7ca6a684684a8e237d49f2e91e4e0c8f09eea7b561478d7e68a4a6488447",
+        "stderr_sha256": "1e0dc0e9801d6140779ef5e6c1bc2ee6f2150cc7864080c1ecb728552144c64c",
+        "stdout_bytes": 1161,
+        "stderr_bytes": 844,
+        "identical_to_original_except_date_and_table_path": true
+      },
+      {
+        "case": "boundary_uniform_gc",
+        "command": [
+          "/Users/Rohin/.cache/regsite-termination-source-20261021/build-prototype-review/transterm",
+          "-p",
+          "/Users/Rohin/.cache/regsite-termination-source-20261021/build-prototype-review/expterm.dat",
+          "--all-context",
+          "-c",
+          "0",
+          "-S",
+          "/Users/Rohin/.cache/regsite-termination-source-20261021/synthetic/boundary_uniform_gc.fasta",
+          "/Users/Rohin/.cache/regsite-termination-source-20261021/synthetic/boundary_uniform_gc.coords"
+        ],
+        "exit": 0,
+        "stdout_sha256": "d3dda9b94f23678e620873527ff4d693b61110fa1f8c5ee9461986e9f24190f8",
+        "stderr_sha256": "eba6b92f5281e5c15386cd23d92af414c0a713ef99adbca932a39f3911462f4b",
+        "stdout_bytes": 1159,
+        "stderr_bytes": 844,
+        "identical_to_original_except_date_and_table_path": true
+      },
+      {
+        "case": "bidir_rightmost",
+        "command": [
+          "/Users/Rohin/.cache/regsite-termination-source-20261021/build-prototype-review/transterm",
+          "-p",
+          "/Users/Rohin/.cache/regsite-termination-source-20261021/build-prototype-review/expterm.dat",
+          "--all-context",
+          "-c",
+          "0",
+          "-S",
+          "/Users/Rohin/.cache/regsite-termination-source-20261021/synthetic/bidir_rightmost.fasta",
+          "/Users/Rohin/.cache/regsite-termination-source-20261021/synthetic/bidir_rightmost.coords"
+        ],
+        "exit": 0,
+        "stdout_sha256": "90911bbfb99f0bbba2c5739094967a390da23e49f8acb47bd6de0c1ff4549d7c",
+        "stderr_sha256": "b822d6ca5208668d50f3fd993faf34e10ba6d6f247b0057085114e60fe5d29bf",
+        "stdout_bytes": 972,
+        "stderr_bytes": 844,
+        "identical_to_original_except_date_and_table_path": true
+      },
+      {
+        "case": "bidir_middle",
+        "command": [
+          "/Users/Rohin/.cache/regsite-termination-source-20261021/build-prototype-review/transterm",
+          "-p",
+          "/Users/Rohin/.cache/regsite-termination-source-20261021/build-prototype-review/expterm.dat",
+          "--all-context",
+          "-c",
+          "0",
+          "-S",
+          "/Users/Rohin/.cache/regsite-termination-source-20261021/synthetic/bidir_middle.fasta",
+          "/Users/Rohin/.cache/regsite-termination-source-20261021/synthetic/bidir_middle.coords"
+        ],
+        "exit": 0,
+        "stdout_sha256": "ba43224b5a86ed81614af51460b371e80267a22a86e2aa5a006164e449811e90",
+        "stderr_sha256": "dc57b7c93678841ac2e88d1dac2fd5c5ee2ee01eec9d82b16af6e4516cfddac4",
+        "stdout_bytes": 1213,
+        "stderr_bytes": 844,
+        "identical_to_original_except_date_and_table_path": true
+      },
+      {
+        "case": "tie27_nonsaturated",
+        "command": [
+          "/Users/Rohin/.cache/regsite-termination-source-20261021/build-prototype-review/transterm",
+          "-p",
+          "/Users/Rohin/.cache/regsite-termination-source-20261021/build-prototype-review/expterm.dat",
+          "--all-context",
+          "-c",
+          "0",
+          "-S",
+          "/Users/Rohin/.cache/regsite-termination-source-20261021/synthetic/tie27_nonsaturated.fasta",
+          "/Users/Rohin/.cache/regsite-termination-source-20261021/synthetic/tie27_nonsaturated.coords"
+        ],
+        "exit": 0,
+        "stdout_sha256": "04f482ae8cb9c594d5d7496cf3191dd6b5621a4ac5dde0ffb3709e4fb1cb7162",
+        "stderr_sha256": "2022840f4a431b827da954a12009748f82a520e239dc834b8268756c55f1ba3a",
+        "stdout_bytes": 971,
+        "stderr_bytes": 844,
+        "identical_to_original_except_date_and_table_path": true
+      }
+    ]
+  },
+  "comparison": "Every complete stdout is byte-identical to original fixtures after replacing only built-on date and pval-conf path; all exits identical, including length74exit3; actual stack8MiB",
+  "original_smoke_manifest_sha256": "ec2bd45a47547c1f702165b4c66592a37e5cc2f554da2bc496cb2e88b5fbfe68",
+  "tie_control_sha256": "244f32561b6a2bf3272e7841e30d662faef24459f4dfbf2a5bd5f03f93fd66e0"
+}

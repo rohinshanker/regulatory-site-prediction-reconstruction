@@ -1,0 +1,17 @@
+{
+  "schema_version": "termination-request-1",
+  "settings": {
+    "max_seconds": 30,
+    "per_record_seconds": 5
+  },
+  "records": [
+    {
+      "id": "zero-search-positions",
+      "sequence": "ACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACA"
+    },
+    {
+      "id": "uniform-boundary",
+      "sequence": "GGACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACGG"
+    }
+  ]
+}

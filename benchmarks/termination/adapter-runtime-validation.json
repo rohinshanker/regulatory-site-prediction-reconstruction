@@ -1,0 +1,152 @@
+{
+  "schema_version": "termination-adapter-runtime-validation-1",
+  "source_commit": "2af2c70b0634666090318d1a8cb18050e404050d",
+  "original_build_manifest_sha256": "e62b65d77e196a6faa39dafd470c2dc6216903476049e9fb5f5f1780200889bf",
+  "backend_manifest_sha256": "e7a7181d774fe1da1b5cd277e53dde12f02233c8ea07dcb5ee0af824cd5755f8",
+  "binary_sha256": "b01d8d864eb6f41d36cdbf4d0e46255ce3f702c463c838afdaf21770d3d7cb4d",
+  "source_fixture_sha256": "ec2bd45a47547c1f702165b4c66592a37e5cc2f554da2bc496cb2e88b5fbfe68",
+  "boundary_input_case": "boundary_mixed; exact frozen sequence reused without alteration",
+  "review": {
+    "original_patch": "fb1c908..2276af4",
+    "review_run": "01a160d2-aefe-7eab-a7f3-d7a19430b4c4",
+    "status": "F1-F4 repaired; exact repair recheck pending"
+  },
+  "focused_tests": {
+    "passed": 365,
+    "skipped": 0,
+    "warnings": 1,
+    "statements": 706,
+    "branches": 186,
+    "coverage_percent": 100,
+    "native_integration_included": true
+  },
+  "static_checks": {
+    "ruff": "src tests experiments tools: pass,184files",
+    "mypy": "src/regsite experiments tools: pass,56files"
+  },
+  "checks": [
+    {
+      "name": "single",
+      "command": [
+        "/Users/Rohin/Desktop/coding_stuff/ISAACS-LAB/worktrees/reconstruction-rbs-runtime/.venv/bin/python",
+        "-m",
+        "regsite.termination_cli",
+        "/Users/Rohin/Desktop/coding_stuff/ISAACS-LAB/worktrees/reconstruction-intrinsic-termination-20261021/examples/termination-single.json",
+        "--backend-manifest",
+        "/Users/Rohin/.cache/regsite-termination-adapter-20261021/backend.json"
+      ],
+      "input_sha256": "271da165e424a68f43906a68d3fac809ece0064afc4158bcf5ac58767b0b810f",
+      "exit": 0,
+      "stdout_sha256": "213bfbc49f1205c9e47d1ab6b20d95ceea3b52dd880bc21fe56d75d0b4286680",
+      "stdout_bytes": 3674,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_bytes": 0,
+      "prediction_sha256": "740db369984eab6bb42e5efc937a88f6c3caf6de7eb3acd4db4e06d86b9ea478",
+      "result_sha256": "1f2da4aa1ab5ff74d7eef5030c7dd65eb424b19e05312c9934b9269e4eed6031",
+      "coverage": {
+        "admitted_candidate_scores": 1,
+        "attempted_records": 1,
+        "domain_eligible_records": 1,
+        "failed_records": 0,
+        "not_evaluated_records": 0,
+        "requested_records": 1,
+        "retained_candidates": 1,
+        "successful_records": 1
+      }
+    },
+    {
+      "name": "batch",
+      "command": [
+        "/Users/Rohin/Desktop/coding_stuff/ISAACS-LAB/worktrees/reconstruction-rbs-runtime/.venv/bin/python",
+        "-m",
+        "regsite.termination_cli",
+        "/Users/Rohin/Desktop/coding_stuff/ISAACS-LAB/worktrees/reconstruction-intrinsic-termination-20261021/examples/termination-batch.json",
+        "--backend-manifest",
+        "/Users/Rohin/.cache/regsite-termination-adapter-20261021/backend.json"
+      ],
+      "input_sha256": "bade50fc033a06c07d78812b11036e62e12984e6af6d0f13a125ac7acd47cc8f",
+      "exit": 0,
+      "stdout_sha256": "4a724446df015b9cac0f5cd9888077d8171b04780d1b672504d1f7856ff0f8a2",
+      "stdout_bytes": 4639,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_bytes": 0,
+      "prediction_sha256": "9c0323b8a06a77792d7e594920a5e415def43126611120ce13b663e5119b8c71",
+      "result_sha256": "e0dad694289ece84cfaa1345cec43a773f57b401ef96bb5761d85b1e781086af",
+      "coverage": {
+        "admitted_candidate_scores": 1,
+        "attempted_records": 2,
+        "domain_eligible_records": 2,
+        "failed_records": 0,
+        "not_evaluated_records": 0,
+        "requested_records": 2,
+        "retained_candidates": 1,
+        "successful_records": 2
+      }
+    },
+    {
+      "name": "unsupported",
+      "command": [
+        "/Users/Rohin/Desktop/coding_stuff/ISAACS-LAB/worktrees/reconstruction-rbs-runtime/.venv/bin/python",
+        "-m",
+        "regsite.termination_cli",
+        "/Users/Rohin/Desktop/coding_stuff/ISAACS-LAB/worktrees/reconstruction-intrinsic-termination-20261021/examples/termination-unsupported.json",
+        "--backend-manifest",
+        "/Users/Rohin/.cache/regsite-termination-adapter-20261021/backend.json"
+      ],
+      "input_sha256": "7276ac0105f4ac4d70ee72929ba37bd43a56416cc44596496e0c0f6aef075d3b",
+      "exit": 1,
+      "stdout_sha256": "782ec7eaca67106c68818a4c0a068711044d8b73d9bb478fd27dacf228dcfcc3",
+      "stdout_bytes": 3606,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_bytes": 0,
+      "prediction_sha256": "89e71ff079fe266346fdc0365204a4b5692be54c16f311787339cdd9092c19fd",
+      "result_sha256": "c46a13b6b6b5427219e12846955a5cd29645dec3f445ccacd000b6e3addf8edd",
+      "coverage": {
+        "admitted_candidate_scores": 0,
+        "attempted_records": 0,
+        "domain_eligible_records": 0,
+        "failed_records": 2,
+        "not_evaluated_records": 0,
+        "requested_records": 2,
+        "retained_candidates": 0,
+        "successful_records": 0
+      }
+    },
+    {
+      "name": "boundary",
+      "command": [
+        "/Users/Rohin/Desktop/coding_stuff/ISAACS-LAB/worktrees/reconstruction-rbs-runtime/.venv/bin/python",
+        "-m",
+        "regsite.termination_cli",
+        "/Users/Rohin/.cache/regsite-termination-adapter-20261021/verification-runtime-repair/boundary.request.json",
+        "--backend-manifest",
+        "/Users/Rohin/.cache/regsite-termination-adapter-20261021/backend.json"
+      ],
+      "input_sha256": "cb027a2cc58b58c60e8d785b99e0d6187aad536e7e35c52958d3448cbd1858e7",
+      "exit": 0,
+      "stdout_sha256": "457daad6d555cce2ca11574f2cac4e8ee2f665cbe8a9944e2c14ae5fcbde206b",
+      "stdout_bytes": 4300,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_bytes": 0,
+      "prediction_sha256": "c5ed917206550e8b59d657a106d8e618e99cbeedfe5e177c6e5d41ff887d75fb",
+      "result_sha256": "9059a935f514b8ea0ef1fc1e4b27d1803f107de7124e947fbe0fc2e39c7c9722",
+      "coverage": {
+        "admitted_candidate_scores": 2,
+        "attempted_records": 1,
+        "domain_eligible_records": 1,
+        "failed_records": 0,
+        "not_evaluated_records": 0,
+        "requested_records": 1,
+        "retained_candidates": 3,
+        "successful_records": 1
+      }
+    }
+  ],
+  "raw_results_location": "external installation verification-runtime-repair/",
+  "limitations": [
+    "Original artificial controls only; no biological accuracy/calibration",
+    "Unchanged external source/table/binary; no compiler or source acquisition for repair",
+    "Only recorded ARM64 macOS build verified here",
+    "A owns combined packaging/full-suite/CI; source admission does not close those gates"
+  ]
+}
