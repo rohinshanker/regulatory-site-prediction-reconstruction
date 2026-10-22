@@ -10,7 +10,11 @@ The [checker](../../benchmarks/rbs/drafting_numeric.py) and
 [source mathematics](rbs-kinetics-source-admission.md). The fixture SHA-256 is
 `54ff3c58945f43cd636ac42474c8ede4f39fe25fe49a62aa32327952973a69b6`
 (513,526 bytes, below 512 KiB). The checker authenticates these exact bytes and
-all four original source/contract pins before checking any result. It cannot
+the four recorded source/contract identities before checking any result. Those
+source bytes were separately verified at preparation baseline
+`1897fc53d32f0e07bf27540f74acdb5cd5a78b10`. They are historical references;
+the checker does not reopen mutable integrated documents or claim to verify
+their current bytes. It cannot
 replace expectations or pins from candidate data. Keep the fixture and protocol
 commit frozen before any separately authorized candidate execution.
 
@@ -61,14 +65,18 @@ The fixed comparisons are:
   A tolerance interval crossing zero does not permit switching representations.
   Occupancies cannot exceed one. Signed zero folding input must echo as +0.
 
-One deliberate boundary requires coordinator attention: `finite-panel`, record
+One deliberate boundary is `finite-panel`, record
 index **5**, occupied occupancy has quantized interval `[0, min_subnormal]` but
 its exact value lies just above half a minimum subnormal. It therefore rounds to
 `min_subnormal` and requires `finite`. Its frozen
 `zero_boundary_ambiguous: true` flags that a tolerance-scale perturbation crosses
-zero; it does not widen acceptance. This case may expose disagreement between
-approximate log arithmetic and the strict representation wording. Return that
-ambiguity to B; do not revise the interval after seeing candidate results.
+zero; it does not widen acceptance. Before any candidate execution, A explicitly
+confirmed this strict rule in contract clarification
+[`c9ab1e9`](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/commit/c9ab1e9fbc34da188f4f9c2b0fb8027d82b75d3e),
+whose `docs/validation/rbs-drafting-contract.md` is 8,188 bytes, SHA-256
+`688222af1c2bd29caacb5c7ff0bb770ced30f7dd86bf1fe0d1b2d593a14bf220`.
+That clarification resolves the question without changing the fixture or
+tolerances. It is a separate historical reference, not a replacement source pin.
 
 For this domain, throughput always rounds positive:
 `J >= e*b/(e+b) > b/2 >= min_subnormal/2`. In particular the coordinator-supplied
@@ -141,8 +149,9 @@ Coordinator B supplied this public schema constant from source commit
 `356abc2d40198a95f807967a38126a14b0f3d0c9`, path
 `schemas/drafting-result-1.schema.json`, SHA-256
 `0b5dc941cac51ff8cbe7d70e63a0a6633a3a9bffe1f6991625ab2dc018b62371`.
-This implementer did not read those schema bytes or any candidate internals.
-The fixture records that distinction. Warning identity is explicit; no keyword
+The implementer received this identity from B, who verified the public schema
+bytes directly. Neither read candidate internals. The fixture records the
+implementer's supplied-evidence distinction. Warning identity is explicit; no keyword
 or semantic inference is used. Tests simulate separate warning identities using
 clearly artificial strings and also test this supplied public constant.
 
@@ -151,6 +160,45 @@ execution**. A missing receipt is a setup error, never a passing check. The chec
 binds all result model fields and warnings to the receipt. It does not read a
 source checkout, wheel or execution settings, so those receipt hashes remain
 claims; matching them does not independently verify candidate bytes or settings.
+
+## Later execution protocol
+
+Preparation and review do not authorize execution. After A accepts the immutable
+fixture/protocol commit and explicitly authorizes the candidate run, freeze an
+external settings file and identity receipt. The current proposed package is
+0.12.0rc1, source `356abc2d40198a95f807967a38126a14b0f3d0c9`, wheel SHA-256
+`a95abeeca03360e94b2d79a469520c62cfb8d45ff505dc6395032d9aa2f6c11b`
+(189,790 bytes), supplied by A. Preserve that original candidate even if a later
+package exists. Verify the actual wheel and installed-file receipt before running;
+the result checker cannot establish those identities by itself.
+
+Use all 30 cases in fixture order, once each, with no retries or outcome-dependent
+selection. Materialize request bytes using the frozen recipe above into exclusive
+external files and record their SHA-256 and byte counts. From an external working
+directory, the command for each case is:
+
+```text
+ABSOLUTE_CANDIDATE_PYTHON -I -m regsite.drafting_cli ABSOLUTE_REQUEST_FILE
+```
+
+Freeze the resolved interpreter/installed candidate, exact argument arrays,
+environment, fixture/protocol/checker identities and the following execution
+limits in the settings receipt before starting: one serial process, ten seconds
+per request, stdout bounded at 4,194,305 bytes (one byte beyond the result cap),
+stderr at 65,536 bytes, and no network/backend/folding process. Retain explicit
+exit/timeout/overflow status, byte counts and hashes in the execution receipt;
+store complete outputs within those limits. A timeout, overflow, identity change
+or unexpected exit stops subsequent execution and requires a finding disposition,
+not an automatic rerun. Unstarted cases remain missing in the full denominator.
+An ordinary checked numerical mismatch does not change inputs or tolerances.
+
+Expected CLI exits are 0 for complete envelopes, 1 for partial envelopes and 2
+for invalid envelopes/transport. Check these against the execution receipt
+separately: the JSON checker receives only result files and does not verify
+process exit codes, environment, elapsed time, stderr or installed code. Preserve
+those evidence limits in any combined conclusion. Candidate outputs and execution
+receipts stay external; only a compact public numerical summary may later be
+added within a separately agreed path. No current candidate result has been read.
 
 ## Offline checker invocation and outputs
 
@@ -193,7 +241,12 @@ mutations so arithmetic and structure checks are exercised beyond hash rejection
 Reports use fixed fixture order and deterministic serialization. They retain the
 full expected denominators and every case, including missing or unreadable
 results. Each row states its expected record count, failures and credited record
-count. A case earns credit for all its expected records only when every check
+count. Each successfully read result also records its exact received byte count
+and SHA-256, including malformed JSON; missing, unreadable or over-limit files
+have null byte identities. CLI reports bind the identity receipt and checker
+source bytes by SHA-256. This is a byte identity, not an attestation against
+concurrent modification of the local process or files. A case earns credit for
+all its expected records only when every check
 passes; otherwise it earns zero. Credit is contract agreement, not biological
 accuracy. Supplied unreadable/oversized files produce explicit transport failures
 while retaining all-case accounting. Invocation/trust errors emit an explicit
@@ -203,9 +256,12 @@ Exit codes are **0** for all cases passing, **1** for checked failures or missin
 case paths, and **2** for invocation/trust/setup errors or supplied-file transport
 failures. Without `--output`, the report goes to stdout. File output uses a private
 0600 temporary file and an atomic exclusive hard link in the destination parent;
-it refuses existing files/symlinks and protected fixture/source/identity/result
+it refuses existing files/symlinks and protected fixture/checker/source/identity/result
 paths. It never overwrites a report or input. The existing destination parent
 must permit creating and linking regular files.
+Parent-directory path swaps are outside this local-file threat model; use an
+exclusive task directory and preserve source, identity and result files during
+checking. No directory tree is traversed or recursively authenticated.
 
 ## Isolated verification
 

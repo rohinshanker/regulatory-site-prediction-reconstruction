@@ -162,6 +162,19 @@ def test_number_form_and_representation_edges(panel):
     assert reps == {"finite", "underflow", "exact_zero"}
 
 
+def test_strict_rounding_and_normalized_zero_echo(panel, identity):
+    case = case_by_id(panel, "finite-panel")
+    value = payload(case, identity)
+    value["records"][1]["input"]["rates"]["a_fold"] = -0.0
+    assert n.check_result(seal(value), case, identity) == ["record[1] input"]
+    value = payload(case, identity)
+    occupied = value["records"][5]["occupancies"]["occupied"]
+    occupied.update(value=None, representation="underflow")
+    errors = n.check_result(seal(value), case, identity)
+    assert "record[5] occupied: representation" in errors
+    assert "prediction hash" not in errors
+
+
 def test_all_artificial_payloads_pass(panel, identity):
     for case in panel["cases"]:
         assert n.check_result(seal(payload(case, identity)), case, identity) == []
@@ -413,6 +426,7 @@ def test_fixture_trust(tmp_path, monkeypatch):
     "mutation,label",
     [
         (lambda p: p.__setitem__("schema_version", "other"), "schema/pins"),
+        (lambda p: p["pins"].__setitem__(next(iter(n.PINS)), "0" * 64), "schema/pins"),
         (lambda p: p.__setitem__("cases", []), "case bound"),
         (lambda p: p["cases"].__setitem__(0, {}), "case shape"),
         (lambda p: p["cases"][0].__setitem__("id", p["cases"][1]["id"]), "case ID"),
@@ -435,17 +449,18 @@ def test_fixture_structure_mutations(panel, tmp_path, monkeypatch, mutation, lab
         n.load_fixture(file)
 
 
-def test_source_pin_failure(panel, tmp_path, monkeypatch):
+def test_source_pins_are_historical_references(panel, tmp_path, monkeypatch):
+    # Integration may change documentation headers or relocate the checker.
+    # Authenticate the frozen panel; never follow source-reference paths here.
     real = n.read_bounded
-    monkeypatch.setattr(
-        n,
-        "read_bounded",
-        lambda p, limit: (
-            b"wrong" if p == n.ROOT / next(iter(n.PINS)) else real(p, limit)
-        ),
-    )
-    with pytest.raises(n.Invalid, match="source pin mismatch"):
-        n.load_fixture()
+
+    def fixture_only(path, limit):
+        assert path == n.FIXTURE
+        return real(path, limit)
+
+    monkeypatch.setattr(n, "ROOT", tmp_path / "no-documents")
+    monkeypatch.setattr(n, "read_bounded", fixture_only)
+    assert n.load_fixture() == panel
 
 
 def identity_file(tmp_path, identity):
@@ -517,10 +532,33 @@ def test_report_missing_and_transport(panel, identity, tmp_path):
     assert outcome["passed_requests"] == outcome["credited_records"] == 0
     assert outcome["expected"] == panel["denominators"]
     assert len(outcome["cases"]) == 30
+    assert all(
+        row["result_sha256"] is None and row["result_bytes"] is None
+        for row in outcome["cases"]
+    )
     outcome = n.report(panel, identity, {panel["cases"][0]["id"]: tmp_path / "missing"})
     assert outcome["transport_failures"] == 1
     assert outcome["cases"][0]["credited_records"] == 0
+    assert outcome["cases"][0]["result_sha256"] is None
+    assert outcome["cases"][0]["result_bytes"] is None
     assert len(outcome["cases"]) == 30
+
+
+def test_report_binds_received_bytes_even_when_malformed(panel, identity, tmp_path):
+    case = panel["cases"][0]
+    path = tmp_path / "result"
+    for raw in (seal(payload(case, identity)), b'{"malformed":'):
+        path.write_bytes(raw)
+        row = n.report(panel, identity, {case["id"]: path})["cases"][0]
+        assert row["result_sha256"] == n.digest(raw)
+        assert row["result_bytes"] == len(raw)
+        assert not row["transport_failure"]
+        assert row["passed"] == raw.endswith(b"\n")
+    with path.open("wb") as handle:
+        handle.truncate(n.OUTPUT_LIMIT + 1)
+    row = n.report(panel, identity, {case["id"]: path})["cases"][0]
+    assert row["transport_failure"]
+    assert row["result_sha256"] is None and row["result_bytes"] is None
 
 
 def test_atomic_private_no_overwrite(tmp_path, monkeypatch):
@@ -557,6 +595,7 @@ def test_cli_all_cases_and_failures(panel, identity, tmp_path, capsys):
     successful = json.loads(capsys.readouterr().out)
     assert successful["credited_records"] == 198 and successful["all_passed"]
     assert successful["identity_sha256"] == sha
+    assert successful["checker_sha256"] == n.digest(n.CHECKER.read_bytes())
     changed = payload(panel["cases"][0], identity)
     changed["records"][0]["throughput"]["unit"] = "wrong"
     (tmp_path / "result-0").write_bytes(seal(changed))
