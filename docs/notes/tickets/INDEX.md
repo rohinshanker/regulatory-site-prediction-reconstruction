@@ -24,6 +24,7 @@ A owns remaining runtime/release/improvement scopes 04/06/13; B owns broader sou
 
 | Status | Updated | Ticket | Priority | Scope |
 | --- | --- | --- | --- | --- |
+| A | 2026-10-22 | [A_termination-tabular-export__20261022.md](A_termination-tabular-export__20261022.md) | P1 | C: local standalone termination CSV projection; A exact-patch review; [issue #71](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/71) |
 | A | 2026-10-21 | [A_component-calculator-jobs__20261021.md](A_component-calculator-jobs__20261021.md) | P1 | A: version-2 offline dispatch for all eight reviewed components with separate native identities; [issue #68](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/68) |
 | A | 2026-10-21 | [A_rbs-supplied-rate-drafting__20261021.md](A_rbs-supplied-rate-drafting__20261021.md) | P1 | A: supplied-rate stationary drafting runtime; B independent scalar expectations; [issue #66](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/66) |
 | O | 2026-10-21 | [O_rbs-host-transfer__20261021.md](O_rbs-host-transfer__20261021.md) | P0 | Session B: existing-aggregate failure analysis recorded; source audit/independent review provider-blocked, no new UTEX accuracy result; [#58](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/58), parent #12 |
