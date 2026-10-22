@@ -33,3 +33,11 @@ Preserve PV-R1, stopped DEM-577/568 and refused #58 thesis audit. No consumer/ca
 edits, private-outcome tuning, new paid jobs, main merges, tags or publication. New
 credential/admin/sudo/keychain/macOS access requires exact prior disclosure and
 owner decision; never bypass a pending/denied approval.
+
+CI 39697665315 passed all four complete runtime suites; fresh installation then
+refused the relative manifest paths in the workflow (`manifest_path`). The
+workflow and README now pass absolute paths required by the unchanged contract.
+The exact installed RC2 wheel reproduced the refusal and then passed the five
+corrected CI run/verify/resume invocations, including the real folding backend.
+Evidence remains external in A’s `ci-wheel-smoke` directory. Full replacement
+CI is pending; this was a caller correction, not a runtime identity relaxation.

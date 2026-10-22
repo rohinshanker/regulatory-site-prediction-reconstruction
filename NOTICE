@@ -53,6 +53,16 @@ and conditional-aptamer-runtime.md for source pins and explicit limits.
 
 No iDOG wrapper, ViennaRNA, NUPACK or private DNAc code is included.
 
+src/regsite/drafting*.py independently expresses the stationary three-state
+balances from Espah Borujeni and Salis (2016), doi:10.1021/jacs.6b01453,
+supplementary pages S15-S16. The CC-BY-NC-4.0 supplement stays external; no
+original prose, figures or experimental measurements are bundled. The new
+code and artificial mathematical fixtures use GPL-3.0-or-later. All rates and
+their time unit must be supplied explicitly; this component does not infer
+rates from sequence or establish native-host calibration. Source pins and the
+admitted domain are in docs/validation/rbs-kinetics-source-admission.md and
+docs/validation/rbs-drafting-contract.md.
+
 The optional intrinsic-termination adapter exchanges FASTA/coordinate files with
 separately installed TransTermHP 2.09. Its original source headers specify GNU
 GPL version 2; this project conservatively treats that external component as

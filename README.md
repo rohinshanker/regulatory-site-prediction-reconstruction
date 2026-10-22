@@ -83,18 +83,20 @@ with the [offline artifact manifest tool](docs/validation/calculator-artifact-st
 
 The job runner has a frozen [0.10.0rc2 package](docs/validation/offline-jobs-0.10rc2-candidate.md)
 with installed-byte checks and explicit CI status. Current development source
-`0.11.0rc1` additionally integrates the independently reviewed optional
+`0.12.0rc1` additionally integrates the independently reviewed optional
 [intrinsic-termination adapter](docs/validation/intrinsic-termination-runtime.md);
-its combined package validation is pending. Frozen older candidates remain intact.
+its [0.11 package](docs/validation/termination-0.11-candidate.md) passed local
+validation. The new supplied-rate drafting component and combined 0.12 package
+are undergoing integration checks. Frozen older candidates remain intact.
 Run explicit batches offline with the [calculator job runner](docs/validation/offline-calculator-jobs.md):
 
 ```sh
-.venv/bin/regsite-jobs run --manifest examples/jobs-synthetic/manifest.json --output-dir /absolute/external/new-campaign
-.venv/bin/regsite-jobs verify --manifest examples/jobs-synthetic/manifest.json --output-dir /absolute/external/new-campaign
-.venv/bin/regsite-jobs resume --manifest examples/jobs-synthetic/manifest.json --output-dir /absolute/external/new-campaign
+.venv/bin/regsite-jobs run --manifest "$PWD/examples/jobs-synthetic/manifest.json" --output-dir /absolute/external/new-campaign
+.venv/bin/regsite-jobs verify --manifest "$PWD/examples/jobs-synthetic/manifest.json" --output-dir /absolute/external/new-campaign
+.venv/bin/regsite-jobs resume --manifest "$PWD/examples/jobs-synthetic/manifest.json" --output-dir /absolute/external/new-campaign
 ```
 
-The output parent must already exist. Complete request/output bytes and receipts
+Manifest and output paths must be absolute; the output parent must already exist. Complete request/output bytes and receipts
 stay in that external directory. Resume checks input, runtime and backend identity
 and preserves verified terminal jobs, including failures. The runner executes
 existing commands sequentially; it does not change scores or split requests.
@@ -115,6 +117,21 @@ The Python package bundles neither the native executable nor its background
 table. Returned scores describe retained motif candidates; they are not
 termination efficiencies, readthrough probabilities or cyanobacterial calibration.
 This command is separate from the job runner's unchanged five-kind interface.
+
+The separate drafting command calculates stationary occupancies and throughput
+from four caller-supplied rates:
+
+```sh
+.venv/bin/regsite-drafting examples/drafting-single.json
+.venv/bin/regsite-drafting examples/drafting-batch.json
+```
+
+Read the [drafting contract](docs/validation/rbs-drafting-contract.md) for units,
+the admitted rate domain and explicit underflow/failure representations. This
+small kinetic calculation does not derive rates from DNA, modify the existing
+RBS profiles or predict completed protein production. Artificial controls check
+the mathematics; experimental calibration and sequence-to-rate inference remain
+separate dependencies. No folding backend or account is required.
 
 ## Run the RBS calculator
 
