@@ -76,4 +76,4 @@ Verification dates cover the stated source observations or specification review;
 | rbs-wave4-results | Independently verified frozen experimental results, negative advancement decision, complete denominators and consumed-panel boundary. | 2026-10-18 | [rbs-wave4-results.md](rbs-wave4-results.md) |
 | promoter-executed-reference | Pinned optional source execution, independent finite-state fixtures, compatibility failures and corrected coordinate semantics. | 2026-10-17 | [promoter-executed-reference.md](promoter-executed-reference.md) |
 | intrinsic-termination-source | Pinned TransTermHP candidate-score source, parameter and fragment admission boundary. | 2026-10-21 | [intrinsic-termination-source.md](intrinsic-termination-source.md) |
-| intrinsic-termination-runtime | Independently reviewed bounded external-engine adapter; common package/CI gates remain. | 2026-10-21 | [intrinsic-termination-runtime.md](intrinsic-termination-runtime.md) |
+| intrinsic-termination-runtime | Reviewed bounded external-engine adapter, accepted 0.12 package and Linux/macOS CI boundary. | 2026-10-21 | [intrinsic-termination-runtime.md](intrinsic-termination-runtime.md) |

@@ -1,7 +1,7 @@
 # Intrinsic-termination source boundary
 
 - Purpose: Define the pinned source, numerical behavior and meaning of the optional external candidate scorer.
-- Scope: Source-admitted TransTermHP fragment profile with independently reviewed adapter; common package integration remains separate.
+- Scope: Source-admitted TransTermHP fragment profile with independently reviewed and package-verified adapter; biological validation remains separate.
 - Last verified: 2026-10-21
 
 ## Source and terms
