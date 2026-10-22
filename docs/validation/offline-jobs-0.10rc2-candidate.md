@@ -41,5 +41,8 @@ passed all 6,341 applicable Linux/Python 3.14 tests, with one declared
 conditional-backend skip, but failed the 100% coverage gate: two signal-error
 handler lines were exercised incidentally on macOS and not Linux. Deterministic
 tests now exercise both error cases without changing runtime code. The remaining
-matrix and correction are not yet accepted. Main merge, tag/package publication
-and consumer admission remain separate gates.
+matrix passed in the [0.12 integration candidate](drafting-0.12-candidate.md#verification-boundary)
+at `efe90fcb`, including deterministic error-path tests and corrected absolute
+manifest paths. The reviewed runner bytes are unchanged. This successor receipt
+does not mark the older exact-source run successful. Main merge, tag/package
+publication and consumer admission remain separate gates.

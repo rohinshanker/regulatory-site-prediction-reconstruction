@@ -1,7 +1,7 @@
 # Supplied-rate drafting 0.12.0rc1 development candidate
 
 - Purpose: Bind the reviewed stationary drafting component to an installed local package.
-- Scope: Mathematical and software verification; separate numerical tooling and platform gates remain explicit.
+- Scope: Mathematical and software verification with passing platform gates; independent numerical tooling remains explicit.
 - Last verified: 2026-10-21
 
 The [package receipt](../../models/drafting/0.12.0rc1/package.json) identifies
@@ -78,7 +78,18 @@ workflow/documentation repair `e73c1b2`, with no remaining finding. Installed
 smoke assertions bind all model fields and request/prediction hashes, and failed
 CI smoke checks expose bounded diagnostics. The runtime files are unchanged.
 
-Cross-platform package CI remains pending. No current hosted equivalence,
+[CI 39703039920](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/actions/runs/39703039920)
+passed all eight jobs at `efe90fcb3b7b788fcd0c2920b68f79eeccae3551`: macOS 14
+and Ubuntu 24.04, each with Python 3.11 and 3.14, plus four Promoter resource
+jobs. Each runtime job passed 6,971 tests with full coverage and one declared
+exact-original conditional-backend skip; the local suite above enables that
+backend. Each repaired-folding variant also passed 3,000 tests. Native termination
+and fresh installed-package smoke checks passed on all four platforms. Runtime,
+schema, example, dependency and packaging-source bytes match the frozen source;
+later commits contain receipts, documentation and workflow repairs. This receipt
+does not retroactively mark older failed package-source CI runs successful.
+
+No current hosted equivalence,
 cyanobacterial calibration, biological improvement, consumer admission or
 publication is claimed. Sequence-to-rate inference and new experimental
 validation remain open under the parent RBS refinement program.

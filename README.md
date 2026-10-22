@@ -88,7 +88,9 @@ with installed-byte checks and explicit CI status. Current development source
 its [0.11 package](docs/validation/termination-0.11-candidate.md) passed local
 validation. The [combined 0.12 package](docs/validation/drafting-0.12-candidate.md), including
 supplied-rate drafting, passed local tests and fresh installation. Independent
-package review is accepted; platform CI remains pending. Frozen older candidates remain intact.
+package review is accepted, and all eight macOS/Linux CI jobs passed at
+`efe90fcb`. B’s independent drafting numerical check remains pending. Frozen older
+candidates remain intact.
 Run explicit batches offline with the [calculator job runner](docs/validation/offline-calculator-jobs.md):
 
 ```sh

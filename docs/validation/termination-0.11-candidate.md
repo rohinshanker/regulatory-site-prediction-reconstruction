@@ -71,6 +71,7 @@ accepted the unchanged package after workflow-only repair `950b833`: the backend
 variable now uses a supported step-level context, and installed smoke assertions
 pin the exact score, geometry, empty roster and unsupported reasons. The same
 reviewer reproduced positive and mutation controls with no remaining finding.
-The cross-platform native matrix remains pending. This is a local development
-candidate; no hosted equivalence, cyanobacterial calibration,
+The unchanged termination component subsequently passed all four native-platform
+jobs in the [0.12 integration matrix](drafting-0.12-candidate.md#verification-boundary)
+at `efe90fcb`. This is a development candidate; no hosted equivalence, cyanobacterial calibration,
 empirical benchmark admission, consumer release or publication is claimed.
