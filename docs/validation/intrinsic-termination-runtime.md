@@ -1,7 +1,7 @@
 # Intrinsic-termination adapter contract
 
 - Purpose: Specify the optional external-engine interface and reproducible offline verification.
-- Scope: Independently reviewed optional TransTermHP fragment adapter for #62; common package and cross-platform integration remain separate gates.
+- Scope: Independently reviewed optional TransTermHP fragment adapter with accepted 0.12 development-package and Linux/macOS integration gates.
 - Last verified: 2026-10-21
 
 Read the [source boundary](intrinsic-termination-source.md) first. This interface
@@ -53,7 +53,8 @@ It checks archive/member hashes and safe paths, excludes bundled executables,
 preserves source/notices separately and builds only `transterm` with `make -j1`.
 No download, install, calibration or host configuration occurs. A completed backend
 manifest is written only after the build succeeds and the executable is identified.
-Common package configuration and console registration belong to A.
+The accepted development package registers `regsite-termination`; its engine
+remains an explicitly supplied external dependency.
 
 One fragment runs per process with a private temporary working directory and
 fixed filenames/identifier: `input.fasta`, `input.coords`, `expterm.dat`,
@@ -204,7 +205,37 @@ PYTHONPATH=src REGSITE_TERMINATION_TEST_BACKEND=/external/new-backend/backend.js
 ```
 
 Without that explicit test backend,17 native release checks are skipped and must
-not be reported as verified. Other toolchains/platforms, genome-scale behavior,
-biological accuracy and common package/CI admission are not established by this
-local receipt. A owns shared console registration, package version and CI; the
-module command works directly in this isolated implementation.
+not be reported as verified. That local receipt establishes only its recorded ARM64 macOS build. The
+separate package/platform acceptance below expands the software validation
+boundary; genome-scale behavior and biological accuracy remain unverified.
+
+## Accepted development-package and platform boundary
+
+The [0.12 package guide](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/blob/4eba1b6f197cdb843ac778b746fefed0676d6dab/docs/validation/drafting-0.12-candidate.md)
+and its [immutable receipt](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/blob/4eba1b6f197cdb843ac778b746fefed0676d6dab/models/drafting/0.12.0rc1/package.json)
+bind frozen source `356abc2d40198a95f807967a38126a14b0f3d0c9`. All five
+termination modules match reviewed code `6113b54a467af3f90a9a70b20a77c2247983a91c`
+in that source, the wheel, the source archive and the tested CI source.
+
+The wheel SHA256 is
+`a95abeeca03360e94b2d79a469520c62cfb8d45ff505dc6395032d9aa2f6c11b`;
+the source archive is
+`2d9f42fe24419faf4ab9be16273af3aba5d275edd578bc4d0a40cc9813706954`.
+All 54 installed runtime files match their source. The distribution contains no
+native executable or background table. Independent package review and its focused
+repair recheck accepted the integration with no open finding.
+
+The combined local gate passed 6,972 tests with zero skips and full coverage of
+17,506 statements and 6,514 branches. Thirty fresh offline build/install checks
+include installed termination controls and complete identity checks.
+[CI 39703039920](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/actions/runs/39703039920)
+passed all eight jobs at `efe90fcb3b7b788fcd0c2920b68f79eeccae3551`.
+Each Linux/macOS and Python 3.11/3.14 runtime job built the native termination
+engine and passed its installed controls. Each runtime suite passed 6,971 tests
+with one declared exact-original conditional-backend skip unrelated to termination;
+the local gate includes that backend. No termination check was skipped.
+
+This completes the scoped intrinsic-termination candidate adapter. Preserve the
+source, numerical and missingness contracts above for future changes. Full Operon
+inference, sequence-to-stability reconstruction, empirical/native calibration,
+consumer admission and publication retain their separate scopes.
