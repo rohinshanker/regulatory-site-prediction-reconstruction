@@ -4,6 +4,7 @@ Verification dates cover the stated source observations or specification review;
 
 | Area | Purpose | Last verified | Document |
 | --- | --- | --- | --- |
+| rbs-drafting-numeric-results | Frozen original 0.12 supplied-rate artificial evaluation, complete accounting and separate execution/semantic evidence. | 2026-10-22 | [rbs-drafting-numeric-results.md](rbs-drafting-numeric-results.md) |
 | rbs-drafting-numeric-validation | Frozen independent artificial oracle, explicit candidate receipt and bounded all-case external result checking. | 2026-10-21 | [rbs-drafting-numeric-validation.md](rbs-drafting-numeric-validation.md) |
 | rbs-drafting-contract | Frozen supplied-rate stationary interface, units, underflow and independent numerical acceptance; implementation pending. | 2026-10-21 | [rbs-drafting-contract.md](rbs-drafting-contract.md) |
 | offline-jobs-0.10rc2-candidate | Frozen revised package, installed-byte binding and explicit cross-platform test/coverage status. | 2026-10-21 | [offline-jobs-0.10rc2-candidate.md](offline-jobs-0.10rc2-candidate.md) |
