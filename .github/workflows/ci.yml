@@ -19,7 +19,6 @@ jobs:
     timeout-minutes: 45
     env:
       REGSITE_RNASTRUCTURE: ${{ github.workspace }}/.cache/original/RNAstructure
-      REGSITE_TERMINATION_TEST_BACKEND: ${{ runner.temp }}/regsite-termination/backend.json
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
       - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
@@ -54,6 +53,8 @@ jobs:
           fi
           python tools/build_termination_backend.py --archive "$RUNNER_TEMP/transterm_hp_v2.09.zip" --patch "$RUNNER_TEMP/transterm-null.patch" --compiler "$term_compiler" --output "$RUNNER_TEMP/regsite-termination" "${term_options[@]}"
       - name: Static and full runtime gates
+        env:
+          REGSITE_TERMINATION_TEST_BACKEND: ${{ runner.temp }}/regsite-termination/backend.json
         run: |
           ruff check src tests experiments tools
           ruff format --check src tests experiments tools
@@ -77,6 +78,8 @@ jobs:
           REGSITE_RNASTRUCTURE="$RNASTRUCTURE66_LINKER3" python -m pytest --ignore-glob='tests/test_promoter*' --ignore-glob='tests/benchmarks/test_promoter*' --ignore-glob='tests/benchmarks/test_recoding*' --ignore-glob='tests/benchmarks/test_riboswitch*' --ignore-glob='tests/test_conditional*' --ignore-glob='tests/test_coupling*' --ignore-glob='tests/test_termination*' --ignore-glob='tests/test_jobs*' --ignore=tests/benchmarks/test_wave4_public_receipt.py --cov=regsite.rbs --cov=regsite.backend --cov=regsite.standby --cov=regsite.structures --cov=regsite.native --cov=regsite.native_cli --cov=regsite.cli --cov=regsite.learned --cov=regsite.features --cov-report=term-missing
       - name: Build and run fresh offline wheel installation
         shell: bash
+        env:
+          REGSITE_TERMINATION_TEST_BACKEND: ${{ runner.temp }}/regsite-termination/backend.json
         run: |
           python -m build --no-isolation
           python -m venv .cache/fresh
@@ -86,7 +89,7 @@ jobs:
           termination_exit=0
           .cache/fresh/bin/regsite-termination examples/termination-unsupported.json --backend-manifest "$REGSITE_TERMINATION_TEST_BACKEND" > .cache/termination-unsupported.json || termination_exit=$?
           test "$termination_exit" -eq 1
-          .cache/fresh/bin/python -c 'import json; a=json.load(open(".cache/termination-single.json")); b=json.load(open(".cache/termination-batch.json")); c=json.load(open(".cache/termination-unsupported.json")); assert all(r["schema_version"]=="termination-result-1" and r["status"]=="complete" and r["coverage"]["retained_candidates"]==1 for r in (a,b)); assert c["status"]=="partial" and all(r["candidates"] is None for r in c["records"]); assert all(r["prediction_sha256"] and r["result_sha256"] for r in (a,b,c))'
+          .cache/fresh/bin/python -c 'import json; a=json.load(open(".cache/termination-single.json")); b=json.load(open(".cache/termination-batch.json")); c=json.load(open(".cache/termination-unsupported.json")); assert all(r["schema_version"]=="termination-result-1" and r["status"]=="complete" and r["coverage"]["retained_candidates"]==1 for r in (a,b)); assert c["status"]=="partial" and all(r["candidates"] is None for r in c["records"]); assert all(r["prediction_sha256"] and r["result_sha256"] for r in (a,b,c)); tie=[(x["hairpin"]["start"],x["hairpin"]["end"],x["strand"],x["confidence"],x["hairpin_score"],x["tail_score"]) for x in a["records"][0]["candidates"]]; assert tie==[(70,86,"+",78,"-11.8","-3.87583")]; assert b["records"][0]["candidates"]==a["records"][0]["candidates"] and b["records"][1]["status"]=="ok" and b["records"][1]["candidates"]==[]; assert [r["reason"] for r in c["records"]]==["no_search_positions","uniform_background"] and not any(r["attempted"] for r in c["records"])'
           .cache/fresh/bin/regsite-coupling examples/coupling-single.json > .cache/coupling-single.json
           .cache/fresh/bin/regsite-coupling examples/coupling-batch.json > .cache/coupling-batch.json
           coupling_exit=0
