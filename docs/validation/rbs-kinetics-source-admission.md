@@ -197,6 +197,12 @@ The following block automatic sequence-derived admission:
    or exact kinetic time conversion was recovered. The supplement names Kinfold
    and ViennaRNA (1.8.5 for energy calculation); this is not a new required
    dependency admission. Equilibrium RNAstructure folding alone cannot supply `f`.
+   Kinfold's exact component version and applicable code terms were not verified
+   here; they are not inferred from ViennaRNA 2.7.2 or an umbrella package licence.
+   The task's restriction on introducing a required dependency is an output
+   boundary, not a finding that separately distributed components share terms.
+   Any later component decision must pin its own source and terms for the
+   first-passage trajectory operations described above; until then it is unadmitted.
 2. The absolute/common binding-rate scale, clearance value and alignment to `f`
    are missing. `e>a` is an inequality, not a value. Choosing an arbitrary
    clearance multiple would add an outcome-independent but unsupported constant.
