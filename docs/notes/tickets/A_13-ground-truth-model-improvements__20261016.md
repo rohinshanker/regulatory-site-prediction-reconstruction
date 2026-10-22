@@ -3,8 +3,8 @@
 - Scope: Pursue a leading fully open experimental predictor through falsifiable comparisons, prioritizing cyanobacterial RBS prediction while preserving compatibility.
 - Status: active
 - Opened: 2026-10-16
-- Updated: 2026-10-17
-- Current State: Wave 4 joint selection failed its predeclared advancement gate: primary rho gain -0.0001661354 with interval spanning zero, despite 335/335 coverage and no lost baseline successes. Median primary time increased about 3.45-fold. Scientific code/weights/settings remain frozen; Cambray is consumed and Kuo exposed secondary. Joint stays opt-in. Native promotion and a broadly better predictor remain unestablished; the next cycle needs separately developed hypotheses and suitably independent reserved evidence.
+- Updated: 2026-10-22
+- Current State: Owner prioritizes biological evaluation using admitted data, then other unblocked calculators when further progress requires unavailable evidence. A proposes an unchanged-profile PCC 6803 development recheck after backend repairs; B owns protocol/tooling and C independent review. No new experimental collection has begun. Wave 4 joint selection failed its predeclared advancement gate (rho gain -0.0001661354, interval spanning zero) despite complete coverage and about 3.45-fold greater median time. Frozen scientific artifacts remain unchanged; Cambray is consumed and Kuo exposed secondary. Native promotion and a broadly better predictor remain unestablished.
 - Verification: The full 6,556-job collection completed without retries/artifact changes; 6,520 ok and 36 explicit no-candidate results. DEM-516 independently matched 464 floating/659 exact fields, maximum discrepancy zero, and accepted the publication metadata. Results, uncertainty, comparators, exposure caveats and ranked falsifiable next-cycle hypotheses are in rbs-wave4-results.md. Public development and consumed final panels cannot become untouched confirmation.
 - Cleanup: Owning session records results including negative findings, distills reusable model/evaluation contracts, updates indexes and GitHub issue, then removes the resolved ticket.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/13
@@ -15,6 +15,43 @@
 Preserve a compatibility profile while building a separately named improved
 profile. The user wants the best open predictor, so website agreement must not
 prevent a demonstrated improvement against experimental measurements.
+
+## Current finite scientific cycle
+
+The proposed recheck uses all 479 publicly released Karlsen development-validation
+records, retaining their original split, sequences, groups, host, 30°C and aSD.
+Four fixed configurations isolate backend and mechanism differences: historical
+with original RNAstructure; historical, context2017 and standby2014 with the
+admitted linker-3 repair. The existing reviewed original 0.12.0rc1 installation
+is the candidate; no weight, equation or setting is optimized. A binds the
+installation/backends and executes only after B's protocol and tooling have
+independent review. B prepares outcome-free requests and verifies outputs before
+joining public development labels. Private final/LC/source-workbook outcomes
+remain excluded.
+
+Report coverage/failures and rank association, including paired common-case
+contrasts and homology-group uncertainty. There is no new scale calibration,
+fold-accuracy or superiority claim. This consumed-study development diagnostic
+cannot become untouched confirmation. Fixed batch/resource limits and complete
+unstarted/failed accounting precede execution; no outcome-driven retry or new
+variant loop. If the remaining dependency is target-host measurements, record it
+and move to a separately reserved unblocked calculator slice.
+
+The owner plans UTEX 2973 genomics, RNA-seq and ordinary ribosome profiling,
+with an unrecoded parental control and independent biological replicates under
+matched conditions. Each recoded genotype is intended to change one of six
+candidate genes using a selected recoding scheme. Genes, schemes, replicate
+counts and schedule are not yet specified. The appropriate first endpoint is
+the paired change in RNA abundance and RNA-normalized ribosome occupancy; this
+is not automatically absolute initiation, protein production, TSS mapping or
+internal-start discovery. Exact genotype/sequence and sample pairing must bind
+predictions to measurements. One gene/scheme contrast cannot establish transfer
+across the full gene/scheme roster. B retains evidence/protocol ownership; the
+earlier optional reporter-study proposal is not treated as this experiment.
+
+The dispatch/credential incident hold and specifically stopped source/consumer
+tasks remain intact. Existing A/B/C roots continue locally; the new scientific
+authorization does not resume a provider-rejected assignment or held review.
 
 The expanded ambition is to outperform the strongest reproducible applicable
 methods, with a cyanobacterial specialist as the first focused target. Read the
