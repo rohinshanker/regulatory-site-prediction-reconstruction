@@ -112,7 +112,13 @@ holds the shared lock, and require only the two already admitted jobs to run.
 Event barriers establish the interleaving; their timeouts are test-failure guards,
 not sleeps or scheduling assumptions.
 
-Local checks do not certify the GitHub macOS 14 runner. Independent exact-patch
-recheck belongs to the existing C root reviewer, with disposition and platform
-rerun owned by A; preserve their pending status until receipts exist. This
-engineering repair gives no new biological evidence.
+Independent C-root recheck accepted the repaired publication/admission boundary
+at `adde9430ae9ba2af445aed27d2856a1d34523712`; A accepted its focused reproduction
+and integrated it. The [eight-job platform run](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/actions/runs/39839410653)
+passed at exact source `e787802cca9982ef44a0462d18e4ff9cc45e2575`, including both
+Python versions on Linux/macOS, repaired-backend selections and fresh installs.
+Each runtime job retained one declared optional original-conditional-backend
+skip; A's local run with that backend enabled passed 7,119 tests without skips
+and with full measured coverage. These are software/process checks; they do not
+identify the original CI exception or supply biological evidence. Future
+collector edits require their own focused review and platform checks.
