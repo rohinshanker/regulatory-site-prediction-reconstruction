@@ -116,6 +116,7 @@ TransTermHP backend explicitly:
 
 ```sh
 .venv/bin/regsite-termination examples/termination-single.json --backend-manifest /absolute/external/termination/backend.json
+.venv/bin/regsite-termination examples/termination-single.json --format csv --backend-manifest /absolute/external/termination/backend.json
 ```
 
 Read the [source and build contract](docs/validation/intrinsic-termination-source.md)
@@ -124,6 +125,11 @@ The Python package bundles neither the native executable nor its background
 table. Returned scores describe retained motif candidates; they are not
 termination efficiencies, readthrough probabilities or cyanobacterial calibration.
 This command is separate from the job runner's unchanged five-kind interface.
+The development source adds a [CSV projection](docs/validation/termination-tabular-export.md)
+with one row for every record and retained candidate, including failures and empty
+searches. Coordinates remain relative to the supplied fragment. Keep JSON for full
+settings, warnings and execution evidence; CSV omits those details. This export
+is newer than the frozen 0.12 package receipt.
 
 The separate drafting command calculates stationary occupancies and throughput
 from four caller-supplied rates:

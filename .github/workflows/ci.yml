@@ -96,6 +96,18 @@ jobs:
           .cache/fresh/bin/regsite-termination examples/termination-unsupported.json --backend-manifest "$REGSITE_TERMINATION_TEST_BACKEND" > .cache/termination-unsupported.json || termination_exit=$?
           test "$termination_exit" -eq 1
           .cache/fresh/bin/python -c 'import json; a=json.load(open(".cache/termination-single.json")); b=json.load(open(".cache/termination-batch.json")); c=json.load(open(".cache/termination-unsupported.json")); assert all(r["schema_version"]=="termination-result-1" and r["status"]=="complete" and r["coverage"]["retained_candidates"]==1 for r in (a,b)); assert c["status"]=="partial" and all(r["candidates"] is None for r in c["records"]); assert all(r["prediction_sha256"] and r["result_sha256"] for r in (a,b,c)); tie=[(x["hairpin"]["start"],x["hairpin"]["end"],x["strand"],x["confidence"],x["hairpin_score"],x["tail_score"]) for x in a["records"][0]["candidates"]]; assert tie==[(70,86,"+",78,"-11.8","-3.87583")]; assert b["records"][0]["candidates"]==a["records"][0]["candidates"] and b["records"][1]["status"]=="ok" and b["records"][1]["candidates"]==[]; assert [r["reason"] for r in c["records"]]==["no_search_positions","uniform_background"] and not any(r["attempted"] for r in c["records"])'
+          .cache/fresh/bin/regsite-termination examples/termination-single.json --format csv --backend-manifest "$REGSITE_TERMINATION_TEST_BACKEND" > .cache/termination-single.csv
+          .cache/fresh/bin/python - <<'PYTERMINATIONCSV'
+          import csv, hashlib, json
+          with open(".cache/termination-single.csv", newline="", encoding="utf-8") as stream:
+              rows = list(csv.DictReader(stream))
+          original = json.load(open(".cache/termination-single.json"))
+          model_hash = hashlib.sha256(json.dumps(original["model"], sort_keys=True, separators=(",", ":"), ensure_ascii=True, allow_nan=False).encode()).hexdigest()
+          assert [row["row_type"] for row in rows] == ["envelope", "record", "candidate"]
+          assert all(row["csv_schema_version"] == "termination-csv-1" and row["result_status"] == "complete" and row["prediction_sha256"] == original["prediction_sha256"] and row["model_sha256"] == model_hash for row in rows)
+          assert rows[1]["candidate_count"] == "1" and rows[1]["attempted"] == "true"
+          assert tuple(rows[2][key] for key in ("strand", "hairpin_start", "hairpin_end", "tail_start", "tail_end", "confidence", "hairpin_score", "tail_score")) == ("+", "70", "86", "86", "101", "78", "-11.8", "-3.87583")
+          PYTERMINATIONCSV
           .cache/fresh/bin/regsite-coupling examples/coupling-single.json > .cache/coupling-single.json
           .cache/fresh/bin/regsite-coupling examples/coupling-batch.json > .cache/coupling-batch.json
           coupling_exit=0
