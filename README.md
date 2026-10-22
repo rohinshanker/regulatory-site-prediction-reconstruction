@@ -86,18 +86,21 @@ with installed-byte checks and explicit CI status. Current development source
 `0.12.0rc1` additionally integrates the independently reviewed optional
 [intrinsic-termination adapter](docs/validation/intrinsic-termination-runtime.md);
 its [0.11 package](docs/validation/termination-0.11-candidate.md) passed local
-validation. The new supplied-rate drafting component and combined 0.12 package
-are undergoing integration checks. Frozen older candidates remain intact.
+validation. The [combined 0.12 package](docs/validation/drafting-0.12-candidate.md), including
+supplied-rate drafting, passed local tests and fresh installation. Independent
+package review and platform CI remain pending. Frozen older candidates remain intact.
 Run explicit batches offline with the [calculator job runner](docs/validation/offline-calculator-jobs.md):
 
 ```sh
-.venv/bin/regsite-jobs run --manifest "$PWD/examples/jobs-synthetic/manifest.json" --output-dir /absolute/external/new-campaign
-.venv/bin/regsite-jobs verify --manifest "$PWD/examples/jobs-synthetic/manifest.json" --output-dir /absolute/external/new-campaign
-.venv/bin/regsite-jobs resume --manifest "$PWD/examples/jobs-synthetic/manifest.json" --output-dir /absolute/external/new-campaign
+.venv/bin/regsite-jobs run --manifest "$(pwd -P)/examples/jobs-synthetic/manifest.json" --output-dir /absolute/external/new-campaign
+.venv/bin/regsite-jobs verify --manifest "$(pwd -P)/examples/jobs-synthetic/manifest.json" --output-dir /absolute/external/new-campaign
+.venv/bin/regsite-jobs resume --manifest "$(pwd -P)/examples/jobs-synthetic/manifest.json" --output-dir /absolute/external/new-campaign
 ```
 
-Manifest and output paths must be absolute; the output parent must already exist. Complete request/output bytes and receipts
-stay in that external directory. Resume checks input, runtime and backend identity
+Manifest and output paths must be absolute and contain no symlink components.
+Use physical paths (on macOS `/private/tmp`, not `/tmp`); the output parent must
+already exist.
+Complete request/output bytes and receipts stay in that external directory. Resume checks input, runtime and backend identity
 and preserves verified terminal jobs, including failures. The runner executes
 existing commands sequentially; it does not change scores or split requests.
 Calculator execution and captured output have explicit limits. Filesystem and

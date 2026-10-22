@@ -5,7 +5,7 @@ Verification dates cover the stated source observations or specification review;
 | Area | Purpose | Last verified | Document |
 | --- | --- | --- | --- |
 | termination-0.11-candidate | Exact installed optional termination package, source bindings and software/native-control verification boundary. | 2026-10-21 | [termination-0.11-candidate.md](termination-0.11-candidate.md) |
-| rbs-drafting-contract | Frozen supplied-rate stationary interface, units, underflow and independent numerical acceptance; implementation pending. | 2026-10-21 | [rbs-drafting-contract.md](rbs-drafting-contract.md) |
+| rbs-drafting-contract | Frozen supplied-rate stationary interface, units, underflow and independent numerical acceptance; implementation reviewed; independent numerical tooling pending. | 2026-10-21 | [rbs-drafting-contract.md](rbs-drafting-contract.md) |
 | offline-jobs-0.10rc2-candidate | Frozen revised package, installed-byte binding and explicit cross-platform test/coverage status. | 2026-10-21 | [offline-jobs-0.10rc2-candidate.md](offline-jobs-0.10rc2-candidate.md) |
 | offline-jobs-0.10-candidate | Exact combined development package, installed five-kind execution/resume checks and independent validation boundary. | 2026-10-21 | [offline-jobs-0.10-candidate.md](offline-jobs-0.10-candidate.md) |
 | rbs-kinetics-source-admission | Supplied-rate drafting mathematics, exact scalar fixtures and explicit non-admission of automatic sequence-derived kinetics. | 2026-10-21 | [rbs-kinetics-source-admission.md](rbs-kinetics-source-admission.md) |
@@ -89,3 +89,4 @@ Verification dates cover the stated source observations or specification review;
 | promoter-executed-reference | Pinned optional source execution, independent finite-state fixtures, compatibility failures and corrected coordinate semantics. | 2026-10-17 | [promoter-executed-reference.md](promoter-executed-reference.md) |
 | intrinsic-termination-source | Pinned TransTermHP candidate-score source, parameter and fragment admission boundary. | 2026-10-21 | [intrinsic-termination-source.md](intrinsic-termination-source.md) |
 | intrinsic-termination-runtime | Independently reviewed bounded external-engine adapter; common package/CI gates remain. | 2026-10-21 | [intrinsic-termination-runtime.md](intrinsic-termination-runtime.md) |
+| drafting-0.12-candidate | Frozen supplied-rate package, installed identities, mathematical controls and explicit remaining gates. | 2026-10-21 | [drafting-0.12-candidate.md](drafting-0.12-candidate.md) |

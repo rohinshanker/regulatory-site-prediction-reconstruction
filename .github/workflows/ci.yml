@@ -89,7 +89,7 @@ jobs:
           drafting_exit=0
           .cache/fresh/bin/regsite-drafting examples/drafting-unsupported.json > .cache/drafting-unsupported.json || drafting_exit=$?
           test "$drafting_exit" -eq 1
-          .cache/fresh/bin/python -c 'import json,math; a=json.load(open(".cache/drafting-single.json")); b=json.load(open(".cache/drafting-batch.json")); c=json.load(open(".cache/drafting-unsupported.json")); assert all(r["schema_version"]=="drafting-result-1" and r["status"]=="complete" and r["model"]["backend"] is None and r["model"]["id"]=="espahborujeni2016-supplied-rate-stationary-1" for r in (a,b)); assert math.isclose(a["records"][0]["throughput"]["quantity"]["value"],10/9,rel_tol=1e-12); assert len(b["records"])==3 and b["records"][1]["occupancies"]["folded"]=={"value":0.0,"ln_value":None,"representation":"exact_zero"}; assert c["status"]=="partial" and c["records"][0]["status"]=="unsupported_domain" and c["records"][0]["throughput"] is None'
+          .cache/fresh/bin/python -c 'import json,math; a=json.load(open(".cache/drafting-single.json")); b=json.load(open(".cache/drafting-batch.json")); c=json.load(open(".cache/drafting-unsupported.json")); assert all(r["schema_version"]=="drafting-result-1" and r["status"]=="complete" and r["model"]["backend"] is None and r["model"]["id"]=="espahborujeni2016-supplied-rate-stationary-1" for r in (a,b)); assert math.isclose(a["records"][0]["throughput"]["quantity"]["value"],10/9,rel_tol=1e-12); assert len(b["records"])==3 and b["records"][1]["occupancies"]["folded"]=={"value":0.0,"ln_value":None,"representation":"exact_zero"}; assert c["status"]=="partial" and c["records"][0]["status"]=="unsupported_domain" and c["records"][0]["throughput"] is None; import hashlib,importlib.metadata as md; h=lambda x: hashlib.sha256(json.dumps(x,sort_keys=True,separators=(",",":"),ensure_ascii=True,allow_nan=False).encode()).hexdigest(); m={"id":"espahborujeni2016-supplied-rate-stationary-1","implementation_version":md.version("regulatory-site-prediction-reconstruction"),"source_doi":"10.1021/jacs.6b01453","theory_sha256":"a9ded599cbb0313d610267cb9fbdfd21abb1bdb7a467894701fa9b295f3fd6d6","backend":None,"rate_origin":"caller_supplied"}; assert all(r["model"]==m and r["request_sha256"]==h(json.load(open(f"examples/drafting-{n}.json"))) and r["prediction_sha256"]==h({k:v for k,v in r.items() if k!="prediction_sha256"}) for n,r in zip(("single","batch","unsupported"),(a,b,c)))'
           .cache/fresh/bin/regsite-termination examples/termination-single.json --backend-manifest "$REGSITE_TERMINATION_TEST_BACKEND" > .cache/termination-single.json
           .cache/fresh/bin/regsite-termination examples/termination-batch.json --backend-manifest "$REGSITE_TERMINATION_TEST_BACKEND" > .cache/termination-batch.json
           termination_exit=0
@@ -170,6 +170,21 @@ jobs:
           .cache/fresh/bin/python -c 'import csv,json; r=next(csv.DictReader(open(".cache/joint.csv"))); assert r["schema_version"]=="1.3" and r["status"]=="ok"; a=json.load(open(".cache/native-joint.json")); assert [r["status"] for r in a["results"]]==["ok","ok"]; assert all(r["prediction"]["schema_version"]=="1.3" and "standby_module" in r["genomic_sites"][0] for r in a["results"])'
           .cache/fresh/bin/python -c 'import csv,json; a=json.load(open(".cache/joint-linker.json")); b=json.load(open(".cache/native-joint-linker.json")); c=list(csv.DictReader(open(".cache/joint-linker-batch.csv"))); assert a["results"][0]["backend"]["variant"]=="rnastructure-6.6-linker-3"; assert a["results"][0]["status"]=="ok"; assert [r["status"] for r in b["results"]]==["ok","ok"]; assert all(r["prediction"]["backend"]["variant"]=="rnastructure-6.6-linker-3" for r in b["results"]); assert [r["status"] for r in c]==["ok","ok","no_candidate","unsupported"]'
 
+      - name: Show bounded smoke diagnostics on failure
+        if: failure()
+        shell: bash
+        run: |
+          python - <<'PYDIAGNOSTICS'
+          from pathlib import Path
+          paths = sorted(Path(".cache").glob("*.json"), key=lambda p: p.stat().st_mtime, reverse=True)[:16]
+          for path in paths:
+              print(f"--- {str(path)[:256]} (first 4096 bytes) ---")
+              try:
+                  with path.open("rb") as stream:
+                      print(stream.read(4096).decode("utf-8", errors="replace"))
+              except OSError as error:
+                  print(f"unreadable: {type(error).__name__}")
+          PYDIAGNOSTICS
   promoter-resources:
     strategy:
       fail-fast: false

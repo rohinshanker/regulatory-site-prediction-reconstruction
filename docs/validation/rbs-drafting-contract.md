@@ -1,7 +1,7 @@
 # Supplied-rate stationary drafting contract
 
 - Purpose: Implement the admitted three-state calculation without inventing sequence-derived rates.
-- Scope: Frozen implementation/evaluation interface version 1; implementation and independent numerical verification pending.
+- Scope: Frozen implementation/evaluation interface version 1; implementation independently reviewed and integrated in 0.12; B’s separate numerical verification pending.
 - Last verified: 2026-10-21
 
 This separate component uses the independently admitted
