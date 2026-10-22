@@ -7,6 +7,7 @@ import json
 import runpy
 import sys
 import tempfile
+import threading
 import time
 import unittest
 from pathlib import Path
@@ -789,6 +790,134 @@ class CollectionTest(unittest.TestCase):
         self.assertEqual(
             len(list((self.root / "cleanup-failed").glob("job-*.json"))), 12
         )
+
+    def test_two_slot_cleanup_failure_after_wait_snapshot_blocks_refill(self):
+        """F1: a stale wait snapshot must not hide a completed cleanup failure."""
+        self.assert_cleanup_admission_boundary("wait_snapshot")
+
+    def test_cleanup_publication_precedes_locked_admission_check(self):
+        """Publish while the scheduler enters its gate, before it checks/submits."""
+        self.assert_cleanup_admission_boundary("admission_lock")
+
+    def assert_cleanup_admission_boundary(self, boundary):
+        self.protocol["collection"]["max_processes"] = 2
+        self.save()
+        jobs = c.schedule(self.inputs["records"], self.receipt["configurations"])
+        numbers = {(row["id"], config["id"]): i for i, (row, config) in enumerate(jobs)}
+        release_failure = threading.Event()
+        invoked = []
+        original_wait = c.futures.wait
+        original_pool = c.futures.ThreadPoolExecutor
+        first_wait = True
+        pending_failure = set()
+        coordinator = threading.get_ident()
+        real_lock = threading.Lock()
+        test = self
+
+        def finish_failure():
+            release_failure.set()
+            completed, unfinished = original_wait(pending_failure, timeout=5)
+            self.assertFalse(unfinished, "test barrier timed out")
+            self.assertEqual(
+                [f.result()["execution"] for f in completed], ["process_cleanup"]
+            )
+
+        class ObservedLock:
+            owner = None
+            admission_attempts = 0
+            publications = 0
+
+            def __enter__(self):
+                ident = threading.get_ident()
+                if ident == coordinator:
+                    self.admission_attempts += 1
+                    if boundary == "admission_lock" and self.admission_attempts == 3:
+                        # The worker wins the lock just before the refill check.
+                        finish_failure()
+                real_lock.acquire()
+                self.owner = ident
+                if ident != coordinator:
+                    self.publications += 1
+                return self
+
+            def __exit__(self, *args):
+                self.owner = None
+                real_lock.release()
+
+        gate = ObservedLock()
+
+        class CheckedPool(original_pool):
+            def submit(self, *args, **kwargs):
+                test.assertEqual(gate.owner, coordinator)
+                return super().submit(*args, **kwargs)
+
+        def artificial_process(config, packet, deadline):
+            row_id = json.loads(packet)["id"]
+            number = numbers[(row_id, config["id"])]
+            invoked.append(number)
+            if number == 1:
+                self.assertTrue(release_failure.wait(5), "test barrier timed out")
+            failed = number == 1
+            raw = c.encoded(
+                dict(
+                    id=row_id,
+                    input_sha256=digest(packet),
+                    status="ok",
+                    predicted=2.5,
+                    reason="",
+                )
+            )
+            return (
+                "process_cleanup" if failed else "completed",
+                0,
+                raw,
+                b"",
+                {
+                    "started": True,
+                    "primary_event": "completed",
+                    "cleanup_complete": not failed,
+                },
+            )
+
+        def wait_snapshot(active, **kwargs):
+            nonlocal first_wait, pending_failure
+            done, pending = original_wait(active, **kwargs)
+            if first_wait:
+                first_wait = False
+                self.assertEqual((len(done), len(pending)), (1, 1))
+                pending_failure = pending
+                if boundary == "wait_snapshot":
+                    finish_failure()
+            return done, pending  # Deliberately stale FIRST_COMPLETED snapshot.
+
+        output = self.root / "two-slot-cleanup"
+        with (
+            patch.object(c, "run_process", side_effect=artificial_process),
+            patch.object(c.futures, "wait", side_effect=wait_snapshot),
+            patch.object(c, "Lock", return_value=gate),
+            patch.object(c.futures, "ThreadPoolExecutor", CheckedPool),
+        ):
+            result = c.collect(self.receipt_path, output)
+        self.assertEqual(sorted(invoked), [0, 1])
+        self.assertEqual(gate.publications, 1)
+        self.assertFalse(result["complete"] or result["cleanup_complete"])
+        receipts = [
+            json.loads((output / f"job-{i:06d}.json").read_bytes())
+            for i in range(len(jobs))
+        ]
+        self.assertEqual(receipts[1]["execution"], "process_cleanup")
+        self.assertTrue(
+            all(
+                row["status"] == "not_run"
+                and row["reason"] == "collection_cleanup_failure"
+                for row in receipts[2:]
+            )
+        )
+        for number in range(2, len(jobs)):
+            for stream in ("stdout", "stderr"):
+                self.assertEqual(
+                    (output / f"job-{number:06d}.{stream}").read_bytes(), b""
+                )
 
     def test_cli_summary_only(self):
         self.protocol["collection"]["total_seconds"] = 1e-9

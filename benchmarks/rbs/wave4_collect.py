@@ -16,6 +16,7 @@ import sys
 import time
 from datetime import UTC, datetime
 from pathlib import Path
+from threading import Lock
 
 from benchmarks.rbs.datasets import digest
 from benchmarks.rbs.metrics import finite_number
@@ -459,37 +460,41 @@ def collect(receipt_path, directory):
     results = {}
     cursor = 0
     cleanup_failed = False
+    admission_lock = Lock()
+
+    def run_job(row, config, number):
+        nonlocal cleanup_failed
+        result = execute(
+            row, config, limits["seconds_per_record"], deadline, directory, number
+        )
+        details = result.get("process")
+        if details is not None and not details["cleanup_complete"]:
+            # Publish before this Future completes, even if wait took an older snapshot.
+            with admission_lock:
+                cleanup_failed = True
+        return result
+
     with futures.ThreadPoolExecutor(max_workers=limits["max_processes"]) as pool:
         active: dict = {}
         while cursor < len(jobs) or active:
             while (
                 cursor < len(jobs)
-                and not cleanup_failed
                 and len(active) < limits["max_processes"]
                 and time.monotonic() < deadline
             ):
-                row, config = jobs[cursor]
-                active[
-                    pool.submit(
-                        execute,
-                        row,
-                        config,
-                        limits["seconds_per_record"],
-                        deadline,
-                        directory,
-                        cursor,
-                    )
-                ] = cursor
-                cursor += 1
+                # Submission and failure publication share one ordering boundary.
+                with admission_lock:
+                    if cleanup_failed:
+                        break
+                    row, config = jobs[cursor]
+                    active[pool.submit(run_job, row, config, cursor)] = cursor
+                    cursor += 1
             if not active:
                 break
             done, _ = futures.wait(active, return_when=futures.FIRST_COMPLETED)
             for future in done:
                 number = active.pop(future)
                 results[number] = future.result()
-                details = results[number].get("process")
-                if details is not None and not details["cleanup_complete"]:
-                    cleanup_failed = True
     for number in range(cursor, len(jobs)):
         row, config = jobs[number]
         results[number] = execute(

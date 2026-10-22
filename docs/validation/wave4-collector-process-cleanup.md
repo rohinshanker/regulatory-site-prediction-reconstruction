@@ -62,11 +62,19 @@ primary event, actual exit, all captured bytes and SHA-256 values remain visible
 A signal denial is recorded as failure, not suppressed or retried through another
 mechanism. There is no privilege probe or fallback.
 
-Cleanup uncertainty halts scheduling. Already active jobs finish their owned
-teardown, while the remaining full roster is stored as `not_run` with reason
-`collection_cleanup_failure`. The collection has `complete: false` and
-`cleanup_complete: false`. No failed attempt is retried. Controls and unstarted
-records have `process: null`.
+Cleanup uncertainty halts scheduling. Before its Future completes, a worker
+publishes cleanup failure under the same lock that protects the scheduler's
+stop check and submission. These operations have one ordering boundary: jobs
+admitted before publication may finish, but none can be admitted afterward.
+The stop check stays inside the submission lock; checking before acquiring it
+would leave a race. Failure publication does not depend on the scheduler seeing
+that Future in a particular `FIRST_COMPLETED` snapshot. The lock is not held
+during command execution, teardown or receipt writing.
+
+Already admitted jobs finish their owned teardown, while the remaining full
+roster is stored as `not_run` with reason `collection_cleanup_failure`. The
+collection has `complete: false` and `cleanup_complete: false`. No failed attempt
+is retried. Controls and unstarted records have `process: null`.
 
 The historical evaluator still accepts ordinary successful/failed/timeout
 records and rejects the new I/O/cleanup classifications rather than silently
@@ -97,7 +105,14 @@ prefixes after read failure, cleanup denials, wait/close failures, stale ownersh
 refusal and complete failed/unstarted accounting. Faults that simulate signal
 denial first terminate the actual test group, so the injected error does not leak
 test descendants. No fixture requires a prediction, fold or empirical outcome.
+Two deterministic, thread-only two-slot cases force failure publication after a
+wait snapshot and immediately before the scheduler acquires its admission lock.
+Both retain every unstarted receipt and empty output stream, assert submission
+holds the shared lock, and require only the two already admitted jobs to run.
+Event barriers establish the interleaving; their timeouts are test-failure guards,
+not sleeps or scheduling assumptions.
 
 Local checks do not certify the GitHub macOS 14 runner. Independent exact-patch
-review and the platform rerun belong to A; preserve their explicit pending status
-until receipts exist. This engineering repair gives no new biological evidence.
+recheck belongs to the existing C root reviewer, with disposition and platform
+rerun owned by A; preserve their pending status until receipts exist. This
+engineering repair gives no new biological evidence.
