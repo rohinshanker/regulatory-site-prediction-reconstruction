@@ -507,6 +507,8 @@ def quantity_errors(value: Any, expected: dict[str, Any], occupancy: bool) -> li
         if not number(linear) or linear != 0 or logarithm is not None:
             errors.append("exact zero value/log")
     else:
+        if occupancy and number(logarithm) and logarithm > 0:
+            errors.append("occupancy log upper bound")
         if (
             not number(logarithm)
             or abs(logarithm - expected["ln_value"]) > LOG_ABSOLUTE

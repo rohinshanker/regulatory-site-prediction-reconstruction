@@ -180,6 +180,14 @@ def test_all_artificial_payloads_pass(panel, identity):
         assert n.check_result(seal(payload(case, identity)), case, identity) == []
 
 
+def test_wire_format_is_not_attested_by_json_checker(panel, identity):
+    case = panel["cases"][0]
+    value = payload(case, identity)
+    compact = n.canonical(value)
+    assert compact != n.authoritative(value)
+    assert n.check_result(compact, case, identity) == []
+
+
 @pytest.mark.parametrize(
     "mutation,label",
     [
@@ -624,6 +632,27 @@ def test_cli_all_cases_and_failures(panel, identity, tmp_path, capsys):
     assert "frozen CASE=PATH" in capsys.readouterr().err
     assert n.main(["--identity", str(path), "--identity-sha256", "0" * 64]) == 2
     assert "receipt SHA-256" in capsys.readouterr().err
+
+
+def test_positive_occupancy_log_fails_all_case_cli(panel, identity, tmp_path, capsys):
+    path, sha = identity_file(tmp_path, identity)
+    args = ["--identity", str(path), "--identity-sha256", sha]
+    bad_case = case_by_id(panel, "finite-panel")
+    for i, case in enumerate(panel["cases"]):
+        value = payload(case, identity)
+        if case["id"] == bad_case["id"]:
+            value["records"][4]["occupancies"]["folded"]["ln_value"] = 5e-11
+        result = tmp_path / f"result-{i}"
+        result.write_bytes(seal(value))
+        args += ["--result", f"{case['id']}={result}"]
+    assert n.main(args) == 1
+    report = json.loads(capsys.readouterr().out)
+    row = next(r for r in report["cases"] if r["id"] == bad_case["id"])
+    assert row["failures"] == ["record[4] folded: occupancy log upper bound"]
+    assert row["credited_records"] == 0
+    assert report["passed_requests"] == 29 and not report["all_passed"]
+    assert report["credited_records"] == 198 - len(bad_case["expected"]["records"])
+    assert len(report["cases"]) == 30
 
 
 def test_cli_usage_and_script(identity, panel, tmp_path, monkeypatch, capsys):

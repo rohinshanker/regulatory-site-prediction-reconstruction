@@ -63,7 +63,9 @@ The fixed comparisons are:
   that is positive; `underflow` with null linear value if it is zero. Only
   folded occupancy with `f=0` is `exact_zero`, with linear zero and null log.
   A tolerance interval crossing zero does not permit switching representations.
-  Occupancies cannot exceed one. Signed zero folding input must echo as +0.
+  Occupancies cannot exceed one, and their non-null logs cannot exceed zero;
+  numerical tolerance does not relax either schema bound. Signed zero folding
+  input must echo as +0.
 
 One deliberate boundary is `finite-panel`, record
 index **5**, occupied occupancy has quantized interval `[0, min_subnormal]` but
@@ -178,7 +180,7 @@ external files and record their SHA-256 and byte counts. From an external workin
 directory, the command for each case is:
 
 ```text
-ABSOLUTE_CANDIDATE_PYTHON -I -m regsite.drafting_cli ABSOLUTE_REQUEST_FILE
+ABSOLUTE_CANDIDATE_PYTHON -I -B -m regsite.drafting_cli ABSOLUTE_REQUEST_FILE
 ```
 
 Freeze the resolved interpreter/installed candidate, exact argument arrays,
@@ -191,11 +193,16 @@ store complete outputs within those limits. A timeout, overflow, identity change
 or unexpected exit stops subsequent execution and requires a finding disposition,
 not an automatic rerun. Unstarted cases remain missing in the full denominator.
 An ordinary checked numerical mismatch does not change inputs or tolerances.
+`-I` isolates import configuration; `-B` prevents bytecode writes into the
+externally owned installed candidate.
 
 Expected CLI exits are 0 for complete envelopes, 1 for partial envelopes and 2
 for invalid envelopes/transport. Check these against the execution receipt
-separately: the JSON checker receives only result files and does not verify
-process exit codes, environment, elapsed time, stderr or installed code. Preserve
+separately. Also require complete received stdout to equal the prescribed
+authoritative JSON serialization byte-for-byte, including its final newline.
+The JSON checker accepts other JSON whitespace that meets both byte caps and
+does not attest exact CLI formatting. It receives only result files and does not
+verify process exit codes, environment, elapsed time, stderr or installed code. Preserve
 those evidence limits in any combined conclusion. Candidate outputs and execution
 receipts stay external; only a compact public numerical summary may later be
 added within a separately agreed path. No current candidate result has been read.
