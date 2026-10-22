@@ -1,0 +1,81 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "records"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "drafting-request-1"
+    },
+    "records": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 100,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "rates",
+          "rate_unit",
+          "rate_provenance"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_.:-]{1,128}$(?![\\s\\S])"
+          },
+          "rates": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "a1",
+              "a2",
+              "a_fold",
+              "a_elong"
+            ],
+            "properties": {
+              "a1": {
+                "type": "number",
+                "minimum": -1.7976931348623157e+308,
+                "maximum": 1.7976931348623157e+308
+              },
+              "a2": {
+                "type": "number",
+                "minimum": -1.7976931348623157e+308,
+                "maximum": 1.7976931348623157e+308
+              },
+              "a_fold": {
+                "type": "number",
+                "minimum": -1.7976931348623157e+308,
+                "maximum": 1.7976931348623157e+308
+              },
+              "a_elong": {
+                "type": "number",
+                "minimum": -1.7976931348623157e+308,
+                "maximum": 1.7976931348623157e+308
+              }
+            }
+          },
+          "rate_unit": {
+            "enum": [
+              "per_second",
+              "per_model_time"
+            ]
+          },
+          "rate_provenance": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1024,
+            "pattern": "\\S"
+          }
+        }
+      }
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Supplied-rate stationary drafting request version 1",
+  "description": "IDs must be unique. All rates convert to finite binary64. Runtime retains malformed records as invalid_input and finite rates outside 0 < a2 <= a1 < a_elong, a_fold >= 0 as unsupported_domain. Common units and provenance are caller assertions. Wire and canonical object caps are independently 1048576 bytes."
+}
