@@ -4,6 +4,7 @@ Verification dates cover the stated source observations or specification review;
 
 | Area | Purpose | Last verified | Document |
 | --- | --- | --- | --- |
+| termination-0.11-candidate | Exact installed optional termination package, source bindings and software/native-control verification boundary. | 2026-10-21 | [termination-0.11-candidate.md](termination-0.11-candidate.md) |
 | rbs-drafting-contract | Frozen supplied-rate stationary interface, units, underflow and independent numerical acceptance; implementation pending. | 2026-10-21 | [rbs-drafting-contract.md](rbs-drafting-contract.md) |
 | offline-jobs-0.10rc2-candidate | Frozen revised package, installed-byte binding and explicit cross-platform test/coverage status. | 2026-10-21 | [offline-jobs-0.10rc2-candidate.md](offline-jobs-0.10rc2-candidate.md) |
 | offline-jobs-0.10-candidate | Exact combined development package, installed five-kind execution/resume checks and independent validation boundary. | 2026-10-21 | [offline-jobs-0.10-candidate.md](offline-jobs-0.10-candidate.md) |
