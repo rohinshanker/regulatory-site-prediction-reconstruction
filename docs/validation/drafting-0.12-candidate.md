@@ -73,8 +73,10 @@ Decimal reference was 2.27e-13, within the 1e-10 contract tolerance. Both schema
 findings were repaired and rechecked. This review is distinct from B's reserved
 independent numerical fixture/checker stream, which remains pending.
 
-A separate package integration review is in progress. The installed package and
-CLI checks above do not substitute for that review or the platform matrix.
+Separate package integration review accepted the frozen source and focused
+workflow/documentation repair `e73c1b2`, with no remaining finding. Installed
+smoke assertions bind all model fields and request/prediction hashes, and failed
+CI smoke checks expose bounded diagnostics. The runtime files are unchanged.
 
 Cross-platform package CI remains pending. No current hosted equivalence,
 cyanobacterial calibration, biological improvement, consumer admission or
