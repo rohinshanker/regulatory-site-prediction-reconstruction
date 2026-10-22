@@ -1,4 +1,4 @@
-"""Artificial payloads only: no predictor, backend, subprocess or runtime imports."""
+"""Artificial payloads only; the isolated import probe runs only this checker."""
 
 import copy
 import json
@@ -6,6 +6,7 @@ import math
 import os
 import runpy
 import stat
+import subprocess
 import sys
 from fractions import Fraction
 from pathlib import Path
@@ -713,7 +714,20 @@ def test_throughput_survives_occupied_underflow():
     assert abs(n.expectation(values["throughput"])["ln_value"] - math.log(tiny)) < 1e-10
 
 
-def test_no_predictor_modules_loaded():
-    assert not any(
-        name == "regsite" or name.startswith("regsite.") for name in sys.modules
+def test_no_predictor_modules_loaded(monkeypatch):
+    # A combined suite legitimately imports predictors in other tests. Prove
+    # this checker's import isolation in a fresh process, without importing one.
+    monkeypatch.setitem(sys.modules, "regsite", SimpleNamespace())
+    probe = (
+        "import sys; "
+        f"sys.path.insert(0, {str(n.ROOT)!r}); "
+        "from benchmarks.rbs import drafting_numeric; "
+        "assert not any(k == 'regsite' or k.startswith('regsite.') "
+        "for k in sys.modules)"
+    )
+    subprocess.run(
+        [sys.executable, "-I", "-B", "-c", probe],
+        check=True,
+        capture_output=True,
+        timeout=10,
     )
