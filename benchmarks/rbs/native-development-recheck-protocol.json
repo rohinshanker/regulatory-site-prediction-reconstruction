@@ -1,0 +1,182 @@
+{
+  "admission": {
+    "before_label_join": [
+      "hash both immutable public inputs and reconcile exact selected ID/group/sequence/start roster",
+      "bind reviewed plan, protocol, candidate, installed runtime and backend identities",
+      "reuse frozen installed runner verification for both campaigns; check exactly zero or one attempt per planned job",
+      "verify preserved raw artifacts, all result IDs/order, explicit requested starts, settings, schema, complete model/backend objects and status/value consistency"
+    ],
+    "identity_or_schema_substitution": "fail admission; do not classify substituted results as ordinary model failure",
+    "native_exit1": "complete valid JSON may retain successful records beside explicit native failures; no roster reduction",
+    "transport_failure": "retain every record assigned to a timed-out/truncated/refused/abnormal/interrupted/unstarted job as explicit missing prediction; do not salvage score prefixes",
+    "verification_transport": "pending A confirmation: A runs and pins installed verify summaries; B validates their binding and every consumed receipt/raw-output byte without importing scoring modules"
+  },
+  "candidate": {
+    "final_execution_freeze": "Requires A/B/C reviewed tooling/protocol and separately acknowledged immutable execution receipt.",
+    "identity_review_receipt_sha256": "0ec9ecf69646a7d151836c2cbb1fe59d2cdf4a4ced412c3a833be7748773932b",
+    "provisional_receipt_sha256": "cb6fcb06c8db41c2c6ed5edb543de60363d1a18af500a4535facc629627e72c9",
+    "source_commit": "356abc2d40198a95f807967a38126a14b0f3d0c9",
+    "version": "0.12.0rc1",
+    "wheel_sha256": "a95abeeca03360e94b2d79a469520c62cfb8d45ff505dc6395032d9aa2f6c11b"
+  },
+  "cohort": {
+    "anti_sd": "ACCUCCUUU",
+    "condition": "HC_minus_5_min",
+    "homology_groups": 423,
+    "host": "Synechocystis sp. PCC 6803",
+    "order": "ascending original ID",
+    "ordered_id_group_sequence_start_sha256": "0ebad8e0679c53cb04b2e118400edfb403b7299fe105ae4a509e3e97ad0a7e0e",
+    "ordered_ids_sha256": "e0e879ba551b8aabb9b8a9a3d1f3231f69c778a9963af52dc2b6d6fa0fd23dec",
+    "partition": "development_validation",
+    "records": 479,
+    "selection_uses_predictions_or_labels": false,
+    "sequence_length": 200,
+    "source_quantity": "relative RPF_RPKM/RNA_RPKM TE proxy",
+    "start": 100,
+    "temperature_c": 30,
+    "training_records_used": false
+  },
+  "configurations": [
+    {
+      "backend": "original",
+      "id": "historical-original",
+      "profile": "historical",
+      "result_schema_version": "1.0"
+    },
+    {
+      "backend": "linker3",
+      "id": "historical-linker3",
+      "profile": "historical",
+      "result_schema_version": "1.0"
+    },
+    {
+      "backend": "linker3",
+      "id": "context2017-linker3",
+      "profile": "context2017",
+      "result_schema_version": "1.1"
+    },
+    {
+      "backend": "linker3",
+      "id": "standby2014-linker3",
+      "profile": "standby2014",
+      "result_schema_version": "1.2"
+    }
+  ],
+  "endpoints": {
+    "contrast_definition": "contender rho minus reference rho on identical common successful measured records",
+    "contrast_denominators": [
+      "all 479 inputs",
+      "reference success",
+      "contender success",
+      "common success",
+      "lost reference successes",
+      "represented common groups"
+    ],
+    "contrasts": [
+      {
+        "contender": "historical-linker3",
+        "reference": "historical-original"
+      },
+      {
+        "contender": "context2017-linker3",
+        "reference": "historical-linker3"
+      },
+      {
+        "contender": "standby2014-linker3",
+        "reference": "historical-linker3"
+      }
+    ],
+    "no_fit_or_scale": true,
+    "no_log_or_fold_error": true,
+    "no_promotion_threshold": true,
+    "no_success_imputation": true,
+    "per_configuration": [
+      "all-case coverage/status/failure reasons",
+      "Spearman HC TE versus finite successful native TIR, average ties",
+      "successful-measured and represented-group denominators",
+      "job-level attempted/terminal/unstarted counts and elapsed diagnostics"
+    ]
+  },
+  "execution": {
+    "attempts_per_job_maximum": 1,
+    "batch_records": 16,
+    "batches_per_configuration": 30,
+    "campaigns": {
+      "linker3": {
+        "configurations": [
+          "historical-linker3",
+          "context2017-linker3",
+          "standby2014-linker3"
+        ],
+        "jobs": 90,
+        "seconds_total": 10800.0
+      },
+      "original": {
+        "configurations": [
+          "historical-original"
+        ],
+        "jobs": 30,
+        "seconds_total": 3600.0
+      }
+    },
+    "global_folding_processes_maximum": 2,
+    "jobs": 120,
+    "last_batch_records": 15,
+    "output_bytes_total_per_campaign": 1073741824,
+    "owner": "Session A",
+    "raw_output_storage": "external only; preserve complete captured bytes and truncation/stop diagnostics",
+    "record_predictions": 1916,
+    "repack_after_outcomes": false,
+    "repaired_order": "batch-major; rotate fixed historical/context/standby order left by batch index modulo 3",
+    "resume": false,
+    "retry": false,
+    "runner": "frozen installed five-kind regsite-jobs",
+    "seconds_per_job": 1100.0,
+    "seconds_per_record": 60.0,
+    "stderr_bytes_per_job": 1048576,
+    "stdout_bytes_per_job": 67108864
+  },
+  "execution_authorized": false,
+  "inputs": {
+    "development": {
+      "path": "benchmarks/rbs/karlsen2018-development.json",
+      "sha256": "53ba87998de7e3d423fb7d6818db48a1bf93ede98bdb46bb6137b0119cfa39a4"
+    },
+    "split": {
+      "path": "benchmarks/rbs/native-splits.json",
+      "sha256": "d989341afcb3e463112e85134a322086d968a4cea6ad4b9cb4fa8cc893312409"
+    }
+  },
+  "limitations": [
+    "consumed PCC 6803 development-validation cohort, not final/held-out confirmation",
+    "HC TE is an assay-derived occupancy/RNA proxy, not isolated initiation or completed protein production",
+    "assumed genomic flanks/current annotation starts; native transcript boundaries unmeasured",
+    "no UTEX accuracy, cross-host superiority, native calibration or current/recoded-effect claim",
+    "no new experimental planning in this task",
+    "private final, LC, source-workbook and other excluded outcomes remain unopened"
+  ],
+  "question": "Coverage and within-study rank association after fixed backend repair and admitted profile changes; no tuning or promotion.",
+  "requests": {
+    "metadata": "ID,host,temperature and anti-SD retained; no labels/group/source-row metadata in runtime requests",
+    "schema_version": "1.0",
+    "sequences": "unchanged original 200 bases",
+    "start_positions": "singleton original supplied start",
+    "strand": "+"
+  },
+  "schema_version": "native-rbs-development-recheck-protocol-1",
+  "stage": "exploratory_consumed_development",
+  "uncertainty": {
+    "draws": 2000,
+    "group_population": "all 423 frozen validation groups, including groups with no successful prediction",
+    "interpretation": "descriptive gene/homology-group resampling within one consumed study; not biological-replicate or cross-study uncertainty",
+    "interval95": "sorted usable draws at floor(.025*(n-1)) and ceil(.975*(n-1)); no interpolation",
+    "minimum_common_blocks": 2,
+    "minimum_common_rows": 2,
+    "minimum_usable_draws": 1800,
+    "paired_helper": "benchmarks.rbs.wave4_metrics.paired",
+    "sampling": "sample 423 groups with replacement per draw; repeat all members; then filter successful pairs; rerank each draw",
+    "seed": 20261022,
+    "spearman_helper": "benchmarks.rbs.wave4_metrics.rho",
+    "undefined": "null point/interval with explicit support/undefined-draw counts; never zero"
+  }
+}

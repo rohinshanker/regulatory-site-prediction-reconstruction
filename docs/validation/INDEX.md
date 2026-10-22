@@ -4,6 +4,7 @@ Verification dates cover the stated source observations or specification review;
 
 | Area | Purpose | Last verified | Document |
 | --- | --- | --- | --- |
+| rbs-native-development-recheck | Frozen-public-input feasibility and proposed four-configuration coverage/rank diagnostic; review and execution pending. | 2026-10-22 | [rbs-native-development-recheck.md](rbs-native-development-recheck.md) |
 | rbs-drafting-numeric-results | Frozen original 0.12 supplied-rate artificial evaluation, complete accounting and separate execution/semantic evidence. | 2026-10-22 | [rbs-drafting-numeric-results.md](rbs-drafting-numeric-results.md) |
 | termination-tabular-export | Deterministic bounded CSV projection preserving every record/candidate, native text and fragment-relative coordinates. | 2026-10-22 | [termination-tabular-export.md](termination-tabular-export.md) |
 | rbs-drafting-numeric-validation | Frozen independent artificial oracle, explicit candidate receipt and bounded all-case external result checking. | 2026-10-21 | [rbs-drafting-numeric-validation.md](rbs-drafting-numeric-validation.md) |
