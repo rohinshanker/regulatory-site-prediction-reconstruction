@@ -60,17 +60,15 @@ submit it manually. This is not a scientific failure or an authorization to
 replace B. Protocol/tooling review and an acknowledged execution freeze remain
 required before the 1,916 proposed record predictions.
 
-The owner plans UTEX 2973 genomics, RNA-seq and ordinary ribosome profiling,
-with an unrecoded parental control and independent biological replicates under
-matched conditions. Each recoded genotype is intended to change one of six
-candidate genes using a selected recoding scheme. Genes, schemes, replicate
-counts and schedule are not yet specified. The appropriate first endpoint is
-the paired change in RNA abundance and RNA-normalized ribosome occupancy; this
-is not automatically absolute initiation, protein production, TSS mapping or
-internal-start discovery. Exact genotype/sequence and sample pairing must bind
-predictions to measurements. One gene/scheme contrast cannot establish transfer
-across the full gene/scheme roster. B retains evidence/protocol ownership; the
-earlier optional reporter-study proposal is not treated as this experiment.
+The owner clarified on 2026-10-22 that future experimental work is undecided
+and should be sidelined. Earlier discussion of UTEX genomics, RNA-seq, ordinary
+ribosome profiling, parental controls and biological replicates is tentative
+context, not a finalized protocol or a prerequisite for this cycle. Do not wait
+for a gene/scheme roster, replicate counts or sampling schedule, and do not
+advance experimental planning unless the owner reopens it. The public-data
+benchmark remains the immediate authorized scientific task. Any future
+measurement endpoint and sequence/sample contract must be agreed separately;
+this clarification changes no frozen candidate, public dataset or result.
 
 The dispatch/credential incident hold and specifically stopped source/consumer
 tasks remain intact. Existing A/B/C roots continue locally; the new scientific
