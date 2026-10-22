@@ -71,7 +71,10 @@ coverage of 171 statements and 44 branches. A separate reviewer challenge used
 100 artificial rate combinations; its maximum absolute log error against the
 Decimal reference was 2.27e-13, within the 1e-10 contract tolerance. Both schema
 findings were repaired and rechecked. This review is distinct from B's reserved
-independent numerical fixture/checker stream, which remains pending.
+independent numerical fixture/checker stream. Its [frozen evaluation](rbs-drafting-numeric-results.md)
+subsequently passed all 30 requests and 198 expected records. A independently
+replayed the accepted checker on saved outputs with a byte-identical report;
+the original candidate and fixture remained unchanged.
 
 Separate package integration review accepted the frozen source and focused
 workflow/documentation repair `e73c1b2`, with no remaining finding. Installed

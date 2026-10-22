@@ -86,6 +86,9 @@ stationary and memoryless assumptions remain. Source admission, arithmetic
 agreement, biological validation and consumer/release admission are separate.
 
 A independently reviewed the driver and the checker had independent review
-before execution. The resulting aggregate has been reconciled by B against saved
-bytes; another session has not yet independently recomputed this run's outcome.
-Publication and parent #66 closure remain with A.
+before execution. The immutable compact receipt records B's handoff state before
+A's outcome recheck. During integration, A verified all 17 artifact pins and
+rehashed all 60 saved output files, then replayed the unchanged checker against
+those outputs. It exited 0 with a byte-identical semantic report: 30 requests
+and 198 credited records. No predictor was rerun. This accepts scoped #66
+arithmetic/interface delivery; broader release and biological gates remain open.

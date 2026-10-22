@@ -3,8 +3,8 @@
 - Scope: Reconstruct later published RBS mechanisms and production behavior.
 - Status: active
 - Opened: 2026-10-16
-- Updated: 2026-10-21
-- Current State: Historical, footprint/context, standby2014 and joint profiles remain frozen; joint selection failed its independent advancement gate. B completed source/math admission #65. Separate supplied-rate stationary drafting #66 is independently reviewed at c75ca5d and packaged locally in 0.12; all eight platform jobs passed at efe90fcb; B’s independent numerical tooling remains; it does not derive rates from sequence or modify existing profiles. Sequence-derived kinetics, production stacking, folding-search completeness and hosted parity remain open.
+- Updated: 2026-10-22
+- Current State: Historical, footprint/context, standby2014 and joint profiles remain frozen; joint selection failed its independent advancement gate. B completed source/math admission #65. Separate supplied-rate stationary drafting #66 is independently reviewed at c75ca5d and packaged locally in 0.12; all eight platform jobs passed at efe90fcb; B’s frozen independent evaluation passed 30 requests/198 expected records and A replayed the checker on unchanged saved outputs; it does not derive rates from sequence or modify existing profiles. Sequence-derived kinetics, production stacking, folding-search completeness and hosted parity remain open.
 - Verification: Scientific a11cb5b and integration 1d4b622 passed four-platform CI; 1,624 integrated tests at 100% measured Python coverage and 35 three-engine component checks pass. Frozen Wave 4 review independently reproduces the negative advancement result. Runtime/model/source contracts retain bounded enumeration and energy discrepancies; no native or hosted equivalence is established.
 - Cleanup: Owning session records final checks and unresolved findings, resolves the ticket, distills reusable guidance into docs/validation/, updates both indexes and linked GitHub issue, then removes the resolved ticket.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/4

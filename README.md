@@ -89,8 +89,10 @@ its [0.11 package](docs/validation/termination-0.11-candidate.md) passed local
 validation. The [combined 0.12 package](docs/validation/drafting-0.12-candidate.md), including
 supplied-rate drafting, passed local tests and fresh installation. Independent
 package review is accepted, and all eight macOS/Linux CI jobs passed at
-`efe90fcb`. B’s independent drafting numerical check remains pending. Frozen older
-candidates remain intact.
+`efe90fcb`. The independent [drafting numerical check](docs/validation/rbs-drafting-numeric-results.md)
+passed all 30 artificial requests and 198 expected records. This verifies supplied-rate
+arithmetic and the software contract, not biological accuracy. Frozen older candidates
+remain intact. Later-head CI status is tracked separately in the active release ticket.
 Run explicit batches offline with the [calculator job runner](docs/validation/offline-calculator-jobs.md):
 
 ```sh

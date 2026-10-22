@@ -1,8 +1,8 @@
 # Supplied-rate stationary drafting contract
 
 - Purpose: Implement the admitted three-state calculation without inventing sequence-derived rates.
-- Scope: Frozen implementation/evaluation interface version 1; implementation independently reviewed and integrated in 0.12; B’s separate numerical verification pending.
-- Last verified: 2026-10-21
+- Scope: Frozen implementation/evaluation interface version 1; reviewed 0.12 implementation and independent artificial numerical verification accepted.
+- Last verified: 2026-10-22
 
 This separate component uses the independently admitted
 [2016 stationary mathematics](rbs-kinetics-source-admission.md). It does not alter
@@ -140,3 +140,10 @@ B owns independent cases and must not inspect runtime internals while
 constructing them. Neither artificial arithmetic nor code coverage establishes
 biological accuracy. Sequence-to-rate inference, time calibration, transient
 dynamics and future frozen experimental evaluation remain open under #4/#12.
+
+The [frozen numerical evaluation](rbs-drafting-numeric-results.md) passed all
+30 requests and credited all 198 expected records, including explicit refusals.
+Its 192 successful-record quantities include finite, exact-zero and underflow
+representations. A independently replayed the unchanged checker on saved outputs
+and obtained a byte-identical semantic report; no predictor was rerun. This
+closes the finite arithmetic/interface acceptance, not the open biological tasks.
