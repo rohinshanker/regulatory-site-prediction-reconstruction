@@ -289,7 +289,8 @@
             "ln_value": {
               "type": "number",
               "minimum": -1.7976931348623157e+308,
-              "maximum": 1.7976931348623157e+308
+              "maximum": -745.1332191018412,
+              "description": "At most ln(2^-1075) + 1e-10: the binary64 half-minimum-subnormal ties-to-even zero-rounding boundary, allowing the frozen absolute log tolerance."
             },
             "representation": {
               "const": "underflow"
