@@ -41,3 +41,9 @@ The exact installed RC2 wheel reproduced the refusal and then passed the five
 corrected CI run/verify/resume invocations, including the real folding backend.
 Evidence remains external in A’s `ci-wheel-smoke` directory. Full replacement
 CI is pending; this was a caller correction, not a runtime identity relaxation.
+
+The remaining Linux/Python 3.11 job hit the 45-minute CI ceiling after its
+full suite and final 3,202-test variant run passed. A raised only the whole-job
+CI budget to 60 minutes for the next matrix; calculator, campaign, output and
+resource-admission limits remain unchanged. The exact cancelled-job log is
+retained with the CI evidence. No completed full matrix is claimed.

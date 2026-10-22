@@ -16,7 +16,7 @@ jobs:
         os: [ubuntu-24.04, macos-14]
         python: ['3.11', '3.14']
     runs-on: ${{ matrix.os }}
-    timeout-minutes: 45
+    timeout-minutes: 60
     env:
       REGSITE_RNASTRUCTURE: ${{ github.workspace }}/.cache/original/RNAstructure
     steps:
