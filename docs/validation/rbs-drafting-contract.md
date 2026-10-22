@@ -79,8 +79,13 @@ Every quantity Q has exactly `value`, `ln_value`, `representation`:
 | `exact_zero` | 0 | null; the mathematical log is minus infinity |
 | `underflow` | null | finite natural log retained when binary64 rounds to zero |
 
-Only folded occupancy with `a_fold == 0` is an exact zero. Underflow is never
-reported as biological absence. Occupancy linear values are at most 1. Tiny
+Only folded occupancy with `a_fold == 0` is an exact zero. For a positive
+theoretical quantity computed from the normalized binary64 input rates, choose
+its representation by correctly rounding that exact quantity to binary64 with
+round-to-nearest, ties-to-even: zero selects `underflow`, a positive result selects
+`finite`. This classification precedes tolerance checks and is not widened by
+them. Underflow is never reported as biological absence. Occupancy linear values
+are at most 1. Tiny
 rounding of logarithms is expected; do not require exact `exp(ln_value) == value`.
 When a valid computation cannot retain finite logs, return `numerical_failure`
 with null occupancies/throughput and a reason; never emit NaN or infinity.
@@ -126,7 +131,12 @@ finite rates, representation transitions, and identity/error/serialization
 contracts. For ordinary representable values use relative tolerance 1e-11;
 finite log comparisons use absolute tolerance 1e-10. Subnormal linear values
 require correctly rounded-range comparisons rather than impossible relative
-precision. B owns independent cases and must not inspect runtime internals while
+precision. The quantized interval applies only to linear values within the
+required representation. If rounding the tolerance endpoints spans both zero and
+the minimum positive subnormal, it does not permit switching between `finite`
+and `underflow`. Finite logarithms still use the absolute tolerance; log tolerance
+does not select representation, and a positive quantity never becomes `exact_zero`.
+B owns independent cases and must not inspect runtime internals while
 constructing them. Neither artificial arithmetic nor code coverage establishes
 biological accuracy. Sequence-to-rate inference, time calibration, transient
 dynamics and future frozen experimental evaluation remain open under #4/#12.
