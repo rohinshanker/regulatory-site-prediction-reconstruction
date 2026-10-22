@@ -1,0 +1,918 @@
+{
+  "schema_version": "stability-inference-source-1",
+  "observation_date": "2026-10-21",
+  "status": "not-admitted-complete-sequence-inference",
+  "source_commit": "46da9132740bce30bccd107f02808adf2215e2f0",
+  "article": {
+    "doi": "10.1038/s41467-024-54059-7",
+    "pmcid": "PMC11541907",
+    "license": "CC-BY-4.0 with third-party-material exception",
+    "located_sections": [
+      "Results: Development of a predictive model using biophysics and machine learning",
+      "Methods: Data analysis and model development",
+      "Data availability",
+      "Code availability"
+    ],
+    "supplement_locations": [
+      "Supplementary Information p1 Table2",
+      "Supplementary Information p6 Code1",
+      "Description of Additional Supplementary Information p1"
+    ]
+  },
+  "cache_roots": {
+    "prior": "/Users/Rohin/.cache/reg-site-wave5/source-admission",
+    "coordinator": "/Users/Rohin/.cache/regsite-stability-source-20261021/coordinator",
+    "source-worker": "/Users/Rohin/.cache/regsite-stability-source-20261021/source-worker"
+  },
+  "files": [
+    {
+      "id": "PMC11541907.xml",
+      "cache": "prior",
+      "bytes": 152753,
+      "sha256": "2c1e78aaf2d1038dd2ef88467777eaa923d1978affb3dfa0d15c80857565f23f",
+      "source_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC11541907/fullTextXML",
+      "role": "reused pinned source",
+      "prior_retrieval_date": "2026-10-18"
+    },
+    {
+      "id": "TestDataset.csv.zip.header.json",
+      "cache": "prior",
+      "bytes": 10557,
+      "sha256": "a56fa4f3f390ee227acc7c8de070ff6504548c1e6c1f18849e268e6c81592ae5",
+      "source_url": null,
+      "role": "header-only derived metadata",
+      "prior_retrieval_date": "2026-10-18"
+    },
+    {
+      "id": "TrainingDataset.csv.zip.header.json",
+      "cache": "prior",
+      "bytes": 10556,
+      "sha256": "c7dbd079d69f9a320030a34866c455e4eb6a94bcb72a9d7fff80deff6c3a2e39",
+      "source_url": null,
+      "role": "header-only derived metadata",
+      "prior_retrieval_date": "2026-10-18"
+    },
+    {
+      "id": "salis-model-wrapper.py",
+      "cache": "prior",
+      "bytes": 11333,
+      "sha256": "b74f78cf738cfe6112752c9283386df49cae146580927fd3f7b7785c0ddd3a10",
+      "source_url": "https://raw.githubusercontent.com/hsalis/SalisLabCode/46da9132740bce30bccd107f02808adf2215e2f0/ModelTestSystem/examples/RBS/models/TranslationRateModels.py",
+      "role": "reused pinned source",
+      "prior_retrieval_date": "2026-10-18"
+    },
+    {
+      "id": "salis-tree.json",
+      "cache": "prior",
+      "bytes": 91834,
+      "sha256": "4f40043a74933f845895b166b2a7e610cdc13fec7f2d342f18b724fbd0f0ce1e",
+      "source_url": "https://api.github.com/repos/hsalis/SalisLabCode/git/trees/46da9132740bce30bccd107f02808adf2215e2f0?recursive=1",
+      "role": "reused pinned source",
+      "prior_retrieval_date": "2026-10-18"
+    },
+    {
+      "id": "stability-Dockerfile",
+      "cache": "prior",
+      "bytes": 1382,
+      "sha256": "dcd78469cb4be02f387c121da064c318cbc8615bf9aa8d98282664c5886c29d8",
+      "source_url": "https://raw.githubusercontent.com/hsalis/SalisLabCode/46da9132740bce30bccd107f02808adf2215e2f0/mRNA_Stability_Calculator/Dockerfile",
+      "role": "reused pinned source",
+      "prior_retrieval_date": "2026-10-18"
+    },
+    {
+      "id": "stability-LICENSE",
+      "cache": "prior",
+      "bytes": 1104,
+      "sha256": "768b8dd915b7a965c831ab6c8b5d72bb39d7664c98c80a14983c1569482551d3",
+      "source_url": "https://raw.githubusercontent.com/hsalis/SalisLabCode/46da9132740bce30bccd107f02808adf2215e2f0/mRNA_Stability_Calculator/LICENSE",
+      "role": "reused pinned source",
+      "prior_retrieval_date": "2026-10-18"
+    },
+    {
+      "id": "stability-ModelTrainingTesting.py",
+      "cache": "prior",
+      "bytes": 12803,
+      "sha256": "de015f8aef21aeb584c3a15a04131fe6f46060ba679ff17b5f4dd923e0f42bf0",
+      "source_url": "https://raw.githubusercontent.com/hsalis/SalisLabCode/46da9132740bce30bccd107f02808adf2215e2f0/mRNA_Stability_Calculator/ModelTrainingTesting.py",
+      "role": "reused pinned source",
+      "prior_retrieval_date": "2026-10-18"
+    },
+    {
+      "id": "stability-README.md",
+      "cache": "prior",
+      "bytes": 1873,
+      "sha256": "a9c62cffc21c32affdd2aa43eefdd39465da37af6499f5b6ce3ad6d15f6c5457",
+      "source_url": "https://raw.githubusercontent.com/hsalis/SalisLabCode/46da9132740bce30bccd107f02808adf2215e2f0/mRNA_Stability_Calculator/README.md",
+      "role": "reused pinned source",
+      "prior_retrieval_date": "2026-10-18"
+    },
+    {
+      "id": "stability-feature-smoke.json",
+      "cache": "prior",
+      "bytes": 874,
+      "sha256": "e68f52d10e343d49903c54ace220148322201ccbcefc53d5927cc5fd2802ec7b",
+      "source_url": null,
+      "role": "reused pinned source",
+      "prior_retrieval_date": "2026-10-18"
+    },
+    {
+      "id": "nature-article.html",
+      "cache": "coordinator",
+      "bytes": 486129,
+      "sha256": "3a4fabd683d2c2a44e183cb5ce8511bc3667e65cc8a7cc4c59a650a47a129e4a",
+      "source_url": "https://www.nature.com/articles/s41467-024-54059-7",
+      "retrieved_utc": "2026-10-22T03:20:42.822157+00:00",
+      "role": "primary publication source",
+      "complete": true
+    },
+    {
+      "id": "supplement-information.pdf",
+      "cache": "coordinator",
+      "bytes": 1230620,
+      "sha256": "7aaeba1020875128402f32449c4458d5c66489d9fdc46aa820d0cbd535fcdf06",
+      "source_url": "https://media.springernature.com/original/springer-static/esm/art%3A10.1038%2Fs41467-024-54059-7/MediaObjects/41467_2024_54059_MOESM1_ESM.pdf",
+      "retrieved_utc": "2026-10-22T03:21:29.154513+00:00",
+      "role": "primary publication source",
+      "complete": true
+    },
+    {
+      "id": "supplement-description.pdf",
+      "cache": "coordinator",
+      "bytes": 76107,
+      "sha256": "3508330368713b1f2bec904288869352ac00dceb0767f9ecd495b57a0d2ccf59",
+      "source_url": "https://media.springernature.com/original/springer-static/esm/art%3A10.1038%2Fs41467-024-54059-7/MediaObjects/41467_2024_54059_MOESM2_ESM.pdf",
+      "retrieved_utc": "2026-10-22T03:21:31.183723+00:00",
+      "role": "primary publication source",
+      "complete": true
+    },
+    {
+      "id": "source-metadata.json",
+      "cache": "source-worker",
+      "bytes": 8859,
+      "sha256": "bb4441971f4fc700d37b52dc4727839a015c431979d8f5aef2975e0546775150",
+      "role": "scout observation; raw API bodies not retained"
+    },
+    {
+      "id": "retrieval-ledger.json",
+      "cache": "source-worker",
+      "bytes": 4759,
+      "sha256": "8342c0333a4c280435436323ec00ee7a910a5f6c1abe86d3d33e6fa85bc8ce6c",
+      "role": "scout observation; raw API bodies not retained"
+    }
+  ],
+  "repository_observations": {
+    "repo": {
+      "full_name": "hsalis/SalisLabCode",
+      "default_branch": "master",
+      "pushed_at": "2026-08-05T19:07:11Z",
+      "archived": false,
+      "html_url": "https://github.com/hsalis/SalisLabCode"
+    },
+    "branches": {
+      "pagination": {
+        "pages": 1,
+        "terminal_page_count": 1
+      },
+      "urls": [
+        "https://api.github.com/repos/hsalis/SalisLabCode/branches?per_page=100&page=1"
+      ],
+      "items": [
+        {
+          "name": "master",
+          "sha": "46da9132740bce30bccd107f02808adf2215e2f0"
+        }
+      ]
+    },
+    "tags": {
+      "pagination": {
+        "pages": 1,
+        "terminal_page_count": 1
+      },
+      "urls": [
+        "https://api.github.com/repos/hsalis/SalisLabCode/tags?per_page=100&page=1"
+      ],
+      "items": [
+        {
+          "name": "r2022",
+          "sha": "561990e2278f8da80207f721f05b0c1b935c7a97"
+        }
+      ]
+    },
+    "releases": {
+      "pagination": {
+        "pages": 1,
+        "terminal_page_count": 1
+      },
+      "urls": [
+        "https://api.github.com/repos/hsalis/SalisLabCode/releases?per_page=100&page=1"
+      ],
+      "items": [
+        {
+          "tag_name": "r2022",
+          "name": "Salis Lab Code circa 2022",
+          "target": "master",
+          "draft": false,
+          "prerelease": false
+        }
+      ]
+    },
+    "path_history": {
+      "pagination": {
+        "pages": 1,
+        "terminal_page_count": 4
+      },
+      "urls": [
+        "https://api.github.com/repos/hsalis/SalisLabCode/commits?path=mRNA_Stability_Calculator&per_page=100&page=1"
+      ],
+      "commits": [
+        {
+          "sha": "383d4caf795a71498c1cb04fdbbab9f7b9ac9494",
+          "date": "2024-11-06T20:26:00Z",
+          "message": "Create LICENSE",
+          "url": "https://github.com/hsalis/SalisLabCode/commit/383d4caf795a71498c1cb04fdbbab9f7b9ac9494"
+        },
+        {
+          "sha": "6e938eb36bdce4fcdec15c4f0c3a13a65a350cc1",
+          "date": "2024-11-06T20:24:32Z",
+          "message": "Update README.md",
+          "url": "https://github.com/hsalis/SalisLabCode/commit/6e938eb36bdce4fcdec15c4f0c3a13a65a350cc1"
+        },
+        {
+          "sha": "65e344eb6c140e6f0b84e19ff98c9ade4c994a7a",
+          "date": "2024-08-22T17:03:47Z",
+          "message": "Create README.md",
+          "url": "https://github.com/hsalis/SalisLabCode/commit/65e344eb6c140e6f0b84e19ff98c9ade4c994a7a"
+        },
+        {
+          "sha": "6a30fca19ca831b18251cf9836659d2b123ae191",
+          "date": "2024-01-05T19:33:45Z",
+          "message": "Adding program source code for the mRNA Stability Calculator (Cetnar et. al. 2024, in review)",
+          "url": "https://github.com/hsalis/SalisLabCode/commit/6a30fca19ca831b18251cf9836659d2b123ae191"
+        }
+      ]
+    },
+    "path_listings": [
+      {
+        "ref_name": "master",
+        "ref_kind": "branch",
+        "sha": "46da9132740bce30bccd107f02808adf2215e2f0",
+        "url": "https://api.github.com/repos/hsalis/SalisLabCode/contents/mRNA_Stability_Calculator?ref=46da9132740bce30bccd107f02808adf2215e2f0",
+        "status": 200,
+        "listing": [
+          {
+            "name": "Dockerfile",
+            "path": "mRNA_Stability_Calculator/Dockerfile",
+            "type": "file",
+            "size": 1382,
+            "sha": "d94f546dc0ea329e8cc0d4ee474a22c0cc375c8c",
+            "download_url": "https://raw.githubusercontent.com/hsalis/SalisLabCode/46da9132740bce30bccd107f02808adf2215e2f0/mRNA_Stability_Calculator/Dockerfile"
+          },
+          {
+            "name": "LICENSE",
+            "path": "mRNA_Stability_Calculator/LICENSE",
+            "type": "file",
+            "size": 1104,
+            "sha": "789b714820eec92838f6f2919f351bfa0e05fab9",
+            "download_url": "https://raw.githubusercontent.com/hsalis/SalisLabCode/46da9132740bce30bccd107f02808adf2215e2f0/mRNA_Stability_Calculator/LICENSE"
+          },
+          {
+            "name": "ModelTrainingTesting.py",
+            "path": "mRNA_Stability_Calculator/ModelTrainingTesting.py",
+            "type": "file",
+            "size": 12803,
+            "sha": "ed411de6fdf1e9774557c1a28fd518ebd78d1ee8",
+            "download_url": "https://raw.githubusercontent.com/hsalis/SalisLabCode/46da9132740bce30bccd107f02808adf2215e2f0/mRNA_Stability_Calculator/ModelTrainingTesting.py"
+          },
+          {
+            "name": "README.md",
+            "path": "mRNA_Stability_Calculator/README.md",
+            "type": "file",
+            "size": 1873,
+            "sha": "7d68b90ea1dd574d508348d70ddcd5f25a2bd8d7",
+            "download_url": "https://raw.githubusercontent.com/hsalis/SalisLabCode/46da9132740bce30bccd107f02808adf2215e2f0/mRNA_Stability_Calculator/README.md"
+          },
+          {
+            "name": "SupplementaryData1.xlsx",
+            "path": "mRNA_Stability_Calculator/SupplementaryData1.xlsx",
+            "type": "file",
+            "size": 18466174,
+            "sha": "9c6a829a8050f49ef0efcdbe46d95b2332a034f8",
+            "download_url": "https://raw.githubusercontent.com/hsalis/SalisLabCode/46da9132740bce30bccd107f02808adf2215e2f0/mRNA_Stability_Calculator/SupplementaryData1.xlsx"
+          },
+          {
+            "name": "TestDataset.csv.zip",
+            "path": "mRNA_Stability_Calculator/TestDataset.csv.zip",
+            "type": "file",
+            "size": 4346679,
+            "sha": "f2aef9dab4e2d0ca1e7da5dd4f092db2e237a59d",
+            "download_url": "https://raw.githubusercontent.com/hsalis/SalisLabCode/46da9132740bce30bccd107f02808adf2215e2f0/mRNA_Stability_Calculator/TestDataset.csv.zip"
+          },
+          {
+            "name": "TrainingDataset.csv.zip",
+            "path": "mRNA_Stability_Calculator/TrainingDataset.csv.zip",
+            "type": "file",
+            "size": 16642876,
+            "sha": "aad789f6d39a6e801f86479d7f2a7dd74ea1c977",
+            "download_url": "https://raw.githubusercontent.com/hsalis/SalisLabCode/46da9132740bce30bccd107f02808adf2215e2f0/mRNA_Stability_Calculator/TrainingDataset.csv.zip"
+          }
+        ]
+      },
+      {
+        "ref_name": "r2022",
+        "ref_kind": "tag",
+        "sha": "561990e2278f8da80207f721f05b0c1b935c7a97",
+        "url": "https://api.github.com/repos/hsalis/SalisLabCode/contents/mRNA_Stability_Calculator?ref=561990e2278f8da80207f721f05b0c1b935c7a97",
+        "status": 404,
+        "listing": {
+          "message": "Not Found",
+          "documentation_url": "https://docs.github.com/rest/repos/contents#get-repository-content",
+          "status": "404"
+        }
+      }
+    ],
+    "prior_cache": {
+      "pin": "46da9132740bce30bccd107f02808adf2215e2f0",
+      "prior_tree_file": "/Users/Rohin/.cache/reg-site-wave5/source-admission/salis-tree.json"
+    },
+    "body_total_bytes": 69487,
+    "body_limit_bytes": 41943040,
+    "path_commit_file_changes": [
+      {
+        "sha": "383d4caf795a71498c1cb04fdbbab9f7b9ac9494",
+        "url": "https://github.com/hsalis/SalisLabCode/commit/383d4caf795a71498c1cb04fdbbab9f7b9ac9494",
+        "files": [
+          {
+            "filename": "mRNA_Stability_Calculator/LICENSE",
+            "status": "added",
+            "additions": 21,
+            "deletions": 0,
+            "changes": 21
+          }
+        ]
+      },
+      {
+        "sha": "6e938eb36bdce4fcdec15c4f0c3a13a65a350cc1",
+        "url": "https://github.com/hsalis/SalisLabCode/commit/6e938eb36bdce4fcdec15c4f0c3a13a65a350cc1",
+        "files": [
+          {
+            "filename": "mRNA_Stability_Calculator/README.md",
+            "status": "modified",
+            "additions": 2,
+            "deletions": 2,
+            "changes": 4
+          }
+        ]
+      },
+      {
+        "sha": "65e344eb6c140e6f0b84e19ff98c9ade4c994a7a",
+        "url": "https://github.com/hsalis/SalisLabCode/commit/65e344eb6c140e6f0b84e19ff98c9ade4c994a7a",
+        "files": [
+          {
+            "filename": "mRNA_Stability_Calculator/README.md",
+            "status": "added",
+            "additions": 19,
+            "deletions": 0,
+            "changes": 19
+          }
+        ]
+      },
+      {
+        "sha": "6a30fca19ca831b18251cf9836659d2b123ae191",
+        "url": "https://github.com/hsalis/SalisLabCode/commit/6a30fca19ca831b18251cf9836659d2b123ae191",
+        "files": [
+          {
+            "filename": "mRNA_Stability_Calculator/Dockerfile",
+            "status": "added",
+            "additions": 33,
+            "deletions": 0,
+            "changes": 33
+          },
+          {
+            "filename": "mRNA_Stability_Calculator/ModelTrainingTesting.py",
+            "status": "added",
+            "additions": 397,
+            "deletions": 0,
+            "changes": 397
+          },
+          {
+            "filename": "mRNA_Stability_Calculator/SupplementaryData1.xlsx",
+            "status": "added",
+            "additions": 0,
+            "deletions": 0,
+            "changes": 0
+          },
+          {
+            "filename": "mRNA_Stability_Calculator/TestDataset.csv.zip",
+            "status": "added",
+            "additions": 0,
+            "deletions": 0,
+            "changes": 0
+          },
+          {
+            "filename": "mRNA_Stability_Calculator/TrainingDataset.csv.zip",
+            "status": "added",
+            "additions": 0,
+            "deletions": 0,
+            "changes": 0
+          }
+        ]
+      }
+    ]
+  },
+  "source_terms": {
+    "training_code": "MIT; Copyright 2023-2024 Daniel Cetnar, Ayaan Hossain, Howard Salis; preserve notice",
+    "fitted_models": "not located; no artifact-specific rights admitted",
+    "table_inputs": "existing header metadata only; no dataset redistribution in this task",
+    "sequence_featurizer": "not located; no code/component rights inferred"
+  },
+  "feature_contract": {
+    "isoforms": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "family_names_in_selector_order": [
+      "rppH",
+      "TX_rate",
+      "TL_rate",
+      "initial_sum_external_ssRNA",
+      "initial_dsRNA_sum",
+      "initial_external_ssRNA_A",
+      "initial_external_ssRNA_T",
+      "initial_external_ssRNA_G",
+      "initial_external_ssRNA_C",
+      "GQUAD",
+      "iMOTIF",
+      "CsrA",
+      "nt_0",
+      "nt_1",
+      "nt_2",
+      "nt_3",
+      "nt_4",
+      "nt_5",
+      "nt_6",
+      "nt_7",
+      "nt_8",
+      "nt_9",
+      "nt_10",
+      "nt_11",
+      "nt_12",
+      "nt_13",
+      "nt_14",
+      "nt_15",
+      "nt_16",
+      "nt_17",
+      "nt_18",
+      "nt_19",
+      "nt_20",
+      "nt_21",
+      "nt_22",
+      "nt_23",
+      "nt_24",
+      "nt_25",
+      "nt_26",
+      "nt_27",
+      "nt_28",
+      "nt_29",
+      "nt_30",
+      "nt_31",
+      "nt_32",
+      "nt_33",
+      "nt_34",
+      "nt_35",
+      "nt_36",
+      "nt_37",
+      "nt_38",
+      "nt_39",
+      "nt_40",
+      "nt_41",
+      "nt_42",
+      "nt_43",
+      "nt_44",
+      "nt_45",
+      "nt_46",
+      "nt_47",
+      "nt_48",
+      "nt_49",
+      "nt_50",
+      "nt_51",
+      "nt_52",
+      "nt_53",
+      "nt_54",
+      "nt_55",
+      "nt_56",
+      "nt_57",
+      "nt_58",
+      "nt_59",
+      "nt_60",
+      "nt_61",
+      "nt_62",
+      "nt_63",
+      "nt_64",
+      "nt_65",
+      "nt_66",
+      "nt_67",
+      "nt_68",
+      "nt_69",
+      "nt_70",
+      "nt_71",
+      "nt_72",
+      "nt_73",
+      "nt_74",
+      "nt_75",
+      "nt_76",
+      "nt_77",
+      "nt_78",
+      "nt_79"
+    ],
+    "name_expansion": "for isoform in isoforms, for family in family_names_in_selector_order: family + _iso_ + str(isoform)",
+    "timepoint_selected_count": 460,
+    "decay_selected_count": 465,
+    "decay_additional_fields": [
+      "predicted_T0",
+      "predicted_T2",
+      "predicted_T4",
+      "predicted_T8",
+      "predicted_T16"
+    ],
+    "categorical_families": [
+      "rppH",
+      "GQUAD",
+      "iMOTIF",
+      "CsrA",
+      "nt_0",
+      "nt_1",
+      "nt_2",
+      "nt_3",
+      "nt_4",
+      "nt_5",
+      "nt_6",
+      "nt_7",
+      "nt_8",
+      "nt_9",
+      "nt_10",
+      "nt_11",
+      "nt_12",
+      "nt_13",
+      "nt_14",
+      "nt_15",
+      "nt_16",
+      "nt_17",
+      "nt_18",
+      "nt_19",
+      "nt_20",
+      "nt_21",
+      "nt_22",
+      "nt_23",
+      "nt_24",
+      "nt_25",
+      "nt_26",
+      "nt_27",
+      "nt_28",
+      "nt_29",
+      "nt_30",
+      "nt_31",
+      "nt_32",
+      "nt_33",
+      "nt_34",
+      "nt_35",
+      "nt_36",
+      "nt_37",
+      "nt_38",
+      "nt_39",
+      "nt_40",
+      "nt_41",
+      "nt_42",
+      "nt_43",
+      "nt_44",
+      "nt_45",
+      "nt_46",
+      "nt_47",
+      "nt_48",
+      "nt_49",
+      "nt_50",
+      "nt_51",
+      "nt_52",
+      "nt_53",
+      "nt_54",
+      "nt_55",
+      "nt_56",
+      "nt_57",
+      "nt_58",
+      "nt_59",
+      "nt_60",
+      "nt_61",
+      "nt_62",
+      "nt_63",
+      "nt_64",
+      "nt_65",
+      "nt_66",
+      "nt_67",
+      "nt_68",
+      "nt_69",
+      "nt_70",
+      "nt_71",
+      "nt_72",
+      "nt_73",
+      "nt_74",
+      "nt_75",
+      "nt_76",
+      "nt_77",
+      "nt_78",
+      "nt_79"
+    ],
+    "categorical_selected_count": 420,
+    "other_timepoint_selected_count": 40,
+    "timepoint_selector_order_sha256": "0bb9e651de61637099cbb7977ce7eb990d4b345497ff759fd8a56b80acba10cd",
+    "decay_selector_order_sha256": "9cf5eea902a26849c0ac2c07af9a6524f8d58f26254bf2570df4987a1b122995",
+    "order_hash_serialization": "UTF-8; each exact field name followed by LF, including final field",
+    "timepoint_csv_order_sha256": "1e00af95d026c71aecc16f4755c8ab5527c72ce51dff8e5921631b88e3a6c10e",
+    "decay_csv_order_sha256": "57e5033699c32839630866f9134dbd963d7694cd567b9ef67c74a982dd8a0bde",
+    "model_order_rule": "retain input table column order when filtering by membership; do not use selector list order",
+    "train_test_selected_orders_equal": true,
+    "unselected_header_difference": "test first field has leading U+FEFF; train first field does not",
+    "train_header_count": 513,
+    "test_header_count": 513,
+    "train_header_order_sha256": "a3989664f7da0f8630a98976207c48e591cb2a880329647084d1d73a52487b28",
+    "test_header_order_sha256": "5f2c143a1650e87c49ae3d4144bc9bde6e628cf99a130ca3a4650f146d93f59f",
+    "timepoint_excluded_fields_in_csv_order": [
+      "Train / Test ID",
+      "Index",
+      "DNA_Counts",
+      "RNA_T0_Counts",
+      "RNA_T2_Counts",
+      "RNA_T4_Counts",
+      "RNA_T8_Counts",
+      "RNA_T16_Counts",
+      "Kdeg",
+      "R_squared",
+      "Design_Group",
+      "UTR_Designed_Sequence",
+      "predicted_T0",
+      "predicted_T2",
+      "predicted_T4",
+      "predicted_T8",
+      "predicted_T16",
+      "predicted_Kdeg",
+      "GQUAD",
+      "iMOTIF",
+      "CsrA",
+      "Ribo",
+      "fold_lengths_iso_2",
+      "fold_lengths_iso_3",
+      "TSS_iso_0",
+      "TSS_iso_1",
+      "TSS_iso_4",
+      "fold_lengths_iso_0",
+      "fold_lengths_iso_1",
+      "fold_lengths_iso_4",
+      "final_fold_iso_1",
+      "final_fold_iso_0",
+      "final_fold_iso_3",
+      "final_fold_iso_2",
+      "final_fold_iso_4",
+      "TSS_iso_2",
+      "TSS_iso_3",
+      "id",
+      "start_codon_position_iso_3",
+      "start_codon_position_iso_2",
+      "start_codon_position_iso_1",
+      "start_codon_position_iso_0",
+      "start_codon_position_iso_4",
+      "initial_fold_iso_4",
+      "initial_fold_iso_3",
+      "initial_fold_iso_2",
+      "initial_fold_iso_1",
+      "initial_fold_iso_0",
+      "Ribo_iso_4",
+      "Ribo_iso_3",
+      "Ribo_iso_2",
+      "Ribo_iso_1",
+      "Ribo_iso_0"
+    ],
+    "decay_excluded_count": 48,
+    "paper_reported_minimal_features": 496,
+    "paper_count_status": "unresolved semantic mapping; 490 isoform table fields + 6 prediction fields = 496 arithmetically, but not the 460/465 selector contract",
+    "category_vocabulary_codes_unknown_handling": "not frozen in recovered source; pandas casts train/test categories separately"
+  },
+  "expected_missing_artifacts": [
+    "model_T0_saved.txt",
+    "model_T2_saved.txt",
+    "model_T4_saved.txt",
+    "model_T8_saved.txt",
+    "model_T16_saved.txt",
+    "decay_rate_saved.txt"
+  ],
+  "inference_dependencies": {
+    "paper_versions": {
+      "Promoter": "1.0",
+      "RBS": "2.1",
+      "ViennaRNA": "2.4.11",
+      "LightGBM": "3.3.2"
+    },
+    "docker_versions": {
+      "Ubuntu": "22.04",
+      "ViennaRNA": "2.5.0",
+      "Python_packages": "unpinned",
+      "BLAMM": "unpinned Git clone"
+    },
+    "admission": "no complete frozen dependency bundle; no new required backend admitted"
+  },
+  "available_operation": {
+    "name": "schema projection",
+    "input": "column-name metadata",
+    "output": "selected names and category designation",
+    "sequence_prediction": false,
+    "prior_smoke": "benchmarks/other-calculators/stability-feature-smoke.json"
+  },
+  "unrecovered": [
+    "sequence featurizer and parameters",
+    "six exact trained model artifacts",
+    "original sequence coordinates, isoform ties, padding and missing-value handling",
+    "model-bound feature order and category encoding",
+    "exact compatible inference dependency bundle"
+  ],
+  "smallest_new_sequence_subset": {
+    "candidate": "literal first 80 positional bases of a supplied transcript",
+    "admitted": false,
+    "reason": "names identify positional fields but original encoding and edge rules remain unrecovered; requires a separately chosen original contract"
+  },
+  "acquisition": {
+    "new_http_body_budget_bytes": 52428800,
+    "scout_recorded_body_bytes": 69487,
+    "coordinator_recorded_body_bytes": 1792856,
+    "scout_requests": [
+      {
+        "url": "https://api.github.com/repos/hsalis/SalisLabCode",
+        "retrieved_utc": "2026-10-22T03:19:00.175325+00:00",
+        "status": 200,
+        "bytes": 5140,
+        "sha256": "02ffaf8d286dc0125c6002d00a9b329e274c2d1160a49a38ce14d517a353bf52",
+        "per_response_cap_bytes": 3145728,
+        "aggregate_limit_bytes": 41943040
+      },
+      {
+        "url": "https://api.github.com/repos/hsalis/SalisLabCode/branches?per_page=100&page=1",
+        "retrieved_utc": "2026-10-22T03:19:00.557855+00:00",
+        "status": 200,
+        "bytes": 203,
+        "sha256": "efcc7a178193bbb4b37f03c7d99174367b7ada47d22d455b89a620fe06d0091a",
+        "per_response_cap_bytes": 3145728,
+        "aggregate_limit_bytes": 41943040
+      },
+      {
+        "url": "https://api.github.com/repos/hsalis/SalisLabCode/tags?per_page=100&page=1",
+        "retrieved_utc": "2026-10-22T03:19:00.812948+00:00",
+        "status": 200,
+        "bytes": 419,
+        "sha256": "2d9b19ef6a949a0d02301b0b73c6d85f0205ecf10ed1a9e88dbc769cff761cdd",
+        "per_response_cap_bytes": 3145728,
+        "aggregate_limit_bytes": 41943040
+      },
+      {
+        "url": "https://api.github.com/repos/hsalis/SalisLabCode/releases?per_page=100&page=1",
+        "retrieved_utc": "2026-10-22T03:19:01.053852+00:00",
+        "status": 200,
+        "bytes": 1816,
+        "sha256": "8e70442c38e48d7f64b4fc51f111b5027308fb7bd3dc08ca5110fd76f85b0bd5",
+        "per_response_cap_bytes": 3145728,
+        "aggregate_limit_bytes": 41943040
+      },
+      {
+        "url": "https://api.github.com/repos/hsalis/SalisLabCode/commits?path=mRNA_Stability_Calculator?per_page=100&page=1",
+        "retrieved_utc": "2026-10-22T03:19:01.396615+00:00",
+        "status": 200,
+        "bytes": 2,
+        "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "per_response_cap_bytes": 3145728,
+        "aggregate_limit_bytes": 41943040
+      },
+      {
+        "url": "https://api.github.com/repos/hsalis/SalisLabCode/contents/mRNA_Stability_Calculator?ref=46da9132740bce30bccd107f02808adf2215e2f0",
+        "retrieved_utc": "2026-10-22T03:19:01.684096+00:00",
+        "status": 200,
+        "bytes": 7923,
+        "sha256": "2b593129b5ec2a590d48ca5288e9d7c3501870192c092262186afc22e13dc6ce",
+        "per_response_cap_bytes": 3145728,
+        "aggregate_limit_bytes": 41943040
+      },
+      {
+        "url": "https://api.github.com/repos/hsalis/SalisLabCode/contents/mRNA_Stability_Calculator?ref=561990e2278f8da80207f721f05b0c1b935c7a97",
+        "retrieved_utc": "2026-10-22T03:19:01.930476+00:00",
+        "status": 404,
+        "bytes": 127,
+        "sha256": "e45906ce02e79f16fb87a838d86bb4e497e37a9591f97608fa013bbcd8b9cbc2",
+        "per_response_cap_bytes": 3145728,
+        "aggregate_limit_bytes": 41943040
+      },
+      {
+        "url": "https://api.github.com/repos/hsalis/SalisLabCode/commits?path=mRNA_Stability_Calculator&per_page=100&page=1",
+        "retrieved_utc": "2026-10-22T03:19:20.227315+00:00",
+        "status": 200,
+        "bytes": 14296,
+        "sha256": "d4133fdf91d8411b3e99be31a7768c7dac5b2c521f9ca8e6f7cd7ff3247121f3",
+        "per_response_cap_bytes": 3145728,
+        "aggregate_limit_bytes": 41943040
+      },
+      {
+        "url": "https://api.github.com/repos/hsalis/SalisLabCode/commits/383d4caf795a71498c1cb04fdbbab9f7b9ac9494",
+        "retrieved_utc": "2026-10-22T03:19:37.651186+00:00",
+        "status": 200,
+        "bytes": 6088,
+        "sha256": "8924d6fd414492b5a590118d822ab2ebf1c29fc9da5ecb6f190c5dacb81276d8",
+        "per_response_cap_bytes": 3145728,
+        "aggregate_limit_bytes": 41943040
+      },
+      {
+        "url": "https://api.github.com/repos/hsalis/SalisLabCode/commits/6e938eb36bdce4fcdec15c4f0c3a13a65a350cc1",
+        "retrieved_utc": "2026-10-22T03:19:38.012992+00:00",
+        "status": 200,
+        "bytes": 6814,
+        "sha256": "30775736f630d0b3cae9a86e986e5f8ea5e0cf93529208898104ca6854424bf3",
+        "per_response_cap_bytes": 3145728,
+        "aggregate_limit_bytes": 41943040
+      },
+      {
+        "url": "https://api.github.com/repos/hsalis/SalisLabCode/commits/65e344eb6c140e6f0b84e19ff98c9ade4c994a7a",
+        "retrieved_utc": "2026-10-22T03:19:38.326876+00:00",
+        "status": 200,
+        "bytes": 6771,
+        "sha256": "ec6d784941ae87868e8339d6a3c882d1b75ce50d6e48cc6f62ead2796510da81",
+        "per_response_cap_bytes": 3145728,
+        "aggregate_limit_bytes": 41943040
+      },
+      {
+        "url": "https://api.github.com/repos/hsalis/SalisLabCode/commits/6a30fca19ca831b18251cf9836659d2b123ae191",
+        "retrieved_utc": "2026-10-22T03:19:38.652186+00:00",
+        "status": 200,
+        "bytes": 19888,
+        "sha256": "80ab6a7016f58ff58e4eaadec220f37d231b244b611d9be969ef7f276b53db56",
+        "per_response_cap_bytes": 3145728,
+        "aggregate_limit_bytes": 41943040
+      }
+    ],
+    "coordinator_requests": [
+      {
+        "url": "https://www.nature.com/articles/s41467-024-54059-7",
+        "retrieved_utc": "2026-10-22T03:20:42.822157+00:00",
+        "cap_bytes": 1000000,
+        "status": 200,
+        "final_url": "https://www.nature.com/articles/s41467-024-54059-7?error=cookies_not_supported&code=ac676863-b0a4-4219-8de0-a4a3f4890e64",
+        "content_type": "text/html; charset=utf-8",
+        "expected_bytes": null,
+        "complete": true,
+        "bytes": 486129,
+        "sha256": "3a4fabd683d2c2a44e183cb5ce8511bc3667e65cc8a7cc4c59a650a47a129e4a",
+        "cache_file": "nature-article.html"
+      },
+      {
+        "url": "https://media.springernature.com/original/springer-static/esm/art%3A10.1038%2Fs41467-024-54059-7/MediaObjects/41467_2024_54059_MOESM1_ESM.pdf",
+        "retrieved_utc": "2026-10-22T03:21:29.154513+00:00",
+        "cap_bytes": 1300000,
+        "status": 200,
+        "final_url": "https://media.springernature.com/original/springer-static/esm/art%3A10.1038%2Fs41467-024-54059-7/MediaObjects/41467_2024_54059_MOESM1_ESM.pdf",
+        "content_type": "application/pdf",
+        "expected_bytes": "1230620",
+        "complete": true,
+        "bytes": 1230620,
+        "sha256": "7aaeba1020875128402f32449c4458d5c66489d9fdc46aa820d0cbd535fcdf06",
+        "cache_file": "supplement-information.pdf"
+      },
+      {
+        "url": "https://media.springernature.com/original/springer-static/esm/art%3A10.1038%2Fs41467-024-54059-7/MediaObjects/41467_2024_54059_MOESM2_ESM.pdf",
+        "retrieved_utc": "2026-10-22T03:21:31.183723+00:00",
+        "cap_bytes": 100000,
+        "status": 200,
+        "final_url": "https://media.springernature.com/original/springer-static/esm/art%3A10.1038%2Fs41467-024-54059-7/MediaObjects/41467_2024_54059_MOESM2_ESM.pdf",
+        "content_type": "application/pdf",
+        "expected_bytes": "76107",
+        "complete": true,
+        "bytes": 76107,
+        "sha256": "3508330368713b1f2bec904288869352ac00dceb0767f9ecd495b57a0d2ccf59",
+        "cache_file": "supplement-description.pdf"
+      }
+    ],
+    "accounting_limit": "Publisher HTML redirects were followed by urllib without separately logging their body sizes; recorded sums are not complete transport-byte totals. Raw scout API bodies were not retained.",
+    "no_bulk_archive_or_workbook_download": true
+  },
+  "exposure": {
+    "new_per_case_outcome_tables_opened": false,
+    "public_material_read": [
+      "primary article narrative and public aggregate results",
+      "supplement captions and aggregate tables",
+      "supplement measurement-analysis source",
+      "cached CSV header JSON and pinned source code"
+    ],
+    "private_outcomes": false,
+    "training_or_inference": false,
+    "native_execution": false
+  },
+  "validation": {
+    "isolated_selector_matches_independent_family_expansion": true,
+    "module_imported": false,
+    "training_top_level_executed": false,
+    "synthetic_sequence_fixture_admitted": false
+  }
+}
