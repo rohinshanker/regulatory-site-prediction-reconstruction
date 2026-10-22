@@ -1,7 +1,8 @@
 # mRNA stability inference source boundary
 
 - Purpose: define the published sequence featurization and frozen inference prerequisites under #8.
-- Last verified: 2026-10-21.
+- Scope: public stability source, feature metadata and dependency admission only.
+- Last verified: 2026-10-21
 - Decision: **no complete sequence-to-stability runtime admitted**. The checked public
   sources supply training code and feature tables, but not the complete featurizer,
   six fitted models or their frozen categorical contract.
