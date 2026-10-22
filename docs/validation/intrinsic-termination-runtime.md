@@ -1,7 +1,7 @@
 # Intrinsic-termination adapter contract
 
 - Purpose: Specify the optional external-engine interface and reproducible offline verification.
-- Scope: Implemented optional TransTermHP fragment adapter for #62; exact implementation review and common packaging pending.
+- Scope: Independently reviewed optional TransTermHP fragment adapter for #62; common package and cross-platform integration remain separate gates.
 - Last verified: 2026-10-21
 
 Read the [source boundary](intrinsic-termination-source.md) first. This interface
@@ -40,6 +40,8 @@ The backend is supplied separately from the request, by an explicit local backen
 manifest. Absence or invalidity is a typed backend failure; there is no network,
 automatic discovery, installation or fallback. A valid manifest binds the source
 archive, admitted patches, fixed compiler flags, binary bytes and required table.
+The POSIX runtime requires an executable temporary filesystem for its private
+binary copy. A noexec temporary filesystem produces a typed launch failure.
 The executable and table are local regular files; reject final symlinks, special
 files, oversized or changing reads. Verify the table and executable hashes before
 execution. This verifies the supplied build receipt and bytes; it cannot prove a
@@ -178,7 +180,10 @@ The [build receipt](../../benchmarks/termination/adapter-build-manifest.json)
 binds the original builder output, compiler, native binary and CLI outputs.
 The [post-repair runtime receipt](../../benchmarks/termination/adapter-runtime-validation.json)
 preserves the original frozen evidence and binds four complete CLI outputs,
-including the frozen boundary control. Exact implementation recheck remains pending. The source-built ARM64 binary passed370 focused tests with zero
+including the frozen boundary control. Independent DEM619 exact runtime review,
+repair recheck and final overflow check admit code `6113b54a467af3f90a9a70b20a77c2247983a91c`;
+all material findings are closed. The earlier receipts retain their actual
+checkpoint identities and pending-review status rather than being relabelled. The source-built ARM64 binary passed370 focused tests with zero
 skips and100% coverage of712 statements/188 branches, including every original
 synthetic roster, automatic child stack setup, CLI invocation outside the checkout,
 strict schema validation and missingness. One warning is deliberately produced by

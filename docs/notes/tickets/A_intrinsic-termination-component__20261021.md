@@ -4,8 +4,8 @@
 - Status: active
 - Opened: 2026-10-21
 - Updated: 2026-10-21
-- Current State: Independent exact runtime review completed for `2276af4`. Independent recheck confirms F1–F4 and bounded deadline/schema repairs. C also fixed its nonblocking R1 overflow-trailer classification edge; a final narrow R1 check and A common package/full-suite/CI gates remain.
-- Verification: 370 focused tests pass with zero skips and full 712-statement/188-branch coverage, using the actual offline builder output. CI-scoped Ruff/format/mypy, ticket validation and diff checks pass. Source and math admission is independently complete; runtime acceptance is pending.
+- Current State: C implementation is independently admitted at `6113b54a467af3f90a9a70b20a77c2247983a91c`; source/runtime reviews and repair rechecks close every material finding. A common package/full-suite/CI gates remain before C closes #62.
+- Verification: 370 focused tests pass with zero skips and full 712-statement/188-branch coverage, using the actual offline builder output. CI-scoped Ruff/format/mypy, ticket validation and diff checks pass. Source/math and exact runtime acceptance are independently complete; combined integration is pending.
 - Cleanup: C alone resolves after review, repairs and required integration evidence; rename/H1/status to resolved, retain reusable contracts, update indexes, delete resolved ticket and close linked issue. #8 remains open.
 - Owner: cyano-calcs-c / 56abed60-1792619583; A owns common integration, B independent experimental/source evaluation.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/62
@@ -27,7 +27,9 @@ C added API/IO/CLI/schema integration and fixed Make compiler-path metacharacter
 at 989031d. Runtime review completed on a separate clean snapshot at 2276af4; no duplicate
 source review, writer or reviewer is authorized. DEM619 run
 `01a160d2-aefe-7eab-a7f3-d7a19430b4c4` completed with four bounded findings.
-C owns repairs and the same reviewer receives one finite exact repair recheck.
+Same-reviewer repair run `01a160e2-2352-769f-bd3d-c49c6be93d27` accepted the main
+repairs; final run `01a160e6-9420-7606-8d01-6765ae4a2936` closed residual R1 with
+no regression. Final code is 6113b54. No further review is pending within C scope.
 
 A reserves C one sequential native/compiler slot within the global cap of two.
 The completed reviewer used three frozen tiny-input executions and released
@@ -78,4 +80,5 @@ owner; no bypass. No child may reroute or duplicate its assignment.
 R1 from the completed repair recheck is fixed by bounded total/G/F counters and
 complete validation of rows/trailer/counts after retention stops. Five negative
 cases cover missing trailer, trailing garbage, nonconsecutive IDs and both
-context-count mismatches. No new source, engine build or empirical input.
+context-count mismatches. The final independent R1 check is complete with no regression. No new source,
+engine build or empirical input.
