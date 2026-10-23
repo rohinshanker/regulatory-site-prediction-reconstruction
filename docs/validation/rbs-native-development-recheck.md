@@ -3,7 +3,7 @@
 - Purpose: Describe coverage and rank association for four fixed configurations on existing public PCC 6803 development-validation inputs.
 - Scope: Consumed-study exploratory analysis; no fitting, promotion, final outcomes or new experimental planning.
 - Last verified: 2026-10-22
-- State: Local tooling and artificial verification implemented; finite C/A review and final execution freeze remain pending. No native prediction has run for this task.
+- State: Local tooling implements the finite A/C admission corrections; exact repair recheck and final execution freeze remain pending. No native prediction has run for this task.
 
 The [protocol](../../benchmarks/rbs/native-development-recheck-protocol.json)
 fixes the cohort, candidate, configurations, packing, resources and endpoints
@@ -126,6 +126,46 @@ No worker dispatch, scoring import, predictor call, new source, private outcome,
 consumer change or publication belongs to B's tooling step.
 
 
+## Frozen producer wire and result semantics
+
+Receipt argv is derived from each frozen manifest job's options, not a formatted
+copy of a higher-level budget. Match the installed runner's sorted option names,
+underscore-to-hyphen flag spelling, unchanged strings and `repr` for numeric
+values. In particular, a manifest float `60.0` requires wire argument `"60.0"`;
+an integer `60` requires `"60"`. These spellings are not interchangeable identities.
+
+A singleton site outcome has a null enclosing record reason. Its site status
+must equal the record status; successful sites have a null site reason, while
+failed/unsupported/no-candidate sites carry the failure reason used in aggregate
+accounting. Genuine record-level failed or invalid-input cases have empty sites
+and a nonempty record reason. Do not reject ordinary completed site failures or
+replace their reason with a fabricated record-level reason. Complete exit-1
+batches retain successful rows; completed unsupported/no-candidate batches have
+exit 0 and still contribute unsuccessful records.
+
+For every non-invalid record, independently recompute `prediction_id` from the
+validated full input, model and backend plus the floating-point declared budget:
+
+```python
+payload = {"input": record["input"], "model": record["model"],
+           "backend": record["backend"], "budget_seconds": float(declared_budget)}
+encoded = json.dumps(payload, sort_keys=True, separators=(",", ":"),
+                     ensure_ascii=True, allow_nan=False).encode("utf-8")
+expected_prediction_id = hashlib.sha256(encoded).hexdigest()
+```
+
+There is no trailing LF in this hash encoding. Null identity is accepted only
+for legitimate invalid-input records with null input and no sites. An unrelated,
+stale or wrong-budget hash fails even if receipt/output hashes were refreshed.
+
+Every retained site's complete `window` must match the frozen model's
+`upstream_nt`/`downstream_nt` parameters: start `max(0, start-upstream_nt)`, end
+`min(sequence_length, start+downstream_nt)`, with the identical `+` input interval.
+For these fixed inputs, historical is `[65,135)` and context2017/standby2014 are
+`[0,200)`. These checks apply to unsuccessful sites too; reversed, out-of-bounds,
+wrong-strand and wrong-profile windows fail admission without folding or
+re-evaluating energies.
+
 ## Offline preparation and evaluation interface
 
 Run the benchmark module from the reviewed producer tree using the existing
@@ -214,10 +254,16 @@ concurrent path replacement. Keep original external artifacts immutable.
 The focused test uses artificial requests, schema-valid synthetic native records
 and runner receipts, plus a separate exact-public-input pin check. It verifies
 packing/no label leakage, all four profiles, strict identity/coordinate/null
-semantics, ordinary failures/abandonment, every-case denominators, deterministic
+semantics, literal integer/float wire identities, source-shaped singleton failure
+reasons, full prediction hashes, profile windows, ordinary failures/abandonment,
+every-case denominators, deterministic
 ranks and group intervals, consistently rehashed semantic mutations, output
 collision/failure behavior and no scorer imports. Synthetic fixtures test
 contracts; they do not establish producer fidelity or biological accuracy.
+Complete synthetic campaigns refresh every affected stream, receipt and summary
+pin before semantic-negative checks. Mixed exit-1/exit-0 unsuccessful campaigns
+verify failure accounting; a bad result in the second campaign prevents the
+public-label join and report publication.
 
 ```sh
 PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 python -m pytest -p pytest_cov \

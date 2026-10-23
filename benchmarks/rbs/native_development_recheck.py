@@ -432,7 +432,7 @@ def validate_schema(value, name):
     require(error is None, f"Invalid {name} document")
 
 
-def native_scores(raw, rows, expected, exit_code):
+def native_scores(raw, rows, expected, exit_code, *, budget_seconds):
     """Admit complete native JSON before extracting supplied-start scores."""
     result = parse_json(raw)
     validate_schema(result, f"rbs-result-{expected['schema_version']}")
@@ -468,9 +468,17 @@ def native_scores(raw, rows, expected, exit_code):
             )
         else:
             same(result_row["input"], echo, "Native input/settings")
-            require(
-                result_row["prediction_id"] is not None,
-                "Missing native prediction identity",
+            same(
+                result_row["prediction_id"],
+                compact_hash(
+                    {
+                        "input": result_row["input"],
+                        "model": result_row["model"],
+                        "backend": result_row["backend"],
+                        "budget_seconds": float(budget_seconds),
+                    }
+                ),
+                "Native prediction identity",
             )
         sites = result_row["sites"]
         require(
@@ -479,8 +487,11 @@ def native_scores(raw, rows, expected, exit_code):
             "Supplied-start roster",
         )
         predicted: Any = None
+        reason = result_row["reason"]
         if sites:
             site = sites[0]
+            require(reason is None, "Native record reason for site outcome")
+            reason = site["reason"]
             same(site["oriented_start"], row["start"], "Oriented start")
             same(
                 site["start_codon"],
@@ -491,6 +502,18 @@ def native_scores(raw, rows, expected, exit_code):
                 site["codon"], sequence[row["start"] : row["start"] + 3], "Start codon"
             )
             same(site["status"], result_row["status"], "Singleton status")
+            parameters = expected["model"]["parameters"]
+            begin = max(0, row["start"] - parameters["upstream_nt"])
+            end = min(len(sequence), row["start"] + parameters["downstream_nt"])
+            same(
+                site["window"],
+                {
+                    "oriented_start": begin,
+                    "oriented_end": end,
+                    "input_interval": {"start": begin, "end": end, "strand": "+"},
+                },
+                "Native scoring window",
+            )
             predicted = site["tir"]
         status = result_row["status"]
         require(
@@ -500,22 +523,45 @@ def native_scores(raw, rows, expected, exit_code):
             "Native score/status",
         )
         require(
-            result_row["reason"] is None
-            if status == "ok"
-            else bool(result_row["reason"]),
+            reason is None if status == "ok" else bool(reason),
             "Native reason/status",
         )
         scores.append(
             {
                 "id": row["id"],
                 "status": status,
-                "reason": result_row["reason"] or "",
+                "reason": reason or "",
                 "predicted": predicted,
             }
         )
     expected_exit = int(any(r["status"] in {"failed", "invalid_input"} for r in scores))
     same(exit_code, expected_exit, "Native exit/status")
     return scores
+
+
+def rbs_argv(options):
+    """Mirror the frozen runner's wire spelling, without importing its module."""
+    argv = [
+        "{python}",
+        "-P",
+        "-s",
+        "-m",
+        "regsite",
+        "-",
+        "--format",
+        "json",
+        "--backend-root",
+        "{backend_root}",
+    ]
+    for name in sorted(options):
+        value = options[name]
+        argv.extend(
+            [
+                "--" + name.replace("_", "-"),
+                value if isinstance(value, str) else repr(value),
+            ]
+        )
+    return argv
 
 
 class Artifacts:
@@ -659,12 +705,15 @@ def admit_campaign(plan, name, acquisition, runtime, protocol):
         "complete" if complete else "incomplete",
         "Runner completeness",
     )
-    rows, configurations = indexed(plan["rows"]), indexed(protocol["configurations"])
+    rows = indexed(plan["rows"])
     predictions: dict = {}
     diagnostics, stream_bytes = [], 0
     limits = protocol["execution"]
-    for job, roster in zip(
-        verified["jobs"], expected_campaign["job_roster"], strict=True
+    for job, roster, specification in zip(
+        verified["jobs"],
+        expected_campaign["job_roster"],
+        expected_campaign["manifest"]["jobs"],
+        strict=True,
     ):
         identity, configuration = job["id"], roster["configuration"]
         require(job["kind"] == "rbs", "Runner kind")
@@ -736,23 +785,7 @@ def admit_campaign(plan, name, acquisition, runtime, protocol):
                 ),
             ):
                 same(receipt[key], value, f"Receipt {key}")
-            argv = [
-                "{python}",
-                "-P",
-                "-s",
-                "-m",
-                "regsite",
-                "-",
-                "--format",
-                "json",
-                "--backend-root",
-                "{backend_root}",
-                "--profile",
-                configurations[configuration]["profile"],
-                "--seconds-per-record",
-                format(limits["seconds_per_record"], "g"),
-            ]
-            same(receipt["argv"], argv, "Prediction argv")
+            same(receipt["argv"], rbs_argv(specification["options"]), "Prediction argv")
             same(
                 job["state"],
                 receipt["outcome"] if receipt["terminal"] else "unfinished",
@@ -791,6 +824,7 @@ def admit_campaign(plan, name, acquisition, runtime, protocol):
                     batch,
                     plan["expected"][configuration],
                     receipt["exit_code"],
+                    budget_seconds=specification["options"]["seconds_per_record"],
                 )
             else:
                 scores = [

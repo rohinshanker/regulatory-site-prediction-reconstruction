@@ -4,8 +4,8 @@
 - Status: active
 - Opened: 2026-10-22
 - Updated: 2026-10-22
-- Current State: Exact base 349b40b3b6b50c46b7520fb6ee4c52f78d4b9dff; sole writer tree reconstruction-native-rbs-recheck-20261022, branch quality/native-rbs-recheck-20261022. Initial protocol/feasibility proposal delivered before implementation or collection. Two admitted input hashes and all 479 validation records/423 groups confirmed; source/model selection unchanged. Offline preparation/evaluation tooling and synthetic tests are implemented. The proposed A-runner verification/acquisition interface is documented; finite C/A review, final interface acceptance and execution freeze remain pending.
-- Verification: Public input/split SHA256 pins match; source cohort has 479 unchanged 200-base contexts/start 100, PCC 6803/30 C/ACCUCCUUU. C's reviewed candidate preparation receipt matches cb6fcb06c8db41c2c6ed5edb543de60363d1a18af500a4535facc629627e72c9. 44 focused/adjacent tests pass with zero skips and full 381-statement/78-branch new-tool coverage; Ruff/format, scoped mypy, ticket/link and diff checks pass. Outcome-free external preparation validates all 479 records/423 groups, 120 jobs and 1,916 planned record predictions. No prediction, fitting, source retrieval or private-label access. The original 0.12 candidate is not replaced by this code branch.
+- Current State: B sole writer on quality/native-rbs-recheck-20261022. Combined repair against immutable 2dbdde422b9c9ec92ed050d7fe9db8a66627dcad implements A73-R1 and C F1/F2/F3: exact runner option spelling, producer-shaped site reasons, full prediction identity and profile scoring windows. Initial A/C pass is complete; same-C bounded repair recheck and A final execution freeze remain pending. Transport ownership is confirmed. Original prepared-b-01/protocol/cohort/configurations/endpoints/resources remain unchanged; no native execution.
+- Verification: Public input/split SHA256 pins match; source cohort has 479 unchanged 200-base contexts/start 100, PCC 6803/30 C/ACCUCCUUU. C's reviewed candidate preparation receipt matches cb6fcb06c8db41c2c6ed5edb543de60363d1a18af500a4535facc629627e72c9. 51 focused/adjacent tests pass with zero skips and full 393-statement/80-branch new-tool coverage; Ruff/format, scoped mypy, ticket/link and diff checks pass. Outcome-free external preparation validates all 479 records/423 groups, 120 jobs and 1,916 planned record predictions. No prediction, fitting, source retrieval or private-label access. The original 0.12 candidate is not replaced by this code branch.
 - Cleanup: After finite implementation/evaluation and independent acceptance, distill reusable protocol/verification guidance, resolve/remove only this child and own queue row. Parent #12 remains open.
 - Owner: Session B 9677689a-1792176763; coordinator A baf5b738-1792172297; existing C 56abed60-1792619583 finite independent review.
 - GitHub: [#73](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/73).
@@ -29,3 +29,8 @@ credential/env/incident-log access, source discovery, consumer edits or
 main/tag/package publication. Before any new credential/admin/sudo/keychain/
 macOS action, disclose exact action/resource/reason and await owner via A;
 never bypass a pending or denied approval.
+
+The original A/C review findings are accepted for this one bounded correction.
+Do not treat local repair tests as independent acceptance. Keep the old review
+commit and prepared plan505f5bcd88197cd0034551704e1aca67531482dc116141ca0d30d6d3589a8ea2
+immutable; prepare a separate plan only after the final repair commit.

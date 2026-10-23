@@ -1,6 +1,7 @@
 """Artificial native-development requests, identities and rank endpoints."""
 
 import copy
+import hashlib
 import io
 import json
 import runpy
@@ -105,7 +106,12 @@ class NativeDevelopmentTest(unittest.TestCase):
                     + "-rnastructure-6.6-reconstruction-1",
                     "implementation_version": "0.12.0rc1",
                     "source_commit": "artificial",
-                    "parameters": {},
+                    "parameters": {
+                        "upstream_nt": 35 if config["profile"] == "historical" else 100,
+                        "downstream_nt": 35
+                        if config["profile"] == "historical"
+                        else 100,
+                    },
                 },
             }
         self.rows = n.select_inputs(self.development, self.split, p["cohort"])
@@ -625,6 +631,25 @@ class NativeDevelopmentTest(unittest.TestCase):
             "null": None,
         }[kind]
 
+    @staticmethod
+    def prediction_identity(record, budget=60.0):
+        """Independent fixture encoding of the published hash payload."""
+        payload = {
+            "input": record["input"],
+            "model": record["model"],
+            "backend": record["backend"],
+            "budget_seconds": budget,
+        }
+        return hashlib.sha256(
+            json.dumps(
+                payload,
+                sort_keys=True,
+                separators=(",", ":"),
+                ensure_ascii=True,
+                allow_nan=False,
+            ).encode("utf-8")
+        ).hexdigest()
+
     def native_result(self, rows, expected, statuses=None):
         version = expected["schema_version"]
         schema = json.loads(
@@ -641,8 +666,7 @@ class NativeDevelopmentTest(unittest.TestCase):
                 model=expected["model"],
                 backend=expected["backend"],
                 status=status,
-                reason=None if status == "ok" else "artificial_failure",
-                prediction_id="a" * 64,
+                reason=None,
                 input={
                     "id": row["id"],
                     "host": row["host"],
@@ -661,7 +685,7 @@ class NativeDevelopmentTest(unittest.TestCase):
             site = self.schema_value(site_schema, schema)
             site.update(
                 status=status,
-                reason=value["reason"],
+                reason=None if status == "ok" else f"artificial_{status}",
                 codon=sequence[row["start"] : row["start"] + 3],
                 oriented_start=row["start"],
                 start_codon={
@@ -670,6 +694,14 @@ class NativeDevelopmentTest(unittest.TestCase):
                     "strand": "+",
                 },
             )
+            parameters = expected["model"]["parameters"]
+            begin = max(0, row["start"] - parameters["upstream_nt"])
+            end = min(len(sequence), row["start"] + parameters["downstream_nt"])
+            site["window"] = {
+                "oriented_start": begin,
+                "oriented_end": end,
+                "input_interval": {"start": begin, "end": end, "strand": "+"},
+            }
             if status == "ok":
                 site.update(tir=float(number + 1), log_tir=float(number))
             else:
@@ -689,6 +721,7 @@ class NativeDevelopmentTest(unittest.TestCase):
                     if key in site:
                         site[key] = None
             value["sites"] = [site]
+            value["prediction_id"] = self.prediction_identity(value)
             results.append(value)
         return {"schema_version": version, "results": results}
 
@@ -697,21 +730,30 @@ class NativeDevelopmentTest(unittest.TestCase):
         for expected in plan["expected"].values():
             with self.subTest(version=expected["schema_version"]):
                 document = self.native_result(self.rows, expected)
-                scores = n.native_scores(n.canonical(document), self.rows, expected, 0)
+                scores = n.native_scores(
+                    n.canonical(document), self.rows, expected, 0, budget_seconds=60.0
+                )
                 self.assertEqual(scores[0]["predicted"], 1)
                 document = self.native_result(
                     self.rows, expected, ["failed", "no_candidate", "unsupported", "ok"]
                 )
-                scores = n.native_scores(n.canonical(document), self.rows, expected, 1)
+                scores = n.native_scores(
+                    n.canonical(document), self.rows, expected, 1, budget_seconds=60.0
+                )
                 self.assertEqual(
                     [r["status"] for r in scores],
                     ["failed", "no_candidate", "unsupported", "ok"],
                 )
                 document["results"][0]["sites"] = []
+                document["results"][0]["reason"] = "artificial_session_failure"
                 self.assertIsNone(
-                    n.native_scores(n.canonical(document), self.rows, expected, 1)[0][
-                        "predicted"
-                    ]
+                    n.native_scores(
+                        n.canonical(document),
+                        self.rows,
+                        expected,
+                        1,
+                        budget_seconds=60.0,
+                    )[0]["predicted"]
                 )
 
     def test_invalid_input_retains_request_accounting_without_fake_echo(self):
@@ -726,12 +768,16 @@ class NativeDevelopmentTest(unittest.TestCase):
             prediction_id=None,
             sites=[],
         )
-        scores = n.native_scores(n.canonical(doc), self.rows, expected, 1)
+        scores = n.native_scores(
+            n.canonical(doc), self.rows, expected, 1, budget_seconds=60.0
+        )
         self.assertEqual(scores[0]["status"], "invalid_input")
         self.assertIsNone(scores[0]["predicted"])
         doc["results"][0]["prediction_id"] = "a" * 64
         with self.assertRaisesRegex(ValueError, "Invalid-input provenance"):
-            n.native_scores(n.canonical(doc), self.rows, expected, 1)
+            n.native_scores(
+                n.canonical(doc), self.rows, expected, 1, budget_seconds=60.0
+            )
 
     def test_native_semantic_mutations_after_valid_serialization(self):
         expected = n.build_plan(self.protocol, self.candidate, self.rows)["expected"][
@@ -759,9 +805,13 @@ class NativeDevelopmentTest(unittest.TestCase):
                 doc = copy.deepcopy(original)
                 change(doc)
                 with self.assertRaises(ValueError):
-                    n.native_scores(n.canonical(doc), self.rows, expected, 0)
+                    n.native_scores(
+                        n.canonical(doc), self.rows, expected, 0, budget_seconds=60.0
+                    )
         with self.assertRaisesRegex(ValueError, "exit/status"):
-            n.native_scores(n.canonical(original), self.rows, expected, 1)
+            n.native_scores(
+                n.canonical(original), self.rows, expected, 1, budget_seconds=60.0
+            )
 
     def campaign(self, plan, name, modes=None):
         folder = self.root / f"evidence-{name}"
@@ -883,7 +933,7 @@ class NativeDevelopmentTest(unittest.TestCase):
                             "--profile",
                             spec["options"]["profile"],
                             "--seconds-per-record",
-                            "60",
+                            "60.0",
                         ],
                         "outcome": mode,
                         "terminal": terminal,
@@ -1235,6 +1285,375 @@ class NativeDevelopmentTest(unittest.TestCase):
                     for v in report["configurations"].values()
                 )
             )
+
+    def replace_native_output(self, plan, campaign, acquisition, save, index, document):
+        """Refresh all synthetic transport bindings after a native JSON mutation."""
+        root = Path(acquisition["root"])
+        job = plan["campaigns"][campaign]["job_roster"][index]
+        prefix = f"campaign/jobs/{job['id']}/attempt-0001"
+        old_size = acquisition["files"][prefix + "/stdout"]["bytes"]
+        save(prefix + "/stdout", document)
+        stream_pin = acquisition["files"][prefix + "/stdout"]
+        exit_code = int(
+            any(r["status"] in {"failed", "invalid_input"} for r in document["results"])
+        )
+        state = "partial" if exit_code else "succeeded"
+        receipt = json.loads((root / (prefix + "/receipt.json")).read_bytes())
+        receipt["stdout"].update(stream_pin)
+        receipt.update(outcome=state, exit_code=exit_code)
+        save(prefix + "/receipt.json", receipt)
+        for name in ("verification.json", "run-summary.json"):
+            summary = json.loads((root / name).read_bytes())
+            row = summary["jobs"][index]
+            summary["counts"][row["state"]] -= 1
+            summary["counts"][state] += 1
+            row.update(state=state, exit_code=exit_code)
+            row["stdout"].update(stream_pin)
+            summary["output_bytes"] += stream_pin["bytes"] - old_size
+            save(name, summary)
+
+    def campaign_document(self, plan, name, acquisition, index=0):
+        job = plan["campaigns"][name]["job_roster"][index]
+        path = (
+            Path(acquisition["root"]) / f"campaign/jobs/{job['id']}/attempt-0001/stdout"
+        )
+        return json.loads(path.read_bytes())
+
+    def test_a73_r1_literal_float_int_and_sorted_option_wire_spelling(self):
+        prefix = [
+            "{python}",
+            "-P",
+            "-s",
+            "-m",
+            "regsite",
+            "-",
+            "--format",
+            "json",
+            "--backend-root",
+            "{backend_root}",
+        ]
+        # Literal independent wire expectations: no call to a shared formatter.
+        self.assertEqual(
+            n.rbs_argv({"seconds_per_record": 60.0, "profile": "historical"}),
+            prefix + ["--profile", "historical", "--seconds-per-record", "60.0"],
+        )
+        self.assertEqual(
+            n.rbs_argv({"seconds_per_record": 60, "profile": "historical"}),
+            prefix + ["--profile", "historical", "--seconds-per-record", "60"],
+        )
+        for budget, spelling, wrong in ((60.0, "60.0", "60"), (60, "60", "60.0")):
+            protocol = copy.deepcopy(self.protocol)
+            protocol["execution"]["seconds_per_record"] = budget
+            plan = n.build_plan(protocol, self.candidate, self.rows)
+            acquisition, save = self.campaign(plan, "original")
+            for job in plan["campaigns"]["original"]["job_roster"]:
+                path = f"campaign/jobs/{job['id']}/attempt-0001/receipt.json"
+                receipt = json.loads((Path(acquisition["root"]) / path).read_bytes())
+                receipt["argv"][-1] = spelling
+                save(path, receipt)
+            scores, _ = n.admit_campaign(
+                plan, "original", acquisition, self.runtime, protocol
+            )
+            self.assertEqual(len(scores["historical-original"]), 4)
+            receipt["argv"][-1] = wrong
+            save(path, receipt)
+            with self.assertRaisesRegex(ValueError, "Prediction argv"):
+                n.admit_campaign(plan, "original", acquisition, self.runtime, protocol)
+
+    def source_failure_campaigns(self, plan):
+        """Source-shaped mixed exit-1 and exit-0 unsuccessful synthetic batches."""
+        campaigns = {}
+        for name, campaign in plan["campaigns"].items():
+            acquisition, save = self.campaign(plan, name)
+            for index, job in enumerate(campaign["job_roster"]):
+                rows = [r for r in plan["rows"] if r["id"] in job["record_ids"]]
+                statuses = (
+                    ["failed", "ok"]
+                    if rows[0]["id"] == "synthetic-0"
+                    else ["unsupported", "no_candidate"]
+                )
+                doc = self.native_result(
+                    rows, plan["expected"][job["configuration"]], statuses
+                )
+                self.assertTrue(all(r["reason"] is None for r in doc["results"]))
+                self.replace_native_output(plan, name, acquisition, save, index, doc)
+            campaigns[name] = acquisition
+        return campaigns
+
+    def test_c_f1_complete_campaign_failure_reasons_and_label_join_order(self):
+        with self.prepared_files():
+            args = self.evaluation_files()
+            plan = json.loads(args[1].read_bytes())
+            acquisition = json.loads(args[4].read_bytes())
+            acquisition["campaigns"] = self.source_failure_campaigns(plan)
+            args[4].write_bytes(n.canonical(acquisition))
+            args[5] = n.digest(args[4].read_bytes())
+            events = []
+            reader, admit = n.checked_json, n.admit_campaign
+            development_path = n.ROOT / n.INPUT_PINS["development"]["path"]
+            development_reads = 0
+
+            def checked(path, *rest):
+                nonlocal development_reads
+                if path == development_path:
+                    development_reads += 1
+                    if development_reads == 2:
+                        self.assertEqual(events, ["linker3", "original"])
+                        events.append("public_label_join_read")
+                return reader(path, *rest)
+
+            def admitted(plan, name, *rest):
+                result = admit(plan, name, *rest)
+                events.append(name)
+                return result
+
+            with (
+                patch.object(n, "checked_json", side_effect=checked),
+                patch.object(n, "admit_campaign", side_effect=admitted),
+            ):
+                report = n.evaluate(*args)
+            self.assertEqual(events, ["linker3", "original", "public_label_join_read"])
+            for summary in report["configurations"].values():
+                self.assertEqual(
+                    (summary["n_inputs"], summary["n_success"], summary["coverage"]),
+                    (4, 1, 0.25),
+                )
+                self.assertEqual(
+                    summary["status_counts"],
+                    {"failed": 1, "ok": 1, "unsupported": 1, "no_candidate": 1},
+                )
+                self.assertEqual(
+                    summary["failure_reasons"],
+                    {
+                        "artificial_failed": 1,
+                        "artificial_unsupported": 1,
+                        "artificial_no_candidate": 1,
+                    },
+                )
+                self.assertEqual(
+                    summary["runtime_diagnostic"]["state_counts"],
+                    {"partial": 1, "succeeded": 1},
+                )
+
+    def test_c_f1_record_site_reason_contradictions_fail(self):
+        plan = n.build_plan(self.protocol, self.candidate, self.rows)
+        expected = plan["expected"]["historical-original"]
+        for status in ("ok", "failed", "unsupported", "no_candidate"):
+            for invalid_reason in ("record_reason",):
+                doc = self.native_result(self.rows, expected, [status] + ["ok"] * 3)
+                doc["results"][0]["reason"] = invalid_reason
+                with self.assertRaisesRegex(ValueError, "Native record reason"):
+                    n.native_scores(
+                        n.canonical(doc),
+                        self.rows,
+                        expected,
+                        int(status == "failed"),
+                        budget_seconds=60.0,
+                    )
+            doc = self.native_result(self.rows, expected, [status] + ["ok"] * 3)
+            doc["results"][0]["sites"][0]["reason"] = (
+                "unexpected" if status == "ok" else None
+            )
+            with self.assertRaisesRegex(
+                ValueError, "Native reason/status|Invalid rbs-result"
+            ):
+                n.native_scores(
+                    n.canonical(doc),
+                    self.rows,
+                    expected,
+                    int(status == "failed"),
+                    budget_seconds=60.0,
+                )
+        doc = self.native_result(self.rows, expected, ["failed"] + ["ok"] * 3)
+        doc["results"][0]["sites"] = []
+        with self.assertRaisesRegex(ValueError, "Native reason/status"):
+            n.native_scores(
+                n.canonical(doc), self.rows, expected, 1, budget_seconds=60.0
+            )
+
+    def test_c_f2_identity_payload_literal_spelling(self):
+        literal = (
+            b'{"backend":{"name":"synthetic"},"budget_seconds":60.0,'
+            b'"input":{"id":"\\u03b2"},"model":{"id":"m"}}'
+        )
+        record = {
+            "input": {"id": "β"},
+            "model": {"id": "m"},
+            "backend": {"name": "synthetic"},
+        }
+        self.assertEqual(
+            self.prediction_identity(record), hashlib.sha256(literal).hexdigest()
+        )
+        self.assertNotEqual(
+            self.prediction_identity(record, 60), hashlib.sha256(literal).hexdigest()
+        )
+        self.assertNotEqual(
+            self.prediction_identity(record, 1.0), hashlib.sha256(literal).hexdigest()
+        )
+
+    def test_c_f2_rehashed_campaign_rejects_unrelated_stale_budget_and_non_ok_ids(self):
+        plan = n.build_plan(self.protocol, self.candidate, self.rows)
+        for name, campaign in plan["campaigns"].items():
+            first_by_config = {}
+            for index, job in enumerate(campaign["job_roster"]):
+                first_by_config.setdefault(job["configuration"], index)
+            for config, index in first_by_config.items():
+                for status in ("ok", "failed", "unsupported", "no_candidate"):
+                    for mutation in (
+                        "unrelated",
+                        "wrong_budget",
+                        "int_budget",
+                        "stale_input",
+                        "stale_model",
+                        "stale_backend",
+                        "null",
+                    ):
+                        with self.subTest(
+                            config=config, status=status, mutation=mutation
+                        ):
+                            acq, save = self.campaign(plan, name)
+                            roster = campaign["job_roster"][index]
+                            rows = [
+                                r for r in self.rows if r["id"] in roster["record_ids"]
+                            ]
+                            doc = self.native_result(
+                                rows, plan["expected"][config], [status, "ok"]
+                            )
+                            record = doc["results"][0]
+                            if mutation == "unrelated":
+                                record["prediction_id"] = "0" * 64
+                            elif mutation == "wrong_budget":
+                                record["prediction_id"] = self.prediction_identity(
+                                    record, 1.0
+                                )
+                            elif mutation == "int_budget":
+                                record["prediction_id"] = self.prediction_identity(
+                                    record, 60
+                                )
+                            elif mutation == "null":
+                                record["prediction_id"] = None
+                            else:
+                                payload = copy.deepcopy(record)
+                                payload[mutation.removeprefix("stale_")]["extra"] = (
+                                    "stale"
+                                )
+                                record["prediction_id"] = self.prediction_identity(
+                                    payload
+                                )
+                            self.replace_native_output(
+                                plan, name, acq, save, index, doc
+                            )
+                            with self.assertRaisesRegex(
+                                ValueError, "Native prediction identity"
+                            ):
+                                n.admit_campaign(
+                                    plan, name, acq, self.runtime, self.protocol
+                                )
+
+    def test_c_f3_exact_profile_windows_and_rehashed_negative_cases(self):
+        plan = n.build_plan(self.protocol, self.candidate, self.rows)
+        for name, campaign in plan["campaigns"].items():
+            first_by_config = {}
+            for index, job in enumerate(campaign["job_roster"]):
+                first_by_config.setdefault(job["configuration"], index)
+            for config, index in first_by_config.items():
+                bounds = (65, 135) if config.startswith("historical") else (0, 200)
+                wrong_profile = (0, 200) if bounds == (65, 135) else (65, 135)
+                for status in ("ok", "failed", "unsupported", "no_candidate"):
+                    acq, save = self.campaign(plan, name)
+                    roster = campaign["job_roster"][index]
+                    rows = [r for r in self.rows if r["id"] in roster["record_ids"]]
+                    doc = self.native_result(
+                        rows, plan["expected"][config], [status, "ok"]
+                    )
+                    self.assertEqual(
+                        doc["results"][0]["sites"][0]["window"],
+                        {
+                            "oriented_start": bounds[0],
+                            "oriented_end": bounds[1],
+                            "input_interval": {
+                                "start": bounds[0],
+                                "end": bounds[1],
+                                "strand": "+",
+                            },
+                        },
+                    )
+                    self.replace_native_output(plan, name, acq, save, index, doc)
+                    n.admit_campaign(plan, name, acq, self.runtime, self.protocol)
+                    for mutation in (
+                        "reversed",
+                        "out_of_bounds",
+                        "strand",
+                        "profile",
+                        "interval_only",
+                    ):
+                        with self.subTest(
+                            config=config, status=status, mutation=mutation
+                        ):
+                            changed = copy.deepcopy(doc)
+                            window = changed["results"][0]["sites"][0]["window"]
+                            if mutation in {"reversed", "out_of_bounds", "profile"}:
+                                start, end = {
+                                    "reversed": (500, 1),
+                                    "out_of_bounds": (0, 201),
+                                    "profile": wrong_profile,
+                                }[mutation]
+                                window.update(
+                                    oriented_start=start,
+                                    oriented_end=end,
+                                    input_interval={
+                                        "start": start,
+                                        "end": end,
+                                        "strand": "+",
+                                    },
+                                )
+                            elif mutation == "strand":
+                                window["input_interval"]["strand"] = "-"
+                            else:
+                                window["input_interval"]["start"] += 1
+                            self.replace_native_output(
+                                plan, name, acq, save, index, changed
+                            )
+                            with self.assertRaisesRegex(
+                                ValueError, "Native scoring window"
+                            ):
+                                n.admit_campaign(
+                                    plan, name, acq, self.runtime, self.protocol
+                                )
+
+    def test_semantic_failure_in_second_campaign_prevents_public_label_join(self):
+        with self.prepared_files():
+            args = self.evaluation_files()
+            plan = json.loads(args[1].read_bytes())
+            acquisition = json.loads(args[4].read_bytes())
+            name = list(plan["campaigns"])[-1]
+            acq, save = self.campaign(plan, name)
+            doc = self.campaign_document(plan, name, acq)
+            doc["results"][0]["prediction_id"] = "0" * 64
+            self.replace_native_output(plan, name, acq, save, 0, doc)
+            acquisition["campaigns"][name] = acq
+            args[4].write_bytes(n.canonical(acquisition))
+            args[5] = n.digest(args[4].read_bytes())
+            reader, reads = n.checked_json, []
+            development_path = n.ROOT / n.INPUT_PINS["development"]["path"]
+
+            def checked(path, *rest):
+                if path == development_path:
+                    reads.append(path)
+                    self.assertEqual(
+                        len(reads), 1, "No label-join read after failed semantics"
+                    )
+                return reader(path, *rest)
+
+            with (
+                patch.object(n, "checked_json", side_effect=checked),
+                patch.object(n, "analyze") as analyze,
+            ):
+                with self.assertRaisesRegex(ValueError, "Native prediction identity"):
+                    n.evaluate(*args)
+                analyze.assert_not_called()
+            self.assertEqual(len(reads), 1)
+            self.assertFalse(args[-1].exists())
 
 
 if __name__ == "__main__":
