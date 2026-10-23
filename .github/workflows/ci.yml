@@ -16,7 +16,7 @@ jobs:
         os: [ubuntu-24.04, macos-14]
         python: ['3.11', '3.14']
     runs-on: ${{ matrix.os }}
-    timeout-minutes: 45
+    timeout-minutes: 60
     env:
       REGSITE_RNASTRUCTURE: ${{ github.workspace }}/.cache/original/RNAstructure
     steps:
@@ -38,14 +38,30 @@ jobs:
         run: |
           python -m coverage run --branch --source=backends/rnastructure66 -m unittest discover -s backends/rnastructure66/tests -p test_build.py -v
           python -m coverage report --include='*/rnastructure66/build.py' --fail-under=100
+      - name: Build the separately licensed pinned termination engine
+        shell: bash
+        run: |
+          curl --fail --location --retry 2 --max-time 120 https://transterm.cbcb.umd.edu/transterm_hp_v2.09.zip -o "$RUNNER_TEMP/transterm_hp_v2.09.zip"
+          curl --fail --location --retry 2 --max-time 120 https://sources.debian.org/data/main/t/transtermhp/2.09-5/debian/patches/0002-read_seq-return-NULL-instead-of-false.patch -o "$RUNNER_TEMP/transterm-null.patch"
+          if [ "$RUNNER_OS" = macOS ]; then
+            term_compiler="$(xcrun --find clang++)"
+            term_sdk="$(xcrun --show-sdk-path)"
+            term_options=(--arch "$(uname -m)" --sysroot "$term_sdk" --cxx-include "$term_sdk/usr/include/c++/v1" --standard-library libc++)
+          else
+            term_compiler="$(command -v g++)"
+            term_options=(--standard-library libstdc++)
+          fi
+          python tools/build_termination_backend.py --archive "$RUNNER_TEMP/transterm_hp_v2.09.zip" --patch "$RUNNER_TEMP/transterm-null.patch" --compiler "$term_compiler" --output "$RUNNER_TEMP/regsite-termination" "${term_options[@]}"
       - name: Static and full runtime gates
+        env:
+          REGSITE_TERMINATION_TEST_BACKEND: ${{ runner.temp }}/regsite-termination/backend.json
         run: |
           ruff check src tests experiments tools
           ruff format --check src tests experiments tools
-          ruff check benchmarks/rbs/structural.py benchmarks/rbs/new_data.py benchmarks/rbs/wave4_*.py benchmarks/rbs/context_panel.py benchmarks/rbs/context_metrics.py benchmarks/rbs/context_collect.py benchmarks/promoter benchmarks/recoding benchmarks/riboswitch
-          ruff format --check benchmarks/rbs/structural.py benchmarks/rbs/new_data.py benchmarks/rbs/wave4_*.py benchmarks/rbs/context_panel.py benchmarks/rbs/context_metrics.py benchmarks/rbs/context_collect.py benchmarks/promoter benchmarks/recoding benchmarks/riboswitch
-          mypy src/regsite experiments tools
-          python -m pytest --cov=regsite --cov=benchmarks.rbs --cov=benchmarks.promoter --cov=benchmarks.recoding --cov=benchmarks.riboswitch --cov=experiments.rbs --cov=experiments.promoter --cov=tools.derive_promoter_parameters --cov=tools.measure_promoter_resources --cov=tools.calculator_artifacts --cov-report=term-missing
+          ruff check benchmarks/rbs/structural.py benchmarks/rbs/new_data.py benchmarks/rbs/wave4_*.py benchmarks/rbs/context_panel.py benchmarks/rbs/context_metrics.py benchmarks/rbs/context_collect.py benchmarks/rbs/drafting_numeric.py benchmarks/promoter benchmarks/recoding benchmarks/riboswitch
+          ruff format --check benchmarks/rbs/structural.py benchmarks/rbs/new_data.py benchmarks/rbs/wave4_*.py benchmarks/rbs/context_panel.py benchmarks/rbs/context_metrics.py benchmarks/rbs/context_collect.py benchmarks/rbs/drafting_numeric.py benchmarks/promoter benchmarks/recoding benchmarks/riboswitch
+          mypy src/regsite experiments tools benchmarks/rbs/drafting_numeric.py
+          python -m pytest --cov=regsite --cov=benchmarks.rbs --cov=benchmarks.promoter --cov=benchmarks.recoding --cov=benchmarks.riboswitch --cov=experiments.rbs --cov=experiments.promoter --cov=tools.derive_promoter_parameters --cov=tools.measure_promoter_resources --cov=tools.calculator_artifacts --cov=tools.build_termination_backend --cov-report=term-missing
           git diff --check
       - name: Build and validate both separately licensed repairs
         shell: bash
@@ -58,14 +74,54 @@ jobs:
           python -m unittest discover -s backends/rnastructure66/tests -v
           # The complete suite ran above. Repeat only RBS-dependent tests for
           # backend variants; Promoter/edit/reference tests do not use folding.
-          REGSITE_RNASTRUCTURE="$RNASTRUCTURE66_PATCHED" python -m pytest --ignore-glob='tests/test_promoter*' --ignore-glob='tests/benchmarks/test_promoter*' --ignore-glob='tests/benchmarks/test_recoding*' --ignore-glob='tests/benchmarks/test_riboswitch*' --ignore-glob='tests/test_conditional*' --cov=regsite.rbs --cov=regsite.backend --cov=regsite.standby --cov=regsite.structures --cov=regsite.native --cov=regsite.native_cli --cov=regsite.cli --cov=regsite.learned --cov=regsite.features --cov-report=term-missing
-          REGSITE_RNASTRUCTURE="$RNASTRUCTURE66_LINKER3" python -m pytest --ignore-glob='tests/test_promoter*' --ignore-glob='tests/benchmarks/test_promoter*' --ignore-glob='tests/benchmarks/test_recoding*' --ignore-glob='tests/benchmarks/test_riboswitch*' --ignore-glob='tests/test_conditional*' --cov=regsite.rbs --cov=regsite.backend --cov=regsite.standby --cov=regsite.structures --cov=regsite.native --cov=regsite.native_cli --cov=regsite.cli --cov=regsite.learned --cov=regsite.features --cov-report=term-missing
+          REGSITE_RNASTRUCTURE="$RNASTRUCTURE66_PATCHED" python -m pytest --ignore-glob='tests/test_promoter*' --ignore-glob='tests/benchmarks/test_promoter*' --ignore-glob='tests/benchmarks/test_recoding*' --ignore-glob='tests/benchmarks/test_riboswitch*' --ignore-glob='tests/test_conditional*' --ignore-glob='tests/test_coupling*' --ignore-glob='tests/test_drafting*' --ignore-glob='tests/test_termination*' --ignore-glob='tests/test_jobs*' --ignore=tests/benchmarks/test_wave4_public_receipt.py --ignore=tests/benchmarks/test_drafting_numeric.py --cov=regsite.rbs --cov=regsite.backend --cov=regsite.standby --cov=regsite.structures --cov=regsite.native --cov=regsite.native_cli --cov=regsite.cli --cov=regsite.learned --cov=regsite.features --cov-report=term-missing
+          REGSITE_RNASTRUCTURE="$RNASTRUCTURE66_LINKER3" python -m pytest --ignore-glob='tests/test_promoter*' --ignore-glob='tests/benchmarks/test_promoter*' --ignore-glob='tests/benchmarks/test_recoding*' --ignore-glob='tests/benchmarks/test_riboswitch*' --ignore-glob='tests/test_conditional*' --ignore-glob='tests/test_coupling*' --ignore-glob='tests/test_drafting*' --ignore-glob='tests/test_termination*' --ignore-glob='tests/test_jobs*' --ignore=tests/benchmarks/test_wave4_public_receipt.py --ignore=tests/benchmarks/test_drafting_numeric.py --cov=regsite.rbs --cov=regsite.backend --cov=regsite.standby --cov=regsite.structures --cov=regsite.native --cov=regsite.native_cli --cov=regsite.cli --cov=regsite.learned --cov=regsite.features --cov-report=term-missing
       - name: Build and run fresh offline wheel installation
         shell: bash
+        env:
+          REGSITE_TERMINATION_TEST_BACKEND: ${{ runner.temp }}/regsite-termination/backend.json
         run: |
           python -m build --no-isolation
           python -m venv .cache/fresh
           .cache/fresh/bin/python -m pip install --no-index --no-deps dist/*.whl
+          .cache/fresh/bin/regsite-drafting examples/drafting-single.json > .cache/drafting-single.json
+          .cache/fresh/bin/regsite-drafting examples/drafting-batch.json > .cache/drafting-batch.json
+          drafting_exit=0
+          .cache/fresh/bin/regsite-drafting examples/drafting-unsupported.json > .cache/drafting-unsupported.json || drafting_exit=$?
+          test "$drafting_exit" -eq 1
+          .cache/fresh/bin/python -c 'import json,math; a=json.load(open(".cache/drafting-single.json")); b=json.load(open(".cache/drafting-batch.json")); c=json.load(open(".cache/drafting-unsupported.json")); assert all(r["schema_version"]=="drafting-result-1" and r["status"]=="complete" and r["model"]["backend"] is None and r["model"]["id"]=="espahborujeni2016-supplied-rate-stationary-1" for r in (a,b)); assert math.isclose(a["records"][0]["throughput"]["quantity"]["value"],10/9,rel_tol=1e-12); assert len(b["records"])==3 and b["records"][1]["occupancies"]["folded"]=={"value":0.0,"ln_value":None,"representation":"exact_zero"}; assert c["status"]=="partial" and c["records"][0]["status"]=="unsupported_domain" and c["records"][0]["throughput"] is None; import hashlib,importlib.metadata as md; h=lambda x: hashlib.sha256(json.dumps(x,sort_keys=True,separators=(",",":"),ensure_ascii=True,allow_nan=False).encode()).hexdigest(); m={"id":"espahborujeni2016-supplied-rate-stationary-1","implementation_version":md.version("regulatory-site-prediction-reconstruction"),"source_doi":"10.1021/jacs.6b01453","theory_sha256":"a9ded599cbb0313d610267cb9fbdfd21abb1bdb7a467894701fa9b295f3fd6d6","backend":None,"rate_origin":"caller_supplied"}; assert all(r["model"]==m and r["request_sha256"]==h(json.load(open(f"examples/drafting-{n}.json"))) and r["prediction_sha256"]==h({k:v for k,v in r.items() if k!="prediction_sha256"}) for n,r in zip(("single","batch","unsupported"),(a,b,c)))'
+          .cache/fresh/bin/regsite-termination examples/termination-single.json --backend-manifest "$REGSITE_TERMINATION_TEST_BACKEND" > .cache/termination-single.json
+          .cache/fresh/bin/regsite-termination examples/termination-batch.json --backend-manifest "$REGSITE_TERMINATION_TEST_BACKEND" > .cache/termination-batch.json
+          termination_exit=0
+          .cache/fresh/bin/regsite-termination examples/termination-unsupported.json --backend-manifest "$REGSITE_TERMINATION_TEST_BACKEND" > .cache/termination-unsupported.json || termination_exit=$?
+          test "$termination_exit" -eq 1
+          .cache/fresh/bin/python -c 'import json; a=json.load(open(".cache/termination-single.json")); b=json.load(open(".cache/termination-batch.json")); c=json.load(open(".cache/termination-unsupported.json")); assert all(r["schema_version"]=="termination-result-1" and r["status"]=="complete" and r["coverage"]["retained_candidates"]==1 for r in (a,b)); assert c["status"]=="partial" and all(r["candidates"] is None for r in c["records"]); assert all(r["prediction_sha256"] and r["result_sha256"] for r in (a,b,c)); tie=[(x["hairpin"]["start"],x["hairpin"]["end"],x["strand"],x["confidence"],x["hairpin_score"],x["tail_score"]) for x in a["records"][0]["candidates"]]; assert tie==[(70,86,"+",78,"-11.8","-3.87583")]; assert b["records"][0]["candidates"]==a["records"][0]["candidates"] and b["records"][1]["status"]=="ok" and b["records"][1]["candidates"]==[]; assert [r["reason"] for r in c["records"]]==["no_search_positions","uniform_background"] and not any(r["attempted"] for r in c["records"])'
+          .cache/fresh/bin/regsite-termination examples/termination-single.json --format csv --backend-manifest "$REGSITE_TERMINATION_TEST_BACKEND" > .cache/termination-single.csv
+          .cache/fresh/bin/python - <<'PYTERMINATIONCSV'
+          import csv, hashlib, json
+          with open(".cache/termination-single.csv", newline="", encoding="utf-8") as stream:
+              rows = list(csv.DictReader(stream))
+          original = json.load(open(".cache/termination-single.json"))
+          model_hash = hashlib.sha256(json.dumps(original["model"], sort_keys=True, separators=(",", ":"), ensure_ascii=True, allow_nan=False).encode()).hexdigest()
+          assert [row["row_type"] for row in rows] == ["envelope", "record", "candidate"]
+          assert all(row["csv_schema_version"] == "termination-csv-1" and row["result_status"] == "complete" and row["prediction_sha256"] == original["prediction_sha256"] and row["model_sha256"] == model_hash for row in rows)
+          assert rows[1]["candidate_count"] == "1" and rows[1]["attempted"] == "true"
+          assert tuple(rows[2][key] for key in ("strand", "hairpin_start", "hairpin_end", "tail_start", "tail_end", "confidence", "hairpin_score", "tail_score")) == ("+", "70", "86", "86", "101", "78", "-11.8", "-3.87583")
+          PYTERMINATIONCSV
+          .cache/fresh/bin/regsite-coupling examples/coupling-single.json > .cache/coupling-single.json
+          .cache/fresh/bin/regsite-coupling examples/coupling-batch.json > .cache/coupling-batch.json
+          coupling_exit=0
+          .cache/fresh/bin/regsite-coupling examples/coupling-unsupported.json > .cache/coupling-unsupported.json || coupling_exit=$?
+          test "$coupling_exit" -eq 1
+          .cache/fresh/bin/python -c 'import json,math; a=json.load(open(".cache/coupling-single.json")); b=json.load(open(".cache/coupling-batch.json")); c=json.load(open(".cache/coupling-unsupported.json")); assert all(r["schema_version"]=="coupling-result-1" and r["status"]=="complete" and r["model"]["backend"] is None for r in (a,b)); assert math.isclose(a["records"][0]["scores"]["downstream_total"]["value"],1.072); assert len(b["records"])==3; assert all(math.isclose(r["scores"]["downstream_total"]["value"],1.22) for r in b["records"][1:]); assert c["status"]=="partial" and c["records"][0]["status"]=="unsupported_distance" and c["records"][0]["scores"] is None'
+          # CI explicitly keeps disposable outputs in its checkout; ordinary
+          # campaigns default to external storage. Resume must not rerun jobs.
+          .cache/fresh/bin/regsite-jobs run --manifest "$GITHUB_WORKSPACE/examples/jobs-synthetic/manifest.json" --output-dir "$GITHUB_WORKSPACE/.cache/jobs-synthetic" --allow-repository-output > .cache/jobs-synthetic-run.json
+          .cache/fresh/bin/regsite-jobs verify --manifest "$GITHUB_WORKSPACE/examples/jobs-synthetic/manifest.json" --output-dir "$GITHUB_WORKSPACE/.cache/jobs-synthetic" > .cache/jobs-synthetic-verify.json
+          .cache/fresh/bin/regsite-jobs resume --manifest "$GITHUB_WORKSPACE/examples/jobs-synthetic/manifest.json" --output-dir "$GITHUB_WORKSPACE/.cache/jobs-synthetic" --allow-repository-output > .cache/jobs-synthetic-resume.json
+          .cache/fresh/bin/regsite-jobs run --manifest "$GITHUB_WORKSPACE/examples/jobs-backend/manifest.json" --output-dir "$GITHUB_WORKSPACE/.cache/jobs-backend" --backend-root "$GITHUB_WORKSPACE/.cache/linker-fixed/RNAstructure" --allow-repository-output > .cache/jobs-backend-run.json
+          .cache/fresh/bin/regsite-jobs verify --manifest "$GITHUB_WORKSPACE/examples/jobs-backend/manifest.json" --output-dir "$GITHUB_WORKSPACE/.cache/jobs-backend" > .cache/jobs-backend-verify.json
+          .cache/fresh/bin/python -c 'import json; from pathlib import Path; cases=[("synthetic", "run", 2), ("synthetic", "verify", 2), ("synthetic", "resume", 2), ("backend", "run", 3), ("backend", "verify", 3)]; results=[(json.loads(Path(f".cache/jobs-{kind}-{action}.json").read_text()), count) for kind,action,count in cases]; assert all(r["status"]=="complete" and r["counts"]["succeeded"]==n and r["attempts"]==n for r,n in results); assert len({r["campaign_sha256"] for r,n in results[:3]})==1'
           # Scalar conditional inference is portable and uses no folding engine.
           # Exact original arm64 structural admission has a separate local receipt.
           .cache/fresh/bin/regsite-conditional examples/conditional-supplied-half-occupancy.json > .cache/conditional-fraction.json
@@ -126,6 +182,21 @@ jobs:
           .cache/fresh/bin/python -c 'import csv,json; r=next(csv.DictReader(open(".cache/joint.csv"))); assert r["schema_version"]=="1.3" and r["status"]=="ok"; a=json.load(open(".cache/native-joint.json")); assert [r["status"] for r in a["results"]]==["ok","ok"]; assert all(r["prediction"]["schema_version"]=="1.3" and "standby_module" in r["genomic_sites"][0] for r in a["results"])'
           .cache/fresh/bin/python -c 'import csv,json; a=json.load(open(".cache/joint-linker.json")); b=json.load(open(".cache/native-joint-linker.json")); c=list(csv.DictReader(open(".cache/joint-linker-batch.csv"))); assert a["results"][0]["backend"]["variant"]=="rnastructure-6.6-linker-3"; assert a["results"][0]["status"]=="ok"; assert [r["status"] for r in b["results"]]==["ok","ok"]; assert all(r["prediction"]["backend"]["variant"]=="rnastructure-6.6-linker-3" for r in b["results"]); assert [r["status"] for r in c]==["ok","ok","no_candidate","unsupported"]'
 
+      - name: Show bounded smoke diagnostics on failure
+        if: failure()
+        shell: bash
+        run: |
+          python - <<'PYDIAGNOSTICS'
+          from pathlib import Path
+          paths = sorted(Path(".cache").glob("*.json"), key=lambda p: p.stat().st_mtime, reverse=True)[:16]
+          for path in paths:
+              print(f"--- {str(path)[:256]} (first 4096 bytes) ---")
+              try:
+                  with path.open("rb") as stream:
+                      print(stream.read(4096).decode("utf-8", errors="replace"))
+              except OSError as error:
+                  print(f"unreadable: {type(error).__name__}")
+          PYDIAGNOSTICS
   promoter-resources:
     strategy:
       fail-fast: false

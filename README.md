@@ -81,6 +81,71 @@ separate validation gates.
 Register complete files in explicit external storage and check their byte identity
 with the [offline artifact manifest tool](docs/validation/calculator-artifact-storage.md).
 
+The job runner has a frozen [0.10.0rc2 package](docs/validation/offline-jobs-0.10rc2-candidate.md)
+with installed-byte checks and explicit CI status. Current development source
+`0.12.0rc1` additionally integrates the independently reviewed optional
+[intrinsic-termination adapter](docs/validation/intrinsic-termination-runtime.md);
+its [0.11 package](docs/validation/termination-0.11-candidate.md) passed local
+validation. The [combined 0.12 package](docs/validation/drafting-0.12-candidate.md), including
+supplied-rate drafting, passed local tests and fresh installation. Independent
+package review is accepted, and all eight macOS/Linux CI jobs passed at
+`efe90fcb`. The independent [drafting numerical check](docs/validation/rbs-drafting-numeric-results.md)
+passed all 30 artificial requests and 198 expected records. This verifies supplied-rate
+arithmetic and the software contract, not biological accuracy. Frozen older candidates
+remain intact. Later-head CI status is tracked separately in the active release ticket.
+Run explicit batches offline with the [calculator job runner](docs/validation/offline-calculator-jobs.md):
+
+```sh
+.venv/bin/regsite-jobs run --manifest "$(pwd -P)/examples/jobs-synthetic/manifest.json" --output-dir /absolute/external/new-campaign
+.venv/bin/regsite-jobs verify --manifest "$(pwd -P)/examples/jobs-synthetic/manifest.json" --output-dir /absolute/external/new-campaign
+.venv/bin/regsite-jobs resume --manifest "$(pwd -P)/examples/jobs-synthetic/manifest.json" --output-dir /absolute/external/new-campaign
+```
+
+Manifest and output paths must be absolute and contain no symlink components.
+Use physical paths (on macOS `/private/tmp`, not `/tmp`); the output parent must
+already exist.
+Complete request/output bytes and receipts stay in that external directory. Resume checks input, runtime and backend identity
+and preserves verified terminal jobs, including failures. The runner executes
+existing commands sequentially; it does not change scores or split requests.
+Calculator execution and captured output have explicit limits. Filesystem and
+identity work use cooperative deadline checks; captured-byte accounting is not a
+machine-wide disk quota. See the contract for backend examples and failure semantics.
+
+For intrinsic motif candidates, supply the separately built, identified
+TransTermHP backend explicitly:
+
+```sh
+.venv/bin/regsite-termination examples/termination-single.json --backend-manifest /absolute/external/termination/backend.json
+.venv/bin/regsite-termination examples/termination-single.json --format csv --backend-manifest /absolute/external/termination/backend.json
+```
+
+Read the [source and build contract](docs/validation/intrinsic-termination-source.md)
+and [runtime limits](docs/validation/intrinsic-termination-runtime.md) first.
+The Python package bundles neither the native executable nor its background
+table. Returned scores describe retained motif candidates; they are not
+termination efficiencies, readthrough probabilities or cyanobacterial calibration.
+This command is separate from the job runner's unchanged five-kind interface.
+The development source adds a [CSV projection](docs/validation/termination-tabular-export.md)
+with one row for every record and retained candidate, including failures and empty
+searches. Coordinates remain relative to the supplied fragment. Keep JSON for full
+settings, warnings and execution evidence; CSV omits those details. This export
+is newer than the frozen 0.12 package receipt.
+
+The separate drafting command calculates stationary occupancies and throughput
+from four caller-supplied rates:
+
+```sh
+.venv/bin/regsite-drafting examples/drafting-single.json
+.venv/bin/regsite-drafting examples/drafting-batch.json
+```
+
+Read the [drafting contract](docs/validation/rbs-drafting-contract.md) for units,
+the admitted rate domain and explicit underflow/failure representations. This
+small kinetic calculation does not derive rates from DNA, modify the existing
+RBS profiles or predict completed protein production. Artificial controls check
+the mathematics; experimental calibration and sequence-to-rate inference remain
+separate dependencies. No folding backend or account is required.
+
 ## Run the RBS calculator
 
 Follow the [installation and validation contract](docs/validation/rbs-runtime.md)
@@ -252,6 +317,30 @@ is separate from the frozen candidate. See the
 See the [request contract](docs/validation/supplied-transcript-contract.md) and
 [runtime and export semantics](docs/validation/supplied-transcript-runtime.md).
 
+## Calculate a supplied-energy reinitiation contribution
+
+```sh
+.venv/bin/regsite-coupling examples/coupling-single.json
+.venv/bin/regsite-coupling examples/coupling-batch.json
+.venv/bin/regsite-coupling examples/coupling-unsupported.json
+```
+
+The 0.9.0rc1 development component calculates the historical reinitiation contribution
+between two explicitly annotated CDSs using caller-supplied initiation energies.
+It handles either strand and supports only the published coefficient domains:
+stop-to-start distances of 0–25 nt and the specific −4 nt overlap. Unsupported
+geometry retains an explicit failure and null scores. It needs no folding backend.
+
+The component has independent source, arithmetic and implementation reviews,
+including fresh-install synthetic checks. It does not derive energies from
+sequence or implement the full Operon Calculator. The separate RNA-unfolding
+mechanism remains unresolved because two published expressions disagree.
+Scores are relative model quantities, not measured translation rates; native-host
+calibration remains absent. Read the [source boundary](docs/validation/operon-coupling-source.md)
+and [request/result contract](docs/validation/operon-coupling-runtime.md).
+The [0.9.0rc1 package receipt](docs/validation/coupling-0.9-candidate.md) pins its
+source and artifacts separately from earlier candidates.
+
 ## Conditional aptamer components
 
 The 0.7.0rc1 development runtime provides two explicit components:
@@ -285,9 +374,13 @@ and [immutable package validation](docs/validation/conditional-0.7-candidate.md)
 ## Start a new implementation session
 
 **Producer implementation resumed on 2026-10-21.** A owns runtime and integration;
-B owns independent benchmark/evidence tooling. The active wave combines the
-[native Promoter pilot](docs/validation/promoter-native-pilot-results.md) with
-reviewed calculator components. Agree scope and paths before starting another
+B owns independent benchmark/evidence tooling. The completed
+[native Promoter pilot](docs/validation/promoter-native-pilot-results.md) and reviewed
+calculator components form the next baseline. A now owns bounded offline jobs
+with external artifact storage; C completed the reviewed reinitiation component
+and now owns separate intrinsic-termination admission. B's public receipt checker
+is complete; its next evidence slice assesses experimental terminator datasets.
+Agree scope and paths before starting another
 assignment, preserve immutable candidates, and freeze new evaluation protocols.
 The cyano preview remains separately held on the
 [paired 0.6 handoff](docs/validation/paired-consumer-preview.md); this producer

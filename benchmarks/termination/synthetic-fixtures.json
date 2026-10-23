@@ -1,0 +1,57 @@
+{
+  "schema_version": "intrinsic-termination-scalar-fixtures-1",
+  "purpose": "Original arithmetic controls; no experimental values or native-executable outputs. Source/paper mathematical checks only.",
+  "tail_cases": [
+    {
+      "tail": "TTTTTTTTTTTTTTT",
+      "score": "-7.146979811148159"
+    },
+    {
+      "tail": "CCCCCCCCCCCCCCC",
+      "score": "-1.499294722523136"
+    },
+    {
+      "tail": "TTTCCCTTTCCCTTT",
+      "score": "-3.875828001706944"
+    }
+  ],
+  "hairpin_case": {
+    "stem_pairs": [
+      "GC",
+      "GC",
+      "GC",
+      "GC",
+      "GC",
+      "GC"
+    ],
+    "loop_length": 4,
+    "expected_score": "-11.8",
+    "scope": "fixed proposed structure, not an assertion about native candidate selection"
+  },
+  "confidence_cases": [
+    {
+      "sample_size": 20000000,
+      "cumulative_count": 0,
+      "unrounded_score": "100.00000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "truncated_score": 100
+    },
+    {
+      "sample_size": 20000000,
+      "cumulative_count": 1,
+      "unrounded_score": "100.00000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "truncated_score": 100
+    },
+    {
+      "sample_size": 20000000,
+      "cumulative_count": 10000,
+      "unrounded_score": "45.213209610485568011250770932491317775787376240954687216170245614124562296065365",
+      "truncated_score": 45
+    },
+    {
+      "sample_size": 20000000,
+      "cumulative_count": 20000000,
+      "unrounded_score": "-0E-79",
+      "truncated_score": 0
+    }
+  ]
+}

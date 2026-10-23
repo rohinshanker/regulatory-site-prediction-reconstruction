@@ -1,0 +1,564 @@
+{
+  "artifacts": [
+    {
+      "bytes": 169707,
+      "path": "dist/regulatory_site_prediction_reconstruction-0.10.0rc2-py3-none-any.whl",
+      "sha256": "af1c3966d66e7b460ea8c92eed1411bb20ce1c9089a3853caaba13993884e4bc"
+    },
+    {
+      "bytes": 5137174,
+      "path": "dist/regulatory_site_prediction_reconstruction-0.10.0rc2.tar.gz",
+      "sha256": "7af44b9d9aa09da1c3b0541ecd95f32e2ba47430cf86c0ca687c29748bbb50ef"
+    }
+  ],
+  "checks": [
+    {
+      "command": [
+        "/Users/Rohin/Desktop/coding_stuff/ISAACS-LAB/worktrees/reconstruction-rbs-wave4-runtime/.venv/bin/python",
+        "-m",
+        "build",
+        "--no-isolation",
+        "--outdir",
+        "/Users/Rohin/.cache/regsite-wave7-integration-20261021/jobs-0.10rc2-installed/dist",
+        "/Users/Rohin/.cache/regsite-wave7-integration-20261021/jobs-0.10rc2-installed/source"
+      ],
+      "exit": 0,
+      "expected_exit": 0,
+      "name": "build",
+      "seconds": 6.070983208017424
+    },
+    {
+      "command": [
+        "/Users/Rohin/Desktop/coding_stuff/ISAACS-LAB/worktrees/reconstruction-rbs-wave4-runtime/.venv/bin/python",
+        "-m",
+        "venv",
+        "--without-pip",
+        "/Users/Rohin/.cache/regsite-wave7-integration-20261021/jobs-0.10rc2-installed/fresh"
+      ],
+      "exit": 0,
+      "expected_exit": 0,
+      "name": "venv",
+      "seconds": 0.06241312494967133
+    },
+    {
+      "command": [
+        "/Users/Rohin/Desktop/coding_stuff/ISAACS-LAB/worktrees/reconstruction-rbs-wave4-runtime/.venv/bin/python",
+        "-m",
+        "pip",
+        "--python",
+        "/Users/Rohin/.cache/regsite-wave7-integration-20261021/jobs-0.10rc2-installed/fresh/bin/python",
+        "install",
+        "--no-index",
+        "--no-deps",
+        "/Users/Rohin/.cache/regsite-wave7-integration-20261021/jobs-0.10rc2-installed/dist/regulatory_site_prediction_reconstruction-0.10.0rc2-py3-none-any.whl"
+      ],
+      "exit": 0,
+      "expected_exit": 0,
+      "name": "install",
+      "seconds": 0.7375325829489157
+    },
+    {
+      "command": [
+        "/Users/Rohin/.cache/regsite-wave7-integration-20261021/jobs-0.10rc2-installed/fresh/bin/regsite-coupling",
+        "/Users/Rohin/.cache/regsite-wave7-integration-20261021/jobs-0.10rc2-installed/source/examples/coupling-single.json"
+      ],
+      "exit": 0,
+      "expected_exit": 0,
+      "name": "single",
+      "seconds": 0.27218966698274016
+    },
+    {
+      "command": [
+        "/Users/Rohin/.cache/regsite-wave7-integration-20261021/jobs-0.10rc2-installed/fresh/bin/regsite-coupling",
+        "/Users/Rohin/.cache/regsite-wave7-integration-20261021/jobs-0.10rc2-installed/source/examples/coupling-batch.json"
+      ],
+      "exit": 0,
+      "expected_exit": 0,
+      "name": "batch",
+      "seconds": 0.05514495796523988
+    },
+    {
+      "command": [
+        "/Users/Rohin/.cache/regsite-wave7-integration-20261021/jobs-0.10rc2-installed/fresh/bin/regsite-coupling",
+        "/Users/Rohin/.cache/regsite-wave7-integration-20261021/jobs-0.10rc2-installed/source/examples/coupling-unsupported.json"
+      ],
+      "exit": 1,
+      "expected_exit": 1,
+      "name": "unsupported",
+      "seconds": 0.05643683299422264
+    },
+    {
+      "command": [
+        "/Users/Rohin/.cache/regsite-wave7-integration-20261021/jobs-0.10rc2-installed/fresh/bin/regsite-coupling",
+        "-"
+      ],
+      "exit": 0,
+      "expected_exit": 0,
+      "name": "unicode-100",
+      "seconds": 0.08072712493594736
+    },
+    {
+      "command": [
+        "/Users/Rohin/.cache/regsite-wave7-integration-20261021/jobs-0.10rc2-installed/fresh/bin/regsite-coupling",
+        "-"
+      ],
+      "exit": 2,
+      "expected_exit": 2,
+      "name": "invalid",
+      "seconds": 0.05814012500923127
+    },
+    {
+      "command": [
+        "/Users/Rohin/.cache/regsite-wave7-integration-20261021/jobs-0.10rc2-installed/fresh/bin/regsite-jobs",
+        "run",
+        "--manifest",
+        "/Users/Rohin/.cache/regsite-wave7-integration-20261021/jobs-0.10rc2-installed/source/examples/jobs-synthetic/manifest.json",
+        "--output-dir",
+        "/Users/Rohin/.cache/regsite-wave7-integration-20261021/jobs-0.10rc2-installed/campaign-synthetic"
+      ],
+      "exit": 0,
+      "expected_exit": 0,
+      "name": "jobs-synthetic-run",
+      "seconds": 0.6553961660247296
+    },
+    {
+      "command": [
+        "/Users/Rohin/.cache/regsite-wave7-integration-20261021/jobs-0.10rc2-installed/fresh/bin/regsite-jobs",
+        "verify",
+        "--manifest",
+        "/Users/Rohin/.cache/regsite-wave7-integration-20261021/jobs-0.10rc2-installed/source/examples/jobs-synthetic/manifest.json",
+        "--output-dir",
+        "/Users/Rohin/.cache/regsite-wave7-integration-20261021/jobs-0.10rc2-installed/campaign-synthetic"
+      ],
+      "exit": 0,
+      "expected_exit": 0,
+      "name": "jobs-synthetic-verify",
+      "seconds": 0.07367524993605912
+    },
+    {
+      "command": [
+        "/Users/Rohin/.cache/regsite-wave7-integration-20261021/jobs-0.10rc2-installed/fresh/bin/regsite-jobs",
+        "resume",
+        "--manifest",
+        "/Users/Rohin/.cache/regsite-wave7-integration-20261021/jobs-0.10rc2-installed/source/examples/jobs-synthetic/manifest.json",
+        "--output-dir",
+        "/Users/Rohin/.cache/regsite-wave7-integration-20261021/jobs-0.10rc2-installed/campaign-synthetic"
+      ],
+      "exit": 0,
+      "expected_exit": 0,
+      "name": "jobs-synthetic-resume",
+      "seconds": 0.14574520802125335
+    },
+    {
+      "command": [
+        "/Users/Rohin/.cache/regsite-wave7-integration-20261021/jobs-0.10rc2-installed/fresh/bin/regsite-jobs",
+        "verify",
+        "--manifest",
+        "/Users/Rohin/.cache/regsite-wave7-integration-20261021/jobs-0.10rc2-installed/source/examples/jobs-synthetic/manifest.json",
+        "--output-dir",
+        "/Users/Rohin/.cache/regsite-wave7-integration-20261021/jobs-0.10rc2-installed/campaign-synthetic"
+      ],
+      "exit": 2,
+      "expected_exit": 2,
+      "name": "jobs-synthetic-corruption",
+      "seconds": 0.07805070804897696
+    },
+    {
+      "command": [
+        "/Users/Rohin/.cache/regsite-wave7-integration-20261021/jobs-0.10rc2-installed/fresh/bin/regsite-jobs",
+        "verify",
+        "--manifest",
+        "/Users/Rohin/.cache/regsite-wave7-integration-20261021/jobs-0.10rc2-installed/source/examples/jobs-synthetic/manifest.json",
+        "--output-dir",
+        "/Users/Rohin/.cache/regsite-wave7-integration-20261021/jobs-0.10rc2-installed/campaign-synthetic"
+      ],
+      "exit": 0,
+      "expected_exit": 0,
+      "name": "jobs-synthetic-restored",
+      "seconds": 0.08291170897427946
+    },
+    {
+      "command": [
+        "/Users/Rohin/.cache/regsite-wave7-integration-20261021/jobs-0.10rc2-installed/fresh/bin/regsite-jobs",
+        "run",
+        "--manifest",
+        "/Users/Rohin/.cache/regsite-wave7-integration-20261021/jobs-0.10rc2-installed/source/examples/jobs-backend/manifest.json",
+        "--output-dir",
+        "/Users/Rohin/.cache/regsite-wave7-integration-20261021/jobs-0.10rc2-installed/campaign-backend",
+        "--backend-root",
+        "/Users/Rohin/.cache/regsite-runtime/6.6-linker-3-arm64/RNAstructure"
+      ],
+      "exit": 0,
+      "expected_exit": 0,
+      "name": "jobs-backend-run",
+      "seconds": 2.319643291993998
+    },
+    {
+      "command": [
+        "/Users/Rohin/.cache/regsite-wave7-integration-20261021/jobs-0.10rc2-installed/fresh/bin/regsite-jobs",
+        "verify",
+        "--manifest",
+        "/Users/Rohin/.cache/regsite-wave7-integration-20261021/jobs-0.10rc2-installed/source/examples/jobs-backend/manifest.json",
+        "--output-dir",
+        "/Users/Rohin/.cache/regsite-wave7-integration-20261021/jobs-0.10rc2-installed/campaign-backend"
+      ],
+      "exit": 0,
+      "expected_exit": 0,
+      "name": "jobs-backend-verify",
+      "seconds": 0.21369512495584786
+    },
+    {
+      "command": [
+        "/Users/Rohin/.cache/regsite-wave7-integration-20261021/jobs-0.10rc2-installed/fresh/bin/regsite-jobs",
+        "resume",
+        "--manifest",
+        "/Users/Rohin/.cache/regsite-wave7-integration-20261021/jobs-0.10rc2-installed/source/examples/jobs-backend/manifest.json",
+        "--output-dir",
+        "/Users/Rohin/.cache/regsite-wave7-integration-20261021/jobs-0.10rc2-installed/campaign-backend",
+        "--backend-root",
+        "/Users/Rohin/.cache/regsite-runtime/6.6-linker-3-arm64/RNAstructure"
+      ],
+      "exit": 0,
+      "expected_exit": 0,
+      "name": "jobs-backend-resume",
+      "seconds": 0.22228733403608203
+    },
+    {
+      "command": [
+        "/Users/Rohin/.cache/regsite-wave7-integration-20261021/jobs-0.10rc2-installed/fresh/bin/regsite-jobs",
+        "verify",
+        "--manifest",
+        "/Users/Rohin/.cache/regsite-wave7-integration-20261021/jobs-0.10rc2-installed/source/examples/jobs-backend/manifest.json",
+        "--output-dir",
+        "/Users/Rohin/.cache/regsite-wave7-integration-20261021/jobs-0.10rc2-installed/campaign-backend"
+      ],
+      "exit": 2,
+      "expected_exit": 2,
+      "name": "jobs-backend-corruption",
+      "seconds": 0.10092345799785107
+    },
+    {
+      "command": [
+        "/Users/Rohin/.cache/regsite-wave7-integration-20261021/jobs-0.10rc2-installed/fresh/bin/regsite-jobs",
+        "verify",
+        "--manifest",
+        "/Users/Rohin/.cache/regsite-wave7-integration-20261021/jobs-0.10rc2-installed/source/examples/jobs-backend/manifest.json",
+        "--output-dir",
+        "/Users/Rohin/.cache/regsite-wave7-integration-20261021/jobs-0.10rc2-installed/campaign-backend"
+      ],
+      "exit": 0,
+      "expected_exit": 0,
+      "name": "jobs-backend-restored",
+      "seconds": 0.1766714999685064
+    }
+  ],
+  "ci": {
+    "blocking_failure": {
+      "job_id": 119553946093,
+      "job_name": "runtime (ubuntu-24.04, 3.14)",
+      "reason": "All 6341 applicable tests passed; coverage missed jobs.py signal-error handlers at lines 726-728. Added deterministic PermissionError and ProcessLookupError tests; runtime unchanged."
+    },
+    "head_sha": "51ca353241f97bd106fb3634f7132a171a35e893",
+    "run_id": 39696040849,
+    "status_at_recording": "in_progress",
+    "url": "https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/actions/runs/39696040849"
+  },
+  "full_local_validation": {
+    "backend": "original RNAstructure 6.6 and exact admitted conditional original binaries enabled",
+    "coverage_percent": 100,
+    "covered_branches": 6282,
+    "covered_statements": 16623,
+    "junit_testcase_entries": 6342,
+    "passed": 6342,
+    "skipped": 0,
+    "source_commit": "51ca353241f97bd106fb3634f7132a171a35e893",
+    "static_checks": [
+      "ruff",
+      "ruff-format",
+      "mypy"
+    ],
+    "warnings": 8
+  },
+  "installed_runtime_check": {
+    "receipt_sha256": "453ff406646956ab8a317228b5580db5b296a0f6bac39d6a4624f4e8639b3c8d",
+    "sha256_and_bytes_equal": true,
+    "verified_runtime_members": 46
+  },
+  "job_checks": [
+    {
+      "campaign_sha256": "bfa313c48793ac6944958d37c503cb44ddde2086f72470c7e52339b1f2ab5d3a",
+      "jobs": 2,
+      "kind": "synthetic",
+      "operation": "run"
+    },
+    {
+      "campaign_sha256": "bfa313c48793ac6944958d37c503cb44ddde2086f72470c7e52339b1f2ab5d3a",
+      "jobs": 2,
+      "kind": "synthetic",
+      "operation": "verify"
+    },
+    {
+      "campaign_sha256": "bfa313c48793ac6944958d37c503cb44ddde2086f72470c7e52339b1f2ab5d3a",
+      "jobs": 2,
+      "kind": "synthetic",
+      "operation": "resume"
+    },
+    {
+      "campaign_sha256": "289f268b813d516210b0c2ee84b06a36a83a0745f89222884538ea0fe6eb2d58",
+      "jobs": 3,
+      "kind": "backend",
+      "operation": "run"
+    },
+    {
+      "campaign_sha256": "289f268b813d516210b0c2ee84b06a36a83a0745f89222884538ea0fe6eb2d58",
+      "jobs": 3,
+      "kind": "backend",
+      "operation": "verify"
+    },
+    {
+      "campaign_sha256": "289f268b813d516210b0c2ee84b06a36a83a0745f89222884538ea0fe6eb2d58",
+      "jobs": 3,
+      "kind": "backend",
+      "operation": "resume"
+    }
+  ],
+  "native_or_hosted_accuracy_claim": false,
+  "publication_or_consumer_admission": false,
+  "reviewed_component_commit": "180d8bd41f4ac34205939e83f25da1cc10974ae5",
+  "reviewed_runner_commit": "136d6ffbcdb741776992a462c6742d892395f063",
+  "runtime_members": [
+    {
+      "bytes": 107,
+      "path": "regsite/__init__.py",
+      "sha256": "9ef0f2de4842ac15b75b7313160cc76ba263f649a468c7529aa14bebc02ce791"
+    },
+    {
+      "bytes": 106,
+      "path": "regsite/__main__.py",
+      "sha256": "03909d4646d450af7366c3753e048c9591cf1cb5788afdda1c2b85642aab0358"
+    },
+    {
+      "bytes": 13229,
+      "path": "regsite/backend.py",
+      "sha256": "c63d27f6c73a0414553a02fb229cd0fc198276cbc3e26289d27cb5e3dfde515c"
+    },
+    {
+      "bytes": 2465,
+      "path": "regsite/cli.py",
+      "sha256": "71001ec89b5f01fe6f21d3c2690e24215d7bf397ee3d373f72776e99cc557b96"
+    },
+    {
+      "bytes": 21541,
+      "path": "regsite/conditional.py",
+      "sha256": "6cbf2987313387eca39f10b688d843390eb6498e28d80779b07974b847e46797"
+    },
+    {
+      "bytes": 14461,
+      "path": "regsite/conditional_backend.py",
+      "sha256": "ae514ca664caece8b53a4ba7be88fd3611535dee89c667c0f70691a0656a617b"
+    },
+    {
+      "bytes": 3280,
+      "path": "regsite/conditional_cli.py",
+      "sha256": "f31f4521d6abce7744756e3b54b89dc3013b05986cb4d928c6bccd32dd8727c4"
+    },
+    {
+      "bytes": 15070,
+      "path": "regsite/conditional_math.py",
+      "sha256": "4326de8702aaf211efcba552415d2539be68639bebc73e0d001fca35c85bbb42"
+    },
+    {
+      "bytes": 4382,
+      "path": "regsite/contracts.py",
+      "sha256": "44dec45866842e47bf0a97d2908d9bcbabdde46db80899c0c15c22b27e1e9a7f"
+    },
+    {
+      "bytes": 9308,
+      "path": "regsite/coupling.py",
+      "sha256": "c40ad92c727000e0b98d206952e1ee2ccde0bbc0f69e8090a44ac8f4e9311b31"
+    },
+    {
+      "bytes": 1606,
+      "path": "regsite/coupling_cli.py",
+      "sha256": "883bb5d77993ac29a717bcb9f524c4c7715674b0f58e397a4269eafa6f966af3"
+    },
+    {
+      "bytes": 5536,
+      "path": "regsite/coupling_geometry.py",
+      "sha256": "802d253d6db6bc9967ef80af9f21566ca56262c4a4e78f70070971b826ddee25"
+    },
+    {
+      "bytes": 2528,
+      "path": "regsite/coupling_io.py",
+      "sha256": "8cbc549897a6f664bf88cece2d390a0e19a3eca72f46439cf55352345bc980cf"
+    },
+    {
+      "bytes": 9827,
+      "path": "regsite/edits.py",
+      "sha256": "524d52dab481714b3346f18df20d9bc5f8755ee59dd25927dbc31d07590d2388"
+    },
+    {
+      "bytes": 6599,
+      "path": "regsite/features.py",
+      "sha256": "92c7cafd07d81c606c55a99b3022f9121686a94e51c937ed3d57525c9fbfb341"
+    },
+    {
+      "bytes": 3790,
+      "path": "regsite/genome.py",
+      "sha256": "851215db437765611cc60358ab8b485fcccd2c5848950488394bb8cdd9e7f0fc"
+    },
+    {
+      "bytes": 3155,
+      "path": "regsite/io.py",
+      "sha256": "dc6e29533632a68fce08baa0e8bff37a9c6f098e8e0462ab710fe6ed9fa21bba"
+    },
+    {
+      "bytes": 55262,
+      "path": "regsite/jobs.py",
+      "sha256": "f73022d8e535661f382d2d45189573f975d4c606e7140c32b9cce2a67fd2bbb8"
+    },
+    {
+      "bytes": 7554,
+      "path": "regsite/learned.py",
+      "sha256": "6a0d94edbffbe943ea06028a53120b830a90675fc62ab38f9ddfaa05ffc21f63"
+    },
+    {
+      "bytes": 2095,
+      "path": "regsite/learned_cli.py",
+      "sha256": "7d8ad38d4788f2ad40df80d5f72c823aad00a9b888fe52ca3f84349a44c127db"
+    },
+    {
+      "bytes": 14984,
+      "path": "regsite/learning.py",
+      "sha256": "8a3e3d7b6a238c9a8e199f20d1298aef382692d7ec52693dbdfb1117095095ff"
+    },
+    {
+      "bytes": 20477,
+      "path": "regsite/native.py",
+      "sha256": "d6b90c66780cd53167cb81c50f3c941b52cc20bdd4f8dcee0bcbe089bc508766"
+    },
+    {
+      "bytes": 2281,
+      "path": "regsite/native_cli.py",
+      "sha256": "71a3c15662e03a3dfba026bf2b9d15602184ae969c748c9bcde765fc8c39c1c7"
+    },
+    {
+      "bytes": 5782,
+      "path": "regsite/native_io.py",
+      "sha256": "7e55167f95ccdf63ce6240fcc68d3246410a2af7ffebc55792574942846c75f5"
+    },
+    {
+      "bytes": 24539,
+      "path": "regsite/paired.py",
+      "sha256": "b95cb715802e4b1d30d23d8ec31cdd1aae58aa240e306b2e5821b1bab12df93d"
+    },
+    {
+      "bytes": 1898,
+      "path": "regsite/paired_cli.py",
+      "sha256": "8c2d92b1c681e0d356b84ae56e6f8b1b18a97f7573202d895aad8062933d585b"
+    },
+    {
+      "bytes": 5156,
+      "path": "regsite/paired_io.py",
+      "sha256": "16ce1e0b71782e4cc86dd64b264c87638b5af111f602eebda67ffd6ab20c6459"
+    },
+    {
+      "bytes": 5141,
+      "path": "regsite/partitioned_training.py",
+      "sha256": "03cfca3bc27e94f763c3075f0a8104f34df461ad34b2309443ac0f291cbe617b"
+    },
+    {
+      "bytes": 1686,
+      "path": "regsite/profiles.py",
+      "sha256": "17c3a8d1858425ef042eab8b6513161e77c0ca5ad611c90dbb2df2f65e6887be"
+    },
+    {
+      "bytes": 26062,
+      "path": "regsite/promoter.py",
+      "sha256": "2db4b002d6e4db22aeab25226b228c6f830505b33e466f61f9c6c1a4fbf4d8e7"
+    },
+    {
+      "bytes": 2395,
+      "path": "regsite/promoter_cli.py",
+      "sha256": "7a32fb2d251d1af91fe5eeb7848b04f671cf89762ae055cb227a327bfec6a84e"
+    },
+    {
+      "bytes": 37087,
+      "path": "regsite/promoter_io.py",
+      "sha256": "a06de643dec20daaf19a8e5afb93bd97afda89bbd72b53e73eac2775fecead42"
+    },
+    {
+      "bytes": 1735,
+      "path": "regsite/provenance.py",
+      "sha256": "53afe99e8c8230cefd180c724aaa007a212f700b1c1040bb914e64add4beffed"
+    },
+    {
+      "bytes": 32271,
+      "path": "regsite/rbs.py",
+      "sha256": "2bdd62771ba9d276dc34897cf182e0ecd8fdf3ddc9d9d1e4fe0027bfeb571309"
+    },
+    {
+      "bytes": 2699,
+      "path": "regsite/sequence.py",
+      "sha256": "1d38b3e074092ebcbeec2b6fd1b0a95492f3a8d57a215d72adee81ee53ddbb24"
+    },
+    {
+      "bytes": 11391,
+      "path": "regsite/standby.py",
+      "sha256": "9b8803766853fd6de98abc99622ff4bc973a8a7749e64f824a9268ffe5ed4a9b"
+    },
+    {
+      "bytes": 4809,
+      "path": "regsite/structures.py",
+      "sha256": "68f694b4b91e33690287136445fdad0fbad58c4130516ed1946eb56821fbe4cc"
+    },
+    {
+      "bytes": 5305,
+      "path": "regsite/training.py",
+      "sha256": "7406355889db9c1012d184a6ce4cc61fa92ace707e1eaa97a5094332615b594a"
+    },
+    {
+      "bytes": 28616,
+      "path": "regsite/transcript.py",
+      "sha256": "1036c8d98ab3c83c4972d52397e0cf491e00a21294e667a3d79f74b4d32741f1"
+    },
+    {
+      "bytes": 1930,
+      "path": "regsite/transcript_cli.py",
+      "sha256": "b87aa03494d0563b4264e143f4b2bcfac05a902cbec16e153787e14781aefe07"
+    },
+    {
+      "bytes": 4833,
+      "path": "regsite/transcript_geometry.py",
+      "sha256": "2892cf6f05cb0eeb599596d4e13f9d19521a669f5a04709a3f44599fb076c4e7"
+    },
+    {
+      "bytes": 4581,
+      "path": "regsite/transcript_io.py",
+      "sha256": "acb711feb9e4c782b920d1adbe23130304f2f794c1bfa80b8d16c2712e514b6d"
+    },
+    {
+      "bytes": 3712,
+      "path": "regsite/data/conditional-parameters-1.json",
+      "sha256": "99bb08423e2d321947e1cf5bb8cc3061bd99ab02414bff4d25377b5003f51b3f"
+    },
+    {
+      "bytes": 724,
+      "path": "regsite/data/promoter-ORIGINAL-NOTICE.txt",
+      "sha256": "45d25f34fe826d27d344175bd622cbf3d35cbf53bd993d1350d44ee706571ffd"
+    },
+    {
+      "bytes": 9792,
+      "path": "regsite/data/promoter-parameters-1.json",
+      "sha256": "f45bda817d1a0db323964b1ab8f37cb5d2e071dc9e09adf0ef5d791f2415f15e"
+    },
+    {
+      "bytes": 3971,
+      "path": "regsite/data/rnastructure-tables.json",
+      "sha256": "ece4c4b535783cb4e03c7ce8f243d09be84a165ecd113b1d20941b5ed8b69501"
+    }
+  ],
+  "schema_version": "offline-jobs-package-receipt-1",
+  "scope": "fresh installation, synthetic coupling controls and all five runner calculator kinds; no biological validation or full-suite claim",
+  "source_commit": "51ca353241f97bd106fb3634f7132a171a35e893"
+}

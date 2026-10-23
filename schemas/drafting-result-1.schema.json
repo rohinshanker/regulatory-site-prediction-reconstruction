@@ -1,0 +1,735 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "model",
+    "request_sha256",
+    "status",
+    "reason",
+    "coverage",
+    "warnings",
+    "records",
+    "prediction_sha256"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "drafting-result-1"
+    },
+    "model": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "implementation_version",
+        "source_doi",
+        "theory_sha256",
+        "backend",
+        "rate_origin"
+      ],
+      "properties": {
+        "id": {
+          "const": "espahborujeni2016-supplied-rate-stationary-1"
+        },
+        "implementation_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_doi": {
+          "const": "10.1021/jacs.6b01453"
+        },
+        "theory_sha256": {
+          "const": "a9ded599cbb0313d610267cb9fbdfd21abb1bdb7a467894701fa9b295f3fd6d6"
+        },
+        "backend": {
+          "type": "null"
+        },
+        "rate_origin": {
+          "const": "caller_supplied"
+        }
+      }
+    },
+    "request_sha256": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$(?![\\s\\S])"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "status": {
+      "enum": [
+        "complete",
+        "partial",
+        "invalid_input"
+      ]
+    },
+    "reason": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "coverage": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/coverage"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "warnings": {
+      "const": [
+        "Rates and provenance are unverified caller inputs, not measurement evidence.",
+        "Stationary memoryless states omit ribosome traffic and transcript turnover.",
+        "Throughput is initiation-region passage, not completed protein production.",
+        "Neither native-host accuracy nor hosted parity is established."
+      ]
+    },
+    "records": {
+      "type": "array",
+      "maxItems": 100,
+      "items": {
+        "$ref": "#/$defs/record"
+      }
+    },
+    "prediction_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$(?![\\s\\S])"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "invalid_input"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "reason": {
+            "type": "string",
+            "minLength": 1
+          },
+          "coverage": {
+            "type": "null"
+          },
+          "records": {
+            "maxItems": 0
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "complete"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "reason": {
+            "type": "null"
+          },
+          "request_sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$(?![\\s\\S])"
+          },
+          "coverage": {
+            "allOf": [
+              {
+                "$ref": "#/$defs/coverage"
+              },
+              {
+                "properties": {
+                  "complete": {
+                    "const": true
+                  }
+                }
+              }
+            ]
+          },
+          "records": {
+            "minItems": 1,
+            "items": {
+              "properties": {
+                "status": {
+                  "const": "ok"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "partial"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "reason": {
+            "type": "null"
+          },
+          "request_sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$(?![\\s\\S])"
+          },
+          "coverage": {
+            "allOf": [
+              {
+                "$ref": "#/$defs/coverage"
+              },
+              {
+                "properties": {
+                  "complete": {
+                    "const": false
+                  }
+                }
+              }
+            ]
+          },
+          "records": {
+            "minItems": 1,
+            "contains": {
+              "properties": {
+                "status": {
+                  "enum": [
+                    "invalid_input",
+                    "unsupported_domain",
+                    "numerical_failure"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Supplied-rate stationary drafting result version 1",
+  "$defs": {
+    "quantity": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "ln_value",
+            "representation"
+          ],
+          "properties": {
+            "value": {
+              "type": "number",
+              "exclusiveMinimum": 0,
+              "maximum": 1.7976931348623157e+308
+            },
+            "ln_value": {
+              "type": "number",
+              "minimum": -1.7976931348623157e+308,
+              "maximum": 1.7976931348623157e+308
+            },
+            "representation": {
+              "const": "finite"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "ln_value",
+            "representation"
+          ],
+          "properties": {
+            "value": {
+              "const": 0
+            },
+            "ln_value": {
+              "type": "null"
+            },
+            "representation": {
+              "const": "exact_zero"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "ln_value",
+            "representation"
+          ],
+          "properties": {
+            "value": {
+              "type": "null"
+            },
+            "ln_value": {
+              "type": "number",
+              "minimum": -1.7976931348623157e+308,
+              "maximum": -745.1332191018412,
+              "description": "At most ln(2^-1075) + 1e-10: the binary64 half-minimum-subnormal ties-to-even zero-rounding boundary, allowing the frozen absolute log tolerance."
+            },
+            "representation": {
+              "const": "underflow"
+            }
+          }
+        }
+      ]
+    },
+    "positive": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/quantity"
+        },
+        {
+          "properties": {
+            "representation": {
+              "enum": [
+                "finite",
+                "underflow"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "probability": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/quantity"
+        },
+        {
+          "properties": {
+            "value": {
+              "anyOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                }
+              ]
+            },
+            "ln_value": {
+              "anyOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "number",
+                  "maximum": 0
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "positive_probability": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/probability"
+        },
+        {
+          "$ref": "#/$defs/positive"
+        }
+      ]
+    },
+    "occupancies": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "accessible",
+        "folded",
+        "occupied"
+      ],
+      "properties": {
+        "accessible": {
+          "$ref": "#/$defs/positive_probability"
+        },
+        "folded": {
+          "$ref": "#/$defs/probability"
+        },
+        "occupied": {
+          "$ref": "#/$defs/positive_probability"
+        }
+      }
+    },
+    "throughput": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "unit",
+        "quantity"
+      ],
+      "properties": {
+        "unit": {
+          "enum": [
+            "per_second",
+            "per_model_time"
+          ]
+        },
+        "quantity": {
+          "$ref": "#/$defs/positive"
+        }
+      }
+    },
+    "coverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "requested_records",
+        "evaluated_records",
+        "successful_records",
+        "complete"
+      ],
+      "properties": {
+        "requested_records": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        },
+        "evaluated_records": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        },
+        "successful_records": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "complete": {
+          "type": "boolean"
+        }
+      }
+    },
+    "record": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "index",
+        "id",
+        "status",
+        "reason",
+        "input",
+        "occupancies",
+        "throughput"
+      ],
+      "properties": {
+        "index": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 99
+        },
+        "id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_.:-]{1,128}$(?![\\s\\S])"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "status": {
+          "enum": [
+            "ok",
+            "invalid_input",
+            "unsupported_domain",
+            "numerical_failure"
+          ]
+        },
+        "reason": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "input": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/input"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "occupancies": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/occupancies"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "throughput": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/throughput"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "ok"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9_.:-]{1,128}$(?![\\s\\S])"
+              },
+              "reason": {
+                "type": "null"
+              },
+              "input": {
+                "$ref": "#/$defs/input"
+              },
+              "occupancies": {
+                "$ref": "#/$defs/occupancies"
+              },
+              "throughput": {
+                "$ref": "#/$defs/throughput"
+              }
+            },
+            "allOf": [
+              {
+                "if": {
+                  "properties": {
+                    "input": {
+                      "properties": {
+                        "rates": {
+                          "properties": {
+                            "a_fold": {
+                              "const": 0
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "then": {
+                  "properties": {
+                    "occupancies": {
+                      "properties": {
+                        "folded": {
+                          "properties": {
+                            "representation": {
+                              "const": "exact_zero"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "else": {
+                  "properties": {
+                    "occupancies": {
+                      "properties": {
+                        "folded": {
+                          "$ref": "#/$defs/positive_probability"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "invalid_input"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "reason": {
+                "type": "string",
+                "minLength": 1
+              },
+              "input": {
+                "type": "null"
+              },
+              "occupancies": {
+                "type": "null"
+              },
+              "throughput": {
+                "type": "null"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "unsupported_domain"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9_.:-]{1,128}$(?![\\s\\S])"
+              },
+              "reason": {
+                "type": "string",
+                "minLength": 1
+              },
+              "input": {
+                "$ref": "#/$defs/input"
+              },
+              "occupancies": {
+                "type": "null"
+              },
+              "throughput": {
+                "type": "null"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "numerical_failure"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9_.:-]{1,128}$(?![\\s\\S])"
+              },
+              "reason": {
+                "type": "string",
+                "minLength": 1
+              },
+              "input": {
+                "$ref": "#/$defs/input"
+              },
+              "occupancies": {
+                "type": "null"
+              },
+              "throughput": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "input": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "rates",
+        "rate_unit",
+        "rate_provenance"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]{1,128}$(?![\\s\\S])"
+        },
+        "rates": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "a1",
+            "a2",
+            "a_fold",
+            "a_elong"
+          ],
+          "properties": {
+            "a1": {
+              "type": "number",
+              "minimum": -1.7976931348623157e+308,
+              "maximum": 1.7976931348623157e+308
+            },
+            "a2": {
+              "type": "number",
+              "minimum": -1.7976931348623157e+308,
+              "maximum": 1.7976931348623157e+308
+            },
+            "a_fold": {
+              "type": "number",
+              "minimum": -1.7976931348623157e+308,
+              "maximum": 1.7976931348623157e+308
+            },
+            "a_elong": {
+              "type": "number",
+              "minimum": -1.7976931348623157e+308,
+              "maximum": 1.7976931348623157e+308
+            }
+          }
+        },
+        "rate_unit": {
+          "enum": [
+            "per_second",
+            "per_model_time"
+          ]
+        },
+        "rate_provenance": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1024,
+          "pattern": "\\S"
+        }
+      }
+    }
+  }
+}

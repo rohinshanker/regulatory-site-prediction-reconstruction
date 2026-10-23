@@ -1,0 +1,329 @@
+{
+  "admission": {
+    "automatic_existing_rbs_score_correction": "not_admitted",
+    "empirical_accuracy_established": false,
+    "exact_theory_plot_reproduction": "not_admitted",
+    "full_kinetic_simulator": "not_recovered",
+    "hosted_equivalence_established": false,
+    "independent_exact_patch_review_required": true,
+    "runtime_implemented": false,
+    "sequence_to_rate_predictor": "not_admitted",
+    "supplied_rate_stationary_math": "recommended_for_separate_opt_in_implementation"
+  },
+  "baseline_commit": "95e95e0db455df332df6bf7b12e6eb4f03c39cf5",
+  "calculation": {
+    "backend_operations": [],
+    "common_rate_unit_required": true,
+    "domain": {
+      "a1": "positive",
+      "a2": "positive",
+      "a_elong": "greater_than_a1",
+      "a_fold": "nonnegative",
+      "zero_binding_or_clearance": "outside_this_fixture_domain"
+    },
+    "inputs": [
+      "a1",
+      "a2",
+      "a_fold",
+      "a_elong"
+    ],
+    "missing_for_sequence_profile": [
+      "folding_hazard_and_compatible_time_scale",
+      "numeric_clearance_rate",
+      "binding_rate_scale_alignment",
+      "S7_S8_accounting",
+      "exact_context_and_structure_selection",
+      "kinetic_initial_state_alignment",
+      "complete_open_kinetic_algorithm_and_settings",
+      "theory_plot_scale"
+    ],
+    "normalization_added_explicitly": true,
+    "not_outputs": [
+      "absolute_protein_expression",
+      "calibrated_seconds",
+      "sequence_accuracy",
+      "host_transfer_accuracy",
+      "transient_initiation_flux"
+    ],
+    "outputs": [
+      "P1",
+      "P2",
+      "P3",
+      "stationary_clearance_flux",
+      "finite_clearance_fast_refolding_limit",
+      "ratio_to_fast_refolding_limit"
+    ]
+  },
+  "derived_fixture": {
+    "bytes": 3257,
+    "case_count": 6,
+    "original_derivation": true,
+    "path": "benchmarks/rbs/kinetics-scalar-fixtures.json",
+    "rate_defaults": false,
+    "sha256": "3875449a71cdb2f5fbccd453e0c895e3bc7aeb39755194da2ab8fe698b457758",
+    "source_outcomes": false
+  },
+  "download_accounting": {
+    "cap_bytes": 52428800,
+    "challenge_bypass": false,
+    "external_cache": "/Users/Rohin/.cache/regsite-rbs-kinetics-admission-20261021",
+    "includes_failed_and_empty_bodies": true,
+    "limitation": "Search service does not expose upstream byte counts; measured direct bodies and retained scientific downloads are below cap. Exact total including opaque infrastructure is not claimed.",
+    "measured_direct_response_bytes": 1120947,
+    "opaque_search_upstream_bytes": null,
+    "redirect_queries_retained": false
+  },
+  "exposure": {
+    "empirical_panels_constructed": 0,
+    "fitting_or_scoring_performed": false,
+    "incidental_public_result_exposure": [
+      "Official abstract",
+      "Experimental/simulation descriptions and figures interleaved with theory supplement",
+      "Required project context includes already-published aggregate summaries"
+    ],
+    "outcome_spreadsheet_downloads": 0,
+    "private_outcomes_read": false,
+    "study_2016_untouched_holdout": false
+  },
+  "located_evidence": [
+    {
+      "location": "S3 Figure S2; S11 section 1.5",
+      "meaning": "Single-exponential fit to 1000 first-passage folding trajectories from unfolded RNA to MFE; arbitrary time units."
+    },
+    {
+      "location": "S7 Figure S6",
+      "meaning": "Illustrative energy/folding-rate sweep; no numeric clearance rate or complete plotting scale."
+    },
+    {
+      "location": "S13-S14 equations S1-S7",
+      "meaning": "Equilibrium score and energy decomposition; no absolute kinetic timescale."
+    },
+    {
+      "location": "S15 equation S8",
+      "meaning": "Unresolved post-footprint subtraction relative to S7."
+    },
+    {
+      "location": "S15 section 3 balances and S9-S10",
+      "meaning": "Three-state stationary graph and effective binding rates; beta 0.45 mol/kcal, A 100, e greater than a1."
+    },
+    {
+      "location": "S16 equation S11",
+      "meaning": "Stationary clearance flux P3 times a_elong."
+    },
+    {
+      "location": "S16-S18 discussion",
+      "meaning": "Motivation for omitted spontaneous unfolding; not general empirical validation of its absence."
+    }
+  ],
+  "schema": "rbs-kinetics-source-admission-1",
+  "scope": "2016_ribosome_drafting_source_and_stationary_math_only",
+  "source": {
+    "additional_primary_references_retrieved": [],
+    "authors": [
+      "Amin Espah Borujeni",
+      "Howard M. Salis"
+    ],
+    "data_supplement": {
+      "doi": "10.1021/jacs.6b01453.s002",
+      "figshare_article": 3398863,
+      "listed_file_id": 5310142,
+      "listed_filename": "ja6b01453_si_002.xls",
+      "metadata_sha256": "1c894e07e973de0feb5414c8e1773b6ef7f7744e720f894b4c76024116422331",
+      "outcomes_inspected": false,
+      "payload_downloaded": false,
+      "terms": "CC-BY-NC-4.0",
+      "version": 1
+    },
+    "doi": "10.1021/jacs.6b01453",
+    "historical_diagnostic": {
+      "bytes": 49928,
+      "cache_relative_path": "root/salis-v1-RBS_Calculator.py",
+      "commit": "8a9c1de1bdd847bb90d2ab6ceaa3c20feceda307",
+      "diagnostic_lines": [
+        446,
+        473
+      ],
+      "energy_and_diagnostic_lines": [
+        727,
+        731
+      ],
+      "executed": false,
+      "expression_lines": [
+        799,
+        802
+      ],
+      "filename": "RBS_Calculator.py",
+      "licence": "GPL-3.0-or-later",
+      "notice": "Copyright 2008-2009 The Regents of the University of California.",
+      "redistributed_in_repository": false,
+      "repository": "https://github.com/hsalis/Ribosome-Binding-Site-Calculator-v1.0",
+      "sha256": "a54f94bbe3917ad564e5808ad150311170b57c9b86e5f88c5539a2e0002354b9"
+    },
+    "kinetic_implementation": {
+      "code_licence_admitted": false,
+      "code_recovered": false,
+      "required_backend_admitted": false
+    },
+    "main_access": "Official indexed abstract/metadata only; direct routes 403; no bypass.",
+    "main_figure_4A_inspected": false,
+    "main_full_text_obtained": false,
+    "theory_supplement": {
+      "bytes": 997359,
+      "cache_relative_path": "paper/ja6b01453_si_001.pdf.hop1",
+      "doi": "10.1021/jacs.6b01453.s001",
+      "download_url": "https://ndownloader.figshare.com/files/5310139",
+      "figshare_article": 3398860,
+      "file_id": 5310139,
+      "filename": "ja6b01453_si_001.pdf",
+      "md5": "be0f65fcdc1d15444ccd16cfdca72f09",
+      "metadata_sha256": "48cd836db63148f530ddad9e92417296186c4ed7a0f7c7aa3166b9638685d786",
+      "metadata_url": "https://api.figshare.com/v2/articles/3398860",
+      "pages": 20,
+      "redistributed_in_repository": false,
+      "sha256": "a9ded599cbb0313d610267cb9fbdfd21abb1bdb7a467894701fa9b295f3fd6d6",
+      "terms": "CC-BY-NC-4.0",
+      "terms_url": "https://creativecommons.org/licenses/by-nc/4.0/",
+      "version": 1
+    },
+    "title": "Translation Initiation is Controlled by RNA Folding Kinetics via a Ribosome Drafting Mechanism",
+    "year": 2016
+  },
+  "transfers": [
+    {
+      "bytes": 5485,
+      "cache_relative_path": null,
+      "disposition": "Discarded challenge HTML containing transient query tokens; raw byte count and hash retained. No challenge solved.",
+      "method": "GET",
+      "retained": false,
+      "retrieved_at_utc": "2026-10-21T23:36:19Z",
+      "role": "access_or_discovery_record",
+      "sha256": "90909b7eb2b1b517f3b49294e3508dca7a19894a794a000b1f192186edbbb83f",
+      "status": 403,
+      "url": "https://pubs.acs.org/doi/10.1021/jacs.6b01453"
+    },
+    {
+      "bytes": 12731,
+      "cache_relative_path": "paper/figshare-search.json",
+      "method": "POST",
+      "request_json": {
+        "search_for": "10.1021/jacs.6b01453"
+      },
+      "retained": true,
+      "retrieved_at_utc": "2026-10-21T23:36:22Z",
+      "role": "access_or_discovery_record",
+      "sha256": "89c9e91ce0d0fb8032fb86b21c122f992ebfb7b38362f2f8770750bfa4ad4949",
+      "status": 200,
+      "url": "https://api.figshare.com/v2/articles/search"
+    },
+    {
+      "bytes": 2234,
+      "cache_relative_path": "paper/figshare-title-search.json",
+      "method": "POST",
+      "request_json": {
+        "limit": 10,
+        "search_for": "\"Translation Initiation is Controlled by RNA Folding Kinetics via a Ribosome Drafting Mechanism\""
+      },
+      "retained": true,
+      "retrieved_at_utc": "2026-10-21T23:36:29Z",
+      "role": "access_or_discovery_record",
+      "sha256": "60301d31cc30542ebed12ba48c7c877218a2a21018add57eaaf52d7a1a428e86",
+      "status": 200,
+      "url": "https://api.figshare.com/v2/articles/search"
+    },
+    {
+      "bytes": 6174,
+      "cache_relative_path": "paper/theory-metadata.json",
+      "method": "GET",
+      "retained": true,
+      "retrieved_at_utc": "2026-10-21T23:36:33Z",
+      "role": "access_or_discovery_record",
+      "sha256": "48cd836db63148f530ddad9e92417296186c4ed7a0f7c7aa3166b9638685d786",
+      "status": 200,
+      "url": "https://api.figshare.com/v2/articles/3398860"
+    },
+    {
+      "bytes": 0,
+      "cache_relative_path": "paper/ja6b01453_si_001.pdf",
+      "method": "GET",
+      "redirect_query_redacted": false,
+      "retained": true,
+      "retrieved_at_utc": "2026-10-21T23:36:42Z",
+      "role": "access_or_discovery_record",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "status": 302,
+      "url": "https://ndownloader.figshare.com/files/5310139"
+    },
+    {
+      "bytes": 997359,
+      "cache_relative_path": "paper/ja6b01453_si_001.pdf.hop1",
+      "method": "GET",
+      "redirect_query_redacted": true,
+      "retained": true,
+      "retrieved_at_utc": "2026-10-21T23:36:42Z",
+      "role": "access_or_discovery_record",
+      "sha256": "a9ded599cbb0313d610267cb9fbdfd21abb1bdb7a467894701fa9b295f3fd6d6",
+      "status": 200,
+      "url": "https://s3-eu-west-1.amazonaws.com/pstorage-acs-6854636/5310139/ja6b01453_si_001.pdf"
+    },
+    {
+      "bytes": 6057,
+      "cache_relative_path": "paper/data-metadata-only.json",
+      "method": "GET",
+      "redirect_query_redacted": false,
+      "retained": true,
+      "retrieved_at_utc": "2026-10-21T23:37:00Z",
+      "role": "access_or_discovery_record",
+      "sha256": "1c894e07e973de0feb5414c8e1773b6ef7f7744e720f894b4c76024116422331",
+      "status": 200,
+      "url": "https://api.figshare.com/v2/articles/3398863"
+    },
+    {
+      "bytes": 5708,
+      "cache_relative_path": null,
+      "disposition": "Discarded challenge HTML containing transient query tokens; raw byte count and hash retained. No challenge solved.",
+      "method": "GET",
+      "redirect_query_redacted": false,
+      "retained": false,
+      "retrieved_at_utc": "2026-10-21T23:37:21Z",
+      "role": "access_or_discovery_record",
+      "sha256": "0a21d97d317662cfb51144733ac17105c13b2134b2dbe25fd66e067c0da98a3b",
+      "status": 403,
+      "url": "https://pubs.acs.org/jacsat/article/138/22/7016/791318/Translation-Initiation-is-Controlled-by-RNA"
+    },
+    {
+      "bytes": 0,
+      "cache_relative_path": "paper/theory-landing.html",
+      "method": "GET",
+      "redirect_query_redacted": false,
+      "retained": true,
+      "retrieved_at_utc": "2026-10-21T23:37:21Z",
+      "role": "access_or_discovery_record",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "status": 202,
+      "url": "https://acs.figshare.com/articles/journal_contribution/Translation_Initiation_is_Controlled_by_RNA_Folding_Kinetics_via_a_Ribosome_Drafting_Mechanism/3398860"
+    },
+    {
+      "bytes": 35271,
+      "cache_relative_path": "paper/supplement-license.html",
+      "method": "GET",
+      "redirect_query_redacted": false,
+      "retained": true,
+      "retrieved_at_utc": "2026-10-21T23:38:10Z",
+      "role": "access_or_discovery_record",
+      "sha256": "3f69255e6550c75072122fe7b143143154bf31703cca14fd23e444bfaf12687c",
+      "status": 200,
+      "url": "https://creativecommons.org/licenses/by-nc/4.0/"
+    },
+    {
+      "bytes": 49928,
+      "cache_relative_path": "root/salis-v1-RBS_Calculator.py",
+      "method": "GET",
+      "retained": true,
+      "retrieved_at_utc": "2026-10-21T23:35:37.955580+00:00",
+      "role": "historical_source_read_as_text_only",
+      "sha256": "a54f94bbe3917ad564e5808ad150311170b57c9b86e5f88c5539a2e0002354b9",
+      "status": 200,
+      "url": "https://raw.githubusercontent.com/hsalis/Ribosome-Binding-Site-Calculator-v1.0/8a9c1de1bdd847bb90d2ab6ceaa3c20feceda307/RBS_Calculator.py"
+    }
+  ]
+}

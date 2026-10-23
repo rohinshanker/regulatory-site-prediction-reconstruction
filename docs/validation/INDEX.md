@@ -4,6 +4,25 @@ Verification dates cover the stated source observations or specification review;
 
 | Area | Purpose | Last verified | Document |
 | --- | --- | --- | --- |
+| rbs-drafting-numeric-results | Frozen original 0.12 supplied-rate artificial evaluation, complete accounting and separate execution/semantic evidence. | 2026-10-22 | [rbs-drafting-numeric-results.md](rbs-drafting-numeric-results.md) |
+| termination-tabular-export | Deterministic bounded CSV projection preserving every record/candidate, native text and fragment-relative coordinates. | 2026-10-22 | [termination-tabular-export.md](termination-tabular-export.md) |
+| wave4-collector-process-cleanup | Owned process groups, retained failure evidence and synchronized stop/admission accounting. | 2026-10-22 | [wave4-collector-process-cleanup.md](wave4-collector-process-cleanup.md) |
+| rbs-drafting-numeric-validation | Frozen independent artificial oracle, explicit candidate receipt and bounded all-case external result checking. | 2026-10-21 | [rbs-drafting-numeric-validation.md](rbs-drafting-numeric-validation.md) |
+| stability-inference-source | Bounded public source inventory, exact schema partitions and explicit missing featurizer/frozen-model admission. | 2026-10-21 | [stability-inference-source.md](stability-inference-source.md) |
+| component-calculator-jobs | Version-2 eight-kind job dispatch, backend identity and compatibility contract; implementation pending. | 2026-10-21 | [component-calculator-jobs.md](component-calculator-jobs.md) |
+| drafting-0.12-candidate | Frozen supplied-rate package, independent software review and passing eight-job platform matrix. | 2026-10-21 | [drafting-0.12-candidate.md](drafting-0.12-candidate.md) |
+| termination-0.11-candidate | Exact installed optional termination package, source bindings and software/native-control verification boundary. | 2026-10-21 | [termination-0.11-candidate.md](termination-0.11-candidate.md) |
+| rbs-drafting-contract | Reviewed supplied-rate stationary interface, units, underflow and accepted independent numerical checks. | 2026-10-22 | [rbs-drafting-contract.md](rbs-drafting-contract.md) |
+| offline-jobs-0.10rc2-candidate | Frozen revised package, installed-byte binding and explicit cross-platform test/coverage status. | 2026-10-21 | [offline-jobs-0.10rc2-candidate.md](offline-jobs-0.10rc2-candidate.md) |
+| offline-jobs-0.10-candidate | Exact combined development package, installed five-kind execution/resume checks and independent validation boundary. | 2026-10-21 | [offline-jobs-0.10-candidate.md](offline-jobs-0.10-candidate.md) |
+| rbs-kinetics-source-admission | Supplied-rate drafting mathematics, exact scalar fixtures and explicit non-admission of automatic sequence-derived kinetics. | 2026-10-21 | [rbs-kinetics-source-admission.md](rbs-kinetics-source-admission.md) |
+| offline-calculator-jobs | Fixed local calculator commands, external byte-bound artifacts, process supervision, failure accounting and verified resume. | 2026-10-21 | [offline-calculator-jobs.md](offline-calculator-jobs.md) |
+| coupling-0.9-candidate | Exact reviewed reinitiation package, fresh offline installation and independent/local validation boundary. | 2026-10-21 | [coupling-0.9-candidate.md](coupling-0.9-candidate.md) |
+| rbs-host-transfer | Cross-host evaluation design, source-admission status and explicit unmeasured UTEX outcomes. | 2026-10-21 | [rbs-host-transfer.md](rbs-host-transfer.md) |
+| rbs-host-transfer-failure-analysis | Existing aggregate evidence separating scale, ordering, context, measurement and coverage failures; no new host-accuracy claim. | 2026-10-21 | [rbs-host-transfer-failure-analysis.md](rbs-host-transfer-failure-analysis.md) |
+| operon-coupling-source | Independently admitted supplied-energy reinitiation equations, narrow coefficient domains and explicit unresolved unfolding sign conflict. | 2026-10-21 | [operon-coupling-source.md](operon-coupling-source.md) |
+| operon-coupling-runtime | Bounded single/batch transport, complete-CDS geometry, log-space contributions, strict schemas and failure accounting. | 2026-10-21 | [operon-coupling-runtime.md](operon-coupling-runtime.md) |
+| rbs-wave4-public-receipt | Public five-file identity, reference inventory, feasible count/gate accounting and deterministic verification boundary. | 2026-10-21 | [rbs-wave4-public-receipt.md](rbs-wave4-public-receipt.md) |
 | integrated-runtime-build | Exact combined development package, offline installation, source identity and retained admission boundaries. | 2026-10-21 | [integrated-runtime-build.md](integrated-runtime-build.md) |
 | promoter-count-association | Frozen exploratory count association, independent offline evaluation and aggregate artifact receipt. | 2026-10-21 | [promoter-count-association.md](promoter-count-association.md) |
 | promoter-native-pilot-parity | Original-source native pilot kernel parity: frozen schema/protocol pins, outcome-free full-cohort identity, full denominators, tie/summary recomputation and explicit failure categories. | 2026-10-21 | [promoter-native-pilot-parity.md](promoter-native-pilot-parity.md) |
@@ -75,3 +94,5 @@ Verification dates cover the stated source observations or specification review;
 | rbs-wave4-evaluation | Frozen independent rank protocol, paired block uncertainty, synthetic joint oracle and evaluation boundaries. | 2026-10-18 | [rbs-wave4-evaluation.md](rbs-wave4-evaluation.md) |
 | rbs-wave4-results | Independently verified frozen experimental results, negative advancement decision, complete denominators and consumed-panel boundary. | 2026-10-18 | [rbs-wave4-results.md](rbs-wave4-results.md) |
 | promoter-executed-reference | Pinned optional source execution, independent finite-state fixtures, compatibility failures and corrected coordinate semantics. | 2026-10-17 | [promoter-executed-reference.md](promoter-executed-reference.md) |
+| intrinsic-termination-source | Pinned TransTermHP candidate-score source, parameter and fragment admission boundary. | 2026-10-21 | [intrinsic-termination-source.md](intrinsic-termination-source.md) |
+| intrinsic-termination-runtime | Reviewed bounded external-engine adapter, accepted 0.12 package and Linux/macOS CI boundary. | 2026-10-21 | [intrinsic-termination-runtime.md](intrinsic-termination-runtime.md) |

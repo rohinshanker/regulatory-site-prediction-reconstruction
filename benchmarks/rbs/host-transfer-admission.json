@@ -1,0 +1,64 @@
+{
+  "as_of": "2026-10-21",
+  "baseline_commit": "605d0c25066de937d124e69fe42be3c40bb2e749",
+  "evaluation_status": "not_executed",
+  "existing_evidence": [
+    {
+      "meaning": "PCC 6803 benchmark; no promotion and no UTEX claim",
+      "path": "docs/validation/rbs-wave2-results.md",
+      "sha256": "1c921263aed0ffa83383b36f7b7de0b8b70494268143a60222fd61240633f104"
+    },
+    {
+      "meaning": "Unexecuted prospective single-host measurement proposal; not a quote for cross-host work",
+      "path": "docs/validation/rbs-utex-measurement-proposal.md",
+      "sha256": "64e286caa20e9f8d162b493b9461a8a4992c74aa27e878a02cf9bf92cfd4023a"
+    }
+  ],
+  "next_dependency": "Permissible completion of source admission; rejected assignment remains stopped. This receipt does not authorize its retry or rerouting.",
+  "not_established": [
+    "full construct sequences and transcript context",
+    "exact paired host measurements",
+    "replicate and normalization identities",
+    "source reuse rights",
+    "complete predictor execution freeze",
+    "UTEX accuracy",
+    "cross-host calibrated strength",
+    "biological effects of recoding"
+  ],
+  "recorded_results": {
+    "fitting_jobs": 0,
+    "new_cross_host_correlation": null,
+    "new_utex_accuracy": null,
+    "paid_website_jobs": 0,
+    "prediction_jobs": 0,
+    "reason_for_null": "No admitted new numerical evaluation; null does not mean zero accuracy.",
+    "wet_lab_experiments": 0
+  },
+  "schema": "rbs-host-transfer-admission-1",
+  "scope": "Existing three-host RBS evidence admission and untuned transfer evaluation; no fitting or new model.",
+  "source_audit_execution": {
+    "dossier_produced": false,
+    "issue_id": "01a1606f-9161-7f01-9d72-71958e71c8b0",
+    "issue_status": "cancelled",
+    "new_source_files_produced": false,
+    "provider": "Claude",
+    "reason": "provider_biology_safeguard_rejection",
+    "rerouted": false,
+    "retried": false,
+    "run_id": "01a1606f-917f-7bba-a455-e29010cc6bd0",
+    "run_status": "failed",
+    "task": "DEM-612"
+  },
+  "source_lead": {
+    "author": "Schiavon Osorio, Alejandra Adriana",
+    "data_admission": "not_established",
+    "doi": "10.7488/era/2453",
+    "numerical_results_recomputed": false,
+    "rights_admission": "not_established",
+    "title": "Design and characterisation of Novel synthetic biology tools in cyanobacterial model species",
+    "url": "https://era.ed.ac.uk/items/a4bb4f3a-d175-4eaa-bbc6-0c70fb5f659b",
+    "verified_scope": "repository abstract only",
+    "year": 2022
+  },
+  "status": "source_audit_not_completed"
+}

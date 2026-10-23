@@ -1,0 +1,996 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "model",
+    "request_sha256",
+    "status",
+    "reason",
+    "settings",
+    "coverage",
+    "warnings",
+    "records",
+    "prediction_sha256"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "coupling-result-1"
+    },
+    "model": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "implementation_version",
+        "source_doi",
+        "source_pdf_sha256",
+        "beta_mol_per_kcal",
+        "k_p",
+        "coefficient_domain",
+        "score_scale",
+        "backend"
+      ],
+      "properties": {
+        "id": {
+          "const": "tian2015-reinitiation-only-1"
+        },
+        "implementation_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_doi": {
+          "const": "10.1093/nar/gkv635"
+        },
+        "source_pdf_sha256": {
+          "const": "83bbe3bcd87380b4716c93ad0844134ed71cf4f977d6486ef3d3d38f0a566ff7"
+        },
+        "beta_mol_per_kcal": {
+          "const": 0.45
+        },
+        "k_p": {
+          "const": 10.0
+        },
+        "coefficient_domain": {
+          "const": {
+            "distance_0_to_25": 0.0072,
+            "distance_minus_4": 0.022
+          }
+        },
+        "score_scale": {
+          "const": "dimensionless exp(-beta*G); no intercept or absolute conversion"
+        },
+        "backend": {
+          "type": "null"
+        }
+      }
+    },
+    "request_sha256": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "status": {
+      "enum": [
+        "complete",
+        "partial",
+        "invalid_input"
+      ]
+    },
+    "reason": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "settings": {
+      "anyOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "seconds_total"
+          ],
+          "properties": {
+            "seconds_total": {
+              "type": "number",
+              "exclusiveMinimum": 0,
+              "maximum": 60
+            }
+          }
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "coverage": {
+      "anyOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "requested",
+            "returned",
+            "successful",
+            "failed_or_unsupported",
+            "not_evaluated"
+          ],
+          "properties": {
+            "requested": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "returned": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "successful": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "failed_or_unsupported": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "not_evaluated": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100
+            }
+          }
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "warnings": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "items": {
+        "type": "string"
+      }
+    },
+    "records": {
+      "type": "array",
+      "maxItems": 100,
+      "items": {
+        "$ref": "#/$defs/record"
+      }
+    },
+    "prediction_sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "coupling-result-1.schema.json",
+  "$defs": {
+    "geometry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sequence_sha256",
+        "oriented_sequence_sha256",
+        "strand",
+        "distance_nt",
+        "upstream",
+        "downstream",
+        "sequence_length"
+      ],
+      "properties": {
+        "sequence_sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "oriented_sequence_sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "strand": {
+          "enum": [
+            "+",
+            "-"
+          ]
+        },
+        "distance_nt": {
+          "type": "integer",
+          "minimum": -100000,
+          "maximum": 100000
+        },
+        "upstream": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "interval",
+            "oriented_interval",
+            "start_codon",
+            "stop_codon"
+          ],
+          "properties": {
+            "id": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "not": {
+                "pattern": "[^A-Za-z0-9_.:-]"
+              }
+            },
+            "interval": {
+              "type": "array",
+              "minItems": 2,
+              "maxItems": 2,
+              "items": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 100000
+              }
+            },
+            "oriented_interval": {
+              "type": "array",
+              "minItems": 2,
+              "maxItems": 2,
+              "items": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 100000
+              }
+            },
+            "start_codon": {
+              "enum": [
+                "AUG",
+                "GUG",
+                "UUG"
+              ]
+            },
+            "stop_codon": {
+              "enum": [
+                "UAA",
+                "UAG",
+                "UGA"
+              ]
+            }
+          }
+        },
+        "downstream": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "interval",
+            "oriented_interval",
+            "start_codon",
+            "stop_codon"
+          ],
+          "properties": {
+            "id": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "not": {
+                "pattern": "[^A-Za-z0-9_.:-]"
+              }
+            },
+            "interval": {
+              "type": "array",
+              "minItems": 2,
+              "maxItems": 2,
+              "items": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 100000
+              }
+            },
+            "oriented_interval": {
+              "type": "array",
+              "minItems": 2,
+              "maxItems": 2,
+              "items": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 100000
+              }
+            },
+            "start_codon": {
+              "enum": [
+                "AUG",
+                "GUG",
+                "UUG"
+              ]
+            },
+            "stop_codon": {
+              "enum": [
+                "UAA",
+                "UAG",
+                "UGA"
+              ]
+            }
+          }
+        },
+        "sequence_length": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100000
+        }
+      }
+    },
+    "energies": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "upstream_total_kcal_mol",
+        "downstream_independent_total_kcal_mol",
+        "beta_mol_per_kcal",
+        "provenance"
+      ],
+      "properties": {
+        "upstream_total_kcal_mol": {
+          "type": "number",
+          "minimum": -1000000.0,
+          "maximum": 1000000.0
+        },
+        "downstream_independent_total_kcal_mol": {
+          "type": "number",
+          "minimum": -1000000.0,
+          "maximum": 1000000.0
+        },
+        "beta_mol_per_kcal": {
+          "type": "number",
+          "const": 0.45
+        },
+        "provenance": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1000,
+          "pattern": "\\S"
+        }
+      }
+    },
+    "scores": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "upstream_independent",
+        "downstream_independent",
+        "reinitiation_contribution",
+        "downstream_total",
+        "fold_change"
+      ],
+      "properties": {
+        "upstream_independent": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "log_value",
+            "value"
+          ],
+          "properties": {
+            "log_value": {
+              "type": "number"
+            },
+            "value": {
+              "anyOf": [
+                {
+                  "type": "number",
+                  "exclusiveMinimum": 0
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          }
+        },
+        "downstream_independent": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "log_value",
+            "value"
+          ],
+          "properties": {
+            "log_value": {
+              "type": "number"
+            },
+            "value": {
+              "anyOf": [
+                {
+                  "type": "number",
+                  "exclusiveMinimum": 0
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          }
+        },
+        "reinitiation_contribution": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "log_value",
+            "value"
+          ],
+          "properties": {
+            "log_value": {
+              "type": "number"
+            },
+            "value": {
+              "anyOf": [
+                {
+                  "type": "number",
+                  "exclusiveMinimum": 0
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          }
+        },
+        "downstream_total": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "log_value",
+            "value"
+          ],
+          "properties": {
+            "log_value": {
+              "type": "number"
+            },
+            "value": {
+              "anyOf": [
+                {
+                  "type": "number",
+                  "exclusiveMinimum": 0
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          }
+        },
+        "fold_change": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "log_value",
+            "value"
+          ],
+          "properties": {
+            "log_value": {
+              "type": "number"
+            },
+            "value": {
+              "anyOf": [
+                {
+                  "type": "number",
+                  "exclusiveMinimum": 0
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "record": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "index",
+        "id",
+        "status",
+        "reason",
+        "geometry",
+        "energies",
+        "coefficient",
+        "scores",
+        "unfolding_correction"
+      ],
+      "properties": {
+        "index": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 99
+        },
+        "id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "not": {
+                "pattern": "[^A-Za-z0-9_.:-]"
+              }
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "status": {
+          "enum": [
+            "ok",
+            "invalid_input",
+            "unsupported_geometry",
+            "unsupported_distance",
+            "numerical_range",
+            "not_evaluated"
+          ]
+        },
+        "reason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "geometry": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/geometry"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "energies": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/energies"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "coefficient": {
+          "enum": [
+            null,
+            0.0072,
+            0.022
+          ]
+        },
+        "scores": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/scores"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "unfolding_correction": {
+          "type": "null"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "enum": [
+                  "ok",
+                  "numerical_range"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "geometry": {
+                "$ref": "#/$defs/geometry"
+              },
+              "energies": {
+                "$ref": "#/$defs/energies"
+              },
+              "coefficient": {
+                "enum": [
+                  0.0072,
+                  0.022
+                ]
+              },
+              "scores": {
+                "$ref": "#/$defs/scores"
+              },
+              "id": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 128,
+                "not": {
+                  "pattern": "[^A-Za-z0-9_.:-]"
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "ok"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "reason": {
+                "type": "null"
+              },
+              "scores": {
+                "properties": {
+                  "upstream_independent": {
+                    "properties": {
+                      "value": {
+                        "type": "number",
+                        "exclusiveMinimum": 0
+                      }
+                    }
+                  },
+                  "downstream_independent": {
+                    "properties": {
+                      "value": {
+                        "type": "number",
+                        "exclusiveMinimum": 0
+                      }
+                    }
+                  },
+                  "reinitiation_contribution": {
+                    "properties": {
+                      "value": {
+                        "type": "number",
+                        "exclusiveMinimum": 0
+                      }
+                    }
+                  },
+                  "downstream_total": {
+                    "properties": {
+                      "value": {
+                        "type": "number",
+                        "exclusiveMinimum": 0
+                      }
+                    }
+                  },
+                  "fold_change": {
+                    "properties": {
+                      "value": {
+                        "type": "number",
+                        "exclusiveMinimum": 0
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "numerical_range"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "reason": {
+                "const": "linear_score_outside_binary64"
+              },
+              "scores": {
+                "anyOf": [
+                  {
+                    "properties": {
+                      "upstream_independent": {
+                        "properties": {
+                          "value": {
+                            "type": "null"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "properties": {
+                      "downstream_independent": {
+                        "properties": {
+                          "value": {
+                            "type": "null"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "properties": {
+                      "reinitiation_contribution": {
+                        "properties": {
+                          "value": {
+                            "type": "null"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "properties": {
+                      "downstream_total": {
+                        "properties": {
+                          "value": {
+                            "type": "null"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "properties": {
+                      "fold_change": {
+                        "properties": {
+                          "value": {
+                            "type": "null"
+                          }
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "unsupported_distance"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "geometry": {
+                "$ref": "#/$defs/geometry"
+              },
+              "energies": {
+                "$ref": "#/$defs/energies"
+              },
+              "coefficient": {
+                "type": "null"
+              },
+              "scores": {
+                "type": "null"
+              },
+              "reason": {
+                "const": "no_admitted_distance_coefficient"
+              },
+              "id": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 128,
+                "not": {
+                  "pattern": "[^A-Za-z0-9_.:-]"
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "enum": [
+                  "invalid_input",
+                  "unsupported_geometry",
+                  "not_evaluated"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "geometry": {
+                "type": "null"
+              },
+              "energies": {
+                "type": "null"
+              },
+              "coefficient": {
+                "type": "null"
+              },
+              "scores": {
+                "type": "null"
+              },
+              "reason": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "not_evaluated"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "reason": {
+                "const": "time_budget_exhausted"
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "invalid_input"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "reason": {
+            "type": "string"
+          },
+          "settings": {
+            "type": "null"
+          },
+          "coverage": {
+            "type": "null"
+          },
+          "records": {
+            "maxItems": 0
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "reason": {
+            "type": "null"
+          },
+          "request_sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "settings": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "seconds_total"
+            ],
+            "properties": {
+              "seconds_total": {
+                "type": "number",
+                "exclusiveMinimum": 0,
+                "maximum": 60
+              }
+            }
+          },
+          "coverage": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "requested",
+              "returned",
+              "successful",
+              "failed_or_unsupported",
+              "not_evaluated"
+            ],
+            "properties": {
+              "requested": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 100
+              },
+              "returned": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 100
+              },
+              "successful": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 100
+              },
+              "failed_or_unsupported": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 100
+              },
+              "not_evaluated": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 100
+              }
+            }
+          },
+          "records": {
+            "minItems": 1
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "complete"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "records": {
+            "items": {
+              "properties": {
+                "status": {
+                  "const": "ok"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "partial"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "records": {
+            "contains": {
+              "properties": {
+                "status": {
+                  "not": {
+                    "const": "ok"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,253 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/raw/main/schemas/calculator-job-summary-1.schema.json",
+  "title": "Offline calculator job summary 1",
+  "description": "Compact campaign status with exact per-state counts and per-job receipt/stdout references; native results are not embedded. A refusal without a trusted roster is the three-field invalid envelope. Runtime checks additionally enforce strict JSON syntax, byte limits and filesystem rules; hashes bind bytes only and establish neither scientific validity nor authenticity.",
+  "oneOf": [
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "error",
+        "schema_version",
+        "status"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "calculator-job-summary-1"
+        },
+        "status": {
+          "const": "invalid"
+        },
+        "error": {
+          "type": "string",
+          "pattern": "^[a-z_]+(?![\\s\\S])"
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "abandoned_attempts",
+        "attempts",
+        "campaign_sha256",
+        "command",
+        "counts",
+        "jobs",
+        "manifest_sha256",
+        "output_bytes",
+        "schema_version",
+        "status",
+        "stop_reason"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "calculator-job-summary-1"
+        },
+        "command": {
+          "enum": [
+            "run",
+            "resume",
+            "verify"
+          ]
+        },
+        "status": {
+          "enum": [
+            "complete",
+            "incomplete",
+            "corrupted"
+          ]
+        },
+        "stop_reason": {
+          "enum": [
+            null,
+            "signal",
+            "campaign_deadline",
+            "output_budget",
+            "launch_failed",
+            "storage_error",
+            "runtime_changed",
+            "attempt_limit"
+          ]
+        },
+        "campaign_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+        },
+        "manifest_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+        },
+        "counts": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "abnormal_exit",
+            "attempts_exhausted",
+            "corrupted",
+            "output_limit",
+            "partial",
+            "refused",
+            "succeeded",
+            "timed_out",
+            "unfinished",
+            "unstarted"
+          ],
+          "properties": {
+            "succeeded": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "partial": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "refused": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "abnormal_exit": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "timed_out": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "output_limit": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "attempts_exhausted": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "unfinished": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "unstarted": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "corrupted": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        },
+        "attempts": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "abandoned_attempts": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "output_bytes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "jobs": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 256,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "attempts",
+              "error",
+              "exit_code",
+              "id",
+              "kind",
+              "receipt",
+              "state",
+              "stdout"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "kind": {
+                "enum": [
+                  "rbs",
+                  "promoter",
+                  "compare",
+                  "transcript",
+                  "conditional"
+                ]
+              },
+              "state": {
+                "enum": [
+                  "succeeded",
+                  "partial",
+                  "refused",
+                  "abnormal_exit",
+                  "timed_out",
+                  "output_limit",
+                  "attempts_exhausted",
+                  "unfinished",
+                  "unstarted",
+                  "corrupted"
+                ]
+              },
+              "attempts": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "receipt": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "exit_code": {
+                "type": [
+                  "integer",
+                  "null"
+                ]
+              },
+              "stdout": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "bytes",
+                      "path",
+                      "sha256"
+                    ],
+                    "properties": {
+                      "path": {
+                        "type": "string"
+                      },
+                      "sha256": {
+                        "type": "string",
+                        "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+                      },
+                      "bytes": {
+                        "type": "integer",
+                        "minimum": 0
+                      }
+                    }
+                  }
+                ]
+              },
+              "error": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}
