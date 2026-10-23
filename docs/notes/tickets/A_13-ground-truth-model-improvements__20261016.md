@@ -4,7 +4,7 @@
 - Status: active
 - Opened: 2026-10-16
 - Updated: 2026-10-22
-- Current State: Owner prioritizes biological evaluation using admitted data, then other unblocked calculators when further progress requires unavailable evidence. A proposes an unchanged-profile PCC 6803 development recheck after backend repairs; B owns protocol/tooling and C independent review. C independently accepted the pinned candidate identity/preparation; B implemented #73 tooling at2dbdde4; existing C reviews the exact patch, A reproduced an argv-spelling admission defect, and the final execution freeze remains pending. No new experimental collection has begun. Wave 4 joint selection failed its predeclared advancement gate (rho gain -0.0001661354, interval spanning zero) despite complete coverage and about 3.45-fold greater median time. Frozen scientific artifacts remain unchanged; Cambray is consumed and Kuo exposed secondary. Native promotion and a broadly better predictor remain unestablished.
+- Current State: Owner prioritizes biological evaluation using admitted data, then other unblocked calculators when further progress requires unavailable evidence. A proposes an unchanged-profile PCC 6803 development recheck after backend repairs; B owns protocol/tooling and C independent review. C independently accepted the pinned candidate identity/preparation; B implemented #73 tooling at2dbdde4; C completed initial review with three admission findings and A reproduced a fourth argv-spelling defect. B owns the single bounded repair; the same C root will recheck its exact commit before final execution freeze. No new experimental collection has begun. Wave 4 joint selection failed its predeclared advancement gate (rho gain -0.0001661354, interval spanning zero) despite complete coverage and about 3.45-fold greater median time. Frozen scientific artifacts remain unchanged; Cambray is consumed and Kuo exposed secondary. Native promotion and a broadly better predictor remain unestablished.
 - Verification: The full 6,556-job collection completed without retries/artifact changes; 6,520 ok and 36 explicit no-candidate results. DEM-516 independently matched 464 floating/659 exact fields, maximum discrepancy zero, and accepted the publication metadata. Results, uncertainty, comparators, exposure caveats and ranked falsifiable next-cycle hypotheses are in rbs-wave4-results.md. Public development and consumed final panels cannot become untouched confirmation.
 - Cleanup: Owning session records results including negative findings, distills reusable model/evaluation contracts, updates indexes and GitHub issue, then removes the resolved ticket.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/13
@@ -65,14 +65,23 @@ object is external at
 `/Users/Rohin/.cache/regsite-wave9-20261022/native-rbs-recheck/frozen-runtime.json`,
 SHA256 `739c246b9db191fa55fe7108a212b7d481ace80641f96d0155dc7df1cd97fc24`.
 
-A reproduced review finding A73-R1 with artificial receipts only: the prepared
-manifest's float time limit is recorded as `60.0` by the frozen runner, while
-the evaluator expects `60` and rejects the valid receipt. Evidence is external
-at `/tmp/calculator-wave9-20261022/a-tooling-review/argv-proof.json`. B owns
-correction after C's finite pass; preserve the original prepared plan and use
-a new immutable plan for any accepted repair. No scientific collection has
-started. Accepted tooling and an acknowledged execution freeze remain required
-before the 1,916 proposed record predictions.
+Finite initial review of `2dbdde422b9c9ec92ed050d7fe9db8a66627dcad`
+requires four evaluator corrections: A73-R1 preserves the frozen runner's exact
+float argv spelling (`60.0`); C F1 accepts legitimate null record reasons with
+site-level failures; C F2 recomputes the complete prediction hash including the
+declared budget; C F3 checks the entire profile-specific scoring window.
+These are artificial admission reproductions, not new scientific results.
+A verified all 16 files pinned by C's review/context receipt and checked the
+cited frozen producer code. The external C review receipt is
+`/tmp/calculator-wave9-20261022/c-native-tooling-review/receipt.json`, SHA256
+`1d3d89de6068dac09a75bfa91e5368a02fb64a203043dc965fabddcd5d53a83b`.
+
+B received one bounded repair handoff, preserving the old tool target and
+`prepared-b-01`. It changes no scientific cohort, model, configurations,
+endpoints or resource budgets. A owns integration; existing C rechecks the exact
+repair, reusing its passing plan and synthetic metric review. Accepted tool bytes
+require a new immutable prepared plan and acknowledged execution freeze before
+the 1,916 proposed record predictions. No scientific collection has started.
 
 The owner clarified on 2026-10-22 that future experimental work is undecided
 and should be sidelined. Earlier discussion of UTEX genomics, RNA-seq, ordinary
