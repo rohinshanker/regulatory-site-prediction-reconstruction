@@ -3,8 +3,8 @@
 - Scope: Pursue a leading fully open experimental predictor through falsifiable comparisons, prioritizing cyanobacterial RBS prediction while preserving compatibility.
 - Status: active
 - Opened: 2026-10-16
-- Updated: 2026-10-22
-- Current State: Owner prioritizes biological evaluation using admitted data, then other unblocked calculators when further progress requires unavailable evidence. A proposes an unchanged-profile PCC 6803 development recheck after backend repairs; B owns protocol/tooling and C independent review. C independently accepted the pinned candidate identity/preparation; B implemented #73 tooling at2dbdde4; C completed initial review with three admission findings and A reproduced a fourth argv-spelling defect. B owns the single bounded repair; the same C root will recheck its exact commit before final execution freeze. No new experimental collection has begun. Wave 4 joint selection failed its predeclared advancement gate (rho gain -0.0001661354, interval spanning zero) despite complete coverage and about 3.45-fold greater median time. Frozen scientific artifacts remain unchanged; Cambray is consumed and Kuo exposed secondary. Native promotion and a broadly better predictor remain unestablished.
+- Updated: 2026-10-31
+- Current State: Owner renewed calculator implementation on 2026-10-31. Wave 10 first completes the existing #73 public PCC 6803 development evaluation, without changing its scientific settings. B's four-finding repair is complete at d8c9a43; A accepted the exact argv repair against all 120 planned jobs. Same-C recheck of the other three findings, final freeze and B acknowledgement remain pending. Existing B/C sessions are queued behind Agent Deck's group limit; direct handoff delivery failed because they are not running. No native collection has started. Earlier joint-selection advancement failed and all consumed panels remain consumed; native promotion remains unestablished.
 - Verification: The full 6,556-job collection completed without retries/artifact changes; 6,520 ok and 36 explicit no-candidate results. DEM-516 independently matched 464 floating/659 exact fields, maximum discrepancy zero, and accepted the publication metadata. Results, uncertainty, comparators, exposure caveats and ranked falsifiable next-cycle hypotheses are in rbs-wave4-results.md. Public development and consumed final panels cannot become untouched confirmation.
 - Cleanup: Owning session records results including negative findings, distills reusable model/evaluation contracts, updates indexes and GitHub issue, then removes the resolved ticket.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/13
@@ -18,70 +18,56 @@ prevent a demonstrated improvement against experimental measurements.
 
 ## Current finite scientific cycle
 
-The proposed recheck uses all 479 publicly released Karlsen development-validation
-records, retaining their original split, sequences, groups, host, 30°C and aSD.
-Four fixed configurations isolate backend and mechanism differences: historical
-with original RNAstructure; historical, context2017 and standby2014 with the
-admitted linker-3 repair. The existing reviewed original 0.12.0rc1 installation
-is the candidate; no weight, equation or setting is optimized. A binds the
-installation/backends and executes only after B's protocol and tooling have
-independent review. B prepares outcome-free requests and verifies outputs before
-joining public development labels. Private final/LC/source-workbook outcomes
-remain excluded.
+Wave 10 retains A runtime/integration/execution, B independent evidence/evaluation,
+and C independent finite review. It completes existing #73 without changing the
+479 public Karlsen development-validation records, 423 groups, sequences,
+starts, host, 30°C or aSD. Four fixed configurations isolate backend and
+mechanism differences: historical/original, historical/linker-3,
+context2017/linker-3 and standby2014/linker-3. Original installed 0.12.0rc1 at
+source `356abc2d40198a95f807967a38126a14b0f3d0c9` remains the candidate.
+No fitting, outcome-driven selection, retry, repacking or new variant loop.
 
-Report coverage/failures and rank association, including paired common-case
-contrasts and homology-group uncertainty. There is no new scale calibration,
-fold-accuracy or superiority claim. This consumed-study development diagnostic
-cannot become untouched confirmation. Fixed batch/resource limits and complete
-unstarted/failed accounting precede execution; no outcome-driven retry or new
-variant loop. If the remaining dependency is target-host measurements, record it
-and move to a separately reserved unblocked calculator slice.
+B's exact repair `d8c9a43b0157234e3cca18404cbb13f6ade0fc3a` addresses
+A73-R1 exact runner argv, C F1 native record/site reasons, C F2 full prediction
+hash/budget and C F3 complete scoring windows. B reports 51 focused/adjacent
+artificial tests and full 393-statement/80-branch coverage. New plan SHA256 is
+`0e1ed70e1c8851c9eb691e60972c7ddd0471dba8994219e76562564a0159ef94`;
+old `prepared-b-01` remains immutable. Candidate receipt SHA256 remains
+`cb6fcb06c8db41c2c6ed5edb543de60363d1a18af500a4535facc629627e72c9`.
+Protocol/model/cohort/endpoints/resources are unchanged.
 
-A's candidate preflight verified all 54 installed files against both the frozen
-source and original wheel, plus archive/backend/table identities. Four artificial
-empty-scan requests passed the installed job runner and read-only verification;
-their exact model/backend objects and no-candidate statuses matched. These checks
-ran no folding or experimental predictions. The provisional identity is external
-at `/Users/Rohin/.cache/regsite-wave9-20261022/native-rbs-recheck/candidate-provisional.json`,
-SHA256 `cb6fcb06c8db41c2c6ed5edb543de60363d1a18af500a4535facc629627e72c9`;
-`runner-preflight/` retains its bounded controls. C independently accepted this
-exact candidate for identity/preparation only after checking all 54 installed
-runtime members, both archives, runtime fingerprint, six binaries, 90 required
-table files, four complete model objects and saved control bindings/identities.
-No scientific data or outcomes were opened and no predictor was rerun. A checked
-the review artifact pins; external review receipt SHA256 is
-`0ec9ecf69646a7d151836c2cbb1fe59d2cdf4a4ced412c3a833be7748773932b`, at
-`/tmp/calculator-wave9-20261022/c-native-candidate-review/receipt.json`.
-This does not approve the final benchmark or authorize collection.
-B's implementation at `2dbdde422b9c9ec92ed050d7fe9db8a66627dcad`
-provides the 120-job preparation and public-data admission/evaluation tooling
-under [#73](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/73).
-The existing C root is reviewing its exact patch; Agent Deck delivered both
-review and A's transport confirmation, so no manual paste is pending. A will
-run the frozen installed runner's read-only verification and pin both complete
-summaries and every consumed raw artifact; B checks those bytes and native
-semantics before joining public measurements. The complete C-reviewed runtime
-object is external at
-`/Users/Rohin/.cache/regsite-wave9-20261022/native-rbs-recheck/frozen-runtime.json`,
-SHA256 `739c246b9db191fa55fe7108a212b7d481ace80641f96d0155dc7df1cd97fc24`.
+A verified all seven repair file pins, both prepared plans and 154 existing
+package/backend material pins on 2026-10-31. Nothing was missing or changed.
+The pure frozen command formatter agrees with the repair on all 120 planned
+jobs; literal float/int checks and the focused regression pass. This accepts
+A73-R1 only. Same-C recheck of F1/F2/F3 remains required; B's local tests do not
+replace it. Merge preflight is conflict-free, with no unaccepted code integrated.
+All eight CI jobs at pushed `a53f65e` succeeded; that result does not cover the
+unintegrated repair or a new scientific result.
 
-Finite initial review of `2dbdde422b9c9ec92ed050d7fe9db8a66627dcad`
-requires four evaluator corrections: A73-R1 preserves the frozen runner's exact
-float argv spelling (`60.0`); C F1 accepts legitimate null record reasons with
-site-level failures; C F2 recomputes the complete prediction hash including the
-declared budget; C F3 checks the entire profile-specific scoring window.
-These are artificial admission reproductions, not new scientific results.
-A verified all 16 files pinned by C's review/context receipt and checked the
-cited frozen producer code. The external C review receipt is
-`/tmp/calculator-wave9-20261022/c-native-tooling-review/receipt.json`, SHA256
-`1d3d89de6068dac09a75bfa91e5368a02fb64a203043dc965fabddcd5d53a83b`.
+Current exact handoffs and receipts are under
+`/Users/Rohin/.cache/regsite-wave10-20261031/`: `c-recheck-handoff.md`,
+`b-continuation-handoff.md`, `a-recovery-material-check.json`, and
+`a-argv-recheck.json`. Original `/tmp` review files are unavailable; do not claim
+their bytes were reread. B's durable handoff and machine receipt survive in
+`/Users/Rohin/.cache/regsite-wave9-20261022/native-rbs-recheck/b-tooling-repair-01/`.
+B/C's existing session starts are queued by Agent Deck's group limit; direct
+handoff sends failed because the targets are not running. Owner capacity
+clarification is pending; no session was replaced or unrelated session stopped.
 
-B received one bounded repair handoff, preserving the old tool target and
-`prepared-b-01`. It changes no scientific cohort, model, configurations,
-endpoints or resource budgets. A owns integration; existing C rechecks the exact
-repair, reusing its passing plan and synthetic metric review. Accepted tool bytes
-require a new immutable prepared plan and acknowledged execution freeze before
-the 1,916 proposed record predictions. No scientific collection has started.
+Next acceptance: same-C exact recheck; A integration/relevant checks; immutable
+execution freeze and B acknowledgement; two single-attempt campaigns using the
+original installed runner and verifier; B verifies acquisition before joining
+public labels. Retain all 1,916 planned predictions, including failures and
+unstarted work, under unchanged limits. Report coverage/failure reasons and
+rank association with paired common-success contrasts and homology-group
+uncertainty. This consumed-study diagnostic establishes no scale calibration,
+fold-accuracy, superiority, UTEX accuracy or recoding-effect claim. Private
+final/LC/source-workbook outcomes remain excluded.
+
+After this finite cycle, choose the next unblocked calculator dependency from
+the evidence and agree exact path ownership. No new experiment inputs or paid
+hosted jobs are needed for this cycle.
 
 The owner clarified on 2026-10-22 that future experimental work is undecided
 and should be sidelined. Earlier discussion of UTEX genomics, RNA-seq, ordinary
