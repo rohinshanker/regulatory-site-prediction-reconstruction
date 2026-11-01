@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import ast
+import builtins
 import copy
 import json
 import math
@@ -10,6 +11,7 @@ import runpy
 import sys
 from decimal import Decimal
 from pathlib import Path
+from types import ModuleType
 from unittest.mock import patch
 
 import pytest
@@ -372,8 +374,44 @@ def test_expected_records_obey_public_schema(fixture):
     jsonschema.validate(result, schema)
 
 
-def test_tool_import_boundary():
-    tree = ast.parse(Path(ref.__file__).read_text())
+ALLOWED_TOOL_IMPORTS = {
+    "__future__",
+    "argparse",
+    "hashlib",
+    "json",
+    "math",
+    "os",
+    "re",
+    "pathlib",
+    "sys",
+    "tempfile",
+    "decimal",
+    "typing",
+}
+
+
+def load_tool_with_import_guard(source):
+    """Instrument this module's imports without changing the process import hook."""
+    attempted = []
+
+    def guarded_import(name, globals=None, locals=None, fromlist=(), level=0):
+        attempted.append(name)
+        if level or name.split(".")[0] not in ALLOWED_TOOL_IMPORTS:
+            raise AssertionError(f"Forbidden benchmark import: {name}")
+        return builtins.__import__(name, globals, locals, fromlist, level)
+
+    namespace = {
+        "__name__": "_coupling_import_boundary_probe",
+        "__file__": ref.__file__,
+        "__builtins__": {**vars(builtins), "__import__": guarded_import},
+    }
+    exec(compile(source, ref.__file__, "exec"), namespace)
+    return namespace, attempted
+
+
+def test_tool_import_boundary(monkeypatch):
+    source = Path(ref.__file__).read_text()
+    tree = ast.parse(source)
     imports = {
         name.name.split(".")[0]
         for node in ast.walk(tree)
@@ -384,23 +422,52 @@ def test_tool_import_boundary():
         for node in ast.walk(tree)
         if isinstance(node, ast.ImportFrom) and node.module
     }
-    assert imports <= {
-        "__future__",
-        "argparse",
-        "hashlib",
-        "json",
-        "math",
-        "os",
-        "re",
-        "pathlib",
-        "sys",
-        "tempfile",
-        "decimal",
-        "typing",
-    }
-    assert not any(
-        name == "regsite" or name.startswith("regsite.") for name in sys.modules
+    assert imports <= ALLOWED_TOOL_IMPORTS
+    assert all(
+        node.level == 0 for node in ast.walk(tree) if isinstance(node, ast.ImportFrom)
     )
+    # Other suite members may already have imported the producer. Keep those
+    # objects untouched; an artificial preexisting module also must be harmless.
+    if "regsite" not in sys.modules:
+        monkeypatch.setitem(sys.modules, "regsite", ModuleType("regsite"))
+    sentinel = ModuleType("regsite._coupling_boundary_sentinel")
+    monkeypatch.setitem(sys.modules, sentinel.__name__, sentinel)
+    before = {
+        name: value
+        for name, value in sys.modules.items()
+        if name == "regsite" or name.startswith("regsite.")
+    }
+    namespace, attempted = load_tool_with_import_guard(source)
+    assert set(attempted) == imports
+    assert namespace["strict_json"](b"{}") == {}
+    after = {
+        name: value
+        for name, value in sys.modules.items()
+        if name == "regsite" or name.startswith("regsite.")
+    }
+    assert after == before
+
+
+@pytest.mark.parametrize(
+    "injection",
+    [
+        "import regsite",
+        "from regsite import coupling",
+        "__import__('regsite')",
+        "import regsite._coupling_boundary_sentinel",
+        "import subprocess",
+        "from . import forbidden",
+    ],
+)
+def test_tool_import_guard_rejects_injected_dependency(monkeypatch, injection):
+    # Cached imports must be rejected too, before Python can return the sentinel.
+    monkeypatch.setitem(sys.modules, "regsite", ModuleType("regsite"))
+    sentinel = ModuleType("regsite._coupling_boundary_sentinel")
+    monkeypatch.setitem(sys.modules, sentinel.__name__, sentinel)
+    source = Path(ref.__file__).read_text() + "\n" + injection
+    with pytest.raises(AssertionError, match="Forbidden benchmark import"):
+        load_tool_with_import_guard(source)
+    assert sys.modules[sentinel.__name__] is sentinel
 
 
 def artificial_envelope(fixture):

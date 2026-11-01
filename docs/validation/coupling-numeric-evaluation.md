@@ -162,7 +162,12 @@ ruff format --check benchmarks/operon/coupling_reference.py tests/benchmarks/tes
 mypy benchmarks/operon/coupling_reference.py
 ```
 
-The benchmark module uses only stdlib and imports no candidate modules. Tests
+The benchmark module uses only stdlib and imports no candidate modules. Its
+import-boundary test combines a static import allowlist with a fresh, instrumented
+module namespace: producer imports are rejected even if already cached. Other
+full-suite tests may legitimately load producer modules first; their presence is
+not evidence that this checker imported them. Artificial preloaded sentinels and
+injected forbidden imports test this distinction without loading a scorer. Tests
 use the existing schema validator only to check artificial envelopes against
 the pinned public schemas. This is software/arithmetic verification, not a
 replacement for the required independent review or later frozen execution.
