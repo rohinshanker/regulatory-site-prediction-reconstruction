@@ -244,7 +244,24 @@
   ],
   "plan_sha256": "0e1ed70e1c8851c9eb691e60972c7ddd0471dba8994219e76562564a0159ef94",
   "protocol_sha256": "e6a881341a522967956deb42cb4d05ad319a9920d2fbd1bb52363eaf1e739d24",
-  "review_status": "evaluation complete; independent aggregate/report acceptance pending",
+  "review": {
+    "accepted_report_commit": "1ce781d134784e52df69423721b37cb36d95da21",
+    "coordinator_acceptance": "https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/73#issuecomment-6560617150",
+    "independent_acceptance": "https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/73#issuecomment-6560581981",
+    "independent_reviewer": "C56abed60-1792619583",
+    "publication_authorized": false,
+    "receipt": {
+      "bytes": 2254,
+      "sha256": "3ec612a56a4d2b0352d1c389d4353c961f139ff1f431b344ed02d1ae5a4b69e6"
+    },
+    "reevaluation": false,
+    "reviewed_summary": {
+      "bytes": 9619,
+      "sha256": "9108faeb21bcf50587e81e9964773404de662a9dff7043dd96462a5659a8f9a7"
+    },
+    "unresolved_findings": []
+  },
+  "review_status": "independent public aggregate/report review accepted; scoped evaluation complete",
   "schema_version": "native-rbs-development-public-summary-1",
   "scope": {
     "consumed_cohort": true,
