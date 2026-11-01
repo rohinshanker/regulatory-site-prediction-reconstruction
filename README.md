@@ -105,8 +105,8 @@ to the same scorer. Targets are model quantities; no cyanobacterial calibration
 or measured expression gain follows from completing the search. This addition
 is in the [0.15.0rc1 engineering package](docs/validation/engineering-0.15-candidate.md),
 which passed 7,733 local tests, 1,551 subtests, zero skips, full measured coverage
-and 69 fresh-installed outputs. Independent package review and platform CI remain
-pending.
+and 69 fresh-installed outputs. All eight [platform jobs](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/actions/runs/41272983356)
+pass at `1bfe4c48`; independent package review remains pending.
 
 Register complete files in explicit external storage and check their byte identity
 with the [offline artifact manifest tool](docs/validation/calculator-artifact-storage.md).

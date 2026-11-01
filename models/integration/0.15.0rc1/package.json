@@ -457,8 +457,52 @@
     "xml_sha256": "af33627e0b23298d84071e7da4fee50d6c7cc0a6b0574a6e5c6edb9bc1ba0702"
   },
   "platform_ci": {
-    "note": "A separate exact-head 0.15 run is required; prior 0.14 success does not cover the added Promoter wrapper.",
-    "status": "pending"
+    "head_commit": "1bfe4c483163529bb0c140a5bdeb9f33072aba0f",
+    "installed_offline_workflow": "passed in all four runtime jobs",
+    "jobs": [
+      {
+        "conclusion": "success",
+        "name": "runtime (ubuntu-24.04, 3.14)"
+      },
+      {
+        "conclusion": "success",
+        "name": "promoter-resources (ubuntu-24.04, 3.11)"
+      },
+      {
+        "conclusion": "success",
+        "name": "promoter-resources (macos-14, 3.14)"
+      },
+      {
+        "conclusion": "success",
+        "name": "runtime (macos-14, 3.14)"
+      },
+      {
+        "conclusion": "success",
+        "name": "runtime (macos-14, 3.11)"
+      },
+      {
+        "conclusion": "success",
+        "name": "promoter-resources (macos-14, 3.11)"
+      },
+      {
+        "conclusion": "success",
+        "name": "runtime (ubuntu-24.04, 3.11)"
+      },
+      {
+        "conclusion": "success",
+        "name": "promoter-resources (ubuntu-24.04, 3.14)"
+      }
+    ],
+    "log_sha256": "6756ff18e70ba0263e67a8a7fa44fcf0e41f3f232692d3693a29cd2a90d21dbc",
+    "repair_suite_passed_per_variant_per_job": 3233,
+    "run_id": 41272983356,
+    "runtime_suite_passed_per_job": 7732,
+    "runtime_suite_skipped_per_job": 1,
+    "runtime_tests_workflow_equal": true,
+    "skip_reason": "Original conditional structural-pair fixture is explicitly optional in this CI environment; local exact-original admission test passed with the backend configured.",
+    "source_commit": "597edc4ef9b965b661e019cb8dffaa01d361a03c",
+    "status": "passed",
+    "url": "https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/actions/runs/41272983356"
   },
   "publication_authorized": false,
   "schema_version": "regsite-engineering-package-1",

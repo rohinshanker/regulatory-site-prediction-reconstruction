@@ -4,8 +4,8 @@
 - Status: active
 - Opened: 2026-10-16
 - Updated: 2026-11-01
-- Current State: A owns runtime/integration and B independent evaluation. Both exact #73 native campaigns and installed verification completed once under B's acknowledged freeze. Acquisition pins 608 consumed files and rechecks 154 candidate/runtime/backend/table files. B's unchanged evaluator is authorized to admit those artifacts and join public development measurements; analysis delivery remains unconfirmed, with no A label join, retry, tuning or new accuracy claim. Frozen original 0.12 source `356abc2` remains the scientific candidate. Separately, engineering 0.15 adds independently reviewed bounded RBS/Promoter design, sweep and exports; package review and platform checks are pending.
-- Verification: #73 tool `d8c9a43` passed independent A/C repair review and 51 focused tests plus 305 subtests with full new coverage. The [0.15 engineering package](../../validation/engineering-0.15-candidate.md) passed 7,733 local tests plus 1,551 subtests, zero skips and 69 installed outputs; these are software controls. The earlier [Wave 4 scientific result](../../validation/rbs-wave4-results.md) failed advancement. All exposed development/final cohorts remain consumed and cannot become untouched confirmation.
+- Current State: A owns runtime/integration and B independent evaluation. Both exact #73 native campaigns and installed verification completed once under B's acknowledged freeze. Acquisition pins 608 consumed files and rechecks 154 candidate/runtime/backend/table files. B's unchanged evaluator is authorized to admit those artifacts and join public development measurements; analysis delivery remains unconfirmed, with no A label join, retry, tuning or new accuracy claim. Frozen original 0.12 source `356abc2` remains the scientific candidate. Separately, engineering 0.15 adds independently reviewed bounded RBS/Promoter design, sweep and exports; independent package review remains pending and all eight platform jobs pass.
+- Verification: #73 tool `d8c9a43` passed independent A/C repair review and 51 focused tests plus 305 subtests with full new coverage. The [0.15 engineering package](../../validation/engineering-0.15-candidate.md) passed 7,733 local tests plus 1,551 subtests, zero skips and 69 installed outputs; these are software controls. CI41272983356 passes all eight jobs at `1bfe4c48`. The earlier [Wave 4 scientific result](../../validation/rbs-wave4-results.md) failed advancement. All exposed development/final cohorts remain consumed and cannot become untouched confirmation.
 - Cleanup: Owning session records results including negative findings, distills reusable model/evaluation contracts, updates indexes and GitHub issue, then removes the resolved ticket.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/13
 - Priority: P0
@@ -39,8 +39,8 @@ Protocol/model/cohort/endpoints/resources are unchanged.
 A verified all seven repair file pins, both prepared plans and154 existing
 package/backend material pins. C accepted its three repairs after8focused tests
 and20 recreated artificial controls; A reproduced51focused/adjacent tests plus
-305subtests with100%393statement/80branch coverage after integration. Earlier
-eight-job CI at a53f65e passed; new combined CI remains pending.
+305subtests with100%393statement/80branch coverage after integration. The current engineering platform gate passes all eight jobs at `1bfe4c48`;
+this does not replace the frozen scientific acquisition or B's analysis.
 
 Exact active receipts are under `/Users/Rohin/.cache/regsite-wave10-20261031/`.
 `execution-01/freeze.json` SHA256

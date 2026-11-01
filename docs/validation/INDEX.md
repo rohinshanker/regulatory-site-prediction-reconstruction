@@ -4,7 +4,7 @@ Verification dates cover the stated source observations or specification review;
 
 | Area | Purpose | Last verified | Document |
 | --- | --- | --- | --- |
-| Engineering 0.15 package | Frozen Promoter design integration, exact archives and independent/software gate boundaries | 2026-11-01 | [engineering-0.15-candidate.md](engineering-0.15-candidate.md) |
+| Engineering 0.15 package | Frozen Promoter design integration; local/fresh/platform gates pass, independent package review pending | 2026-11-01 | [engineering-0.15-candidate.md](engineering-0.15-candidate.md) |
 | promoter-design | Bounded substitution search over nominated historical Promoter targets, complete-context constraints and fresh native confirmation; independent review pending. | 2026-11-01 | [promoter-design.md](promoter-design.md) |
 | Engineering 0.14rc2 package | Frozen drafting-export integration, exact artifacts and verification boundaries | 2026-11-01 | [engineering-0.14rc2-candidate.md](engineering-0.14rc2-candidate.md) |
 | Engineering 0.14 package | Frozen design/sweep/export package, exact artifacts and verification boundaries | 2026-10-31 | [engineering-0.14-candidate.md](engineering-0.14-candidate.md) |
@@ -104,4 +104,4 @@ Verification dates cover the stated source observations or specification review;
 | promoter-executed-reference | Pinned optional source execution, independent finite-state fixtures, compatibility failures and corrected coordinate semantics. | 2026-10-17 | [promoter-executed-reference.md](promoter-executed-reference.md) |
 | intrinsic-termination-source | Pinned TransTermHP candidate-score source, parameter and fragment admission boundary. | 2026-10-21 | [intrinsic-termination-source.md](intrinsic-termination-source.md) |
 | intrinsic-termination-runtime | Reviewed bounded external-engine adapter, accepted 0.12 package and Linux/macOS CI boundary. | 2026-10-21 | [intrinsic-termination-runtime.md](intrinsic-termination-runtime.md) |
-| rbs-design | Bounded leader substitution search with explicit model target, constraints, failures and fresh confirmation; independent acceptance pending. | 2026-10-31 | [rbs-design.md](rbs-design.md) |
+| rbs-design | Independently accepted bounded leader substitution search with explicit model target, constraints, failures and fresh confirmation. | 2026-10-31 | [rbs-design.md](rbs-design.md) |

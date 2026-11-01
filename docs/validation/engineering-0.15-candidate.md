@@ -64,8 +64,14 @@ refusal. These are artificial software cases, not experimental observations.
 A independently accepted C's exact implementation `87510bdf` after reading its
 bounded delta and running 42 controls prepared against the unchanged prior
 installed scorer. C's 179 focused tests have full new statement/branch coverage.
-Independent review of A's package integration and the exact 0.15 platform CI
-remain pending. Prior package checks cannot replace either gate. These are
+Independent review of A's package integration remains pending.
+[Platform run 41272983356](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/actions/runs/41272983356)
+passes all eight jobs at `1bfe4c48`; runtime, tests and workflow match the frozen
+package source. Each runtime job passes 7,732 tests with one declared original-
+conditional fixture skip, both 3,233-test repaired-backend selections and the
+installed offline workflow. The local suite separately exercised the exact
+original conditional pair without that skip. Platform success does not replace
+independent package acceptance. These are
 branch artifacts, not a published release or production consumer admission.
 
 The PCC 6803 acquisition used frozen **0.12.0rc1** source
