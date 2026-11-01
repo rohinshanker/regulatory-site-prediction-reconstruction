@@ -1,0 +1,68 @@
+{
+  "schema_version": "riboswitch-independent-scalar-fixtures-1",
+  "scope": "Independent Decimal arithmetic for declared scalar inputs, not sequence inference, parameter fitting or biological validation. beta0.45 is an explicit synthetic scenario, not a recovered full production parameter set. Bound fractions are supplied; no occupancy minimizer is claimed.",
+  "formula_locations": "PMC4705656 main Results; supplement PDF pages23-29 (S4-S26). Apply metastability correction only when switching score is positive as explicitly described in main text.",
+  "precision_digits": 50,
+  "cases": [
+    {
+      "id": "equal_states",
+      "beta": "0.45",
+      "score_off": "-5",
+      "score_on": "-5",
+      "assumed_bound_fraction": "0.5",
+      "switching_score": "-1",
+      "maximum_ratio": "1",
+      "concentration_ratio": "1.0",
+      "actual_ratio": "1.0"
+    },
+    {
+      "id": "no_bound",
+      "beta": "0.45",
+      "score_off": "0",
+      "score_on": "-10",
+      "assumed_bound_fraction": "0",
+      "switching_score": "-1",
+      "maximum_ratio": "90.017131300521813550115456745574360847927307529769",
+      "concentration_ratio": "1.000000000000000000000000000000000000000000000000",
+      "actual_ratio": "1.000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "all_bound",
+      "beta": "0.45",
+      "score_off": "0",
+      "score_on": "-10",
+      "assumed_bound_fraction": "1",
+      "switching_score": "-1",
+      "maximum_ratio": "90.017131300521813550115456745574360847927307529769",
+      "concentration_ratio": "90.017131300521813550115456745574360847927307529769",
+      "actual_ratio": "90.017131300521813550115456745574360847927307529769"
+    },
+    {
+      "id": "quarter_bound",
+      "beta": "0.45",
+      "score_off": "0",
+      "score_on": "-10",
+      "assumed_bound_fraction": "0.25",
+      "switching_score": "-1",
+      "maximum_ratio": "90.017131300521813550115456745574360847927307529769",
+      "concentration_ratio": "23.254282825130453387528864186393590211981826882442",
+      "actual_ratio": "23.254282825130453387528864186393590211981826882442"
+    },
+    {
+      "id": "metastable",
+      "beta": "0.45",
+      "score_off": "0",
+      "score_on": "-10",
+      "assumed_bound_fraction": "0.25",
+      "switching_score": "2",
+      "maximum_ratio": "90.017131300521813550115456745574360847927307529769",
+      "concentration_ratio": "23.254282825130453387528864186393590211981826882442",
+      "actual_ratio": "7.4326115193277894968957166856852949904905601411749"
+    }
+  ],
+  "parameter_limits": [
+    "Kd-to-energy requires explicit standard state and Kelvin temperature; do not take logarithm of an unlabelled concentration.",
+    "The occupancy volume model is not replaced by an unlabelled Hill function.",
+    "The ligand-bound structural constraint and pseudoknot support are distinct from these scalar calculations."
+  ]
+}

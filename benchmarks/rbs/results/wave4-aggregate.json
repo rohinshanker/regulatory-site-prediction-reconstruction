@@ -1,0 +1,1790 @@
+{
+  "schema_version": "rbs-wave4-aggregate-1",
+  "panel_consumed": true,
+  "collection_complete": true,
+  "artifacts_unchanged": true,
+  "primary": {
+    "endpoint": "ordinary Cambray protein fluorescence; rank only",
+    "models": {
+      "control-constant": {
+        "n_inputs": 335,
+        "n_observed": 332,
+        "n_success": 335,
+        "n_paired": 332,
+        "coverage": 1.0,
+        "spearman_rho": null,
+        "status_counts": {
+          "ok": 335
+        },
+        "failure_reasons": {},
+        "runtime_seconds": {
+          "n_executed": 335,
+          "sum": 0.016133528435602784,
+          "median": 4.15419926866889e-05,
+          "p95_nearest_rank": 7.14160269126296e-05,
+          "maximum": 0.0008576660184189677
+        }
+      },
+      "control-gc-content": {
+        "n_inputs": 335,
+        "n_observed": 332,
+        "n_success": 335,
+        "n_paired": 332,
+        "coverage": 1.0,
+        "spearman_rho": 0.02866025025414935,
+        "status_counts": {
+          "ok": 335
+        },
+        "failure_reasons": {},
+        "runtime_seconds": {
+          "n_executed": 335,
+          "sum": 0.01449903892353177,
+          "median": 3.7624966353178024e-05,
+          "p95_nearest_rank": 6.700004450976849e-05,
+          "maximum": 0.0008051670156419277
+        }
+      },
+      "historical-linker3": {
+        "n_inputs": 335,
+        "n_observed": 332,
+        "n_success": 335,
+        "n_paired": 332,
+        "coverage": 1.0,
+        "spearman_rho": 0.5018892930686802,
+        "status_counts": {
+          "ok": 335
+        },
+        "failure_reasons": {},
+        "runtime_seconds": {
+          "n_executed": 335,
+          "sum": 204.41422503592912,
+          "median": 0.5911543749971315,
+          "p95_nearest_rank": 0.7240487500093877,
+          "maximum": 1.0430521669331938
+        }
+      },
+      "historical-traceback2": {
+        "n_inputs": 335,
+        "n_observed": 332,
+        "n_success": 335,
+        "n_paired": 332,
+        "coverage": 1.0,
+        "spearman_rho": 0.5018892930686802,
+        "status_counts": {
+          "ok": 335
+        },
+        "failure_reasons": {},
+        "runtime_seconds": {
+          "n_executed": 335,
+          "sum": 204.90034650499,
+          "median": 0.5921521669952199,
+          "p95_nearest_rank": 0.7607066249474883,
+          "maximum": 1.1564612910151482
+        }
+      },
+      "joint_standby-linker3": {
+        "n_inputs": 335,
+        "n_observed": 332,
+        "n_success": 335,
+        "n_paired": 332,
+        "coverage": 1.0,
+        "spearman_rho": 0.43608343915501807,
+        "status_counts": {
+          "ok": 335
+        },
+        "failure_reasons": {},
+        "runtime_seconds": {
+          "n_executed": 335,
+          "sum": 1736.2843940887833,
+          "median": 5.08244162495248,
+          "p95_nearest_rank": 5.857446165988222,
+          "maximum": 7.742968291975558
+        }
+      },
+      "joint_standby-traceback2": {
+        "n_inputs": 335,
+        "n_observed": 332,
+        "n_success": 335,
+        "n_paired": 332,
+        "coverage": 1.0,
+        "spearman_rho": 0.43608343915501807,
+        "status_counts": {
+          "ok": 335
+        },
+        "failure_reasons": {},
+        "runtime_seconds": {
+          "n_executed": 335,
+          "sum": 1727.0737560895504,
+          "median": 5.069362250040285,
+          "p95_nearest_rank": 5.8263016670243815,
+          "maximum": 7.732283165911213
+        }
+      },
+      "ostir-1.1.3": {
+        "n_inputs": 335,
+        "n_observed": 332,
+        "n_success": 335,
+        "n_paired": 332,
+        "coverage": 1.0,
+        "spearman_rho": 0.4767646184651466,
+        "status_counts": {
+          "ok": 335
+        },
+        "failure_reasons": {},
+        "runtime_seconds": {
+          "n_executed": 335,
+          "sum": 70.66974849440157,
+          "median": 0.2030497909290716,
+          "p95_nearest_rank": 0.28621370904147625,
+          "maximum": 0.5942597920075059
+        }
+      },
+      "public2014-sequence-v1": {
+        "n_inputs": 335,
+        "n_observed": 332,
+        "n_success": 335,
+        "n_paired": 332,
+        "coverage": 1.0,
+        "spearman_rho": null,
+        "status_counts": {
+          "ok": 335
+        },
+        "failure_reasons": {},
+        "runtime_seconds": {
+          "n_executed": 335,
+          "sum": 36.737173248431645,
+          "median": 0.10318704205565155,
+          "p95_nearest_rank": 0.1472744579659775,
+          "maximum": 0.31609433295670897
+        }
+      },
+      "rebeca-exp67-true": {
+        "n_inputs": 335,
+        "n_observed": 332,
+        "n_success": 335,
+        "n_paired": 332,
+        "coverage": 1.0,
+        "spearman_rho": null,
+        "status_counts": {
+          "ok": 335
+        },
+        "failure_reasons": {},
+        "runtime_seconds": {
+          "n_executed": 335,
+          "sum": 875.30046395713,
+          "median": 2.4566004590597004,
+          "p95_nearest_rank": 3.716780500020832,
+          "maximum": 5.1586799579672515
+        }
+      },
+      "standby2014-linker3": {
+        "n_inputs": 335,
+        "n_observed": 332,
+        "n_success": 335,
+        "n_paired": 332,
+        "coverage": 1.0,
+        "spearman_rho": 0.43624957458722985,
+        "status_counts": {
+          "ok": 335
+        },
+        "failure_reasons": {},
+        "runtime_seconds": {
+          "n_executed": 335,
+          "sum": 510.8766140791122,
+          "median": 1.47297866595909,
+          "p95_nearest_rank": 1.8906132919946685,
+          "maximum": 3.920415834058076
+        }
+      },
+      "standby2014-traceback2": {
+        "n_inputs": 335,
+        "n_observed": 332,
+        "n_success": 335,
+        "n_paired": 332,
+        "coverage": 1.0,
+        "spearman_rho": 0.43624957458722985,
+        "status_counts": {
+          "ok": 335
+        },
+        "failure_reasons": {},
+        "runtime_seconds": {
+          "n_executed": 335,
+          "sum": 514.3222402926767,
+          "median": 1.4853122499771416,
+          "p95_nearest_rank": 1.8796491669490933,
+          "maximum": 2.7212249169824645
+        }
+      }
+    },
+    "contrast": {
+      "contender": "joint_standby-linker3",
+      "mode": "joint",
+      "reference": "standby2014-linker3"
+    },
+    "comparison": {
+      "n_inputs": 335,
+      "n_common_success": 335,
+      "n_common_measured": 332,
+      "n_blocks": 56,
+      "n_common_blocks": 56,
+      "lost_reference_successes": 0,
+      "rank_gain": -0.00016613543221177807,
+      "requested_draws": 10000,
+      "attempted_draws": 10000,
+      "usable_draws": 10000,
+      "undefined_draws": 0,
+      "interval95": [
+        -0.0009046435846200018,
+        0.0002051547949261101
+      ],
+      "interval_status": "ok"
+    },
+    "advancement": {
+      "advance": false,
+      "reasons": [
+        "rank_gain_below_threshold_or_undefined",
+        "interval_not_above_zero_or_undefined"
+      ]
+    }
+  },
+  "descriptive_against_primary_reference": {
+    "control-constant": {
+      "n_inputs": 335,
+      "n_common_success": 335,
+      "n_common_measured": 332,
+      "n_blocks": 56,
+      "n_common_blocks": 56,
+      "lost_reference_successes": 0,
+      "rank_gain": null,
+      "requested_draws": 10000,
+      "attempted_draws": 0,
+      "usable_draws": 0,
+      "undefined_draws": 0,
+      "interval95": null,
+      "interval_status": "undefined_point_correlation"
+    },
+    "control-gc-content": {
+      "n_inputs": 335,
+      "n_common_success": 335,
+      "n_common_measured": 332,
+      "n_blocks": 56,
+      "n_common_blocks": 56,
+      "lost_reference_successes": 0,
+      "rank_gain": -0.4075893243330805,
+      "requested_draws": 10000,
+      "attempted_draws": 10000,
+      "usable_draws": 10000,
+      "undefined_draws": 0,
+      "interval95": [
+        -0.6167463684480994,
+        -0.18922787624249066
+      ],
+      "interval_status": "ok"
+    },
+    "historical-linker3": {
+      "n_inputs": 335,
+      "n_common_success": 335,
+      "n_common_measured": 332,
+      "n_blocks": 56,
+      "n_common_blocks": 56,
+      "lost_reference_successes": 0,
+      "rank_gain": 0.0656397184814504,
+      "requested_draws": 10000,
+      "attempted_draws": 10000,
+      "usable_draws": 10000,
+      "undefined_draws": 0,
+      "interval95": [
+        -0.07806805630163999,
+        0.201100835058734
+      ],
+      "interval_status": "ok"
+    },
+    "historical-traceback2": {
+      "n_inputs": 335,
+      "n_common_success": 335,
+      "n_common_measured": 332,
+      "n_blocks": 56,
+      "n_common_blocks": 56,
+      "lost_reference_successes": 0,
+      "rank_gain": 0.0656397184814504,
+      "requested_draws": 10000,
+      "attempted_draws": 10000,
+      "usable_draws": 10000,
+      "undefined_draws": 0,
+      "interval95": [
+        -0.07806805630163999,
+        0.201100835058734
+      ],
+      "interval_status": "ok"
+    },
+    "joint_standby-traceback2": {
+      "n_inputs": 335,
+      "n_common_success": 335,
+      "n_common_measured": 332,
+      "n_blocks": 56,
+      "n_common_blocks": 56,
+      "lost_reference_successes": 0,
+      "rank_gain": -0.00016613543221177807,
+      "requested_draws": 10000,
+      "attempted_draws": 10000,
+      "usable_draws": 10000,
+      "undefined_draws": 0,
+      "interval95": [
+        -0.0009046435846200018,
+        0.0002051547949261101
+      ],
+      "interval_status": "ok"
+    },
+    "ostir-1.1.3": {
+      "n_inputs": 335,
+      "n_common_success": 335,
+      "n_common_measured": 332,
+      "n_blocks": 56,
+      "n_common_blocks": 56,
+      "lost_reference_successes": 0,
+      "rank_gain": 0.04051504387791677,
+      "requested_draws": 10000,
+      "attempted_draws": 10000,
+      "usable_draws": 10000,
+      "undefined_draws": 0,
+      "interval95": [
+        -0.09607527810308947,
+        0.17185828843672424
+      ],
+      "interval_status": "ok"
+    },
+    "public2014-sequence-v1": {
+      "n_inputs": 335,
+      "n_common_success": 335,
+      "n_common_measured": 332,
+      "n_blocks": 56,
+      "n_common_blocks": 56,
+      "lost_reference_successes": 0,
+      "rank_gain": null,
+      "requested_draws": 10000,
+      "attempted_draws": 0,
+      "usable_draws": 0,
+      "undefined_draws": 0,
+      "interval95": null,
+      "interval_status": "undefined_point_correlation"
+    },
+    "rebeca-exp67-true": {
+      "n_inputs": 335,
+      "n_common_success": 335,
+      "n_common_measured": 332,
+      "n_blocks": 56,
+      "n_common_blocks": 56,
+      "lost_reference_successes": 0,
+      "rank_gain": null,
+      "requested_draws": 10000,
+      "attempted_draws": 0,
+      "usable_draws": 0,
+      "undefined_draws": 0,
+      "interval95": null,
+      "interval_status": "undefined_point_correlation"
+    },
+    "standby2014-traceback2": {
+      "n_inputs": 335,
+      "n_common_success": 335,
+      "n_common_measured": 332,
+      "n_blocks": 56,
+      "n_common_blocks": 56,
+      "lost_reference_successes": 0,
+      "rank_gain": 0.0,
+      "requested_draws": 10000,
+      "attempted_draws": 10000,
+      "usable_draws": 10000,
+      "undefined_draws": 0,
+      "interval95": [
+        0.0,
+        0.0
+      ],
+      "interval_status": "ok"
+    }
+  },
+  "descriptive_coding_gc_strata": {
+    "low": {
+      "models": {
+        "control-constant": {
+          "n_inputs": 31,
+          "n_observed": 29,
+          "n_success": 31,
+          "n_paired": 29,
+          "coverage": 1.0,
+          "spearman_rho": null,
+          "status_counts": {
+            "ok": 31
+          },
+          "failure_reasons": {},
+          "runtime_seconds": {
+            "n_executed": 31,
+            "sum": 0.0014114149380475283,
+            "median": 4.770804662257433e-05,
+            "p95_nearest_rank": 6.758293602615595e-05,
+            "maximum": 7.24580604583025e-05
+          }
+        },
+        "control-gc-content": {
+          "n_inputs": 31,
+          "n_observed": 29,
+          "n_success": 31,
+          "n_paired": 29,
+          "coverage": 1.0,
+          "spearman_rho": 0.15550991078396528,
+          "status_counts": {
+            "ok": 31
+          },
+          "failure_reasons": {},
+          "runtime_seconds": {
+            "n_executed": 31,
+            "sum": 0.0012513775145635009,
+            "median": 3.787502646446228e-05,
+            "p95_nearest_rank": 5.908298771828413e-05,
+            "maximum": 0.00010379205923527479
+          }
+        },
+        "historical-linker3": {
+          "n_inputs": 31,
+          "n_observed": 29,
+          "n_success": 31,
+          "n_paired": 29,
+          "coverage": 1.0,
+          "spearman_rho": 0.6052619432815429,
+          "status_counts": {
+            "ok": 31
+          },
+          "failure_reasons": {},
+          "runtime_seconds": {
+            "n_executed": 31,
+            "sum": 18.58055104361847,
+            "median": 0.5928894999669865,
+            "p95_nearest_rank": 0.6577518340200186,
+            "maximum": 0.7939997500507161
+          }
+        },
+        "historical-traceback2": {
+          "n_inputs": 31,
+          "n_observed": 29,
+          "n_success": 31,
+          "n_paired": 29,
+          "coverage": 1.0,
+          "spearman_rho": 0.6052619432815429,
+          "status_counts": {
+            "ok": 31
+          },
+          "failure_reasons": {},
+          "runtime_seconds": {
+            "n_executed": 31,
+            "sum": 18.550301249837503,
+            "median": 0.584694541990757,
+            "p95_nearest_rank": 0.669073750032112,
+            "maximum": 0.6742650830419734
+          }
+        },
+        "joint_standby-linker3": {
+          "n_inputs": 31,
+          "n_observed": 29,
+          "n_success": 31,
+          "n_paired": 29,
+          "coverage": 1.0,
+          "spearman_rho": 0.4879251455090414,
+          "status_counts": {
+            "ok": 31
+          },
+          "failure_reasons": {},
+          "runtime_seconds": {
+            "n_executed": 31,
+            "sum": 160.3778803339228,
+            "median": 5.176236749975942,
+            "p95_nearest_rank": 5.817369416006841,
+            "maximum": 5.893933791900054
+          }
+        },
+        "joint_standby-traceback2": {
+          "n_inputs": 31,
+          "n_observed": 29,
+          "n_success": 31,
+          "n_paired": 29,
+          "coverage": 1.0,
+          "spearman_rho": 0.4879251455090414,
+          "status_counts": {
+            "ok": 31
+          },
+          "failure_reasons": {},
+          "runtime_seconds": {
+            "n_executed": 31,
+            "sum": 160.9868800842669,
+            "median": 5.187718416098505,
+            "p95_nearest_rank": 5.786219542031176,
+            "maximum": 5.930360750062391
+          }
+        },
+        "ostir-1.1.3": {
+          "n_inputs": 31,
+          "n_observed": 29,
+          "n_success": 31,
+          "n_paired": 29,
+          "coverage": 1.0,
+          "spearman_rho": 0.6983478108523411,
+          "status_counts": {
+            "ok": 31
+          },
+          "failure_reasons": {},
+          "runtime_seconds": {
+            "n_executed": 31,
+            "sum": 6.948473413824104,
+            "median": 0.20586029102560133,
+            "p95_nearest_rank": 0.35145258402917534,
+            "maximum": 0.45781662489753217
+          }
+        },
+        "public2014-sequence-v1": {
+          "n_inputs": 31,
+          "n_observed": 29,
+          "n_success": 31,
+          "n_paired": 29,
+          "coverage": 1.0,
+          "spearman_rho": null,
+          "status_counts": {
+            "ok": 31
+          },
+          "failure_reasons": {},
+          "runtime_seconds": {
+            "n_executed": 31,
+            "sum": 3.6857088750693947,
+            "median": 0.10748966701794416,
+            "p95_nearest_rank": 0.1804385419236496,
+            "maximum": 0.24604191700927913
+          }
+        },
+        "rebeca-exp67-true": {
+          "n_inputs": 31,
+          "n_observed": 29,
+          "n_success": 31,
+          "n_paired": 29,
+          "coverage": 1.0,
+          "spearman_rho": null,
+          "status_counts": {
+            "ok": 31
+          },
+          "failure_reasons": {},
+          "runtime_seconds": {
+            "n_executed": 31,
+            "sum": 79.57853429100942,
+            "median": 2.474908292060718,
+            "p95_nearest_rank": 3.768205125001259,
+            "maximum": 3.8029797499766573
+          }
+        },
+        "standby2014-linker3": {
+          "n_inputs": 31,
+          "n_observed": 29,
+          "n_success": 31,
+          "n_paired": 29,
+          "coverage": 1.0,
+          "spearman_rho": 0.49550123213817887,
+          "status_counts": {
+            "ok": 31
+          },
+          "failure_reasons": {},
+          "runtime_seconds": {
+            "n_executed": 31,
+            "sum": 46.5749477960635,
+            "median": 1.4684215419692919,
+            "p95_nearest_rank": 1.7307707079453394,
+            "maximum": 1.927857834030874
+          }
+        },
+        "standby2014-traceback2": {
+          "n_inputs": 31,
+          "n_observed": 29,
+          "n_success": 31,
+          "n_paired": 29,
+          "coverage": 1.0,
+          "spearman_rho": 0.49550123213817887,
+          "status_counts": {
+            "ok": 31
+          },
+          "failure_reasons": {},
+          "runtime_seconds": {
+            "n_executed": 31,
+            "sum": 48.29215541656595,
+            "median": 1.4853122499771416,
+            "p95_nearest_rank": 2.2065197919728234,
+            "maximum": 2.472648416995071
+          }
+        }
+      },
+      "primary_pair": {
+        "n_common_measured": 29,
+        "rank_gain": null,
+        "interval95": null,
+        "role": "descriptive subgroup point only"
+      }
+    },
+    "middle": {
+      "models": {
+        "control-constant": {
+          "n_inputs": 303,
+          "n_observed": 302,
+          "n_success": 303,
+          "n_paired": 302,
+          "coverage": 1.0,
+          "spearman_rho": null,
+          "status_counts": {
+            "ok": 303
+          },
+          "failure_reasons": {},
+          "runtime_seconds": {
+            "n_executed": 303,
+            "sum": 0.01469132152851671,
+            "median": 4.145805723965168e-05,
+            "p95_nearest_rank": 7.14160269126296e-05,
+            "maximum": 0.0008576660184189677
+          }
+        },
+        "control-gc-content": {
+          "n_inputs": 303,
+          "n_observed": 302,
+          "n_success": 303,
+          "n_paired": 302,
+          "coverage": 1.0,
+          "spearman_rho": 0.07937775854741667,
+          "status_counts": {
+            "ok": 303
+          },
+          "failure_reasons": {},
+          "runtime_seconds": {
+            "n_executed": 303,
+            "sum": 0.013213911326602101,
+            "median": 3.7624966353178024e-05,
+            "p95_nearest_rank": 6.700004450976849e-05,
+            "maximum": 0.0008051670156419277
+          }
+        },
+        "historical-linker3": {
+          "n_inputs": 303,
+          "n_observed": 302,
+          "n_success": 303,
+          "n_paired": 302,
+          "coverage": 1.0,
+          "spearman_rho": 0.4896568532008572,
+          "status_counts": {
+            "ok": 303
+          },
+          "failure_reasons": {},
+          "runtime_seconds": {
+            "n_executed": 303,
+            "sum": 185.24296332628,
+            "median": 0.5910838340641931,
+            "p95_nearest_rank": 0.7240487500093877,
+            "maximum": 1.0430521669331938
+          }
+        },
+        "historical-traceback2": {
+          "n_inputs": 303,
+          "n_observed": 302,
+          "n_success": 303,
+          "n_paired": 302,
+          "coverage": 1.0,
+          "spearman_rho": 0.4896568532008572,
+          "status_counts": {
+            "ok": 303
+          },
+          "failure_reasons": {},
+          "runtime_seconds": {
+            "n_executed": 303,
+            "sum": 185.77921196410898,
+            "median": 0.5923202090198174,
+            "p95_nearest_rank": 0.7628747079288587,
+            "maximum": 1.1564612910151482
+          }
+        },
+        "joint_standby-linker3": {
+          "n_inputs": 303,
+          "n_observed": 302,
+          "n_success": 303,
+          "n_paired": 302,
+          "coverage": 1.0,
+          "spearman_rho": 0.44009237296623094,
+          "status_counts": {
+            "ok": 303
+          },
+          "failure_reasons": {},
+          "runtime_seconds": {
+            "n_executed": 303,
+            "sum": 1570.6773936299141,
+            "median": 5.077805708046071,
+            "p95_nearest_rank": 5.857446165988222,
+            "maximum": 7.742968291975558
+          }
+        },
+        "joint_standby-traceback2": {
+          "n_inputs": 303,
+          "n_observed": 302,
+          "n_success": 303,
+          "n_paired": 302,
+          "coverage": 1.0,
+          "spearman_rho": 0.44009237296623094,
+          "status_counts": {
+            "ok": 303
+          },
+          "failure_reasons": {},
+          "runtime_seconds": {
+            "n_executed": 303,
+            "sum": 1560.8491755462019,
+            "median": 5.047189584001899,
+            "p95_nearest_rank": 5.8263016670243815,
+            "maximum": 7.732283165911213
+          }
+        },
+        "ostir-1.1.3": {
+          "n_inputs": 303,
+          "n_observed": 302,
+          "n_success": 303,
+          "n_paired": 302,
+          "coverage": 1.0,
+          "spearman_rho": 0.4604705665167938,
+          "status_counts": {
+            "ok": 303
+          },
+          "failure_reasons": {},
+          "runtime_seconds": {
+            "n_executed": 303,
+            "sum": 63.5078941215761,
+            "median": 0.20235920906998217,
+            "p95_nearest_rank": 0.2826756249414757,
+            "maximum": 0.5942597920075059
+          }
+        },
+        "public2014-sequence-v1": {
+          "n_inputs": 303,
+          "n_observed": 302,
+          "n_success": 303,
+          "n_paired": 302,
+          "coverage": 1.0,
+          "spearman_rho": null,
+          "status_counts": {
+            "ok": 303
+          },
+          "failure_reasons": {},
+          "runtime_seconds": {
+            "n_executed": 303,
+            "sum": 32.940000582369976,
+            "median": 0.10286479198839515,
+            "p95_nearest_rank": 0.1430165000492707,
+            "maximum": 0.31609433295670897
+          }
+        },
+        "rebeca-exp67-true": {
+          "n_inputs": 303,
+          "n_observed": 302,
+          "n_success": 303,
+          "n_paired": 302,
+          "coverage": 1.0,
+          "spearman_rho": null,
+          "status_counts": {
+            "ok": 303
+          },
+          "failure_reasons": {},
+          "runtime_seconds": {
+            "n_executed": 303,
+            "sum": 793.2349665411748,
+            "median": 2.4561512080254033,
+            "p95_nearest_rank": 3.6956619169795886,
+            "maximum": 5.1586799579672515
+          }
+        },
+        "standby2014-linker3": {
+          "n_inputs": 303,
+          "n_observed": 302,
+          "n_success": 303,
+          "n_paired": 302,
+          "coverage": 1.0,
+          "spearman_rho": 0.4400640786639184,
+          "status_counts": {
+            "ok": 303
+          },
+          "failure_reasons": {},
+          "runtime_seconds": {
+            "n_executed": 303,
+            "sum": 462.9012542000273,
+            "median": 1.4737951250281185,
+            "p95_nearest_rank": 1.8906132919946685,
+            "maximum": 3.920415834058076
+          }
+        },
+        "standby2014-traceback2": {
+          "n_inputs": 303,
+          "n_observed": 302,
+          "n_success": 303,
+          "n_paired": 302,
+          "coverage": 1.0,
+          "spearman_rho": 0.4400640786639184,
+          "status_counts": {
+            "ok": 303
+          },
+          "failure_reasons": {},
+          "runtime_seconds": {
+            "n_executed": 303,
+            "sum": 464.57380783511326,
+            "median": 1.4854998328955844,
+            "p95_nearest_rank": 1.8744972089771181,
+            "maximum": 2.7212249169824645
+          }
+        }
+      },
+      "primary_pair": {
+        "n_common_measured": 302,
+        "rank_gain": 2.8294302312548147e-05,
+        "interval95": null,
+        "role": "descriptive subgroup point only"
+      }
+    },
+    "high": {
+      "models": {
+        "control-constant": {
+          "n_inputs": 1,
+          "n_observed": 1,
+          "n_success": 1,
+          "n_paired": 1,
+          "coverage": 1.0,
+          "spearman_rho": null,
+          "status_counts": {
+            "ok": 1
+          },
+          "failure_reasons": {},
+          "runtime_seconds": {
+            "n_executed": 1,
+            "sum": 3.0791969038546085e-05,
+            "median": 3.0791969038546085e-05,
+            "p95_nearest_rank": 3.0791969038546085e-05,
+            "maximum": 3.0791969038546085e-05
+          }
+        },
+        "control-gc-content": {
+          "n_inputs": 1,
+          "n_observed": 1,
+          "n_success": 1,
+          "n_paired": 1,
+          "coverage": 1.0,
+          "spearman_rho": null,
+          "status_counts": {
+            "ok": 1
+          },
+          "failure_reasons": {},
+          "runtime_seconds": {
+            "n_executed": 1,
+            "sum": 3.37500823661685e-05,
+            "median": 3.37500823661685e-05,
+            "p95_nearest_rank": 3.37500823661685e-05,
+            "maximum": 3.37500823661685e-05
+          }
+        },
+        "historical-linker3": {
+          "n_inputs": 1,
+          "n_observed": 1,
+          "n_success": 1,
+          "n_paired": 1,
+          "coverage": 1.0,
+          "spearman_rho": null,
+          "status_counts": {
+            "ok": 1
+          },
+          "failure_reasons": {},
+          "runtime_seconds": {
+            "n_executed": 1,
+            "sum": 0.5907106660306454,
+            "median": 0.5907106660306454,
+            "p95_nearest_rank": 0.5907106660306454,
+            "maximum": 0.5907106660306454
+          }
+        },
+        "historical-traceback2": {
+          "n_inputs": 1,
+          "n_observed": 1,
+          "n_success": 1,
+          "n_paired": 1,
+          "coverage": 1.0,
+          "spearman_rho": null,
+          "status_counts": {
+            "ok": 1
+          },
+          "failure_reasons": {},
+          "runtime_seconds": {
+            "n_executed": 1,
+            "sum": 0.5708332910435274,
+            "median": 0.5708332910435274,
+            "p95_nearest_rank": 0.5708332910435274,
+            "maximum": 0.5708332910435274
+          }
+        },
+        "joint_standby-linker3": {
+          "n_inputs": 1,
+          "n_observed": 1,
+          "n_success": 1,
+          "n_paired": 1,
+          "coverage": 1.0,
+          "spearman_rho": null,
+          "status_counts": {
+            "ok": 1
+          },
+          "failure_reasons": {},
+          "runtime_seconds": {
+            "n_executed": 1,
+            "sum": 5.229120124946348,
+            "median": 5.229120124946348,
+            "p95_nearest_rank": 5.229120124946348,
+            "maximum": 5.229120124946348
+          }
+        },
+        "joint_standby-traceback2": {
+          "n_inputs": 1,
+          "n_observed": 1,
+          "n_success": 1,
+          "n_paired": 1,
+          "coverage": 1.0,
+          "spearman_rho": null,
+          "status_counts": {
+            "ok": 1
+          },
+          "failure_reasons": {},
+          "runtime_seconds": {
+            "n_executed": 1,
+            "sum": 5.23770045908168,
+            "median": 5.23770045908168,
+            "p95_nearest_rank": 5.23770045908168,
+            "maximum": 5.23770045908168
+          }
+        },
+        "ostir-1.1.3": {
+          "n_inputs": 1,
+          "n_observed": 1,
+          "n_success": 1,
+          "n_paired": 1,
+          "coverage": 1.0,
+          "spearman_rho": null,
+          "status_counts": {
+            "ok": 1
+          },
+          "failure_reasons": {},
+          "runtime_seconds": {
+            "n_executed": 1,
+            "sum": 0.21338095900136977,
+            "median": 0.21338095900136977,
+            "p95_nearest_rank": 0.21338095900136977,
+            "maximum": 0.21338095900136977
+          }
+        },
+        "public2014-sequence-v1": {
+          "n_inputs": 1,
+          "n_observed": 1,
+          "n_success": 1,
+          "n_paired": 1,
+          "coverage": 1.0,
+          "spearman_rho": null,
+          "status_counts": {
+            "ok": 1
+          },
+          "failure_reasons": {},
+          "runtime_seconds": {
+            "n_executed": 1,
+            "sum": 0.11146379099227488,
+            "median": 0.11146379099227488,
+            "p95_nearest_rank": 0.11146379099227488,
+            "maximum": 0.11146379099227488
+          }
+        },
+        "rebeca-exp67-true": {
+          "n_inputs": 1,
+          "n_observed": 1,
+          "n_success": 1,
+          "n_paired": 1,
+          "coverage": 1.0,
+          "spearman_rho": null,
+          "status_counts": {
+            "ok": 1
+          },
+          "failure_reasons": {},
+          "runtime_seconds": {
+            "n_executed": 1,
+            "sum": 2.4869631249457598,
+            "median": 2.4869631249457598,
+            "p95_nearest_rank": 2.4869631249457598,
+            "maximum": 2.4869631249457598
+          }
+        },
+        "standby2014-linker3": {
+          "n_inputs": 1,
+          "n_observed": 1,
+          "n_success": 1,
+          "n_paired": 1,
+          "coverage": 1.0,
+          "spearman_rho": null,
+          "status_counts": {
+            "ok": 1
+          },
+          "failure_reasons": {},
+          "runtime_seconds": {
+            "n_executed": 1,
+            "sum": 1.400412083021365,
+            "median": 1.400412083021365,
+            "p95_nearest_rank": 1.400412083021365,
+            "maximum": 1.400412083021365
+          }
+        },
+        "standby2014-traceback2": {
+          "n_inputs": 1,
+          "n_observed": 1,
+          "n_success": 1,
+          "n_paired": 1,
+          "coverage": 1.0,
+          "spearman_rho": null,
+          "status_counts": {
+            "ok": 1
+          },
+          "failure_reasons": {},
+          "runtime_seconds": {
+            "n_executed": 1,
+            "sum": 1.45627704099752,
+            "median": 1.45627704099752,
+            "p95_nearest_rank": 1.45627704099752,
+            "maximum": 1.45627704099752
+          }
+        }
+      },
+      "primary_pair": {
+        "n_common_measured": 1,
+        "rank_gain": null,
+        "interval95": null,
+        "role": "descriptive subgroup point only"
+      }
+    }
+  },
+  "Kuo2020_secondary": {
+    "arti": {
+      "role": "exposed secondary, one connected sequence family; no promotion or independent-family interval",
+      "models": {
+        "control-constant": {
+          "n_inputs": 87,
+          "n_observed": 87,
+          "n_success": 87,
+          "n_paired": 87,
+          "coverage": 1.0,
+          "spearman_rho": null,
+          "status_counts": {
+            "ok": 87
+          },
+          "failure_reasons": {},
+          "runtime_seconds": {
+            "n_executed": 87,
+            "sum": 0.003181084059178829,
+            "median": 3.400002606213093e-05,
+            "p95_nearest_rank": 5.845795385539532e-05,
+            "maximum": 6.9082947447896e-05
+          }
+        },
+        "control-gc-content": {
+          "n_inputs": 87,
+          "n_observed": 87,
+          "n_success": 87,
+          "n_paired": 87,
+          "coverage": 1.0,
+          "spearman_rho": -0.1176639381885446,
+          "status_counts": {
+            "ok": 87
+          },
+          "failure_reasons": {},
+          "runtime_seconds": {
+            "n_executed": 87,
+            "sum": 0.003120086737908423,
+            "median": 3.491691313683987e-05,
+            "p95_nearest_rank": 5.791697185486555e-05,
+            "maximum": 0.000136749935336411
+          }
+        },
+        "historical-linker3": {
+          "n_inputs": 87,
+          "n_observed": 87,
+          "n_success": 87,
+          "n_paired": 87,
+          "coverage": 1.0,
+          "spearman_rho": 0.39163006039715587,
+          "status_counts": {
+            "ok": 87
+          },
+          "failure_reasons": {},
+          "runtime_seconds": {
+            "n_executed": 87,
+            "sum": 47.29061449319124,
+            "median": 0.5260173329152167,
+            "p95_nearest_rank": 0.6838180830236524,
+            "maximum": 0.8061144159873948
+          }
+        },
+        "historical-traceback2": {
+          "n_inputs": 87,
+          "n_observed": 87,
+          "n_success": 87,
+          "n_paired": 87,
+          "coverage": 1.0,
+          "spearman_rho": 0.39163006039715587,
+          "status_counts": {
+            "ok": 87
+          },
+          "failure_reasons": {},
+          "runtime_seconds": {
+            "n_executed": 87,
+            "sum": 48.73417532700114,
+            "median": 0.5441683329408988,
+            "p95_nearest_rank": 0.7091724589699879,
+            "maximum": 0.7359052080428228
+          }
+        },
+        "joint_standby-linker3": {
+          "n_inputs": 87,
+          "n_observed": 87,
+          "n_success": 87,
+          "n_paired": 87,
+          "coverage": 1.0,
+          "spearman_rho": 0.39134734160059165,
+          "status_counts": {
+            "ok": 87
+          },
+          "failure_reasons": {},
+          "runtime_seconds": {
+            "n_executed": 87,
+            "sum": 109.7204686201876,
+            "median": 1.178236790932715,
+            "p95_nearest_rank": 2.2954293750226498,
+            "maximum": 3.2429407089948654
+          }
+        },
+        "joint_standby-traceback2": {
+          "n_inputs": 87,
+          "n_observed": 87,
+          "n_success": 87,
+          "n_paired": 87,
+          "coverage": 1.0,
+          "spearman_rho": 0.39134734160059165,
+          "status_counts": {
+            "ok": 87
+          },
+          "failure_reasons": {},
+          "runtime_seconds": {
+            "n_executed": 87,
+            "sum": 109.40463099314366,
+            "median": 1.176564250024967,
+            "p95_nearest_rank": 2.320751624996774,
+            "maximum": 3.22628616692964
+          }
+        },
+        "ostir-1.1.3": {
+          "n_inputs": 87,
+          "n_observed": 87,
+          "n_success": 87,
+          "n_paired": 87,
+          "coverage": 1.0,
+          "spearman_rho": 0.4221057673511479,
+          "status_counts": {
+            "ok": 87
+          },
+          "failure_reasons": {},
+          "runtime_seconds": {
+            "n_executed": 87,
+            "sum": 15.54719654424116,
+            "median": 0.17199829197488725,
+            "p95_nearest_rank": 0.22325154196005315,
+            "maximum": 0.3293247090186924
+          }
+        },
+        "public2014-sequence-v1": {
+          "n_inputs": 87,
+          "n_observed": 87,
+          "n_success": 87,
+          "n_paired": 87,
+          "coverage": 1.0,
+          "spearman_rho": 0.24624940903422154,
+          "status_counts": {
+            "ok": 87
+          },
+          "failure_reasons": {},
+          "runtime_seconds": {
+            "n_executed": 87,
+            "sum": 9.141111368546262,
+            "median": 0.09906766598578542,
+            "p95_nearest_rank": 0.16333016694989055,
+            "maximum": 0.2435639169998467
+          }
+        },
+        "rebeca-exp67-true": {
+          "n_inputs": 87,
+          "n_observed": 87,
+          "n_success": 87,
+          "n_paired": 87,
+          "coverage": 1.0,
+          "spearman_rho": 0.8192414251059554,
+          "status_counts": {
+            "ok": 87
+          },
+          "failure_reasons": {},
+          "runtime_seconds": {
+            "n_executed": 87,
+            "sum": 186.53477999812458,
+            "median": 2.1133825830183923,
+            "p95_nearest_rank": 2.4153749169781804,
+            "maximum": 2.667522583040409
+          }
+        },
+        "standby2014-linker3": {
+          "n_inputs": 87,
+          "n_observed": 87,
+          "n_success": 87,
+          "n_paired": 87,
+          "coverage": 1.0,
+          "spearman_rho": 0.39517514512812424,
+          "status_counts": {
+            "ok": 87
+          },
+          "failure_reasons": {},
+          "runtime_seconds": {
+            "n_executed": 87,
+            "sum": 46.61473662417848,
+            "median": 0.48465041699819267,
+            "p95_nearest_rank": 0.7823744170600548,
+            "maximum": 0.977386291953735
+          }
+        },
+        "standby2014-traceback2": {
+          "n_inputs": 87,
+          "n_observed": 87,
+          "n_success": 87,
+          "n_paired": 87,
+          "coverage": 1.0,
+          "spearman_rho": 0.39517514512812424,
+          "status_counts": {
+            "ok": 87
+          },
+          "failure_reasons": {},
+          "runtime_seconds": {
+            "n_executed": 87,
+            "sum": 48.21647967223544,
+            "median": 0.507668458041735,
+            "p95_nearest_rank": 0.7731280419975519,
+            "maximum": 1.2047991250874475
+          }
+        }
+      },
+      "primary_pair": {
+        "n_common_measured": 87,
+        "rank_gain": -0.0038278035275325917,
+        "interval95": null,
+        "role": "descriptive subgroup point only"
+      }
+    },
+    "dmsC": {
+      "role": "exposed secondary, one connected sequence family; no promotion or independent-family interval",
+      "models": {
+        "control-constant": {
+          "n_inputs": 87,
+          "n_observed": 84,
+          "n_success": 87,
+          "n_paired": 84,
+          "coverage": 1.0,
+          "spearman_rho": null,
+          "status_counts": {
+            "ok": 87
+          },
+          "failure_reasons": {},
+          "runtime_seconds": {
+            "n_executed": 87,
+            "sum": 0.0033837525406852365,
+            "median": 3.63748986274004e-05,
+            "p95_nearest_rank": 6.095797289162874e-05,
+            "maximum": 7.554097101092339e-05
+          }
+        },
+        "control-gc-content": {
+          "n_inputs": 87,
+          "n_observed": 84,
+          "n_success": 87,
+          "n_paired": 84,
+          "coverage": 1.0,
+          "spearman_rho": -0.36794947379098275,
+          "status_counts": {
+            "ok": 87
+          },
+          "failure_reasons": {},
+          "runtime_seconds": {
+            "n_executed": 87,
+            "sum": 0.007308955769985914,
+            "median": 3.3458927646279335e-05,
+            "p95_nearest_rank": 6.404099985957146e-05,
+            "maximum": 0.004271209007129073
+          }
+        },
+        "historical-linker3": {
+          "n_inputs": 87,
+          "n_observed": 84,
+          "n_success": 87,
+          "n_paired": 84,
+          "coverage": 1.0,
+          "spearman_rho": 0.5801823511915459,
+          "status_counts": {
+            "ok": 87
+          },
+          "failure_reasons": {},
+          "runtime_seconds": {
+            "n_executed": 87,
+            "sum": 48.86118083447218,
+            "median": 0.5507947499863803,
+            "p95_nearest_rank": 0.6691614170558751,
+            "maximum": 0.7734983339905739
+          }
+        },
+        "historical-traceback2": {
+          "n_inputs": 87,
+          "n_observed": 84,
+          "n_success": 87,
+          "n_paired": 84,
+          "coverage": 1.0,
+          "spearman_rho": 0.5801823511915459,
+          "status_counts": {
+            "ok": 87
+          },
+          "failure_reasons": {},
+          "runtime_seconds": {
+            "n_executed": 87,
+            "sum": 49.28646508278325,
+            "median": 0.5505317919887602,
+            "p95_nearest_rank": 0.692193292081356,
+            "maximum": 0.9498804169707
+          }
+        },
+        "joint_standby-linker3": {
+          "n_inputs": 87,
+          "n_observed": 84,
+          "n_success": 87,
+          "n_paired": 84,
+          "coverage": 1.0,
+          "spearman_rho": 0.49022436881039005,
+          "status_counts": {
+            "ok": 87
+          },
+          "failure_reasons": {},
+          "runtime_seconds": {
+            "n_executed": 87,
+            "sum": 152.02014971361496,
+            "median": 1.6836765829939395,
+            "p95_nearest_rank": 2.7252564158989117,
+            "maximum": 3.439497375045903
+          }
+        },
+        "joint_standby-traceback2": {
+          "n_inputs": 87,
+          "n_observed": 84,
+          "n_success": 87,
+          "n_paired": 84,
+          "coverage": 1.0,
+          "spearman_rho": 0.49022436881039005,
+          "status_counts": {
+            "ok": 87
+          },
+          "failure_reasons": {},
+          "runtime_seconds": {
+            "n_executed": 87,
+            "sum": 151.33681854058523,
+            "median": 1.679837082978338,
+            "p95_nearest_rank": 2.754847916890867,
+            "maximum": 3.4538566670380533
+          }
+        },
+        "ostir-1.1.3": {
+          "n_inputs": 87,
+          "n_observed": 84,
+          "n_success": 87,
+          "n_paired": 84,
+          "coverage": 1.0,
+          "spearman_rho": 0.508419230172494,
+          "status_counts": {
+            "ok": 87
+          },
+          "failure_reasons": {},
+          "runtime_seconds": {
+            "n_executed": 87,
+            "sum": 15.582864541793242,
+            "median": 0.17032129096332937,
+            "p95_nearest_rank": 0.20211554097477347,
+            "maximum": 0.3796372499782592
+          }
+        },
+        "public2014-sequence-v1": {
+          "n_inputs": 87,
+          "n_observed": 84,
+          "n_success": 87,
+          "n_paired": 84,
+          "coverage": 1.0,
+          "spearman_rho": 0.3851174165436816,
+          "status_counts": {
+            "ok": 87
+          },
+          "failure_reasons": {},
+          "runtime_seconds": {
+            "n_executed": 87,
+            "sum": 8.618534498731606,
+            "median": 0.09713700006250292,
+            "p95_nearest_rank": 0.11988262494560331,
+            "maximum": 0.1375698751071468
+          }
+        },
+        "rebeca-exp67-true": {
+          "n_inputs": 87,
+          "n_observed": 84,
+          "n_success": 87,
+          "n_paired": 84,
+          "coverage": 1.0,
+          "spearman_rho": 0.5737037677173444,
+          "status_counts": {
+            "ok": 87
+          },
+          "failure_reasons": {},
+          "runtime_seconds": {
+            "n_executed": 87,
+            "sum": 179.93815912806895,
+            "median": 2.0582500000018626,
+            "p95_nearest_rank": 2.1768219999503344,
+            "maximum": 2.372753749950789
+          }
+        },
+        "standby2014-linker3": {
+          "n_inputs": 87,
+          "n_observed": 84,
+          "n_success": 87,
+          "n_paired": 84,
+          "coverage": 1.0,
+          "spearman_rho": 0.496491707774476,
+          "status_counts": {
+            "ok": 87
+          },
+          "failure_reasons": {},
+          "runtime_seconds": {
+            "n_executed": 87,
+            "sum": 56.82411066791974,
+            "median": 0.6353687500813976,
+            "p95_nearest_rank": 0.7883561250055209,
+            "maximum": 0.9016342499526218
+          }
+        },
+        "standby2014-traceback2": {
+          "n_inputs": 87,
+          "n_observed": 84,
+          "n_success": 87,
+          "n_paired": 84,
+          "coverage": 1.0,
+          "spearman_rho": 0.496491707774476,
+          "status_counts": {
+            "ok": 87
+          },
+          "failure_reasons": {},
+          "runtime_seconds": {
+            "n_executed": 87,
+            "sum": 58.03850179514848,
+            "median": 0.6421623330097646,
+            "p95_nearest_rank": 0.85728100000415,
+            "maximum": 0.8919359999708831
+          }
+        }
+      },
+      "primary_pair": {
+        "n_common_measured": 84,
+        "rank_gain": -0.006267338964085933,
+        "interval95": null,
+        "role": "descriptive subgroup point only"
+      }
+    },
+    "fepB": {
+      "role": "exposed secondary, one connected sequence family; no promotion or independent-family interval",
+      "models": {
+        "control-constant": {
+          "n_inputs": 87,
+          "n_observed": 82,
+          "n_success": 87,
+          "n_paired": 82,
+          "coverage": 1.0,
+          "spearman_rho": null,
+          "status_counts": {
+            "ok": 87
+          },
+          "failure_reasons": {},
+          "runtime_seconds": {
+            "n_executed": 87,
+            "sum": 0.0035476633347570896,
+            "median": 3.7375022657215595e-05,
+            "p95_nearest_rank": 7.062498480081558e-05,
+            "maximum": 0.00011383299715816975
+          }
+        },
+        "control-gc-content": {
+          "n_inputs": 87,
+          "n_observed": 82,
+          "n_success": 87,
+          "n_paired": 82,
+          "coverage": 1.0,
+          "spearman_rho": 0.02365264212599935,
+          "status_counts": {
+            "ok": 87
+          },
+          "failure_reasons": {},
+          "runtime_seconds": {
+            "n_executed": 87,
+            "sum": 0.003064213669858873,
+            "median": 3.341701813042164e-05,
+            "p95_nearest_rank": 5.9083919040858746e-05,
+            "maximum": 0.00011904200073331594
+          }
+        },
+        "historical-linker3": {
+          "n_inputs": 87,
+          "n_observed": 82,
+          "n_success": 81,
+          "n_paired": 77,
+          "coverage": 0.9310344827586207,
+          "spearman_rho": 0.5070070763540474,
+          "status_counts": {
+            "no_candidate": 6,
+            "ok": 81
+          },
+          "failure_reasons": {
+            "no_interstrand_candidate_in_bounded_search": 6
+          },
+          "runtime_seconds": {
+            "n_executed": 87,
+            "sum": 41.57062500168104,
+            "median": 0.4833679589210078,
+            "p95_nearest_rank": 0.5812179590575397,
+            "maximum": 0.8325745830079541
+          }
+        },
+        "historical-traceback2": {
+          "n_inputs": 87,
+          "n_observed": 82,
+          "n_success": 81,
+          "n_paired": 77,
+          "coverage": 0.9310344827586207,
+          "spearman_rho": 0.5070070763540474,
+          "status_counts": {
+            "no_candidate": 6,
+            "ok": 81
+          },
+          "failure_reasons": {
+            "no_interstrand_candidate_in_bounded_search": 6
+          },
+          "runtime_seconds": {
+            "n_executed": 87,
+            "sum": 43.18419258366339,
+            "median": 0.49712320894468576,
+            "p95_nearest_rank": 0.5895164589164779,
+            "maximum": 0.9214207920012996
+          }
+        },
+        "joint_standby-linker3": {
+          "n_inputs": 87,
+          "n_observed": 82,
+          "n_success": 81,
+          "n_paired": 77,
+          "coverage": 0.9310344827586207,
+          "spearman_rho": 0.473094968832573,
+          "status_counts": {
+            "no_candidate": 6,
+            "ok": 81
+          },
+          "failure_reasons": {
+            "no_interstrand_candidate_in_bounded_search": 6
+          },
+          "runtime_seconds": {
+            "n_executed": 87,
+            "sum": 62.3566081689205,
+            "median": 0.5997262499295175,
+            "p95_nearest_rank": 1.545095624984242,
+            "maximum": 2.0845558749279007
+          }
+        },
+        "joint_standby-traceback2": {
+          "n_inputs": 87,
+          "n_observed": 82,
+          "n_success": 81,
+          "n_paired": 77,
+          "coverage": 0.9310344827586207,
+          "spearman_rho": 0.473094968832573,
+          "status_counts": {
+            "no_candidate": 6,
+            "ok": 81
+          },
+          "failure_reasons": {
+            "no_interstrand_candidate_in_bounded_search": 6
+          },
+          "runtime_seconds": {
+            "n_executed": 87,
+            "sum": 61.89061025122646,
+            "median": 0.5942036249907687,
+            "p95_nearest_rank": 1.4766780419740826,
+            "maximum": 2.045074666966684
+          }
+        },
+        "ostir-1.1.3": {
+          "n_inputs": 87,
+          "n_observed": 82,
+          "n_success": 87,
+          "n_paired": 82,
+          "coverage": 1.0,
+          "spearman_rho": 0.610096162138005,
+          "status_counts": {
+            "ok": 87
+          },
+          "failure_reasons": {},
+          "runtime_seconds": {
+            "n_executed": 87,
+            "sum": 15.03711466898676,
+            "median": 0.1666702498914674,
+            "p95_nearest_rank": 0.20294949994422495,
+            "maximum": 0.3226140419719741
+          }
+        },
+        "public2014-sequence-v1": {
+          "n_inputs": 87,
+          "n_observed": 82,
+          "n_success": 87,
+          "n_paired": 82,
+          "coverage": 1.0,
+          "spearman_rho": 0.13791902463738517,
+          "status_counts": {
+            "ok": 87
+          },
+          "failure_reasons": {},
+          "runtime_seconds": {
+            "n_executed": 87,
+            "sum": 8.783064963296056,
+            "median": 0.09588866704143584,
+            "p95_nearest_rank": 0.12454200000502169,
+            "maximum": 0.214602250023745
+          }
+        },
+        "rebeca-exp67-true": {
+          "n_inputs": 87,
+          "n_observed": 82,
+          "n_success": 87,
+          "n_paired": 82,
+          "coverage": 1.0,
+          "spearman_rho": 0.9377942000889833,
+          "status_counts": {
+            "ok": 87
+          },
+          "failure_reasons": {},
+          "runtime_seconds": {
+            "n_executed": 87,
+            "sum": 180.18073787039611,
+            "median": 2.041897208080627,
+            "p95_nearest_rank": 2.327293166075833,
+            "maximum": 2.5641746249748394
+          }
+        },
+        "standby2014-linker3": {
+          "n_inputs": 87,
+          "n_observed": 82,
+          "n_success": 81,
+          "n_paired": 77,
+          "coverage": 0.9310344827586207,
+          "spearman_rho": 0.4606959650358715,
+          "status_counts": {
+            "no_candidate": 6,
+            "ok": 81
+          },
+          "failure_reasons": {
+            "no_interstrand_candidate_in_bounded_search": 6
+          },
+          "runtime_seconds": {
+            "n_executed": 87,
+            "sum": 39.91853950812947,
+            "median": 0.44174212508369237,
+            "p95_nearest_rank": 0.6723689580103382,
+            "maximum": 0.7760443749139085
+          }
+        },
+        "standby2014-traceback2": {
+          "n_inputs": 87,
+          "n_observed": 82,
+          "n_success": 81,
+          "n_paired": 77,
+          "coverage": 0.9310344827586207,
+          "spearman_rho": 0.4606959650358715,
+          "status_counts": {
+            "no_candidate": 6,
+            "ok": 81
+          },
+          "failure_reasons": {
+            "no_interstrand_candidate_in_bounded_search": 6
+          },
+          "runtime_seconds": {
+            "n_executed": 87,
+            "sum": 40.16028395667672,
+            "median": 0.4472832080209628,
+            "p95_nearest_rank": 0.6925933749880642,
+            "maximum": 0.7765473750187084
+          }
+        }
+      },
+      "primary_pair": {
+        "n_common_measured": 77,
+        "rank_gain": 0.012399003796701502,
+        "interval95": null,
+        "role": "descriptive subgroup point only"
+      }
+    }
+  },
+  "facilitated_cambray_evaluated": false,
+  "calibration_fitted": false,
+  "outliers_removed": false,
+  "scope": "one E. coli local-context study; no native TE, absolute TIR, hosted parity or universal superiority claim",
+  "identities": {
+    "collection": "816650a8b16dac25c3c767790533e2b437d7b62c9a960aa32b8eb3e15fd1ed2f",
+    "inputs": "c96399ddf396bbce4eb56802579f703c92dc46569ebcfee28db94a4001354271",
+    "outcomes": "443bc60476d79d2d1690b016d8acedd86eef05fdd5b49f4d10d5a6db6dc6015b",
+    "protocol": "d8eb48c4d019e7e3a6da1ed826ec9f4b43232baf03129fbf37822e9057b474ab",
+    "receipt": "eba048f52132ebb1d52d812c49316de4397afb0502c39cfb895f0eaef6565591",
+    "split": "dcccc24f43993e82c71b23dba602ceb41b81404c34c04459c297d2149028ce9a"
+  },
+  "evaluator_sha256": "054f5992b7db3524fb4583c852758ac1c81e2c2d31848a3912db8a58aa6499b4",
+  "metric_code_sha256": "dc1a4535315c57f708692887184d90ec1c9ef315354fb9175e2bec5061deed1c",
+  "publication_context": {
+    "original_evaluator_aggregate_sha256": "dcf165f06a8e97d69bb9a087ed9cc85cade939b6917fd42a84382922edea2080",
+    "publication_operation": "Append interpretation metadata only; original metrics, counts, identities and gate are unchanged. Removing this publication_context field and serializing with indent=2, ensure_ascii=False, allow_nan=False plus newline reproduces the original bytes.",
+    "evaluation_exposure": "Selected335-row Cambray panel consumed by Wave4; unselected labels remain unreleased for training. No final-set retuning or untouched reanalysis claim.",
+    "Cambray2018": {
+      "quantity": "Deposited ordinary clean.lin.prot.mean, normalized linear FACS protein fluorescence; not measured TIR or RNA-normalized TE",
+      "condition": "E.coli MDS42 delta-recA, Rich MOPS37C, ordinary condition only",
+      "input_scope": "188nt local context, start89; complete clone/transcript unavailable",
+      "uncertainty_scope": "One-study seed-block interval conditional on deposited processed means; not propagated assay-replicate, normalization or between-study uncertainty"
+    },
+    "Kuo2020": {
+      "quantity": "Source Log(GFP) fluorescence-derived fitness",
+      "log_base": null,
+      "prohibited_interpretation": "No log2 conversion, exponentiated observations, fold errors, context pooling, independent-family interval or promotion",
+      "exposure": "Exposed secondary; one connected9-mer sequence family; rebeca has Kuo training exposure",
+      "condition": "E.coli MG1655, LBKG37C, separate arti/dmsC/fepB contexts",
+      "input_scope": "73nt local context, start30; full reporter/transcript unavailable",
+      "rights": "CC-BY-NC-4.0 article; no separate permissive dataset grant located; raw outcomes not redistributed"
+    },
+    "model_exposure": {
+      "rebeca-exp67-true": "Trained on Kuo-related data including fepB/data4; exact training rows and publication-checkpoint identity unverified; Kuo scores are not independent validation. UTR-only Cambray features/predictions constant.",
+      "public2014-sequence-v1": "Frozen136-row/22-family public-reporter sequence model; shared Cambray leader gives constant features/predictions.",
+      "ostir-1.1.3": "Optional OSTIR1.1.3/ViennaRNA2.7.2 environment; upstream2.6.4 environment parity unverified; isolated research comparator, not required runtime dependency."
+    },
+    "scope": "Reconstruction-versus-experiment only; no live-site, native cyanobacterial, absolute-TIR, genome-wide discovery or universal-superiority claim.",
+    "contracts": [
+      "docs/validation/rbs-wave4-evaluation.md",
+      "docs/validation/rbs-wave4-results.md",
+      "docs/validation/rbs-new-evaluation-data.md",
+      "benchmarks/rbs/wave4-comparator-admission.json"
+    ]
+  }
+}

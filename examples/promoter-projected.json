@@ -1,0 +1,57 @@
+{
+  "schema_version": "1.0",
+  "records": [
+    {
+      "id": "circular-forward",
+      "sequence": "ACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT",
+      "calibration": "in_vitro",
+      "scan": {
+        "mode": "positions",
+        "positions": [
+          {
+            "strand": "+",
+            "tss": 100
+          },
+          {
+            "strand": "-",
+            "tss": 129
+          }
+        ]
+      },
+      "projection": {
+        "contig": "synthetic-circle",
+        "origin": 950,
+        "contig_length": 1000,
+        "sequence_strand": "+",
+        "topology": "circular",
+        "origin_crossing": true
+      }
+    },
+    {
+      "id": "circular-reverse",
+      "sequence": "ACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT",
+      "calibration": "in_vitro",
+      "scan": {
+        "mode": "positions",
+        "positions": [
+          {
+            "strand": "+",
+            "tss": 100
+          },
+          {
+            "strand": "-",
+            "tss": 129
+          }
+        ]
+      },
+      "projection": {
+        "contig": "synthetic-circle",
+        "origin": 50,
+        "contig_length": 1000,
+        "sequence_strand": "-",
+        "topology": "circular",
+        "origin_crossing": true
+      }
+    }
+  ]
+}

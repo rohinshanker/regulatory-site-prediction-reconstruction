@@ -1,0 +1,1700 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "rbs-vector-design-result-1"
+    },
+    "status": {
+      "enum": [
+        "complete",
+        "partial",
+        "no_candidate",
+        "invalid_input"
+      ]
+    },
+    "reason": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "algorithm": {
+      "$ref": "#/$defs/algorithm"
+    },
+    "request": {
+      "anyOf": [
+        {
+          "$ref": "rbs-vector-design-request-1.schema.json"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "request_sha256": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "design_id": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "backend": {
+      "anyOf": [
+        {
+          "type": "object",
+          "minProperties": 1
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "model": {
+      "anyOf": [
+        {
+          "type": "object",
+          "minProperties": 1
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "targets": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/target"
+      },
+      "minItems": 0,
+      "maxItems": 10
+    },
+    "constraints": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/constraints"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "limits": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/limits"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "coverage": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/coverage"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "candidates": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/candidate"
+      },
+      "minItems": 0,
+      "maxItems": 64
+    },
+    "proposal": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/proposal"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "selected": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/proposal"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "confirmation": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/confirmation"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 1
+    },
+    "result_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  },
+  "required": [
+    "schema_version",
+    "status",
+    "reason",
+    "algorithm",
+    "request",
+    "request_sha256",
+    "design_id",
+    "backend",
+    "model",
+    "targets",
+    "constraints",
+    "limits",
+    "coverage",
+    "candidates",
+    "proposal",
+    "selected",
+    "confirmation",
+    "warnings",
+    "result_sha256"
+  ],
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "invalid_input"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "request": {
+            "type": "null"
+          },
+          "request_sha256": {
+            "type": "null"
+          },
+          "design_id": {
+            "type": "null"
+          },
+          "backend": {
+            "type": "null"
+          },
+          "model": {
+            "type": "null"
+          },
+          "constraints": {
+            "type": "null"
+          },
+          "limits": {
+            "type": "null"
+          },
+          "coverage": {
+            "type": "null"
+          },
+          "proposal": {
+            "type": "null"
+          },
+          "selected": {
+            "type": "null"
+          },
+          "confirmation": {
+            "type": "null"
+          },
+          "targets": {
+            "maxItems": 0
+          },
+          "candidates": {
+            "maxItems": 0
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "request": {
+            "type": "object"
+          },
+          "backend": {
+            "type": "object"
+          },
+          "model": {
+            "type": "object"
+          },
+          "constraints": {
+            "type": "object"
+          },
+          "limits": {
+            "type": "object"
+          },
+          "coverage": {
+            "type": "object"
+          },
+          "request_sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "design_id": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "targets": {
+            "minItems": 1
+          },
+          "candidates": {
+            "minItems": 1
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "complete"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "reason": {
+            "type": "null"
+          },
+          "proposal": {
+            "$ref": "#/$defs/proposal"
+          },
+          "selected": {
+            "$ref": "#/$defs/proposal"
+          },
+          "confirmation": {
+            "allOf": [
+              {
+                "$ref": "#/$defs/confirmation"
+              },
+              {
+                "properties": {
+                  "status": {
+                    "const": "verified"
+                  }
+                }
+              }
+            ]
+          },
+          "coverage": {
+            "properties": {
+              "all_candidates_scored": {
+                "const": true
+              },
+              "deadline_exceeded": {
+                "const": false
+              },
+              "failed": {
+                "const": 0
+              },
+              "not_run": {
+                "const": 0
+              },
+              "stop_reason": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "not": {
+              "const": "complete"
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "reason": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "no_candidate"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "proposal": {
+            "type": "null"
+          },
+          "selected": {
+            "type": "null"
+          },
+          "confirmation": {
+            "type": "null"
+          },
+          "coverage": {
+            "properties": {
+              "successful": {
+                "const": 0
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "partial"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "proposal": {
+            "$ref": "#/$defs/proposal"
+          },
+          "coverage": {
+            "properties": {
+              "successful": {
+                "minimum": 1
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "partial"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "confirmation": {
+            "$ref": "#/$defs/confirmation"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "no_candidate"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "coverage": {
+            "properties": {
+              "all_candidates_scored": {
+                "const": false
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "selected": {
+            "type": "object"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "confirmation": {
+            "allOf": [
+              {
+                "$ref": "#/$defs/confirmation"
+              },
+              {
+                "properties": {
+                  "status": {
+                    "const": "verified"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "algorithm": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "const": "bounded-rbs-vector-substitution-enumeration-1"
+        },
+        "implementation_version": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "id",
+        "implementation_version"
+      ]
+    },
+    "target": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "oriented_interval": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "input_interval": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "start": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "end": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "strand": {
+              "enum": [
+                "+",
+                "-"
+              ]
+            }
+          },
+          "required": [
+            "start",
+            "end",
+            "strand"
+          ]
+        },
+        "target_tir": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 1.7976931348623157e+308
+        },
+        "target_log_tir": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "id",
+        "oriented_interval",
+        "input_interval",
+        "target_tir",
+        "target_log_tir"
+      ]
+    },
+    "score": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "oriented_start": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "status": {
+          "enum": [
+            "ok",
+            "failed",
+            "unsupported",
+            "no_candidate",
+            "not_evaluated"
+          ]
+        },
+        "reason": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "tir": {
+          "anyOf": [
+            {
+              "type": "number",
+              "exclusiveMinimum": 0,
+              "maximum": 1.7976931348623157e+308
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "log_tir": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "absolute_log_error": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "oriented_start",
+        "status",
+        "reason",
+        "tir",
+        "log_tir",
+        "absolute_log_error"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "ok"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "reason": {
+                "type": "null"
+              },
+              "tir": {
+                "type": "number",
+                "exclusiveMinimum": 0,
+                "maximum": 1.7976931348623157e+308
+              },
+              "log_tir": {
+                "type": "number"
+              },
+              "absolute_log_error": {
+                "type": "number",
+                "minimum": 0
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "not": {
+                  "const": "ok"
+                }
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "reason": {
+                "type": "string",
+                "minLength": 1
+              },
+              "tir": {
+                "type": "null"
+              },
+              "log_tir": {
+                "type": "null"
+              },
+              "absolute_log_error": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "edit": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "input_position": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "oriented_position": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "from": {
+          "enum": [
+            "A",
+            "C",
+            "G",
+            "T"
+          ]
+        },
+        "to": {
+          "enum": [
+            "A",
+            "C",
+            "G",
+            "T"
+          ]
+        }
+      },
+      "required": [
+        "input_position",
+        "oriented_position",
+        "from",
+        "to"
+      ]
+    },
+    "candidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "index": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 63
+        },
+        "candidate_id": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "sequence": {
+          "type": "string",
+          "pattern": "^[ACGT]+$",
+          "minLength": 1,
+          "maxLength": 10000
+        },
+        "sequence_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "edits": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/edit"
+          },
+          "minItems": 0,
+          "maxItems": 2
+        },
+        "attempted": {
+          "type": "boolean"
+        },
+        "status": {
+          "enum": [
+            "ok",
+            "failed",
+            "unsupported",
+            "no_candidate",
+            "not_run"
+          ]
+        },
+        "reason": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "native_request": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "schema_version": {
+              "const": "1.0",
+              "default": "1.0"
+            },
+            "id": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            },
+            "host": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "minLength": 1,
+              "maxLength": 128
+            },
+            "sequence": {
+              "type": "string",
+              "pattern": "^[ACGT]+$",
+              "minLength": 1,
+              "maxLength": 10000
+            },
+            "anti_sd": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 90
+            },
+            "strand": {
+              "enum": [
+                "+",
+                "-"
+              ]
+            },
+            "start_positions": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 10,
+              "uniqueItems": true,
+              "items": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 9997
+              }
+            },
+            "temperature_c": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100
+            }
+          },
+          "required": [
+            "sequence",
+            "anti_sd",
+            "start_positions"
+          ]
+        },
+        "native_request_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "native": {
+          "anyOf": [
+            {
+              "type": "object",
+              "description": "Complete bounded direct-producer record, opaque outside the checked invocation/roster/geometry/scalar contract. An unadmitted contradictory object remains inspectable. Nonobjects or over-cap payloads are omitted while a serializable byte identity is retained. Not an external importer or independent thermodynamic validation."
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "native_json_sha256": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "native_bytes": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "native_admitted": {
+          "type": "boolean"
+        },
+        "targets": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/score"
+          },
+          "minItems": 1,
+          "maxItems": 10
+        },
+        "objective": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "index",
+        "candidate_id",
+        "sequence",
+        "sequence_sha256",
+        "edits",
+        "attempted",
+        "status",
+        "reason",
+        "native_request",
+        "native_request_sha256",
+        "native",
+        "native_json_sha256",
+        "native_bytes",
+        "native_admitted",
+        "targets",
+        "objective"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "ok"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "attempted": {
+                "const": true
+              },
+              "reason": {
+                "type": "null"
+              },
+              "native_admitted": {
+                "const": true
+              },
+              "objective": {
+                "type": "number",
+                "minimum": 0
+              },
+              "targets": {
+                "items": {
+                  "properties": {
+                    "status": {
+                      "const": "ok"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "not": {
+                  "const": "ok"
+                }
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "reason": {
+                "type": "string",
+                "minLength": 1
+              },
+              "objective": {
+                "type": "null"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "not_run"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "attempted": {
+                "const": false
+              },
+              "native": {
+                "type": "null"
+              },
+              "native_json_sha256": {
+                "type": "null"
+              },
+              "native_bytes": {
+                "type": "null"
+              },
+              "native_admitted": {
+                "const": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "not": {
+                  "const": "not_run"
+                }
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "attempted": {
+                "const": true
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "native_admitted": {
+                "const": true
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "native": {
+                "type": "object"
+              },
+              "native_json_sha256": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              },
+              "native_bytes": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "status": {
+                "enum": [
+                  "ok",
+                  "failed",
+                  "unsupported",
+                  "no_candidate"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "native_admitted": {
+                "const": false
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "status": {
+                "enum": [
+                  "failed",
+                  "not_run"
+                ]
+              },
+              "targets": {
+                "items": {
+                  "properties": {
+                    "status": {
+                      "const": "not_evaluated"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "native_admitted": {
+                "const": true
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "native": {
+                "type": "object",
+                "required": [
+                  "schema_version",
+                  "id",
+                  "status",
+                  "reason",
+                  "sites",
+                  "warnings",
+                  "model",
+                  "backend",
+                  "input",
+                  "prediction_id"
+                ],
+                "properties": {
+                  "schema_version": {
+                    "enum": [
+                      "1.0",
+                      "1.1",
+                      "1.2",
+                      "1.3"
+                    ]
+                  },
+                  "id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "status": {
+                    "enum": [
+                      "ok",
+                      "failed",
+                      "unsupported",
+                      "no_candidate"
+                    ]
+                  },
+                  "reason": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "sites": {
+                    "type": "array"
+                  },
+                  "warnings": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "minItems": 0
+                  },
+                  "model": {
+                    "type": "object"
+                  },
+                  "backend": {
+                    "type": "object"
+                  },
+                  "input": {
+                    "type": "object"
+                  },
+                  "prediction_id": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  }
+                }
+              },
+              "native_json_sha256": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              },
+              "native_bytes": {
+                "type": "integer",
+                "minimum": 1
+              }
+            }
+          }
+        }
+      ]
+    },
+    "proposal": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "index": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 63
+        },
+        "candidate_id": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "sequence": {
+          "type": "string",
+          "pattern": "^[ACGT]+$",
+          "minLength": 1,
+          "maxLength": 10000
+        },
+        "sequence_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "edits": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/edit"
+          },
+          "minItems": 0,
+          "maxItems": 2
+        },
+        "targets": {
+          "allOf": [
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/score"
+              },
+              "minItems": 1,
+              "maxItems": 10
+            },
+            {
+              "items": {
+                "properties": {
+                  "status": {
+                    "const": "ok"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "objective": {
+          "type": "number",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "index",
+        "candidate_id",
+        "sequence",
+        "sequence_sha256",
+        "edits",
+        "targets",
+        "objective"
+      ]
+    },
+    "confirmation": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "candidate_index": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "attempted": {
+          "type": "boolean"
+        },
+        "status": {
+          "enum": [
+            "not_run",
+            "verified",
+            "failed"
+          ]
+        },
+        "reason": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "native": {
+          "anyOf": [
+            {
+              "type": "object",
+              "description": "Complete bounded direct-producer record, opaque outside the checked invocation/roster/geometry/scalar contract. An unadmitted contradictory object remains inspectable. Nonobjects or over-cap payloads are omitted while a serializable byte identity is retained. Not an external importer or independent thermodynamic validation."
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "native_json_sha256": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "native_bytes": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "native_admitted": {
+          "type": "boolean"
+        },
+        "targets": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/score"
+          },
+          "minItems": 1,
+          "maxItems": 10
+        },
+        "objective": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "candidate_index",
+        "attempted",
+        "status",
+        "reason",
+        "native",
+        "native_json_sha256",
+        "native_bytes",
+        "native_admitted",
+        "targets",
+        "objective"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "verified"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "attempted": {
+                "const": true
+              },
+              "reason": {
+                "type": "null"
+              },
+              "native_admitted": {
+                "const": true
+              },
+              "native": {
+                "type": "object"
+              },
+              "native_json_sha256": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              },
+              "native_bytes": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "objective": {
+                "type": "number",
+                "minimum": 0
+              },
+              "targets": {
+                "items": {
+                  "properties": {
+                    "status": {
+                      "const": "ok"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "not": {
+                  "const": "verified"
+                }
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "reason": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "not_run"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "attempted": {
+                "const": false
+              },
+              "native": {
+                "type": "null"
+              },
+              "native_json_sha256": {
+                "type": "null"
+              },
+              "native_bytes": {
+                "type": "null"
+              },
+              "native_admitted": {
+                "const": false
+              },
+              "objective": {
+                "type": "null"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "native_admitted": {
+                "const": false
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "targets": {
+                "items": {
+                  "properties": {
+                    "status": {
+                      "const": "not_evaluated"
+                    }
+                  }
+                }
+              },
+              "objective": {
+                "type": "null"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "native_admitted": {
+                "const": true
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "native": {
+                "type": "object",
+                "required": [
+                  "schema_version",
+                  "id",
+                  "status",
+                  "reason",
+                  "sites",
+                  "warnings",
+                  "model",
+                  "backend",
+                  "input",
+                  "prediction_id"
+                ],
+                "properties": {
+                  "schema_version": {
+                    "enum": [
+                      "1.0",
+                      "1.1",
+                      "1.2",
+                      "1.3"
+                    ]
+                  },
+                  "id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "status": {
+                    "enum": [
+                      "ok",
+                      "failed",
+                      "unsupported",
+                      "no_candidate"
+                    ]
+                  },
+                  "reason": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "sites": {
+                    "type": "array"
+                  },
+                  "warnings": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "minItems": 0
+                  },
+                  "model": {
+                    "type": "object"
+                  },
+                  "backend": {
+                    "type": "object"
+                  },
+                  "input": {
+                    "type": "object"
+                  },
+                  "prediction_id": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  }
+                }
+              },
+              "native_json_sha256": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              },
+              "native_bytes": {
+                "type": "integer",
+                "minimum": 1
+              }
+            }
+          }
+        }
+      ]
+    },
+    "coverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "planned": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 64
+        },
+        "attempted": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 64
+        },
+        "successful": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 64
+        },
+        "failed": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 64
+        },
+        "not_run": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 64
+        },
+        "prediction_calls": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 65
+        },
+        "all_candidates_scored": {
+          "type": "boolean"
+        },
+        "deadline_exceeded": {
+          "type": "boolean"
+        },
+        "stop_reason": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "planned",
+        "attempted",
+        "successful",
+        "failed",
+        "not_run",
+        "prediction_calls",
+        "all_candidates_scored",
+        "deadline_exceeded",
+        "stop_reason"
+      ]
+    },
+    "constraints": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "editable_positions": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "minItems": 0,
+          "maxItems": 10000
+        },
+        "max_changes": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 2
+        },
+        "coding_intervals": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "minItems": 2,
+            "maxItems": 2
+          },
+          "minItems": 1,
+          "maxItems": 10
+        }
+      },
+      "required": [
+        "editable_positions",
+        "max_changes",
+        "coding_intervals"
+      ]
+    },
+    "limits": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "max_candidates": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 64
+        },
+        "seconds_per_score": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 30
+        },
+        "seconds_total": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 600
+        },
+        "input_bytes": {
+          "const": 65536
+        },
+        "native_bytes": {
+          "const": 524288
+        },
+        "output_bytes": {
+          "const": 67108864
+        }
+      },
+      "required": [
+        "max_candidates",
+        "seconds_per_score",
+        "seconds_total",
+        "input_bytes",
+        "native_bytes",
+        "output_bytes"
+      ]
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Bounded multi-target RBS design result 1",
+  "$comment": "Structural and missingness checks complement runtime byte/hash/count/geometry/model validation. Native producer records are retained as opaque evidence; no external import admission is provided."
+}

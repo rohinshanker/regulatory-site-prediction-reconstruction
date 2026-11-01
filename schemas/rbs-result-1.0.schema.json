@@ -1,0 +1,970 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "results": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 100,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "schema_version": {
+            "const": "1.0"
+          },
+          "id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "status": {
+            "enum": [
+              "ok",
+              "no_candidate",
+              "unsupported",
+              "invalid_input",
+              "failed"
+            ]
+          },
+          "reason": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "sites": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "status": {
+                  "enum": [
+                    "ok",
+                    "no_candidate",
+                    "unsupported",
+                    "invalid_input",
+                    "failed"
+                  ]
+                },
+                "reason": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "codon": {
+                  "type": "string"
+                },
+                "start_codon": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "start": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "end": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "strand": {
+                      "enum": [
+                        "+",
+                        "-"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "start",
+                    "end",
+                    "strand"
+                  ]
+                },
+                "oriented_start": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "window": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "oriented_start": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "oriented_end": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "input_interval": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "start": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "end": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "strand": {
+                          "enum": [
+                            "+",
+                            "-"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "start",
+                        "end",
+                        "strand"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "oriented_start",
+                    "oriented_end",
+                    "input_interval"
+                  ]
+                },
+                "energies": {
+                  "anyOf": [
+                    {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "dG_mRNA": {
+                          "type": "number"
+                        },
+                        "dG_cofold_search": {
+                          "type": "number"
+                        },
+                        "dG_search_with_spacing": {
+                          "type": "number"
+                        },
+                        "dG_complex": {
+                          "type": "number"
+                        },
+                        "dG_spacing": {
+                          "type": "number"
+                        },
+                        "dG_start": {
+                          "type": "number"
+                        },
+                        "dG_standby_signed": {
+                          "type": "number"
+                        },
+                        "dG_accessible_complex": {
+                          "type": "number"
+                        },
+                        "dG_total": {
+                          "type": "number"
+                        },
+                        "units": {
+                          "const": "kcal/mol"
+                        },
+                        "dG_mRNA_native_prediction": {
+                          "type": [
+                            "number",
+                            "null"
+                          ]
+                        },
+                        "dG_cofold_native_prediction": {
+                          "type": [
+                            "number",
+                            "null"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "dG_mRNA",
+                        "dG_cofold_search",
+                        "dG_search_with_spacing",
+                        "dG_complex",
+                        "dG_spacing",
+                        "dG_start",
+                        "dG_standby_signed",
+                        "dG_accessible_complex",
+                        "dG_total",
+                        "units",
+                        "dG_mRNA_native_prediction",
+                        "dG_cofold_native_prediction"
+                      ]
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "tir": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "log_tir": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "aligned_spacing": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ]
+                },
+                "candidate_search": {
+                  "anyOf": [
+                    {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "returned": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "viable_in_band": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "selected_index": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "exhaustive": {
+                          "const": false
+                        },
+                        "connected_returned": {
+                          "type": "integer",
+                          "minimum": 1
+                        },
+                        "band_reference_kcal_mol": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "returned",
+                        "viable_in_band",
+                        "selected_index",
+                        "exhaustive",
+                        "connected_returned",
+                        "band_reference_kcal_mol"
+                      ]
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "structures": {
+                  "anyOf": [
+                    {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "unbound": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "properties": {
+                            "mrna_dot_bracket": {
+                              "type": "string"
+                            },
+                            "anti_sd_dot_bracket": {
+                              "type": [
+                                "string",
+                                "null"
+                              ]
+                            },
+                            "mrna_intramolecular_pairs": {
+                              "type": "array",
+                              "items": {
+                                "type": "array",
+                                "items": {
+                                  "type": "integer",
+                                  "minimum": 0
+                                },
+                                "minItems": 2,
+                                "maxItems": 2
+                              }
+                            },
+                            "mrna_anti_sd_pairs": {
+                              "type": "array",
+                              "items": {
+                                "type": "array",
+                                "items": {
+                                  "type": "integer",
+                                  "minimum": 0
+                                },
+                                "minItems": 2,
+                                "maxItems": 2
+                              }
+                            },
+                            "coordinate_space": {
+                              "type": "string"
+                            },
+                            "energy_kcal_mol": {
+                              "type": "number"
+                            },
+                            "prediction_energy_kcal_mol": {
+                              "type": [
+                                "number",
+                                "null"
+                              ]
+                            }
+                          },
+                          "required": [
+                            "mrna_dot_bracket",
+                            "anti_sd_dot_bracket",
+                            "mrna_intramolecular_pairs",
+                            "mrna_anti_sd_pairs",
+                            "coordinate_space",
+                            "energy_kcal_mol",
+                            "prediction_energy_kcal_mol"
+                          ]
+                        },
+                        "bound_before_standby": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "properties": {
+                            "mrna_dot_bracket": {
+                              "type": "string"
+                            },
+                            "anti_sd_dot_bracket": {
+                              "type": [
+                                "string",
+                                "null"
+                              ]
+                            },
+                            "mrna_intramolecular_pairs": {
+                              "type": "array",
+                              "items": {
+                                "type": "array",
+                                "items": {
+                                  "type": "integer",
+                                  "minimum": 0
+                                },
+                                "minItems": 2,
+                                "maxItems": 2
+                              }
+                            },
+                            "mrna_anti_sd_pairs": {
+                              "type": "array",
+                              "items": {
+                                "type": "array",
+                                "items": {
+                                  "type": "integer",
+                                  "minimum": 0
+                                },
+                                "minItems": 2,
+                                "maxItems": 2
+                              }
+                            },
+                            "coordinate_space": {
+                              "type": "string"
+                            },
+                            "energy_kcal_mol": {
+                              "type": "number"
+                            },
+                            "prediction_energy_kcal_mol": {
+                              "type": [
+                                "number",
+                                "null"
+                              ]
+                            }
+                          },
+                          "required": [
+                            "mrna_dot_bracket",
+                            "anti_sd_dot_bracket",
+                            "mrna_intramolecular_pairs",
+                            "mrna_anti_sd_pairs",
+                            "coordinate_space",
+                            "energy_kcal_mol",
+                            "prediction_energy_kcal_mol"
+                          ]
+                        },
+                        "bound_after_standby": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "properties": {
+                            "mrna_dot_bracket": {
+                              "type": "string"
+                            },
+                            "anti_sd_dot_bracket": {
+                              "type": [
+                                "string",
+                                "null"
+                              ]
+                            },
+                            "mrna_intramolecular_pairs": {
+                              "type": "array",
+                              "items": {
+                                "type": "array",
+                                "items": {
+                                  "type": "integer",
+                                  "minimum": 0
+                                },
+                                "minItems": 2,
+                                "maxItems": 2
+                              }
+                            },
+                            "mrna_anti_sd_pairs": {
+                              "type": "array",
+                              "items": {
+                                "type": "array",
+                                "items": {
+                                  "type": "integer",
+                                  "minimum": 0
+                                },
+                                "minItems": 2,
+                                "maxItems": 2
+                              }
+                            },
+                            "coordinate_space": {
+                              "type": "string"
+                            },
+                            "energy_kcal_mol": {
+                              "type": "number"
+                            },
+                            "prediction_energy_kcal_mol": {
+                              "type": [
+                                "number",
+                                "null"
+                              ]
+                            }
+                          },
+                          "required": [
+                            "mrna_dot_bracket",
+                            "anti_sd_dot_bracket",
+                            "mrna_intramolecular_pairs",
+                            "mrna_anti_sd_pairs",
+                            "coordinate_space",
+                            "energy_kcal_mol",
+                            "prediction_energy_kcal_mol"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "unbound",
+                        "bound_before_standby",
+                        "bound_after_standby"
+                      ]
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "binding_interval": {
+                  "anyOf": [
+                    {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "start": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "end": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "strand": {
+                          "enum": [
+                            "+",
+                            "-"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "start",
+                        "end",
+                        "strand"
+                      ]
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "standby_interval": {
+                  "anyOf": [
+                    {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "start": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "end": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "strand": {
+                          "enum": [
+                            "+",
+                            "-"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "start",
+                        "end",
+                        "strand"
+                      ]
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "warnings": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "required": [
+                "status",
+                "reason",
+                "codon",
+                "start_codon",
+                "oriented_start",
+                "window",
+                "energies",
+                "tir",
+                "log_tir",
+                "aligned_spacing",
+                "candidate_search",
+                "structures",
+                "binding_interval",
+                "standby_interval",
+                "warnings"
+              ],
+              "allOf": [
+                {
+                  "if": {
+                    "properties": {
+                      "status": {
+                        "const": "ok"
+                      }
+                    }
+                  },
+                  "then": {
+                    "properties": {
+                      "energies": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "properties": {
+                          "dG_mRNA": {
+                            "type": "number"
+                          },
+                          "dG_cofold_search": {
+                            "type": "number"
+                          },
+                          "dG_search_with_spacing": {
+                            "type": "number"
+                          },
+                          "dG_complex": {
+                            "type": "number"
+                          },
+                          "dG_spacing": {
+                            "type": "number"
+                          },
+                          "dG_start": {
+                            "type": "number"
+                          },
+                          "dG_standby_signed": {
+                            "type": "number"
+                          },
+                          "dG_accessible_complex": {
+                            "type": "number"
+                          },
+                          "dG_total": {
+                            "type": "number"
+                          },
+                          "units": {
+                            "const": "kcal/mol"
+                          },
+                          "dG_mRNA_native_prediction": {
+                            "type": [
+                              "number",
+                              "null"
+                            ]
+                          },
+                          "dG_cofold_native_prediction": {
+                            "type": [
+                              "number",
+                              "null"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "dG_mRNA",
+                          "dG_cofold_search",
+                          "dG_search_with_spacing",
+                          "dG_complex",
+                          "dG_spacing",
+                          "dG_start",
+                          "dG_standby_signed",
+                          "dG_accessible_complex",
+                          "dG_total",
+                          "units",
+                          "dG_mRNA_native_prediction",
+                          "dG_cofold_native_prediction"
+                        ]
+                      },
+                      "tir": {
+                        "type": "number",
+                        "exclusiveMinimum": 0
+                      },
+                      "log_tir": {
+                        "type": "number"
+                      },
+                      "reason": {
+                        "type": "null"
+                      },
+                      "structures": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "properties": {
+                          "unbound": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "properties": {
+                              "mrna_dot_bracket": {
+                                "type": "string"
+                              },
+                              "anti_sd_dot_bracket": {
+                                "type": [
+                                  "string",
+                                  "null"
+                                ]
+                              },
+                              "mrna_intramolecular_pairs": {
+                                "type": "array",
+                                "items": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "integer",
+                                    "minimum": 0
+                                  },
+                                  "minItems": 2,
+                                  "maxItems": 2
+                                }
+                              },
+                              "mrna_anti_sd_pairs": {
+                                "type": "array",
+                                "items": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "integer",
+                                    "minimum": 0
+                                  },
+                                  "minItems": 2,
+                                  "maxItems": 2
+                                }
+                              },
+                              "coordinate_space": {
+                                "type": "string"
+                              },
+                              "energy_kcal_mol": {
+                                "type": "number"
+                              },
+                              "prediction_energy_kcal_mol": {
+                                "type": [
+                                  "number",
+                                  "null"
+                                ]
+                              }
+                            },
+                            "required": [
+                              "mrna_dot_bracket",
+                              "anti_sd_dot_bracket",
+                              "mrna_intramolecular_pairs",
+                              "mrna_anti_sd_pairs",
+                              "coordinate_space",
+                              "energy_kcal_mol",
+                              "prediction_energy_kcal_mol"
+                            ]
+                          },
+                          "bound_before_standby": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "properties": {
+                              "mrna_dot_bracket": {
+                                "type": "string"
+                              },
+                              "anti_sd_dot_bracket": {
+                                "type": [
+                                  "string",
+                                  "null"
+                                ]
+                              },
+                              "mrna_intramolecular_pairs": {
+                                "type": "array",
+                                "items": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "integer",
+                                    "minimum": 0
+                                  },
+                                  "minItems": 2,
+                                  "maxItems": 2
+                                }
+                              },
+                              "mrna_anti_sd_pairs": {
+                                "type": "array",
+                                "items": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "integer",
+                                    "minimum": 0
+                                  },
+                                  "minItems": 2,
+                                  "maxItems": 2
+                                }
+                              },
+                              "coordinate_space": {
+                                "type": "string"
+                              },
+                              "energy_kcal_mol": {
+                                "type": "number"
+                              },
+                              "prediction_energy_kcal_mol": {
+                                "type": [
+                                  "number",
+                                  "null"
+                                ]
+                              }
+                            },
+                            "required": [
+                              "mrna_dot_bracket",
+                              "anti_sd_dot_bracket",
+                              "mrna_intramolecular_pairs",
+                              "mrna_anti_sd_pairs",
+                              "coordinate_space",
+                              "energy_kcal_mol",
+                              "prediction_energy_kcal_mol"
+                            ]
+                          },
+                          "bound_after_standby": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "properties": {
+                              "mrna_dot_bracket": {
+                                "type": "string"
+                              },
+                              "anti_sd_dot_bracket": {
+                                "type": [
+                                  "string",
+                                  "null"
+                                ]
+                              },
+                              "mrna_intramolecular_pairs": {
+                                "type": "array",
+                                "items": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "integer",
+                                    "minimum": 0
+                                  },
+                                  "minItems": 2,
+                                  "maxItems": 2
+                                }
+                              },
+                              "mrna_anti_sd_pairs": {
+                                "type": "array",
+                                "items": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "integer",
+                                    "minimum": 0
+                                  },
+                                  "minItems": 2,
+                                  "maxItems": 2
+                                }
+                              },
+                              "coordinate_space": {
+                                "type": "string"
+                              },
+                              "energy_kcal_mol": {
+                                "type": "number"
+                              },
+                              "prediction_energy_kcal_mol": {
+                                "type": [
+                                  "number",
+                                  "null"
+                                ]
+                              }
+                            },
+                            "required": [
+                              "mrna_dot_bracket",
+                              "anti_sd_dot_bracket",
+                              "mrna_intramolecular_pairs",
+                              "mrna_anti_sd_pairs",
+                              "coordinate_space",
+                              "energy_kcal_mol",
+                              "prediction_energy_kcal_mol"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "unbound",
+                          "bound_before_standby",
+                          "bound_after_standby"
+                        ]
+                      },
+                      "binding_interval": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "properties": {
+                          "start": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "end": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "strand": {
+                            "enum": [
+                              "+",
+                              "-"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "start",
+                          "end",
+                          "strand"
+                        ]
+                      },
+                      "standby_interval": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "properties": {
+                          "start": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "end": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "strand": {
+                            "enum": [
+                              "+",
+                              "-"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "start",
+                          "end",
+                          "strand"
+                        ]
+                      },
+                      "aligned_spacing": {
+                        "type": "integer"
+                      },
+                      "candidate_search": {
+                        "type": "object"
+                      }
+                    }
+                  },
+                  "else": {
+                    "properties": {
+                      "energies": {
+                        "type": "null"
+                      },
+                      "tir": {
+                        "type": "null"
+                      },
+                      "log_tir": {
+                        "type": "null"
+                      },
+                      "structures": {
+                        "type": "null"
+                      },
+                      "binding_interval": {
+                        "type": "null"
+                      },
+                      "standby_interval": {
+                        "type": "null"
+                      },
+                      "aligned_spacing": {
+                        "type": "null"
+                      },
+                      "candidate_search": {
+                        "type": "null"
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "warnings": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "model": {
+            "type": "object",
+            "required": [
+              "id",
+              "source_commit",
+              "parameters",
+              "implementation_version"
+            ]
+          },
+          "backend": {
+            "type": "object"
+          },
+          "input": {
+            "type": [
+              "object",
+              "null"
+            ]
+          },
+          "prediction_id": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "pattern": "^[0-9a-f]{64}$"
+          }
+        },
+        "required": [
+          "schema_version",
+          "id",
+          "status",
+          "reason",
+          "sites",
+          "warnings",
+          "model",
+          "backend",
+          "input",
+          "prediction_id"
+        ]
+      }
+    }
+  },
+  "required": [
+    "schema_version",
+    "results"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "RBS result envelope 1.0"
+}

@@ -1,0 +1,322 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Paired regulatory request 1",
+  "description": "Structural contract for one valid paired-regulatory-request-1 document accepted by regsite.paired.predict_pair. See ../docs/validation/paired-regulatory-runtime.md.",
+  "$comment": "Valid-request schema: it describes documents whose wrapper preflight and both native requests are valid. The runtime may still accept a document this schema rejects when only a native per-record check fails (for example an unresolvable scan, unknown native control, out-of-range temperature or missing Promoter calibration); that prediction is returned with its native invalid_input or unsupported status and validates against paired-regulatory-result-1. Resolve $ref values only through a local registry keyed by sibling schema file names; never retrieve them remotely. Validate strict JSON first: reject duplicate keys and NaN/Infinity. Schema acceptance cannot prove: that edits are sorted, distinct, nonoverlapping and reproduce recoded exactly; that request IDs equal pair IDs or that normalized request sequences equal the pair sequences; coordinate correspondence, scan range bounds or planned candidate counts (at most 512 per side and the 2,000,000-base feature budget across sides); projection fit to the sequence/contig or declared origin crossing; compact canonical input bytes (2,000,000), JSON depth (20) or node (100,000) limits; anti-SD normalization, model availability or deadline sufficiency; or any biological validity. JSON Schema treats integral floats as integers and integers as numbers, so integer-versus-float wire types need runtime checks. Hashes are computed by the runtime and are never caller-supplied in this version.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "pair",
+    "calculator",
+    "current_request",
+    "recoded_request",
+    "settings"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "paired-regulatory-request-1"
+    },
+    "pair": {
+      "$ref": "#/$defs/pair"
+    },
+    "calculator": {
+      "enum": [
+        "rbs",
+        "promoter"
+      ]
+    },
+    "current_request": {
+      "type": "object"
+    },
+    "recoded_request": {
+      "type": "object"
+    },
+    "settings": {
+      "type": "object"
+    },
+    "projections": {
+      "type": "object"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "required": [
+          "calculator"
+        ],
+        "properties": {
+          "calculator": {
+            "const": "rbs"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "settings": {
+            "$ref": "#/$defs/rbs_settings"
+          },
+          "current_request": {
+            "$ref": "#/$defs/rbs_request"
+          },
+          "recoded_request": {
+            "$ref": "#/$defs/rbs_request"
+          },
+          "projections": {
+            "$ref": "#/$defs/rbs_projections"
+          }
+        }
+      },
+      "else": {
+        "not": {
+          "required": [
+            "projections"
+          ]
+        },
+        "properties": {
+          "pair": {
+            "properties": {
+              "current": {
+                "properties": {
+                  "sequence": {
+                    "maxLength": 5000
+                  }
+                }
+              },
+              "recoded": {
+                "properties": {
+                  "sequence": {
+                    "maxLength": 5000
+                  }
+                }
+              }
+            }
+          },
+          "settings": {
+            "$ref": "#/$defs/promoter_settings"
+          },
+          "current_request": {
+            "$ref": "#/$defs/promoter_request"
+          },
+          "recoded_request": {
+            "$ref": "#/$defs/promoter_request"
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "sequence": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 10000,
+      "pattern": "^[ACGT]*(?![\\s\\S])"
+    },
+    "pair": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "pair_id",
+        "topology",
+        "current",
+        "recoded",
+        "edits"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "paired-edit-input-1"
+        },
+        "pair_id": {
+          "$ref": "#/$defs/name"
+        },
+        "topology": {
+          "enum": [
+            "linear",
+            "circular"
+          ]
+        },
+        "current": {
+          "$ref": "#/$defs/source"
+        },
+        "recoded": {
+          "$ref": "#/$defs/source"
+        },
+        "edits": {
+          "type": "array",
+          "maxItems": 1000,
+          "items": {
+            "$ref": "#/$defs/edit"
+          }
+        }
+      },
+      "description": "Exact paired-edit-input-1 shape. Distinct edit IDs/starts, sorted nonoverlapping half-open current-forward ranges, no empty-to-empty edit and exact reproduction of recoded require the edit factory."
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "sequence"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/name"
+        },
+        "sequence": {
+          "$ref": "#/$defs/sequence"
+        }
+      }
+    },
+    "edit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "start",
+        "end",
+        "replacement"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/name"
+        },
+        "start": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10000
+        },
+        "end": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10000
+        },
+        "replacement": {
+          "type": "string",
+          "minLength": 0,
+          "maxLength": 10000,
+          "pattern": "^[ACGT]*(?![\\s\\S])"
+        }
+      }
+    },
+    "seconds": {
+      "type": "number",
+      "exclusiveMinimum": 0,
+      "maximum": 120
+    },
+    "rbs_settings": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "seconds_per_side",
+        "profile"
+      ],
+      "properties": {
+        "seconds_per_side": {
+          "$ref": "#/$defs/seconds"
+        },
+        "profile": {
+          "enum": [
+            "historical",
+            "salis-v1-rnastructure-6.6-reconstruction-1",
+            "footprint2017",
+            "footprint2017-rnastructure-6.6-reconstruction-1",
+            "context2017",
+            "context2017-rnastructure-6.6-reconstruction-1",
+            "standby2014",
+            "standby2014-rnastructure-6.6-reconstruction-1",
+            "joint_standby",
+            "joint-standby-rnastructure-6.6-reconstruction-1"
+          ]
+        }
+      }
+    },
+    "promoter_settings": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "seconds_per_side"
+      ],
+      "properties": {
+        "seconds_per_side": {
+          "$ref": "#/$defs/seconds"
+        }
+      }
+    },
+    "projection": {
+      "$ref": "promoter-request-1.0.schema.json#/$defs/projection",
+      "required": [
+        "sequence_strand"
+      ],
+      "$comment": "All six public projection fields, including sequence_strand."
+    },
+    "rbs_request": {
+      "$ref": "rbs-request-1.0.schema.json",
+      "required": [
+        "id",
+        "sequence",
+        "strand",
+        "anti_sd",
+        "temperature_c",
+        "host"
+      ],
+      "properties": {
+        "start_positions": {
+          "maxItems": 512
+        }
+      },
+      "$comment": "Native RBS request 1.0 with the wrapper's explicit scientific fields; host may be null. More than 512 explicit starts always exceeds the per-side candidate cap."
+    },
+    "promoter_request": {
+      "$ref": "promoter-request-1.0.schema.json#/$defs/single",
+      "required": [
+        "calibration"
+      ],
+      "properties": {
+        "scan": {
+          "properties": {
+            "positions": {
+              "maxItems": 512
+            }
+          }
+        }
+      },
+      "$comment": "One native Promoter 1.0 record, never an envelope. There is no CLI calibration fallback inside a paired request."
+    },
+    "rbs_projections": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "current",
+        "recoded"
+      ],
+      "properties": {
+        "current": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/projection"
+            }
+          ]
+        },
+        "recoded": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/projection"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

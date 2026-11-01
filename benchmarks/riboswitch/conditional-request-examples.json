@@ -1,0 +1,195 @@
+{
+  "cases": [
+    {
+      "expected_slice": {
+        "constraint_compatible_efn2_kcal_mol": -11.2,
+        "forced_unpaired": [
+          6,
+          7,
+          8,
+          9
+        ],
+        "response": null,
+        "source": "canonical-receipt.json hairpin_unconstrained/hairpin_full",
+        "structural_cost_kcal_mol": 0.0,
+        "unconstrained_efn2_kcal_mol": -11.2,
+        "zero_based_pairs": [
+          [
+            0,
+            15
+          ],
+          [
+            1,
+            14
+          ],
+          [
+            2,
+            13
+          ],
+          [
+            3,
+            12
+          ],
+          [
+            4,
+            11
+          ],
+          [
+            5,
+            10
+          ]
+        ]
+      },
+      "request": {
+        "id": "hairpin-structure-control",
+        "input": {
+          "aptamer": {
+            "constraint": {
+              "mode": "full",
+              "structure": "((((((....))))))"
+            },
+            "id": "synthetic-hairpin",
+            "range": [
+              0,
+              16
+            ]
+          },
+          "sequence": "GGGAGCGAAAGCUCCC",
+          "temperature_kelvin": 310.15
+        },
+        "profile": "canonical_structure_pair",
+        "provenance": {
+          "kind": "synthetic",
+          "reference": "Independent hand-computable controls; no aptamer efficacy or native outcomes."
+        },
+        "schema_version": "conditional-aptamer-request-1",
+        "settings": {
+          "seconds_per_job": 120.0,
+          "seconds_total": 480.0
+        }
+      }
+    },
+    {
+      "expected_slice": {
+        "ar_actual": 2.5,
+        "ar_conc": 2.5,
+        "ar_max": 4.0,
+        "metastability_applied": false
+      },
+      "request": {
+        "id": "supplied-half-occupancy",
+        "input": {
+          "affinity": {
+            "delta_g_kcal_mol": -2.386294361119891,
+            "mode": "delta_g",
+            "standard_molar": 1.0
+          },
+          "beta_mol_per_kcal": 1.0,
+          "energies": {
+            "ribosome_off_kcal_mol": 0.0,
+            "ribosome_on_kcal_mol": -1.3862943611198906,
+            "rna_off_kcal_mol": -2.0,
+            "rna_on_kcal_mol": -1.0
+          },
+          "energy_basis": {
+            "ribosome": {
+              "backend_sha256": null,
+              "model_id": "synthetic-algebra-1",
+              "parameter_sha256": null,
+              "sequence_sha256": null,
+              "source_id": "synthetic-explicit-energies"
+            },
+            "rna": {
+              "backend_sha256": null,
+              "model_id": "synthetic-algebra-1",
+              "parameter_sha256": null,
+              "sequence_sha256": null,
+              "source_id": "synthetic-explicit-energies"
+            }
+          },
+          "occupancy": {
+            "fraction": 0.5,
+            "mode": "supplied_fraction"
+          },
+          "temperature_kelvin": 310.15
+        },
+        "profile": "supplied_energy_response",
+        "provenance": {
+          "kind": "synthetic",
+          "reference": "Independent hand-computable controls; no aptamer efficacy or native outcomes."
+        },
+        "schema_version": "conditional-aptamer-request-1",
+        "settings": {
+          "max_iterations": 256,
+          "seconds_total": 30.0
+        }
+      }
+    },
+    {
+      "expected_slice": {
+        "ar_actual": "8/7",
+        "ar_conc": 1.6,
+        "ar_max": 4.0,
+        "bound_fraction": 0.2,
+        "metastability_applied": true,
+        "metastability_factor": "5/21"
+      },
+      "request": {
+        "id": "supplied-volume-fifth",
+        "input": {
+          "affinity": {
+            "delta_g_kcal_mol": -0.8368491901943191,
+            "mode": "delta_g",
+            "standard_molar": 1.0
+          },
+          "beta_mol_per_kcal": 1.0,
+          "energies": {
+            "ribosome_off_kcal_mol": 0.0,
+            "ribosome_on_kcal_mol": -1.3862943611198906,
+            "rna_off_kcal_mol": -2.0,
+            "rna_on_kcal_mol": 0.0
+          },
+          "energy_basis": {
+            "ribosome": {
+              "backend_sha256": null,
+              "model_id": "synthetic-algebra-1",
+              "parameter_sha256": null,
+              "sequence_sha256": null,
+              "source_id": "synthetic-explicit-energies"
+            },
+            "rna": {
+              "backend_sha256": null,
+              "model_id": "synthetic-algebra-1",
+              "parameter_sha256": null,
+              "sequence_sha256": null,
+              "source_id": "synthetic-explicit-energies"
+            }
+          },
+          "occupancy": {
+            "ligand_relative_volume": 1.0,
+            "ligand_total_molar": 1.0,
+            "mode": "published2015_volume",
+            "mrna_relative_volume": 2.0,
+            "mrna_total_molar": 1.0,
+            "solvent_molar": 4.0
+          },
+          "temperature_kelvin": 310.15
+        },
+        "profile": "supplied_energy_response",
+        "provenance": {
+          "kind": "synthetic",
+          "reference": "Independent hand-computable controls; no aptamer efficacy or native outcomes."
+        },
+        "schema_version": "conditional-aptamer-request-1",
+        "settings": {
+          "max_iterations": 256,
+          "seconds_total": 30.0
+        }
+      }
+    }
+  ],
+  "license": "GPL-3.0-or-later",
+  "runtime_executed": false,
+  "schema_version": "conditional-aptamer-proposed-examples-1",
+  "scope": "Proposed input boundary and independently known slices. Extract a request only after A implements/freezes this interface. The scalar concentrations/volumes are synthetic algebra, not physiological defaults."
+}

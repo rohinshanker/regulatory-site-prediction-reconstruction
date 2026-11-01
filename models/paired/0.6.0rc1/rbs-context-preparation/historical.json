@@ -1,0 +1,3014 @@
+{
+  "batch_id": "9c9f8f743dedf7c378802b946bb66d2315106f3d1ce26fcc3d623943436d278b",
+  "coordinate_space": "zero-based half-open reference segments in transcript order",
+  "execution": {
+    "backend": {
+      "binary_sha256": {
+        "Fold": "81f962573b7f43c023dd23eab4ae1e8e7f6402d8679e89a6a1a539cfdc6a5458",
+        "bifold": "9f8156cabaf8e13f91e90d410c46aef1cff1c2badda1c4243b194f54eb1f8136",
+        "efn2": "f0b2ce5971d482f50867615e3870b4743d42d6b0e266e05c0c0c1f1bc63d8b4d"
+      },
+      "build_provenance": {
+        "component": "rnastructure-6.6-linker-3",
+        "license": "GPL-2.0-only",
+        "patch_sha256": "2ef6ef61496b034110f4151e2fc1aec77cbd011c88a36bcef574be0dfecebb2d",
+        "patched_source_sha256": "b19a9ad1634f7e8f7669410b1eb7f5e8c27542f073054acb65647891e62ddbc7",
+        "source_archive_sha256": "1bedc62aaab984279055caaa6234d48fca113f4b8e17a8060e0b3784d5a397c3"
+      },
+      "build_receipt_sha256": "7fabba75b3f49cb9be9a5633f8fb149e318e6e48a971487acf7cceb743b806e2",
+      "expected_source_archive_sha256": "1bedc62aaab984279055caaa6234d48fca113f4b8e17a8060e0b3784d5a397c3",
+      "interface": "independent executables via sequence/CT files",
+      "licence": "GPL-2.0-only (separate installation)",
+      "name": "RNAstructure",
+      "settings": {
+        "alphabet": "rna",
+        "bifold_maximum": 100,
+        "bifold_percent": 100,
+        "bifold_window": 0,
+        "coaxial_stacking": true,
+        "dangles": "RNAstructure 6.6 native; no historical auto-dangle switch",
+        "efn2_multibranch_model": "simple",
+        "energy_evaluation": "efn2 --simple for every structure",
+        "fold_maximum": 1,
+        "fold_mfe_only": true,
+        "fold_window": 0,
+        "intramolecular_pairs": true,
+        "isolated_pairs": false,
+        "maximum_loop": 30
+      },
+      "table_manifest_sha256": "ece4c4b535783cb4e03c7ce8f243d09be84a165ecd113b1d20941b5ed8b69501",
+      "variant": "rnastructure-6.6-linker-3",
+      "version": "6.6"
+    },
+    "implementation_version": "0.6.0rc1",
+    "seconds_per_batch": 3600.0,
+    "seconds_per_record": 60.0
+  },
+  "mode": "supplied_start",
+  "model_id": "salis-v1-rnastructure-6.6-reconstruction-1",
+  "results": [
+    {
+      "context": {
+        "genome": {
+          "accession": "synthetic-forward",
+          "annotation": "hand-counted-v1",
+          "assembly": "synthetic20-v1",
+          "sequence_sha256": "910befd6f941189a629d3ac56b3212de0d7ec3421acf5c20715dce428d69966b",
+          "topology": "linear"
+        },
+        "genomic_segments": [
+          {
+            "end": 13,
+            "start": 3,
+            "strand": "+"
+          }
+        ],
+        "genomic_start_segments": [
+          {
+            "end": 10,
+            "start": 7,
+            "strand": "+"
+          }
+        ],
+        "path": {
+          "circular": false,
+          "contig_length": 20,
+          "first": 3,
+          "length": 10,
+          "strand": "+"
+        },
+        "sequence": "CCGGAUGAAA",
+        "sequence_alphabet": "RNA",
+        "sequence_sha256": "3d31cbaaa0f8bff006e2ce4fe091485fe453cb20c9239c0570f08e45f26540ad",
+        "start": 4
+      },
+      "evidence": {
+        "anti_sd": "ACCUCCUUA",
+        "anti_sd_provenance": "explicit synthetic scenario, not native-host sequence evidence",
+        "cds_start_zero_based": 7,
+        "conditions": [],
+        "downstream_length_nt": 6,
+        "genome_id": "synthetic-forward-linear",
+        "host": "synthetic; no host calibration",
+        "id": "plus-linear",
+        "leader_length_nt": 4,
+        "mapping_status": "matched_synthetic",
+        "origin_crossing": false,
+        "strand": "+",
+        "transcript_start_evidence": "synthetic fixture",
+        "translation_start_evidence": "synthetic fixture",
+        "tss_zero_based": 3,
+        "upstream_limit_nt": 100,
+        "warnings": []
+      },
+      "genomic_sites": [
+        {
+          "binding_interval": [
+            {
+              "end": 7,
+              "start": 5,
+              "strand": "+"
+            }
+          ],
+          "coding_footprint": null,
+          "oriented_start": 4,
+          "rank_among_successful_candidates": 1,
+          "standby_interval": [
+            {
+              "end": 5,
+              "start": 3,
+              "strand": "+"
+            }
+          ],
+          "start_codon": [
+            {
+              "end": 10,
+              "start": 7,
+              "strand": "+"
+            }
+          ],
+          "start_point": 7,
+          "status": "ok",
+          "window": [
+            {
+              "end": 13,
+              "start": 3,
+              "strand": "+"
+            }
+          ]
+        }
+      ],
+      "id": "plus-linear",
+      "prediction": {
+        "backend": {
+          "binary_sha256": {
+            "Fold": "81f962573b7f43c023dd23eab4ae1e8e7f6402d8679e89a6a1a539cfdc6a5458",
+            "bifold": "9f8156cabaf8e13f91e90d410c46aef1cff1c2badda1c4243b194f54eb1f8136",
+            "efn2": "f0b2ce5971d482f50867615e3870b4743d42d6b0e266e05c0c0c1f1bc63d8b4d"
+          },
+          "build_provenance": {
+            "component": "rnastructure-6.6-linker-3",
+            "license": "GPL-2.0-only",
+            "patch_sha256": "2ef6ef61496b034110f4151e2fc1aec77cbd011c88a36bcef574be0dfecebb2d",
+            "patched_source_sha256": "b19a9ad1634f7e8f7669410b1eb7f5e8c27542f073054acb65647891e62ddbc7",
+            "source_archive_sha256": "1bedc62aaab984279055caaa6234d48fca113f4b8e17a8060e0b3784d5a397c3"
+          },
+          "build_receipt_sha256": "7fabba75b3f49cb9be9a5633f8fb149e318e6e48a971487acf7cceb743b806e2",
+          "expected_source_archive_sha256": "1bedc62aaab984279055caaa6234d48fca113f4b8e17a8060e0b3784d5a397c3",
+          "interface": "independent executables via sequence/CT files",
+          "licence": "GPL-2.0-only (separate installation)",
+          "name": "RNAstructure",
+          "settings": {
+            "alphabet": "rna",
+            "bifold_maximum": 100,
+            "bifold_percent": 100,
+            "bifold_window": 0,
+            "coaxial_stacking": true,
+            "dangles": "RNAstructure 6.6 native; no historical auto-dangle switch",
+            "efn2_multibranch_model": "simple",
+            "energy_evaluation": "efn2 --simple for every structure",
+            "fold_maximum": 1,
+            "fold_mfe_only": true,
+            "fold_window": 0,
+            "intramolecular_pairs": true,
+            "isolated_pairs": false,
+            "maximum_loop": 30
+          },
+          "table_manifest_sha256": "ece4c4b535783cb4e03c7ce8f243d09be84a165ecd113b1d20941b5ed8b69501",
+          "variant": "rnastructure-6.6-linker-3",
+          "version": "6.6"
+        },
+        "id": "plus-linear",
+        "input": {
+          "anti_sd": "ACCUCCUUA",
+          "host": "synthetic; no host calibration",
+          "id": "plus-linear",
+          "input_sha256": "3d31cbaaa0f8bff006e2ce4fe091485fe453cb20c9239c0570f08e45f26540ad",
+          "normalized_sha256": "3d31cbaaa0f8bff006e2ce4fe091485fe453cb20c9239c0570f08e45f26540ad",
+          "oriented_sequence": "CCGGAUGAAA",
+          "oriented_sha256": "3d31cbaaa0f8bff006e2ce4fe091485fe453cb20c9239c0570f08e45f26540ad",
+          "sequence": "CCGGAUGAAA",
+          "start_positions": [
+            4
+          ],
+          "strand": "+",
+          "temperature_c": 37.0
+        },
+        "model": {
+          "id": "salis-v1-rnastructure-6.6-reconstruction-1",
+          "implementation_version": "0.6.0rc1",
+          "parameters": {
+            "downstream_nt": 35,
+            "effective_RT": 2.222,
+            "energy_comparison_tolerance_kcal_mol": 1e-09,
+            "historical_footprint_nt": 1000,
+            "optimal_aligned_spacing": 5,
+            "rate_scale": 2500.0,
+            "spacing_pull": [
+              0.048,
+              0.24,
+              0.0
+            ],
+            "spacing_push": [
+              12.2,
+              2.5,
+              2.0,
+              3.0
+            ],
+            "standby_nt": 4,
+            "start_energies_kcal_mol": {
+              "AUG": -1.194,
+              "CUG": -0.03406,
+              "GUG": -0.0748,
+              "UUG": -0.0435
+            },
+            "suboptimal_filter_kcal_mol": 3.0,
+            "suboptimal_reference": "lowest_interstrand_connected_complex",
+            "upstream_nt": 35
+          },
+          "source_commit": "8a9c1de1bdd847bb90d2ab6ceaa3c20feceda307"
+        },
+        "prediction_id": "1b0feb98b89f410432a84654ac948d26e5cdf4c90fe006bf75c31cd2538d9761",
+        "reason": null,
+        "schema_version": "1.0",
+        "sites": [
+          {
+            "aligned_spacing": -1,
+            "binding_interval": {
+              "end": 4,
+              "start": 2,
+              "strand": "+"
+            },
+            "candidate_search": {
+              "band_reference_kcal_mol": -1.1,
+              "connected_returned": 2,
+              "exhaustive": false,
+              "returned": 2,
+              "selected_index": 0,
+              "viable_in_band": 2
+            },
+            "codon": "AUG",
+            "energies": {
+              "dG_accessible_complex": -1.7,
+              "dG_cofold_native_prediction": -1.1,
+              "dG_cofold_search": -1.1,
+              "dG_complex": -1.7,
+              "dG_mRNA": 0.0,
+              "dG_mRNA_native_prediction": null,
+              "dG_search_with_spacing": 11.098338513435724,
+              "dG_spacing": 12.198338513435724,
+              "dG_standby_signed": 0.0,
+              "dG_start": -1.194,
+              "dG_total": 9.304338513435724,
+              "units": "kcal/mol"
+            },
+            "log_tir": 3.636674942703401,
+            "oriented_start": 4,
+            "reason": null,
+            "standby_interval": {
+              "end": 2,
+              "start": 0,
+              "strand": "+"
+            },
+            "start_codon": {
+              "end": 7,
+              "start": 4,
+              "strand": "+"
+            },
+            "status": "ok",
+            "structures": {
+              "bound_after_standby": {
+                "anti_sd_dot_bracket": ".))......",
+                "coordinate_space": "zero-based window-relative mRNA and 5-prime-to-3-prime anti_sd",
+                "energy_kcal_mol": -1.7,
+                "mrna_anti_sd_pairs": [
+                  [
+                    2,
+                    2
+                  ],
+                  [
+                    3,
+                    1
+                  ]
+                ],
+                "mrna_dot_bracket": "..((......",
+                "mrna_intramolecular_pairs": [],
+                "prediction_energy_kcal_mol": null
+              },
+              "bound_before_standby": {
+                "anti_sd_dot_bracket": ".))......",
+                "coordinate_space": "zero-based window-relative mRNA and 5-prime-to-3-prime anti_sd",
+                "energy_kcal_mol": -1.7,
+                "mrna_anti_sd_pairs": [
+                  [
+                    2,
+                    2
+                  ],
+                  [
+                    3,
+                    1
+                  ]
+                ],
+                "mrna_dot_bracket": "..((......",
+                "mrna_intramolecular_pairs": [],
+                "prediction_energy_kcal_mol": null
+              },
+              "unbound": {
+                "anti_sd_dot_bracket": null,
+                "coordinate_space": "zero-based window-relative mRNA and 5-prime-to-3-prime anti_sd",
+                "energy_kcal_mol": 0.0,
+                "mrna_anti_sd_pairs": [],
+                "mrna_dot_bracket": "..........",
+                "mrna_intramolecular_pairs": [],
+                "prediction_energy_kcal_mol": null
+              }
+            },
+            "tir": 37.96538952434868,
+            "warnings": [
+              "spacing_penalty_exceeds_suboptimal_energy_band",
+              "standby_region_truncated_at_window_boundary",
+              "folding_window_touches_supplied_sequence_boundary"
+            ],
+            "window": {
+              "input_interval": {
+                "end": 10,
+                "start": 0,
+                "strand": "+"
+              },
+              "oriented_end": 10,
+              "oriented_start": 0
+            }
+          }
+        ],
+        "status": "ok",
+        "warnings": [
+          "reconstruction_not_historical_or_hosted_equivalence",
+          "RNAstructure_parameters_and_dangles_differ_from_NUPACK_rna1999",
+          "bounded_bifold_tracebacks_not_exhaustive_suboptimal_enumeration",
+          "relative_initiation_score_not_absolute_rate_or_probability",
+          "host_configuration_is_not_host_calibration",
+          "patched_traceback_changes_candidate_search_results"
+        ]
+      },
+      "reason": null,
+      "status": "ok",
+      "warnings": [
+        "default_37C_scenario_not_native_condition_calibration",
+        "supplied_start_evidence_does_not_establish_model_accuracy",
+        "operon_coupling_not_modeled",
+        "downstream_context_extent_not_experimentally_verified"
+      ]
+    },
+    {
+      "context": {
+        "genome": {
+          "accession": "synthetic-reverse",
+          "annotation": "hand-counted-v1",
+          "assembly": "synthetic20-v1",
+          "sequence_sha256": "585d3196087c03426723359f02be8b1708bd8a6e8c5c9b596c73c60a1e6b3353",
+          "topology": "linear"
+        },
+        "genomic_segments": [
+          {
+            "end": 17,
+            "start": 7,
+            "strand": "-"
+          }
+        ],
+        "genomic_start_segments": [
+          {
+            "end": 13,
+            "start": 10,
+            "strand": "-"
+          }
+        ],
+        "path": {
+          "circular": false,
+          "contig_length": 20,
+          "first": 16,
+          "length": 10,
+          "strand": "-"
+        },
+        "sequence": "CCGGAUGAAA",
+        "sequence_alphabet": "RNA",
+        "sequence_sha256": "3d31cbaaa0f8bff006e2ce4fe091485fe453cb20c9239c0570f08e45f26540ad",
+        "start": 4
+      },
+      "evidence": {
+        "anti_sd": "ACCUCCUUA",
+        "anti_sd_provenance": "explicit synthetic scenario, not native-host sequence evidence",
+        "cds_start_zero_based": 12,
+        "conditions": [],
+        "downstream_length_nt": 6,
+        "genome_id": "synthetic-reverse-linear",
+        "host": "synthetic; no host calibration",
+        "id": "minus-linear",
+        "leader_length_nt": 4,
+        "mapping_status": "matched_synthetic",
+        "origin_crossing": false,
+        "strand": "-",
+        "transcript_start_evidence": "synthetic fixture",
+        "translation_start_evidence": "synthetic fixture",
+        "tss_zero_based": 16,
+        "upstream_limit_nt": 100,
+        "warnings": []
+      },
+      "genomic_sites": [
+        {
+          "binding_interval": [
+            {
+              "end": 15,
+              "start": 13,
+              "strand": "-"
+            }
+          ],
+          "coding_footprint": null,
+          "oriented_start": 4,
+          "rank_among_successful_candidates": 1,
+          "standby_interval": [
+            {
+              "end": 17,
+              "start": 15,
+              "strand": "-"
+            }
+          ],
+          "start_codon": [
+            {
+              "end": 13,
+              "start": 10,
+              "strand": "-"
+            }
+          ],
+          "start_point": 12,
+          "status": "ok",
+          "window": [
+            {
+              "end": 17,
+              "start": 7,
+              "strand": "-"
+            }
+          ]
+        }
+      ],
+      "id": "minus-linear",
+      "prediction": {
+        "backend": {
+          "binary_sha256": {
+            "Fold": "81f962573b7f43c023dd23eab4ae1e8e7f6402d8679e89a6a1a539cfdc6a5458",
+            "bifold": "9f8156cabaf8e13f91e90d410c46aef1cff1c2badda1c4243b194f54eb1f8136",
+            "efn2": "f0b2ce5971d482f50867615e3870b4743d42d6b0e266e05c0c0c1f1bc63d8b4d"
+          },
+          "build_provenance": {
+            "component": "rnastructure-6.6-linker-3",
+            "license": "GPL-2.0-only",
+            "patch_sha256": "2ef6ef61496b034110f4151e2fc1aec77cbd011c88a36bcef574be0dfecebb2d",
+            "patched_source_sha256": "b19a9ad1634f7e8f7669410b1eb7f5e8c27542f073054acb65647891e62ddbc7",
+            "source_archive_sha256": "1bedc62aaab984279055caaa6234d48fca113f4b8e17a8060e0b3784d5a397c3"
+          },
+          "build_receipt_sha256": "7fabba75b3f49cb9be9a5633f8fb149e318e6e48a971487acf7cceb743b806e2",
+          "expected_source_archive_sha256": "1bedc62aaab984279055caaa6234d48fca113f4b8e17a8060e0b3784d5a397c3",
+          "interface": "independent executables via sequence/CT files",
+          "licence": "GPL-2.0-only (separate installation)",
+          "name": "RNAstructure",
+          "settings": {
+            "alphabet": "rna",
+            "bifold_maximum": 100,
+            "bifold_percent": 100,
+            "bifold_window": 0,
+            "coaxial_stacking": true,
+            "dangles": "RNAstructure 6.6 native; no historical auto-dangle switch",
+            "efn2_multibranch_model": "simple",
+            "energy_evaluation": "efn2 --simple for every structure",
+            "fold_maximum": 1,
+            "fold_mfe_only": true,
+            "fold_window": 0,
+            "intramolecular_pairs": true,
+            "isolated_pairs": false,
+            "maximum_loop": 30
+          },
+          "table_manifest_sha256": "ece4c4b535783cb4e03c7ce8f243d09be84a165ecd113b1d20941b5ed8b69501",
+          "variant": "rnastructure-6.6-linker-3",
+          "version": "6.6"
+        },
+        "id": "minus-linear",
+        "input": {
+          "anti_sd": "ACCUCCUUA",
+          "host": "synthetic; no host calibration",
+          "id": "minus-linear",
+          "input_sha256": "3d31cbaaa0f8bff006e2ce4fe091485fe453cb20c9239c0570f08e45f26540ad",
+          "normalized_sha256": "3d31cbaaa0f8bff006e2ce4fe091485fe453cb20c9239c0570f08e45f26540ad",
+          "oriented_sequence": "CCGGAUGAAA",
+          "oriented_sha256": "3d31cbaaa0f8bff006e2ce4fe091485fe453cb20c9239c0570f08e45f26540ad",
+          "sequence": "CCGGAUGAAA",
+          "start_positions": [
+            4
+          ],
+          "strand": "+",
+          "temperature_c": 37.0
+        },
+        "model": {
+          "id": "salis-v1-rnastructure-6.6-reconstruction-1",
+          "implementation_version": "0.6.0rc1",
+          "parameters": {
+            "downstream_nt": 35,
+            "effective_RT": 2.222,
+            "energy_comparison_tolerance_kcal_mol": 1e-09,
+            "historical_footprint_nt": 1000,
+            "optimal_aligned_spacing": 5,
+            "rate_scale": 2500.0,
+            "spacing_pull": [
+              0.048,
+              0.24,
+              0.0
+            ],
+            "spacing_push": [
+              12.2,
+              2.5,
+              2.0,
+              3.0
+            ],
+            "standby_nt": 4,
+            "start_energies_kcal_mol": {
+              "AUG": -1.194,
+              "CUG": -0.03406,
+              "GUG": -0.0748,
+              "UUG": -0.0435
+            },
+            "suboptimal_filter_kcal_mol": 3.0,
+            "suboptimal_reference": "lowest_interstrand_connected_complex",
+            "upstream_nt": 35
+          },
+          "source_commit": "8a9c1de1bdd847bb90d2ab6ceaa3c20feceda307"
+        },
+        "prediction_id": "b9aaaa0b204c69396f54ce40a805c17ac63283f89ed134fc99d2ff100d2d0bb2",
+        "reason": null,
+        "schema_version": "1.0",
+        "sites": [
+          {
+            "aligned_spacing": -1,
+            "binding_interval": {
+              "end": 4,
+              "start": 2,
+              "strand": "+"
+            },
+            "candidate_search": {
+              "band_reference_kcal_mol": -1.1,
+              "connected_returned": 2,
+              "exhaustive": false,
+              "returned": 2,
+              "selected_index": 0,
+              "viable_in_band": 2
+            },
+            "codon": "AUG",
+            "energies": {
+              "dG_accessible_complex": -1.7,
+              "dG_cofold_native_prediction": -1.1,
+              "dG_cofold_search": -1.1,
+              "dG_complex": -1.7,
+              "dG_mRNA": 0.0,
+              "dG_mRNA_native_prediction": null,
+              "dG_search_with_spacing": 11.098338513435724,
+              "dG_spacing": 12.198338513435724,
+              "dG_standby_signed": 0.0,
+              "dG_start": -1.194,
+              "dG_total": 9.304338513435724,
+              "units": "kcal/mol"
+            },
+            "log_tir": 3.636674942703401,
+            "oriented_start": 4,
+            "reason": null,
+            "standby_interval": {
+              "end": 2,
+              "start": 0,
+              "strand": "+"
+            },
+            "start_codon": {
+              "end": 7,
+              "start": 4,
+              "strand": "+"
+            },
+            "status": "ok",
+            "structures": {
+              "bound_after_standby": {
+                "anti_sd_dot_bracket": ".))......",
+                "coordinate_space": "zero-based window-relative mRNA and 5-prime-to-3-prime anti_sd",
+                "energy_kcal_mol": -1.7,
+                "mrna_anti_sd_pairs": [
+                  [
+                    2,
+                    2
+                  ],
+                  [
+                    3,
+                    1
+                  ]
+                ],
+                "mrna_dot_bracket": "..((......",
+                "mrna_intramolecular_pairs": [],
+                "prediction_energy_kcal_mol": null
+              },
+              "bound_before_standby": {
+                "anti_sd_dot_bracket": ".))......",
+                "coordinate_space": "zero-based window-relative mRNA and 5-prime-to-3-prime anti_sd",
+                "energy_kcal_mol": -1.7,
+                "mrna_anti_sd_pairs": [
+                  [
+                    2,
+                    2
+                  ],
+                  [
+                    3,
+                    1
+                  ]
+                ],
+                "mrna_dot_bracket": "..((......",
+                "mrna_intramolecular_pairs": [],
+                "prediction_energy_kcal_mol": null
+              },
+              "unbound": {
+                "anti_sd_dot_bracket": null,
+                "coordinate_space": "zero-based window-relative mRNA and 5-prime-to-3-prime anti_sd",
+                "energy_kcal_mol": 0.0,
+                "mrna_anti_sd_pairs": [],
+                "mrna_dot_bracket": "..........",
+                "mrna_intramolecular_pairs": [],
+                "prediction_energy_kcal_mol": null
+              }
+            },
+            "tir": 37.96538952434868,
+            "warnings": [
+              "spacing_penalty_exceeds_suboptimal_energy_band",
+              "standby_region_truncated_at_window_boundary",
+              "folding_window_touches_supplied_sequence_boundary"
+            ],
+            "window": {
+              "input_interval": {
+                "end": 10,
+                "start": 0,
+                "strand": "+"
+              },
+              "oriented_end": 10,
+              "oriented_start": 0
+            }
+          }
+        ],
+        "status": "ok",
+        "warnings": [
+          "reconstruction_not_historical_or_hosted_equivalence",
+          "RNAstructure_parameters_and_dangles_differ_from_NUPACK_rna1999",
+          "bounded_bifold_tracebacks_not_exhaustive_suboptimal_enumeration",
+          "relative_initiation_score_not_absolute_rate_or_probability",
+          "host_configuration_is_not_host_calibration",
+          "patched_traceback_changes_candidate_search_results"
+        ]
+      },
+      "reason": null,
+      "status": "ok",
+      "warnings": [
+        "default_37C_scenario_not_native_condition_calibration",
+        "supplied_start_evidence_does_not_establish_model_accuracy",
+        "operon_coupling_not_modeled",
+        "downstream_context_extent_not_experimentally_verified"
+      ]
+    },
+    {
+      "context": {
+        "genome": {
+          "accession": "synthetic-forward",
+          "annotation": "hand-counted-v1",
+          "assembly": "synthetic20-v1",
+          "sequence_sha256": "910befd6f941189a629d3ac56b3212de0d7ec3421acf5c20715dce428d69966b",
+          "topology": "circular"
+        },
+        "genomic_segments": [
+          {
+            "end": 20,
+            "start": 18,
+            "strand": "+"
+          },
+          {
+            "end": 13,
+            "start": 0,
+            "strand": "+"
+          }
+        ],
+        "genomic_start_segments": [
+          {
+            "end": 10,
+            "start": 7,
+            "strand": "+"
+          }
+        ],
+        "path": {
+          "circular": true,
+          "contig_length": 20,
+          "first": 18,
+          "length": 15,
+          "strand": "+"
+        },
+        "sequence": "GGUUACCGGAUGAAA",
+        "sequence_alphabet": "RNA",
+        "sequence_sha256": "08160ade4c6b32a32b43afea98a75f1066a334f0cad8cc9ccf73572292008fd0",
+        "start": 9
+      },
+      "evidence": {
+        "anti_sd": "ACCUCCUUA",
+        "anti_sd_provenance": "explicit synthetic scenario, not native-host sequence evidence",
+        "cds_start_zero_based": 7,
+        "conditions": [],
+        "downstream_length_nt": 6,
+        "genome_id": "synthetic-forward-circular",
+        "host": "synthetic; no host calibration",
+        "id": "plus-origin",
+        "leader_length_nt": 9,
+        "mapping_status": "matched_synthetic",
+        "origin_crossing": true,
+        "strand": "+",
+        "transcript_start_evidence": "synthetic fixture",
+        "translation_start_evidence": "synthetic fixture",
+        "tss_zero_based": 18,
+        "upstream_limit_nt": 100,
+        "warnings": []
+      },
+      "genomic_sites": [
+        {
+          "binding_interval": [
+            {
+              "end": 20,
+              "start": 18,
+              "strand": "+"
+            },
+            {
+              "end": 1,
+              "start": 0,
+              "strand": "+"
+            }
+          ],
+          "coding_footprint": null,
+          "oriented_start": 9,
+          "rank_among_successful_candidates": 1,
+          "standby_interval": [],
+          "start_codon": [
+            {
+              "end": 10,
+              "start": 7,
+              "strand": "+"
+            }
+          ],
+          "start_point": 7,
+          "status": "ok",
+          "window": [
+            {
+              "end": 20,
+              "start": 18,
+              "strand": "+"
+            },
+            {
+              "end": 13,
+              "start": 0,
+              "strand": "+"
+            }
+          ]
+        }
+      ],
+      "id": "plus-origin",
+      "prediction": {
+        "backend": {
+          "binary_sha256": {
+            "Fold": "81f962573b7f43c023dd23eab4ae1e8e7f6402d8679e89a6a1a539cfdc6a5458",
+            "bifold": "9f8156cabaf8e13f91e90d410c46aef1cff1c2badda1c4243b194f54eb1f8136",
+            "efn2": "f0b2ce5971d482f50867615e3870b4743d42d6b0e266e05c0c0c1f1bc63d8b4d"
+          },
+          "build_provenance": {
+            "component": "rnastructure-6.6-linker-3",
+            "license": "GPL-2.0-only",
+            "patch_sha256": "2ef6ef61496b034110f4151e2fc1aec77cbd011c88a36bcef574be0dfecebb2d",
+            "patched_source_sha256": "b19a9ad1634f7e8f7669410b1eb7f5e8c27542f073054acb65647891e62ddbc7",
+            "source_archive_sha256": "1bedc62aaab984279055caaa6234d48fca113f4b8e17a8060e0b3784d5a397c3"
+          },
+          "build_receipt_sha256": "7fabba75b3f49cb9be9a5633f8fb149e318e6e48a971487acf7cceb743b806e2",
+          "expected_source_archive_sha256": "1bedc62aaab984279055caaa6234d48fca113f4b8e17a8060e0b3784d5a397c3",
+          "interface": "independent executables via sequence/CT files",
+          "licence": "GPL-2.0-only (separate installation)",
+          "name": "RNAstructure",
+          "settings": {
+            "alphabet": "rna",
+            "bifold_maximum": 100,
+            "bifold_percent": 100,
+            "bifold_window": 0,
+            "coaxial_stacking": true,
+            "dangles": "RNAstructure 6.6 native; no historical auto-dangle switch",
+            "efn2_multibranch_model": "simple",
+            "energy_evaluation": "efn2 --simple for every structure",
+            "fold_maximum": 1,
+            "fold_mfe_only": true,
+            "fold_window": 0,
+            "intramolecular_pairs": true,
+            "isolated_pairs": false,
+            "maximum_loop": 30
+          },
+          "table_manifest_sha256": "ece4c4b535783cb4e03c7ce8f243d09be84a165ecd113b1d20941b5ed8b69501",
+          "variant": "rnastructure-6.6-linker-3",
+          "version": "6.6"
+        },
+        "id": "plus-origin",
+        "input": {
+          "anti_sd": "ACCUCCUUA",
+          "host": "synthetic; no host calibration",
+          "id": "plus-origin",
+          "input_sha256": "08160ade4c6b32a32b43afea98a75f1066a334f0cad8cc9ccf73572292008fd0",
+          "normalized_sha256": "08160ade4c6b32a32b43afea98a75f1066a334f0cad8cc9ccf73572292008fd0",
+          "oriented_sequence": "GGUUACCGGAUGAAA",
+          "oriented_sha256": "08160ade4c6b32a32b43afea98a75f1066a334f0cad8cc9ccf73572292008fd0",
+          "sequence": "GGUUACCGGAUGAAA",
+          "start_positions": [
+            9
+          ],
+          "strand": "+",
+          "temperature_c": 37.0
+        },
+        "model": {
+          "id": "salis-v1-rnastructure-6.6-reconstruction-1",
+          "implementation_version": "0.6.0rc1",
+          "parameters": {
+            "downstream_nt": 35,
+            "effective_RT": 2.222,
+            "energy_comparison_tolerance_kcal_mol": 1e-09,
+            "historical_footprint_nt": 1000,
+            "optimal_aligned_spacing": 5,
+            "rate_scale": 2500.0,
+            "spacing_pull": [
+              0.048,
+              0.24,
+              0.0
+            ],
+            "spacing_push": [
+              12.2,
+              2.5,
+              2.0,
+              3.0
+            ],
+            "standby_nt": 4,
+            "start_energies_kcal_mol": {
+              "AUG": -1.194,
+              "CUG": -0.03406,
+              "GUG": -0.0748,
+              "UUG": -0.0435
+            },
+            "suboptimal_filter_kcal_mol": 3.0,
+            "suboptimal_reference": "lowest_interstrand_connected_complex",
+            "upstream_nt": 35
+          },
+          "source_commit": "8a9c1de1bdd847bb90d2ab6ceaa3c20feceda307"
+        },
+        "prediction_id": "c6610a057c0ddeee90aecb528f9ed533bb2497591311729a8776c335eaade04e",
+        "reason": null,
+        "schema_version": "1.0",
+        "sites": [
+          {
+            "aligned_spacing": 6,
+            "binding_interval": {
+              "end": 3,
+              "start": 0,
+              "strand": "+"
+            },
+            "candidate_search": {
+              "band_reference_kcal_mol": -2.2,
+              "connected_returned": 4,
+              "exhaustive": false,
+              "returned": 4,
+              "selected_index": 0,
+              "viable_in_band": 4
+            },
+            "codon": "AUG",
+            "energies": {
+              "dG_accessible_complex": -2.2,
+              "dG_cofold_native_prediction": -2.2,
+              "dG_cofold_search": -2.2,
+              "dG_complex": -2.2,
+              "dG_mRNA": 0.0,
+              "dG_mRNA_native_prediction": null,
+              "dG_search_with_spacing": -1.9120000000000001,
+              "dG_spacing": 0.288,
+              "dG_standby_signed": 0.0,
+              "dG_start": -1.194,
+              "dG_total": -3.106,
+              "units": "kcal/mol"
+            },
+            "log_tir": 9.221885794834689,
+            "oriented_start": 9,
+            "reason": null,
+            "standby_interval": {
+              "end": 0,
+              "start": 0,
+              "strand": "+"
+            },
+            "start_codon": {
+              "end": 12,
+              "start": 9,
+              "strand": "+"
+            },
+            "status": "ok",
+            "structures": {
+              "bound_after_standby": {
+                "anti_sd_dot_bracket": ")))......",
+                "coordinate_space": "zero-based window-relative mRNA and 5-prime-to-3-prime anti_sd",
+                "energy_kcal_mol": -2.2,
+                "mrna_anti_sd_pairs": [
+                  [
+                    0,
+                    2
+                  ],
+                  [
+                    1,
+                    1
+                  ],
+                  [
+                    2,
+                    0
+                  ]
+                ],
+                "mrna_dot_bracket": "(((............",
+                "mrna_intramolecular_pairs": [],
+                "prediction_energy_kcal_mol": null
+              },
+              "bound_before_standby": {
+                "anti_sd_dot_bracket": ")))......",
+                "coordinate_space": "zero-based window-relative mRNA and 5-prime-to-3-prime anti_sd",
+                "energy_kcal_mol": -2.2,
+                "mrna_anti_sd_pairs": [
+                  [
+                    0,
+                    2
+                  ],
+                  [
+                    1,
+                    1
+                  ],
+                  [
+                    2,
+                    0
+                  ]
+                ],
+                "mrna_dot_bracket": "(((............",
+                "mrna_intramolecular_pairs": [],
+                "prediction_energy_kcal_mol": null
+              },
+              "unbound": {
+                "anti_sd_dot_bracket": null,
+                "coordinate_space": "zero-based window-relative mRNA and 5-prime-to-3-prime anti_sd",
+                "energy_kcal_mol": 0.0,
+                "mrna_anti_sd_pairs": [],
+                "mrna_dot_bracket": "...............",
+                "mrna_intramolecular_pairs": [],
+                "prediction_energy_kcal_mol": null
+              }
+            },
+            "tir": 10116.123284896781,
+            "warnings": [
+              "standby_region_truncated_at_window_boundary",
+              "folding_window_touches_supplied_sequence_boundary"
+            ],
+            "window": {
+              "input_interval": {
+                "end": 15,
+                "start": 0,
+                "strand": "+"
+              },
+              "oriented_end": 15,
+              "oriented_start": 0
+            }
+          }
+        ],
+        "status": "ok",
+        "warnings": [
+          "reconstruction_not_historical_or_hosted_equivalence",
+          "RNAstructure_parameters_and_dangles_differ_from_NUPACK_rna1999",
+          "bounded_bifold_tracebacks_not_exhaustive_suboptimal_enumeration",
+          "relative_initiation_score_not_absolute_rate_or_probability",
+          "host_configuration_is_not_host_calibration",
+          "patched_traceback_changes_candidate_search_results"
+        ]
+      },
+      "reason": null,
+      "status": "ok",
+      "warnings": [
+        "default_37C_scenario_not_native_condition_calibration",
+        "supplied_start_evidence_does_not_establish_model_accuracy",
+        "operon_coupling_not_modeled",
+        "downstream_context_extent_not_experimentally_verified"
+      ]
+    },
+    {
+      "context": {
+        "genome": {
+          "accession": "synthetic-reverse",
+          "annotation": "hand-counted-v1",
+          "assembly": "synthetic20-v1",
+          "sequence_sha256": "585d3196087c03426723359f02be8b1708bd8a6e8c5c9b596c73c60a1e6b3353",
+          "topology": "circular"
+        },
+        "genomic_segments": [
+          {
+            "end": 2,
+            "start": 0,
+            "strand": "-"
+          },
+          {
+            "end": 20,
+            "start": 7,
+            "strand": "-"
+          }
+        ],
+        "genomic_start_segments": [
+          {
+            "end": 13,
+            "start": 10,
+            "strand": "-"
+          }
+        ],
+        "path": {
+          "circular": true,
+          "contig_length": 20,
+          "first": 1,
+          "length": 15,
+          "strand": "-"
+        },
+        "sequence": "GGUUACCGGAUGAAA",
+        "sequence_alphabet": "RNA",
+        "sequence_sha256": "08160ade4c6b32a32b43afea98a75f1066a334f0cad8cc9ccf73572292008fd0",
+        "start": 9
+      },
+      "evidence": {
+        "anti_sd": "ACCUCCUUA",
+        "anti_sd_provenance": "explicit synthetic scenario, not native-host sequence evidence",
+        "cds_start_zero_based": 12,
+        "conditions": [],
+        "downstream_length_nt": 6,
+        "genome_id": "synthetic-reverse-circular",
+        "host": "synthetic; no host calibration",
+        "id": "minus-origin",
+        "leader_length_nt": 9,
+        "mapping_status": "matched_synthetic",
+        "origin_crossing": true,
+        "strand": "-",
+        "transcript_start_evidence": "synthetic fixture",
+        "translation_start_evidence": "synthetic fixture",
+        "tss_zero_based": 1,
+        "upstream_limit_nt": 100,
+        "warnings": []
+      },
+      "genomic_sites": [
+        {
+          "binding_interval": [
+            {
+              "end": 2,
+              "start": 0,
+              "strand": "-"
+            },
+            {
+              "end": 20,
+              "start": 19,
+              "strand": "-"
+            }
+          ],
+          "coding_footprint": null,
+          "oriented_start": 9,
+          "rank_among_successful_candidates": 1,
+          "standby_interval": [],
+          "start_codon": [
+            {
+              "end": 13,
+              "start": 10,
+              "strand": "-"
+            }
+          ],
+          "start_point": 12,
+          "status": "ok",
+          "window": [
+            {
+              "end": 2,
+              "start": 0,
+              "strand": "-"
+            },
+            {
+              "end": 20,
+              "start": 7,
+              "strand": "-"
+            }
+          ]
+        }
+      ],
+      "id": "minus-origin",
+      "prediction": {
+        "backend": {
+          "binary_sha256": {
+            "Fold": "81f962573b7f43c023dd23eab4ae1e8e7f6402d8679e89a6a1a539cfdc6a5458",
+            "bifold": "9f8156cabaf8e13f91e90d410c46aef1cff1c2badda1c4243b194f54eb1f8136",
+            "efn2": "f0b2ce5971d482f50867615e3870b4743d42d6b0e266e05c0c0c1f1bc63d8b4d"
+          },
+          "build_provenance": {
+            "component": "rnastructure-6.6-linker-3",
+            "license": "GPL-2.0-only",
+            "patch_sha256": "2ef6ef61496b034110f4151e2fc1aec77cbd011c88a36bcef574be0dfecebb2d",
+            "patched_source_sha256": "b19a9ad1634f7e8f7669410b1eb7f5e8c27542f073054acb65647891e62ddbc7",
+            "source_archive_sha256": "1bedc62aaab984279055caaa6234d48fca113f4b8e17a8060e0b3784d5a397c3"
+          },
+          "build_receipt_sha256": "7fabba75b3f49cb9be9a5633f8fb149e318e6e48a971487acf7cceb743b806e2",
+          "expected_source_archive_sha256": "1bedc62aaab984279055caaa6234d48fca113f4b8e17a8060e0b3784d5a397c3",
+          "interface": "independent executables via sequence/CT files",
+          "licence": "GPL-2.0-only (separate installation)",
+          "name": "RNAstructure",
+          "settings": {
+            "alphabet": "rna",
+            "bifold_maximum": 100,
+            "bifold_percent": 100,
+            "bifold_window": 0,
+            "coaxial_stacking": true,
+            "dangles": "RNAstructure 6.6 native; no historical auto-dangle switch",
+            "efn2_multibranch_model": "simple",
+            "energy_evaluation": "efn2 --simple for every structure",
+            "fold_maximum": 1,
+            "fold_mfe_only": true,
+            "fold_window": 0,
+            "intramolecular_pairs": true,
+            "isolated_pairs": false,
+            "maximum_loop": 30
+          },
+          "table_manifest_sha256": "ece4c4b535783cb4e03c7ce8f243d09be84a165ecd113b1d20941b5ed8b69501",
+          "variant": "rnastructure-6.6-linker-3",
+          "version": "6.6"
+        },
+        "id": "minus-origin",
+        "input": {
+          "anti_sd": "ACCUCCUUA",
+          "host": "synthetic; no host calibration",
+          "id": "minus-origin",
+          "input_sha256": "08160ade4c6b32a32b43afea98a75f1066a334f0cad8cc9ccf73572292008fd0",
+          "normalized_sha256": "08160ade4c6b32a32b43afea98a75f1066a334f0cad8cc9ccf73572292008fd0",
+          "oriented_sequence": "GGUUACCGGAUGAAA",
+          "oriented_sha256": "08160ade4c6b32a32b43afea98a75f1066a334f0cad8cc9ccf73572292008fd0",
+          "sequence": "GGUUACCGGAUGAAA",
+          "start_positions": [
+            9
+          ],
+          "strand": "+",
+          "temperature_c": 37.0
+        },
+        "model": {
+          "id": "salis-v1-rnastructure-6.6-reconstruction-1",
+          "implementation_version": "0.6.0rc1",
+          "parameters": {
+            "downstream_nt": 35,
+            "effective_RT": 2.222,
+            "energy_comparison_tolerance_kcal_mol": 1e-09,
+            "historical_footprint_nt": 1000,
+            "optimal_aligned_spacing": 5,
+            "rate_scale": 2500.0,
+            "spacing_pull": [
+              0.048,
+              0.24,
+              0.0
+            ],
+            "spacing_push": [
+              12.2,
+              2.5,
+              2.0,
+              3.0
+            ],
+            "standby_nt": 4,
+            "start_energies_kcal_mol": {
+              "AUG": -1.194,
+              "CUG": -0.03406,
+              "GUG": -0.0748,
+              "UUG": -0.0435
+            },
+            "suboptimal_filter_kcal_mol": 3.0,
+            "suboptimal_reference": "lowest_interstrand_connected_complex",
+            "upstream_nt": 35
+          },
+          "source_commit": "8a9c1de1bdd847bb90d2ab6ceaa3c20feceda307"
+        },
+        "prediction_id": "f58ff6c74de7afe7ce0bbc1b17c6289ede5b72e94d060ae84ef8e6b9d859cda1",
+        "reason": null,
+        "schema_version": "1.0",
+        "sites": [
+          {
+            "aligned_spacing": 6,
+            "binding_interval": {
+              "end": 3,
+              "start": 0,
+              "strand": "+"
+            },
+            "candidate_search": {
+              "band_reference_kcal_mol": -2.2,
+              "connected_returned": 4,
+              "exhaustive": false,
+              "returned": 4,
+              "selected_index": 0,
+              "viable_in_band": 4
+            },
+            "codon": "AUG",
+            "energies": {
+              "dG_accessible_complex": -2.2,
+              "dG_cofold_native_prediction": -2.2,
+              "dG_cofold_search": -2.2,
+              "dG_complex": -2.2,
+              "dG_mRNA": 0.0,
+              "dG_mRNA_native_prediction": null,
+              "dG_search_with_spacing": -1.9120000000000001,
+              "dG_spacing": 0.288,
+              "dG_standby_signed": 0.0,
+              "dG_start": -1.194,
+              "dG_total": -3.106,
+              "units": "kcal/mol"
+            },
+            "log_tir": 9.221885794834689,
+            "oriented_start": 9,
+            "reason": null,
+            "standby_interval": {
+              "end": 0,
+              "start": 0,
+              "strand": "+"
+            },
+            "start_codon": {
+              "end": 12,
+              "start": 9,
+              "strand": "+"
+            },
+            "status": "ok",
+            "structures": {
+              "bound_after_standby": {
+                "anti_sd_dot_bracket": ")))......",
+                "coordinate_space": "zero-based window-relative mRNA and 5-prime-to-3-prime anti_sd",
+                "energy_kcal_mol": -2.2,
+                "mrna_anti_sd_pairs": [
+                  [
+                    0,
+                    2
+                  ],
+                  [
+                    1,
+                    1
+                  ],
+                  [
+                    2,
+                    0
+                  ]
+                ],
+                "mrna_dot_bracket": "(((............",
+                "mrna_intramolecular_pairs": [],
+                "prediction_energy_kcal_mol": null
+              },
+              "bound_before_standby": {
+                "anti_sd_dot_bracket": ")))......",
+                "coordinate_space": "zero-based window-relative mRNA and 5-prime-to-3-prime anti_sd",
+                "energy_kcal_mol": -2.2,
+                "mrna_anti_sd_pairs": [
+                  [
+                    0,
+                    2
+                  ],
+                  [
+                    1,
+                    1
+                  ],
+                  [
+                    2,
+                    0
+                  ]
+                ],
+                "mrna_dot_bracket": "(((............",
+                "mrna_intramolecular_pairs": [],
+                "prediction_energy_kcal_mol": null
+              },
+              "unbound": {
+                "anti_sd_dot_bracket": null,
+                "coordinate_space": "zero-based window-relative mRNA and 5-prime-to-3-prime anti_sd",
+                "energy_kcal_mol": 0.0,
+                "mrna_anti_sd_pairs": [],
+                "mrna_dot_bracket": "...............",
+                "mrna_intramolecular_pairs": [],
+                "prediction_energy_kcal_mol": null
+              }
+            },
+            "tir": 10116.123284896781,
+            "warnings": [
+              "standby_region_truncated_at_window_boundary",
+              "folding_window_touches_supplied_sequence_boundary"
+            ],
+            "window": {
+              "input_interval": {
+                "end": 15,
+                "start": 0,
+                "strand": "+"
+              },
+              "oriented_end": 15,
+              "oriented_start": 0
+            }
+          }
+        ],
+        "status": "ok",
+        "warnings": [
+          "reconstruction_not_historical_or_hosted_equivalence",
+          "RNAstructure_parameters_and_dangles_differ_from_NUPACK_rna1999",
+          "bounded_bifold_tracebacks_not_exhaustive_suboptimal_enumeration",
+          "relative_initiation_score_not_absolute_rate_or_probability",
+          "host_configuration_is_not_host_calibration",
+          "patched_traceback_changes_candidate_search_results"
+        ]
+      },
+      "reason": null,
+      "status": "ok",
+      "warnings": [
+        "default_37C_scenario_not_native_condition_calibration",
+        "supplied_start_evidence_does_not_establish_model_accuracy",
+        "operon_coupling_not_modeled",
+        "downstream_context_extent_not_experimentally_verified"
+      ]
+    },
+    {
+      "context": {
+        "genome": {
+          "accession": "synthetic-forward",
+          "annotation": "hand-counted-v1",
+          "assembly": "synthetic20-v1",
+          "sequence_sha256": "910befd6f941189a629d3ac56b3212de0d7ec3421acf5c20715dce428d69966b",
+          "topology": "linear"
+        },
+        "genomic_segments": [
+          {
+            "end": 13,
+            "start": 5,
+            "strand": "+"
+          }
+        ],
+        "genomic_start_segments": [
+          {
+            "end": 10,
+            "start": 7,
+            "strand": "+"
+          }
+        ],
+        "path": {
+          "circular": false,
+          "contig_length": 20,
+          "first": 5,
+          "length": 8,
+          "strand": "+"
+        },
+        "sequence": "GGAUGAAA",
+        "sequence_alphabet": "RNA",
+        "sequence_sha256": "55767438c2f2c1c05f3e97d4247b758a98aca7f4321c4bfaa6bc9b40f18b64ad",
+        "start": 2
+      },
+      "evidence": {
+        "anti_sd": "ACCUCCUUA",
+        "anti_sd_provenance": "explicit synthetic scenario, not native-host sequence evidence",
+        "cds_start_zero_based": 7,
+        "conditions": [],
+        "downstream_length_nt": 6,
+        "genome_id": "synthetic-forward-linear",
+        "host": "synthetic; no host calibration",
+        "id": "plus-clipped-leader",
+        "leader_length_nt": 4,
+        "mapping_status": "matched_synthetic",
+        "origin_crossing": false,
+        "strand": "+",
+        "transcript_start_evidence": "synthetic fixture",
+        "translation_start_evidence": "synthetic fixture",
+        "tss_zero_based": 3,
+        "upstream_limit_nt": 2,
+        "warnings": []
+      },
+      "genomic_sites": [
+        {
+          "binding_interval": [
+            {
+              "end": 7,
+              "start": 5,
+              "strand": "+"
+            }
+          ],
+          "coding_footprint": null,
+          "oriented_start": 2,
+          "rank_among_successful_candidates": 1,
+          "standby_interval": [],
+          "start_codon": [
+            {
+              "end": 10,
+              "start": 7,
+              "strand": "+"
+            }
+          ],
+          "start_point": 7,
+          "status": "ok",
+          "window": [
+            {
+              "end": 13,
+              "start": 5,
+              "strand": "+"
+            }
+          ]
+        }
+      ],
+      "id": "plus-clipped-leader",
+      "prediction": {
+        "backend": {
+          "binary_sha256": {
+            "Fold": "81f962573b7f43c023dd23eab4ae1e8e7f6402d8679e89a6a1a539cfdc6a5458",
+            "bifold": "9f8156cabaf8e13f91e90d410c46aef1cff1c2badda1c4243b194f54eb1f8136",
+            "efn2": "f0b2ce5971d482f50867615e3870b4743d42d6b0e266e05c0c0c1f1bc63d8b4d"
+          },
+          "build_provenance": {
+            "component": "rnastructure-6.6-linker-3",
+            "license": "GPL-2.0-only",
+            "patch_sha256": "2ef6ef61496b034110f4151e2fc1aec77cbd011c88a36bcef574be0dfecebb2d",
+            "patched_source_sha256": "b19a9ad1634f7e8f7669410b1eb7f5e8c27542f073054acb65647891e62ddbc7",
+            "source_archive_sha256": "1bedc62aaab984279055caaa6234d48fca113f4b8e17a8060e0b3784d5a397c3"
+          },
+          "build_receipt_sha256": "7fabba75b3f49cb9be9a5633f8fb149e318e6e48a971487acf7cceb743b806e2",
+          "expected_source_archive_sha256": "1bedc62aaab984279055caaa6234d48fca113f4b8e17a8060e0b3784d5a397c3",
+          "interface": "independent executables via sequence/CT files",
+          "licence": "GPL-2.0-only (separate installation)",
+          "name": "RNAstructure",
+          "settings": {
+            "alphabet": "rna",
+            "bifold_maximum": 100,
+            "bifold_percent": 100,
+            "bifold_window": 0,
+            "coaxial_stacking": true,
+            "dangles": "RNAstructure 6.6 native; no historical auto-dangle switch",
+            "efn2_multibranch_model": "simple",
+            "energy_evaluation": "efn2 --simple for every structure",
+            "fold_maximum": 1,
+            "fold_mfe_only": true,
+            "fold_window": 0,
+            "intramolecular_pairs": true,
+            "isolated_pairs": false,
+            "maximum_loop": 30
+          },
+          "table_manifest_sha256": "ece4c4b535783cb4e03c7ce8f243d09be84a165ecd113b1d20941b5ed8b69501",
+          "variant": "rnastructure-6.6-linker-3",
+          "version": "6.6"
+        },
+        "id": "plus-clipped-leader",
+        "input": {
+          "anti_sd": "ACCUCCUUA",
+          "host": "synthetic; no host calibration",
+          "id": "plus-clipped-leader",
+          "input_sha256": "55767438c2f2c1c05f3e97d4247b758a98aca7f4321c4bfaa6bc9b40f18b64ad",
+          "normalized_sha256": "55767438c2f2c1c05f3e97d4247b758a98aca7f4321c4bfaa6bc9b40f18b64ad",
+          "oriented_sequence": "GGAUGAAA",
+          "oriented_sha256": "55767438c2f2c1c05f3e97d4247b758a98aca7f4321c4bfaa6bc9b40f18b64ad",
+          "sequence": "GGAUGAAA",
+          "start_positions": [
+            2
+          ],
+          "strand": "+",
+          "temperature_c": 37.0
+        },
+        "model": {
+          "id": "salis-v1-rnastructure-6.6-reconstruction-1",
+          "implementation_version": "0.6.0rc1",
+          "parameters": {
+            "downstream_nt": 35,
+            "effective_RT": 2.222,
+            "energy_comparison_tolerance_kcal_mol": 1e-09,
+            "historical_footprint_nt": 1000,
+            "optimal_aligned_spacing": 5,
+            "rate_scale": 2500.0,
+            "spacing_pull": [
+              0.048,
+              0.24,
+              0.0
+            ],
+            "spacing_push": [
+              12.2,
+              2.5,
+              2.0,
+              3.0
+            ],
+            "standby_nt": 4,
+            "start_energies_kcal_mol": {
+              "AUG": -1.194,
+              "CUG": -0.03406,
+              "GUG": -0.0748,
+              "UUG": -0.0435
+            },
+            "suboptimal_filter_kcal_mol": 3.0,
+            "suboptimal_reference": "lowest_interstrand_connected_complex",
+            "upstream_nt": 35
+          },
+          "source_commit": "8a9c1de1bdd847bb90d2ab6ceaa3c20feceda307"
+        },
+        "prediction_id": "09c9b9e78a9013248abd13f769f1e3e4f82f9b844fcaed16275c9862e58fe125",
+        "reason": null,
+        "schema_version": "1.0",
+        "sites": [
+          {
+            "aligned_spacing": -1,
+            "binding_interval": {
+              "end": 2,
+              "start": 0,
+              "strand": "+"
+            },
+            "candidate_search": {
+              "band_reference_kcal_mol": -0.9,
+              "connected_returned": 2,
+              "exhaustive": false,
+              "returned": 2,
+              "selected_index": 0,
+              "viable_in_band": 2
+            },
+            "codon": "AUG",
+            "energies": {
+              "dG_accessible_complex": -1.5,
+              "dG_cofold_native_prediction": -0.9,
+              "dG_cofold_search": -0.9,
+              "dG_complex": -1.5,
+              "dG_mRNA": 0.0,
+              "dG_mRNA_native_prediction": null,
+              "dG_search_with_spacing": 11.298338513435723,
+              "dG_spacing": 12.198338513435724,
+              "dG_standby_signed": 0.0,
+              "dG_start": -1.194,
+              "dG_total": 9.504338513435723,
+              "units": "kcal/mol"
+            },
+            "log_tir": 3.546665941803311,
+            "oriented_start": 2,
+            "reason": null,
+            "standby_interval": {
+              "end": 0,
+              "start": 0,
+              "strand": "+"
+            },
+            "start_codon": {
+              "end": 5,
+              "start": 2,
+              "strand": "+"
+            },
+            "status": "ok",
+            "structures": {
+              "bound_after_standby": {
+                "anti_sd_dot_bracket": ".))......",
+                "coordinate_space": "zero-based window-relative mRNA and 5-prime-to-3-prime anti_sd",
+                "energy_kcal_mol": -1.5,
+                "mrna_anti_sd_pairs": [
+                  [
+                    0,
+                    2
+                  ],
+                  [
+                    1,
+                    1
+                  ]
+                ],
+                "mrna_dot_bracket": "((......",
+                "mrna_intramolecular_pairs": [],
+                "prediction_energy_kcal_mol": null
+              },
+              "bound_before_standby": {
+                "anti_sd_dot_bracket": ".))......",
+                "coordinate_space": "zero-based window-relative mRNA and 5-prime-to-3-prime anti_sd",
+                "energy_kcal_mol": -1.5,
+                "mrna_anti_sd_pairs": [
+                  [
+                    0,
+                    2
+                  ],
+                  [
+                    1,
+                    1
+                  ]
+                ],
+                "mrna_dot_bracket": "((......",
+                "mrna_intramolecular_pairs": [],
+                "prediction_energy_kcal_mol": null
+              },
+              "unbound": {
+                "anti_sd_dot_bracket": null,
+                "coordinate_space": "zero-based window-relative mRNA and 5-prime-to-3-prime anti_sd",
+                "energy_kcal_mol": 0.0,
+                "mrna_anti_sd_pairs": [],
+                "mrna_dot_bracket": "........",
+                "mrna_intramolecular_pairs": [],
+                "prediction_energy_kcal_mol": null
+              }
+            },
+            "tir": 34.697441137665265,
+            "warnings": [
+              "spacing_penalty_exceeds_suboptimal_energy_band",
+              "standby_region_truncated_at_window_boundary",
+              "folding_window_touches_supplied_sequence_boundary"
+            ],
+            "window": {
+              "input_interval": {
+                "end": 8,
+                "start": 0,
+                "strand": "+"
+              },
+              "oriented_end": 8,
+              "oriented_start": 0
+            }
+          }
+        ],
+        "status": "ok",
+        "warnings": [
+          "reconstruction_not_historical_or_hosted_equivalence",
+          "RNAstructure_parameters_and_dangles_differ_from_NUPACK_rna1999",
+          "bounded_bifold_tracebacks_not_exhaustive_suboptimal_enumeration",
+          "relative_initiation_score_not_absolute_rate_or_probability",
+          "host_configuration_is_not_host_calibration",
+          "patched_traceback_changes_candidate_search_results"
+        ]
+      },
+      "reason": null,
+      "status": "ok",
+      "warnings": [
+        "default_37C_scenario_not_native_condition_calibration",
+        "supplied_start_evidence_does_not_establish_model_accuracy",
+        "operon_coupling_not_modeled",
+        "downstream_context_extent_not_experimentally_verified",
+        "leader_clipped_by_context_limit_or_contig_boundary"
+      ]
+    },
+    {
+      "context": {
+        "genome": {
+          "accession": "synthetic-forward",
+          "annotation": "hand-counted-v1",
+          "assembly": "synthetic20-v1",
+          "sequence_sha256": "910befd6f941189a629d3ac56b3212de0d7ec3421acf5c20715dce428d69966b",
+          "topology": "linear"
+        },
+        "genomic_segments": [
+          {
+            "end": 13,
+            "start": 7,
+            "strand": "+"
+          }
+        ],
+        "genomic_start_segments": [
+          {
+            "end": 10,
+            "start": 7,
+            "strand": "+"
+          }
+        ],
+        "path": {
+          "circular": false,
+          "contig_length": 20,
+          "first": 7,
+          "length": 6,
+          "strand": "+"
+        },
+        "sequence": "AUGAAA",
+        "sequence_alphabet": "RNA",
+        "sequence_sha256": "3a7f6ed8d3e70d56521b133a4a5c0a2d973153e2d0d8dbb05d387074018277a9",
+        "start": 0
+      },
+      "evidence": {
+        "anti_sd": "ACCUCCUUA",
+        "anti_sd_provenance": "explicit synthetic scenario, not native-host sequence evidence",
+        "cds_start_zero_based": 7,
+        "conditions": [],
+        "downstream_length_nt": 6,
+        "genome_id": "synthetic-forward-linear",
+        "host": "synthetic; no host calibration",
+        "id": "leaderless",
+        "leader_length_nt": 0,
+        "mapping_status": "matched_synthetic",
+        "origin_crossing": false,
+        "strand": "+",
+        "transcript_start_evidence": "synthetic fixture",
+        "translation_start_evidence": "synthetic fixture",
+        "tss_zero_based": 7,
+        "upstream_limit_nt": 100,
+        "warnings": []
+      },
+      "genomic_sites": [
+        {
+          "binding_interval": null,
+          "coding_footprint": null,
+          "oriented_start": 0,
+          "rank_among_successful_candidates": null,
+          "standby_interval": null,
+          "start_codon": [
+            {
+              "end": 10,
+              "start": 7,
+              "strand": "+"
+            }
+          ],
+          "start_point": 7,
+          "status": "unsupported",
+          "window": [
+            {
+              "end": 13,
+              "start": 7,
+              "strand": "+"
+            }
+          ]
+        }
+      ],
+      "id": "leaderless",
+      "prediction": {
+        "backend": {
+          "binary_sha256": {
+            "Fold": "81f962573b7f43c023dd23eab4ae1e8e7f6402d8679e89a6a1a539cfdc6a5458",
+            "bifold": "9f8156cabaf8e13f91e90d410c46aef1cff1c2badda1c4243b194f54eb1f8136",
+            "efn2": "f0b2ce5971d482f50867615e3870b4743d42d6b0e266e05c0c0c1f1bc63d8b4d"
+          },
+          "build_provenance": {
+            "component": "rnastructure-6.6-linker-3",
+            "license": "GPL-2.0-only",
+            "patch_sha256": "2ef6ef61496b034110f4151e2fc1aec77cbd011c88a36bcef574be0dfecebb2d",
+            "patched_source_sha256": "b19a9ad1634f7e8f7669410b1eb7f5e8c27542f073054acb65647891e62ddbc7",
+            "source_archive_sha256": "1bedc62aaab984279055caaa6234d48fca113f4b8e17a8060e0b3784d5a397c3"
+          },
+          "build_receipt_sha256": "7fabba75b3f49cb9be9a5633f8fb149e318e6e48a971487acf7cceb743b806e2",
+          "expected_source_archive_sha256": "1bedc62aaab984279055caaa6234d48fca113f4b8e17a8060e0b3784d5a397c3",
+          "interface": "independent executables via sequence/CT files",
+          "licence": "GPL-2.0-only (separate installation)",
+          "name": "RNAstructure",
+          "settings": {
+            "alphabet": "rna",
+            "bifold_maximum": 100,
+            "bifold_percent": 100,
+            "bifold_window": 0,
+            "coaxial_stacking": true,
+            "dangles": "RNAstructure 6.6 native; no historical auto-dangle switch",
+            "efn2_multibranch_model": "simple",
+            "energy_evaluation": "efn2 --simple for every structure",
+            "fold_maximum": 1,
+            "fold_mfe_only": true,
+            "fold_window": 0,
+            "intramolecular_pairs": true,
+            "isolated_pairs": false,
+            "maximum_loop": 30
+          },
+          "table_manifest_sha256": "ece4c4b535783cb4e03c7ce8f243d09be84a165ecd113b1d20941b5ed8b69501",
+          "variant": "rnastructure-6.6-linker-3",
+          "version": "6.6"
+        },
+        "id": "leaderless",
+        "input": {
+          "anti_sd": "ACCUCCUUA",
+          "host": "synthetic; no host calibration",
+          "id": "leaderless",
+          "input_sha256": "3a7f6ed8d3e70d56521b133a4a5c0a2d973153e2d0d8dbb05d387074018277a9",
+          "normalized_sha256": "3a7f6ed8d3e70d56521b133a4a5c0a2d973153e2d0d8dbb05d387074018277a9",
+          "oriented_sequence": "AUGAAA",
+          "oriented_sha256": "3a7f6ed8d3e70d56521b133a4a5c0a2d973153e2d0d8dbb05d387074018277a9",
+          "sequence": "AUGAAA",
+          "start_positions": [
+            0
+          ],
+          "strand": "+",
+          "temperature_c": 37.0
+        },
+        "model": {
+          "id": "salis-v1-rnastructure-6.6-reconstruction-1",
+          "implementation_version": "0.6.0rc1",
+          "parameters": {
+            "downstream_nt": 35,
+            "effective_RT": 2.222,
+            "energy_comparison_tolerance_kcal_mol": 1e-09,
+            "historical_footprint_nt": 1000,
+            "optimal_aligned_spacing": 5,
+            "rate_scale": 2500.0,
+            "spacing_pull": [
+              0.048,
+              0.24,
+              0.0
+            ],
+            "spacing_push": [
+              12.2,
+              2.5,
+              2.0,
+              3.0
+            ],
+            "standby_nt": 4,
+            "start_energies_kcal_mol": {
+              "AUG": -1.194,
+              "CUG": -0.03406,
+              "GUG": -0.0748,
+              "UUG": -0.0435
+            },
+            "suboptimal_filter_kcal_mol": 3.0,
+            "suboptimal_reference": "lowest_interstrand_connected_complex",
+            "upstream_nt": 35
+          },
+          "source_commit": "8a9c1de1bdd847bb90d2ab6ceaa3c20feceda307"
+        },
+        "prediction_id": "8fbc1564af1d8a631b978f1ab2b031a41836ac29db2717a60a31cea94ce0cf78",
+        "reason": null,
+        "schema_version": "1.0",
+        "sites": [
+          {
+            "aligned_spacing": null,
+            "binding_interval": null,
+            "candidate_search": null,
+            "codon": "AUG",
+            "energies": null,
+            "log_tir": null,
+            "oriented_start": 0,
+            "reason": "leaderless_initiation_not_modeled",
+            "standby_interval": null,
+            "start_codon": {
+              "end": 3,
+              "start": 0,
+              "strand": "+"
+            },
+            "status": "unsupported",
+            "structures": null,
+            "tir": null,
+            "warnings": [],
+            "window": {
+              "input_interval": {
+                "end": 6,
+                "start": 0,
+                "strand": "+"
+              },
+              "oriented_end": 6,
+              "oriented_start": 0
+            }
+          }
+        ],
+        "status": "unsupported",
+        "warnings": [
+          "reconstruction_not_historical_or_hosted_equivalence",
+          "RNAstructure_parameters_and_dangles_differ_from_NUPACK_rna1999",
+          "bounded_bifold_tracebacks_not_exhaustive_suboptimal_enumeration",
+          "relative_initiation_score_not_absolute_rate_or_probability",
+          "host_configuration_is_not_host_calibration",
+          "patched_traceback_changes_candidate_search_results"
+        ]
+      },
+      "reason": "leaderless_initiation_not_modeled",
+      "status": "unsupported",
+      "warnings": [
+        "default_37C_scenario_not_native_condition_calibration",
+        "supplied_start_evidence_does_not_establish_model_accuracy",
+        "operon_coupling_not_modeled",
+        "downstream_context_extent_not_experimentally_verified"
+      ]
+    },
+    {
+      "context": null,
+      "evidence": {
+        "anti_sd": "ACCUCCUUA",
+        "anti_sd_provenance": "explicit synthetic scenario, not native-host sequence evidence",
+        "cds_start_zero_based": 7,
+        "conditions": [],
+        "downstream_length_nt": 6,
+        "genome_id": "synthetic-forward-linear",
+        "host": "synthetic; no host calibration",
+        "id": "internal-tss",
+        "leader_length_nt": -1,
+        "mapping_status": "tss_inside_current_cds",
+        "origin_crossing": false,
+        "strand": "+",
+        "transcript_start_evidence": "synthetic fixture",
+        "translation_start_evidence": "synthetic fixture",
+        "tss_zero_based": 8,
+        "upstream_limit_nt": 100,
+        "warnings": []
+      },
+      "genomic_sites": [],
+      "id": "internal-tss",
+      "prediction": null,
+      "reason": "tss_inside_current_cds",
+      "status": "unsupported",
+      "warnings": []
+    },
+    {
+      "context": {
+        "genome": {
+          "accession": "synthetic201-at-rich",
+          "annotation": "synthetic-resource-v1",
+          "assembly": "synthetic201-v1",
+          "sequence_sha256": "d51ff48b2c30df8bb1eea08dd52dba1d8fe192b2d652b8330d440e542e566f1f",
+          "topology": "linear"
+        },
+        "genomic_segments": [
+          {
+            "end": 200,
+            "start": 0,
+            "strand": "+"
+          }
+        ],
+        "genomic_start_segments": [
+          {
+            "end": 103,
+            "start": 100,
+            "strand": "+"
+          }
+        ],
+        "path": {
+          "circular": false,
+          "contig_length": 201,
+          "first": 0,
+          "length": 200,
+          "strand": "+"
+        },
+        "sequence": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGGAGGAAAAAAAAUGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "sequence_alphabet": "RNA",
+        "sequence_sha256": "2e0933747084bd510432c27fc843883215569750fd003aabc090977f3a8bd2c4",
+        "start": 100
+      },
+      "evidence": {
+        "anti_sd": "ACCUCCUUU",
+        "anti_sd_provenance": "explicit synthetic scenario, not native-host sequence evidence",
+        "cds_start_zero_based": 100,
+        "conditions": [],
+        "downstream_length_nt": 100,
+        "genome_id": "synthetic201-at-rich",
+        "host": "synthetic; no host calibration",
+        "id": "synthetic201-at-rich",
+        "leader_length_nt": 100,
+        "mapping_status": "matched_synthetic",
+        "origin_crossing": false,
+        "strand": "+",
+        "transcript_start_evidence": "synthetic fixture",
+        "translation_start_evidence": "synthetic fixture",
+        "tss_zero_based": 0,
+        "upstream_limit_nt": 100,
+        "warnings": []
+      },
+      "genomic_sites": [
+        {
+          "binding_interval": [
+            {
+              "end": 93,
+              "start": 85,
+              "strand": "+"
+            }
+          ],
+          "coding_footprint": null,
+          "oriented_start": 100,
+          "rank_among_successful_candidates": 1,
+          "standby_interval": [
+            {
+              "end": 85,
+              "start": 81,
+              "strand": "+"
+            }
+          ],
+          "start_codon": [
+            {
+              "end": 103,
+              "start": 100,
+              "strand": "+"
+            }
+          ],
+          "start_point": 100,
+          "status": "ok",
+          "window": [
+            {
+              "end": 135,
+              "start": 65,
+              "strand": "+"
+            }
+          ]
+        }
+      ],
+      "id": "synthetic201-at-rich",
+      "prediction": {
+        "backend": {
+          "binary_sha256": {
+            "Fold": "81f962573b7f43c023dd23eab4ae1e8e7f6402d8679e89a6a1a539cfdc6a5458",
+            "bifold": "9f8156cabaf8e13f91e90d410c46aef1cff1c2badda1c4243b194f54eb1f8136",
+            "efn2": "f0b2ce5971d482f50867615e3870b4743d42d6b0e266e05c0c0c1f1bc63d8b4d"
+          },
+          "build_provenance": {
+            "component": "rnastructure-6.6-linker-3",
+            "license": "GPL-2.0-only",
+            "patch_sha256": "2ef6ef61496b034110f4151e2fc1aec77cbd011c88a36bcef574be0dfecebb2d",
+            "patched_source_sha256": "b19a9ad1634f7e8f7669410b1eb7f5e8c27542f073054acb65647891e62ddbc7",
+            "source_archive_sha256": "1bedc62aaab984279055caaa6234d48fca113f4b8e17a8060e0b3784d5a397c3"
+          },
+          "build_receipt_sha256": "7fabba75b3f49cb9be9a5633f8fb149e318e6e48a971487acf7cceb743b806e2",
+          "expected_source_archive_sha256": "1bedc62aaab984279055caaa6234d48fca113f4b8e17a8060e0b3784d5a397c3",
+          "interface": "independent executables via sequence/CT files",
+          "licence": "GPL-2.0-only (separate installation)",
+          "name": "RNAstructure",
+          "settings": {
+            "alphabet": "rna",
+            "bifold_maximum": 100,
+            "bifold_percent": 100,
+            "bifold_window": 0,
+            "coaxial_stacking": true,
+            "dangles": "RNAstructure 6.6 native; no historical auto-dangle switch",
+            "efn2_multibranch_model": "simple",
+            "energy_evaluation": "efn2 --simple for every structure",
+            "fold_maximum": 1,
+            "fold_mfe_only": true,
+            "fold_window": 0,
+            "intramolecular_pairs": true,
+            "isolated_pairs": false,
+            "maximum_loop": 30
+          },
+          "table_manifest_sha256": "ece4c4b535783cb4e03c7ce8f243d09be84a165ecd113b1d20941b5ed8b69501",
+          "variant": "rnastructure-6.6-linker-3",
+          "version": "6.6"
+        },
+        "id": "synthetic201-at-rich",
+        "input": {
+          "anti_sd": "ACCUCCUUU",
+          "host": "synthetic; no host calibration",
+          "id": "synthetic201-at-rich",
+          "input_sha256": "2e0933747084bd510432c27fc843883215569750fd003aabc090977f3a8bd2c4",
+          "normalized_sha256": "2e0933747084bd510432c27fc843883215569750fd003aabc090977f3a8bd2c4",
+          "oriented_sequence": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGGAGGAAAAAAAAUGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "oriented_sha256": "2e0933747084bd510432c27fc843883215569750fd003aabc090977f3a8bd2c4",
+          "sequence": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGGAGGAAAAAAAAUGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "start_positions": [
+            100
+          ],
+          "strand": "+",
+          "temperature_c": 37.0
+        },
+        "model": {
+          "id": "salis-v1-rnastructure-6.6-reconstruction-1",
+          "implementation_version": "0.6.0rc1",
+          "parameters": {
+            "downstream_nt": 35,
+            "effective_RT": 2.222,
+            "energy_comparison_tolerance_kcal_mol": 1e-09,
+            "historical_footprint_nt": 1000,
+            "optimal_aligned_spacing": 5,
+            "rate_scale": 2500.0,
+            "spacing_pull": [
+              0.048,
+              0.24,
+              0.0
+            ],
+            "spacing_push": [
+              12.2,
+              2.5,
+              2.0,
+              3.0
+            ],
+            "standby_nt": 4,
+            "start_energies_kcal_mol": {
+              "AUG": -1.194,
+              "CUG": -0.03406,
+              "GUG": -0.0748,
+              "UUG": -0.0435
+            },
+            "suboptimal_filter_kcal_mol": 3.0,
+            "suboptimal_reference": "lowest_interstrand_connected_complex",
+            "upstream_nt": 35
+          },
+          "source_commit": "8a9c1de1bdd847bb90d2ab6ceaa3c20feceda307"
+        },
+        "prediction_id": "5060967116146728838938f3c9531298dd7a93db0f937fd4bdeb66ea808f0fdb",
+        "reason": null,
+        "schema_version": "1.0",
+        "sites": [
+          {
+            "aligned_spacing": 6,
+            "binding_interval": {
+              "end": 93,
+              "start": 85,
+              "strand": "+"
+            },
+            "candidate_search": {
+              "band_reference_kcal_mol": -11.8,
+              "connected_returned": 56,
+              "exhaustive": false,
+              "returned": 56,
+              "selected_index": 0,
+              "viable_in_band": 2
+            },
+            "codon": "AUG",
+            "energies": {
+              "dG_accessible_complex": -11.8,
+              "dG_cofold_native_prediction": -11.8,
+              "dG_cofold_search": -11.8,
+              "dG_complex": -11.8,
+              "dG_mRNA": 0.0,
+              "dG_mRNA_native_prediction": null,
+              "dG_search_with_spacing": -11.512,
+              "dG_spacing": 0.288,
+              "dG_standby_signed": 0.0,
+              "dG_start": -1.194,
+              "dG_total": -12.706,
+              "units": "kcal/mol"
+            },
+            "log_tir": 13.542317838039011,
+            "oriented_start": 100,
+            "reason": null,
+            "standby_interval": {
+              "end": 85,
+              "start": 81,
+              "strand": "+"
+            },
+            "start_codon": {
+              "end": 103,
+              "start": 100,
+              "strand": "+"
+            },
+            "status": "ok",
+            "structures": {
+              "bound_after_standby": {
+                "anti_sd_dot_bracket": ".))))))))",
+                "coordinate_space": "zero-based window-relative mRNA and 5-prime-to-3-prime anti_sd",
+                "energy_kcal_mol": -11.8,
+                "mrna_anti_sd_pairs": [
+                  [
+                    20,
+                    8
+                  ],
+                  [
+                    21,
+                    7
+                  ],
+                  [
+                    22,
+                    6
+                  ],
+                  [
+                    23,
+                    5
+                  ],
+                  [
+                    24,
+                    4
+                  ],
+                  [
+                    25,
+                    3
+                  ],
+                  [
+                    26,
+                    2
+                  ],
+                  [
+                    27,
+                    1
+                  ]
+                ],
+                "mrna_dot_bracket": "....................((((((((..........................................",
+                "mrna_intramolecular_pairs": [],
+                "prediction_energy_kcal_mol": null
+              },
+              "bound_before_standby": {
+                "anti_sd_dot_bracket": ".))))))))",
+                "coordinate_space": "zero-based window-relative mRNA and 5-prime-to-3-prime anti_sd",
+                "energy_kcal_mol": -11.8,
+                "mrna_anti_sd_pairs": [
+                  [
+                    20,
+                    8
+                  ],
+                  [
+                    21,
+                    7
+                  ],
+                  [
+                    22,
+                    6
+                  ],
+                  [
+                    23,
+                    5
+                  ],
+                  [
+                    24,
+                    4
+                  ],
+                  [
+                    25,
+                    3
+                  ],
+                  [
+                    26,
+                    2
+                  ],
+                  [
+                    27,
+                    1
+                  ]
+                ],
+                "mrna_dot_bracket": "....................((((((((..........................................",
+                "mrna_intramolecular_pairs": [],
+                "prediction_energy_kcal_mol": null
+              },
+              "unbound": {
+                "anti_sd_dot_bracket": null,
+                "coordinate_space": "zero-based window-relative mRNA and 5-prime-to-3-prime anti_sd",
+                "energy_kcal_mol": 0.0,
+                "mrna_anti_sd_pairs": [],
+                "mrna_dot_bracket": "......................................................................",
+                "mrna_intramolecular_pairs": [],
+                "prediction_energy_kcal_mol": null
+              }
+            },
+            "tir": 760946.1240167378,
+            "warnings": [],
+            "window": {
+              "input_interval": {
+                "end": 135,
+                "start": 65,
+                "strand": "+"
+              },
+              "oriented_end": 135,
+              "oriented_start": 65
+            }
+          }
+        ],
+        "status": "ok",
+        "warnings": [
+          "reconstruction_not_historical_or_hosted_equivalence",
+          "RNAstructure_parameters_and_dangles_differ_from_NUPACK_rna1999",
+          "bounded_bifold_tracebacks_not_exhaustive_suboptimal_enumeration",
+          "relative_initiation_score_not_absolute_rate_or_probability",
+          "host_configuration_is_not_host_calibration",
+          "patched_traceback_changes_candidate_search_results"
+        ]
+      },
+      "reason": null,
+      "status": "ok",
+      "warnings": [
+        "default_37C_scenario_not_native_condition_calibration",
+        "supplied_start_evidence_does_not_establish_model_accuracy",
+        "operon_coupling_not_modeled",
+        "downstream_context_extent_not_experimentally_verified"
+      ]
+    },
+    {
+      "context": {
+        "genome": {
+          "accession": "synthetic201-gc-rich",
+          "annotation": "synthetic-resource-v1",
+          "assembly": "synthetic201-v1",
+          "sequence_sha256": "dadedf0c3391a6eed90bfbc1e12ce4d801ae5a42d4e4cf418313e7a4b99ebd48",
+          "topology": "linear"
+        },
+        "genomic_segments": [
+          {
+            "end": 200,
+            "start": 0,
+            "strand": "+"
+          }
+        ],
+        "genomic_start_segments": [
+          {
+            "end": 103,
+            "start": 100,
+            "strand": "+"
+          }
+        ],
+        "path": {
+          "circular": false,
+          "contig_length": 201,
+          "first": 0,
+          "length": 200,
+          "strand": "+"
+        },
+        "sequence": "GCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCAUGGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCG",
+        "sequence_alphabet": "RNA",
+        "sequence_sha256": "66e355cea2a06b5a51389ea5568cd7a96fdcc78583709a8ee42293ca6ed70dc5",
+        "start": 100
+      },
+      "evidence": {
+        "anti_sd": "ACCUCCUUU",
+        "anti_sd_provenance": "explicit synthetic scenario, not native-host sequence evidence",
+        "cds_start_zero_based": 100,
+        "conditions": [],
+        "downstream_length_nt": 100,
+        "genome_id": "synthetic201-gc-rich",
+        "host": "synthetic; no host calibration",
+        "id": "synthetic201-gc-rich",
+        "leader_length_nt": 100,
+        "mapping_status": "matched_synthetic",
+        "origin_crossing": false,
+        "strand": "+",
+        "transcript_start_evidence": "synthetic fixture",
+        "translation_start_evidence": "synthetic fixture",
+        "tss_zero_based": 0,
+        "upstream_limit_nt": 100,
+        "warnings": []
+      },
+      "genomic_sites": [
+        {
+          "binding_interval": null,
+          "coding_footprint": null,
+          "oriented_start": 100,
+          "rank_among_successful_candidates": null,
+          "standby_interval": null,
+          "start_codon": [
+            {
+              "end": 103,
+              "start": 100,
+              "strand": "+"
+            }
+          ],
+          "start_point": 100,
+          "status": "no_candidate",
+          "window": [
+            {
+              "end": 135,
+              "start": 65,
+              "strand": "+"
+            }
+          ]
+        }
+      ],
+      "id": "synthetic201-gc-rich",
+      "prediction": {
+        "backend": {
+          "binary_sha256": {
+            "Fold": "81f962573b7f43c023dd23eab4ae1e8e7f6402d8679e89a6a1a539cfdc6a5458",
+            "bifold": "9f8156cabaf8e13f91e90d410c46aef1cff1c2badda1c4243b194f54eb1f8136",
+            "efn2": "f0b2ce5971d482f50867615e3870b4743d42d6b0e266e05c0c0c1f1bc63d8b4d"
+          },
+          "build_provenance": {
+            "component": "rnastructure-6.6-linker-3",
+            "license": "GPL-2.0-only",
+            "patch_sha256": "2ef6ef61496b034110f4151e2fc1aec77cbd011c88a36bcef574be0dfecebb2d",
+            "patched_source_sha256": "b19a9ad1634f7e8f7669410b1eb7f5e8c27542f073054acb65647891e62ddbc7",
+            "source_archive_sha256": "1bedc62aaab984279055caaa6234d48fca113f4b8e17a8060e0b3784d5a397c3"
+          },
+          "build_receipt_sha256": "7fabba75b3f49cb9be9a5633f8fb149e318e6e48a971487acf7cceb743b806e2",
+          "expected_source_archive_sha256": "1bedc62aaab984279055caaa6234d48fca113f4b8e17a8060e0b3784d5a397c3",
+          "interface": "independent executables via sequence/CT files",
+          "licence": "GPL-2.0-only (separate installation)",
+          "name": "RNAstructure",
+          "settings": {
+            "alphabet": "rna",
+            "bifold_maximum": 100,
+            "bifold_percent": 100,
+            "bifold_window": 0,
+            "coaxial_stacking": true,
+            "dangles": "RNAstructure 6.6 native; no historical auto-dangle switch",
+            "efn2_multibranch_model": "simple",
+            "energy_evaluation": "efn2 --simple for every structure",
+            "fold_maximum": 1,
+            "fold_mfe_only": true,
+            "fold_window": 0,
+            "intramolecular_pairs": true,
+            "isolated_pairs": false,
+            "maximum_loop": 30
+          },
+          "table_manifest_sha256": "ece4c4b535783cb4e03c7ce8f243d09be84a165ecd113b1d20941b5ed8b69501",
+          "variant": "rnastructure-6.6-linker-3",
+          "version": "6.6"
+        },
+        "id": "synthetic201-gc-rich",
+        "input": {
+          "anti_sd": "ACCUCCUUU",
+          "host": "synthetic; no host calibration",
+          "id": "synthetic201-gc-rich",
+          "input_sha256": "66e355cea2a06b5a51389ea5568cd7a96fdcc78583709a8ee42293ca6ed70dc5",
+          "normalized_sha256": "66e355cea2a06b5a51389ea5568cd7a96fdcc78583709a8ee42293ca6ed70dc5",
+          "oriented_sequence": "GCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCAUGGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCG",
+          "oriented_sha256": "66e355cea2a06b5a51389ea5568cd7a96fdcc78583709a8ee42293ca6ed70dc5",
+          "sequence": "GCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCAUGGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCG",
+          "start_positions": [
+            100
+          ],
+          "strand": "+",
+          "temperature_c": 37.0
+        },
+        "model": {
+          "id": "salis-v1-rnastructure-6.6-reconstruction-1",
+          "implementation_version": "0.6.0rc1",
+          "parameters": {
+            "downstream_nt": 35,
+            "effective_RT": 2.222,
+            "energy_comparison_tolerance_kcal_mol": 1e-09,
+            "historical_footprint_nt": 1000,
+            "optimal_aligned_spacing": 5,
+            "rate_scale": 2500.0,
+            "spacing_pull": [
+              0.048,
+              0.24,
+              0.0
+            ],
+            "spacing_push": [
+              12.2,
+              2.5,
+              2.0,
+              3.0
+            ],
+            "standby_nt": 4,
+            "start_energies_kcal_mol": {
+              "AUG": -1.194,
+              "CUG": -0.03406,
+              "GUG": -0.0748,
+              "UUG": -0.0435
+            },
+            "suboptimal_filter_kcal_mol": 3.0,
+            "suboptimal_reference": "lowest_interstrand_connected_complex",
+            "upstream_nt": 35
+          },
+          "source_commit": "8a9c1de1bdd847bb90d2ab6ceaa3c20feceda307"
+        },
+        "prediction_id": "e23ab1a42b770719052fb521c75374cef29555294772b19c818ec0e9e044fd18",
+        "reason": null,
+        "schema_version": "1.0",
+        "sites": [
+          {
+            "aligned_spacing": null,
+            "binding_interval": null,
+            "candidate_search": null,
+            "codon": "AUG",
+            "energies": null,
+            "log_tir": null,
+            "oriented_start": 100,
+            "reason": "no_interstrand_candidate_in_bounded_search",
+            "standby_interval": null,
+            "start_codon": {
+              "end": 103,
+              "start": 100,
+              "strand": "+"
+            },
+            "status": "no_candidate",
+            "structures": null,
+            "tir": null,
+            "warnings": [],
+            "window": {
+              "input_interval": {
+                "end": 135,
+                "start": 65,
+                "strand": "+"
+              },
+              "oriented_end": 135,
+              "oriented_start": 65
+            }
+          }
+        ],
+        "status": "no_candidate",
+        "warnings": [
+          "reconstruction_not_historical_or_hosted_equivalence",
+          "RNAstructure_parameters_and_dangles_differ_from_NUPACK_rna1999",
+          "bounded_bifold_tracebacks_not_exhaustive_suboptimal_enumeration",
+          "relative_initiation_score_not_absolute_rate_or_probability",
+          "host_configuration_is_not_host_calibration",
+          "patched_traceback_changes_candidate_search_results"
+        ]
+      },
+      "reason": "no_interstrand_candidate_in_bounded_search",
+      "status": "no_candidate",
+      "warnings": [
+        "default_37C_scenario_not_native_condition_calibration",
+        "supplied_start_evidence_does_not_establish_model_accuracy",
+        "operon_coupling_not_modeled",
+        "downstream_context_extent_not_experimentally_verified"
+      ]
+    },
+    {
+      "context": {
+        "genome": {
+          "accession": "synthetic201-mixed",
+          "annotation": "synthetic-resource-v1",
+          "assembly": "synthetic201-v1",
+          "sequence_sha256": "b02ef339be255d52daa06df613c1d9efde0e5cc948c8a1d1b466854d192fdd10",
+          "topology": "linear"
+        },
+        "genomic_segments": [
+          {
+            "end": 200,
+            "start": 0,
+            "strand": "+"
+          }
+        ],
+        "genomic_start_segments": [
+          {
+            "end": 103,
+            "start": 100,
+            "strand": "+"
+          }
+        ],
+        "path": {
+          "circular": false,
+          "contig_length": 201,
+          "first": 0,
+          "length": 200,
+          "strand": "+"
+        },
+        "sequence": "ACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUAUGACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUA",
+        "sequence_alphabet": "RNA",
+        "sequence_sha256": "3be25bb6258e1698482be250fbc3cdfc82ac99ab85c3b8e907539091eb0dbf51",
+        "start": 100
+      },
+      "evidence": {
+        "anti_sd": "ACCUCCUUU",
+        "anti_sd_provenance": "explicit synthetic scenario, not native-host sequence evidence",
+        "cds_start_zero_based": 100,
+        "conditions": [],
+        "downstream_length_nt": 100,
+        "genome_id": "synthetic201-mixed",
+        "host": "synthetic; no host calibration",
+        "id": "synthetic201-mixed",
+        "leader_length_nt": 100,
+        "mapping_status": "matched_synthetic",
+        "origin_crossing": false,
+        "strand": "+",
+        "transcript_start_evidence": "synthetic fixture",
+        "translation_start_evidence": "synthetic fixture",
+        "tss_zero_based": 0,
+        "upstream_limit_nt": 100,
+        "warnings": []
+      },
+      "genomic_sites": [
+        {
+          "binding_interval": [
+            {
+              "end": 100,
+              "start": 98,
+              "strand": "+"
+            }
+          ],
+          "coding_footprint": null,
+          "oriented_start": 100,
+          "rank_among_successful_candidates": 1,
+          "standby_interval": [
+            {
+              "end": 98,
+              "start": 94,
+              "strand": "+"
+            }
+          ],
+          "start_codon": [
+            {
+              "end": 103,
+              "start": 100,
+              "strand": "+"
+            }
+          ],
+          "start_point": 100,
+          "status": "ok",
+          "window": [
+            {
+              "end": 135,
+              "start": 65,
+              "strand": "+"
+            }
+          ]
+        }
+      ],
+      "id": "synthetic201-mixed",
+      "prediction": {
+        "backend": {
+          "binary_sha256": {
+            "Fold": "81f962573b7f43c023dd23eab4ae1e8e7f6402d8679e89a6a1a539cfdc6a5458",
+            "bifold": "9f8156cabaf8e13f91e90d410c46aef1cff1c2badda1c4243b194f54eb1f8136",
+            "efn2": "f0b2ce5971d482f50867615e3870b4743d42d6b0e266e05c0c0c1f1bc63d8b4d"
+          },
+          "build_provenance": {
+            "component": "rnastructure-6.6-linker-3",
+            "license": "GPL-2.0-only",
+            "patch_sha256": "2ef6ef61496b034110f4151e2fc1aec77cbd011c88a36bcef574be0dfecebb2d",
+            "patched_source_sha256": "b19a9ad1634f7e8f7669410b1eb7f5e8c27542f073054acb65647891e62ddbc7",
+            "source_archive_sha256": "1bedc62aaab984279055caaa6234d48fca113f4b8e17a8060e0b3784d5a397c3"
+          },
+          "build_receipt_sha256": "7fabba75b3f49cb9be9a5633f8fb149e318e6e48a971487acf7cceb743b806e2",
+          "expected_source_archive_sha256": "1bedc62aaab984279055caaa6234d48fca113f4b8e17a8060e0b3784d5a397c3",
+          "interface": "independent executables via sequence/CT files",
+          "licence": "GPL-2.0-only (separate installation)",
+          "name": "RNAstructure",
+          "settings": {
+            "alphabet": "rna",
+            "bifold_maximum": 100,
+            "bifold_percent": 100,
+            "bifold_window": 0,
+            "coaxial_stacking": true,
+            "dangles": "RNAstructure 6.6 native; no historical auto-dangle switch",
+            "efn2_multibranch_model": "simple",
+            "energy_evaluation": "efn2 --simple for every structure",
+            "fold_maximum": 1,
+            "fold_mfe_only": true,
+            "fold_window": 0,
+            "intramolecular_pairs": true,
+            "isolated_pairs": false,
+            "maximum_loop": 30
+          },
+          "table_manifest_sha256": "ece4c4b535783cb4e03c7ce8f243d09be84a165ecd113b1d20941b5ed8b69501",
+          "variant": "rnastructure-6.6-linker-3",
+          "version": "6.6"
+        },
+        "id": "synthetic201-mixed",
+        "input": {
+          "anti_sd": "ACCUCCUUU",
+          "host": "synthetic; no host calibration",
+          "id": "synthetic201-mixed",
+          "input_sha256": "3be25bb6258e1698482be250fbc3cdfc82ac99ab85c3b8e907539091eb0dbf51",
+          "normalized_sha256": "3be25bb6258e1698482be250fbc3cdfc82ac99ab85c3b8e907539091eb0dbf51",
+          "oriented_sequence": "ACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUAUGACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUA",
+          "oriented_sha256": "3be25bb6258e1698482be250fbc3cdfc82ac99ab85c3b8e907539091eb0dbf51",
+          "sequence": "ACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUAUGACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUACGUA",
+          "start_positions": [
+            100
+          ],
+          "strand": "+",
+          "temperature_c": 37.0
+        },
+        "model": {
+          "id": "salis-v1-rnastructure-6.6-reconstruction-1",
+          "implementation_version": "0.6.0rc1",
+          "parameters": {
+            "downstream_nt": 35,
+            "effective_RT": 2.222,
+            "energy_comparison_tolerance_kcal_mol": 1e-09,
+            "historical_footprint_nt": 1000,
+            "optimal_aligned_spacing": 5,
+            "rate_scale": 2500.0,
+            "spacing_pull": [
+              0.048,
+              0.24,
+              0.0
+            ],
+            "spacing_push": [
+              12.2,
+              2.5,
+              2.0,
+              3.0
+            ],
+            "standby_nt": 4,
+            "start_energies_kcal_mol": {
+              "AUG": -1.194,
+              "CUG": -0.03406,
+              "GUG": -0.0748,
+              "UUG": -0.0435
+            },
+            "suboptimal_filter_kcal_mol": 3.0,
+            "suboptimal_reference": "lowest_interstrand_connected_complex",
+            "upstream_nt": 35
+          },
+          "source_commit": "8a9c1de1bdd847bb90d2ab6ceaa3c20feceda307"
+        },
+        "prediction_id": "9bb6b8ee3b104229f3982c8970badf0374cbe67462763f3dd0438e396998abe4",
+        "reason": null,
+        "schema_version": "1.0",
+        "sites": [
+          {
+            "aligned_spacing": 0,
+            "binding_interval": {
+              "end": 100,
+              "start": 98,
+              "strand": "+"
+            },
+            "candidate_search": {
+              "band_reference_kcal_mol": -22.5,
+              "connected_returned": 25,
+              "exhaustive": false,
+              "returned": 79,
+              "selected_index": 3,
+              "viable_in_band": 3
+            },
+            "codon": "AUG",
+            "energies": {
+              "dG_accessible_complex": -18.9,
+              "dG_cofold_native_prediction": -21.2,
+              "dG_cofold_search": -21.2,
+              "dG_complex": -21.9,
+              "dG_mRNA": -57.3,
+              "dG_mRNA_native_prediction": -57.3,
+              "dG_search_with_spacing": -9.020220516521592,
+              "dG_spacing": 12.179779483478407,
+              "dG_standby_signed": -3.0,
+              "dG_start": -1.194,
+              "dG_total": 49.3857794834784,
+              "units": "kcal/mol"
+            },
+            "log_tir": -14.401777339043978,
+            "oriented_start": 100,
+            "reason": null,
+            "standby_interval": {
+              "end": 98,
+              "start": 94,
+              "strand": "+"
+            },
+            "start_codon": {
+              "end": 103,
+              "start": 100,
+              "strand": "+"
+            },
+            "status": "ok",
+            "structures": {
+              "bound_after_standby": {
+                "anti_sd_dot_bracket": ")).......",
+                "coordinate_space": "zero-based window-relative mRNA and 5-prime-to-3-prime anti_sd",
+                "energy_kcal_mol": -18.9,
+                "mrna_anti_sd_pairs": [
+                  [
+                    33,
+                    1
+                  ],
+                  [
+                    34,
+                    0
+                  ]
+                ],
+                "mrna_dot_bracket": ".((((((((((((....))))))))))))....((...................................",
+                "mrna_intramolecular_pairs": [
+                  [
+                    1,
+                    28
+                  ],
+                  [
+                    2,
+                    27
+                  ],
+                  [
+                    3,
+                    26
+                  ],
+                  [
+                    4,
+                    25
+                  ],
+                  [
+                    5,
+                    24
+                  ],
+                  [
+                    6,
+                    23
+                  ],
+                  [
+                    7,
+                    22
+                  ],
+                  [
+                    8,
+                    21
+                  ],
+                  [
+                    9,
+                    20
+                  ],
+                  [
+                    10,
+                    19
+                  ],
+                  [
+                    11,
+                    18
+                  ],
+                  [
+                    12,
+                    17
+                  ]
+                ],
+                "prediction_energy_kcal_mol": null
+              },
+              "bound_before_standby": {
+                "anti_sd_dot_bracket": ")).......",
+                "coordinate_space": "zero-based window-relative mRNA and 5-prime-to-3-prime anti_sd",
+                "energy_kcal_mol": -21.9,
+                "mrna_anti_sd_pairs": [
+                  [
+                    33,
+                    1
+                  ],
+                  [
+                    34,
+                    0
+                  ]
+                ],
+                "mrna_dot_bracket": ".((((((((((((((....))))))))))))))((...................................",
+                "mrna_intramolecular_pairs": [
+                  [
+                    1,
+                    32
+                  ],
+                  [
+                    2,
+                    31
+                  ],
+                  [
+                    3,
+                    30
+                  ],
+                  [
+                    4,
+                    29
+                  ],
+                  [
+                    5,
+                    28
+                  ],
+                  [
+                    6,
+                    27
+                  ],
+                  [
+                    7,
+                    26
+                  ],
+                  [
+                    8,
+                    25
+                  ],
+                  [
+                    9,
+                    24
+                  ],
+                  [
+                    10,
+                    23
+                  ],
+                  [
+                    11,
+                    22
+                  ],
+                  [
+                    12,
+                    21
+                  ],
+                  [
+                    13,
+                    20
+                  ],
+                  [
+                    14,
+                    19
+                  ]
+                ],
+                "prediction_energy_kcal_mol": null
+              },
+              "unbound": {
+                "anti_sd_dot_bracket": null,
+                "coordinate_space": "zero-based window-relative mRNA and 5-prime-to-3-prime anti_sd",
+                "energy_kcal_mol": -57.3,
+                "mrna_anti_sd_pairs": [],
+                "mrna_dot_bracket": "...((((((((((((((((((((((((((((((((...))))))))))))))))))))))))))))))))",
+                "mrna_intramolecular_pairs": [
+                  [
+                    3,
+                    69
+                  ],
+                  [
+                    4,
+                    68
+                  ],
+                  [
+                    5,
+                    67
+                  ],
+                  [
+                    6,
+                    66
+                  ],
+                  [
+                    7,
+                    65
+                  ],
+                  [
+                    8,
+                    64
+                  ],
+                  [
+                    9,
+                    63
+                  ],
+                  [
+                    10,
+                    62
+                  ],
+                  [
+                    11,
+                    61
+                  ],
+                  [
+                    12,
+                    60
+                  ],
+                  [
+                    13,
+                    59
+                  ],
+                  [
+                    14,
+                    58
+                  ],
+                  [
+                    15,
+                    57
+                  ],
+                  [
+                    16,
+                    56
+                  ],
+                  [
+                    17,
+                    55
+                  ],
+                  [
+                    18,
+                    54
+                  ],
+                  [
+                    19,
+                    53
+                  ],
+                  [
+                    20,
+                    52
+                  ],
+                  [
+                    21,
+                    51
+                  ],
+                  [
+                    22,
+                    50
+                  ],
+                  [
+                    23,
+                    49
+                  ],
+                  [
+                    24,
+                    48
+                  ],
+                  [
+                    25,
+                    47
+                  ],
+                  [
+                    26,
+                    46
+                  ],
+                  [
+                    27,
+                    45
+                  ],
+                  [
+                    28,
+                    44
+                  ],
+                  [
+                    29,
+                    43
+                  ],
+                  [
+                    30,
+                    42
+                  ],
+                  [
+                    31,
+                    41
+                  ],
+                  [
+                    32,
+                    40
+                  ],
+                  [
+                    33,
+                    39
+                  ],
+                  [
+                    34,
+                    38
+                  ]
+                ],
+                "prediction_energy_kcal_mol": -57.3
+              }
+            },
+            "tir": 5.564005774617894e-07,
+            "warnings": [
+              "native_prediction_energy_differs_from_efn2_evaluation",
+              "spacing_penalty_exceeds_suboptimal_energy_band"
+            ],
+            "window": {
+              "input_interval": {
+                "end": 135,
+                "start": 65,
+                "strand": "+"
+              },
+              "oriented_end": 135,
+              "oriented_start": 65
+            }
+          }
+        ],
+        "status": "ok",
+        "warnings": [
+          "reconstruction_not_historical_or_hosted_equivalence",
+          "RNAstructure_parameters_and_dangles_differ_from_NUPACK_rna1999",
+          "bounded_bifold_tracebacks_not_exhaustive_suboptimal_enumeration",
+          "relative_initiation_score_not_absolute_rate_or_probability",
+          "host_configuration_is_not_host_calibration",
+          "patched_traceback_changes_candidate_search_results"
+        ]
+      },
+      "reason": null,
+      "status": "ok",
+      "warnings": [
+        "default_37C_scenario_not_native_condition_calibration",
+        "supplied_start_evidence_does_not_establish_model_accuracy",
+        "operon_coupling_not_modeled",
+        "downstream_context_extent_not_experimentally_verified"
+      ]
+    }
+  ],
+  "schema_version": "native-rbs-result-1",
+  "task_scope": "supplied start strength"
+}

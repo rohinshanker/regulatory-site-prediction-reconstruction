@@ -1,0 +1,226 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "RBS learned assay-response result v1 (one record)",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "implementation_version",
+    "model_id",
+    "artifact_sha256",
+    "feature_kind",
+    "score_scale",
+    "target",
+    "id",
+    "status",
+    "reason",
+    "input",
+    "prediction_id",
+    "start_codon",
+    "score_log2",
+    "features",
+    "mechanistic_reference",
+    "warnings",
+    "unlearned_feature_changes"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "rbs-learned-result-1"
+    },
+    "implementation_version": {
+      "type": "string"
+    },
+    "model_id": {
+      "type": "string"
+    },
+    "artifact_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "feature_kind": {
+      "enum": [
+        "sequence-v1",
+        "context-energy-sequence-v1"
+      ]
+    },
+    "score_scale": {
+      "const": "log2_assay_response"
+    },
+    "target": {
+      "type": "object",
+      "required": [
+        "name",
+        "units",
+        "training_dataset"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "units": {
+          "type": "string"
+        },
+        "training_dataset": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "status": {
+      "enum": [
+        "ok",
+        "invalid_input",
+        "unsupported",
+        "failed",
+        "no_candidate"
+      ]
+    },
+    "reason": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "input": {
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "prediction_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "start_codon": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "required": [
+        "start",
+        "end",
+        "strand"
+      ],
+      "properties": {
+        "start": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "end": {
+          "type": "integer",
+          "minimum": 3
+        },
+        "strand": {
+          "enum": [
+            "+",
+            "-"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "score_log2": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "features": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "required": [
+        "names",
+        "values"
+      ],
+      "properties": {
+        "names": {
+          "type": "array",
+          "minItems": 19,
+          "maxItems": 24,
+          "items": {
+            "type": "string"
+          }
+        },
+        "values": {
+          "type": "array",
+          "minItems": 19,
+          "maxItems": 24,
+          "items": {
+            "type": "number"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "mechanistic_reference": {
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "unlearned_feature_changes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    }
+  },
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "ok"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "score_log2": {
+            "type": "number"
+          },
+          "features": {
+            "type": "object"
+          },
+          "input": {
+            "type": "object"
+          },
+          "start_codon": {
+            "type": "object"
+          },
+          "prediction_id": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "null"
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "score_log2": {
+            "type": "null"
+          }
+        }
+      }
+    }
+  ]
+}

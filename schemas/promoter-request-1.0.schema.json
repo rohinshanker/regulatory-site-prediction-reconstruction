@@ -1,0 +1,342 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Promoter request 1.0",
+  "description": "Structural input contract only; validation is neither a prediction nor proof of complete context. See ../docs/validation/promoter-runtime.md.",
+  "$comment": "Calibration must resolve from record, envelope defaults or CLI. Its omission here is valid only assuming --calibration supplies it; there is no implicit calibration. Runtime must resolve precedence and CLI conflicts, normalize sequence and enforce normalized-length limits, compare range endpoints and sequence bounds, count planned sites (including the resolved states:all limit of 100), enforce batch/output budgets and deadlines, check projection against sequence/contig lengths and declared crossing, detect duplicate IDs and contig conflicts, verify model availability, and check metadata canonical-JSON bytes/depth. Duplicate JSON keys and nonfinite JSON tokens must be rejected by the parser before schema validation. Schema defaults are annotations, not inserted values. Null never means an absent optional setting. Boundary candidates lacking the 67 upstream/19 downstream bases for all states remain valid requests.",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/single"
+    },
+    {
+      "$ref": "#/$defs/envelope"
+    }
+  ],
+  "$defs": {
+    "version": {
+      "const": "1.0",
+      "default": "1.0"
+    },
+    "strand": {
+      "enum": ["+", "-"]
+    },
+    "coordinate": {
+      "type": "integer",
+      "minimum": 0,
+      "$comment": "Draft 2020-12 integer includes integral floats such as 20.0, but excludes booleans. Sequence-dependent upper bounds require runtime validation."
+    },
+    "calibration": {
+      "enum": ["ecoli_mg1655", "in_vitro"]
+    },
+    "host": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "taxon_id": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "output": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "states": {
+          "enum": ["selected", "all"],
+          "default": "selected"
+        },
+        "legacy_keys": {
+          "type": "boolean",
+          "default": false
+        },
+        "elements": {
+          "type": "boolean",
+          "default": true
+        }
+      }
+    },
+    "scan": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["mode", "range", "strands"],
+          "properties": {
+            "mode": {
+              "const": "scan"
+            },
+            "range": {
+              "type": "array",
+              "minItems": 2,
+              "maxItems": 2,
+              "items": {
+                "$ref": "#/$defs/coordinate"
+              },
+              "$comment": "[a,b) may be empty; runtime checks a <= b <= normalized sequence length and (b-a)*strand_count against the planned-site budget."
+            },
+            "strands": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 2,
+              "uniqueItems": true,
+              "items": {
+                "$ref": "#/$defs/strand"
+              }
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["mode", "positions"],
+          "properties": {
+            "mode": {
+              "const": "positions"
+            },
+            "positions": {
+              "type": "array",
+              "maxItems": 5000,
+              "uniqueItems": true,
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["strand", "tss"],
+                "properties": {
+                  "strand": {
+                    "$ref": "#/$defs/strand"
+                  },
+                  "tss": {
+                    "$ref": "#/$defs/coordinate"
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "projection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["contig", "origin", "contig_length", "topology", "origin_crossing"],
+      "properties": {
+        "contig": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "origin": {
+          "$ref": "#/$defs/coordinate"
+        },
+        "contig_length": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "sequence_strand": {
+          "$ref": "#/$defs/strand",
+          "default": "+"
+        },
+        "topology": {
+          "enum": ["linear", "circular"]
+        },
+        "origin_crossing": {
+          "type": "boolean"
+        }
+      },
+      "if": {
+        "properties": {
+          "topology": {
+            "const": "linear"
+          }
+        },
+        "required": ["topology"]
+      },
+      "then": {
+        "properties": {
+          "origin_crossing": {
+            "const": false
+          }
+        }
+      }
+    },
+    "record": {
+      "type": "object",
+      "required": ["id", "sequence", "scan"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*(?![\\s\\S])"
+        },
+        "sequence": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 50000,
+          "pattern": "[ACGTUacgtu]",
+          "allOf": [
+            {
+              "not": {
+                "pattern": "[^ACGTUacgtu \\t\\n\\u000b\\f\\r]"
+              }
+            },
+            {
+              "not": {
+                "allOf": [
+                  {"pattern": "[Tt]"},
+                  {"pattern": "[Uu]"}
+                ]
+              }
+            }
+          ],
+          "$comment": "ASCII whitespace, case normalization and RNA U are allowed. Runtime must still enforce the 5000 normalized-base ceiling and produce located normalization errors."
+        },
+        "calibration": {
+          "$ref": "#/$defs/calibration"
+        },
+        "host": {
+          "$ref": "#/$defs/host"
+        },
+        "scan": {
+          "$ref": "#/$defs/scan"
+        },
+        "projection": {
+          "$ref": "#/$defs/projection"
+        },
+        "output": {
+          "$ref": "#/$defs/output"
+        },
+        "model": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["id", "parameter_json_sha256"],
+          "properties": {
+            "id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "parameter_json_sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+            }
+          },
+          "$comment": "A well-shaped pin need not name the installed model. Only runtime can report model_unavailable; the parameter hash is not yet frozen."
+        },
+        "metadata": {
+          "type": "object",
+          "$comment": "User metadata alone permits arbitrary keys. Runtime checks at most 4096 canonical-JSON bytes and depth 4; metadata never supplies controls."
+        }
+      },
+      "if": {
+        "required": ["output"],
+        "properties": {
+          "output": {
+            "required": ["states"],
+            "properties": {
+              "states": {
+                "const": "all"
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "$ref": "#/$defs/all_positions_limit"
+      }
+    },
+    "all_positions_limit": {
+      "properties": {
+        "scan": {
+          "properties": {
+            "positions": {
+              "maxItems": 100
+            }
+          }
+        }
+      }
+    },
+    "single": {
+      "$ref": "#/$defs/record",
+      "properties": {
+        "schema_version": {
+          "$ref": "#/$defs/version"
+        }
+      },
+      "unevaluatedProperties": false
+    },
+    "envelope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["records"],
+      "properties": {
+        "schema_version": {
+          "$ref": "#/$defs/version"
+        },
+        "defaults": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "calibration": {
+              "$ref": "#/$defs/calibration"
+            },
+            "host": {
+              "$ref": "#/$defs/host"
+            },
+            "output": {
+              "$ref": "#/$defs/output"
+            }
+          }
+        },
+        "records": {
+          "type": "array",
+          "maxItems": 100,
+          "items": {
+            "$ref": "#/$defs/record",
+            "unevaluatedProperties": false
+          }
+        }
+      },
+      "if": {
+        "required": ["defaults"],
+        "properties": {
+          "defaults": {
+            "required": ["output"],
+            "properties": {
+              "output": {
+                "required": ["states"],
+                "properties": {
+                  "states": {
+                    "const": "all"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "$comment": "With no record output override, defaults.output.states:all applies. A record output object replaces the entire defaults.output object; missing states in that winning object means selected. CLI-resolved limits still require runtime validation.",
+        "properties": {
+          "records": {
+            "items": {
+              "if": {
+                "not": {
+                  "required": ["output"]
+                }
+              },
+              "then": {
+                "$ref": "#/$defs/all_positions_limit"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

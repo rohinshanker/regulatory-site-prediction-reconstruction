@@ -1,0 +1,24 @@
+{
+  "schema_version": "operon-source-component-smoke-1",
+  "source_sha256": "de015f8aef21aeb584c3a15a04131fe6f46060ba679ff17b5f4dd923e0f42bf0",
+  "python": "3.9.0",
+  "execution": "Only inspected AST nodes NUM_TOP_ISOFORMS and returnKeepColumns executed without rewriting; imports, training main and outcome loading not executed.",
+  "results": {
+    "steady_state": {
+      "columns": 460,
+      "unique_columns": 460,
+      "column_list_sha256": "0bb9e651de61637099cbb7977ce7eb990d4b345497ff759fd8a56b80acba10cd"
+    },
+    "decay": {
+      "columns": 465,
+      "unique_columns": 465,
+      "column_list_sha256": "9cf5eea902a26849c0ac2c07af9a6524f8d58f26254bf2570df4987a1b122995"
+    }
+  },
+  "not_established": [
+    "No end-to-end sequence featurization",
+    "No trained model loaded",
+    "No prediction or training executed",
+    "No production Operon parity"
+  ]
+}

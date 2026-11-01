@@ -1,0 +1,546 @@
+name: Regulatory calculator runtime
+on:
+  push:
+    branches: [main]
+  pull_request:
+permissions:
+  contents: read
+concurrency:
+  group: rbs-${{ github.event_name }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  runtime:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-24.04, macos-15]
+        python: ['3.11', '3.14']
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 60
+    env:
+      REGSITE_RNASTRUCTURE: ${{ github.workspace }}/.cache/original/RNAstructure
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Install locked development tools and package
+        run: |
+          python -m pip install --require-hashes -r requirements-dev.lock
+          python -m pip install --no-deps --no-build-isolation -e .
+      - name: Build separately licensed, pinned RNAstructure executables
+        shell: bash
+        run: |
+          mkdir -p .cache
+          curl --fail --location --retry 2 https://rna.urmc.rochester.edu/Releases/rnastructure-6.6/RNAstructureSource.tgz -o .cache/RNAstructureSource.tgz
+          python backends/rnastructure66/build.py --archive .cache/RNAstructureSource.tgz --destination .cache/original --jobs 2 --component rnastructure-6.6-original
+      - name: Verify every installer branch without compiler subprocesses
+        run: |
+          python -m coverage run --branch --source=backends/rnastructure66 -m unittest discover -s backends/rnastructure66/tests -p test_build.py -v
+          python -m coverage report --include='*/rnastructure66/build.py' --fail-under=100
+      - name: Build the separately licensed pinned termination engine
+        shell: bash
+        run: |
+          curl --fail --location --retry 2 --max-time 120 https://transterm.cbcb.umd.edu/transterm_hp_v2.09.zip -o "$RUNNER_TEMP/transterm_hp_v2.09.zip"
+          curl --fail --location --retry 2 --max-time 120 https://sources.debian.org/data/main/t/transtermhp/2.09-5/debian/patches/0002-read_seq-return-NULL-instead-of-false.patch -o "$RUNNER_TEMP/transterm-null.patch"
+          if [ "$RUNNER_OS" = macOS ]; then
+            term_compiler="$(xcrun --find clang++)"
+            term_sdk="$(xcrun --show-sdk-path)"
+            term_options=(--arch "$(uname -m)" --sysroot "$term_sdk" --cxx-include "$term_sdk/usr/include/c++/v1" --standard-library libc++)
+          else
+            term_compiler="$(command -v g++)"
+            term_options=(--standard-library libstdc++)
+          fi
+          python tools/build_termination_backend.py --archive "$RUNNER_TEMP/transterm_hp_v2.09.zip" --patch "$RUNNER_TEMP/transterm-null.patch" --compiler "$term_compiler" --output "$RUNNER_TEMP/regsite-termination" "${term_options[@]}"
+      - name: Static and full runtime gates
+        env:
+          REGSITE_TERMINATION_TEST_BACKEND: ${{ runner.temp }}/regsite-termination/backend.json
+        run: |
+          ruff check src tests experiments tools
+          ruff format --check src tests experiments tools
+          ruff check benchmarks/rbs/structural.py benchmarks/rbs/new_data.py benchmarks/rbs/wave4_*.py benchmarks/rbs/context_panel.py benchmarks/rbs/context_metrics.py benchmarks/rbs/context_collect.py benchmarks/rbs/drafting_numeric.py benchmarks/rbs/native_development_recheck.py benchmarks/promoter benchmarks/recoding benchmarks/riboswitch
+          ruff format --check benchmarks/rbs/structural.py benchmarks/rbs/new_data.py benchmarks/rbs/wave4_*.py benchmarks/rbs/context_panel.py benchmarks/rbs/context_metrics.py benchmarks/rbs/context_collect.py benchmarks/rbs/drafting_numeric.py benchmarks/rbs/native_development_recheck.py benchmarks/promoter benchmarks/recoding benchmarks/riboswitch
+          mypy src/regsite experiments tools benchmarks/rbs/drafting_numeric.py
+          mypy --follow-imports=silent --ignore-missing-imports benchmarks/rbs/native_development_recheck.py
+          python -m pytest --cov=regsite --cov=benchmarks.rbs --cov=benchmarks.promoter --cov=benchmarks.recoding --cov=benchmarks.riboswitch --cov=experiments.rbs --cov=experiments.promoter --cov=tools.derive_promoter_parameters --cov=tools.measure_promoter_resources --cov=tools.calculator_artifacts --cov=tools.build_termination_backend --cov-report=term-missing
+          git diff --check
+      - name: Build and validate both separately licensed repairs
+        shell: bash
+        run: |
+          python backends/rnastructure66/build.py --archive .cache/RNAstructureSource.tgz --destination .cache/traceback-fixed --jobs 2
+          python backends/rnastructure66/build.py --archive .cache/RNAstructureSource.tgz --destination .cache/linker-fixed --jobs 2 --component rnastructure-6.6-linker-3
+          export RNASTRUCTURE66_ORIGINAL="$REGSITE_RNASTRUCTURE"
+          export RNASTRUCTURE66_PATCHED="$GITHUB_WORKSPACE/.cache/traceback-fixed/RNAstructure"
+          export RNASTRUCTURE66_LINKER3="$GITHUB_WORKSPACE/.cache/linker-fixed/RNAstructure"
+          python -m unittest discover -s backends/rnastructure66/tests -v
+          # The complete suite ran above. Repeat only RBS-dependent tests for
+          # backend variants; Promoter/edit/reference tests do not use folding.
+          REGSITE_RNASTRUCTURE="$RNASTRUCTURE66_PATCHED" python -m pytest --ignore-glob='tests/test_promoter*' --ignore-glob='tests/benchmarks/test_promoter*' --ignore-glob='tests/benchmarks/test_recoding*' --ignore-glob='tests/benchmarks/test_riboswitch*' --ignore-glob='tests/test_conditional*' --ignore-glob='tests/test_coupling*' --ignore-glob='tests/test_drafting*' --ignore-glob='tests/test_termination*' --ignore-glob='tests/test_jobs*' --ignore=tests/benchmarks/test_wave4_public_receipt.py --ignore=tests/benchmarks/test_drafting_numeric.py --cov=regsite.rbs --cov=regsite.backend --cov=regsite.standby --cov=regsite.structures --cov=regsite.native --cov=regsite.native_cli --cov=regsite.cli --cov=regsite.learned --cov=regsite.features --cov-report=term-missing
+          REGSITE_RNASTRUCTURE="$RNASTRUCTURE66_LINKER3" python -m pytest --ignore-glob='tests/test_promoter*' --ignore-glob='tests/benchmarks/test_promoter*' --ignore-glob='tests/benchmarks/test_recoding*' --ignore-glob='tests/benchmarks/test_riboswitch*' --ignore-glob='tests/test_conditional*' --ignore-glob='tests/test_coupling*' --ignore-glob='tests/test_drafting*' --ignore-glob='tests/test_termination*' --ignore-glob='tests/test_jobs*' --ignore=tests/benchmarks/test_wave4_public_receipt.py --ignore=tests/benchmarks/test_drafting_numeric.py --cov=regsite.rbs --cov=regsite.backend --cov=regsite.standby --cov=regsite.structures --cov=regsite.native --cov=regsite.native_cli --cov=regsite.cli --cov=regsite.learned --cov=regsite.features --cov-report=term-missing
+      - name: Build and run fresh offline wheel installation
+        shell: bash
+        env:
+          REGSITE_TERMINATION_TEST_BACKEND: ${{ runner.temp }}/regsite-termination/backend.json
+        run: |
+          python -m build --no-isolation
+          python -m venv .cache/fresh
+          .cache/fresh/bin/python -m pip install --no-index --no-deps dist/*.whl
+          .cache/fresh/bin/regsite-design examples/rbs-design-single.json > .cache/design-single.json
+          .cache/fresh/bin/regsite-conditional-sweep examples/conditional-sweep.json > .cache/conditional-sweep.json
+          .cache/fresh/bin/regsite-conditional examples/conditional-supplied-half-occupancy.json > .cache/conditional-export.json
+          .cache/fresh/bin/regsite-conditional examples/conditional-supplied-half-occupancy.json --format csv > .cache/conditional-export.csv
+          .cache/fresh/bin/python - <<'PYWAVE10'
+          import copy, csv, hashlib, importlib.metadata, json
+          from pathlib import Path
+          def digest(value):
+              raw = json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=True, allow_nan=False).encode()
+              return hashlib.sha256(raw).hexdigest()
+          version = importlib.metadata.version("regulatory-site-prediction-reconstruction")
+          design = json.loads(Path(".cache/design-single.json").read_bytes())
+          request = json.loads(Path("examples/rbs-design-single.json").read_bytes())
+          assert design["status"] == "complete" and design["request"] == request
+          assert design["algorithm"] == {"id": "exhaustive-rbs-leader-substitutions-1", "implementation_version": version}
+          assert design["request_sha256"] == digest(request)
+          assert design["design_id"] == digest({"request": request, "algorithm": design["algorithm"]["id"], "implementation_version": version, "backend": design["backend"]})
+          assert design["coverage"]["planned"] == design["coverage"]["successful"] == 4
+          assert design["coverage"]["prediction_calls"] == 5
+          assert design["confirmation"]["status"] == "verified" and design["selected"] is not None
+          seed = request["rbs"]["sequence"]
+          assert {r["sequence"] for r in design["candidates"]} == {seed[:4] + base + seed[5:] for base in "ACGT"}
+          for row in design["candidates"]:
+              assert row["native_sha256"] == digest(row["native"])
+              assert row["native"]["model"] == design["model"] and row["native"]["backend"] == design["backend"]
+          chosen = design["candidates"][design["selected"]["index"]]
+          assert design["confirmation"]["native_sha256"] == chosen["native_sha256"]
+          assert design["selected"]["score"]["absolute_log_error"] == min(r["score"]["absolute_log_error"] for r in design["candidates"])
+          curve = json.loads(Path(".cache/conditional-sweep.json").read_bytes())
+          sweep_request = json.loads(Path("examples/conditional-sweep.json").read_bytes())
+          assert curve["status"] == "complete" and curve["request"] == sweep_request
+          assert curve["algorithm"] == {"id": "explicit-conditional-concentration-sweep-1", "implementation_version": version}
+          assert curve["request_sha256"] == digest(sweep_request)
+          assert curve["sweep_id"] == digest({"request": sweep_request, "algorithm": curve["algorithm"], "model": curve["model"]})
+          assert curve["model"]["backend"] is None and curve["coverage"]["successful"] == 6
+          assert [r["index"] for r in curve["points"]] == list(range(6))
+          assert [r["ligand_total_molar"] for r in curve["points"]] == sweep_request["ligand_total_molar"]
+          for row in curve["points"]:
+              point = copy.deepcopy(sweep_request["template"])
+              point["input"]["occupancy"]["ligand_total_molar"] = float(row["ligand_total_molar"])
+              assert row["point_request_sha256"] == row["native"]["request_sha256"] == digest(point)
+              assert row["native"]["input"] == point["input"] and row["native"]["model"] == curve["model"]
+              raw = (json.dumps(row["native"], sort_keys=True, indent=2, ensure_ascii=True, allow_nan=False) + "\n").encode()
+              assert row["native_json_sha256"] == hashlib.sha256(raw).hexdigest()
+          for result in (design, curve):
+              assert result["result_sha256"] == digest({k: v for k, v in result.items() if k != "result_sha256"})
+          raw = Path(".cache/conditional-export.json").read_bytes()
+          with open(".cache/conditional-export.csv", newline="", encoding="utf-8") as stream:
+              rows = list(csv.DictReader(stream))
+          assert [row["row_type"] for row in rows] == ["result", "response"]
+          assert all(row["csv_schema_version"] == "conditional-csv-1" and row["json_sha256"] == hashlib.sha256(raw).hexdigest() for row in rows)
+          assert rows[1]["ar_actual"] == "2.5"
+          PYWAVE10
+          .cache/fresh/bin/regsite-promoter-design examples/promoter-design-single.json > .cache/promoter-design-single.json
+          .cache/fresh/bin/python - <<'PYPROMOTERINPUTS'
+          import copy
+          import json
+          from pathlib import Path
+          request = json.loads(Path("examples/promoter-design-single.json").read_bytes())
+          neutral = copy.deepcopy(request)
+          neutral["promoter"]["scan"]["positions"] = [{"strand": "+", "tss": 100}]
+          neutral["target_log_scores"] = [0.0]
+          neutral["editable_positions"] = [118]
+          neutral["immutable_intervals"] = []
+          Path(".cache/promoter-design-neutral-request.json").write_text(json.dumps(neutral))
+          invalid = copy.deepcopy(request)
+          invalid["limits"]["max_candidates"] = 3
+          Path(".cache/promoter-design-invalid-request.json").write_text(json.dumps(invalid))
+          PYPROMOTERINPUTS
+          .cache/fresh/bin/regsite-promoter-design .cache/promoter-design-neutral-request.json > .cache/promoter-design-neutral.json
+          promoter_design_exit=0
+          .cache/fresh/bin/regsite-promoter-design .cache/promoter-design-invalid-request.json > .cache/promoter-design-invalid.json || promoter_design_exit=$?
+          test "$promoter_design_exit" -eq 2
+          .cache/fresh/bin/python - <<'PYPROMOTERDESIGN'
+          import copy
+          import hashlib
+          import importlib.metadata
+          import json
+          import math
+          from pathlib import Path
+          from regsite import promoter_io
+
+          def digest(value):
+              return hashlib.sha256(json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=True, allow_nan=False).encode()).hexdigest()
+
+          version = importlib.metadata.version("regulatory-site-prediction-reconstruction")
+          for request_path, output_path in [
+              ("examples/promoter-design-single.json", ".cache/promoter-design-single.json"),
+              (".cache/promoter-design-neutral-request.json", ".cache/promoter-design-neutral.json"),
+          ]:
+              request = json.loads(Path(request_path).read_bytes())
+              result = json.loads(Path(output_path).read_bytes())
+              assert result["status"] == "complete" and result["request"] == request
+              assert result["algorithm"] == {"id": "bounded-promoter-substitution-enumeration-1", "implementation_version": version}
+              assert result["request_sha256"] == digest(request)
+              assert result["design_id"] == digest({k: result[k] for k in ("request_sha256", "algorithm", "model_identity", "targets", "limits")})
+              assert result["coverage"] == {"planned": 4, "attempted": 4, "successful": 4, "failed": 0, "not_run": 0, "prediction_calls": 5, "all_candidates_scored": True, "deadline_exceeded": False, "stop_reason": None}
+              seed = request["promoter"]["sequence"]
+              position = request["editable_positions"][0]
+              assert {r["sequence"] for r in result["candidates"]} == {seed[:position] + base + seed[position+1:] for base in "ACGT"}
+              assert [r["index"] for r in result["candidates"]] == list(range(4))
+              for row in result["candidates"]:
+                  changed = [i for i, (a, b) in enumerate(zip(seed, row["sequence"])) if a != b]
+                  assert set(changed) <= {position} and len(changed) <= 1
+                  assert all(not start <= i < end for i in changed for start, end in request["immutable_intervals"])
+                  assert row["sequence_sha256"] == hashlib.sha256(row["sequence"].encode()).hexdigest()
+                  assert row["candidate_id"] == digest({"design_id": result["design_id"], "index": row["index"], "sequence_sha256": row["sequence_sha256"]})
+                  native_request = copy.deepcopy(request["promoter"])
+                  native_request["sequence"] = row["sequence"]
+                  assert row["native_request"] == native_request and row["native_request_sha256"] == digest(native_request)
+                  # Direct unchanged predictor, independent of the search implementation.
+                  native = promoter_io.predict_batch(native_request, seconds_per_record=1.0, seconds_per_batch=1.0)
+                  assert row["native"] == native and row["native_admitted"] is True
+                  wire = (json.dumps(native, sort_keys=True, indent=2, ensure_ascii=True, allow_nan=False) + "\n").encode()
+                  assert row["native_bytes"] == len(wire) and row["native_sha256"] == hashlib.sha256(wire).hexdigest()
+                  assert native["model"] == result["model"]
+                  scores = [s["selected"]["log_relative_transcription_score"] for s in native["results"][0]["sites"]]
+                  assert row["observed_log_scores"] == scores
+                  errors = [abs(a-b) for a, b in zip(scores, request["target_log_scores"])]
+                  assert row["absolute_log_errors"] == errors and row["objective"] == math.fsum(errors)/len(errors)
+                  assert row["status"] == "ok" and row["attempted"] is True and row["reason"] is None
+              best = min(result["candidates"], key=lambda r: (r["objective"], len(r["edits"]), r["sequence"]))
+              assert result["selected"] == result["proposal"] and result["selected"]["index"] == best["index"]
+              assert result["confirmation"]["status"] == "matched" and result["confirmation"]["attempted"] is True
+              assert result["confirmation"]["native"] == best["native"] and result["confirmation"]["native_sha256"] == best["native_sha256"]
+              assert result["result_sha256"] == digest({k: v for k, v in result.items() if k != "result_sha256"})
+              if "neutral" in output_path:
+                  assert result["selected"]["index"] == 0 and result["selected"]["edits"] == []
+                  assert all(r["observed_log_scores"] == result["candidates"][0]["observed_log_scores"] for r in result["candidates"])
+          invalid = json.loads(Path(".cache/promoter-design-invalid.json").read_bytes())
+          assert invalid["status"] == "invalid_input" and invalid["reason"]
+          assert invalid["candidates"] == [] and invalid["selected"] is None and invalid["coverage"] is None
+          assert invalid["result_sha256"] == digest({k: v for k, v in invalid.items() if k != "result_sha256"})
+          PYPROMOTERDESIGN
+          .cache/fresh/bin/python - <<'PYVECTORINPUTS'
+          import copy
+          import json
+          from pathlib import Path
+          request = json.loads(Path("examples/rbs-vector-design.json").read_bytes())
+          minus = copy.deepcopy(request)
+          sequence = minus["rbs"]["sequence"]
+          minus["rbs"].update(sequence=sequence.translate(str.maketrans("ACGT", "TGCA"))[::-1], strand="-")
+          minus["editable_positions"] = [len(sequence)-1-p for p in request["editable_positions"]]
+          Path(".cache/vector-design-minus-request.json").write_text(json.dumps(minus))
+          invalid = copy.deepcopy(request)
+          invalid["limits"]["max_candidates"] = 3
+          Path(".cache/vector-design-invalid-request.json").write_text(json.dumps(invalid))
+          PYVECTORINPUTS
+          .cache/fresh/bin/regsite-rbs-vector-design examples/rbs-vector-design.json > .cache/vector-design-plus.json
+          .cache/fresh/bin/regsite-rbs-vector-design .cache/vector-design-minus-request.json > .cache/vector-design-minus.json
+          vector_design_exit=0
+          .cache/fresh/bin/regsite-rbs-vector-design .cache/vector-design-invalid-request.json > .cache/vector-design-invalid.json || vector_design_exit=$?
+          test "$vector_design_exit" -eq 2
+          .cache/fresh/bin/python - <<'PYVECTORDESIGN'
+          import copy
+          import hashlib
+          import importlib.metadata
+          import json
+          import math
+          import os
+          from pathlib import Path
+          from regsite.backend import RnaStructure
+          from regsite.rbs import predict
+
+          def digest(value):
+              return hashlib.sha256(json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=True, allow_nan=False).encode()).hexdigest()
+
+          version = importlib.metadata.version("regulatory-site-prediction-reconstruction")
+          backend = RnaStructure.open(os.environ["REGSITE_RNASTRUCTURE"])
+          results = {}
+          for name, path in [("plus", "examples/rbs-vector-design.json"), ("minus", ".cache/vector-design-minus-request.json")]:
+              request = json.loads(Path(path).read_bytes())
+              result = json.loads(Path(f".cache/vector-design-{name}.json").read_bytes())
+              assert result["status"] == "complete" and result["request"] == request
+              assert result["algorithm"] == {"id": "bounded-rbs-vector-substitution-enumeration-1", "implementation_version": version}
+              assert result["request_sha256"] == digest(request)
+              assert result["design_id"] == digest({k: result[k] for k in ("request_sha256", "algorithm", "backend", "model", "targets", "limits")})
+              assert result["coverage"] == {"planned": 4, "attempted": 4, "successful": 4, "failed": 0, "not_run": 0, "prediction_calls": 5, "all_candidates_scored": True, "deadline_exceeded": False, "stop_reason": None}
+              seed = request["rbs"]["sequence"]
+              position, = request["editable_positions"]
+              expected = [seed] + [seed[:position]+base+seed[position+1:] for base in "ACGT" if base != seed[position]]
+              assert [r["sequence"] for r in result["candidates"]] == expected
+              assert [r["index"] for r in result["candidates"]] == list(range(4))
+              for row in result["candidates"]:
+                  native_request = copy.deepcopy(request["rbs"])
+                  native_request["sequence"] = row["sequence"]
+                  assert row["native_request"] == native_request and row["native_request_sha256"] == digest(native_request)
+                  # Direct unchanged predictor, independent of the search implementation.
+                  native = json.loads(json.dumps(predict(native_request, backend, seconds=float(request["limits"]["seconds_per_score"]), profile=request["profile"]), allow_nan=False))
+                  assert row["native"] == native and row["native_admitted"] is True
+                  assert result["backend"] == native["backend"] and result["model"] == native["model"]
+                  wire = (json.dumps(native, sort_keys=True, indent=2, ensure_ascii=True, allow_nan=False)+"\n").encode()
+                  assert row["native_bytes"] == len(wire) and row["native_json_sha256"] == hashlib.sha256(wire).hexdigest()
+                  assert row["sequence_sha256"] == hashlib.sha256(row["sequence"].encode()).hexdigest()
+                  assert row["candidate_id"] == digest({"design_id": result["design_id"], "index": row["index"], "sequence_sha256": row["sequence_sha256"]})
+                  errors = [abs(site["log_tir"]-math.log(target)) for site, target in zip(native["sites"], request["target_tirs"], strict=True)]
+                  assert [t["absolute_log_error"] for t in row["targets"]] == errors
+                  assert row["objective"] == math.fsum(errors)/len(errors)
+                  oriented = row["sequence"] if name == "plus" else row["sequence"].translate(str.maketrans("ACGT", "TGCA"))[::-1]
+                  original = seed if name == "plus" else seed.translate(str.maketrans("ACGT", "TGCA"))[::-1]
+                  for cds in request["cds"]:
+                      assert oriented[cds["start"]:cds["end"]] == original[cds["start"]:cds["end"]]
+                  changed = [i for i, (a, b) in enumerate(zip(seed, row["sequence"], strict=True)) if a != b]
+                  assert set(changed) <= {position} and len(changed) <= 1
+                  assert [edit["input_position"] for edit in row["edits"]] == changed
+                  assert all(edit["oriented_position"] == 55 for edit in row["edits"])
+              best = min(result["candidates"], key=lambda r: (r["objective"], len(r["edits"]), r["sequence"]))
+              assert result["selected"] == result["proposal"] and result["selected"]["index"] == best["index"]
+              assert result["confirmation"]["status"] == "verified" and result["confirmation"]["attempted"] is True
+              assert result["confirmation"]["native"] == best["native"] and result["confirmation"]["native_json_sha256"] == best["native_json_sha256"]
+              assert result["result_sha256"] == digest({k: v for k, v in result.items() if k != "result_sha256"})
+              results[name] = result
+          plus = {r["sequence"]: r for r in results["plus"]["candidates"]}
+          for row in results["minus"]["candidates"]:
+              sequence = row["sequence"].translate(str.maketrans("ACGT", "TGCA"))[::-1]
+              forward = plus[sequence]
+              assert row["objective"] == forward["objective"]
+              for a, b in zip(forward["native"]["sites"], row["native"]["sites"], strict=True):
+                  assert a["tir"] == b["tir"] and a["log_tir"] == b["log_tir"] and a["energies"] == b["energies"]
+                  assert b["start_codon"] == {"start": len(sequence)-a["start_codon"]["end"], "end": len(sequence)-a["start_codon"]["start"], "strand": "-"}
+          invalid = json.loads(Path(".cache/vector-design-invalid.json").read_bytes())
+          assert invalid["status"] == "invalid_input" and invalid["reason"] == "search_space_limit"
+          assert invalid["candidates"] == [] and invalid["selected"] is None and invalid["coverage"] is None
+          assert invalid["result_sha256"] == digest({k: v for k, v in invalid.items() if k != "result_sha256"})
+          PYVECTORDESIGN
+          .cache/fresh/bin/regsite-drafting examples/drafting-single.json > .cache/drafting-single.json
+          .cache/fresh/bin/regsite-drafting examples/drafting-batch.json > .cache/drafting-batch.json
+          drafting_exit=0
+          .cache/fresh/bin/regsite-drafting examples/drafting-unsupported.json > .cache/drafting-unsupported.json || drafting_exit=$?
+          test "$drafting_exit" -eq 1
+          .cache/fresh/bin/python -c 'import json,math; a=json.load(open(".cache/drafting-single.json")); b=json.load(open(".cache/drafting-batch.json")); c=json.load(open(".cache/drafting-unsupported.json")); assert all(r["schema_version"]=="drafting-result-1" and r["status"]=="complete" and r["model"]["backend"] is None and r["model"]["id"]=="espahborujeni2016-supplied-rate-stationary-1" for r in (a,b)); assert math.isclose(a["records"][0]["throughput"]["quantity"]["value"],10/9,rel_tol=1e-12); assert len(b["records"])==3 and b["records"][1]["occupancies"]["folded"]=={"value":0.0,"ln_value":None,"representation":"exact_zero"}; assert c["status"]=="partial" and c["records"][0]["status"]=="unsupported_domain" and c["records"][0]["throughput"] is None; import hashlib,importlib.metadata as md; h=lambda x: hashlib.sha256(json.dumps(x,sort_keys=True,separators=(",",":"),ensure_ascii=True,allow_nan=False).encode()).hexdigest(); m={"id":"espahborujeni2016-supplied-rate-stationary-1","implementation_version":md.version("regulatory-site-prediction-reconstruction"),"source_doi":"10.1021/jacs.6b01453","theory_sha256":"a9ded599cbb0313d610267cb9fbdfd21abb1bdb7a467894701fa9b295f3fd6d6","backend":None,"rate_origin":"caller_supplied"}; assert all(r["model"]==m and r["request_sha256"]==h(json.load(open(f"examples/drafting-{n}.json"))) and r["prediction_sha256"]==h({k:v for k,v in r.items() if k!="prediction_sha256"}) for n,r in zip(("single","batch","unsupported"),(a,b,c)))'
+          .cache/fresh/bin/regsite-drafting examples/drafting-single.json --format csv > .cache/drafting-single.csv
+          .cache/fresh/bin/regsite-drafting examples/drafting-batch.json --format csv > .cache/drafting-batch.csv
+          drafting_csv_exit=0
+          .cache/fresh/bin/regsite-drafting examples/drafting-unsupported.json --format csv > .cache/drafting-unsupported.csv || drafting_csv_exit=$?
+          test "$drafting_csv_exit" -eq 1
+          .cache/fresh/bin/python - <<'PYDRAFTINGINPUT'
+          import json, math, sys
+          from pathlib import Path
+          request = json.loads(Path("examples/drafting-single.json").read_bytes())
+          request["records"][0]["rates"] = {"a1": math.ulp(0.0), "a2": math.ulp(0.0), "a_fold": sys.float_info.max, "a_elong": sys.float_info.max}
+          Path(".cache/drafting-underflow-request.json").write_text(json.dumps(request, sort_keys=True, allow_nan=False) + "\n")
+          PYDRAFTINGINPUT
+          .cache/fresh/bin/regsite-drafting .cache/drafting-underflow-request.json > .cache/drafting-underflow.json
+          .cache/fresh/bin/regsite-drafting .cache/drafting-underflow-request.json --format csv > .cache/drafting-underflow.csv
+          .cache/fresh/bin/python - <<'PYDRAFTINGCSV'
+          import csv, hashlib, json
+          from pathlib import Path
+          expected_header = (
+              "csv_schema_version,row_type,schema_version,model_id,implementation_version,"
+              "source_doi,theory_sha256,backend_json,rate_origin,request_sha256,"
+              "prediction_sha256,json_sha256,result_status,result_reason,requested_records,"
+              "evaluated_records,successful_records,complete,warnings_json,record_index,"
+              "record_id,record_status,record_reason,rate_unit,rate_provenance,a1,a2,a_fold,"
+              "a_elong,accessible_value,accessible_ln_value,accessible_representation,"
+              "folded_value,folded_ln_value,folded_representation,occupied_value,"
+              "occupied_ln_value,occupied_representation,throughput_unit,throughput_value,"
+              "throughput_ln_value,throughput_representation"
+          ).split(",")
+          for name in ("single", "batch", "unsupported", "underflow"):
+              raw = Path(f".cache/drafting-{name}.json").read_bytes()
+              native = json.loads(raw)
+              with open(f".cache/drafting-{name}.csv", newline="", encoding="utf-8") as stream:
+                  reader = csv.DictReader(stream)
+                  rows = list(reader)
+                  assert reader.fieldnames == expected_header
+              assert [row["row_type"] for row in rows] == ["result"] + ["record"] * len(native["records"])
+              assert all(row["csv_schema_version"] == "drafting-csv-1" and row["json_sha256"] == hashlib.sha256(raw).hexdigest() for row in rows)
+              assert all(row["prediction_sha256"] == native["prediction_sha256"] and row["request_sha256"] == native["request_sha256"] and row["implementation_version"] == native["model"]["implementation_version"] for row in rows)
+              for row in rows:
+                  for column, key in (("model_id", "id"), ("source_doi", "source_doi"), ("theory_sha256", "theory_sha256"), ("rate_origin", "rate_origin")):
+                      assert row[column] == native["model"][key]
+                  assert row["backend_json"] == "" and json.loads(row["warnings_json"]) == native["warnings"]
+                  assert row["result_status"] == native["status"]
+                  for key, value in native["coverage"].items():
+                      assert row[key] == str(value).lower()
+              for row, record in zip(rows[1:], native["records"], strict=True):
+                  assert row["record_index"] == str(record["index"]) and row["record_id"] == record["id"] and row["record_status"] == record["status"]
+                  assert row["record_reason"] == (record["reason"] or "")
+              if name == "batch":
+                  assert rows[2]["folded_value"] == "0.0" and rows[2]["folded_ln_value"] == "" and rows[2]["folded_representation"] == "exact_zero"
+              if name == "unsupported":
+                  assert rows[0]["successful_records"] == "0" and rows[0]["complete"] == "false"
+                  assert all(rows[1][key] == "" for key in expected_header[29:])
+              if name == "underflow":
+                  assert rows[1]["occupied_value"] == "" and rows[1]["occupied_representation"] == "underflow" and float(rows[1]["occupied_ln_value"]) < -1400
+                  assert rows[1]["throughput_value"] == "5e-324" and rows[1]["throughput_representation"] == "finite"
+          PYDRAFTINGCSV
+          .cache/fresh/bin/regsite-termination examples/termination-single.json --backend-manifest "$REGSITE_TERMINATION_TEST_BACKEND" > .cache/termination-single.json
+          .cache/fresh/bin/regsite-termination examples/termination-batch.json --backend-manifest "$REGSITE_TERMINATION_TEST_BACKEND" > .cache/termination-batch.json
+          termination_exit=0
+          .cache/fresh/bin/regsite-termination examples/termination-unsupported.json --backend-manifest "$REGSITE_TERMINATION_TEST_BACKEND" > .cache/termination-unsupported.json || termination_exit=$?
+          test "$termination_exit" -eq 1
+          .cache/fresh/bin/python -c 'import json; a=json.load(open(".cache/termination-single.json")); b=json.load(open(".cache/termination-batch.json")); c=json.load(open(".cache/termination-unsupported.json")); assert all(r["schema_version"]=="termination-result-1" and r["status"]=="complete" and r["coverage"]["retained_candidates"]==1 for r in (a,b)); assert c["status"]=="partial" and all(r["candidates"] is None for r in c["records"]); assert all(r["prediction_sha256"] and r["result_sha256"] for r in (a,b,c)); tie=[(x["hairpin"]["start"],x["hairpin"]["end"],x["strand"],x["confidence"],x["hairpin_score"],x["tail_score"]) for x in a["records"][0]["candidates"]]; assert tie==[(70,86,"+",78,"-11.8","-3.87583")]; assert b["records"][0]["candidates"]==a["records"][0]["candidates"] and b["records"][1]["status"]=="ok" and b["records"][1]["candidates"]==[]; assert [r["reason"] for r in c["records"]]==["no_search_positions","uniform_background"] and not any(r["attempted"] for r in c["records"])'
+          .cache/fresh/bin/regsite-termination examples/termination-single.json --format csv --backend-manifest "$REGSITE_TERMINATION_TEST_BACKEND" > .cache/termination-single.csv
+          .cache/fresh/bin/python - <<'PYTERMINATIONCSV'
+          import csv, hashlib, json
+          with open(".cache/termination-single.csv", newline="", encoding="utf-8") as stream:
+              rows = list(csv.DictReader(stream))
+          original = json.load(open(".cache/termination-single.json"))
+          model_hash = hashlib.sha256(json.dumps(original["model"], sort_keys=True, separators=(",", ":"), ensure_ascii=True, allow_nan=False).encode()).hexdigest()
+          assert [row["row_type"] for row in rows] == ["envelope", "record", "candidate"]
+          assert all(row["csv_schema_version"] == "termination-csv-1" and row["result_status"] == "complete" and row["prediction_sha256"] == original["prediction_sha256"] and row["model_sha256"] == model_hash for row in rows)
+          assert rows[1]["candidate_count"] == "1" and rows[1]["attempted"] == "true"
+          assert tuple(rows[2][key] for key in ("strand", "hairpin_start", "hairpin_end", "tail_start", "tail_end", "confidence", "hairpin_score", "tail_score")) == ("+", "70", "86", "86", "101", "78", "-11.8", "-3.87583")
+          PYTERMINATIONCSV
+          .cache/fresh/bin/regsite-coupling examples/coupling-single.json > .cache/coupling-single.json
+          .cache/fresh/bin/regsite-coupling examples/coupling-batch.json > .cache/coupling-batch.json
+          coupling_exit=0
+          .cache/fresh/bin/regsite-coupling examples/coupling-unsupported.json > .cache/coupling-unsupported.json || coupling_exit=$?
+          test "$coupling_exit" -eq 1
+          .cache/fresh/bin/python -c 'import json,math; a=json.load(open(".cache/coupling-single.json")); b=json.load(open(".cache/coupling-batch.json")); c=json.load(open(".cache/coupling-unsupported.json")); assert all(r["schema_version"]=="coupling-result-1" and r["status"]=="complete" and r["model"]["backend"] is None for r in (a,b)); assert math.isclose(a["records"][0]["scores"]["downstream_total"]["value"],1.072); assert len(b["records"])==3; assert all(math.isclose(r["scores"]["downstream_total"]["value"],1.22) for r in b["records"][1:]); assert c["status"]=="partial" and c["records"][0]["status"]=="unsupported_distance" and c["records"][0]["scores"] is None'
+          .cache/fresh/bin/regsite-coupling examples/coupling-single.json --format csv > .cache/coupling-single.csv
+          .cache/fresh/bin/regsite-coupling examples/coupling-batch.json --format csv > .cache/coupling-batch.csv
+          coupling_csv_exit=0
+          .cache/fresh/bin/regsite-coupling examples/coupling-unsupported.json --format csv > .cache/coupling-unsupported.csv || coupling_csv_exit=$?
+          test "$coupling_csv_exit" -eq 1
+          .cache/fresh/bin/python - <<'PY'
+          import csv, hashlib, json
+          from pathlib import Path
+          for name in ("single", "batch", "unsupported"):
+              raw = Path(f".cache/coupling-{name}.json").read_bytes()
+              result = json.loads(raw)
+              with open(f".cache/coupling-{name}.csv", newline="", encoding="utf-8") as stream:
+                  reader = csv.DictReader(stream)
+                  assert len(reader.fieldnames) == 58
+                  rows = list(reader)
+              assert [row["row_type"] for row in rows] == ["result"] + ["record"] * len(result["records"])
+              assert all(row["csv_schema_version"] == "coupling-csv-1" and row["json_sha256"] == hashlib.sha256(raw).hexdigest() for row in rows)
+              assert all(row["prediction_sha256"] == result["prediction_sha256"] and row["result_status"] == result["status"] for row in rows)
+              for row, record in zip(rows[1:], result["records"], strict=True):
+                  assert row["record_index"] == str(record["index"]) and row["record_id"] == record["id"]
+                  assert row["record_status"] == record["status"]
+                  assert row["record_reason"] == (record["reason"] or "")
+                  assert row["strand"] == record["geometry"]["strand"]
+                  for cds in ("upstream", "downstream"):
+                      assert [int(row[f"{cds}_{key}"]) for key in ("start", "end")] == record["geometry"][cds]["interval"]
+                      assert [int(row[f"{cds}_oriented_{key}"]) for key in ("start", "end")] == record["geometry"][cds]["oriented_interval"]
+                  if record["scores"] is None:
+                      assert row["downstream_total_value"] == row["coefficient"] == ""
+                  else:
+                      for score, quantity in record["scores"].items():
+                          assert row[f"{score}_value"] == str(quantity["value"])
+                          assert row[f"{score}_log_value"] == str(quantity["log_value"])
+          PY
+          # CI explicitly keeps disposable outputs in its checkout; ordinary
+          # campaigns default to external storage. Resume must not rerun jobs.
+          .cache/fresh/bin/regsite-jobs run --manifest "$GITHUB_WORKSPACE/examples/jobs-synthetic/manifest.json" --output-dir "$GITHUB_WORKSPACE/.cache/jobs-synthetic" --allow-repository-output > .cache/jobs-synthetic-run.json
+          .cache/fresh/bin/regsite-jobs verify --manifest "$GITHUB_WORKSPACE/examples/jobs-synthetic/manifest.json" --output-dir "$GITHUB_WORKSPACE/.cache/jobs-synthetic" > .cache/jobs-synthetic-verify.json
+          .cache/fresh/bin/regsite-jobs resume --manifest "$GITHUB_WORKSPACE/examples/jobs-synthetic/manifest.json" --output-dir "$GITHUB_WORKSPACE/.cache/jobs-synthetic" --allow-repository-output > .cache/jobs-synthetic-resume.json
+          .cache/fresh/bin/regsite-jobs run --manifest "$GITHUB_WORKSPACE/examples/jobs-backend/manifest.json" --output-dir "$GITHUB_WORKSPACE/.cache/jobs-backend" --backend-root "$GITHUB_WORKSPACE/.cache/linker-fixed/RNAstructure" --allow-repository-output > .cache/jobs-backend-run.json
+          .cache/fresh/bin/regsite-jobs verify --manifest "$GITHUB_WORKSPACE/examples/jobs-backend/manifest.json" --output-dir "$GITHUB_WORKSPACE/.cache/jobs-backend" > .cache/jobs-backend-verify.json
+          .cache/fresh/bin/python -c 'import json; from pathlib import Path; cases=[("synthetic", "run", 2), ("synthetic", "verify", 2), ("synthetic", "resume", 2), ("backend", "run", 3), ("backend", "verify", 3)]; results=[(json.loads(Path(f".cache/jobs-{kind}-{action}.json").read_text()), count) for kind,action,count in cases]; assert all(r["status"]=="complete" and r["counts"]["succeeded"]==n and r["attempts"]==n for r,n in results); assert len({r["campaign_sha256"] for r,n in results[:3]})==1'
+          # Scalar conditional inference is portable and uses no folding engine.
+          # Exact original arm64 structural admission has a separate local receipt.
+          .cache/fresh/bin/regsite-conditional examples/conditional-supplied-half-occupancy.json > .cache/conditional-fraction.json
+          .cache/fresh/bin/regsite-conditional examples/conditional-supplied-volume-fifth.json > .cache/conditional-volume.json
+          .cache/fresh/bin/python -c 'import json,math; a=json.load(open(".cache/conditional-fraction.json")); b=json.load(open(".cache/conditional-volume.json")); assert all(r["status"]=="ok" and r["complete"] and r["model"]["backend"] is None for r in (a,b)); assert math.isclose(a["response"]["ar_actual"],2.5,rel_tol=1e-12); assert math.isclose(b["response"]["ar_actual"],8/7,rel_tol=1e-12)'
+          REGSITE_RNASTRUCTURE="$GITHUB_WORKSPACE/.cache/linker-fixed/RNAstructure" .cache/fresh/bin/regsite-transcript examples/supplied-transcript-single.json > .cache/transcript-single.json
+          REGSITE_RNASTRUCTURE="$GITHUB_WORKSPACE/.cache/linker-fixed/RNAstructure" .cache/fresh/bin/regsite-transcript examples/supplied-transcript-two-cds.json > .cache/transcript-two.json
+          REGSITE_RNASTRUCTURE="$GITHUB_WORKSPACE/.cache/linker-fixed/RNAstructure" .cache/fresh/bin/regsite-transcript examples/supplied-transcript-two-cds.json --format csv > .cache/transcript-two.csv
+          # An incompatible annotation remains explicit, with a partial-result exit.
+          transcript_exit=0
+          REGSITE_RNASTRUCTURE="$GITHUB_WORKSPACE/.cache/linker-fixed/RNAstructure" .cache/fresh/bin/regsite-transcript examples/supplied-transcript-incompatible.json > .cache/transcript-incompatible.json || transcript_exit=$?
+          test "$transcript_exit" -eq 1
+          .cache/fresh/bin/python -c 'import csv,json; a=json.load(open(".cache/transcript-single.json")); b=json.load(open(".cache/transcript-two.json")); c=json.load(open(".cache/transcript-incompatible.json")); assert all(r["schema_version"]=="supplied-transcript-result-1" and r["status"]=="complete" and r["coverage"]["complete"] for r in (a,b)); assert b["components"]["rbs"]["coverage"]["requested"]==2; assert c["status"]=="partial" and c["cds"][0]["status"]=="incompatible_transcript"; rows=list(csv.DictReader(open(".cache/transcript-two.csv"))); assert sum(r["row_type"]=="component" for r in rows)==2; assert all(r["prediction_sha256"]==b["prediction_sha256"] for r in rows)'
+          .cache/fresh/bin/regsite-compare examples/paired-promoter-unchanged.json > .cache/paired-unchanged.json
+          .cache/fresh/bin/regsite-compare examples/paired-promoter-indel.json > .cache/paired-indel.json
+          .cache/fresh/bin/regsite-compare examples/paired-promoter-indel.json --format csv > .cache/paired.csv
+          REGSITE_RNASTRUCTURE="$GITHUB_WORKSPACE/.cache/linker-fixed/RNAstructure" .cache/fresh/bin/regsite-compare examples/paired-rbs-substitution.json > .cache/paired-rbs.json
+          .cache/fresh/bin/python -c 'import csv,json; a=json.load(open(".cache/paired-unchanged.json")); b=json.load(open(".cache/paired-indel.json")); c=json.load(open(".cache/paired-rbs.json")); assert all(r["schema_version"]=="paired-regulatory-result-1" and r["status"]=="complete" and r["coverage"]["complete"] for r in (a,b,c)); assert all(v["value"]==0 for row in a["comparisons"] for v in row["deltas"].values()); rows=list(csv.DictReader(open(".cache/paired.csv"))); assert len(rows)==24 and all(row["prediction_sha256"]==b["prediction_sha256"] for row in rows); assert c["sides"]["current"]["prediction"]["backend"]["variant"]=="rnastructure-6.6-linker-3"'
+          .cache/fresh/bin/regsite-promoter examples/promoter-contract-single.json > .cache/promoter-single.json
+          .cache/fresh/bin/regsite-promoter examples/promoter-contract-batch.json > .cache/promoter-batch.json
+          .cache/fresh/bin/regsite-promoter examples/promoter-projected.json --format csv > .cache/promoter.csv
+          .cache/fresh/bin/regsite-promoter examples/promoter-projected.json --format gff3 > .cache/promoter.gff3
+          .cache/fresh/bin/python -c 'import json; a=json.load(open(".cache/promoter-single.json")); b=json.load(open(".cache/promoter-batch.json")); assert a["results"][0]["status"]=="ok"; assert a["model"]["id"]=="promoter-lafleur2022-historical-1"; assert [r["status"] for r in b["results"]]==["ok","no_candidate"]; assert open(".cache/promoter.gff3").readline()=="##gff-version 3\n"'
+          .cache/fresh/bin/regsite examples/rbs-single.json > .cache/single.json
+          .cache/fresh/bin/regsite examples/rbs-batch.json > .cache/batch.json
+          .cache/fresh/bin/regsite examples/rbs-batch.json --format csv > .cache/batch.csv
+          .cache/fresh/bin/regsite examples/rbs-footprint.json --profile footprint2017 > .cache/footprint.json
+          .cache/fresh/bin/regsite examples/rbs-footprint.json --profile context2017 > .cache/context.json
+          .cache/fresh/bin/regsite examples/rbs-standby-hairpin.json --profile standby2014 > .cache/standby-original.json
+          REGSITE_RNASTRUCTURE="$GITHUB_WORKSPACE/.cache/traceback-fixed/RNAstructure" .cache/fresh/bin/regsite examples/rbs-standby-hairpin.json --profile standby2014 > .cache/standby-fixed.json
+          REGSITE_RNASTRUCTURE="$GITHUB_WORKSPACE/.cache/traceback-fixed/RNAstructure" .cache/fresh/bin/regsite examples/rbs-batch.json --profile standby2014 > .cache/standby-batch.json
+          .cache/fresh/bin/regsite examples/rbs-standby-hairpin.json --profile standby2014 --format csv > .cache/standby.csv
+          REGSITE_RNASTRUCTURE="$GITHUB_WORKSPACE/.cache/traceback-fixed/RNAstructure" .cache/fresh/bin/regsite-native examples/rbs-native-karlsen.json --profile standby2014 > .cache/native-standby.json
+          .cache/fresh/bin/regsite examples/rbs-standby-hairpin.json --profile joint_standby > .cache/joint-original.json
+          REGSITE_RNASTRUCTURE="$GITHUB_WORKSPACE/.cache/traceback-fixed/RNAstructure" .cache/fresh/bin/regsite examples/rbs-standby-hairpin.json --profile joint_standby > .cache/joint-fixed.json
+          .cache/fresh/bin/regsite examples/rbs-batch.json --profile joint_standby > .cache/joint-batch.json
+          .cache/fresh/bin/regsite examples/rbs-standby-hairpin.json --profile joint_standby --format csv > .cache/joint.csv
+          REGSITE_RNASTRUCTURE="$GITHUB_WORKSPACE/.cache/traceback-fixed/RNAstructure" .cache/fresh/bin/regsite-native examples/rbs-native-karlsen.json --profile joint_standby > .cache/native-joint.json
+          REGSITE_RNASTRUCTURE="$GITHUB_WORKSPACE/.cache/linker-fixed/RNAstructure" .cache/fresh/bin/regsite examples/rbs-standby-hairpin.json --profile joint_standby > .cache/joint-linker.json
+          REGSITE_RNASTRUCTURE="$GITHUB_WORKSPACE/.cache/linker-fixed/RNAstructure" .cache/fresh/bin/regsite examples/rbs-batch.json --profile joint_standby --format csv > .cache/joint-linker-batch.csv
+          REGSITE_RNASTRUCTURE="$GITHUB_WORKSPACE/.cache/linker-fixed/RNAstructure" .cache/fresh/bin/regsite-native examples/rbs-native-karlsen.json --profile joint_standby > .cache/native-joint-linker.json
+          .cache/fresh/bin/regsite-native benchmarks/rbs/native-input-example.json > .cache/native.json
+          .cache/fresh/bin/regsite-native benchmarks/rbs/native-input-example.json --format gff3 > .cache/native.gff3
+          .cache/fresh/bin/regsite-native examples/rbs-native-karlsen.json > .cache/native-real.json
+          .cache/fresh/bin/regsite-native examples/rbs-native-karlsen.json --format gff3 > .cache/native-real.gff3
+          .cache/fresh/bin/regsite-learned models/rbs/standby2014/sequence-v1.json examples/rbs-learned.json > .cache/learned-sequence.json
+          .cache/fresh/bin/regsite-learned models/rbs/standby2014/context-energy-sequence-v1.json examples/rbs-learned.json > .cache/learned-energy.json
+          .cache/fresh/bin/regsite-learned models/rbs/karlsen2018/sequence-v1.json examples/rbs-karlsen-native.json > .cache/learned-native.json
+          .cache/fresh/bin/python -c 'import json; a=json.load(open(".cache/single.json")); b=json.load(open(".cache/batch.json")); assert a["results"][0]["status"]=="ok"; assert [r["status"] for r in b["results"]]==["ok","ok","no_candidate","unsupported"]'
+          .cache/fresh/bin/python -c 'import json; a=json.load(open(".cache/footprint.json")); b=json.load(open(".cache/context.json")); assert a["schema_version"]==b["schema_version"]=="1.1"; assert a["results"][0]["status"]==b["results"][0]["status"]=="ok"'
+          .cache/fresh/bin/python -c 'import json; a=json.load(open(".cache/standby-original.json")); b=json.load(open(".cache/standby-fixed.json")); c=json.load(open(".cache/standby-batch.json")); assert a["schema_version"]==b["schema_version"]=="1.2"; assert a["results"][0]["status"]==b["results"][0]["status"]=="ok"; assert b["results"][0]["backend"]["variant"]=="rnastructure-6.6-traceback-2"; assert [r["status"] for r in c["results"]]==["ok","ok","no_candidate","unsupported"]'
+          .cache/fresh/bin/python -c 'import json; a=json.load(open(".cache/native.json")); assert a["schema_version"]=="native-rbs-result-1"; assert len(a["results"])==7; assert a["results"][-1]["reason"]=="tss_inside_current_cds"; assert open(".cache/native.gff3").readline()=="##gff-version 3\n"'
+          .cache/fresh/bin/python -c 'import json; a=json.load(open(".cache/native-real.json")); assert [r["status"] for r in a["results"]]==["ok","ok"]; rows=[l.split("\t") for l in open(".cache/native-real.gff3") if not l.startswith("#")]; assert [(r[3],r[4],r[6]) for r in rows if r[2]=="start_codon"]==[("383817","383819","+"),("745062","745064","-")]'
+          .cache/fresh/bin/python -c 'import json; a=json.load(open(".cache/learned-sequence.json")); b=json.load(open(".cache/learned-energy.json")); assert a["results"][0]["status"]==b["results"][0]["status"]=="ok"; assert a["results"][0]["mechanistic_reference"] is None; assert b["results"][0]["mechanistic_reference"]["backend"]["version"]=="6.6"'
+          .cache/fresh/bin/python -c 'import json; a=json.load(open(".cache/learned-native.json"))["results"][0]; assert a["status"]=="ok"; assert a["mechanistic_reference"] is None; assert "outside_declared_training_host_or_settings" not in a["warnings"]'
+          .cache/fresh/bin/python -c 'import csv,json; r=next(csv.DictReader(open(".cache/standby.csv"))); assert r["schema_version"]=="1.2" and r["status"]=="ok"; a=json.load(open(".cache/native-standby.json")); assert [r["status"] for r in a["results"]]==["ok","ok"]; assert all(r["prediction"]["schema_version"]=="1.2" and "standby_module" in r["genomic_sites"][0] for r in a["results"])'
+          .cache/fresh/bin/python -c 'import json; a=json.load(open(".cache/joint-original.json")); b=json.load(open(".cache/joint-fixed.json")); c=json.load(open(".cache/joint-batch.json")); assert a["schema_version"]==b["schema_version"]=="1.3"; assert all(r["status"]=="ok" and r["sites"][0]["joint_search"]["complete"] for x in (a,b) for r in x["results"]); assert [r["status"] for r in c["results"]]==["ok","ok","no_candidate","unsupported"]'
+          .cache/fresh/bin/python -c 'import csv,json; r=next(csv.DictReader(open(".cache/joint.csv"))); assert r["schema_version"]=="1.3" and r["status"]=="ok"; a=json.load(open(".cache/native-joint.json")); assert [r["status"] for r in a["results"]]==["ok","ok"]; assert all(r["prediction"]["schema_version"]=="1.3" and "standby_module" in r["genomic_sites"][0] for r in a["results"])'
+          .cache/fresh/bin/python -c 'import csv,json; a=json.load(open(".cache/joint-linker.json")); b=json.load(open(".cache/native-joint-linker.json")); c=list(csv.DictReader(open(".cache/joint-linker-batch.csv"))); assert a["results"][0]["backend"]["variant"]=="rnastructure-6.6-linker-3"; assert a["results"][0]["status"]=="ok"; assert [r["status"] for r in b["results"]]==["ok","ok"]; assert all(r["prediction"]["backend"]["variant"]=="rnastructure-6.6-linker-3" for r in b["results"]); assert [r["status"] for r in c]==["ok","ok","no_candidate","unsupported"]'
+
+      - name: Show bounded smoke diagnostics on failure
+        if: failure()
+        shell: bash
+        run: |
+          python - <<'PYDIAGNOSTICS'
+          from pathlib import Path
+          paths = sorted(Path(".cache").glob("*.json"), key=lambda p: p.stat().st_mtime, reverse=True)[:16]
+          for path in paths:
+              print(f"--- {str(path)[:256]} (first 4096 bytes) ---")
+              try:
+                  with path.open("rb") as stream:
+                      print(stream.read(4096).decode("utf-8", errors="replace"))
+              except OSError as error:
+                  print(f"unreadable: {type(error).__name__}")
+          PYDIAGNOSTICS
+  promoter-resources:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-24.04, macos-15]
+        python: ['3.11', '3.14']
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Measure and admit the complete synthetic candidate suite
+        env:
+          PYTHONPATH: src:.
+        run: >-
+          python tools/measure_promoter_resources.py
+          --suite candidate --repetitions 3 --budget-seconds 1200 --admit
+          --output .cache/promoter-resources/ci.json
+      - name: Preserve the complete resource receipt, including failures
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: promoter-resources-${{ matrix.os }}-py${{ matrix.python }}
+          path: .cache/promoter-resources/ci.json
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 30

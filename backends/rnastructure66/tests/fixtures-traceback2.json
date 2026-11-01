@@ -1,0 +1,201 @@
+{
+  "license": "GPL-2.0-only",
+  "provenance": "Hand-checkable hairpin/duplex energies; independent seeded synthetic inputs; permitted public development reproductions. Snapshots pair structural invariants with independent efn2 --simple evaluation. No experimental outcomes used.",
+  "fixtures": [
+    {
+      "id": "hairpin",
+      "leader": "GGGAAACCC",
+      "temperature": "310.15",
+      "anti_sd": null,
+      "manual_pairs": [
+        [
+          1,
+          9
+        ],
+        [
+          2,
+          8
+        ],
+        [
+          3,
+          7
+        ]
+      ],
+      "manual_energy": "-1.2",
+      "structure_count": 1,
+      "structure_sha256": "1e7f70e113ec4e0436244176198cc52d03c619b4050e69bbcac426a08568184d",
+      "evaluated_sha256": "575b39fa6be7d00de0ce4f9670861e1d925043f48a2e6710724b11cbcf772be0",
+      "native_evaluation_mismatches": 0,
+      "original_status": "valid",
+      "original_structure_sha256": "1e7f70e113ec4e0436244176198cc52d03c619b4050e69bbcac426a08568184d",
+      "energy_census": {
+        "single/0/0.0": 1
+      }
+    },
+    {
+      "id": "unpaired",
+      "leader": "AAAAAAAAAAAA",
+      "temperature": "310.15",
+      "anti_sd": null,
+      "manual_pairs": [],
+      "manual_energy": "0.0",
+      "structure_count": 1,
+      "structure_sha256": "73b04c45b4c2114cc672c7500ca88e381acab45b231cd0cce65c871c4940a08b",
+      "evaluated_sha256": "5b7ae026f51b1a853c200789caf8567d608c743626f18fbadde4b212239e23e2",
+      "native_evaluation_mismatches": 0,
+      "original_status": "valid",
+      "original_structure_sha256": "73b04c45b4c2114cc672c7500ca88e381acab45b231cd0cce65c871c4940a08b",
+      "energy_census": {
+        "single/0/missing": 1
+      }
+    },
+    {
+      "id": "duplex",
+      "leader": "AAAGGAGGAAAAAA",
+      "anti_sd": "ACCUCCUUA",
+      "temperature": "310.15",
+      "manual_energy": "-11.6",
+      "structure_count": 15,
+      "structure_sha256": "e64398f4ba61828a5fbf7c1e42b2b47f06e5956e69be356bcb01b262df6b3f96",
+      "evaluated_sha256": "c0a05b5ba411c4a4febdb241b64965bbb76fb0d27e1227cdf8b57c63d1fe7930",
+      "native_evaluation_mismatches": 0,
+      "original_status": "valid",
+      "original_structure_sha256": "e64398f4ba61828a5fbf7c1e42b2b47f06e5956e69be356bcb01b262df6b3f96",
+      "energy_census": {
+        "connected/0/0.0": 15
+      }
+    },
+    {
+      "id": "synthetic-30",
+      "leader": "CCUUAGCACAAUCACCGUGCCGGCUAAUGGAAUUAUGUCGUUGUGAGACUAUCAAGUAUUCGCUCCUAGCUGGAUGCGUGCUUUCGGGGCAUCAACCCUU",
+      "anti_sd": "ACCUCCUUU",
+      "temperature": "303.15",
+      "seed": 6603,
+      "index": 30,
+      "generator": "Python random.Random(6603).choice(ACGU), first 30 sequences length60, next30 length100; zero-based index.",
+      "structure_count": 100,
+      "structure_sha256": "ebfaa63ae1e04152d0bde8c0ffd3e2679e94f4a96e02bf167531e379ae2f05fd",
+      "evaluated_sha256": "bb9a1940e9034fd56b7b57a9ea14622b36ca4c217e8bb78aaf7a986093f86aeb",
+      "native_evaluation_mismatches": 13,
+      "original_status": "Nonreciprocal CT pair",
+      "energy_census": {
+        "connected/0/0.0": 29,
+        "connected/1/0.0": 20,
+        "connected/2/0.0": 23,
+        "connected/3/-2.2": 3,
+        "connected/3/0.0": 15,
+        "disconnected/1/4.1": 2,
+        "disconnected/2/4.1": 1,
+        "disconnected/3/4.1": 6,
+        "disconnected/4/4.1": 1
+      }
+    },
+    {
+      "id": "synthetic-33",
+      "leader": "UGUGCAUCCAGUAAGUGGGGACGUGCUAGACCUCGUACACUAUUUUUCCAAUGUCUAUUGAGAGUGAUCAUUGCGCUAACAUAUCCUAAAAUUGGCAGAA",
+      "anti_sd": "ACCUCCUUU",
+      "temperature": "303.15",
+      "seed": 6603,
+      "index": 33,
+      "generator": "Python random.Random(6603).choice(ACGU), first 30 sequences length60, next30 length100; zero-based index.",
+      "structure_count": 100,
+      "structure_sha256": "4524f5af9b5e773753cfc3c502a405758d0ce523093ebb3bae9676015ec9a268",
+      "evaluated_sha256": "07a683c21b1604c89725239f925544a38449278d8a3142fdfe66e7f5e05c4b2f",
+      "native_evaluation_mismatches": 13,
+      "original_status": "Nonreciprocal CT pair",
+      "energy_census": {
+        "connected/0/-0.2": 2,
+        "connected/0/0.0": 56,
+        "connected/0/0.2": 2,
+        "connected/1/0.0": 5,
+        "connected/2/-1.5": 2,
+        "connected/2/0.0": 25,
+        "connected/2/0.2": 1,
+        "connected/3/-1.3": 5,
+        "connected/3/0.0": 1,
+        "disconnected/3/4.1": 1
+      }
+    },
+    {
+      "id": "synthetic-54",
+      "leader": "GGAGUAUUAUCUUGGUACUUUGGGCAGGGAGGGAGACGAUUAUAGGGCUCAAGUUAUUAUAUCUGGACCGUCGUGCAUGAUUACUACACGUUAACUGAGA",
+      "anti_sd": "ACCUCCUUU",
+      "temperature": "303.15",
+      "seed": 6603,
+      "index": 54,
+      "generator": "Python random.Random(6603).choice(ACGU), first 30 sequences length60, next30 length100; zero-based index.",
+      "structure_count": 100,
+      "structure_sha256": "85cfe9ced51d73cf70bfa3330c08e7947b50655f5dd14942ec0d70d0f8f7a9f3",
+      "evaluated_sha256": "d5cf523a5e12375f762dc98c03660f3fad4b7bc6158caa1ea9abb65d63bb45f8",
+      "native_evaluation_mismatches": 4,
+      "original_status": "Folding failed: exit 0; error # 2\nA traceback error occurred.\n\nBimolecular folding complete with errors.",
+      "energy_census": {
+        "connected/0/0.0": 1,
+        "connected/1/0.0": 90,
+        "connected/1/0.2": 1,
+        "connected/2/-1.1": 2,
+        "connected/2/-1.5": 1,
+        "connected/2/0.0": 5
+      }
+    },
+    {
+      "id": "karlsen2018:SGL_RS10810",
+      "source": "benchmarks/rbs/karlsen2018-development.json",
+      "leader_sha256": "8f6109117a5f07f15509fcc258aa10899b3de987f12630005c5d8fab78f1d36a",
+      "leader_bases": 100,
+      "anti_sd": "ACCUCCUUU",
+      "temperature": "303.15",
+      "structure_count": 100,
+      "structure_sha256": "d0ac2a6f7f27f249ff589385ef3c12e43d1c79b34e71b772b6db7c14466770cb",
+      "evaluated_sha256": "95dbc2adde98951159e29923bc49b8b3d33910a0bab4fcdf9120432be3eb67cd",
+      "native_evaluation_mismatches": 32,
+      "energy_census": {
+        "connected/0/0.0": 6,
+        "connected/1/-0.2": 3,
+        "connected/1/0.0": 61,
+        "connected/2/0.0": 1,
+        "connected/3/-0.1": 9,
+        "connected/3/-1.0": 1,
+        "connected/4/-0.1": 3,
+        "connected/4/-1.5": 1,
+        "disconnected/1/3.9": 1,
+        "disconnected/1/4.1": 6,
+        "disconnected/2/4.1": 4,
+        "disconnected/3/4.1": 4
+      }
+    },
+    {
+      "id": "karlsen2018:sll0085",
+      "source": "benchmarks/rbs/karlsen2018-development.json",
+      "leader_sha256": "ba63f19f801ae2c621a3bf77c26893e58df3b62b3dd2ed114bb96359c13181ef",
+      "leader_bases": 100,
+      "anti_sd": "ACCUCCUUU",
+      "temperature": "303.15",
+      "structure_count": 100,
+      "structure_sha256": "927a300b639cb7ebb65173289a69d2f066bcd4c178a398377e60c6da82a52595",
+      "evaluated_sha256": "346fca1d8a515e80e7121fa023db9091b20e37b31aff2d8137285d39d77f7838",
+      "native_evaluation_mismatches": 39,
+      "energy_census": {
+        "connected/0/0.0": 8,
+        "connected/1/-0.2": 4,
+        "connected/1/0.0": 51,
+        "connected/1/0.2": 3,
+        "connected/2/-0.2": 1,
+        "connected/2/-0.3": 2,
+        "connected/2/-0.8": 6,
+        "connected/2/-1.3": 2,
+        "connected/2/-2.1": 1,
+        "connected/2/-2.3": 1,
+        "connected/2/0.0": 2,
+        "connected/3/-2.3": 1,
+        "disconnected/1/4.1": 9,
+        "disconnected/2/4.1": 4,
+        "disconnected/3/4.1": 5
+      }
+    }
+  ],
+  "component": "rnastructure-6.6-traceback-2",
+  "patch_sha256": "2d599e7fa9f6581b605350508163c4aa14458ebb8f444c096e5f923c8742d671",
+  "baseline_fixture_source": "52809e116ae1625cbf6b8a21d2108d8bbbd5bd7b:backends/rnastructure66/tests/fixtures.json (preserved unchanged)",
+  "baseline_fixture_sha256": "490837ebc7f1eb2f7342468a56ae198b1eac293e59fd9a521fd28b511cc0349f"
+}

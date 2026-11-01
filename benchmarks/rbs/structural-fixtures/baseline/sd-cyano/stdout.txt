@@ -1,0 +1,12 @@
+Initializing nucleic acids...done.
+Setting temperature...done.
+Folding two strands...
+
+  0% [=                                                 ] /                     
+ 19% [==========                                        ] -                     
+ 38% [====================                              ] \                     
+ 57% [=============================                     ] |                     
+ 76% [=======================================           ] /                     
+ 96% [================================================= ] -                     done.
+Writing output ct file...done.
+Bimolecular folding complete.

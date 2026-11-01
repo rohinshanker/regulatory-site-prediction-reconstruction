@@ -1,0 +1,496 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "algorithm",
+    "status",
+    "reason",
+    "request",
+    "request_sha256",
+    "sweep_id",
+    "model",
+    "coverage",
+    "points",
+    "warnings",
+    "result_sha256"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "conditional-sweep-result-1"
+    },
+    "algorithm": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "implementation_version"
+      ],
+      "properties": {
+        "id": {
+          "const": "explicit-conditional-concentration-sweep-1"
+        },
+        "implementation_version": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "status": {
+      "enum": [
+        "complete",
+        "partial",
+        "invalid_input"
+      ]
+    },
+    "reason": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "request": {
+      "anyOf": [
+        {
+          "$ref": "conditional-sweep-request-1.schema.json"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "request_sha256": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "sweep_id": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "model": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/model"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "coverage": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/coverage"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "points": {
+      "type": "array",
+      "maxItems": 64,
+      "items": {
+        "$ref": "#/$defs/point"
+      }
+    },
+    "warnings": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "result_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "invalid_input"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "reason": {
+            "type": "string",
+            "minLength": 1
+          },
+          "request": {
+            "type": "null"
+          },
+          "request_sha256": {
+            "type": "null"
+          },
+          "sweep_id": {
+            "type": "null"
+          },
+          "model": {
+            "type": "null"
+          },
+          "coverage": {
+            "type": "null"
+          },
+          "points": {
+            "maxItems": 0
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "enum": [
+              "complete",
+              "partial"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "request": {
+            "type": "object"
+          },
+          "request_sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "sweep_id": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "model": {
+            "$ref": "#/$defs/model"
+          },
+          "coverage": {
+            "$ref": "#/$defs/coverage"
+          },
+          "points": {
+            "minItems": 1
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "complete"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "reason": {
+            "type": "null"
+          },
+          "coverage": {
+            "properties": {
+              "failed": {
+                "const": 0
+              },
+              "not_run": {
+                "const": 0
+              },
+              "deadline_exceeded": {
+                "const": false
+              }
+            }
+          },
+          "points": {
+            "items": {
+              "properties": {
+                "status": {
+                  "const": "ok"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "partial"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "reason": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    }
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Conditional concentration sweep result 1",
+  "$comment": "Structural contract. Exact native substitution, cross-field identities, complete roster, counters, hashes and deadline semantics require runtime/integrity checks. No sequence-to-switch or biological calibration claim. Resolve referenced schemas from this distribution without network.",
+  "$defs": {
+    "point": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "index",
+        "ligand_total_molar",
+        "point_request_sha256",
+        "attempted",
+        "status",
+        "reasons",
+        "native",
+        "native_json_sha256"
+      ],
+      "properties": {
+        "index": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "ligand_total_molar": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1.7976931348623157e+308
+        },
+        "point_request_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "attempted": {
+          "type": "boolean"
+        },
+        "status": {
+          "enum": [
+            "ok",
+            "failed",
+            "no_mrna",
+            "unsupported",
+            "invalid_input",
+            "not_run"
+          ]
+        },
+        "reasons": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "native": {
+          "anyOf": [
+            {
+              "type": "object",
+              "description": "Complete native producer record, including rejected object evidence. Only an ok point admits its native identity and shape."
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "native_json_sha256": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "not_run"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "attempted": {
+                "const": false
+              },
+              "reasons": {
+                "minItems": 1
+              },
+              "native": {
+                "type": "null"
+              },
+              "native_json_sha256": {
+                "type": "null"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "ok"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "attempted": {
+                "const": true
+              },
+              "reasons": {
+                "maxItems": 0
+              },
+              "native": {
+                "allOf": [
+                  {
+                    "$ref": "conditional-aptamer-result-1.schema.json"
+                  },
+                  {
+                    "properties": {
+                      "status": {
+                        "const": "ok"
+                      },
+                      "profile": {
+                        "const": "supplied_energy_response"
+                      }
+                    }
+                  }
+                ]
+              },
+              "native_json_sha256": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "enum": [
+                  "failed",
+                  "no_mrna",
+                  "unsupported",
+                  "invalid_input"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "attempted": {
+                "const": true
+              },
+              "reasons": {
+                "minItems": 1
+              }
+            }
+          }
+        }
+      ]
+    },
+    "coverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "planned",
+        "attempted",
+        "successful",
+        "failed",
+        "not_run",
+        "deadline_exceeded",
+        "elapsed_seconds"
+      ],
+      "properties": {
+        "planned": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "attempted": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "successful": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "failed": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "not_run": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "deadline_exceeded": {
+          "type": "boolean"
+        },
+        "elapsed_seconds": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1.7976931348623157e+308
+        }
+      }
+    },
+    "model": {
+      "allOf": [
+        {
+          "$ref": "conditional-aptamer-result-1.schema.json#/properties/model"
+        },
+        {
+          "properties": {
+            "backend": {
+              "type": "null"
+            }
+          }
+        }
+      ]
+    }
+  }
+}

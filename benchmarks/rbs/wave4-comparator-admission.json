@@ -1,0 +1,111 @@
+{
+  "audit_scope": "Pinned identity, public feature/training contract and existing synthetic smokes; no new experimental panel predictions or labels.",
+  "decisions": {
+    "OSTIR": {
+      "ViennaRNA": "2.7.2",
+      "admitted": true,
+      "constraints": [
+        "optional research stack; retain GPL and ViennaRNA/NAVIEW notices",
+        "fixed37C implementation with explicit9-base aSD; one-based upstream start converted once",
+        "upstream environment2.6.4 parity and complete training independence not established",
+        "library execution works; legacy CLI-availability warning retained"
+      ],
+      "native_score": "upstream relative expression",
+      "python": "3.14.7",
+      "source_commit": "9a1a5744bd70f28313a342ba9bf7946c8cd12bd2",
+      "version": "1.1.3"
+    },
+    "public2014_sequence_v1": {
+      "admitted": true,
+      "artifact_content_sha256": "5af48fafd7b8bb5c992c26a06b928da5e8a31c3594e96d108a66f0c4777edf2b",
+      "constraints": [
+        "19 declared sequence features; coding columns inactive per model card",
+        "constant effective features on shared Cambray leader; undefined rho expected",
+        "not independently trained on public2014; no universal independence claim"
+      ],
+      "native_score": "log2_assay_response",
+      "training": "136 public2014 DH10B/mRFP1 constructs;22 families"
+    },
+    "rebeca": {
+      "admitted": true,
+      "checkpoint_sha256": "5b17912c6a177db87dfc5008ecebb6c13c2095747748eface1fc72fa46b43b9b",
+      "constraints": [
+        "Kuo/fepB/data_4 training exposure; no independent Kuo superiority claim",
+        "last30 upstream bases only, T-to-U, shortUTR right-zero-padding",
+        "constant effective inputs on shared Cambray leader; undefined rho expected",
+        "selected four files verified; whole12.5GB archive/training rows/checkpoint-publication equivalence unverified",
+        "public MIT source notice verified at embedded ref; local archive-embedded licence not reverified; ZenodoCC-BY4 does not license original Kuo measurements"
+      ],
+      "native_score": "upstream mean log fluorescence; adapter reports exp(native), geometric rather than arithmetic mean",
+      "python": "3.9.0 x86_64",
+      "torch": "1.13.1"
+    }
+  },
+  "exposure_exception": "A metadata line-range probe incidentally included the public2014 intercept field; not used or copied into fixtures/deliverables or transmitted to A. Independent fixtures were already committed; no private outcomes accessed.",
+  "input_features": {
+    "Cambray2018": {
+      "design_families": 112,
+      "n_inputs": 335,
+      "n_unique_last30": 1,
+      "n_unique_utrs": 1,
+      "seed_blocks": 56,
+      "start": 89,
+      "total_length": 188,
+      "utr_length": 89
+    },
+    "Kuo2020": {
+      "contexts": {
+        "arti": 87,
+        "dmsC": 87,
+        "fepB": 87
+      },
+      "n_inputs": 261,
+      "n_unique_last30": 261,
+      "n_unique_utrs": 261,
+      "start": 30,
+      "total_length": 73,
+      "utr_length": 30
+    }
+  },
+  "input_only_file_sha256": "c96399ddf396bbce4eb56802579f703c92dc46569ebcfee28db94a4001354271",
+  "manifest_pins": {
+    "benchmarks/rbs/comparator-artifacts.json": "40e0f83f0611d65ef6c695ebd3aa00cf39ec2d6fcaa6be781fdf80c230b1ce93",
+    "benchmarks/rbs/comparator-gates.json": "cf777b9d78a9d992f9639bda279209866e217db237ef0276f15278b14ea99b37",
+    "benchmarks/rbs/comparators.py": "67ae36264600678410e93d8776bd2926ac095f16dd8e31d9915f9e94f7dc4be9",
+    "models/rbs/standby2014/sequence-v1.json": "90081b12780af1bbfca508ced58de3a0ed7a488eca0ceb26efa43f19c0d9b36b"
+  },
+  "private_audit_report_sha256": "4c0fb058da4274091a5933570278de6794b681649eb4a345dc25282b7a09a539",
+  "private_evidence_bundle_sha256": "e24e822366b0488e37a7d7339a6d754674765898c860ae00a15515708dc47ad7",
+  "schema_version": "rbs-wave4-comparator-admission-1",
+  "synthetic_bridge_smokes": [
+    {
+      "input_sha256": "1dacfb704d83aa8b634834c50af1506f88e0b21ea0060f288330c9c16fd6cef3",
+      "kind": "learned",
+      "predicted": 12.454500088025624,
+      "private_raw_stdout_sha256": "b33635c061bfd8b1cf8744eb7f3a94ee371dac190edd16e0a9c5eb570fbba6f5",
+      "status": "ok"
+    },
+    {
+      "input_sha256": "1dacfb704d83aa8b634834c50af1506f88e0b21ea0060f288330c9c16fd6cef3",
+      "kind": "ostir",
+      "predicted": 3325.07148797,
+      "private_raw_stdout_sha256": "4f3143d548389b776510b18f9ebf0d9a1ccfacc7cc7b7af1c87c07955234b9e2",
+      "status": "ok"
+    },
+    {
+      "input_sha256": "1dacfb704d83aa8b634834c50af1506f88e0b21ea0060f288330c9c16fd6cef3",
+      "kind": "rebeca",
+      "predicted": 86079.91494727686,
+      "private_raw_stdout_sha256": "fe3d0129879fa1e4192ffe2681765eab359c883f4b4baa4b88720f8a68a4dd13",
+      "status": "ok"
+    },
+    {
+      "input_sha256": "1dacfb704d83aa8b634834c50af1506f88e0b21ea0060f288330c9c16fd6cef3",
+      "kind": "mechanistic_historical_backend2",
+      "predicted": 1819.4949429374176,
+      "private_raw_stdout_sha256": "9d9dcefb76dfa4580eb8650ea205a6f05c2d7aca7436d47afe28b60dfe5eee5e",
+      "status": "ok"
+    }
+  ],
+  "verified_utc": "2026-10-17"
+}

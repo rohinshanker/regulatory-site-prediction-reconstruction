@@ -1,0 +1,15 @@
+Structure: 1   Energy = -11.6
+Structure: 2   Energy = -8.2
+Structure: 3   Energy = -7.3
+Structure: 4   Energy = -6.1
+Structure: 5   Energy = -5.5
+Structure: 6   Energy = -5.3
+Structure: 7   Energy = -4.0
+Structure: 8   Energy = -2.6
+Structure: 9   Energy = -2.6
+Structure: 10   Energy = -2.4
+Structure: 11   Energy = -1.4
+Structure: 12   Energy = -1.4
+Structure: 13   Energy = -1.1
+Structure: 14   Energy = -0.7
+Structure: 15   Energy = -0.6

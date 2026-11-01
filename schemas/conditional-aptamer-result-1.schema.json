@@ -1,0 +1,1452 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Conditional aptamer component result, version 1",
+  "$comment": "Resolve sibling references with a local registry; never retrieve schemas over the network. Validated fields may independently be null on invalid_input/unsupported; execution failures retain partial response, solver, states and failed job receipts. Diagnostic code/message strings remain open because invalid_result accepts caller-defined transport diagnostics (including an empty message). JSON Schema cannot prove hash correctness, matching sequences/energy bases/backend observations, coordinate correspondence, structure legality, arithmetic, solver convergence, deadline/resource enforcement, ordered diagnostic correspondence, or biological validity. See the request schema for relational and integer-versus-float limitations and parser obligations for duplicate keys and nonfinite non-JSON values. No efficacy, native calibration or complete sequence-to-switch inference is asserted.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "id",
+    "profile",
+    "input",
+    "provenance",
+    "settings",
+    "model",
+    "request_sha256",
+    "status",
+    "reasons",
+    "warnings",
+    "errors",
+    "states",
+    "structural_cost_kcal_mol",
+    "response",
+    "complete"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "conditional-aptamer-result-1"
+    },
+    "id": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "conditional-aptamer-request-1.schema.json#/$defs/name"
+        }
+      ]
+    },
+    "profile": {
+      "enum": [
+        null,
+        "canonical_structure_pair",
+        "supplied_energy_response"
+      ]
+    },
+    "input": {
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "provenance": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "conditional-aptamer-request-1.schema.json#/$defs/provenance"
+        }
+      ]
+    },
+    "settings": {
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "model": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "implementation_version",
+        "source_manifest_sha256",
+        "parameter_sha256",
+        "backend",
+        "convention_id"
+      ],
+      "properties": {
+        "id": {
+          "const": "conditional-aptamer-1"
+        },
+        "implementation_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_manifest_sha256": {
+          "const": "ac4d7be48ba856dc6a713829425b584ffd55551743b10c51049de0ec70dc2f6e"
+        },
+        "parameter_sha256": {
+          "const": "99bb08423e2d321947e1cf5bb8cc3061bd99ab02414bff4d25377b5003f51b3f"
+        },
+        "backend": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/backend"
+            }
+          ]
+        },
+        "convention_id": {
+          "const": "natural_logs_equal_rna_complex_volume_explicit_molar_standard_strict_positive_zero_uncorrected_binary64_kd_guarded_certified_min_total_bracket_3"
+        }
+      }
+    },
+    "request_sha256": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "conditional-aptamer-request-1.schema.json#/$defs/hash"
+        }
+      ]
+    },
+    "status": {
+      "enum": [
+        "ok",
+        "invalid_input",
+        "unsupported",
+        "failed",
+        "no_mrna"
+      ]
+    },
+    "reasons": {
+      "$ref": "#/$defs/reasons"
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/diagnostic"
+      }
+    },
+    "errors": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/diagnostic"
+      }
+    },
+    "states": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/state"
+      },
+      "maxItems": 2,
+      "prefixItems": [
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/state"
+            },
+            {
+              "properties": {
+                "id": {
+                  "const": "unconstrained"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/state"
+            },
+            {
+              "properties": {
+                "id": {
+                  "const": "constraint_compatible"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "structural_cost_kcal_mol": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "conditional-aptamer-request-1.schema.json#/$defs/number",
+          "minimum": 0
+        }
+      ]
+    },
+    "response": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/response"
+        }
+      ]
+    },
+    "complete": {
+      "type": "boolean"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "required": [
+          "profile"
+        ],
+        "properties": {
+          "profile": {
+            "const": null
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "input": {
+            "type": "null"
+          },
+          "settings": {
+            "type": "null"
+          },
+          "states": {
+            "maxItems": 0
+          },
+          "response": {
+            "type": "null"
+          },
+          "model": {
+            "properties": {
+              "backend": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "required": [
+          "profile"
+        ],
+        "properties": {
+          "profile": {
+            "const": "canonical_structure_pair"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "input": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "conditional-aptamer-request-1.schema.json#/$defs/structural_input"
+              }
+            ]
+          },
+          "settings": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "conditional-aptamer-request-1.schema.json#/$defs/structural_settings"
+              }
+            ]
+          },
+          "states": {
+            "not": {
+              "minItems": 1,
+              "maxItems": 1
+            }
+          },
+          "response": {
+            "type": "null"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "required": [
+          "profile"
+        ],
+        "properties": {
+          "profile": {
+            "const": "supplied_energy_response"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "input": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "conditional-aptamer-request-1.schema.json#/$defs/response_input"
+              }
+            ]
+          },
+          "settings": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "conditional-aptamer-request-1.schema.json#/$defs/response_settings"
+              }
+            ]
+          },
+          "states": {
+            "maxItems": 0
+          },
+          "model": {
+            "properties": {
+              "backend": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "required": [
+          "status"
+        ],
+        "properties": {
+          "status": {
+            "const": "ok"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "complete": {
+            "const": true
+          },
+          "reasons": {
+            "maxItems": 0
+          },
+          "errors": {
+            "maxItems": 0
+          },
+          "structural_cost_kcal_mol": {
+            "type": "number"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "required": [
+          "status"
+        ],
+        "properties": {
+          "status": {
+            "not": {
+              "const": "ok"
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "complete": {
+            "const": false
+          },
+          "reasons": {
+            "minItems": 1
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "required": [
+          "status"
+        ],
+        "properties": {
+          "status": {
+            "enum": [
+              "invalid_input",
+              "unsupported"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "errors": {
+            "minItems": 1
+          },
+          "states": {
+            "maxItems": 0
+          },
+          "response": {
+            "type": "null"
+          },
+          "structural_cost_kcal_mol": {
+            "type": "null"
+          },
+          "warnings": {
+            "maxItems": 0
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "required": [
+          "status"
+        ],
+        "properties": {
+          "status": {
+            "const": "failed"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "errors": {
+            "minItems": 1
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "required": [
+          "status"
+        ],
+        "properties": {
+          "status": {
+            "enum": [
+              "ok",
+              "failed",
+              "no_mrna"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "id": {
+            "not": {
+              "type": "null"
+            }
+          },
+          "profile": {
+            "not": {
+              "type": "null"
+            }
+          },
+          "input": {
+            "not": {
+              "type": "null"
+            }
+          },
+          "provenance": {
+            "not": {
+              "type": "null"
+            }
+          },
+          "settings": {
+            "not": {
+              "type": "null"
+            }
+          },
+          "request_sha256": {
+            "not": {
+              "type": "null"
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "required": [
+          "status",
+          "profile"
+        ],
+        "properties": {
+          "status": {
+            "const": "ok"
+          },
+          "profile": {
+            "const": "canonical_structure_pair"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "states": {
+            "minItems": 2,
+            "items": {
+              "properties": {
+                "status": {
+                  "const": "ok"
+                }
+              }
+            }
+          },
+          "model": {
+            "properties": {
+              "backend": {
+                "type": "object"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "required": [
+          "status",
+          "profile"
+        ],
+        "properties": {
+          "status": {
+            "const": "ok"
+          },
+          "profile": {
+            "const": "supplied_energy_response"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "response": {
+            "type": "object",
+            "properties": {
+              "ligand_binding_kcal_mol": {
+                "not": {
+                  "type": "null"
+                }
+              },
+              "switching_kcal_mol": {
+                "not": {
+                  "type": "null"
+                }
+              },
+              "log_ar_max": {
+                "not": {
+                  "type": "null"
+                }
+              },
+              "ar_max": {
+                "not": {
+                  "type": "null"
+                }
+              },
+              "ar_conc": {
+                "not": {
+                  "type": "null"
+                }
+              },
+              "ar_actual": {
+                "not": {
+                  "type": "null"
+                }
+              },
+              "metastability_factor": {
+                "not": {
+                  "type": "null"
+                }
+              },
+              "metastability_applied": {
+                "not": {
+                  "type": "null"
+                }
+              },
+              "occupancy": {
+                "properties": {
+                  "status": {
+                    "const": "ok"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "required": [
+          "status"
+        ],
+        "properties": {
+          "status": {
+            "const": "no_mrna"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "profile": {
+            "const": "supplied_energy_response"
+          },
+          "reasons": {
+            "const": [
+              "no_mrna"
+            ]
+          },
+          "errors": {
+            "maxItems": 0
+          },
+          "response": {
+            "type": "object",
+            "properties": {
+              "occupancy": {
+                "properties": {
+                  "status": {
+                    "const": "no_mrna"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "diagnostic": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "code",
+        "message"
+      ],
+      "properties": {
+        "code": {
+          "type": "string",
+          "minLength": 1
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "reasons": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "backend": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "fold_sha256",
+        "efn2_sha256",
+        "table_manifest_sha256"
+      ],
+      "properties": {
+        "fold_sha256": {
+          "const": "803a5322799779df276282601a393b3d31ea35fffc4359f6d609134643ade0f6"
+        },
+        "efn2_sha256": {
+          "const": "1084934450523428af0ef15258f16c3f1fa174cb4949cf62e78b4581190dd8aa"
+        },
+        "table_manifest_sha256": {
+          "const": "5ff86be816a614c729a3d0a6e0ce50dcc277b3f156439e5aecf762d41f59fa0a"
+        }
+      }
+    },
+    "job": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "program",
+        "status",
+        "exit_code",
+        "timed_out",
+        "stdout_sha256",
+        "stderr_sha256"
+      ],
+      "properties": {
+        "program": {
+          "enum": [
+            "Fold",
+            "efn2"
+          ]
+        },
+        "status": {
+          "enum": [
+            "ok",
+            "failed"
+          ]
+        },
+        "exit_code": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "integer"
+            }
+          ]
+        },
+        "timed_out": {
+          "type": "boolean"
+        },
+        "stdout_sha256": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "conditional-aptamer-request-1.schema.json#/$defs/hash"
+            }
+          ]
+        },
+        "stderr_sha256": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "conditional-aptamer-request-1.schema.json#/$defs/hash"
+            }
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "required": [
+              "status"
+            ],
+            "properties": {
+              "status": {
+                "const": "ok"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "exit_code": {
+                "const": 0
+              },
+              "timed_out": {
+                "const": false
+              },
+              "stdout_sha256": {
+                "$ref": "conditional-aptamer-request-1.schema.json#/$defs/hash"
+              },
+              "stderr_sha256": {
+                "$ref": "conditional-aptamer-request-1.schema.json#/$defs/hash"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "timed_out"
+            ],
+            "properties": {
+              "timed_out": {
+                "const": true
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "status": {
+                "const": "failed"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "concentrations": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mrna_free_molar",
+        "ligand_free_molar",
+        "complex_molar",
+        "mrna_balance_error_molar",
+        "ligand_balance_error_molar"
+      ],
+      "properties": {
+        "mrna_free_molar": {
+          "$ref": "conditional-aptamer-request-1.schema.json#/$defs/number",
+          "minimum": 0
+        },
+        "ligand_free_molar": {
+          "$ref": "conditional-aptamer-request-1.schema.json#/$defs/number",
+          "minimum": 0
+        },
+        "complex_molar": {
+          "$ref": "conditional-aptamer-request-1.schema.json#/$defs/number",
+          "minimum": 0
+        },
+        "mrna_balance_error_molar": {
+          "$ref": "conditional-aptamer-request-1.schema.json#/$defs/number"
+        },
+        "ligand_balance_error_molar": {
+          "$ref": "conditional-aptamer-request-1.schema.json#/$defs/number"
+        }
+      }
+    },
+    "volume_fractions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mrna_free",
+        "ligand_free",
+        "complex",
+        "sum"
+      ],
+      "properties": {
+        "mrna_free": {
+          "$ref": "conditional-aptamer-request-1.schema.json#/$defs/number",
+          "minimum": 0
+        },
+        "ligand_free": {
+          "$ref": "conditional-aptamer-request-1.schema.json#/$defs/number",
+          "minimum": 0
+        },
+        "complex": {
+          "$ref": "conditional-aptamer-request-1.schema.json#/$defs/number",
+          "minimum": 0
+        },
+        "sum": {
+          "$ref": "conditional-aptamer-request-1.schema.json#/$defs/number",
+          "minimum": 0
+        }
+      }
+    },
+    "solver": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "iterations",
+        "bracket_molar",
+        "scaled_residual"
+      ],
+      "properties": {
+        "iterations": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 256
+        },
+        "bracket_molar": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "prefixItems": [
+            {
+              "$ref": "conditional-aptamer-request-1.schema.json#/$defs/number",
+              "minimum": 0
+            },
+            {
+              "$ref": "conditional-aptamer-request-1.schema.json#/$defs/number",
+              "minimum": 0
+            }
+          ],
+          "items": false
+        },
+        "scaled_residual": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "conditional-aptamer-request-1.schema.json#/$defs/number"
+            }
+          ]
+        }
+      }
+    },
+    "state": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "status",
+        "reasons",
+        "sequence_sha256",
+        "constraint_sha256",
+        "structure",
+        "pairs",
+        "fold_energy_kcal_mol",
+        "efn2_energy_kcal_mol",
+        "jobs"
+      ],
+      "properties": {
+        "id": {
+          "enum": [
+            "unconstrained",
+            "constraint_compatible"
+          ]
+        },
+        "status": {
+          "enum": [
+            "ok",
+            "failed",
+            "not_run"
+          ]
+        },
+        "reasons": {
+          "$ref": "#/$defs/reasons"
+        },
+        "sequence_sha256": {
+          "$ref": "conditional-aptamer-request-1.schema.json#/$defs/hash"
+        },
+        "constraint_sha256": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "conditional-aptamer-request-1.schema.json#/$defs/hash"
+            }
+          ]
+        },
+        "structure": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 200,
+              "pattern": "^[().]+(?![\\s\\S])"
+            }
+          ]
+        },
+        "pairs": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "conditional-aptamer-request-1.schema.json#/$defs/pair"
+              },
+              "uniqueItems": true,
+              "maxItems": 100
+            }
+          ]
+        },
+        "fold_energy_kcal_mol": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "conditional-aptamer-request-1.schema.json#/$defs/number"
+            }
+          ]
+        },
+        "efn2_energy_kcal_mol": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "conditional-aptamer-request-1.schema.json#/$defs/number"
+            }
+          ]
+        },
+        "jobs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/job"
+          },
+          "maxItems": 2,
+          "prefixItems": [
+            {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/job"
+                },
+                {
+                  "properties": {
+                    "program": {
+                      "const": "Fold"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/job"
+                },
+                {
+                  "properties": {
+                    "program": {
+                      "const": "efn2"
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "required": [
+              "id"
+            ],
+            "properties": {
+              "id": {
+                "const": "unconstrained"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "constraint_sha256": {
+                "type": "null"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "id"
+            ],
+            "properties": {
+              "id": {
+                "const": "constraint_compatible"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "constraint_sha256": {
+                "$ref": "conditional-aptamer-request-1.schema.json#/$defs/hash"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "status"
+            ],
+            "properties": {
+              "status": {
+                "const": "ok"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "reasons": {
+                "maxItems": 0
+              },
+              "structure": {
+                "type": "string"
+              },
+              "pairs": {
+                "type": "array"
+              },
+              "efn2_energy_kcal_mol": {
+                "type": "number"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "status"
+            ],
+            "properties": {
+              "status": {
+                "const": "failed"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "reasons": {
+                "minItems": 1
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "status"
+            ],
+            "properties": {
+              "status": {
+                "const": "not_run"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "structure": {
+                "type": "null"
+              },
+              "pairs": {
+                "type": "null"
+              },
+              "fold_energy_kcal_mol": {
+                "type": "null"
+              },
+              "efn2_energy_kcal_mol": {
+                "type": "null"
+              },
+              "reasons": {
+                "maxItems": 0
+              },
+              "jobs": {
+                "maxItems": 0
+              }
+            }
+          }
+        }
+      ]
+    },
+    "occupancy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mode",
+        "status",
+        "fraction",
+        "concentrations",
+        "volume_fractions",
+        "solver"
+      ],
+      "properties": {
+        "mode": {
+          "enum": [
+            "supplied_fraction",
+            "published2015_volume"
+          ]
+        },
+        "status": {
+          "enum": [
+            "ok",
+            "failed",
+            "no_mrna"
+          ]
+        },
+        "fraction": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "conditional-aptamer-request-1.schema.json#/$defs/number",
+              "minimum": 0,
+              "maximum": 1
+            }
+          ]
+        },
+        "concentrations": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/concentrations"
+            }
+          ]
+        },
+        "volume_fractions": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/volume_fractions"
+            }
+          ]
+        },
+        "solver": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/solver"
+            }
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "required": [
+              "mode"
+            ],
+            "properties": {
+              "mode": {
+                "const": "supplied_fraction"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "concentrations": {
+                "type": "null"
+              },
+              "volume_fractions": {
+                "type": "null"
+              },
+              "solver": {
+                "type": "null"
+              },
+              "status": {
+                "enum": [
+                  "ok",
+                  "failed"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "status"
+            ],
+            "properties": {
+              "status": {
+                "const": "ok"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "fraction": {
+                "type": "number"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "status"
+            ],
+            "properties": {
+              "status": {
+                "const": "no_mrna"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "mode": {
+                "const": "published2015_volume"
+              },
+              "fraction": {
+                "type": "null"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "mode",
+              "status"
+            ],
+            "properties": {
+              "mode": {
+                "const": "published2015_volume"
+              },
+              "status": {
+                "enum": [
+                  "ok",
+                  "no_mrna"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "concentrations": {
+                "type": "object"
+              },
+              "volume_fractions": {
+                "type": "object"
+              },
+              "solver": {
+                "type": "object"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "response": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ligand_binding_kcal_mol",
+        "switching_kcal_mol",
+        "log_ar_max",
+        "ar_max",
+        "ar_conc",
+        "ar_actual",
+        "metastability_factor",
+        "metastability_applied",
+        "occupancy"
+      ],
+      "properties": {
+        "ligand_binding_kcal_mol": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "conditional-aptamer-request-1.schema.json#/$defs/number"
+            }
+          ]
+        },
+        "switching_kcal_mol": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "conditional-aptamer-request-1.schema.json#/$defs/number"
+            }
+          ]
+        },
+        "log_ar_max": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "conditional-aptamer-request-1.schema.json#/$defs/number"
+            }
+          ]
+        },
+        "ar_max": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "conditional-aptamer-request-1.schema.json#/$defs/number",
+              "exclusiveMinimum": 0
+            }
+          ]
+        },
+        "ar_conc": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "conditional-aptamer-request-1.schema.json#/$defs/number",
+              "exclusiveMinimum": 0
+            }
+          ]
+        },
+        "ar_actual": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "conditional-aptamer-request-1.schema.json#/$defs/number",
+              "exclusiveMinimum": 0
+            }
+          ]
+        },
+        "metastability_factor": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "conditional-aptamer-request-1.schema.json#/$defs/number",
+              "exclusiveMinimum": 0,
+              "maximum": 1
+            }
+          ]
+        },
+        "metastability_applied": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "boolean"
+            }
+          ]
+        },
+        "occupancy": {
+          "$ref": "#/$defs/occupancy"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "required": [
+              "occupancy"
+            ],
+            "properties": {
+              "occupancy": {
+                "properties": {
+                  "status": {
+                    "const": "no_mrna"
+                  }
+                }
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "ar_conc": {
+                "type": "null"
+              },
+              "ar_actual": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,616 @@
+{
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": "native-rbs-result-1"
+    },
+    "batch_id": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "mode": {
+      "enum": [
+        "supplied_start",
+        "conditional_scan"
+      ]
+    },
+    "model_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256,
+      "pattern": "^[^\\x00-\\x1f\\x7f]+$"
+    },
+    "execution": {
+      "type": "object",
+      "properties": {
+        "implementation_version": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256,
+          "pattern": "^[^\\x00-\\x1f\\x7f]+$"
+        },
+        "backend": {
+          "type": "object"
+        },
+        "seconds_per_record": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 120
+        },
+        "seconds_per_batch": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 3600
+        }
+      },
+      "required": [
+        "implementation_version",
+        "backend",
+        "seconds_per_record",
+        "seconds_per_batch"
+      ],
+      "additionalProperties": false
+    },
+    "coordinate_space": {
+      "const": "zero-based half-open reference segments in transcript order"
+    },
+    "task_scope": {
+      "enum": [
+        "supplied start strength",
+        "conditional candidate ranking, not genome discovery"
+      ]
+    },
+    "results": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 10000,
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 256,
+                "pattern": "^[^\\x00-\\x1f\\x7f]+$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "status": {
+            "enum": [
+              "ok",
+              "no_candidate",
+              "unsupported",
+              "invalid_input",
+              "failed"
+            ]
+          },
+          "reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "context": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/context"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "prediction": {
+            "anyOf": [
+              {
+                "type": "object",
+                "required": [
+                  "schema_version",
+                  "id",
+                  "status",
+                  "sites",
+                  "model",
+                  "backend",
+                  "input",
+                  "prediction_id"
+                ],
+                "properties": {
+                  "schema_version": {
+                    "enum": [
+                      "1.0",
+                      "1.1",
+                      "1.2",
+                      "1.3"
+                    ]
+                  },
+                  "status": {
+                    "enum": [
+                      "ok",
+                      "no_candidate",
+                      "unsupported",
+                      "invalid_input",
+                      "failed"
+                    ]
+                  },
+                  "sites": {
+                    "type": "array"
+                  },
+                  "model": {
+                    "type": "object"
+                  },
+                  "input": {
+                    "type": "object"
+                  },
+                  "prediction_id": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  }
+                }
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "genomic_sites": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/site"
+            }
+          },
+          "warnings": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "evidence": {}
+        },
+        "required": [
+          "id",
+          "status",
+          "reason",
+          "context",
+          "prediction",
+          "genomic_sites",
+          "warnings",
+          "evidence"
+        ],
+        "additionalProperties": false,
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "status": {
+                  "const": "ok"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "context": {
+                  "$ref": "#/$defs/context"
+                },
+                "prediction": {
+                  "type": "object",
+                  "required": [
+                    "schema_version",
+                    "id",
+                    "status",
+                    "sites",
+                    "model",
+                    "backend",
+                    "input",
+                    "prediction_id"
+                  ],
+                  "properties": {
+                    "schema_version": {
+                      "enum": [
+                        "1.0",
+                        "1.1",
+                        "1.2",
+                        "1.3"
+                      ]
+                    },
+                    "status": {
+                      "enum": [
+                        "ok",
+                        "no_candidate",
+                        "unsupported",
+                        "invalid_input",
+                        "failed"
+                      ]
+                    },
+                    "sites": {
+                      "type": "array"
+                    },
+                    "model": {
+                      "type": "object"
+                    },
+                    "input": {
+                      "type": "object"
+                    },
+                    "prediction_id": {
+                      "type": "string",
+                      "pattern": "^[0-9a-f]{64}$"
+                    }
+                  }
+                },
+                "genomic_sites": {
+                  "minItems": 1
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  "required": [
+    "schema_version",
+    "batch_id",
+    "mode",
+    "model_id",
+    "execution",
+    "coordinate_space",
+    "task_scope",
+    "results"
+  ],
+  "additionalProperties": false,
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Native RBS genomic result 1",
+  "$defs": {
+    "interval": {
+      "type": "object",
+      "properties": {
+        "start": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "end": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "strand": {
+          "enum": [
+            "+",
+            "-"
+          ]
+        }
+      },
+      "required": [
+        "start",
+        "end",
+        "strand"
+      ],
+      "additionalProperties": false
+    },
+    "context": {
+      "type": "object",
+      "properties": {
+        "genome": {
+          "type": "object",
+          "properties": {
+            "accession": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256,
+              "pattern": "^[^\\x00-\\x1f\\x7f]+$"
+            },
+            "assembly": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256,
+              "pattern": "^[^\\x00-\\x1f\\x7f]+$"
+            },
+            "annotation": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256,
+              "pattern": "^[^\\x00-\\x1f\\x7f]+$"
+            },
+            "sequence_sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "topology": {
+              "enum": [
+                "linear",
+                "circular"
+              ]
+            }
+          },
+          "required": [
+            "accession",
+            "assembly",
+            "annotation",
+            "sequence_sha256",
+            "topology"
+          ],
+          "additionalProperties": false
+        },
+        "sequence": {
+          "type": "string",
+          "pattern": "^[ACGU]+$",
+          "minLength": 3,
+          "maxLength": 200
+        },
+        "sequence_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "sequence_alphabet": {
+          "const": "RNA"
+        },
+        "start": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "path": {
+          "type": "object",
+          "properties": {
+            "contig_length": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 20000000
+            },
+            "first": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "length": {
+              "type": "integer",
+              "minimum": 3,
+              "maximum": 200
+            },
+            "strand": {
+              "enum": [
+                "+",
+                "-"
+              ]
+            },
+            "circular": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "contig_length",
+            "first",
+            "length",
+            "strand",
+            "circular"
+          ],
+          "additionalProperties": false
+        },
+        "genomic_segments": {
+          "type": "array",
+          "maxItems": 2,
+          "items": {
+            "$ref": "#/$defs/interval"
+          }
+        },
+        "genomic_start_segments": {
+          "type": "array",
+          "maxItems": 2,
+          "items": {
+            "$ref": "#/$defs/interval"
+          }
+        }
+      },
+      "required": [
+        "genome",
+        "sequence",
+        "sequence_sha256",
+        "sequence_alphabet",
+        "start",
+        "path",
+        "genomic_segments",
+        "genomic_start_segments"
+      ],
+      "additionalProperties": false
+    },
+    "site": {
+      "type": "object",
+      "properties": {
+        "oriented_start": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "start_point": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "status": {
+          "enum": [
+            "ok",
+            "no_candidate",
+            "unsupported",
+            "invalid_input",
+            "failed"
+          ]
+        },
+        "rank_among_successful_candidates": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "start_codon": {
+          "anyOf": [
+            {
+              "type": "array",
+              "maxItems": 2,
+              "items": {
+                "$ref": "#/$defs/interval"
+              }
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "binding_interval": {
+          "anyOf": [
+            {
+              "type": "array",
+              "maxItems": 2,
+              "items": {
+                "$ref": "#/$defs/interval"
+              }
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "standby_interval": {
+          "anyOf": [
+            {
+              "type": "array",
+              "maxItems": 2,
+              "items": {
+                "$ref": "#/$defs/interval"
+              }
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "coding_footprint": {
+          "anyOf": [
+            {
+              "type": "array",
+              "maxItems": 2,
+              "items": {
+                "$ref": "#/$defs/interval"
+              }
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "window": {
+          "type": "array",
+          "maxItems": 2,
+          "items": {
+            "$ref": "#/$defs/interval"
+          }
+        },
+        "standby_module": {
+          "anyOf": [
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "original_hairpin": {
+                  "anyOf": [
+                    {
+                      "type": "array",
+                      "maxItems": 2,
+                      "items": {
+                        "$ref": "#/$defs/interval"
+                      }
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "hairpin": {
+                  "anyOf": [
+                    {
+                      "type": "array",
+                      "maxItems": 2,
+                      "items": {
+                        "$ref": "#/$defs/interval"
+                      }
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "distal": {
+                  "anyOf": [
+                    {
+                      "type": "array",
+                      "maxItems": 2,
+                      "items": {
+                        "$ref": "#/$defs/interval"
+                      }
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "proximal": {
+                  "anyOf": [
+                    {
+                      "type": "array",
+                      "maxItems": 2,
+                      "items": {
+                        "$ref": "#/$defs/interval"
+                      }
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "downstream_hairpins": {
+                  "type": "array",
+                  "items": {
+                    "type": "array",
+                    "maxItems": 2,
+                    "items": {
+                      "$ref": "#/$defs/interval"
+                    }
+                  }
+                }
+              },
+              "required": [
+                "original_hairpin",
+                "hairpin",
+                "distal",
+                "proximal",
+                "downstream_hairpins"
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "oriented_start",
+        "start_point",
+        "status",
+        "rank_among_successful_candidates",
+        "start_codon",
+        "binding_interval",
+        "standby_interval",
+        "coding_footprint",
+        "window"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

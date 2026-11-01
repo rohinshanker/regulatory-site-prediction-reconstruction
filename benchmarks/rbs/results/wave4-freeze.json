@@ -1,0 +1,747 @@
+{
+  "B_scientific_harness_commit": "557b59f0e565b9f10dbcc19516a99976e7cf1af8",
+  "benchmark_code_sha256": {
+    "benchmarks/rbs/comparators.py": "67ae36264600678410e93d8776bd2926ac095f16dd8e31d9915f9e94f7dc4be9",
+    "benchmarks/rbs/datasets.py": "6022162ae31f265aaf8b3dc6bfe3cca0fe49973cde7f2deb06fdb70a7724ffe4",
+    "benchmarks/rbs/metrics.py": "c3ed9ecaa6c0ace5d145f9fad94651fe0c3cff3231598e42e1b0bc86d28ace11",
+    "benchmarks/rbs/new_data.py": "75ae0a2702f4f426306e8e6c324a3ac213e2f971457f5e46e237e752d477260b",
+    "benchmarks/rbs/wave4_collect.py": "9cc1323c4f1ce291e2c5ee03e20879129a03a52e8e8f63e554c3cbe24d882db4",
+    "benchmarks/rbs/wave4_evaluate.py": "054f5992b7db3524fb4583c852758ac1c81e2c2d31848a3912db8a58aa6499b4",
+    "benchmarks/rbs/wave4_metrics.py": "dc1a4535315c57f708692887184d90ec1c9ef315354fb9175e2bec5061deed1c",
+    "benchmarks/rbs/wave4_predict.py": "ad42621f51162691883cce5c6c9cdd24311a55d51c61b183d29b51c4a635c865"
+  },
+  "candidate_receipt_commit": "1d4b6225232a7febeba039b8ca2fe8871e4c5204",
+  "candidate_receipt_sha256": "c98d7626d703c31d1ad5c9b8038a763afb6499fac097c395870ca7b9d9738963",
+  "candidate_receipt_url": "https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/blob/1d4b6225232a7febeba039b8ca2fe8871e4c5204/models/rbs/wave4-candidate.json",
+  "collector_receipt_sha256": "eba048f52132ebb1d52d812c49316de4397afb0502c39cfb895f0eaef6565591",
+  "configurations": [
+    {
+      "artifact_count": 560,
+      "backend": "rnastructure-6.6-traceback-2",
+      "command": [
+        "/Users/Rohin/Desktop/coding_stuff/ISAACS-LAB/worktrees/reconstruction-rbs-wave4-runtime/.venv/bin/python",
+        "-m",
+        "benchmarks.rbs.wave4_predict",
+        "mechanistic",
+        "--engine",
+        "/Users/Rohin/.cache/regsite-runtime/6.6-traceback-2-arm64/RNAstructure",
+        "--backend-variant",
+        "rnastructure-6.6-traceback-2",
+        "--profile",
+        "historical",
+        "--expected-model",
+        "salis-v1-rnastructure-6.6-reconstruction-1",
+        "--seconds",
+        "60"
+      ],
+      "configuration_sha256": "253dfed0925272b927b62819b54d917edbcee13fd2a78ef7242475f4bb9ded3c",
+      "cwd": "/Users/Rohin/Desktop/coding_stuff/ISAACS-LAB/worktrees/reconstruction-rbs-wave4-frozen",
+      "environment": {
+        "MKL_NUM_THREADS": "1",
+        "NUMEXPR_NUM_THREADS": "1",
+        "OMP_NUM_THREADS": "1",
+        "OPENBLAS_NUM_THREADS": "1",
+        "PYTHONPATH": "/Users/Rohin/Desktop/coding_stuff/ISAACS-LAB/worktrees/reconstruction-rbs-wave4-frozen/src",
+        "VECLIB_MAXIMUM_THREADS": "1"
+      },
+      "id": "historical-traceback2",
+      "kind": "mechanistic",
+      "profile": "historical"
+    },
+    {
+      "artifact_count": 560,
+      "backend": "rnastructure-6.6-traceback-2",
+      "command": [
+        "/Users/Rohin/Desktop/coding_stuff/ISAACS-LAB/worktrees/reconstruction-rbs-wave4-runtime/.venv/bin/python",
+        "-m",
+        "benchmarks.rbs.wave4_predict",
+        "mechanistic",
+        "--engine",
+        "/Users/Rohin/.cache/regsite-runtime/6.6-traceback-2-arm64/RNAstructure",
+        "--backend-variant",
+        "rnastructure-6.6-traceback-2",
+        "--profile",
+        "standby2014",
+        "--expected-model",
+        "standby2014-rnastructure-6.6-reconstruction-1",
+        "--seconds",
+        "60"
+      ],
+      "configuration_sha256": "c3c9ace9d31146b40e6d83df4de5c58c189e1c90f6e983d2f3262e9ca47e2d66",
+      "cwd": "/Users/Rohin/Desktop/coding_stuff/ISAACS-LAB/worktrees/reconstruction-rbs-wave4-frozen",
+      "environment": {
+        "MKL_NUM_THREADS": "1",
+        "NUMEXPR_NUM_THREADS": "1",
+        "OMP_NUM_THREADS": "1",
+        "OPENBLAS_NUM_THREADS": "1",
+        "PYTHONPATH": "/Users/Rohin/Desktop/coding_stuff/ISAACS-LAB/worktrees/reconstruction-rbs-wave4-frozen/src",
+        "VECLIB_MAXIMUM_THREADS": "1"
+      },
+      "id": "standby2014-traceback2",
+      "kind": "mechanistic",
+      "profile": "standby2014"
+    },
+    {
+      "artifact_count": 560,
+      "backend": "rnastructure-6.6-traceback-2",
+      "command": [
+        "/Users/Rohin/Desktop/coding_stuff/ISAACS-LAB/worktrees/reconstruction-rbs-wave4-runtime/.venv/bin/python",
+        "-m",
+        "benchmarks.rbs.wave4_predict",
+        "mechanistic",
+        "--engine",
+        "/Users/Rohin/.cache/regsite-runtime/6.6-traceback-2-arm64/RNAstructure",
+        "--backend-variant",
+        "rnastructure-6.6-traceback-2",
+        "--profile",
+        "joint_standby",
+        "--expected-model",
+        "joint-standby-rnastructure-6.6-reconstruction-1",
+        "--seconds",
+        "60"
+      ],
+      "configuration_sha256": "823f56b4ec3acabcc0a29b1f19161ce9cc55bafb592f4daab21c88a51d99248c",
+      "cwd": "/Users/Rohin/Desktop/coding_stuff/ISAACS-LAB/worktrees/reconstruction-rbs-wave4-frozen",
+      "environment": {
+        "MKL_NUM_THREADS": "1",
+        "NUMEXPR_NUM_THREADS": "1",
+        "OMP_NUM_THREADS": "1",
+        "OPENBLAS_NUM_THREADS": "1",
+        "PYTHONPATH": "/Users/Rohin/Desktop/coding_stuff/ISAACS-LAB/worktrees/reconstruction-rbs-wave4-frozen/src",
+        "VECLIB_MAXIMUM_THREADS": "1"
+      },
+      "id": "joint_standby-traceback2",
+      "kind": "mechanistic",
+      "profile": "joint_standby"
+    },
+    {
+      "artifact_count": 560,
+      "backend": "rnastructure-6.6-linker-3",
+      "command": [
+        "/Users/Rohin/Desktop/coding_stuff/ISAACS-LAB/worktrees/reconstruction-rbs-wave4-runtime/.venv/bin/python",
+        "-m",
+        "benchmarks.rbs.wave4_predict",
+        "mechanistic",
+        "--engine",
+        "/Users/Rohin/.cache/regsite-runtime/6.6-linker-3-arm64/RNAstructure",
+        "--backend-variant",
+        "rnastructure-6.6-linker-3",
+        "--profile",
+        "historical",
+        "--expected-model",
+        "salis-v1-rnastructure-6.6-reconstruction-1",
+        "--seconds",
+        "60"
+      ],
+      "configuration_sha256": "20dbd85a2922d94973dc483af821d10578aaeb6760ec7e81d8609c58b6b35c17",
+      "cwd": "/Users/Rohin/Desktop/coding_stuff/ISAACS-LAB/worktrees/reconstruction-rbs-wave4-frozen",
+      "environment": {
+        "MKL_NUM_THREADS": "1",
+        "NUMEXPR_NUM_THREADS": "1",
+        "OMP_NUM_THREADS": "1",
+        "OPENBLAS_NUM_THREADS": "1",
+        "PYTHONPATH": "/Users/Rohin/Desktop/coding_stuff/ISAACS-LAB/worktrees/reconstruction-rbs-wave4-frozen/src",
+        "VECLIB_MAXIMUM_THREADS": "1"
+      },
+      "id": "historical-linker3",
+      "kind": "mechanistic",
+      "profile": "historical"
+    },
+    {
+      "artifact_count": 560,
+      "backend": "rnastructure-6.6-linker-3",
+      "command": [
+        "/Users/Rohin/Desktop/coding_stuff/ISAACS-LAB/worktrees/reconstruction-rbs-wave4-runtime/.venv/bin/python",
+        "-m",
+        "benchmarks.rbs.wave4_predict",
+        "mechanistic",
+        "--engine",
+        "/Users/Rohin/.cache/regsite-runtime/6.6-linker-3-arm64/RNAstructure",
+        "--backend-variant",
+        "rnastructure-6.6-linker-3",
+        "--profile",
+        "standby2014",
+        "--expected-model",
+        "standby2014-rnastructure-6.6-reconstruction-1",
+        "--seconds",
+        "60"
+      ],
+      "configuration_sha256": "1d446bc24295861b1acb652d45df021097368aae4dbb29430924ebc778ca778b",
+      "cwd": "/Users/Rohin/Desktop/coding_stuff/ISAACS-LAB/worktrees/reconstruction-rbs-wave4-frozen",
+      "environment": {
+        "MKL_NUM_THREADS": "1",
+        "NUMEXPR_NUM_THREADS": "1",
+        "OMP_NUM_THREADS": "1",
+        "OPENBLAS_NUM_THREADS": "1",
+        "PYTHONPATH": "/Users/Rohin/Desktop/coding_stuff/ISAACS-LAB/worktrees/reconstruction-rbs-wave4-frozen/src",
+        "VECLIB_MAXIMUM_THREADS": "1"
+      },
+      "id": "standby2014-linker3",
+      "kind": "mechanistic",
+      "profile": "standby2014"
+    },
+    {
+      "artifact_count": 560,
+      "backend": "rnastructure-6.6-linker-3",
+      "command": [
+        "/Users/Rohin/Desktop/coding_stuff/ISAACS-LAB/worktrees/reconstruction-rbs-wave4-runtime/.venv/bin/python",
+        "-m",
+        "benchmarks.rbs.wave4_predict",
+        "mechanistic",
+        "--engine",
+        "/Users/Rohin/.cache/regsite-runtime/6.6-linker-3-arm64/RNAstructure",
+        "--backend-variant",
+        "rnastructure-6.6-linker-3",
+        "--profile",
+        "joint_standby",
+        "--expected-model",
+        "joint-standby-rnastructure-6.6-reconstruction-1",
+        "--seconds",
+        "60"
+      ],
+      "configuration_sha256": "77788c9535df9ea4bd6e8f87124f086be30e2642d60f91dfd3587d137a710114",
+      "cwd": "/Users/Rohin/Desktop/coding_stuff/ISAACS-LAB/worktrees/reconstruction-rbs-wave4-frozen",
+      "environment": {
+        "MKL_NUM_THREADS": "1",
+        "NUMEXPR_NUM_THREADS": "1",
+        "OMP_NUM_THREADS": "1",
+        "OPENBLAS_NUM_THREADS": "1",
+        "PYTHONPATH": "/Users/Rohin/Desktop/coding_stuff/ISAACS-LAB/worktrees/reconstruction-rbs-wave4-frozen/src",
+        "VECLIB_MAXIMUM_THREADS": "1"
+      },
+      "id": "joint_standby-linker3",
+      "kind": "mechanistic",
+      "profile": "joint_standby"
+    },
+    {
+      "artifact_count": 89,
+      "command": [
+        "/Users/Rohin/Desktop/coding_stuff/ISAACS-LAB/worktrees/reconstruction-rbs-wave4-runtime/.venv/bin/python",
+        "-m",
+        "benchmarks.rbs.wave4_predict",
+        "learned",
+        "--model",
+        "/Users/Rohin/Desktop/coding_stuff/ISAACS-LAB/worktrees/reconstruction-rbs-wave4-frozen/models/rbs/standby2014/sequence-v1.json",
+        "--expected-artifact",
+        "5af48fafd7b8bb5c992c26a06b928da5e8a31c3594e96d108a66f0c4777edf2b",
+        "--seconds",
+        "60"
+      ],
+      "configuration_sha256": "d4e2fbed1342676b001e0aeec618f39ef23b962ab637a7bfee012092e53d81fb",
+      "cwd": "/Users/Rohin/Desktop/coding_stuff/ISAACS-LAB/worktrees/reconstruction-rbs-wave4-frozen",
+      "environment": {
+        "MKL_NUM_THREADS": "1",
+        "NUMEXPR_NUM_THREADS": "1",
+        "OMP_NUM_THREADS": "1",
+        "OPENBLAS_NUM_THREADS": "1",
+        "PYTHONPATH": "/Users/Rohin/Desktop/coding_stuff/ISAACS-LAB/worktrees/reconstruction-rbs-wave4-frozen/src",
+        "VECLIB_MAXIMUM_THREADS": "1"
+      },
+      "id": "public2014-sequence-v1",
+      "kind": "learned"
+    },
+    {
+      "artifact_count": 992,
+      "command": [
+        "/Users/Rohin/.cache/reg-site-wave2/ostir-audit/venv/bin/python",
+        "-m",
+        "benchmarks.rbs.wave4_predict",
+        "ostir"
+      ],
+      "configuration_sha256": "d6b9d7f779089be63915c1e9c26d87631086eb90f1a94ce60ee2188e0fa5706f",
+      "cwd": "/Users/Rohin/Desktop/coding_stuff/ISAACS-LAB/worktrees/reconstruction-wave4-evaluation",
+      "environment": {
+        "MKL_NUM_THREADS": "1",
+        "NUMEXPR_NUM_THREADS": "1",
+        "OMP_NUM_THREADS": "1",
+        "OPENBLAS_NUM_THREADS": "1",
+        "PYTHONPATH": "/Users/Rohin/Desktop/coding_stuff/ISAACS-LAB/worktrees/reconstruction-wave4-evaluation",
+        "VECLIB_MAXIMUM_THREADS": "1"
+      },
+      "id": "ostir-1.1.3",
+      "kind": "ostir"
+    },
+    {
+      "artifact_count": 16496,
+      "command": [
+        "/Users/Rohin/.cache/reg-site-wave2/comparator-audit/venv/bin/python",
+        "-m",
+        "benchmarks.rbs.wave4_predict",
+        "rebeca",
+        "--rebeca-root",
+        "/Users/Rohin/.cache/reg-site-wave2/scalar-audit/members/rebeca/rebeca"
+      ],
+      "configuration_sha256": "48f6faa821cf4b447aa81ae05a09e70a284fad3d2917134336cbeeb493ed2bbb",
+      "cwd": "/Users/Rohin/Desktop/coding_stuff/ISAACS-LAB/worktrees/reconstruction-wave4-evaluation",
+      "environment": {
+        "MKL_NUM_THREADS": "1",
+        "NUMEXPR_NUM_THREADS": "1",
+        "OMP_NUM_THREADS": "1",
+        "OPENBLAS_NUM_THREADS": "1",
+        "PYTHONPATH": "/Users/Rohin/Desktop/coding_stuff/ISAACS-LAB/worktrees/reconstruction-wave4-evaluation",
+        "VECLIB_MAXIMUM_THREADS": "1"
+      },
+      "id": "rebeca-exp67-true",
+      "kind": "rebeca"
+    },
+    {
+      "artifact_count": 0,
+      "configuration_sha256": "d5e51982bb3f3ead56fb224bed7910856b85fc90853b4a593db3ca304427bd02",
+      "id": "control-constant",
+      "kind": "constant"
+    },
+    {
+      "artifact_count": 0,
+      "configuration_sha256": "ed02442fe0fcc56312351d274279880dd5e72021b7814587d6f1e2cd53643ad8",
+      "id": "control-gc-content",
+      "kind": "gc_content"
+    }
+  ],
+  "controls": 1192,
+  "coordination": {
+    "A_candidate": "https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/28#issuecomment-6243621079",
+    "A_execution_GO": "https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/28#issuecomment-6243651142",
+    "B_acceptance": "https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/28#issuecomment-6243641828",
+    "B_collection_started": "https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/28#issuecomment-6243659279"
+  },
+  "external_jobs": 5364,
+  "identities": {
+    "input_envelope_sha256": "00648504305dddb7accede06ab07ca0ce12749f271b8ec3858dd6f44c359ba5d",
+    "input_file_sha256": "c96399ddf396bbce4eb56802579f703c92dc46569ebcfee28db94a4001354271",
+    "private_outcome_sha256": "443bc60476d79d2d1690b016d8acedd86eef05fdd5b49f4d10d5a6db6dc6015b",
+    "protocol_sha256": "d8eb48c4d019e7e3a6da1ed826ec9f4b43232baf03129fbf37822e9057b474ab",
+    "source_ledger_sha256": "998a970e41e176f5a7d32bd67bf01b1acb71985941dcd79948d39bbfd5ce7516",
+    "source_manifest_sha256": "2118192093d9317ee2536f84d87c16b44975b4cf2fedbe778edb82dabd04e882",
+    "split_file_sha256": "dcccc24f43993e82c71b23dba602ceb41b81404c34c04459c297d2149028ce9a"
+  },
+  "limits": {
+    "backend_process_seconds": 15,
+    "bound_state_attempts_per_joint_site": 4096,
+    "candidate_tie_absolute_kcal_mol": 1e-09,
+    "collection": {
+      "max_processes": 2,
+      "outputs": "exclusive new private directory 0700 and files 0600; immutable per-record receipts before aggregate results",
+      "roster_max_excluding_controls": 9,
+      "schedule": "Cambray then Kuo; input IDs sorted within study; model IDs sorted then cyclically rotated by input index, submitted in that deterministic record-major order",
+      "seconds_per_record": 60,
+      "timeout_policy": "terminate process group, preserve timeout with null score; no retry",
+      "total_cap_policy": "stop scheduling, terminate running work at cap, preserve every remaining row as not_run; collection incomplete and no advancement",
+      "total_seconds": 14400
+    },
+    "fixed_state_batch_size": 100,
+    "opening_states_per_candidate": 512,
+    "record_seconds": 60,
+    "returned_candidates": 100
+  },
+  "new_backend": {
+    "accepted_before_freeze": true,
+    "basis": "source invariant, independent exact-patch review and three-engine software/structural gates; no experimental outcomes",
+    "id": "rnastructure-6.6-linker-3"
+  },
+  "optional_admission_manifest": "benchmarks/rbs/wave4-comparator-admission.json",
+  "optional_environment_inventories": {
+    "ostir": {
+      "architecture": "arm64",
+      "distributions": [
+        {
+          "name": "numpy",
+          "version": "2.4.2"
+        },
+        {
+          "name": "OSTIR",
+          "version": "1.1.3"
+        },
+        {
+          "name": "ViennaRNA",
+          "version": "2.7.2"
+        }
+      ],
+      "file_count": 951,
+      "interpreter": "/Users/Rohin/.cache/reg-site-wave2/ostir-audit/venv/bin/python",
+      "inventory_sha256": "3ca8493c3c59ce86906598c6424f0dedadfe6dc6a0c6119777457c6089326223",
+      "python": "3.14.7"
+    },
+    "rebeca": {
+      "architecture": "x86_64",
+      "distributions": [
+        {
+          "name": "certifi",
+          "version": "2026.7.22"
+        },
+        {
+          "name": "charset-normalizer",
+          "version": "3.5.2"
+        },
+        {
+          "name": "idna",
+          "version": "3.20"
+        },
+        {
+          "name": "Jinja2",
+          "version": "3.1.6"
+        },
+        {
+          "name": "joblib",
+          "version": "1.5.3"
+        },
+        {
+          "name": "MarkupSafe",
+          "version": "3.0.4"
+        },
+        {
+          "name": "numpy",
+          "version": "1.24.4"
+        },
+        {
+          "name": "pandas",
+          "version": "1.5.3"
+        },
+        {
+          "name": "pip",
+          "version": "24.0"
+        },
+        {
+          "name": "psutil",
+          "version": "7.2.2"
+        },
+        {
+          "name": "pyparsing",
+          "version": "3.3.3"
+        },
+        {
+          "name": "python-dateutil",
+          "version": "2.9.0.post0"
+        },
+        {
+          "name": "pytz",
+          "version": "2026.5"
+        },
+        {
+          "name": "PyYAML",
+          "version": "6.0.1"
+        },
+        {
+          "name": "requests",
+          "version": "2.32.5"
+        },
+        {
+          "name": "scikit-learn",
+          "version": "1.3.2"
+        },
+        {
+          "name": "scipy",
+          "version": "1.10.1"
+        },
+        {
+          "name": "setuptools",
+          "version": "49.2.1"
+        },
+        {
+          "name": "six",
+          "version": "1.17.0"
+        },
+        {
+          "name": "threadpoolctl",
+          "version": "3.7.0"
+        },
+        {
+          "name": "torch",
+          "version": "1.13.1"
+        },
+        {
+          "name": "torch_geometric",
+          "version": "2.4.0"
+        },
+        {
+          "name": "tqdm",
+          "version": "4.70.1"
+        },
+        {
+          "name": "typing_extensions",
+          "version": "4.16.0"
+        },
+        {
+          "name": "urllib3",
+          "version": "2.6.3"
+        }
+      ],
+      "file_count": 16451,
+      "interpreter": "/Users/Rohin/.cache/reg-site-wave2/comparator-audit/venv/bin/python",
+      "inventory_sha256": "afc9979b4acc52ac637c746ccc6e2d9e528437bbe94851b9f68f02fc857f617c",
+      "python": "3.9.0"
+    }
+  },
+  "optional_source_and_weight_manifest": "benchmarks/rbs/comparator-artifacts.json",
+  "panels": {
+    "Cambray2018": {
+      "endpoint": "ordinary protein fluorescence only",
+      "families": 112,
+      "inputs": 335,
+      "observed": 332,
+      "seed_blocks": 56
+    },
+    "Kuo2020": {
+      "contexts": 3,
+      "inputs": 261,
+      "observed": 253,
+      "role": "exposed secondary; unknown log base; no independent superiority claim"
+    }
+  },
+  "phase": "before_experimental_outcome_join",
+  "planning_baseline": "73521a6ae3251678073dce76181ee5909b34fe8b",
+  "primary": {
+    "contender": "joint_standby-linker3",
+    "mode": "joint",
+    "reference": "standby2014-linker3"
+  },
+  "privacy": "Full receipt/raw predictions and outcomes stay evaluator-owned outside Git. This manifest contains input-only identities and configuration metadata; no measurements, per-case model outputs or residuals. All configurations finalize before one frozen comparison; no model fitting, post-hoc exclusions or retries.",
+  "scheduled_jobs": 6556,
+  "schema_version": "rbs-wave4-public-freeze-1",
+  "scientific_execution_commit": "a11cb5bd13d3c021eedc98cf451609eb4710bb6a",
+  "software_resource_gates": {
+    "ci": {
+      "jobs": [
+        {
+          "completedAt": "2026-10-17T23:59:47Z",
+          "conclusion": "success",
+          "name": "runtime (ubuntu-24.04, 3.14)",
+          "url": "https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/actions/runs/39080285855/job/117535712876"
+        },
+        {
+          "completedAt": "2026-10-18T00:07:56Z",
+          "conclusion": "success",
+          "name": "runtime (macos-14, 3.11)",
+          "url": "https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/actions/runs/39080285855/job/117535713036"
+        },
+        {
+          "completedAt": "2026-10-18T00:12:21Z",
+          "conclusion": "success",
+          "name": "runtime (ubuntu-24.04, 3.11)",
+          "url": "https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/actions/runs/39080285855/job/117535713097"
+        },
+        {
+          "completedAt": "2026-10-18T00:03:39Z",
+          "conclusion": "success",
+          "name": "runtime (macos-14, 3.14)",
+          "url": "https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/actions/runs/39080285855/job/117535713099"
+        }
+      ],
+      "run_id": 39080285855,
+      "url": "https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/actions/runs/39080285855"
+    },
+    "complete": true,
+    "component_suite": {
+      "command": "RNASTRUCTURE66_ORIGINAL=/path/to/original RNASTRUCTURE66_PATCHED=/path/to/traceback-2 RNASTRUCTURE66_LINKER3=/path/to/linker-3 .venv/bin/python -m unittest discover -s backends/rnastructure66/tests -v",
+      "components": [
+        "original6.6",
+        "rnastructure-6.6-traceback-2",
+        "rnastructure-6.6-linker-3"
+      ],
+      "seconds": 686.956,
+      "source_commits": [
+        "aaa0532cba40635fff22275da93ae3a3bef6ecfd",
+        "945436ed1e3bee62b6cc6a02a5c36dd027b3a3bb"
+      ],
+      "tests": 35
+    },
+    "fresh_offline": {
+      "command_recipe": ".github/workflows/ci.yml: Build and run fresh offline wheel installation",
+      "engines": [
+        "original6.6",
+        "traceback2",
+        "linker3"
+      ],
+      "exit_code": 0,
+      "formats": [
+        "JSON",
+        "CSV",
+        "GFF3"
+      ],
+      "paths": [
+        "historical",
+        "footprint2017",
+        "context2017",
+        "standby2014",
+        "joint_standby",
+        "native",
+        "learned"
+      ],
+      "required_python_dependencies": 0,
+      "source_wheel_sha256": {
+        "regulatory_site_prediction_reconstruction-0.4.0rc1-py3-none-any.whl": "29158e3cea64f9224f9c169adb0700b883537f2c24ec12c327512230a4c9c3d6",
+        "regulatory_site_prediction_reconstruction-0.4.0rc1.tar.gz": "3777efad209b5d904587563f637cf99a442cc2e97c143eb63fa9b44aca93a5e5"
+      },
+      "wheel_runtime_files_match_frozen_source": 23
+    },
+    "independent_reviews": {
+      "B_harness": {
+        "accepted_commit": "2b7217fb15ec3735626657782236765d813f58bd",
+        "handoff": "https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/28#issuecomment-6243119669",
+        "result": "independently reviewed; no unresolved findings"
+      },
+      "backend_source": {
+        "issue": "DEM-513",
+        "issue_id": "01a14c33-3c66-7d5a-8946-c1bd0ef8f07b",
+        "result": "approved; source invariant and14adversarial settings verified; broader constraints/SHAPE remain outside scope"
+      },
+      "joint_and_admission": {
+        "accepted_commits": [
+          "cd6cb3a62cdd560b226f6cbae3d152f103afa606",
+          "0a10d3b34ef0cc65a900aa35b13c4c1097848339",
+          "a11cb5bd13d3c021eedc98cf451609eb4710bb6a"
+        ],
+        "issue": "DEM-507",
+        "issue_id": "01a14c11-6c75-7924-81a2-aaa14bc5e076",
+        "result": "no blocking defect; receipt-presence finding fixed and independently confirmed"
+      }
+    },
+    "legacy_compatibility": {
+      "all_unchanged_except": [
+        "implementation_version",
+        "prediction_id"
+      ],
+      "complete_original_engine_outputs": 32,
+      "independent_original_and_v2_examples": "confirmed unchanged by reviewer"
+    },
+    "public_development_resources": {
+      "linker3": {
+        "backend": {
+          "binary_sha256": {
+            "Fold": "81f962573b7f43c023dd23eab4ae1e8e7f6402d8679e89a6a1a539cfdc6a5458",
+            "bifold": "9f8156cabaf8e13f91e90d410c46aef1cff1c2badda1c4243b194f54eb1f8136",
+            "efn2": "f0b2ce5971d482f50867615e3870b4743d42d6b0e266e05c0c0c1f1bc63d8b4d"
+          },
+          "build_provenance": {
+            "component": "rnastructure-6.6-linker-3",
+            "license": "GPL-2.0-only",
+            "patch_sha256": "2ef6ef61496b034110f4151e2fc1aec77cbd011c88a36bcef574be0dfecebb2d",
+            "patched_source_sha256": "b19a9ad1634f7e8f7669410b1eb7f5e8c27542f073054acb65647891e62ddbc7",
+            "source_archive_sha256": "1bedc62aaab984279055caaa6234d48fca113f4b8e17a8060e0b3784d5a397c3"
+          },
+          "build_receipt_sha256": "7fabba75b3f49cb9be9a5633f8fb149e318e6e48a971487acf7cceb743b806e2",
+          "expected_source_archive_sha256": "1bedc62aaab984279055caaa6234d48fca113f4b8e17a8060e0b3784d5a397c3",
+          "interface": "independent executables via sequence/CT files",
+          "licence": "GPL-2.0-only (separate installation)",
+          "name": "RNAstructure",
+          "settings": {
+            "alphabet": "rna",
+            "bifold_maximum": 100,
+            "bifold_percent": 100,
+            "bifold_window": 0,
+            "coaxial_stacking": true,
+            "dangles": "RNAstructure 6.6 native; no historical auto-dangle switch",
+            "efn2_multibranch_model": "simple",
+            "energy_evaluation": "efn2 --simple for every structure",
+            "fold_maximum": 1,
+            "fold_mfe_only": true,
+            "fold_window": 0,
+            "intramolecular_pairs": true,
+            "isolated_pairs": false,
+            "maximum_loop": 30
+          },
+          "table_manifest_sha256": "ece4c4b535783cb4e03c7ce8f243d09be84a165ecd113b1d20941b5ed8b69501",
+          "variant": "rnastructure-6.6-linker-3",
+          "version": "6.6"
+        },
+        "changed_winner": 3,
+        "code_commit": "0a10d3b34ef0cc65a900aa35b13c4c1097848339",
+        "complete_searches": 136,
+        "max_child_rss_bytes": 85721088,
+        "max_eligible": 6,
+        "max_states": 252,
+        "profile": "joint_standby",
+        "python_rss_bytes": 37584896,
+        "records": 136,
+        "seconds_max": 2.500349916983396,
+        "seconds_median": 0.8702577294898219,
+        "seconds_p95": 1.9198693330399692,
+        "source_sha256": "d74967eb964f1797138076ed12a35ef5f44c0ac3e87241e5186505503fd698f4",
+        "statuses": {
+          "ok": 136
+        },
+        "total_seconds": 139.9371769579593
+      },
+      "traceback2": {
+        "backend": {
+          "binary_sha256": {
+            "Fold": "22950e05e608440427942c46a1755496bd208ae433099390f9b6ebe4ce0fa30c",
+            "bifold": "397f92eb38d0c8db06bcd56aa02547e017fe3f912c4062311ba18be6ccb1f2f5",
+            "efn2": "c9a23ed0e9b7416f8c06d8413f0a736e286e497e4c71a339ec3204abf7373b05"
+          },
+          "build_provenance": {
+            "component": "rnastructure-6.6-traceback-2",
+            "license": "GPL-2.0-only",
+            "patch_sha256": "2d599e7fa9f6581b605350508163c4aa14458ebb8f444c096e5f923c8742d671",
+            "patched_source_sha256": "6300df34e26fe674b6e87260cee69617130c015910e3ed67fd1b45aa1e2dca6c",
+            "source_archive_sha256": "1bedc62aaab984279055caaa6234d48fca113f4b8e17a8060e0b3784d5a397c3"
+          },
+          "build_receipt_sha256": "a88ca5647b1446c5900aced0b73515932c6457a19b3eaf7d651900a858979266",
+          "expected_source_archive_sha256": "1bedc62aaab984279055caaa6234d48fca113f4b8e17a8060e0b3784d5a397c3",
+          "interface": "independent executables via sequence/CT files",
+          "licence": "GPL-2.0-only (separate installation)",
+          "name": "RNAstructure",
+          "settings": {
+            "alphabet": "rna",
+            "bifold_maximum": 100,
+            "bifold_percent": 100,
+            "bifold_window": 0,
+            "coaxial_stacking": true,
+            "dangles": "RNAstructure 6.6 native; no historical auto-dangle switch",
+            "efn2_multibranch_model": "simple",
+            "energy_evaluation": "efn2 --simple for every structure",
+            "fold_maximum": 1,
+            "fold_mfe_only": true,
+            "fold_window": 0,
+            "intramolecular_pairs": true,
+            "isolated_pairs": false,
+            "maximum_loop": 30
+          },
+          "table_manifest_sha256": "ece4c4b535783cb4e03c7ce8f243d09be84a165ecd113b1d20941b5ed8b69501",
+          "variant": "rnastructure-6.6-traceback-2",
+          "version": "6.6"
+        },
+        "changed_winner": 3,
+        "code_commit": "cd6cb3a62cdd560b226f6cbae3d152f103afa606",
+        "complete_searches": 136,
+        "max_child_rss_bytes": 85671936,
+        "max_eligible": 6,
+        "max_states": 252,
+        "profile": "joint_standby",
+        "python_rss_bytes": 38780928,
+        "records": 136,
+        "seconds_max": 2.0682035419158638,
+        "seconds_median": 0.8230722084990703,
+        "seconds_p95": 1.5692422499414533,
+        "source_sha256": "d74967eb964f1797138076ed12a35ef5f44c0ac3e87241e5186505503fd698f4",
+        "statuses": {
+          "ok": 136
+        },
+        "total_seconds": 124.88007225003093
+      }
+    },
+    "runtime_suite": {
+      "branches": 2314,
+      "command": "REGSITE_RNASTRUCTURE=/path/to/linker-3/RNAstructure .venv/bin/python -m pytest --cov=regsite --cov=benchmarks.rbs --cov=benchmarks.promoter --cov=experiments.rbs --cov-report=term-missing",
+      "coverage_percent": 100,
+      "engine": "rnastructure-6.6-linker-3",
+      "python": "3.14.7",
+      "statements": 5603,
+      "tests": 1614
+    },
+    "scientific_commit": "a11cb5bd13d3c021eedc98cf451609eb4710bb6a",
+    "scope": "Software, structural and development resource gates only; no experimental advancement implied.",
+    "six_configuration_synthetic_bridge": {
+      "input": "examples/rbs-single.json; explicit supplied start and synthetic host; no study input",
+      "passed": 6,
+      "receipt_sha256": "b82f463199e5244274433f841be79e371dc631d106ce19db4d3bf4c6659367df"
+    },
+    "static_checks": [
+      "Ruff check/format",
+      "mypy src/regsite experiments",
+      "pip check",
+      "git diff --check",
+      "scoped ticket/document validation"
+    ]
+  },
+  "unique_artifact_pins": 18481
+}

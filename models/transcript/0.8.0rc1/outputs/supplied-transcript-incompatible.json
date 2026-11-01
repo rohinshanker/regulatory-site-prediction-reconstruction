@@ -1,0 +1,1760 @@
+{
+  "cds": [
+    {
+      "annotation": {
+        "id": "cds-1",
+        "provenance": {
+          "kind": "synthetic",
+          "reference": "Existing public synthetic RBS smoke sequence with repeat padding; no experimental efficacy claim"
+        },
+        "range": [
+          94,
+          132
+        ]
+      },
+      "annotation_coordinates": {
+        "construct_interval": [
+          94,
+          132
+        ],
+        "genomic": {
+          "contig": "synthetic-circle",
+          "runs": [
+            [
+              889,
+              927
+            ]
+          ],
+          "strand": "-"
+        },
+        "local_strand": "+",
+        "native_interval": [
+          94,
+          132
+        ],
+        "reason": null
+      },
+      "eligible": false,
+      "features": {},
+      "reason": "start_before_transcript",
+      "scalars": {
+        "dG_accessible_complex": {
+          "reason": "incompatible_transcript",
+          "unit": "kcal/mol",
+          "value": null
+        },
+        "dG_cofold_native_prediction": {
+          "reason": "incompatible_transcript",
+          "unit": "kcal/mol",
+          "value": null
+        },
+        "dG_cofold_search": {
+          "reason": "incompatible_transcript",
+          "unit": "kcal/mol",
+          "value": null
+        },
+        "dG_complex": {
+          "reason": "incompatible_transcript",
+          "unit": "kcal/mol",
+          "value": null
+        },
+        "dG_distortion": {
+          "reason": "incompatible_transcript",
+          "unit": "kcal/mol",
+          "value": null
+        },
+        "dG_mRNA": {
+          "reason": "incompatible_transcript",
+          "unit": "kcal/mol",
+          "value": null
+        },
+        "dG_mRNA_native_prediction": {
+          "reason": "incompatible_transcript",
+          "unit": "kcal/mol",
+          "value": null
+        },
+        "dG_post_footprint": {
+          "reason": "incompatible_transcript",
+          "unit": "kcal/mol",
+          "value": null
+        },
+        "dG_search_with_spacing": {
+          "reason": "incompatible_transcript",
+          "unit": "kcal/mol",
+          "value": null
+        },
+        "dG_sliding": {
+          "reason": "incompatible_transcript",
+          "unit": "kcal/mol",
+          "value": null
+        },
+        "dG_spacing": {
+          "reason": "incompatible_transcript",
+          "unit": "kcal/mol",
+          "value": null
+        },
+        "dG_standby": {
+          "reason": "incompatible_transcript",
+          "unit": "kcal/mol",
+          "value": null
+        },
+        "dG_standby_signed": {
+          "reason": "incompatible_transcript",
+          "unit": "kcal/mol",
+          "value": null
+        },
+        "dG_start": {
+          "reason": "incompatible_transcript",
+          "unit": "kcal/mol",
+          "value": null
+        },
+        "dG_total": {
+          "reason": "incompatible_transcript",
+          "unit": "kcal/mol",
+          "value": null
+        },
+        "dG_unfolding": {
+          "reason": "incompatible_transcript",
+          "unit": "kcal/mol",
+          "value": null
+        },
+        "dG_unfolding_raw": {
+          "reason": "incompatible_transcript",
+          "unit": "kcal/mol",
+          "value": null
+        },
+        "log_tir": {
+          "reason": "incompatible_transcript",
+          "unit": "ln_relative_initiation_score",
+          "value": null
+        },
+        "tir": {
+          "reason": "incompatible_transcript",
+          "unit": "relative_initiation_score",
+          "value": null
+        }
+      },
+      "site_index": null,
+      "status": "incompatible_transcript",
+      "transcript_offset": -1,
+      "warnings": []
+    },
+    {
+      "annotation": {
+        "id": "cds-2",
+        "provenance": {
+          "kind": "synthetic",
+          "reference": "Existing public synthetic RBS smoke sequence with repeat padding; no experimental efficacy claim"
+        },
+        "range": [
+          146,
+          184
+        ]
+      },
+      "annotation_coordinates": {
+        "construct_interval": [
+          146,
+          184
+        ],
+        "genomic": {
+          "contig": "synthetic-circle",
+          "runs": [
+            [
+              837,
+              875
+            ]
+          ],
+          "strand": "-"
+        },
+        "local_strand": "+",
+        "native_interval": [
+          146,
+          184
+        ],
+        "reason": null
+      },
+      "eligible": true,
+      "features": {
+        "binding_interval": {
+          "construct_interval": [
+            133,
+            140
+          ],
+          "genomic": {
+            "contig": "synthetic-circle",
+            "runs": [
+              [
+                881,
+                888
+              ]
+            ],
+            "strand": "-"
+          },
+          "local_strand": "+",
+          "native_interval": [
+            38,
+            45
+          ],
+          "reason": null
+        },
+        "coding_footprint": {
+          "construct_interval": null,
+          "genomic": null,
+          "local_strand": "+",
+          "native_interval": null,
+          "reason": "feature_unavailable"
+        },
+        "standby.distal": {
+          "construct_interval": null,
+          "genomic": null,
+          "local_strand": "+",
+          "native_interval": null,
+          "reason": "feature_unavailable"
+        },
+        "standby.hairpin": {
+          "construct_interval": null,
+          "genomic": null,
+          "local_strand": "+",
+          "native_interval": null,
+          "reason": "feature_unavailable"
+        },
+        "standby.original_hairpin": {
+          "construct_interval": null,
+          "genomic": null,
+          "local_strand": "+",
+          "native_interval": null,
+          "reason": "feature_unavailable"
+        },
+        "standby.proximal": {
+          "construct_interval": null,
+          "genomic": null,
+          "local_strand": "+",
+          "native_interval": null,
+          "reason": "feature_unavailable"
+        },
+        "standby_interval": {
+          "construct_interval": [
+            129,
+            133
+          ],
+          "genomic": {
+            "contig": "synthetic-circle",
+            "runs": [
+              [
+                888,
+                892
+              ]
+            ],
+            "strand": "-"
+          },
+          "local_strand": "+",
+          "native_interval": [
+            34,
+            38
+          ],
+          "reason": null
+        },
+        "start_codon": {
+          "construct_interval": [
+            146,
+            149
+          ],
+          "genomic": {
+            "contig": "synthetic-circle",
+            "runs": [
+              [
+                872,
+                875
+              ]
+            ],
+            "strand": "-"
+          },
+          "local_strand": "+",
+          "native_interval": [
+            51,
+            54
+          ],
+          "reason": null
+        },
+        "window": {
+          "construct_interval": [
+            111,
+            179
+          ],
+          "genomic": {
+            "contig": "synthetic-circle",
+            "runs": [
+              [
+                842,
+                910
+              ]
+            ],
+            "strand": "-"
+          },
+          "local_strand": "+",
+          "native_interval": [
+            16,
+            84
+          ],
+          "reason": null
+        }
+      },
+      "reason": null,
+      "scalars": {
+        "dG_accessible_complex": {
+          "reason": null,
+          "unit": "kcal/mol",
+          "value": -11.6
+        },
+        "dG_cofold_native_prediction": {
+          "reason": null,
+          "unit": "kcal/mol",
+          "value": -11.6
+        },
+        "dG_cofold_search": {
+          "reason": null,
+          "unit": "kcal/mol",
+          "value": -11.6
+        },
+        "dG_complex": {
+          "reason": null,
+          "unit": "kcal/mol",
+          "value": -11.6
+        },
+        "dG_distortion": {
+          "reason": "value_unavailable",
+          "unit": "kcal/mol",
+          "value": null
+        },
+        "dG_mRNA": {
+          "reason": null,
+          "unit": "kcal/mol",
+          "value": 0.0
+        },
+        "dG_mRNA_native_prediction": {
+          "reason": "value_unavailable",
+          "unit": "kcal/mol",
+          "value": null
+        },
+        "dG_post_footprint": {
+          "reason": "value_unavailable",
+          "unit": "kcal/mol",
+          "value": null
+        },
+        "dG_search_with_spacing": {
+          "reason": null,
+          "unit": "kcal/mol",
+          "value": -11.6
+        },
+        "dG_sliding": {
+          "reason": "value_unavailable",
+          "unit": "kcal/mol",
+          "value": null
+        },
+        "dG_spacing": {
+          "reason": null,
+          "unit": "kcal/mol",
+          "value": 0.0
+        },
+        "dG_standby": {
+          "reason": "value_unavailable",
+          "unit": "kcal/mol",
+          "value": null
+        },
+        "dG_standby_signed": {
+          "reason": null,
+          "unit": "kcal/mol",
+          "value": 0.0
+        },
+        "dG_start": {
+          "reason": null,
+          "unit": "kcal/mol",
+          "value": -1.194
+        },
+        "dG_total": {
+          "reason": null,
+          "unit": "kcal/mol",
+          "value": -12.794
+        },
+        "dG_unfolding": {
+          "reason": "value_unavailable",
+          "unit": "kcal/mol",
+          "value": null
+        },
+        "dG_unfolding_raw": {
+          "reason": "value_unavailable",
+          "unit": "kcal/mol",
+          "value": null
+        },
+        "log_tir": {
+          "reason": null,
+          "unit": "ln_relative_initiation_score",
+          "value": 13.58192179843505
+        },
+        "tir": {
+          "reason": null,
+          "unit": "relative_initiation_score",
+          "value": 791687.3228275315
+        }
+      },
+      "site_index": 0,
+      "status": "ok",
+      "transcript_offset": 51,
+      "warnings": [
+        "downstream_clipped"
+      ]
+    }
+  ],
+  "components": {
+    "promoter": {
+      "coverage": {
+        "missing": 0,
+        "not_evaluated": 0,
+        "requested": 1,
+        "returned": 1,
+        "scored": 1
+      },
+      "declared_seconds": 30.0,
+      "prediction": {
+        "batch": {
+          "batch_id": "52688948285539f2e9e552ae922174d01bd659606d1aa75433f58d592e6b46c5",
+          "complete": true,
+          "limits": {
+            "default_seconds_per_batch": 300.0,
+            "default_seconds_per_record": 30.0,
+            "max_all_state_sites_per_record": 100,
+            "max_all_states_per_batch": 2000,
+            "max_all_states_per_record": 2000,
+            "max_contig_chars": 128,
+            "max_host_name_chars": 200,
+            "max_id_chars": 128,
+            "max_input_json_bytes": 4000000,
+            "max_metadata_depth": 4,
+            "max_metadata_json_bytes": 4096,
+            "max_normalized_bases_per_batch": 100000,
+            "max_normalized_bases_per_record": 5000,
+            "max_planned_sites_per_batch": 4000,
+            "max_planned_sites_per_record": 1000,
+            "max_raw_sequence_chars_per_record": 50000,
+            "max_records_per_batch": 100,
+            "max_result_json_bytes": 67108864,
+            "max_seconds_per_batch": 3600.0,
+            "max_seconds_per_record": 120.0
+          },
+          "record_count": 1,
+          "seconds_per_batch": 30.0,
+          "seconds_per_record": 30.0,
+          "status_counts": {
+            "failed": 0,
+            "invalid_input": 0,
+            "no_candidate": 0,
+            "ok": 1,
+            "unsupported": 0
+          }
+        },
+        "model": {
+          "claims": {
+            "absolute_rate": false,
+            "hosted_parity": false,
+            "native_accuracy_evaluated": false,
+            "physical_free_energy": false,
+            "probability": false
+          },
+          "id": "promoter-lafleur2022-historical-1",
+          "implementation_version": "0.8.0rc1",
+          "kind": "historical_equation_reconstruction",
+          "licence": "GPL-3.0-or-later",
+          "not_modeled": [
+            "sigma_factor",
+            "temperature",
+            "host_specific_calibration",
+            "probability",
+            "absolute_rate",
+            "free_energy"
+          ],
+          "parameters": {
+            "array_sha256": {
+              "coefficients": "fddf16b38bf29799481e8a45890b669111e16cf2e3448e99d1934d19a8f0b8e9",
+              "intercept": "f7c66a8d838da71a6b2ab17936cd6ff2564e446af8c0676fba95de2116e99a7b"
+            },
+            "coefficient_count": 343,
+            "intercept_count": 1,
+            "parameter_json_sha256": "e2957d4687a5d5a2a20bcce231b4ea1446f269b383bbae94eed72860efa360dc",
+            "unused_coefficient_indices": [
+              336,
+              337,
+              338
+            ]
+          },
+          "source": {
+            "commit": "46da9132740bce30bccd107f02808adf2215e2f0",
+            "path": "Promoter_Calculator",
+            "reference_fork_commit": "0fe5f6f0fb2befc087556afa575f7241afd98fbf",
+            "repository": "https://github.com/hsalis/SalisLabCode"
+          },
+          "source_quirks": [
+            {
+              "behavior": "Corrected local base L-1-t; legacy L-t diagnostic only.",
+              "id": "reverse_key_l_minus_t"
+            },
+            {
+              "behavior": "Always retain the one-base UP/hex35 gap.",
+              "id": "arbitrary_scan_gap_omitted"
+            },
+            {
+              "behavior": "No sigma input accepted; source metadata had no effect.",
+              "id": "sigma_levels_ignored"
+            },
+            {
+              "behavior": "Calibration required, never inferred from host.",
+              "id": "unknown_organism_default_beta"
+            },
+            {
+              "behavior": "All coordinate-eligible states available on request.",
+              "id": "one_state_per_tss_public"
+            },
+            {
+              "behavior": "Preserve unused 336..338; use source quadratic.",
+              "id": "unused_spacer_coefficients"
+            },
+            {
+              "behavior": "Follow code: UP=24; discriminator lengths 6..10.",
+              "id": "paper_code_difference"
+            }
+          ],
+          "term_source_names": {
+            "binding": "dG_bind",
+            "discriminator": "dG_disc",
+            "extended10": "dG_ext10",
+            "hex10": "dG_10",
+            "hex35": "dG_35",
+            "intercept": "intercept",
+            "itr": "dG_ITR",
+            "source_apparent": "dG_apparent",
+            "spacer": "dG_spacer",
+            "total": "dG_total",
+            "up": "dG_UP"
+          },
+          "terms_semantics": "learned regression score contributions; not independently established free energies",
+          "terms_unit": "source_dG_units"
+        },
+        "results": [
+          {
+            "calibration": {
+              "K": 42,
+              "beta": 1.636217004872062,
+              "host": null,
+              "host_status": "unspecified",
+              "native_host": "Escherichia coli str. K-12 substr. MG1655",
+              "profile": "ecoli_mg1655"
+            },
+            "coverage": {
+              "complete": true,
+              "complete_context": true,
+              "failed_sites": 0,
+              "insufficient_context_sites": 0,
+              "partial_state_sites": 0,
+              "planned_sites": 1,
+              "scored_sites": 1,
+              "truncation": null,
+              "unattempted_sites": 0
+            },
+            "errors": [],
+            "id": "transcript-promoter",
+            "input": {
+              "length": 264,
+              "normalization": "ascii-whitespace-uppercase-u-to-t-1",
+              "normalized_dna_sha256": "f5f5d1b2438fbce850151794700d5630fcc91cc6514da7fffb679cd2ad31913b",
+              "raw_sha256": "f5f5d1b2438fbce850151794700d5630fcc91cc6514da7fffb679cd2ad31913b"
+            },
+            "metadata": null,
+            "prediction_id": "f2e50580c4a89bb10d4ac5895ed5c243373629171900b189e1b66554d61a0c47",
+            "projection": {
+              "contig": "synthetic-circle",
+              "contig_length": 1000,
+              "origin": 20,
+              "origin_crossing": true,
+              "sequence_strand": "-",
+              "topology": "circular"
+            },
+            "reasons": [],
+            "scan": {
+              "mode": "positions",
+              "positions": [
+                {
+                  "strand": "+",
+                  "tss": 80
+                }
+              ]
+            },
+            "sites": [
+              {
+                "attempted": true,
+                "complete_state_set": true,
+                "context": {
+                  "available_downstream": 183,
+                  "available_upstream": 80,
+                  "required_downstream": 19,
+                  "required_upstream": 67
+                },
+                "genomic": {
+                  "base": 940,
+                  "contig": "synthetic-circle",
+                  "sequence_strand": "-",
+                  "strand": "-"
+                },
+                "reason": null,
+                "selected": {
+                  "discriminator_length": 8,
+                  "elements": {
+                    "UP": "GTACGTACGTACGTACGTACGTAC",
+                    "discriminator": "ACGTACGT",
+                    "hex10": "GTACGT",
+                    "hex35": "TACGTA",
+                    "itr": "AAAGGAGGAAAAAAATGAAA",
+                    "spacer": "CGTACGTACGTACGTAC"
+                  },
+                  "genomic_intervals": {
+                    "UP": [
+                      [
+                        0,
+                        3
+                      ],
+                      [
+                        979,
+                        1000
+                      ]
+                    ],
+                    "discriminator": [
+                      [
+                        941,
+                        949
+                      ]
+                    ],
+                    "extended10": [
+                      [
+                        956,
+                        958
+                      ]
+                    ],
+                    "gap": [
+                      [
+                        978,
+                        979
+                      ]
+                    ],
+                    "hex10": [
+                      [
+                        949,
+                        955
+                      ]
+                    ],
+                    "hex35": [
+                      [
+                        972,
+                        978
+                      ]
+                    ],
+                    "itr": [
+                      [
+                        921,
+                        941
+                      ]
+                    ],
+                    "spacer": [
+                      [
+                        955,
+                        972
+                      ]
+                    ]
+                  },
+                  "intervals": {
+                    "UP": [
+                      18,
+                      42
+                    ],
+                    "discriminator": [
+                      72,
+                      80
+                    ],
+                    "extended10": [
+                      63,
+                      65
+                    ],
+                    "gap": [
+                      42,
+                      43
+                    ],
+                    "hex10": [
+                      66,
+                      72
+                    ],
+                    "hex35": [
+                      43,
+                      49
+                    ],
+                    "itr": [
+                      80,
+                      100
+                    ],
+                    "spacer": [
+                      49,
+                      66
+                    ]
+                  },
+                  "log_relative_transcription_score": 6.640791349210221,
+                  "oriented_intervals": {
+                    "UP": [
+                      18,
+                      42
+                    ],
+                    "discriminator": [
+                      72,
+                      80
+                    ],
+                    "extended10": [
+                      63,
+                      65
+                    ],
+                    "gap": [
+                      42,
+                      43
+                    ],
+                    "hex10": [
+                      66,
+                      72
+                    ],
+                    "hex35": [
+                      43,
+                      49
+                    ],
+                    "itr": [
+                      80,
+                      100
+                    ],
+                    "spacer": [
+                      49,
+                      66
+                    ]
+                  },
+                  "relative_transcription_score": 765.7006899657991,
+                  "score_status": "ok",
+                  "spacer_length": 17,
+                  "state_id": "psite1:9ce741c6a78a42781c29fd83abe326b9:+:80:d8s17",
+                  "terms": {
+                    "binding": -0.693752568780986,
+                    "discriminator": -0.020389208170715694,
+                    "extended10": -0.139301362120528,
+                    "hex10": -0.41945253280071704,
+                    "hex35": -0.13741685547828716,
+                    "intercept": -0.9583584537583338,
+                    "itr": -0.10178870668788129,
+                    "source_apparent": 1.259818421615686,
+                    "spacer": -0.09239999999999071,
+                    "total": -1.7742889373979167,
+                    "up": 0.0948181816185369
+                  }
+                },
+                "site_id": "psite1:9ce741c6a78a42781c29fd83abe326b9:+:80",
+                "state_count": 30,
+                "status": "ok",
+                "strand": "+",
+                "tie_count": 1,
+                "tss": {
+                  "forward_base": 80,
+                  "oriented_base": 80
+                }
+              }
+            ],
+            "status": "ok",
+            "warnings": [
+              {
+                "code": "host_unspecified",
+                "message": "No target host supplied."
+              }
+            ]
+          }
+        ],
+        "schema_version": "1.0"
+      },
+      "reason": null,
+      "request": {
+        "calibration": "ecoli_mg1655",
+        "id": "transcript-promoter",
+        "output": {
+          "elements": true,
+          "legacy_keys": false,
+          "states": "selected"
+        },
+        "projection": {
+          "contig": "synthetic-circle",
+          "contig_length": 1000,
+          "origin": 20,
+          "origin_crossing": true,
+          "sequence_strand": "-",
+          "topology": "circular"
+        },
+        "scan": {
+          "mode": "positions",
+          "positions": [
+            {
+              "strand": "+",
+              "tss": 80
+            }
+          ]
+        },
+        "sequence": "ACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTAAAGGAGGAAAAAAATGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGGAGGAAAAAAATGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT"
+      },
+      "roster": [
+        [
+          "+",
+          80
+        ]
+      ],
+      "status": "ok"
+    },
+    "rbs": {
+      "coverage": {
+        "incompatible": 1,
+        "missing": 0,
+        "not_evaluated": 0,
+        "requested": 1,
+        "returned": 1,
+        "scored": 1
+      },
+      "declared_seconds": 60.0,
+      "prediction": {
+        "backend": {
+          "binary_sha256": {
+            "Fold": "81f962573b7f43c023dd23eab4ae1e8e7f6402d8679e89a6a1a539cfdc6a5458",
+            "bifold": "9f8156cabaf8e13f91e90d410c46aef1cff1c2badda1c4243b194f54eb1f8136",
+            "efn2": "f0b2ce5971d482f50867615e3870b4743d42d6b0e266e05c0c0c1f1bc63d8b4d"
+          },
+          "build_provenance": {
+            "component": "rnastructure-6.6-linker-3",
+            "license": "GPL-2.0-only",
+            "patch_sha256": "2ef6ef61496b034110f4151e2fc1aec77cbd011c88a36bcef574be0dfecebb2d",
+            "patched_source_sha256": "b19a9ad1634f7e8f7669410b1eb7f5e8c27542f073054acb65647891e62ddbc7",
+            "source_archive_sha256": "1bedc62aaab984279055caaa6234d48fca113f4b8e17a8060e0b3784d5a397c3"
+          },
+          "build_receipt_sha256": "7fabba75b3f49cb9be9a5633f8fb149e318e6e48a971487acf7cceb743b806e2",
+          "expected_source_archive_sha256": "1bedc62aaab984279055caaa6234d48fca113f4b8e17a8060e0b3784d5a397c3",
+          "interface": "independent executables via sequence/CT files",
+          "licence": "GPL-2.0-only (separate installation)",
+          "name": "RNAstructure",
+          "settings": {
+            "alphabet": "rna",
+            "bifold_maximum": 100,
+            "bifold_percent": 100,
+            "bifold_window": 0,
+            "coaxial_stacking": true,
+            "dangles": "RNAstructure 6.6 native; no historical auto-dangle switch",
+            "efn2_multibranch_model": "simple",
+            "energy_evaluation": "efn2 --simple for every structure",
+            "fold_maximum": 1,
+            "fold_mfe_only": true,
+            "fold_window": 0,
+            "intramolecular_pairs": true,
+            "isolated_pairs": false,
+            "maximum_loop": 30
+          },
+          "table_manifest_sha256": "ece4c4b535783cb4e03c7ce8f243d09be84a165ecd113b1d20941b5ed8b69501",
+          "variant": "rnastructure-6.6-linker-3",
+          "version": "6.6"
+        },
+        "id": "transcript-rbs",
+        "input": {
+          "anti_sd": "ACCUCCUUA",
+          "host": null,
+          "id": "transcript-rbs",
+          "input_sha256": "48c25d135d9fa69ddbb5363755424b66b11743a5b2937dd574582408fbe73d64",
+          "normalized_sha256": "f6327db7268fa7e2b7a2896d2fc84bd91f99cd68f958b45872a35cb82f9d1fd6",
+          "oriented_sequence": "UGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGGAGGAAAAAAAUGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "oriented_sha256": "f6327db7268fa7e2b7a2896d2fc84bd91f99cd68f958b45872a35cb82f9d1fd6",
+          "sequence": "UGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGGAGGAAAAAAAUGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "start_positions": [
+            51
+          ],
+          "strand": "+",
+          "temperature_c": 37.0
+        },
+        "model": {
+          "id": "salis-v1-rnastructure-6.6-reconstruction-1",
+          "implementation_version": "0.8.0rc1",
+          "parameters": {
+            "downstream_nt": 35,
+            "effective_RT": 2.222,
+            "energy_comparison_tolerance_kcal_mol": 1e-09,
+            "historical_footprint_nt": 1000,
+            "optimal_aligned_spacing": 5,
+            "rate_scale": 2500.0,
+            "spacing_pull": [
+              0.048,
+              0.24,
+              0.0
+            ],
+            "spacing_push": [
+              12.2,
+              2.5,
+              2.0,
+              3.0
+            ],
+            "standby_nt": 4,
+            "start_energies_kcal_mol": {
+              "AUG": -1.194,
+              "CUG": -0.03406,
+              "GUG": -0.0748,
+              "UUG": -0.0435
+            },
+            "suboptimal_filter_kcal_mol": 3.0,
+            "suboptimal_reference": "lowest_interstrand_connected_complex",
+            "upstream_nt": 35
+          },
+          "source_commit": "8a9c1de1bdd847bb90d2ab6ceaa3c20feceda307"
+        },
+        "prediction_id": "e30abe156c137e7f85b605e3d70b6e6ee1176bf1d40559d91284f3a08646c2e8",
+        "reason": null,
+        "schema_version": "1.0",
+        "sites": [
+          {
+            "aligned_spacing": 5,
+            "binding_interval": {
+              "end": 45,
+              "start": 38,
+              "strand": "+"
+            },
+            "candidate_search": {
+              "band_reference_kcal_mol": -11.6,
+              "connected_returned": 57,
+              "exhaustive": false,
+              "returned": 57,
+              "selected_index": 0,
+              "viable_in_band": 2
+            },
+            "codon": "AUG",
+            "energies": {
+              "dG_accessible_complex": -11.6,
+              "dG_cofold_native_prediction": -11.6,
+              "dG_cofold_search": -11.6,
+              "dG_complex": -11.6,
+              "dG_mRNA": 0.0,
+              "dG_mRNA_native_prediction": null,
+              "dG_search_with_spacing": -11.6,
+              "dG_spacing": 0.0,
+              "dG_standby_signed": 0.0,
+              "dG_start": -1.194,
+              "dG_total": -12.794,
+              "units": "kcal/mol"
+            },
+            "log_tir": 13.58192179843505,
+            "oriented_start": 51,
+            "reason": null,
+            "standby_interval": {
+              "end": 38,
+              "start": 34,
+              "strand": "+"
+            },
+            "start_codon": {
+              "end": 54,
+              "start": 51,
+              "strand": "+"
+            },
+            "status": "ok",
+            "structures": {
+              "bound_after_standby": {
+                "anti_sd_dot_bracket": ".))))))).",
+                "coordinate_space": "zero-based window-relative mRNA and 5-prime-to-3-prime anti_sd",
+                "energy_kcal_mol": -11.6,
+                "mrna_anti_sd_pairs": [
+                  [
+                    22,
+                    7
+                  ],
+                  [
+                    23,
+                    6
+                  ],
+                  [
+                    24,
+                    5
+                  ],
+                  [
+                    25,
+                    4
+                  ],
+                  [
+                    26,
+                    3
+                  ],
+                  [
+                    27,
+                    2
+                  ],
+                  [
+                    28,
+                    1
+                  ]
+                ],
+                "mrna_dot_bracket": "......................(((((((.......................................",
+                "mrna_intramolecular_pairs": [],
+                "prediction_energy_kcal_mol": null
+              },
+              "bound_before_standby": {
+                "anti_sd_dot_bracket": ".))))))).",
+                "coordinate_space": "zero-based window-relative mRNA and 5-prime-to-3-prime anti_sd",
+                "energy_kcal_mol": -11.6,
+                "mrna_anti_sd_pairs": [
+                  [
+                    22,
+                    7
+                  ],
+                  [
+                    23,
+                    6
+                  ],
+                  [
+                    24,
+                    5
+                  ],
+                  [
+                    25,
+                    4
+                  ],
+                  [
+                    26,
+                    3
+                  ],
+                  [
+                    27,
+                    2
+                  ],
+                  [
+                    28,
+                    1
+                  ]
+                ],
+                "mrna_dot_bracket": "......................(((((((.......................................",
+                "mrna_intramolecular_pairs": [],
+                "prediction_energy_kcal_mol": null
+              },
+              "unbound": {
+                "anti_sd_dot_bracket": null,
+                "coordinate_space": "zero-based window-relative mRNA and 5-prime-to-3-prime anti_sd",
+                "energy_kcal_mol": 0.0,
+                "mrna_anti_sd_pairs": [],
+                "mrna_dot_bracket": "....................................................................",
+                "mrna_intramolecular_pairs": [],
+                "prediction_energy_kcal_mol": null
+              }
+            },
+            "tir": 791687.3228275315,
+            "warnings": [
+              "folding_window_touches_supplied_sequence_boundary"
+            ],
+            "window": {
+              "input_interval": {
+                "end": 84,
+                "start": 16,
+                "strand": "+"
+              },
+              "oriented_end": 84,
+              "oriented_start": 16
+            }
+          }
+        ],
+        "status": "ok",
+        "warnings": [
+          "reconstruction_not_historical_or_hosted_equivalence",
+          "RNAstructure_parameters_and_dangles_differ_from_NUPACK_rna1999",
+          "bounded_bifold_tracebacks_not_exhaustive_suboptimal_enumeration",
+          "relative_initiation_score_not_absolute_rate_or_probability",
+          "host_configuration_is_not_host_calibration",
+          "patched_traceback_changes_candidate_search_results"
+        ]
+      },
+      "reason": null,
+      "request": {
+        "anti_sd": "ACCUCCUUA",
+        "host": null,
+        "id": "transcript-rbs",
+        "sequence": "TGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGGAGGAAAAAAATGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "start_positions": [
+          51
+        ],
+        "strand": "+",
+        "temperature_c": 37.0
+      },
+      "roster": [
+        51
+      ],
+      "status": "ok"
+    }
+  },
+  "coverage": {
+    "cds": 2,
+    "complete": false,
+    "eligible_cds": 1,
+    "incompatible_cds": 1,
+    "scored": 2
+  },
+  "id": "supplied-transcript-incompatible",
+  "identities": {
+    "promoter": {
+      "calibration": {
+        "K": 42,
+        "beta": 1.636217004872062,
+        "host": null,
+        "host_status": "unspecified",
+        "native_host": "Escherichia coli str. K-12 substr. MG1655",
+        "profile": "ecoli_mg1655",
+        "warnings": [
+          {
+            "code": "host_unspecified",
+            "message": "No target host supplied."
+          }
+        ]
+      },
+      "model": {
+        "claims": {
+          "absolute_rate": false,
+          "hosted_parity": false,
+          "native_accuracy_evaluated": false,
+          "physical_free_energy": false,
+          "probability": false
+        },
+        "id": "promoter-lafleur2022-historical-1",
+        "implementation_version": "0.8.0rc1",
+        "kind": "historical_equation_reconstruction",
+        "licence": "GPL-3.0-or-later",
+        "not_modeled": [
+          "sigma_factor",
+          "temperature",
+          "host_specific_calibration",
+          "probability",
+          "absolute_rate",
+          "free_energy"
+        ],
+        "parameters": {
+          "array_sha256": {
+            "coefficients": "fddf16b38bf29799481e8a45890b669111e16cf2e3448e99d1934d19a8f0b8e9",
+            "intercept": "f7c66a8d838da71a6b2ab17936cd6ff2564e446af8c0676fba95de2116e99a7b"
+          },
+          "coefficient_count": 343,
+          "intercept_count": 1,
+          "parameter_json_sha256": "e2957d4687a5d5a2a20bcce231b4ea1446f269b383bbae94eed72860efa360dc",
+          "unused_coefficient_indices": [
+            336,
+            337,
+            338
+          ]
+        },
+        "source": {
+          "commit": "46da9132740bce30bccd107f02808adf2215e2f0",
+          "path": "Promoter_Calculator",
+          "reference_fork_commit": "0fe5f6f0fb2befc087556afa575f7241afd98fbf",
+          "repository": "https://github.com/hsalis/SalisLabCode"
+        },
+        "source_quirks": [
+          {
+            "behavior": "Corrected local base L-1-t; legacy L-t diagnostic only.",
+            "id": "reverse_key_l_minus_t"
+          },
+          {
+            "behavior": "Always retain the one-base UP/hex35 gap.",
+            "id": "arbitrary_scan_gap_omitted"
+          },
+          {
+            "behavior": "No sigma input accepted; source metadata had no effect.",
+            "id": "sigma_levels_ignored"
+          },
+          {
+            "behavior": "Calibration required, never inferred from host.",
+            "id": "unknown_organism_default_beta"
+          },
+          {
+            "behavior": "All coordinate-eligible states available on request.",
+            "id": "one_state_per_tss_public"
+          },
+          {
+            "behavior": "Preserve unused 336..338; use source quadratic.",
+            "id": "unused_spacer_coefficients"
+          },
+          {
+            "behavior": "Follow code: UP=24; discriminator lengths 6..10.",
+            "id": "paper_code_difference"
+          }
+        ],
+        "term_source_names": {
+          "binding": "dG_bind",
+          "discriminator": "dG_disc",
+          "extended10": "dG_ext10",
+          "hex10": "dG_10",
+          "hex35": "dG_35",
+          "intercept": "intercept",
+          "itr": "dG_ITR",
+          "source_apparent": "dG_apparent",
+          "spacer": "dG_spacer",
+          "total": "dG_total",
+          "up": "dG_UP"
+        },
+        "terms_semantics": "learned regression score contributions; not independently established free energies",
+        "terms_unit": "source_dG_units"
+      }
+    },
+    "rbs": {
+      "backend": {
+        "binary_sha256": {
+          "Fold": "81f962573b7f43c023dd23eab4ae1e8e7f6402d8679e89a6a1a539cfdc6a5458",
+          "bifold": "9f8156cabaf8e13f91e90d410c46aef1cff1c2badda1c4243b194f54eb1f8136",
+          "efn2": "f0b2ce5971d482f50867615e3870b4743d42d6b0e266e05c0c0c1f1bc63d8b4d"
+        },
+        "build_provenance": {
+          "component": "rnastructure-6.6-linker-3",
+          "license": "GPL-2.0-only",
+          "patch_sha256": "2ef6ef61496b034110f4151e2fc1aec77cbd011c88a36bcef574be0dfecebb2d",
+          "patched_source_sha256": "b19a9ad1634f7e8f7669410b1eb7f5e8c27542f073054acb65647891e62ddbc7",
+          "source_archive_sha256": "1bedc62aaab984279055caaa6234d48fca113f4b8e17a8060e0b3784d5a397c3"
+        },
+        "build_receipt_sha256": "7fabba75b3f49cb9be9a5633f8fb149e318e6e48a971487acf7cceb743b806e2",
+        "expected_source_archive_sha256": "1bedc62aaab984279055caaa6234d48fca113f4b8e17a8060e0b3784d5a397c3",
+        "interface": "independent executables via sequence/CT files",
+        "licence": "GPL-2.0-only (separate installation)",
+        "name": "RNAstructure",
+        "settings": {
+          "alphabet": "rna",
+          "bifold_maximum": 100,
+          "bifold_percent": 100,
+          "bifold_window": 0,
+          "coaxial_stacking": true,
+          "dangles": "RNAstructure 6.6 native; no historical auto-dangle switch",
+          "efn2_multibranch_model": "simple",
+          "energy_evaluation": "efn2 --simple for every structure",
+          "fold_maximum": 1,
+          "fold_mfe_only": true,
+          "fold_window": 0,
+          "intramolecular_pairs": true,
+          "isolated_pairs": false,
+          "maximum_loop": 30
+        },
+        "table_manifest_sha256": "ece4c4b535783cb4e03c7ce8f243d09be84a165ecd113b1d20941b5ed8b69501",
+        "variant": "rnastructure-6.6-linker-3",
+        "version": "6.6"
+      },
+      "base_parameters": {
+        "downstream_nt": 35,
+        "effective_RT": 2.222,
+        "energy_comparison_tolerance_kcal_mol": 1e-09,
+        "historical_footprint_nt": 1000,
+        "optimal_aligned_spacing": 5,
+        "rate_scale": 2500.0,
+        "spacing_pull": [
+          0.048,
+          0.24,
+          0.0
+        ],
+        "spacing_push": [
+          12.2,
+          2.5,
+          2.0,
+          3.0
+        ],
+        "standby_nt": 4,
+        "start_energies_kcal_mol": {
+          "AUG": -1.194,
+          "CUG": -0.03406,
+          "GUG": -0.0748,
+          "UUG": -0.0435
+        },
+        "suboptimal_filter_kcal_mol": 3.0,
+        "suboptimal_reference": "lowest_interstrand_connected_complex",
+        "upstream_nt": 35
+      },
+      "joint_parameters": {
+        "candidate_deduplication": "none; each returned traceback retains its index",
+        "energy_summation": "math.fsum(complex, spacing, start, -unbound, standby)",
+        "incomplete_search": "no winner or site score after any candidate failure or limit",
+        "maximum_bound_state_attempts_per_site": 4096,
+        "maximum_fixed_states_per_process": 100,
+        "objective": "minimum complete initiation energy over eligible returned candidates",
+        "prefix_suffix_fold_cache": "per-site sequence cache; no bound-state deduplication",
+        "tie_rule": "lowest backend index within absolute tolerance of global minimum",
+        "tie_tolerance_kcal_mol": 1e-09
+      },
+      "profile": {
+        "downstream_nt": 35,
+        "footprint_nt": 1000,
+        "model_id": "salis-v1-rnastructure-6.6-reconstruction-1",
+        "name": "historical",
+        "upstream_nt": 35
+      },
+      "source_commit": "8a9c1de1bdd847bb90d2ab6ceaa3c20feceda307",
+      "standby_parameters": {
+        "accessibility_height_cap_nt": 15,
+        "binding_candidate_rule": "historical cofold-plus-spacing selection before standby",
+        "distortion_coefficients": [
+          0.038,
+          -1.629,
+          17.359
+        ],
+        "distortion_continuation": "zero at and above first quadratic root",
+        "distortion_zero_area_nt": 19.81878754370649,
+        "energy_rule": "nonnegative fixed whole-complex energy difference",
+        "height_rule": "mean contour sides; recursive base-only/individual branch average",
+        "maximum_unique_states": 512,
+        "opening_search": "ancestor-closed pair removals within one original module",
+        "sliding_kcal_mol_per_nt": 0.2,
+        "source_doi": "10.1093/nar/gkt1139",
+        "source_xml_sha256": "3410c14d94f74845fe5ffa8d879bd33144909c0fc72e439bc91e9ca032333a39",
+        "supplement_pdf_sha256": "a36ae7d252442865f4dc813ceb34022e2c0e01899c02fca61012d97c6558ffaf",
+        "surface_area_offset_nt": 15,
+        "tie_rule": "cost, opened pair count, original module order, remaining core order"
+      }
+    }
+  },
+  "implementation_version": "0.8.0rc1",
+  "limits": {
+    "max_bases": 5000,
+    "max_cds": 10,
+    "max_input_json_bytes": 1000000,
+    "max_json_depth": 16,
+    "max_json_nodes": 20000,
+    "max_promoter_sites": 512,
+    "max_result_json_bytes": 33554432,
+    "max_seconds_per_component": 120.0,
+    "max_seconds_total": 240.0,
+    "predictors": {
+      "promoter": {
+        "default_seconds_per_batch": 300.0,
+        "default_seconds_per_record": 30.0,
+        "max_all_state_sites_per_record": 100,
+        "max_all_states_per_batch": 2000,
+        "max_all_states_per_record": 2000,
+        "max_contig_chars": 128,
+        "max_host_name_chars": 200,
+        "max_id_chars": 128,
+        "max_input_json_bytes": 4000000,
+        "max_metadata_depth": 4,
+        "max_metadata_json_bytes": 4096,
+        "max_normalized_bases_per_batch": 100000,
+        "max_normalized_bases_per_record": 5000,
+        "max_planned_sites_per_batch": 4000,
+        "max_planned_sites_per_record": 1000,
+        "max_raw_sequence_chars_per_record": 50000,
+        "max_records_per_batch": 100,
+        "max_result_json_bytes": 67108864,
+        "max_seconds_per_batch": 3600.0,
+        "max_seconds_per_record": 120.0
+      },
+      "rbs": {
+        "max_explicit_or_scanned_starts": 1000,
+        "max_normalized_bases_per_record": 10000,
+        "max_seconds_per_record": 120.0
+      }
+    }
+  },
+  "prediction_sha256": "114d6a53b3625a5a201d7dd3e16693d38d0e3b8e9d46be38e1e28796920d987e",
+  "promoter_candidates": [
+    {
+      "construct_tss": 80,
+      "features": {
+        "UP": {
+          "construct_interval": [
+            18,
+            42
+          ],
+          "genomic": {
+            "contig": "synthetic-circle",
+            "runs": [
+              [
+                0,
+                3
+              ],
+              [
+                979,
+                1000
+              ]
+            ],
+            "strand": "-"
+          },
+          "local_strand": "+",
+          "native_interval": [
+            18,
+            42
+          ],
+          "reason": null
+        },
+        "discriminator": {
+          "construct_interval": [
+            72,
+            80
+          ],
+          "genomic": {
+            "contig": "synthetic-circle",
+            "runs": [
+              [
+                941,
+                949
+              ]
+            ],
+            "strand": "-"
+          },
+          "local_strand": "+",
+          "native_interval": [
+            72,
+            80
+          ],
+          "reason": null
+        },
+        "extended10": {
+          "construct_interval": [
+            63,
+            65
+          ],
+          "genomic": {
+            "contig": "synthetic-circle",
+            "runs": [
+              [
+                956,
+                958
+              ]
+            ],
+            "strand": "-"
+          },
+          "local_strand": "+",
+          "native_interval": [
+            63,
+            65
+          ],
+          "reason": null
+        },
+        "gap": {
+          "construct_interval": [
+            42,
+            43
+          ],
+          "genomic": {
+            "contig": "synthetic-circle",
+            "runs": [
+              [
+                978,
+                979
+              ]
+            ],
+            "strand": "-"
+          },
+          "local_strand": "+",
+          "native_interval": [
+            42,
+            43
+          ],
+          "reason": null
+        },
+        "hex10": {
+          "construct_interval": [
+            66,
+            72
+          ],
+          "genomic": {
+            "contig": "synthetic-circle",
+            "runs": [
+              [
+                949,
+                955
+              ]
+            ],
+            "strand": "-"
+          },
+          "local_strand": "+",
+          "native_interval": [
+            66,
+            72
+          ],
+          "reason": null
+        },
+        "hex35": {
+          "construct_interval": [
+            43,
+            49
+          ],
+          "genomic": {
+            "contig": "synthetic-circle",
+            "runs": [
+              [
+                972,
+                978
+              ]
+            ],
+            "strand": "-"
+          },
+          "local_strand": "+",
+          "native_interval": [
+            43,
+            49
+          ],
+          "reason": null
+        },
+        "itr": {
+          "construct_interval": [
+            80,
+            100
+          ],
+          "genomic": {
+            "contig": "synthetic-circle",
+            "runs": [
+              [
+                921,
+                941
+              ]
+            ],
+            "strand": "-"
+          },
+          "local_strand": "+",
+          "native_interval": [
+            80,
+            100
+          ],
+          "reason": null
+        },
+        "spacer": {
+          "construct_interval": [
+            49,
+            66
+          ],
+          "genomic": {
+            "contig": "synthetic-circle",
+            "runs": [
+              [
+                955,
+                972
+              ]
+            ],
+            "strand": "-"
+          },
+          "local_strand": "+",
+          "native_interval": [
+            49,
+            66
+          ],
+          "reason": null
+        },
+        "tss": {
+          "construct_interval": [
+            80,
+            81
+          ],
+          "genomic": {
+            "contig": "synthetic-circle",
+            "runs": [
+              [
+                940,
+                941
+              ]
+            ],
+            "strand": "-"
+          },
+          "local_strand": "+",
+          "native_interval": [
+            80,
+            81
+          ],
+          "reason": null
+        }
+      },
+      "reason": null,
+      "scalars": {
+        "binding": {
+          "reason": null,
+          "unit": "source_dG_units",
+          "value": -0.693752568780986
+        },
+        "discriminator": {
+          "reason": null,
+          "unit": "source_dG_units",
+          "value": -0.020389208170715694
+        },
+        "extended10": {
+          "reason": null,
+          "unit": "source_dG_units",
+          "value": -0.139301362120528
+        },
+        "hex10": {
+          "reason": null,
+          "unit": "source_dG_units",
+          "value": -0.41945253280071704
+        },
+        "hex35": {
+          "reason": null,
+          "unit": "source_dG_units",
+          "value": -0.13741685547828716
+        },
+        "intercept": {
+          "reason": null,
+          "unit": "source_dG_units",
+          "value": -0.9583584537583338
+        },
+        "itr": {
+          "reason": null,
+          "unit": "source_dG_units",
+          "value": -0.10178870668788129
+        },
+        "log_relative_transcription_score": {
+          "reason": null,
+          "unit": "ln_relative_transcription_score",
+          "value": 6.640791349210221
+        },
+        "relative_transcription_score": {
+          "reason": null,
+          "unit": "relative_transcription_score",
+          "value": 765.7006899657991
+        },
+        "spacer": {
+          "reason": null,
+          "unit": "source_dG_units",
+          "value": -0.09239999999999071
+        },
+        "total": {
+          "reason": null,
+          "unit": "source_dG_units",
+          "value": -1.7742889373979167
+        },
+        "up": {
+          "reason": null,
+          "unit": "source_dG_units",
+          "value": 0.0948181816185369
+        }
+      },
+      "site_index": 0,
+      "status": "ok",
+      "strand": "+"
+    }
+  ],
+  "request": {
+    "cds": [
+      {
+        "id": "cds-1",
+        "provenance": {
+          "kind": "synthetic",
+          "reference": "Existing public synthetic RBS smoke sequence with repeat padding; no experimental efficacy claim"
+        },
+        "range": [
+          94,
+          132
+        ]
+      },
+      {
+        "id": "cds-2",
+        "provenance": {
+          "kind": "synthetic",
+          "reference": "Existing public synthetic RBS smoke sequence with repeat padding; no experimental efficacy claim"
+        },
+        "range": [
+          146,
+          184
+        ]
+      }
+    ],
+    "id": "supplied-transcript-incompatible",
+    "projection": {
+      "contig": "synthetic-circle",
+      "contig_length": 1000,
+      "origin": 20,
+      "origin_crossing": true,
+      "sequence_strand": "-",
+      "topology": "circular"
+    },
+    "promoter": {
+      "calibration": "ecoli_mg1655",
+      "host": null,
+      "scan": {
+        "mode": "positions",
+        "positions": [
+          {
+            "strand": "+",
+            "tss": 80
+          }
+        ]
+      }
+    },
+    "rbs": {
+      "anti_sd": "ACCUCCUUA",
+      "host": null,
+      "profile": "historical",
+      "temperature_c": 37.0
+    },
+    "schema_version": "supplied-transcript-request-1",
+    "sequence": "ACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTAAAGGAGGAAAAAAATGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGGAGGAAAAAAATGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT",
+    "settings": {
+      "seconds_per_promoter_record": 30.0,
+      "seconds_per_rbs_record": 60.0,
+      "seconds_total": 120.0
+    },
+    "transcript": {
+      "id": "supplied-transcript-incompatible-rna",
+      "provenance": {
+        "kind": "synthetic",
+        "reference": "Existing public synthetic RBS smoke sequence with repeat padding; no experimental efficacy claim"
+      },
+      "range": [
+        95,
+        179
+      ]
+    }
+  },
+  "request_sha256": "e2f30876f93b8ea6cd3832e8105fbbccc23875540271cbc39019126c7af634ae",
+  "schema_version": "supplied-transcript-result-1",
+  "settings": {
+    "seconds_per_promoter_record": 30.0,
+    "seconds_per_rbs_record": 60.0,
+    "seconds_total": 120.0
+  },
+  "status": "partial",
+  "transcript": {
+    "annotation": {
+      "id": "supplied-transcript-incompatible-rna",
+      "provenance": {
+        "kind": "synthetic",
+        "reference": "Existing public synthetic RBS smoke sequence with repeat padding; no experimental efficacy claim"
+      },
+      "range": [
+        95,
+        179
+      ]
+    },
+    "coordinates": {
+      "construct_interval": [
+        95,
+        179
+      ],
+      "genomic": {
+        "contig": "synthetic-circle",
+        "runs": [
+          [
+            842,
+            926
+          ]
+        ],
+        "strand": "-"
+      },
+      "local_strand": "+",
+      "native_interval": [
+        95,
+        179
+      ],
+      "reason": null
+    },
+    "sequence": "TGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGGAGGAAAAAAATGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+    "sequence_sha256": "48c25d135d9fa69ddbb5363755424b66b11743a5b2937dd574582408fbe73d64"
+  },
+  "unsupported_capabilities": [
+    "coupling",
+    "elongation",
+    "decay_stability",
+    "termination",
+    "native_operon_discovery",
+    "joint_protein_abundance"
+  ],
+  "warnings": [
+    "component_scores_do_not_estimate_joint_protein_abundance",
+    "supplied_annotations_are_not_independently_verified"
+  ]
+}

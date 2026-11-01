@@ -1,0 +1,150 @@
+{
+  "n_records": 136,
+  "n_groups": 22,
+  "configurations": [
+    {
+      "penalty": 0.01,
+      "family_mae_log2": 1.0072244724913082,
+      "metrics": {
+        "n_submitted": 136,
+        "n_success": 136,
+        "failures": {},
+        "coverage": 1.0,
+        "pearson_r_log": 0.6849979248495913,
+        "pearson_r2_log": 0.4692221570482464,
+        "spearman_rho": 0.7589523400601116,
+        "rmse_log2": 1.3287075262494368,
+        "mae_log2": 1.056904091175932,
+        "median_absolute_log2": 0.9023173323441407,
+        "bias_log2": 0.0607013027138831,
+        "within_2fold": {
+          "n": 72,
+          "all_case_fraction": 0.5294117647058824,
+          "successful_pair_fraction": 0.5294117647058824,
+          "all_case_wilson95": [
+            0.44587284305424035,
+            0.6113347981379019
+          ]
+        },
+        "within_5fold": {
+          "n": 127,
+          "all_case_fraction": 0.9338235294117647,
+          "successful_pair_fraction": 0.9338235294117647,
+          "all_case_wilson95": [
+            0.8790158790898288,
+            0.9647968284942687
+          ]
+        }
+      }
+    },
+    {
+      "penalty": 0.1,
+      "family_mae_log2": 0.9437055697605576,
+      "metrics": {
+        "n_submitted": 136,
+        "n_success": 136,
+        "failures": {},
+        "coverage": 1.0,
+        "pearson_r_log": 0.6727462972524717,
+        "pearson_r2_log": 0.452587580466911,
+        "spearman_rho": 0.7626926196269262,
+        "rmse_log2": 1.3417929230395396,
+        "mae_log2": 1.0527532707092464,
+        "median_absolute_log2": 0.8774724335371404,
+        "bias_log2": 0.026580878830564578,
+        "within_2fold": {
+          "n": 74,
+          "all_case_fraction": 0.5441176470588235,
+          "successful_pair_fraction": 0.5441176470588235,
+          "all_case_wilson95": [
+            0.4603495271019867,
+            0.6254619346862266
+          ]
+        },
+        "within_5fold": {
+          "n": 124,
+          "all_case_fraction": 0.9117647058823529,
+          "successful_pair_fraction": 0.9117647058823529,
+          "all_case_wilson95": [
+            0.852101565806882,
+            0.9488054108831088
+          ]
+        }
+      }
+    },
+    {
+      "penalty": 1.0,
+      "family_mae_log2": 0.934651288261031,
+      "metrics": {
+        "n_submitted": 136,
+        "n_success": 136,
+        "failures": {},
+        "coverage": 1.0,
+        "pearson_r_log": 0.6193958462753514,
+        "pearson_r2_log": 0.38365121438315875,
+        "spearman_rho": 0.6997137541147846,
+        "rmse_log2": 1.4277071995192538,
+        "mae_log2": 1.120807010728916,
+        "median_absolute_log2": 0.865177293248772,
+        "bias_log2": 0.004219131327082606,
+        "within_2fold": {
+          "n": 75,
+          "all_case_fraction": 0.5514705882352942,
+          "successful_pair_fraction": 0.5514705882352942,
+          "all_case_wilson95": [
+            0.46761428387490483,
+            0.6324990882113443
+          ]
+        },
+        "within_5fold": {
+          "n": 124,
+          "all_case_fraction": 0.9117647058823529,
+          "successful_pair_fraction": 0.9117647058823529,
+          "all_case_wilson95": [
+            0.852101565806882,
+            0.9488054108831088
+          ]
+        }
+      }
+    },
+    {
+      "penalty": 10.0,
+      "family_mae_log2": 1.1370204207625147,
+      "metrics": {
+        "n_submitted": 136,
+        "n_success": 136,
+        "failures": {},
+        "coverage": 1.0,
+        "pearson_r_log": 0.5255925796346851,
+        "pearson_r2_log": 0.2762475597670428,
+        "spearman_rho": 0.5913124373837126,
+        "rmse_log2": 1.6518706385129525,
+        "mae_log2": 1.2969961232673246,
+        "median_absolute_log2": 1.097181876778821,
+        "bias_log2": -0.006485344537875023,
+        "within_2fold": {
+          "n": 62,
+          "all_case_fraction": 0.45588235294117646,
+          "successful_pair_fraction": 0.45588235294117646,
+          "all_case_wilson95": [
+            0.3745380653137733,
+            0.5396504728980133
+          ]
+        },
+        "within_5fold": {
+          "n": 120,
+          "all_case_fraction": 0.8823529411764706,
+          "successful_pair_fraction": 0.8823529411764706,
+          "all_case_wilson95": [
+            0.8174264539602621,
+            0.9262728815375866
+          ]
+        }
+      }
+    }
+  ],
+  "selected_index": 2,
+  "scope": "submitted OOF prediction/metric audit, not independent training or fold-isolation verification",
+  "dataset_sha256": "d74967eb964f1797138076ed12a35ef5f44c0ac3e87241e5186505503fd698f4",
+  "selection_sha256": "7bdefb1b727493c3e96248e56384e7d8cd1bb8a41f370be3c35c842514507f89"
+}

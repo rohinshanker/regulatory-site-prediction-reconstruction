@@ -1,0 +1,124 @@
+{
+  "native_backend": {
+    "binary_sha256": {
+      "Fold": "81f962573b7f43c023dd23eab4ae1e8e7f6402d8679e89a6a1a539cfdc6a5458",
+      "bifold": "9f8156cabaf8e13f91e90d410c46aef1cff1c2badda1c4243b194f54eb1f8136",
+      "efn2": "f0b2ce5971d482f50867615e3870b4743d42d6b0e266e05c0c0c1f1bc63d8b4d"
+    },
+    "build_provenance": {
+      "component": "rnastructure-6.6-linker-3",
+      "license": "GPL-2.0-only",
+      "patch_sha256": "2ef6ef61496b034110f4151e2fc1aec77cbd011c88a36bcef574be0dfecebb2d",
+      "patched_source_sha256": "b19a9ad1634f7e8f7669410b1eb7f5e8c27542f073054acb65647891e62ddbc7",
+      "source_archive_sha256": "1bedc62aaab984279055caaa6234d48fca113f4b8e17a8060e0b3784d5a397c3"
+    },
+    "build_receipt_sha256": "7fabba75b3f49cb9be9a5633f8fb149e318e6e48a971487acf7cceb743b806e2",
+    "expected_source_archive_sha256": "1bedc62aaab984279055caaa6234d48fca113f4b8e17a8060e0b3784d5a397c3",
+    "interface": "independent executables via sequence/CT files",
+    "licence": "GPL-2.0-only (separate installation)",
+    "name": "RNAstructure",
+    "settings": {
+      "alphabet": "rna",
+      "bifold_maximum": 100,
+      "bifold_percent": 100,
+      "bifold_window": 0,
+      "coaxial_stacking": true,
+      "dangles": "RNAstructure 6.6 native; no historical auto-dangle switch",
+      "efn2_multibranch_model": "simple",
+      "energy_evaluation": "efn2 --simple for every structure",
+      "fold_maximum": 1,
+      "fold_mfe_only": true,
+      "fold_window": 0,
+      "intramolecular_pairs": true,
+      "isolated_pairs": false,
+      "maximum_loop": 30
+    },
+    "table_manifest_sha256": "ece4c4b535783cb4e03c7ce8f243d09be84a165ecd113b1d20941b5ed8b69501",
+    "variant": "rnastructure-6.6-linker-3",
+    "version": "6.6"
+  },
+  "native_model": {
+    "id": "salis-v1-rnastructure-6.6-reconstruction-1",
+    "implementation_version": "0.6.0rc1",
+    "parameters": {
+      "downstream_nt": 35,
+      "effective_RT": 2.222,
+      "energy_comparison_tolerance_kcal_mol": 1e-09,
+      "historical_footprint_nt": 1000,
+      "optimal_aligned_spacing": 5,
+      "rate_scale": 2500.0,
+      "spacing_pull": [
+        0.048,
+        0.24,
+        0.0
+      ],
+      "spacing_push": [
+        12.2,
+        2.5,
+        2.0,
+        3.0
+      ],
+      "standby_nt": 4,
+      "start_energies_kcal_mol": {
+        "AUG": -1.194,
+        "CUG": -0.03406,
+        "GUG": -0.0748,
+        "UUG": -0.0435
+      },
+      "suboptimal_filter_kcal_mol": 3.0,
+      "suboptimal_reference": "lowest_interstrand_connected_complex",
+      "upstream_nt": 35
+    },
+    "source_commit": "8a9c1de1bdd847bb90d2ab6ceaa3c20feceda307"
+  },
+  "scientific_identity_hashes": {
+    "backend_sha256": "4f53aa402e68d2c4a5ba14a6698d4c9842b5591e9cc8741174827a7ec7079bf3",
+    "calibration_sha256": "449d6b93d56dc0485d33c329cbd13d6a1827a2362cea9842b8e1d295ebf4b366",
+    "model_sha256": "1ec329e5323d75444d8236fbeea1fafa8abd840444945774584dc3aa506ae3fc",
+    "settings_sha256": "492760b94f4661a47443dd3d9031c9e15b7bb4dd71c2bddeba89563ab6ba617b"
+  },
+  "settings": {
+    "profile": "historical",
+    "seconds_per_side": 30.0
+  },
+  "wrapper_limits": {
+    "max_bases_per_side": 10000,
+    "max_candidates_per_side": 512,
+    "max_edits": 1000,
+    "max_feature_bases": 2000000,
+    "max_input_json_bytes": 2000000,
+    "max_json_depth": 20,
+    "max_json_nodes": 100000,
+    "max_result_json_bytes": 67108864,
+    "max_seconds_per_side": 120,
+    "predictors": {
+      "promoter": {
+        "default_seconds_per_batch": 300.0,
+        "default_seconds_per_record": 30.0,
+        "max_all_state_sites_per_record": 100,
+        "max_all_states_per_batch": 2000,
+        "max_all_states_per_record": 2000,
+        "max_contig_chars": 128,
+        "max_host_name_chars": 200,
+        "max_id_chars": 128,
+        "max_input_json_bytes": 4000000,
+        "max_metadata_depth": 4,
+        "max_metadata_json_bytes": 4096,
+        "max_normalized_bases_per_batch": 100000,
+        "max_normalized_bases_per_record": 5000,
+        "max_planned_sites_per_batch": 4000,
+        "max_planned_sites_per_record": 1000,
+        "max_raw_sequence_chars_per_record": 50000,
+        "max_records_per_batch": 100,
+        "max_result_json_bytes": 67108864,
+        "max_seconds_per_batch": 3600.0,
+        "max_seconds_per_record": 120.0
+      },
+      "rbs": {
+        "max_explicit_or_scanned_starts": 1000,
+        "max_normalized_bases_per_record": 10000,
+        "max_seconds_per_record": 120
+      }
+    }
+  }
+}

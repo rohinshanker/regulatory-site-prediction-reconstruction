@@ -1,0 +1,221 @@
+{
+  "claim": "Kernel arithmetic parity of the reconstructed core with the original-source report only; not biological accuracy, hosted equivalence or runtime-release admission. Source-original and reconstructed model identities stay distinct.",
+  "cohort": {
+    "completeness": "full_eligible",
+    "excluded": {
+      "identical_or_reverse_complement_window": 1,
+      "overlapping_window": 264,
+      "same_locus": 613
+    },
+    "input_anchors": 2475,
+    "max_sites": 2475,
+    "ordered_selected_ids_sha256": "da8dab4627396d7ffe75aa120a438a01925fb9447438f785cbf210015ebb1923",
+    "replicons": {
+      "NZ_CP006471.1": 1580,
+      "NZ_CP006472.1": 17
+    },
+    "seed": 2973,
+    "selected": 1597,
+    "strands": {
+      "+": 823,
+      "-": 774
+    }
+  },
+  "comparison": {
+    "denominators": {
+      "arms": 3194,
+      "cases": 1597,
+      "numeric_comparisons": 261908,
+      "positions": 130954
+    },
+    "evaluated": {
+      "arms_with_reconstructed_localization": 3194,
+      "numeric_comparisons": 261908,
+      "positions": 130954,
+      "reconstructed_cohort_summary": true
+    },
+    "failures": [],
+    "failures_by_category": {
+      "calculation_failure": 0,
+      "numeric_mismatch": 0,
+      "reconstructed_summary_mismatch": 0,
+      "source_summary_mismatch": 0
+    },
+    "maxima": {
+      "dG_total": {
+        "abs_diff": 8.881784197001252e-16,
+        "abs_diff_overflow": 0,
+        "rel_diff": 1.0895118981582923e-13,
+        "rel_diff_overflow": 0,
+        "rel_diff_zero_reference": 0
+      },
+      "ecoli_model_Tx_rate": {
+        "abs_diff": 2.1827872842550278e-11,
+        "abs_diff_overflow": 0,
+        "rel_diff": 2.4404688528209258e-15,
+        "rel_diff_overflow": 0,
+        "rel_diff_zero_reference": 0
+      }
+    }
+  },
+  "input": {
+    "bytes": 25515500,
+    "expected_sha256": "f4021ed3941a66b656df9e40f4a6a406b4cf59c651ec00dd7c54865080ebbc5f",
+    "max_bytes": 134217728,
+    "sha256": "f4021ed3941a66b656df9e40f4a6a406b4cf59c651ec00dd7c54865080ebbc5f"
+  },
+  "integrity_failure": null,
+  "reconstruction": {
+    "calibration": {
+      "K": 42,
+      "beta": 1.636217004872062,
+      "host": {
+        "name": "Escherichia coli str. K-12 substr. MG1655",
+        "taxon_id": null
+      },
+      "host_status": "calibration_native",
+      "native_host": "Escherichia coli str. K-12 substr. MG1655",
+      "profile": "ecoli_mg1655"
+    },
+    "core_files_sha256": {
+      "regsite/data/promoter-parameters-1.json": "f45bda817d1a0db323964b1ab8f37cb5d2e071dc9e09adf0ef5d791f2415f15e",
+      "regsite/promoter.py": "2db4b002d6e4db22aeab25226b228c6f830505b33e466f61f9c6c1a4fbf4d8e7"
+    },
+    "kernel": "regsite.promoter.score_site on transcription-oriented '+' input",
+    "layouts_required": 30,
+    "model_identity": {
+      "claims": {
+        "absolute_rate": false,
+        "hosted_parity": false,
+        "native_accuracy_evaluated": false,
+        "physical_free_energy": false,
+        "probability": false
+      },
+      "id": "promoter-lafleur2022-historical-1",
+      "implementation_version": "0.8.0rc1",
+      "kind": "historical_equation_reconstruction",
+      "licence": "GPL-3.0-or-later",
+      "not_modeled": [
+        "sigma_factor",
+        "temperature",
+        "host_specific_calibration",
+        "probability",
+        "absolute_rate",
+        "free_energy"
+      ],
+      "parameters": {
+        "array_sha256": {
+          "coefficients": "fddf16b38bf29799481e8a45890b669111e16cf2e3448e99d1934d19a8f0b8e9",
+          "intercept": "f7c66a8d838da71a6b2ab17936cd6ff2564e446af8c0676fba95de2116e99a7b"
+        },
+        "coefficient_count": 343,
+        "intercept_count": 1,
+        "parameter_json_sha256": "e2957d4687a5d5a2a20bcce231b4ea1446f269b383bbae94eed72860efa360dc",
+        "unused_coefficient_indices": [
+          336,
+          337,
+          338
+        ]
+      },
+      "source": {
+        "commit": "46da9132740bce30bccd107f02808adf2215e2f0",
+        "path": "Promoter_Calculator",
+        "reference_fork_commit": "0fe5f6f0fb2befc087556afa575f7241afd98fbf",
+        "repository": "https://github.com/hsalis/SalisLabCode"
+      },
+      "source_quirks": [
+        {
+          "behavior": "Corrected local base L-1-t; legacy L-t diagnostic only.",
+          "id": "reverse_key_l_minus_t"
+        },
+        {
+          "behavior": "Always retain the one-base UP/hex35 gap.",
+          "id": "arbitrary_scan_gap_omitted"
+        },
+        {
+          "behavior": "No sigma input accepted; source metadata had no effect.",
+          "id": "sigma_levels_ignored"
+        },
+        {
+          "behavior": "Calibration required, never inferred from host.",
+          "id": "unknown_organism_default_beta"
+        },
+        {
+          "behavior": "All coordinate-eligible states available on request.",
+          "id": "one_state_per_tss_public"
+        },
+        {
+          "behavior": "Preserve unused 336..338; use source quadratic.",
+          "id": "unused_spacer_coefficients"
+        },
+        {
+          "behavior": "Follow code: UP=24; discriminator lengths 6..10.",
+          "id": "paper_code_difference"
+        }
+      ],
+      "term_source_names": {
+        "binding": "dG_bind",
+        "discriminator": "dG_disc",
+        "extended10": "dG_ext10",
+        "hex10": "dG_10",
+        "hex35": "dG_35",
+        "intercept": "intercept",
+        "itr": "dG_ITR",
+        "source_apparent": "dG_apparent",
+        "spacer": "dG_spacer",
+        "total": "dG_total",
+        "up": "dG_UP"
+      },
+      "terms_semantics": "learned regression score contributions; not independently established free energies",
+      "terms_unit": "source_dG_units"
+    },
+    "python": "3.14.7"
+  },
+  "reference": {
+    "declared_runtime": {
+      "Bio": "1.88",
+      "numpy": "2.5.3",
+      "producer_sha256": "7d3440ad5239f216ec072dbaac49b430bbaa17d7b28674e18effadcc131f4766",
+      "python": "3.12.4",
+      "scipy": "1.18.1",
+      "sklearn": "1.9.1"
+    },
+    "declared_runtime_note": "Recorded as declared; not independently verified.",
+    "model_host": "Escherichia coli str. K-12 substr. MG1655",
+    "schema_version": 1,
+    "source_inputs": {
+      "fasta_sha256": "22a2b07881c1099c32454778de0e90b1c40f74f44c0f59e000507106c0deb567",
+      "prepared_files_sha256": {
+        "LICENSE": "45d25f34fe826d27d344175bd622cbf3d35cbf53bd993d1350d44ee706571ffd",
+        "Promoter_Calculator_v1_0.py": "142823781d1ef70eaf3a1fe6be9e4e005c73edf78b9f8bef9a3e12b86d9849ff",
+        "README.md": "a5f3269206f5425e2c21ca58d9cb638fe87a4cbb1dbdff537a676747dc4b26d2",
+        "free_energy_coeffs.npy": "fddf16b38bf29799481e8a45890b669111e16cf2e3448e99d1934d19a8f0b8e9",
+        "model_intercept.npy": "f7c66a8d838da71a6b2ab17936cd6ff2564e446af8c0676fba95de2116e99a7b",
+        "util.py": "f80c4bec9b0922e9ed92645bc68343f811ac713e6107343463a1747c16345b74"
+      },
+      "tss_sha256": "d06524cf492aa8f009bf004c596a5d305ac54acbe7537ec98bbc7992ce164bff",
+      "upstream_commit": "46da9132740bce30bccd107f02808adf2215e2f0"
+    }
+  },
+  "schema": "regsite-promoter-pilot-parity-1",
+  "status": "pass",
+  "tolerances": {
+    "basis": "Predeclared before any native comparison; never tuned.",
+    "numeric": {
+      "abs_tol": 1e-12,
+      "fields": [
+        "dG_total",
+        "ecoli_model_Tx_rate"
+      ],
+      "rel_tol": 1e-12
+    },
+    "tie": {
+      "abs_tol": 1e-12,
+      "rel_tol": 0.0
+    }
+  },
+  "tool": {
+    "module": "__main__",
+    "sha256": "a7c0a52edabb5abf4120f745b394172e749b6ae0093575e79ed4150f54e582d4"
+  }
+}

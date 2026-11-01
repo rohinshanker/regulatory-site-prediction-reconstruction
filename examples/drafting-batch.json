@@ -1,0 +1,38 @@
+{
+  "schema_version": "drafting-request-1",
+  "records": [
+    {
+      "id": "artificial-1",
+      "rates": {
+        "a1": 2,
+        "a2": 1,
+        "a_fold": 3,
+        "a_elong": 10
+      },
+      "rate_unit": "per_model_time",
+      "rate_provenance": "Artificial scalar control; no experimental calibration."
+    },
+    {
+      "id": "zero-folding",
+      "rates": {
+        "a1": 2,
+        "a2": 1,
+        "a_fold": 0,
+        "a_elong": 10
+      },
+      "rate_unit": "per_model_time",
+      "rate_provenance": "Artificial scalar control; no experimental calibration."
+    },
+    {
+      "id": "equal-binding",
+      "rates": {
+        "a1": 1,
+        "a2": 1,
+        "a_fold": 3,
+        "a_elong": 10
+      },
+      "rate_unit": "per_second",
+      "rate_provenance": "Artificial scalar control; no experimental calibration."
+    }
+  ]
+}

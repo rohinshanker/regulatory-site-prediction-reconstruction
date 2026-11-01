@@ -1,0 +1,198 @@
+{
+  "actual_exit": 1,
+  "admitted": false,
+  "artifacts": {
+    "regulatory_site_prediction_reconstruction-0.8.0rc1-py3-none-any.whl": "70b54daf09363229187e9bf74c2fd422ff2b4627a14b5d76b83e6999078cb846",
+    "regulatory_site_prediction_reconstruction-0.8.0rc1.tar.gz": "5a39242f4a224bca8f38dbae8cc27d1e70216013c325570b6bc64f87c74c46ce"
+  },
+  "candidate_commit": "cc860958266b600332d07d09639f295ca08d8a5d",
+  "cases_executed_once": [
+    {
+      "component_statuses": {
+        "promoter": "ok",
+        "rbs": "ok"
+      },
+      "components": {
+        "promoter": {
+          "coverage": {
+            "missing": 0,
+            "not_evaluated": 0,
+            "requested": 1,
+            "returned": 1,
+            "scored": 1
+          },
+          "declared_seconds": 30.0,
+          "reason": null,
+          "status": "ok"
+        },
+        "rbs": {
+          "coverage": {
+            "incompatible": 1,
+            "missing": 0,
+            "not_evaluated": 0,
+            "requested": 1,
+            "returned": 1,
+            "scored": 1
+          },
+          "declared_seconds": 60.0,
+          "reason": null,
+          "status": "ok"
+        }
+      },
+      "coverage": {
+        "cds": 2,
+        "complete": false,
+        "eligible_cds": 1,
+        "incompatible_cds": 1,
+        "scored": 2
+      },
+      "exit_code": 1,
+      "expected_exit": 1,
+      "id": "supplied-transcript-incompatible",
+      "output_bytes": 52651,
+      "output_sha256": "d9e2f8334772c8bfb83375c6f1e72bafdad30721268c0a40afaf48b9e39c4f83",
+      "peak_rss_bytes": 85426176,
+      "prediction_sha256": "114d6a53b3625a5a201d7dd3e16693d38d0e3b8e9d46be38e1e28796920d987e",
+      "request_sha256": "3aca441815f3c5ddf3627d84aba08044f8d25f495c2867d38f3a1a7744a47e0e",
+      "schema_passed": true,
+      "seconds": 0.9516988750547171,
+      "status": "partial",
+      "timing_sha256": "ecb1b30091f6984c4bb5265e35f1417a8a4215690baf9d2ac0f3b4f08f6f233b"
+    },
+    {
+      "component_statuses": {
+        "promoter": "ok",
+        "rbs": "ok"
+      },
+      "components": {
+        "promoter": {
+          "coverage": {
+            "missing": 0,
+            "not_evaluated": 0,
+            "requested": 1,
+            "returned": 1,
+            "scored": 1
+          },
+          "declared_seconds": 30.0,
+          "reason": null,
+          "status": "ok"
+        },
+        "rbs": {
+          "coverage": {
+            "incompatible": 0,
+            "missing": 0,
+            "not_evaluated": 0,
+            "requested": 1,
+            "returned": 1,
+            "scored": 1
+          },
+          "declared_seconds": 60.0,
+          "reason": null,
+          "status": "ok"
+        }
+      },
+      "coverage": {
+        "cds": 1,
+        "complete": true,
+        "eligible_cds": 1,
+        "incompatible_cds": 0,
+        "scored": 2
+      },
+      "exit_code": 0,
+      "expected_exit": 0,
+      "id": "supplied-transcript-single",
+      "output_bytes": 43295,
+      "output_sha256": "4f736043fa495f079be248620ca2e006ab0ffd6a466049ad10940aba279f27f7",
+      "peak_rss_bytes": 85409792,
+      "prediction_sha256": "8d99c5ef6026d126c64dfd1d6c8439d6fa7da3b876daf5c6d30d8f365bcc88f2",
+      "request_sha256": "e6ba3a07000f1026d4225d6e141c48b93106ad27086d0c280db4a83a29c2b2fb",
+      "schema_passed": true,
+      "seconds": 0.5648141669807956,
+      "status": "complete",
+      "timing_sha256": "cb790501c05f563030c0d65cfdeefd6f39e41cbf969c892022a601db2d9a03e5"
+    },
+    {
+      "component_statuses": {
+        "promoter": "ok",
+        "rbs": "ok"
+      },
+      "components": {
+        "promoter": {
+          "coverage": {
+            "missing": 0,
+            "not_evaluated": 0,
+            "requested": 1,
+            "returned": 1,
+            "scored": 1
+          },
+          "declared_seconds": 30.0,
+          "reason": null,
+          "status": "ok"
+        },
+        "rbs": {
+          "coverage": {
+            "incompatible": 0,
+            "missing": 0,
+            "not_evaluated": 0,
+            "requested": 2,
+            "returned": 2,
+            "scored": 2
+          },
+          "declared_seconds": 60.0,
+          "reason": null,
+          "status": "ok"
+        }
+      },
+      "coverage": {
+        "cds": 2,
+        "complete": true,
+        "eligible_cds": 2,
+        "incompatible_cds": 0,
+        "scored": 3
+      },
+      "exit_code": 0,
+      "expected_exit": 0,
+      "id": "supplied-transcript-two-cds",
+      "output_bytes": 53802,
+      "output_sha256": "bc584430d733c3d4dfc982e3575fb6873d04648b46d32c065e99754a3bdd4bcf",
+      "peak_rss_bytes": 85475328,
+      "prediction_sha256": "e99302b634c9782ec9d8b50b83df2099476648010c0aceb354d2aa8ed1533e74",
+      "request_sha256": "4437b53f597ae79d6cb6322499df5972a9ed5e2e2912ef64eb0eb0b3925a233f",
+      "schema_passed": true,
+      "seconds": 0.9827421669615433,
+      "status": "complete",
+      "timing_sha256": "98ae74ec2a787c2294326a14e2a99f10b52f4e836eeea91f85af07f189385ec0"
+    },
+    {
+      "component_statuses": {
+        "promoter": "ok",
+        "rbs": "unsupported"
+      },
+      "exit_code": 1,
+      "expected_exit": 0,
+      "id": "maximum-A",
+      "output_bytes": 4355725,
+      "output_sha256": "119e107b60eecb2c56a7b2e398c9d02bbe104d9828045ec2fc9cfbf2f341e768",
+      "peak_rss_bytes": 52232192,
+      "request_sha256": "0b2b2efcb5111109a95b76010c6b45cb4a22e7bd6c3ea3885bf423a1608884e8",
+      "seconds": 0.6908675419399515,
+      "status": "partial",
+      "timing_sha256": "76d1bd35b68e2d29b0c4e7beba8919a381b79c410b8c1857a48963456911635f"
+    }
+  ],
+  "control": "maximum-A",
+  "csv_replay_not_started": true,
+  "expected_exit": 0,
+  "reason": "resource_plan_expected_exit_mismatch",
+  "remaining_json_cases_not_started": [
+    "maximum-GC",
+    "maximum-ACGT",
+    "maximum-ten-starts",
+    "expired-deadline"
+  ],
+  "reproduction": "The original candidate plan incorrectly expects complete output for deliberately unsupported RBS start codons. The independent review and fixed regression require partial output with all512Promoter candidates scored. Full raw outputs remain in the original local candidate cache; this failed admission is not experimental evidence.",
+  "request_bytes_changed": false,
+  "resource_plan_sha256": "e157e3eaa3d28072d510ce435c52a83321729360217e915ab7d8c1a845b1e853",
+  "runtime_correction": false,
+  "schema_version": "supplied-transcript-rejected-resource-admission-1"
+}

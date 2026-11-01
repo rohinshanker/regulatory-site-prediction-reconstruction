@@ -1,0 +1,2 @@
+# Preserve exact progress-bar capture bytes; trailing progress spaces are data.
+**/*stdout.txt whitespace=-blank-at-eol,-blank-at-eof

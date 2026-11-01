@@ -1,0 +1,904 @@
+{
+  "candidate_policy": {
+    "promoter": "Both local strands with all30 states: for each strand, oriented TSS range [67,L-19); convert reverse TSS to forward L-1-t. Ranges below are ORIENTED validation ranges, not a combined public scan request.",
+    "rbs": "Both local strands, exact ATG/GTG/TTG starts fully inside supplied sequence; base is forward-frame 5-prime start base. No codon wraps across the supplied sequence boundary."
+  },
+  "cases": [
+    {
+      "expected_rbs_accounting": {
+        "paired": 1
+      },
+      "expected_rbs_candidates": {
+        "current": [
+          {
+            "base": 100,
+            "codon": "ATG",
+            "strand": "+"
+          }
+        ],
+        "recoded": [
+          {
+            "base": 100,
+            "codon": "ATG",
+            "strand": "+"
+          }
+        ]
+      },
+      "feature_probe": {
+        "expected_contiguous": true,
+        "expected_mapped_runs": [
+          [
+            90,
+            110
+          ]
+        ],
+        "expected_unmatched_bases": 0,
+        "interval": [
+          90,
+          110
+        ],
+        "strand": "+"
+      },
+      "input": {
+        "current": {
+          "id": "unchanged:current",
+          "sequence": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAATGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "edits": [],
+        "pair_id": "unchanged",
+        "recoded": {
+          "id": "unchanged:recoded",
+          "sequence": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAATGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "schema_version": "paired-edit-input-1",
+        "topology": "linear"
+      },
+      "projection": {
+        "current": {
+          "contig": "unchanged:current",
+          "contig_length": 240,
+          "origin": 20,
+          "origin_crossing": false,
+          "sequence_strand": "+",
+          "topology": "linear"
+        },
+        "recoded": {
+          "contig": "unchanged:recoded",
+          "contig_length": 240,
+          "origin": 20,
+          "origin_crossing": false,
+          "sequence_strand": "+",
+          "topology": "linear"
+        }
+      },
+      "promoter_scan": {
+        "current": {
+          "expected_sites_per_strand": 114,
+          "range": [
+            67,
+            181
+          ],
+          "strands": [
+            "+",
+            "-"
+          ]
+        },
+        "recoded": {
+          "expected_sites_per_strand": 114,
+          "range": [
+            67,
+            181
+          ],
+          "strands": [
+            "+",
+            "-"
+          ]
+        }
+      },
+      "unchanged_sequence_control": true
+    },
+    {
+      "expected_rbs_accounting": {
+        "paired": 1
+      },
+      "expected_rbs_candidates": {
+        "current": [
+          {
+            "base": 100,
+            "codon": "ATG",
+            "strand": "+"
+          }
+        ],
+        "recoded": [
+          {
+            "base": 100,
+            "codon": "ATG",
+            "strand": "+"
+          }
+        ]
+      },
+      "feature_probe": {
+        "expected_contiguous": true,
+        "expected_mapped_runs": [
+          [
+            90,
+            110
+          ]
+        ],
+        "expected_unmatched_bases": 0,
+        "interval": [
+          90,
+          110
+        ],
+        "strand": "+"
+      },
+      "input": {
+        "current": {
+          "id": "declared_same_edit:current",
+          "sequence": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAATGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "edits": [
+          {
+            "end": 103,
+            "id": "edit0",
+            "replacement": "ATG",
+            "start": 100
+          }
+        ],
+        "pair_id": "declared_same_edit",
+        "recoded": {
+          "id": "declared_same_edit:recoded",
+          "sequence": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAATGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "schema_version": "paired-edit-input-1",
+        "topology": "linear"
+      },
+      "projection": {
+        "current": {
+          "contig": "declared_same_edit:current",
+          "contig_length": 240,
+          "origin": 20,
+          "origin_crossing": false,
+          "sequence_strand": "+",
+          "topology": "linear"
+        },
+        "recoded": {
+          "contig": "declared_same_edit:recoded",
+          "contig_length": 240,
+          "origin": 20,
+          "origin_crossing": false,
+          "sequence_strand": "+",
+          "topology": "linear"
+        }
+      },
+      "promoter_scan": {
+        "current": {
+          "expected_sites_per_strand": 114,
+          "range": [
+            67,
+            181
+          ],
+          "strands": [
+            "+",
+            "-"
+          ]
+        },
+        "recoded": {
+          "expected_sites_per_strand": 114,
+          "range": [
+            67,
+            181
+          ],
+          "strands": [
+            "+",
+            "-"
+          ]
+        }
+      },
+      "unchanged_sequence_control": true
+    },
+    {
+      "expected_rbs_accounting": {
+        "unmatched_recoded:mapped_anchor_absent": 1
+      },
+      "expected_rbs_candidates": {
+        "current": [],
+        "recoded": [
+          {
+            "base": 100,
+            "codon": "ATG",
+            "strand": "+"
+          }
+        ]
+      },
+      "feature_probe": {
+        "expected_contiguous": true,
+        "expected_mapped_runs": [
+          [
+            90,
+            110
+          ]
+        ],
+        "expected_unmatched_bases": 0,
+        "interval": [
+          90,
+          110
+        ],
+        "strand": "+"
+      },
+      "input": {
+        "current": {
+          "id": "create_plus:current",
+          "sequence": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "edits": [
+          {
+            "end": 103,
+            "id": "edit0",
+            "replacement": "ATG",
+            "start": 100
+          }
+        ],
+        "pair_id": "create_plus",
+        "recoded": {
+          "id": "create_plus:recoded",
+          "sequence": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAATGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "schema_version": "paired-edit-input-1",
+        "topology": "linear"
+      },
+      "projection": {
+        "current": {
+          "contig": "create_plus:current",
+          "contig_length": 240,
+          "origin": 20,
+          "origin_crossing": false,
+          "sequence_strand": "+",
+          "topology": "linear"
+        },
+        "recoded": {
+          "contig": "create_plus:recoded",
+          "contig_length": 240,
+          "origin": 20,
+          "origin_crossing": false,
+          "sequence_strand": "+",
+          "topology": "linear"
+        }
+      },
+      "promoter_scan": {
+        "current": {
+          "expected_sites_per_strand": 114,
+          "range": [
+            67,
+            181
+          ],
+          "strands": [
+            "+",
+            "-"
+          ]
+        },
+        "recoded": {
+          "expected_sites_per_strand": 114,
+          "range": [
+            67,
+            181
+          ],
+          "strands": [
+            "+",
+            "-"
+          ]
+        }
+      },
+      "unchanged_sequence_control": false
+    },
+    {
+      "expected_rbs_accounting": {
+        "unmatched_current:mapped_anchor_absent": 1
+      },
+      "expected_rbs_candidates": {
+        "current": [
+          {
+            "base": 100,
+            "codon": "ATG",
+            "strand": "+"
+          }
+        ],
+        "recoded": []
+      },
+      "feature_probe": {
+        "expected_contiguous": true,
+        "expected_mapped_runs": [
+          [
+            90,
+            110
+          ]
+        ],
+        "expected_unmatched_bases": 0,
+        "interval": [
+          90,
+          110
+        ],
+        "strand": "+"
+      },
+      "input": {
+        "current": {
+          "id": "remove_plus:current",
+          "sequence": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAATGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "edits": [
+          {
+            "end": 103,
+            "id": "edit0",
+            "replacement": "AAA",
+            "start": 100
+          }
+        ],
+        "pair_id": "remove_plus",
+        "recoded": {
+          "id": "remove_plus:recoded",
+          "sequence": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "schema_version": "paired-edit-input-1",
+        "topology": "linear"
+      },
+      "projection": {
+        "current": {
+          "contig": "remove_plus:current",
+          "contig_length": 240,
+          "origin": 20,
+          "origin_crossing": false,
+          "sequence_strand": "+",
+          "topology": "linear"
+        },
+        "recoded": {
+          "contig": "remove_plus:recoded",
+          "contig_length": 240,
+          "origin": 20,
+          "origin_crossing": false,
+          "sequence_strand": "+",
+          "topology": "linear"
+        }
+      },
+      "promoter_scan": {
+        "current": {
+          "expected_sites_per_strand": 114,
+          "range": [
+            67,
+            181
+          ],
+          "strands": [
+            "+",
+            "-"
+          ]
+        },
+        "recoded": {
+          "expected_sites_per_strand": 114,
+          "range": [
+            67,
+            181
+          ],
+          "strands": [
+            "+",
+            "-"
+          ]
+        }
+      },
+      "unchanged_sequence_control": false
+    },
+    {
+      "expected_rbs_accounting": {
+        "unmatched_recoded:mapped_anchor_absent": 1
+      },
+      "expected_rbs_candidates": {
+        "current": [],
+        "recoded": [
+          {
+            "base": 122,
+            "codon": "ATG",
+            "strand": "-"
+          }
+        ]
+      },
+      "feature_probe": {
+        "expected_contiguous": true,
+        "expected_mapped_runs": [
+          [
+            90,
+            110
+          ]
+        ],
+        "expected_unmatched_bases": 0,
+        "interval": [
+          90,
+          110
+        ],
+        "strand": "+"
+      },
+      "input": {
+        "current": {
+          "id": "create_minus:current",
+          "sequence": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "edits": [
+          {
+            "end": 123,
+            "id": "edit0",
+            "replacement": "CAT",
+            "start": 120
+          }
+        ],
+        "pair_id": "create_minus",
+        "recoded": {
+          "id": "create_minus:recoded",
+          "sequence": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACATAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "schema_version": "paired-edit-input-1",
+        "topology": "linear"
+      },
+      "projection": {
+        "current": {
+          "contig": "create_minus:current",
+          "contig_length": 240,
+          "origin": 20,
+          "origin_crossing": false,
+          "sequence_strand": "+",
+          "topology": "linear"
+        },
+        "recoded": {
+          "contig": "create_minus:recoded",
+          "contig_length": 240,
+          "origin": 20,
+          "origin_crossing": false,
+          "sequence_strand": "+",
+          "topology": "linear"
+        }
+      },
+      "promoter_scan": {
+        "current": {
+          "expected_sites_per_strand": 114,
+          "range": [
+            67,
+            181
+          ],
+          "strands": [
+            "+",
+            "-"
+          ]
+        },
+        "recoded": {
+          "expected_sites_per_strand": 114,
+          "range": [
+            67,
+            181
+          ],
+          "strands": [
+            "+",
+            "-"
+          ]
+        }
+      },
+      "unchanged_sequence_control": false
+    },
+    {
+      "expected_rbs_accounting": {
+        "paired": 1,
+        "unmatched_recoded:mapped_anchor_absent": 1
+      },
+      "expected_rbs_candidates": {
+        "current": [
+          {
+            "base": 100,
+            "codon": "ATG",
+            "strand": "+"
+          }
+        ],
+        "recoded": [
+          {
+            "base": 102,
+            "codon": "ATG",
+            "strand": "+"
+          },
+          {
+            "base": 98,
+            "codon": "TTG",
+            "strand": "-"
+          }
+        ]
+      },
+      "feature_probe": {
+        "expected_contiguous": false,
+        "expected_mapped_runs": [
+          [
+            90,
+            95
+          ],
+          [
+            97,
+            112
+          ]
+        ],
+        "expected_unmatched_bases": 0,
+        "interval": [
+          90,
+          110
+        ],
+        "strand": "+"
+      },
+      "input": {
+        "current": {
+          "id": "insert_before_anchor:current",
+          "sequence": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAATGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "edits": [
+          {
+            "end": 95,
+            "id": "edit0",
+            "replacement": "CC",
+            "start": 95
+          }
+        ],
+        "pair_id": "insert_before_anchor",
+        "recoded": {
+          "id": "insert_before_anchor:recoded",
+          "sequence": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACCAAAAAATGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "schema_version": "paired-edit-input-1",
+        "topology": "linear"
+      },
+      "projection": {
+        "current": {
+          "contig": "insert_before_anchor:current",
+          "contig_length": 240,
+          "origin": 20,
+          "origin_crossing": false,
+          "sequence_strand": "+",
+          "topology": "linear"
+        },
+        "recoded": {
+          "contig": "insert_before_anchor:recoded",
+          "contig_length": 242,
+          "origin": 20,
+          "origin_crossing": false,
+          "sequence_strand": "+",
+          "topology": "linear"
+        }
+      },
+      "promoter_scan": {
+        "current": {
+          "expected_sites_per_strand": 114,
+          "range": [
+            67,
+            181
+          ],
+          "strands": [
+            "+",
+            "-"
+          ]
+        },
+        "recoded": {
+          "expected_sites_per_strand": 116,
+          "range": [
+            67,
+            183
+          ],
+          "strands": [
+            "+",
+            "-"
+          ]
+        }
+      },
+      "unchanged_sequence_control": false
+    },
+    {
+      "expected_rbs_accounting": {
+        "paired": 1
+      },
+      "expected_rbs_candidates": {
+        "current": [
+          {
+            "base": 100,
+            "codon": "ATG",
+            "strand": "+"
+          }
+        ],
+        "recoded": [
+          {
+            "base": 97,
+            "codon": "ATG",
+            "strand": "+"
+          }
+        ]
+      },
+      "feature_probe": {
+        "expected_contiguous": false,
+        "expected_mapped_runs": [
+          [
+            90,
+            95
+          ],
+          [
+            95,
+            107
+          ]
+        ],
+        "expected_unmatched_bases": 3,
+        "interval": [
+          90,
+          110
+        ],
+        "strand": "+"
+      },
+      "input": {
+        "current": {
+          "id": "delete_before_anchor:current",
+          "sequence": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAATGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "edits": [
+          {
+            "end": 98,
+            "id": "edit0",
+            "replacement": "",
+            "start": 95
+          }
+        ],
+        "pair_id": "delete_before_anchor",
+        "recoded": {
+          "id": "delete_before_anchor:recoded",
+          "sequence": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAATGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "schema_version": "paired-edit-input-1",
+        "topology": "linear"
+      },
+      "projection": {
+        "current": {
+          "contig": "delete_before_anchor:current",
+          "contig_length": 240,
+          "origin": 20,
+          "origin_crossing": false,
+          "sequence_strand": "+",
+          "topology": "linear"
+        },
+        "recoded": {
+          "contig": "delete_before_anchor:recoded",
+          "contig_length": 237,
+          "origin": 20,
+          "origin_crossing": false,
+          "sequence_strand": "+",
+          "topology": "linear"
+        }
+      },
+      "promoter_scan": {
+        "current": {
+          "expected_sites_per_strand": 114,
+          "range": [
+            67,
+            181
+          ],
+          "strands": [
+            "+",
+            "-"
+          ]
+        },
+        "recoded": {
+          "expected_sites_per_strand": 111,
+          "range": [
+            67,
+            178
+          ],
+          "strands": [
+            "+",
+            "-"
+          ]
+        }
+      },
+      "unchanged_sequence_control": false
+    },
+    {
+      "expected_rbs_accounting": {
+        "unmatched_current:deleted_coordinate": 1,
+        "unmatched_recoded:inserted_coordinate": 2
+      },
+      "expected_rbs_candidates": {
+        "current": [
+          {
+            "base": 100,
+            "codon": "ATG",
+            "strand": "+"
+          }
+        ],
+        "recoded": [
+          {
+            "base": 100,
+            "codon": "GTG",
+            "strand": "+"
+          },
+          {
+            "base": 103,
+            "codon": "GTG",
+            "strand": "+"
+          }
+        ]
+      },
+      "feature_probe": {
+        "expected_contiguous": false,
+        "expected_mapped_runs": [
+          [
+            90,
+            100
+          ],
+          [
+            106,
+            113
+          ]
+        ],
+        "expected_unmatched_bases": 3,
+        "interval": [
+          90,
+          110
+        ],
+        "strand": "+"
+      },
+      "input": {
+        "current": {
+          "id": "unequal_anchor_replacement:current",
+          "sequence": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAATGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "edits": [
+          {
+            "end": 103,
+            "id": "edit0",
+            "replacement": "GTGGTG",
+            "start": 100
+          }
+        ],
+        "pair_id": "unequal_anchor_replacement",
+        "recoded": {
+          "id": "unequal_anchor_replacement:recoded",
+          "sequence": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGTGGTGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "schema_version": "paired-edit-input-1",
+        "topology": "linear"
+      },
+      "projection": {
+        "current": {
+          "contig": "unequal_anchor_replacement:current",
+          "contig_length": 240,
+          "origin": 20,
+          "origin_crossing": false,
+          "sequence_strand": "+",
+          "topology": "linear"
+        },
+        "recoded": {
+          "contig": "unequal_anchor_replacement:recoded",
+          "contig_length": 243,
+          "origin": 20,
+          "origin_crossing": false,
+          "sequence_strand": "+",
+          "topology": "linear"
+        }
+      },
+      "promoter_scan": {
+        "current": {
+          "expected_sites_per_strand": 114,
+          "range": [
+            67,
+            181
+          ],
+          "strands": [
+            "+",
+            "-"
+          ]
+        },
+        "recoded": {
+          "expected_sites_per_strand": 117,
+          "range": [
+            67,
+            184
+          ],
+          "strands": [
+            "+",
+            "-"
+          ]
+        }
+      },
+      "unchanged_sequence_control": false
+    },
+    {
+      "expected_rbs_accounting": {
+        "paired": 1
+      },
+      "expected_rbs_candidates": {
+        "current": [
+          {
+            "base": 100,
+            "codon": "ATG",
+            "strand": "+"
+          }
+        ],
+        "recoded": [
+          {
+            "base": 100,
+            "codon": "ATG",
+            "strand": "+"
+          }
+        ]
+      },
+      "feature_probe": {
+        "expected_contiguous": true,
+        "expected_mapped_runs": [
+          [
+            90,
+            110
+          ]
+        ],
+        "expected_unmatched_bases": 0,
+        "interval": [
+          90,
+          110
+        ],
+        "strand": "+"
+      },
+      "input": {
+        "current": {
+          "id": "circular_reverse_projection:current",
+          "sequence": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAATGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "edits": [],
+        "pair_id": "circular_reverse_projection",
+        "recoded": {
+          "id": "circular_reverse_projection:recoded",
+          "sequence": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAATGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "schema_version": "paired-edit-input-1",
+        "topology": "circular"
+      },
+      "projection": {
+        "current": {
+          "contig": "circular_reverse_projection:current",
+          "contig_length": 200,
+          "origin": 150,
+          "origin_crossing": true,
+          "sequence_strand": "-",
+          "topology": "circular"
+        },
+        "recoded": {
+          "contig": "circular_reverse_projection:recoded",
+          "contig_length": 200,
+          "origin": 150,
+          "origin_crossing": true,
+          "sequence_strand": "-",
+          "topology": "circular"
+        }
+      },
+      "promoter_scan": {
+        "current": {
+          "expected_sites_per_strand": 114,
+          "range": [
+            67,
+            181
+          ],
+          "strands": [
+            "+",
+            "-"
+          ]
+        },
+        "recoded": {
+          "expected_sites_per_strand": 114,
+          "range": [
+            67,
+            181
+          ],
+          "strands": [
+            "+",
+            "-"
+          ]
+        }
+      },
+      "unchanged_sequence_control": true
+    }
+  ],
+  "comparison_policy": "Keep distinct complete candidate universes; compare anchors only by explicit edit map and same local strand. No biological gained/lost classification or score threshold.",
+  "licence": "GPL-3.0-or-later; project-authored synthetic fixtures",
+  "origin": "Independently authored synthetic A200 backbones; literal candidate and feature-map expectations. No biological outcome or runtime score used.",
+  "schema_version": "paired-regulatory-synthetic-panel-1"
+}

@@ -1,0 +1,6 @@
+Initializing nucleic acids...done.
+Generating suboptimal structures...
+100% [==================================================]  
+done.
+Writing output ct file...done.
+Generation of suboptimal structures complete.

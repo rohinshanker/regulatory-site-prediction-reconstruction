@@ -1,0 +1,562 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "1.1"
+    },
+    "results": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 100,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "schema_version": {
+            "const": "1.1"
+          },
+          "id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "status": {
+            "enum": [
+              "ok",
+              "no_candidate",
+              "unsupported",
+              "invalid_input",
+              "failed"
+            ]
+          },
+          "reason": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "sites": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "status": {
+                  "enum": [
+                    "ok",
+                    "no_candidate",
+                    "unsupported",
+                    "invalid_input",
+                    "failed"
+                  ]
+                },
+                "reason": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "codon": {
+                  "type": "string"
+                },
+                "start_codon": {
+                  "$ref": "#/$defs/interval"
+                },
+                "oriented_start": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "window": {
+                  "$ref": "#/$defs/window"
+                },
+                "energies": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/$defs/energies"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "tir": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "log_tir": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "aligned_spacing": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ]
+                },
+                "candidate_search": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/$defs/candidate_search"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "structures": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/$defs/structures"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "binding_interval": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/$defs/interval"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "standby_interval": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/$defs/interval"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "warnings": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "coding_footprint": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/$defs/interval"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "post_footprint": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/$defs/structure"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "status",
+                "reason",
+                "codon",
+                "start_codon",
+                "oriented_start",
+                "window",
+                "energies",
+                "tir",
+                "log_tir",
+                "aligned_spacing",
+                "candidate_search",
+                "structures",
+                "binding_interval",
+                "standby_interval",
+                "warnings",
+                "coding_footprint",
+                "post_footprint"
+              ],
+              "allOf": [
+                {
+                  "if": {
+                    "properties": {
+                      "status": {
+                        "const": "ok"
+                      }
+                    }
+                  },
+                  "then": {
+                    "properties": {
+                      "energies": {
+                        "$ref": "#/$defs/energies"
+                      },
+                      "candidate_search": {
+                        "$ref": "#/$defs/candidate_search"
+                      },
+                      "structures": {
+                        "$ref": "#/$defs/structures"
+                      },
+                      "binding_interval": {
+                        "$ref": "#/$defs/interval"
+                      },
+                      "standby_interval": {
+                        "$ref": "#/$defs/interval"
+                      },
+                      "coding_footprint": {
+                        "$ref": "#/$defs/interval"
+                      },
+                      "post_footprint": {
+                        "$ref": "#/$defs/structure"
+                      },
+                      "tir": {
+                        "type": "number",
+                        "exclusiveMinimum": 0
+                      },
+                      "log_tir": {
+                        "type": "number"
+                      },
+                      "aligned_spacing": {
+                        "type": "integer"
+                      }
+                    }
+                  },
+                  "else": {
+                    "properties": {
+                      "energies": {
+                        "type": "null"
+                      },
+                      "tir": {
+                        "type": "null"
+                      },
+                      "log_tir": {
+                        "type": "null"
+                      },
+                      "structures": {
+                        "type": "null"
+                      },
+                      "binding_interval": {
+                        "type": "null"
+                      },
+                      "standby_interval": {
+                        "type": "null"
+                      },
+                      "aligned_spacing": {
+                        "type": "null"
+                      },
+                      "candidate_search": {
+                        "type": "null"
+                      },
+                      "coding_footprint": {
+                        "type": "null"
+                      },
+                      "post_footprint": {
+                        "type": "null"
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "warnings": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "model": {
+            "type": "object",
+            "required": [
+              "id",
+              "source_commit",
+              "parameters",
+              "implementation_version"
+            ],
+            "properties": {
+              "id": {
+                "enum": [
+                  "footprint2017-rnastructure-6.6-reconstruction-1",
+                  "context2017-rnastructure-6.6-reconstruction-1"
+                ]
+              }
+            }
+          },
+          "backend": {
+            "type": "object"
+          },
+          "input": {
+            "type": [
+              "object",
+              "null"
+            ]
+          },
+          "prediction_id": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "pattern": "^[0-9a-f]{64}$"
+          }
+        },
+        "required": [
+          "schema_version",
+          "id",
+          "status",
+          "reason",
+          "sites",
+          "warnings",
+          "model",
+          "backend",
+          "input",
+          "prediction_id"
+        ]
+      }
+    }
+  },
+  "required": [
+    "schema_version",
+    "results"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "RBS refined-profile result envelope 1.1",
+  "$defs": {
+    "interval": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "start": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "end": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "strand": {
+          "enum": [
+            "+",
+            "-"
+          ]
+        }
+      },
+      "required": [
+        "start",
+        "end",
+        "strand"
+      ]
+    },
+    "structure": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "mrna_dot_bracket": {
+          "type": "string"
+        },
+        "anti_sd_dot_bracket": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "mrna_intramolecular_pairs": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "minItems": 2,
+            "maxItems": 2
+          }
+        },
+        "mrna_anti_sd_pairs": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "minItems": 2,
+            "maxItems": 2
+          }
+        },
+        "coordinate_space": {
+          "type": "string"
+        },
+        "energy_kcal_mol": {
+          "type": "number"
+        },
+        "prediction_energy_kcal_mol": {
+          "type": [
+            "number",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "mrna_dot_bracket",
+        "anti_sd_dot_bracket",
+        "mrna_intramolecular_pairs",
+        "mrna_anti_sd_pairs",
+        "coordinate_space",
+        "energy_kcal_mol",
+        "prediction_energy_kcal_mol"
+      ]
+    },
+    "energies": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "dG_mRNA": {
+          "type": "number"
+        },
+        "dG_cofold_search": {
+          "type": "number"
+        },
+        "dG_search_with_spacing": {
+          "type": "number"
+        },
+        "dG_complex": {
+          "type": "number"
+        },
+        "dG_spacing": {
+          "type": "number"
+        },
+        "dG_start": {
+          "type": "number"
+        },
+        "dG_standby_signed": {
+          "type": "number"
+        },
+        "dG_accessible_complex": {
+          "type": "number"
+        },
+        "dG_total": {
+          "type": "number"
+        },
+        "units": {
+          "const": "kcal/mol"
+        },
+        "dG_mRNA_native_prediction": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "dG_cofold_native_prediction": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "dG_post_footprint": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "dG_mRNA",
+        "dG_cofold_search",
+        "dG_search_with_spacing",
+        "dG_complex",
+        "dG_spacing",
+        "dG_start",
+        "dG_standby_signed",
+        "dG_accessible_complex",
+        "dG_total",
+        "units",
+        "dG_mRNA_native_prediction",
+        "dG_cofold_native_prediction",
+        "dG_post_footprint"
+      ]
+    },
+    "candidate_search": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "returned": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "viable_in_band": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "selected_index": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "exhaustive": {
+          "const": false
+        },
+        "connected_returned": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "band_reference_kcal_mol": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "returned",
+        "viable_in_band",
+        "selected_index",
+        "exhaustive",
+        "connected_returned",
+        "band_reference_kcal_mol"
+      ]
+    },
+    "window": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "oriented_start": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "oriented_end": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "input_interval": {
+          "$ref": "#/$defs/interval"
+        }
+      },
+      "required": [
+        "oriented_start",
+        "oriented_end",
+        "input_interval"
+      ]
+    },
+    "structures": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "unbound",
+        "bound_before_standby",
+        "bound_after_standby"
+      ],
+      "properties": {
+        "unbound": {
+          "$ref": "#/$defs/structure"
+        },
+        "bound_before_standby": {
+          "$ref": "#/$defs/structure"
+        },
+        "bound_after_standby": {
+          "$ref": "#/$defs/structure"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "schema_version": "promoter-design-request-1",
+  "promoter": {
+    "schema_version": "1.0",
+    "id": "artificial-promoter-design",
+    "sequence": "ACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT",
+    "calibration": "ecoli_mg1655",
+    "scan": {
+      "mode": "positions",
+      "positions": [
+        {
+          "strand": "+",
+          "tss": 100
+        },
+        {
+          "strand": "-",
+          "tss": 129
+        }
+      ]
+    },
+    "output": {
+      "states": "selected",
+      "legacy_keys": false,
+      "elements": true
+    },
+    "metadata": {
+      "purpose": "Original bounded substitution example; artificial ACGT repeat, not biological design validation."
+    }
+  },
+  "target_log_scores": [
+    0.0,
+    0.0
+  ],
+  "editable_positions": [
+    80
+  ],
+  "immutable_intervals": [
+    [
+      0,
+      80
+    ],
+    [
+      81,
+      200
+    ]
+  ],
+  "max_changes": 1,
+  "limits": {
+    "max_candidates": 4,
+    "seconds_per_candidate": 1.0,
+    "seconds_total": 10.0
+  }
+}

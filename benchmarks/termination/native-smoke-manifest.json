@@ -1,0 +1,409 @@
+{
+  "schema_version": "termination-native-smoke-1",
+  "purpose": "Original synthetic execution controls; not biological measurements, accuracy or source-model equivalence",
+  "source_manifest_sha256": "414d27c38207eb2935a130ea301a3c8f22531be8399e7eccdc766a79b72afeba",
+  "source_commit": "f4ff5e3a2ab0a8897cd10cb727a853683a61ce02",
+  "build": {
+    "command": [
+      "/usr/bin/make",
+      "-j1",
+      "transterm",
+      "CXX=/Library/Developer/CommandLineTools/usr/bin/clang++",
+      "CXXFLAGS=-g -O3 -Wall -pedantic -std=c++11 -ffp-contract=off -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX26.5.sdk -isystem /Library/Developer/CommandLineTools/SDKs/MacOSX26.5.sdk/usr/include/c++/v1"
+    ],
+    "compiler": "/Library/Developer/CommandLineTools/usr/bin/clang++",
+    "compiler_version": "Apple clang version 21.0.0 (clang-2100.1.1.101)\nTarget: x86_64-apple-darwin25.6.0\nThread model: posix\nInstalledDir: /Library/Developer/CommandLineTools/usr/bin\n",
+    "flags": "-g -O3 -Wall -pedantic -std=c++11 -ffp-contract=off -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX26.5.sdk -isystem /Library/Developer/CommandLineTools/SDKs/MacOSX26.5.sdk/usr/include/c++/v1",
+    "elapsed_seconds": 17.197766304016113
+  },
+  "binary": {
+    "sha256": "f0ec6a56b03a0f3b6f9d628e22d05126780135d73a557c23b86de42cd60d04de",
+    "bytes": 241384,
+    "architecture": "arm64"
+  },
+  "background_sha256": "fce89a92ab487aaea5a54015e859e1fb5e31f4f9985c9df7831ee09a367db1fe",
+  "linked_libraries": [
+    "\t/usr/lib/libc++.1.dylib (compatibility version 1.0.0, current version 2100.43.0)",
+    "\t/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1356.0.0)"
+  ],
+  "runtime_stack_limit": [
+    16777216,
+    67092480
+  ],
+  "source_changes": [
+    {
+      "file": "seq.cc",
+      "sha256": "41aa581280e38186acc4938a5723cc4c7fc6d63a809881baee01ade9e807c21f",
+      "patch_sha256": "9bbfc2ced3df5332ec41b61bf23ca9acaf030cce3a3688f6c1c7468a5961ba6c"
+    }
+  ],
+  "build_maximum_resident_bytes": 168894464,
+  "build_peak_memory_footprint_bytes": 3507232,
+  "smoke_maximum_resident_bytes": 2473984,
+  "smoke_peak_memory_footprint_bytes": 1933624,
+  "external_receipt": {
+    "name": "smoke-original-review/receipt.json",
+    "sha256": "0a9da8de3196c43c2b1c12e75260ebd74877fb334be422abd4e3aad9694a44e8"
+  },
+  "cases": [
+    {
+      "case": "positive",
+      "sequence": "ACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACGCGCGCAAAAGCGCGCTTTTTTTTTTTTTTTACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACAC",
+      "sequence_sha256": "f9af05d7a8c4b16574a049570d1f71776d06d67f5983d74d9394f5436d9f88f9",
+      "fasta_sha256": "8756504b75a017a2fc87ff514f0244746d3593fc5b49c17fbcb5792a7d62110a",
+      "coords_sha256": "dc03e5d345f4a8f5e05477e6893deba1f9dffe16d377737fab3b7a216f95dc6c",
+      "native_exit": 0,
+      "native_candidates": [
+        {
+          "native_id": 1,
+          "start_1based": 85,
+          "end_1based": 72,
+          "strand": "-",
+          "context": "f",
+          "confidence": 43,
+          "hairpin_score": "-2.3",
+          "tail_score": "-3.10057",
+          "notes": "opp_overlap 81"
+        },
+        {
+          "native_id": 2,
+          "start_1based": 81,
+          "end_1based": 96,
+          "strand": "+",
+          "context": "F",
+          "confidence": 100,
+          "hairpin_score": "-11.8",
+          "tail_score": "-7.14698",
+          "notes": "opp_overlap 72"
+        }
+      ],
+      "stdout_sha256": "f85d112640d0ad6cddce172d29b9c03059695e58acec26922c0f5497328f2373",
+      "stderr_sha256": "b1aa6713405a8de74c2195a2d955e6073991b153729f0231d0e1c272c37fbe9b",
+      "stdout_bytes": 1069,
+      "stderr_bytes": 844
+    },
+    {
+      "case": "negative",
+      "sequence": "ACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACAC",
+      "sequence_sha256": "23ac3e8d047075f7bf6659c92feb6adc4461f9afed3a0d116459e24cd283e595",
+      "fasta_sha256": "3951a60aab1c59c230d50ce3b18927ae71ff138901ae8eae06d13658083d4e64",
+      "coords_sha256": "b4ac80dc6b40cc0acdd366c67f4cc49edcf88b9aa3a72ce2255e927a8d5f617a",
+      "native_exit": 0,
+      "native_candidates": [],
+      "stdout_sha256": "57fc317973fdfc12a8e9b38598437f2e7a85e7137a9b610a443c30bd612351ff",
+      "stderr_sha256": "ad21dc62bafd4f1e0c051e104697eac94bf18bd92129a25bb8e50d2c1ea3a195",
+      "stdout_bytes": 914,
+      "stderr_bytes": 844
+    },
+    {
+      "case": "reverse",
+      "sequence": "GTGTGTGTGTGTGTGTGTGTGTGTGTGTGTGTGTGTGTGTGTGTGTGTGTGTGTGTGTGTGTGTGTGTGTGTGTGTGTGTAAAAAAAAAAAAAAAGCGCGCTTTTGCGCGCGTGTGTGTGTGTGTGTGTGTGTGTGTGTGTGTGTGTGTGTGTGTGTGTGTGTGTGTGTGTGTGTGTGTGTGTGTGTGTGT",
+      "sequence_sha256": "7a68699652cce73a70285b167d26b8d4c1a20720c097b01448975ae2b3edfe6b",
+      "fasta_sha256": "fe740ffd7143e9ddc47cdc59cd5b7e1a678bc0dae73d045aec7e29a8e6051d4a",
+      "coords_sha256": "dc03e5d345f4a8f5e05477e6893deba1f9dffe16d377737fab3b7a216f95dc6c",
+      "native_exit": 0,
+      "native_candidates": [
+        {
+          "native_id": 1,
+          "start_1based": 91,
+          "end_1based": 116,
+          "strand": "+",
+          "context": "F",
+          "confidence": 45,
+          "hairpin_score": "-3.1",
+          "tail_score": "-3.10057",
+          "notes": "opp_overlap 96, overlap 93 95 107"
+        },
+        {
+          "native_id": 2,
+          "start_1based": 93,
+          "end_1based": 114,
+          "strand": "+",
+          "context": "F",
+          "confidence": 55,
+          "hairpin_score": "-5.7",
+          "tail_score": "-3.10057",
+          "notes": "opp_overlap 96, overlap 91 95 107"
+        },
+        {
+          "native_id": 3,
+          "start_1based": 95,
+          "end_1based": 112,
+          "strand": "+",
+          "context": "F",
+          "confidence": 64,
+          "hairpin_score": "-8.3",
+          "tail_score": "-3.10057",
+          "notes": "opp_overlap 96, overlap 93 91 107"
+        },
+        {
+          "native_id": 4,
+          "start_1based": 111,
+          "end_1based": 96,
+          "strand": "-",
+          "context": "f",
+          "confidence": 100,
+          "hairpin_score": "-11.8",
+          "tail_score": "-7.14698",
+          "notes": "opp_overlap 95 93 91 107"
+        },
+        {
+          "native_id": 5,
+          "start_1based": 107,
+          "end_1based": 120,
+          "strand": "+",
+          "context": "F",
+          "confidence": 43,
+          "hairpin_score": "-2.3",
+          "tail_score": "-3.10057",
+          "notes": "opp_overlap 96, overlap 95 93 91"
+        }
+      ],
+      "stdout_sha256": "6d55d09f3b220acddc4702d323930c8bdfebddfc504b6af1a66d1eeee67c6598",
+      "stderr_sha256": "4b39b9ce2f50fe44807442ec1968d959fe231ad792a16a2e45190b132fddc1fb",
+      "stdout_bytes": 1379,
+      "stderr_bytes": 844
+    },
+    {
+      "case": "length75",
+      "sequence": "ACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACA",
+      "sequence_sha256": "4d407234f22feb050bf817827192f01a47f40c88ce707ff73c7ef74299d1cf5b",
+      "fasta_sha256": "5a67ce3b7678b402fc3a2eff324d787b52c60d4e5b3321da237f5f386ced21e9",
+      "coords_sha256": "bba0739f84d328105a2e18dfffe72c38b8c119a0b7f7a58c628ca9e9f536c814",
+      "native_exit": 0,
+      "native_candidates": [],
+      "stdout_sha256": "45c6d032f268e77413c68f805402c9eb7fb56ae867ee0d194df101834cd7aac6",
+      "stderr_sha256": "1362f8ac557df8fcccd223bebd1e1468d16565f6e03996dc5c08f6d5a57cfea5",
+      "stdout_bytes": 917,
+      "stderr_bytes": 843
+    },
+    {
+      "case": "length76",
+      "sequence": "ACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACAC",
+      "sequence_sha256": "4a40ba3818aa60c0cfc1422b2cb306c96e516346e530113a8c7ec6cdff6e9a40",
+      "fasta_sha256": "36c28047a18fa338206250cacd8a52c0b7369fb4150bf133c6cbc2901526e500",
+      "coords_sha256": "1943f93da7d2fbbbf89f792b85bfa167980cc27b83d9d47af47788838290de84",
+      "native_exit": 0,
+      "native_candidates": [],
+      "stdout_sha256": "3a45e6ca3aff6b6ac1d932f4f8de983f2eefbc06021ebf4200408ee72a129e89",
+      "stderr_sha256": "752a5c58672b15d7c3a05bd8b3881c2817d70d08c25cba0b5399665b28e4f770",
+      "stdout_bytes": 912,
+      "stderr_bytes": 843
+    },
+    {
+      "case": "length74",
+      "sequence": "ACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACAC",
+      "sequence_sha256": "28324b0ebd4c8b54b6d2f59af753bacc1a0ae7adbdf9805fcbf1c52ec64ae00a",
+      "fasta_sha256": "d4b255faa453065d6b5b4f17087a83106c66895105ac7ccc0d5ae15cf5d8d555",
+      "coords_sha256": "a9b2772f1b8e16724a37df29cdbf7aab35d2c25f97199577525d8776de4a6250",
+      "native_exit": 3,
+      "native_candidates": [],
+      "stdout_sha256": "5e425a7cf56dba258d9c7826f34fa849cf6799f18ed7606d97a0e4a595fac748",
+      "stderr_sha256": "529e251dde62b156752acd020981685d567f53d0b7dce8cb5b4b45bcdd38305b",
+      "stdout_bytes": 422,
+      "stderr_bytes": 858
+    },
+    {
+      "case": "tie27of100",
+      "sequence": "ACGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCAAAAAAAAGCGCGCAAAAGCGCGCTTTTTTTTTTTTTTTCAC",
+      "sequence_sha256": "87f76beaf1cf7198dff880a5f48c845b877f5dcd72bec1dd842ab52356dc7cec",
+      "fasta_sha256": "9d064a9a0bba290558f3e3720ab76fa1ded293b7f05e4e667753f14c1ac84256",
+      "coords_sha256": "fa2d88bf6e6f57ce002e964bd9c245d5dff88a96f1debea1d2b1dd21c967c301",
+      "native_exit": 0,
+      "native_candidates": [
+        {
+          "native_id": 1,
+          "start_1based": 71,
+          "end_1based": 86,
+          "strand": "+",
+          "context": "F",
+          "confidence": 100,
+          "hairpin_score": "-11.8",
+          "tail_score": "-7.14698",
+          "notes": ""
+        }
+      ],
+      "stdout_sha256": "ba76bed2315ee30c7f73457c0dd22107a105842b5cf24c33ef60c4d89e43dbe9",
+      "stderr_sha256": "2a806586c67375f5c2ea5f44df7fa3c0fb26c43e89b4d1bd6ffdd943249b431c",
+      "stdout_bytes": 973,
+      "stderr_bytes": 844
+    },
+    {
+      "case": "boundary_mixed",
+      "sequence": "AGCGCGCGCGCGCGCGCGCGCGCGAAAAAAAAAAAAACGCGCGCGCGCGCGCGCGCGCGCTTTTTTTTTTTTTTTACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACAC",
+      "sequence_sha256": "3413e3c771df995872317ba7d80fc5764e3adf0ede264749838379ac8cb85dc6",
+      "fasta_sha256": "4b1d0b7c612617b3f1e76cc8b5e19adfac667e5adbf5ab461e2da499d43bd514",
+      "coords_sha256": "ae9d5295b35e9d9fb900007bb01b2b88a6f1cf4a85c3aaf40a90f4b3a604b983",
+      "native_exit": 0,
+      "native_candidates": [
+        {
+          "native_id": 1,
+          "start_1based": 2,
+          "end_1based": 60,
+          "strand": "+",
+          "context": "F",
+          "confidence": 100,
+          "hairpin_score": "-41.9",
+          "tail_score": "-7.14698",
+          "notes": "opp_overlap 38 39"
+        },
+        {
+          "native_id": 2,
+          "start_1based": 59,
+          "end_1based": 38,
+          "strand": "-",
+          "context": "f",
+          "confidence": 100,
+          "hairpin_score": "-18.7",
+          "tail_score": "-6.95634",
+          "notes": "opp_overlap 2, overlap 39"
+        },
+        {
+          "native_id": 3,
+          "start_1based": 60,
+          "end_1based": 39,
+          "strand": "-",
+          "context": "f",
+          "confidence": 100,
+          "hairpin_score": "-18.7",
+          "tail_score": "-4.7189",
+          "notes": "opp_overlap 2, overlap 38"
+        }
+      ],
+      "stdout_sha256": "b82a86a987cf04d5c6ab3169e366a66787b20b27bef2da34d3f90ffce75cdb68",
+      "stderr_sha256": "ab24c20ce1d04a000b7c56f4bbfedbbfce5e86acb795a21f3006bc0fa4cb3b69",
+      "stdout_bytes": 1166,
+      "stderr_bytes": 844
+    },
+    {
+      "case": "boundary_uniform_gc",
+      "sequence": "GGCGCGCGCGCGCGCGCGCGCGCGAAAAAAAAAAAAACGCGCGCGCGCGCGCGCGCGCGCTTTTTTTTTTTTTTTACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACGG",
+      "sequence_sha256": "7a6488d25d7a04b5d1fb7fa337d962e2da9270abf7301419603b560de62c9a94",
+      "fasta_sha256": "91aef597928ac1c0172ca9ea35b1e8607ebfa4067f365554a0ad33e42a855f88",
+      "coords_sha256": "ae9d5295b35e9d9fb900007bb01b2b88a6f1cf4a85c3aaf40a90f4b3a604b983",
+      "native_exit": 0,
+      "native_candidates": [
+        {
+          "native_id": 1,
+          "start_1based": 2,
+          "end_1based": 60,
+          "strand": "+",
+          "context": "F",
+          "confidence": 100,
+          "hairpin_score": "-41.9",
+          "tail_score": "-7.14698",
+          "notes": "opp_overlap 38 39"
+        },
+        {
+          "native_id": 2,
+          "start_1based": 59,
+          "end_1based": 38,
+          "strand": "-",
+          "context": "f",
+          "confidence": 100,
+          "hairpin_score": "-18.7",
+          "tail_score": "-6.95634",
+          "notes": "opp_overlap 2, overlap 39"
+        },
+        {
+          "native_id": 3,
+          "start_1based": 60,
+          "end_1based": 39,
+          "strand": "-",
+          "context": "f",
+          "confidence": 100,
+          "hairpin_score": "-18.7",
+          "tail_score": "-4.7189",
+          "notes": "opp_overlap 2, overlap 38"
+        }
+      ],
+      "stdout_sha256": "13a4f4d8f837f7b8dcc8ce63e77f481b64cc9d66064582512bc375c4cc24d80e",
+      "stderr_sha256": "caa05f7259768561681a85c299c848003052f00f17a076cd02fa70247e14c217",
+      "stdout_bytes": 1164,
+      "stderr_bytes": 844
+    },
+    {
+      "case": "bidir_rightmost",
+      "sequence": "ACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACAAAAAAAAAAAAAAAGCGCGCAAAAGCGCGCTTTTTTTTTTTTTTTACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACAC",
+      "sequence_sha256": "21b7015dd7506ed838eb3d1620495ab5362593dc95ef048cedd8e96f82e3eb5c",
+      "fasta_sha256": "97e2d37faca8d23fd6049e6b49547df97608d370ad798d638cad6013776bcd3e",
+      "coords_sha256": "22a526abab65a1e1e9a0ff44749d940d8ecbadf86d176ef9f1202633269867c5",
+      "native_exit": 0,
+      "native_candidates": [
+        {
+          "native_id": 1,
+          "start_1based": 111,
+          "end_1based": 96,
+          "strand": "-",
+          "context": "f",
+          "confidence": 100,
+          "hairpin_score": "-11.8",
+          "tail_score": "-7.14698",
+          "notes": ""
+        }
+      ],
+      "stdout_sha256": "59436f9049ff39edaee0b41cb7d0b67aa376836d2b8a456d1cc7b8ad66e2cd96",
+      "stderr_sha256": "a3eac0d489599c9761e3f434217ba4381ad43d79c21dd30e80539a37a634d16b",
+      "stdout_bytes": 977,
+      "stderr_bytes": 844
+    },
+    {
+      "case": "bidir_middle",
+      "sequence": "ACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACAAAAAAAAAAAAAAAGCGCGCAAAAGCGCGCTTTTTTTTTTTTTTTACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACGCGCGCAAAAGCGCGCTTTTTTTTTTTTTTTACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACAC",
+      "sequence_sha256": "408021f8fe40500a686c9b47c42164ffb80dcd14218d92b95c2ef8aaaba2438d",
+      "fasta_sha256": "25a2c65956c03833c66370469eaa96d2b1619932189c78c2e94b1e3beaad7771",
+      "coords_sha256": "63d2f6add7335a25b25c60e9d672d64d4c1f6fd5bca322a6b7676755fc3ef2f1",
+      "native_exit": 0,
+      "native_candidates": [
+        {
+          "native_id": 1,
+          "start_1based": 96,
+          "end_1based": 111,
+          "strand": "+",
+          "context": "F",
+          "confidence": 100,
+          "hairpin_score": "-11.8",
+          "tail_score": "-7.14698",
+          "notes": "opp_overlap 96"
+        },
+        {
+          "native_id": 2,
+          "start_1based": 111,
+          "end_1based": 96,
+          "strand": "-",
+          "context": "f",
+          "confidence": 100,
+          "hairpin_score": "-11.8",
+          "tail_score": "-7.14698",
+          "notes": "opp_overlap 96"
+        },
+        {
+          "native_id": 3,
+          "start_1based": 211,
+          "end_1based": 198,
+          "strand": "-",
+          "context": "f",
+          "confidence": 42,
+          "hairpin_score": "-2.3",
+          "tail_score": "-3.10057",
+          "notes": "opp_overlap 207"
+        },
+        {
+          "native_id": 4,
+          "start_1based": 207,
+          "end_1based": 222,
+          "strand": "+",
+          "context": "F",
+          "confidence": 100,
+          "hairpin_score": "-11.8",
+          "tail_score": "-7.14698",
+          "notes": "opp_overlap 198"
+        }
+      ],
+      "stdout_sha256": "ea2f639e77a64ac8a9f30df5ca4f93726b29195ed4bf27be68635a8124bf8a19",
+      "stderr_sha256": "cc639bb0a4a4cea9cbff6f795985a27bc5182cc3fc141b9fea3e0f4d24e7a489",
+      "stdout_bytes": 1218,
+      "stderr_bytes": 844
+    }
+  ]
+}

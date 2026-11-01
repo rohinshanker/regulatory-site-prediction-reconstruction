@@ -1,0 +1,173 @@
+{
+  "native_batch_settings": {
+    "batch_id": "ed6aaa3c3be9b7104ec60a9e1689977674ba301bd9d69c19a5b0b9d13a45e30e",
+    "complete": true,
+    "limits": {
+      "default_seconds_per_batch": 300.0,
+      "default_seconds_per_record": 30.0,
+      "max_all_state_sites_per_record": 100,
+      "max_all_states_per_batch": 2000,
+      "max_all_states_per_record": 2000,
+      "max_contig_chars": 128,
+      "max_host_name_chars": 200,
+      "max_id_chars": 128,
+      "max_input_json_bytes": 4000000,
+      "max_metadata_depth": 4,
+      "max_metadata_json_bytes": 4096,
+      "max_normalized_bases_per_batch": 100000,
+      "max_normalized_bases_per_record": 5000,
+      "max_planned_sites_per_batch": 4000,
+      "max_planned_sites_per_record": 1000,
+      "max_raw_sequence_chars_per_record": 50000,
+      "max_records_per_batch": 100,
+      "max_result_json_bytes": 67108864,
+      "max_seconds_per_batch": 3600.0,
+      "max_seconds_per_record": 120.0
+    },
+    "record_count": 1,
+    "seconds_per_batch": 30.0,
+    "seconds_per_record": 30.0,
+    "status_counts": {
+      "failed": 0,
+      "invalid_input": 0,
+      "no_candidate": 0,
+      "ok": 1,
+      "unsupported": 0
+    }
+  },
+  "native_model": {
+    "claims": {
+      "absolute_rate": false,
+      "hosted_parity": false,
+      "native_accuracy_evaluated": false,
+      "physical_free_energy": false,
+      "probability": false
+    },
+    "id": "promoter-lafleur2022-historical-1",
+    "implementation_version": "0.6.0rc1",
+    "kind": "historical_equation_reconstruction",
+    "licence": "GPL-3.0-or-later",
+    "not_modeled": [
+      "sigma_factor",
+      "temperature",
+      "host_specific_calibration",
+      "probability",
+      "absolute_rate",
+      "free_energy"
+    ],
+    "parameters": {
+      "array_sha256": {
+        "coefficients": "fddf16b38bf29799481e8a45890b669111e16cf2e3448e99d1934d19a8f0b8e9",
+        "intercept": "f7c66a8d838da71a6b2ab17936cd6ff2564e446af8c0676fba95de2116e99a7b"
+      },
+      "coefficient_count": 343,
+      "intercept_count": 1,
+      "parameter_json_sha256": "e2957d4687a5d5a2a20bcce231b4ea1446f269b383bbae94eed72860efa360dc",
+      "unused_coefficient_indices": [
+        336,
+        337,
+        338
+      ]
+    },
+    "source": {
+      "commit": "46da9132740bce30bccd107f02808adf2215e2f0",
+      "path": "Promoter_Calculator",
+      "reference_fork_commit": "0fe5f6f0fb2befc087556afa575f7241afd98fbf",
+      "repository": "https://github.com/hsalis/SalisLabCode"
+    },
+    "source_quirks": [
+      {
+        "behavior": "Corrected local base L-1-t; legacy L-t diagnostic only.",
+        "id": "reverse_key_l_minus_t"
+      },
+      {
+        "behavior": "Always retain the one-base UP/hex35 gap.",
+        "id": "arbitrary_scan_gap_omitted"
+      },
+      {
+        "behavior": "No sigma input accepted; source metadata had no effect.",
+        "id": "sigma_levels_ignored"
+      },
+      {
+        "behavior": "Calibration required, never inferred from host.",
+        "id": "unknown_organism_default_beta"
+      },
+      {
+        "behavior": "All coordinate-eligible states available on request.",
+        "id": "one_state_per_tss_public"
+      },
+      {
+        "behavior": "Preserve unused 336..338; use source quadratic.",
+        "id": "unused_spacer_coefficients"
+      },
+      {
+        "behavior": "Follow code: UP=24; discriminator lengths 6..10.",
+        "id": "paper_code_difference"
+      }
+    ],
+    "term_source_names": {
+      "binding": "dG_bind",
+      "discriminator": "dG_disc",
+      "extended10": "dG_ext10",
+      "hex10": "dG_10",
+      "hex35": "dG_35",
+      "intercept": "intercept",
+      "itr": "dG_ITR",
+      "source_apparent": "dG_apparent",
+      "spacer": "dG_spacer",
+      "total": "dG_total",
+      "up": "dG_UP"
+    },
+    "terms_semantics": "learned regression score contributions; not independently established free energies",
+    "terms_unit": "source_dG_units"
+  },
+  "scientific_identity_hashes": {
+    "backend_sha256": "bec1a1542abae88db0c8ee22cb63350ef335190c6a0623ddac3ddf20874c6b1f",
+    "calibration_sha256": "8578fdb91502eb3a41ea67004382f9b9dc7b4703a5d4fdbda3877a856bf7e60e",
+    "model_sha256": "ffcff490fad69b510a4639e1ab5ab271021669136935e094dff9ffa7a10f0c04",
+    "settings_sha256": "63d5544b7901b68237d44b8d4c0ae56f72a882e04820f7f31e29228325636ee4"
+  },
+  "settings": {
+    "seconds_per_side": 30.0
+  },
+  "wrapper_limits": {
+    "max_bases_per_side": 10000,
+    "max_candidates_per_side": 512,
+    "max_edits": 1000,
+    "max_feature_bases": 2000000,
+    "max_input_json_bytes": 2000000,
+    "max_json_depth": 20,
+    "max_json_nodes": 100000,
+    "max_result_json_bytes": 67108864,
+    "max_seconds_per_side": 120,
+    "predictors": {
+      "promoter": {
+        "default_seconds_per_batch": 300.0,
+        "default_seconds_per_record": 30.0,
+        "max_all_state_sites_per_record": 100,
+        "max_all_states_per_batch": 2000,
+        "max_all_states_per_record": 2000,
+        "max_contig_chars": 128,
+        "max_host_name_chars": 200,
+        "max_id_chars": 128,
+        "max_input_json_bytes": 4000000,
+        "max_metadata_depth": 4,
+        "max_metadata_json_bytes": 4096,
+        "max_normalized_bases_per_batch": 100000,
+        "max_normalized_bases_per_record": 5000,
+        "max_planned_sites_per_batch": 4000,
+        "max_planned_sites_per_record": 1000,
+        "max_raw_sequence_chars_per_record": 50000,
+        "max_records_per_batch": 100,
+        "max_result_json_bytes": 67108864,
+        "max_seconds_per_batch": 3600.0,
+        "max_seconds_per_record": 120.0
+      },
+      "rbs": {
+        "max_explicit_or_scanned_starts": 1000,
+        "max_normalized_bases_per_record": 10000,
+        "max_seconds_per_record": 120
+      }
+    }
+  }
+}

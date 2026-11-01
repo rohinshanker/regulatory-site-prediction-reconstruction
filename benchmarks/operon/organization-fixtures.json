@@ -1,0 +1,689 @@
+{
+  "accounting": {
+    "cases": [
+      {
+        "expected": {
+          "all_components_complete": true,
+          "completed": 3,
+          "failed": 0,
+          "incompatible": 0,
+          "not_run": 0,
+          "planned": 3
+        },
+        "id": "all_complete",
+        "statuses": [
+          "ok",
+          "ok",
+          "ok"
+        ]
+      },
+      {
+        "expected": {
+          "all_components_complete": false,
+          "completed": 2,
+          "failed": 0,
+          "incompatible": 0,
+          "not_run": 1,
+          "planned": 3
+        },
+        "id": "deadline_before_second_cds",
+        "statuses": [
+          "ok",
+          "ok",
+          "not_run"
+        ]
+      },
+      {
+        "expected": {
+          "all_components_complete": false,
+          "completed": 0,
+          "failed": 1,
+          "incompatible": 0,
+          "not_run": 2,
+          "planned": 3
+        },
+        "id": "model_failure_and_later_unstarted",
+        "statuses": [
+          "failed",
+          "not_run",
+          "not_run"
+        ]
+      },
+      {
+        "expected": {
+          "all_components_complete": false,
+          "completed": 2,
+          "failed": 0,
+          "incompatible": 1,
+          "not_run": 0,
+          "planned": 3
+        },
+        "id": "incompatible_cds_preserved",
+        "statuses": [
+          "ok",
+          "incompatible",
+          "ok"
+        ]
+      }
+    ],
+    "roster": [
+      "promoter",
+      "rbs:cds-1",
+      "rbs:cds-2"
+    ]
+  },
+  "cases": [
+    {
+      "expected": {
+        "downstream_annotation_clipped": [
+          false
+        ],
+        "eligible": [
+          true
+        ],
+        "rbs_start_positions": [
+          10
+        ],
+        "reasons": [
+          null
+        ],
+        "signed_start_offsets": [
+          10
+        ],
+        "start_codon_genomic_points": [
+          null
+        ],
+        "transcript_genomic_segments": null,
+        "transcript_length": 90,
+        "transcript_sequence": "ACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTAC"
+      },
+      "id": "monocistronic",
+      "input": {
+        "cds": [
+          {
+            "id": "cds-1",
+            "range": [
+              30,
+              90
+            ]
+          }
+        ],
+        "projection": null,
+        "sequence": "ACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT",
+        "transcript_range": [
+          20,
+          110
+        ]
+      }
+    },
+    {
+      "expected": {
+        "downstream_annotation_clipped": [
+          false,
+          false
+        ],
+        "eligible": [
+          true,
+          true
+        ],
+        "rbs_start_positions": [
+          5,
+          25
+        ],
+        "reasons": [
+          null,
+          null
+        ],
+        "signed_start_offsets": [
+          5,
+          25
+        ],
+        "start_codon_genomic_points": [
+          null,
+          null
+        ],
+        "transcript_genomic_segments": null,
+        "transcript_length": 90,
+        "transcript_sequence": "ACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTAC"
+      },
+      "id": "overlapping_cistrons",
+      "input": {
+        "cds": [
+          {
+            "id": "cds-1",
+            "range": [
+              25,
+              50
+            ]
+          },
+          {
+            "id": "cds-2",
+            "range": [
+              45,
+              80
+            ]
+          }
+        ],
+        "projection": null,
+        "sequence": "ACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT",
+        "transcript_range": [
+          20,
+          110
+        ]
+      }
+    },
+    {
+      "expected": {
+        "downstream_annotation_clipped": [
+          false,
+          false
+        ],
+        "eligible": [
+          true,
+          true
+        ],
+        "rbs_start_positions": [
+          0,
+          2
+        ],
+        "reasons": [
+          null,
+          null
+        ],
+        "signed_start_offsets": [
+          0,
+          2
+        ],
+        "start_codon_genomic_points": [
+          null,
+          null
+        ],
+        "transcript_genomic_segments": null,
+        "transcript_length": 90,
+        "transcript_sequence": "ACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTAC"
+      },
+      "id": "leaderless_and_short",
+      "input": {
+        "cds": [
+          {
+            "id": "cds-1",
+            "range": [
+              20,
+              50
+            ]
+          },
+          {
+            "id": "cds-2",
+            "range": [
+              22,
+              65
+            ]
+          }
+        ],
+        "projection": null,
+        "sequence": "ACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT",
+        "transcript_range": [
+          20,
+          110
+        ]
+      }
+    },
+    {
+      "expected": {
+        "downstream_annotation_clipped": [
+          false,
+          false
+        ],
+        "eligible": [
+          false,
+          true
+        ],
+        "rbs_start_positions": [
+          null,
+          10
+        ],
+        "reasons": [
+          "start_before_transcript",
+          null
+        ],
+        "signed_start_offsets": [
+          -2,
+          10
+        ],
+        "start_codon_genomic_points": [
+          null,
+          null
+        ],
+        "transcript_genomic_segments": null,
+        "transcript_length": 90,
+        "transcript_sequence": "ACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTAC"
+      },
+      "id": "tss_inside_supplied_cds",
+      "input": {
+        "cds": [
+          {
+            "id": "cds-1",
+            "range": [
+              18,
+              50
+            ]
+          },
+          {
+            "id": "cds-2",
+            "range": [
+              30,
+              90
+            ]
+          }
+        ],
+        "projection": null,
+        "sequence": "ACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT",
+        "transcript_range": [
+          20,
+          110
+        ]
+      }
+    },
+    {
+      "expected": {
+        "downstream_annotation_clipped": [
+          true
+        ],
+        "eligible": [
+          false
+        ],
+        "rbs_start_positions": [
+          null
+        ],
+        "reasons": [
+          "start_codon_after_transcript"
+        ],
+        "signed_start_offsets": [
+          89
+        ],
+        "start_codon_genomic_points": [
+          null
+        ],
+        "transcript_genomic_segments": null,
+        "transcript_length": 90,
+        "transcript_sequence": "ACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTAC"
+      },
+      "id": "codon_crosses_transcript_end",
+      "input": {
+        "cds": [
+          {
+            "id": "cds-1",
+            "range": [
+              109,
+              115
+            ]
+          }
+        ],
+        "projection": null,
+        "sequence": "ACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT",
+        "transcript_range": [
+          20,
+          110
+        ]
+      }
+    },
+    {
+      "expected": {
+        "downstream_annotation_clipped": [
+          true
+        ],
+        "eligible": [
+          true
+        ],
+        "rbs_start_positions": [
+          10
+        ],
+        "reasons": [
+          null
+        ],
+        "signed_start_offsets": [
+          10
+        ],
+        "start_codon_genomic_points": [
+          null
+        ],
+        "transcript_genomic_segments": null,
+        "transcript_length": 60,
+        "transcript_sequence": "ACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT"
+      },
+      "id": "cds_annotation_after_transcript",
+      "input": {
+        "cds": [
+          {
+            "id": "cds-1",
+            "range": [
+              30,
+              100
+            ]
+          }
+        ],
+        "projection": null,
+        "sequence": "ACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT",
+        "transcript_range": [
+          20,
+          80
+        ]
+      }
+    },
+    {
+      "expected": {
+        "downstream_annotation_clipped": [
+          true
+        ],
+        "eligible": [
+          false
+        ],
+        "rbs_start_positions": [
+          null
+        ],
+        "reasons": [
+          "start_after_transcript"
+        ],
+        "signed_start_offsets": [
+          90
+        ],
+        "start_codon_genomic_points": [
+          null
+        ],
+        "transcript_genomic_segments": null,
+        "transcript_length": 90,
+        "transcript_sequence": "ACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTAC"
+      },
+      "id": "start_at_transcript_end",
+      "input": {
+        "cds": [
+          {
+            "id": "cds-1",
+            "range": [
+              110,
+              120
+            ]
+          }
+        ],
+        "projection": null,
+        "sequence": "ACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT",
+        "transcript_range": [
+          20,
+          110
+        ]
+      }
+    },
+    {
+      "expected": {
+        "downstream_annotation_clipped": [
+          true
+        ],
+        "eligible": [
+          true
+        ],
+        "rbs_start_positions": [
+          87
+        ],
+        "reasons": [
+          null
+        ],
+        "signed_start_offsets": [
+          87
+        ],
+        "start_codon_genomic_points": [
+          null
+        ],
+        "transcript_genomic_segments": null,
+        "transcript_length": 90,
+        "transcript_sequence": "ACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTAC"
+      },
+      "id": "last_complete_start",
+      "input": {
+        "cds": [
+          {
+            "id": "cds-1",
+            "range": [
+              107,
+              120
+            ]
+          }
+        ],
+        "projection": null,
+        "sequence": "ACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT",
+        "transcript_range": [
+          20,
+          110
+        ]
+      }
+    },
+    {
+      "expected": {
+        "downstream_annotation_clipped": [
+          false
+        ],
+        "eligible": [
+          true
+        ],
+        "rbs_start_positions": [
+          10
+        ],
+        "reasons": [
+          null
+        ],
+        "signed_start_offsets": [
+          10
+        ],
+        "start_codon_genomic_points": [
+          [
+            220,
+            219,
+            218
+          ]
+        ],
+        "transcript_genomic_segments": [
+          [
+            141,
+            231
+          ]
+        ],
+        "transcript_length": 90,
+        "transcript_sequence": "ACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTAC"
+      },
+      "id": "negative_genomic_projection",
+      "input": {
+        "cds": [
+          {
+            "id": "cds-1",
+            "range": [
+              30,
+              90
+            ]
+          }
+        ],
+        "projection": {
+          "contig": "synthetic",
+          "length": 1000,
+          "origin": 250,
+          "sequence_strand": "-",
+          "topology": "linear"
+        },
+        "sequence": "ACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT",
+        "transcript_range": [
+          20,
+          110
+        ]
+      }
+    },
+    {
+      "expected": {
+        "downstream_annotation_clipped": [
+          false
+        ],
+        "eligible": [
+          true
+        ],
+        "rbs_start_positions": [
+          3
+        ],
+        "reasons": [
+          null
+        ],
+        "signed_start_offsets": [
+          3
+        ],
+        "start_codon_genomic_points": [
+          [
+            998,
+            999,
+            0
+          ]
+        ],
+        "transcript_genomic_segments": [
+          [
+            995,
+            1000
+          ],
+          [
+            0,
+            70
+          ]
+        ],
+        "transcript_length": 75,
+        "transcript_sequence": "CGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT"
+      },
+      "id": "positive_origin_crossing",
+      "input": {
+        "cds": [
+          {
+            "id": "cds-1",
+            "range": [
+              8,
+              40
+            ]
+          }
+        ],
+        "projection": {
+          "contig": "synthetic",
+          "length": 1000,
+          "origin": 990,
+          "sequence_strand": "+",
+          "topology": "circular"
+        },
+        "sequence": "ACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT",
+        "transcript_range": [
+          5,
+          80
+        ]
+      }
+    },
+    {
+      "expected": {
+        "downstream_annotation_clipped": [
+          false
+        ],
+        "eligible": [
+          true
+        ],
+        "rbs_start_positions": [
+          2
+        ],
+        "reasons": [
+          null
+        ],
+        "signed_start_offsets": [
+          2
+        ],
+        "start_codon_genomic_points": [
+          [
+            1,
+            0,
+            999
+          ]
+        ],
+        "transcript_genomic_segments": [
+          [
+            0,
+            4
+          ],
+          [
+            936,
+            1000
+          ]
+        ],
+        "transcript_length": 68,
+        "transcript_sequence": "GTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTAC"
+      },
+      "id": "negative_origin_crossing",
+      "input": {
+        "cds": [
+          {
+            "id": "cds-1",
+            "range": [
+              4,
+              40
+            ]
+          }
+        ],
+        "projection": {
+          "contig": "synthetic",
+          "length": 1000,
+          "origin": 5,
+          "sequence_strand": "-",
+          "topology": "circular"
+        },
+        "sequence": "ACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT",
+        "transcript_range": [
+          2,
+          70
+        ]
+      }
+    },
+    {
+      "expected": {
+        "downstream_annotation_clipped": [
+          false
+        ],
+        "eligible": [
+          true
+        ],
+        "rbs_start_positions": [
+          2
+        ],
+        "reasons": [
+          null
+        ],
+        "signed_start_offsets": [
+          2
+        ],
+        "start_codon_genomic_points": [
+          null
+        ],
+        "transcript_genomic_segments": null,
+        "transcript_length": 82,
+        "transcript_sequence": "ACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTAC"
+      },
+      "id": "alternative_transcript",
+      "input": {
+        "cds": [
+          {
+            "id": "cds-1",
+            "range": [
+              30,
+              90
+            ]
+          }
+        ],
+        "projection": null,
+        "sequence": "ACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT",
+        "transcript_range": [
+          28,
+          110
+        ]
+      }
+    }
+  ],
+  "license": "GPL-3.0-or-later",
+  "schema_version": "supplied-transcript-organization-fixtures-1",
+  "scope": "Independent synthetic organization and coordinate expectations only; no predictor scores, transcript inference or biological-effect labels.",
+  "sequence_convention": "Already transcript-oriented ACGT construct; RNA uses only the declared half-open substring."
+}

@@ -1,0 +1,8 @@
+{
+  "coefficient_array_sha256": "fddf16b38bf29799481e8a45890b669111e16cf2e3448e99d1934d19a8f0b8e9",
+  "id": "promoter-lafleur2022-historical-1",
+  "implementation_version": "0.5.0rc1",
+  "intercept_array_sha256": "f7c66a8d838da71a6b2ab17936cd6ff2564e446af8c0676fba95de2116e99a7b",
+  "parameter_json_sha256": "e2957d4687a5d5a2a20bcce231b4ea1446f269b383bbae94eed72860efa360dc",
+  "source_commit": "46da9132740bce30bccd107f02808adf2215e2f0"
+}

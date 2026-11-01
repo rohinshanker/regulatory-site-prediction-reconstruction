@@ -1,0 +1,204 @@
+{
+  "schema_version": "promoter-published-audit-1",
+  "comparison": "published-column-reproduction",
+  "project_model_executed": false,
+  "no_refitting_or_outlier_trimming": true,
+  "audit_assets": {
+    "workbook": {
+      "path": "paper/41467_2022_32829_MOESM5_ESM.xlsx",
+      "sha256": "1ecea7264ba51ad7f6b51c716cccc18141cdb2f8c1b50fbeb5dfe3c6700b67e1"
+    },
+    "coefficients": {
+      "path": "upstream/Promoter_Calculator/free_energy_coeffs.npy",
+      "sha256": "fddf16b38bf29799481e8a45890b669111e16cf2e3448e99d1934d19a8f0b8e9"
+    },
+    "intercept": {
+      "path": "upstream/Promoter_Calculator/model_intercept.npy",
+      "sha256": "f7c66a8d838da71a6b2ab17936cd6ff2564e446af8c0676fba95de2116e99a7b"
+    }
+  },
+  "sheets": {
+    "La Fleur et al (Fig 3a)": {
+      "rows": 5391,
+      "paired_rows": 5391,
+      "excluded_nonfinite_pairs": 0,
+      "pearson_squared": 0.7896352424014811,
+      "spearman": 0.8039094400145241,
+      "as_supplied_errors": {
+        "slope": 1,
+        "mae": 0.33105989317272333,
+        "mse": 0.17883781253376174
+      },
+      "worksheet_calibrated_errors": {
+        "slope": 1,
+        "mae": 0.33105989317272333,
+        "mse": 0.17883781253376174
+      },
+      "calibration_scope": "Published fitted-domain diagnostic; not untouched accuracy",
+      "sequence_counts": {
+        "valid_acgt_rows": 5391,
+        "unique_strings": 5391,
+        "invalid_or_missing_rows": 0,
+        "length_counts": {
+          "61": 1,
+          "64": 1,
+          "68": 1,
+          "71": 35,
+          "72": 378,
+          "73": 4001,
+          "74": 40,
+          "75": 9,
+          "76": 4,
+          "77": 234,
+          "78": 2,
+          "79": 682,
+          "81": 1,
+          "82": 1,
+          "85": 1
+        }
+      }
+    },
+    "Urtecho et al (Fig 3c, S7b)": {
+      "rows": 10898,
+      "paired_rows": 10898,
+      "excluded_nonfinite_pairs": 0,
+      "pearson_squared": 0.5957989473573941,
+      "spearman": 0.669977364975191,
+      "as_supplied_errors": {
+        "slope": 1,
+        "mae": 1.2319220429218818,
+        "mse": 1.7376746533803589
+      },
+      "worksheet_calibrated_errors": {
+        "slope": 0.7526,
+        "mae": 0.9305212019397407,
+        "mse": 1.281928124431572
+      },
+      "calibration_scope": "Published fitted-domain diagnostic; not untouched accuracy",
+      "sequence_counts": {
+        "valid_acgt_rows": 10898,
+        "unique_strings": 10898,
+        "invalid_or_missing_rows": 0,
+        "length_counts": {
+          "150": 10898
+        }
+      }
+    },
+    "Hossain et al (Fig 3d, S7d)": {
+      "rows": 4350,
+      "paired_rows": 4350,
+      "excluded_nonfinite_pairs": 0,
+      "pearson_squared": 0.45485717113906254,
+      "spearman": 0.6849153261307137,
+      "as_supplied_errors": {
+        "slope": 1,
+        "mae": 3.061441235921702,
+        "mse": 11.54162046557125
+      },
+      "worksheet_calibrated_errors": {
+        "slope": 1.98352291,
+        "mae": 1.0765373046602251,
+        "mse": 1.8799615619787597
+      },
+      "calibration_scope": "Published fitted-domain diagnostic; not untouched accuracy",
+      "sequence_counts": {
+        "valid_acgt_rows": 4350,
+        "unique_strings": 4350,
+        "invalid_or_missing_rows": 0,
+        "length_counts": {
+          "78": 4350
+        }
+      }
+    },
+    "Yu et al (Fig S3)": {
+      "rows": 1493,
+      "paired_rows": 1493,
+      "excluded_nonfinite_pairs": 0,
+      "pearson_squared": 0.6526018581971657,
+      "spearman": 0.6956146808632601,
+      "as_supplied_errors": {
+        "slope": 1,
+        "mae": 0.5875618702718634,
+        "mse": 0.5797496247202185
+      },
+      "sequence_counts": {
+        "valid_acgt_rows": 1493,
+        "unique_strings": 1493,
+        "invalid_or_missing_rows": 0,
+        "length_counts": {
+          "150": 1493
+        }
+      }
+    },
+    "Lagator 36N": {
+      "rows": 11485,
+      "paired_rows": 11485,
+      "excluded_nonfinite_pairs": 0,
+      "pearson_squared": 0.18761447005948814,
+      "spearman": 0.3844864909403808,
+      "as_supplied_errors": {
+        "slope": 1,
+        "mae": 2.0227718594311725,
+        "mse": 4.527753797742898
+      },
+      "sequence_counts": {
+        "valid_acgt_rows": 11485,
+        "unique_strings": 11485,
+        "invalid_or_missing_rows": 0,
+        "length_counts": {
+          "116": 11485
+        }
+      }
+    },
+    "Lagator Pl": {
+      "rows": 2903,
+      "paired_rows": 2903,
+      "excluded_nonfinite_pairs": 0,
+      "pearson_squared": 0.46614160222047457,
+      "spearman": 0.7722995198109448,
+      "as_supplied_errors": {
+        "slope": 1,
+        "mae": 1.9326635372774166,
+        "mse": 4.447796789543545
+      },
+      "sequence_counts": {
+        "valid_acgt_rows": 2903,
+        "unique_strings": 2902,
+        "invalid_or_missing_rows": 0,
+        "length_counts": {
+          "139": 2903
+        }
+      }
+    },
+    "Lagator Pr": {
+      "rows": 12194,
+      "paired_rows": 12194,
+      "excluded_nonfinite_pairs": 0,
+      "pearson_squared": 0.34772297022279497,
+      "spearman": 0.7271418341800249,
+      "as_supplied_errors": {
+        "slope": 1,
+        "mae": 2.641283426099905,
+        "mse": 7.481586226776112
+      },
+      "sequence_counts": {
+        "valid_acgt_rows": 12194,
+        "unique_strings": 12194,
+        "invalid_or_missing_rows": 0,
+        "length_counts": {
+          "139": 12194
+        }
+      }
+    }
+  },
+  "parameters": {
+    "active_categorical_exact_matches": 336,
+    "active_numeric_exact_matches": 4,
+    "spacer_polynomial_matches": 6,
+    "unused_array_spacer_coefficients": 3,
+    "array_length": 343,
+    "workbook_parameter_rows": 346,
+    "intercept": -0.9583584537583338,
+    "intercept_training_provenance": "not independently recovered"
+  }
+}

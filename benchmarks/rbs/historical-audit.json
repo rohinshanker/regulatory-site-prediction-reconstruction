@@ -1,0 +1,167 @@
+{
+  "schema_version": 1,
+  "identity": "historical-workbook-audit-v1",
+  "comparison": "published_predictions_vs_experiments; never current-live accuracy",
+  "source_sha256": {
+    "salis2009": "bd473f0e5ff088f9aa0d9a4c249f8e7188e006c2badd6def8b20efd2dcba2b6c",
+    "standby2014": "ee4117e073dcfbc4fad88ff877bf981ad140a0bfa14ee8ae61eb673c4a245345",
+    "mts2020_fs": "00446e97b2df76a52c45dce66ec7c9faf1abbbcd2b9a5562c4bbfbf9a2897d75"
+  },
+  "salis2009": {
+    "existing_2B": {
+      "n": 28,
+      "source_excel_rows": [
+        19,
+        46
+      ],
+      "pearson_r2_energy_vs_ln_fluorescence": 0.5651445474292028
+    },
+    "designed_2E": {
+      "n": 29,
+      "source_excel_rows": [
+        49,
+        77
+      ],
+      "pearson_r2_energy_vs_ln_fluorescence": 0.8412497305325111
+    }
+  },
+  "standby2014": {
+    "all_136": {
+      "n": 136,
+      "pearson_r2_energy_vs_ln_fluorescence": 0.885796043094501,
+      "pearson_r2_standby": 0.8837151296372621,
+      "standby_mae_kcal_mol": 0.7669632856086729
+    },
+    "figure_2G": {
+      "n": 15,
+      "pearson_r2_energy_vs_ln_fluorescence": 0.7995344462021343,
+      "pearson_r2_standby": 0.7804649397146891,
+      "standby_mae_kcal_mol": 0.6691639173174668
+    },
+    "figure_5A": {
+      "n": 28,
+      "pearson_r2_energy_vs_ln_fluorescence": 0.8203684999473378,
+      "pearson_r2_standby": 0.8203684999475472,
+      "standby_mae_kcal_mol": 0.8042324429900536
+    },
+    "measurement_noise": {
+      "n": 136,
+      "median_cv": 0.2342298066882656,
+      "max_cv": 0.5369616378126189,
+      "n_cv_over_half": 3,
+      "replicate_counts": {
+        "3": 136
+      }
+    }
+  },
+  "mts2020_flowseq_v21": {
+    "Goodman_Science_2013": {
+      "n_submitted": 7931,
+      "n_success": 7931,
+      "failures": {},
+      "coverage": 1.0,
+      "pearson_r_log": 0.08344809282284493,
+      "pearson_r2_log": 0.006963584195770144,
+      "spearman_rho": -0.0007811310640498484,
+      "rmse_log2": 2.3261423018362373,
+      "mae_log2": 1.9387006683791719,
+      "median_absolute_log2": 1.750947145384222,
+      "bias_log2": 0.10718451477742016,
+      "within_2fold": {
+        "n": 2280,
+        "all_case_fraction": 0.2874795107804817,
+        "successful_pair_fraction": 0.2874795107804817,
+        "all_case_wilson95": [
+          0.27762366020788987,
+          0.29754113451492614
+        ]
+      },
+      "within_5fold": {
+        "n": 5181,
+        "all_case_fraction": 0.6532593619972261,
+        "successful_pair_fraction": 0.6532593619972261,
+        "all_case_wilson95": [
+          0.6427130344318175,
+          0.6636572960424734
+        ]
+      },
+      "source_table": {
+        "pearson_r2": 0.006963584195770144,
+        "labelled_spearman_r2": 0.006963584195770144,
+        "outlier_count_used_in_refit": 185,
+        "slope": -0.03728686710735849,
+        "intercept": 10.86530213246009,
+        "labelled_2fold": 0.4534106670029,
+        "labelled_5fold": 0.7116378766864204,
+        "labelled_10fold": 0.9442693229100996
+      },
+      "reproduced_mislabelled_fractions": {
+        "below_3fold": 0.4534106670029,
+        "below_6fold": 0.7116378766864204,
+        "below_20fold": 0.9442693229100996
+      },
+      "max_cached_ratio_residual": 1.7763568394002505e-14,
+      "sequence_redundancy": {
+        "unique_full_sequences": 7931,
+        "unique_rbs_sequences": 140,
+        "unique_rbs_ids": 1,
+        "unique_promoter_ids": 1,
+        "unique_cds_sequences": 1
+      }
+    },
+    "Kosuri_PNAS_2013": {
+      "n_submitted": 8848,
+      "n_success": 8848,
+      "failures": {},
+      "coverage": 1.0,
+      "pearson_r_log": 0.528711962793079,
+      "pearson_r2_log": 0.2795363396005101,
+      "spearman_rho": 0.5376744305417269,
+      "rmse_log2": 1.4605454672272342,
+      "mae_log2": 1.1411480412364265,
+      "median_absolute_log2": 0.9224694783366116,
+      "bias_log2": 0.07581842039797364,
+      "within_2fold": {
+        "n": 4728,
+        "all_case_fraction": 0.5343580470162749,
+        "successful_pair_fraction": 0.5343580470162749,
+        "all_case_wilson95": [
+          0.5239517391875416,
+          0.5447345339261888
+        ]
+      },
+      "within_5fold": {
+        "n": 7892,
+        "all_case_fraction": 0.8919529837251357,
+        "successful_pair_fraction": 0.8919529837251357,
+        "all_case_wilson95": [
+          0.8853135640448044,
+          0.8982522095026202
+        ]
+      },
+      "source_table": {
+        "pearson_r2": 0.2795363396005101,
+        "labelled_spearman_r2": 0.2795363396005101,
+        "outlier_count_used_in_refit": 660,
+        "slope": -0.1745979656840224,
+        "intercept": 10.25463521787226,
+        "labelled_2fold": 0.7367766726943942,
+        "labelled_5fold": 0.9241636528028933,
+        "labelled_10fold": 0.9936708860759493
+      },
+      "reproduced_mislabelled_fractions": {
+        "below_3fold": 0.7367766726943942,
+        "below_6fold": 0.9241636528028933,
+        "below_20fold": 0.9936708860759493
+      },
+      "max_cached_ratio_residual": 9.094947017729282e-13,
+      "sequence_redundancy": {
+        "unique_full_sequences": 8848,
+        "unique_rbs_sequences": 111,
+        "unique_rbs_ids": 111,
+        "unique_promoter_ids": 112,
+        "unique_cds_sequences": 1
+      }
+    }
+  }
+}

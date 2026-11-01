@@ -1,0 +1,315 @@
+{
+  "actual_options": {
+    "cli_calibration": null,
+    "cli_states": null,
+    "output_format": "json",
+    "seconds_per_batch": 300.0,
+    "seconds_per_record": 30.0
+  },
+  "artifacts": {
+    "regulatory_site_prediction_reconstruction-0.5.0rc1-py3-none-any.whl": "4443e3558c6c689373fe09af4eabc1530b4af2a166391773056a69053939b1ff",
+    "regulatory_site_prediction_reconstruction-0.5.0rc1.tar.gz": "6a20cb6a71123d141332646dfe6bebc904ac98d94cfdf51448b8322c11444fbd"
+  },
+  "candidate_commit": "2dff23cb5697507281f7ffa73fc617d56989b40c",
+  "ci": {
+    "full_success_requires_separate_admission_receipt": true,
+    "required_job_count": 8,
+    "run_id": 39177114783,
+    "url": "https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/actions/runs/39177114783"
+  },
+  "claims": {
+    "hosted_equivalence": false,
+    "native_accuracy_evaluated": false,
+    "native_cyanobacterial_calibration": false,
+    "new_promoter_strength_benchmark": false
+  },
+  "collection_gate": "No collection from this file alone: requires final admission receipt binding all8successfulCIjobs and Session B acknowledgement of its unchanged protocol/input/settings manifest.",
+  "identity_model": {
+    "coefficient_array_sha256": "fddf16b38bf29799481e8a45890b669111e16cf2e3448e99d1934d19a8f0b8e9",
+    "id": "promoter-lafleur2022-historical-1",
+    "implementation_version": "0.5.0rc1",
+    "intercept_array_sha256": "f7c66a8d838da71a6b2ab17936cd6ff2564e446af8c0676fba95de2116e99a7b",
+    "parameter_json_sha256": "e2957d4687a5d5a2a20bcce231b4ea1446f269b383bbae94eed72860efa360dc",
+    "source_commit": "46da9132740bce30bccd107f02808adf2215e2f0"
+  },
+  "implementation_version": "0.5.0rc1",
+  "model": {
+    "claims": {
+      "absolute_rate": false,
+      "hosted_parity": false,
+      "native_accuracy_evaluated": false,
+      "physical_free_energy": false,
+      "probability": false
+    },
+    "id": "promoter-lafleur2022-historical-1",
+    "implementation_version": "0.5.0rc1",
+    "kind": "historical_equation_reconstruction",
+    "licence": "GPL-3.0-or-later",
+    "not_modeled": [
+      "sigma_factor",
+      "temperature",
+      "host_specific_calibration",
+      "probability",
+      "absolute_rate",
+      "free_energy"
+    ],
+    "parameters": {
+      "array_sha256": {
+        "coefficients": "fddf16b38bf29799481e8a45890b669111e16cf2e3448e99d1934d19a8f0b8e9",
+        "intercept": "f7c66a8d838da71a6b2ab17936cd6ff2564e446af8c0676fba95de2116e99a7b"
+      },
+      "coefficient_count": 343,
+      "intercept_count": 1,
+      "parameter_json_sha256": "e2957d4687a5d5a2a20bcce231b4ea1446f269b383bbae94eed72860efa360dc",
+      "unused_coefficient_indices": [
+        336,
+        337,
+        338
+      ]
+    },
+    "source": {
+      "commit": "46da9132740bce30bccd107f02808adf2215e2f0",
+      "path": "Promoter_Calculator",
+      "reference_fork_commit": "0fe5f6f0fb2befc087556afa575f7241afd98fbf",
+      "repository": "https://github.com/hsalis/SalisLabCode"
+    },
+    "source_quirks": [
+      {
+        "behavior": "Corrected local base L-1-t; legacy L-t diagnostic only.",
+        "id": "reverse_key_l_minus_t"
+      },
+      {
+        "behavior": "Always retain the one-base UP/hex35 gap.",
+        "id": "arbitrary_scan_gap_omitted"
+      },
+      {
+        "behavior": "No sigma input accepted; source metadata had no effect.",
+        "id": "sigma_levels_ignored"
+      },
+      {
+        "behavior": "Calibration required, never inferred from host.",
+        "id": "unknown_organism_default_beta"
+      },
+      {
+        "behavior": "All coordinate-eligible states available on request.",
+        "id": "one_state_per_tss_public"
+      },
+      {
+        "behavior": "Preserve unused 336..338; use source quadratic.",
+        "id": "unused_spacer_coefficients"
+      },
+      {
+        "behavior": "Follow code: UP=24; discriminator lengths 6..10.",
+        "id": "paper_code_difference"
+      }
+    ],
+    "term_source_names": {
+      "binding": "dG_bind",
+      "discriminator": "dG_disc",
+      "extended10": "dG_ext10",
+      "hex10": "dG_10",
+      "hex35": "dG_35",
+      "intercept": "intercept",
+      "itr": "dG_ITR",
+      "source_apparent": "dG_apparent",
+      "spacer": "dG_spacer",
+      "total": "dG_total",
+      "up": "dG_UP"
+    },
+    "terms_semantics": "learned regression score contributions; not independently established free energies",
+    "terms_unit": "source_dG_units"
+  },
+  "public_contract_commit": "2dff23cb5697507281f7ffa73fc617d56989b40c",
+  "resources": {
+    "ci_summary": [
+      {
+        "admission": {
+          "caveat": "Finite synthetic samples do not prove worst possible input capacity.",
+          "failures": [],
+          "passed": true,
+          "time_safety": {
+            "batch": {
+              "half_deadline_seconds": 150.0,
+              "scaled_seconds": 47.17427116417924,
+              "sites": 4000
+            },
+            "record": {
+              "half_deadline_seconds": 15.0,
+              "scaled_seconds": 11.79356779104481,
+              "sites": 1000
+            },
+            "worst_complete_nonmixed_wall_seconds_per_site": 0.011793567791044809
+          }
+        },
+        "artifact": "promoter-resources-macos-14-py3.11",
+        "elapsed_seconds": 132.350934042,
+        "max_authoritative_bytes": 29130504,
+        "max_rss_bytes": 268861440,
+        "max_wall_seconds": 11.298045666999997,
+        "receipt_sha256": "001b225d2af81609f3feef108f6dabf738650c6f90336b596482c36e3e787f37",
+        "samples": 42
+      },
+      {
+        "admission": {
+          "caveat": "Finite synthetic samples do not prove worst possible input capacity.",
+          "failures": [],
+          "passed": true,
+          "time_safety": {
+            "batch": {
+              "half_deadline_seconds": 150.0,
+              "scaled_seconds": 16.8809054925376,
+              "sites": 4000
+            },
+            "record": {
+              "half_deadline_seconds": 15.0,
+              "scaled_seconds": 4.2202263731344,
+              "sites": 1000
+            },
+            "worst_complete_nonmixed_wall_seconds_per_site": 0.0042202263731344
+          }
+        },
+        "artifact": "promoter-resources-macos-14-py3.14",
+        "elapsed_seconds": 82.31094937500006,
+        "max_authoritative_bytes": 29130504,
+        "max_rss_bytes": 178929664,
+        "max_wall_seconds": 6.120963832999905,
+        "receipt_sha256": "abc8acf6ade28894076f1196889e0b0a9caf6dbedf195aea8f368792b1726338",
+        "samples": 42
+      },
+      {
+        "admission": {
+          "caveat": "Finite synthetic samples do not prove worst possible input capacity.",
+          "failures": [],
+          "passed": true,
+          "time_safety": {
+            "batch": {
+              "half_deadline_seconds": 150.0,
+              "scaled_seconds": 30.373477552238096,
+              "sites": 4000
+            },
+            "record": {
+              "half_deadline_seconds": 15.0,
+              "scaled_seconds": 7.593369388059524,
+              "sites": 1000
+            },
+            "worst_complete_nonmixed_wall_seconds_per_site": 0.007593369388059524
+          }
+        },
+        "artifact": "promoter-resources-ubuntu-24.04-py3.11",
+        "elapsed_seconds": 56.34774832,
+        "max_authoritative_bytes": 29130504,
+        "max_rss_bytes": 214159360,
+        "max_wall_seconds": 3.9789983480000046,
+        "receipt_sha256": "8c61b2a4f59320f8def84293789d9007a7b367c186e6083fb019214fb5475e81",
+        "samples": 42
+      },
+      {
+        "admission": {
+          "caveat": "Finite synthetic samples do not prove worst possible input capacity.",
+          "failures": [],
+          "passed": true,
+          "time_safety": {
+            "batch": {
+              "half_deadline_seconds": 150.0,
+              "scaled_seconds": 12.742612895520447,
+              "sites": 4000
+            },
+            "record": {
+              "half_deadline_seconds": 15.0,
+              "scaled_seconds": 3.1856532238801116,
+              "sites": 1000
+            },
+            "worst_complete_nonmixed_wall_seconds_per_site": 0.0031856532238801116
+          }
+        },
+        "artifact": "promoter-resources-ubuntu-24.04-py3.14",
+        "elapsed_seconds": 43.14295567599993,
+        "max_authoritative_bytes": 29130504,
+        "max_rss_bytes": 130572288,
+        "max_wall_seconds": 2.977707910000049,
+        "receipt_sha256": "7b822e25b4ce9e4780fb0448dba021517e720eee0b6b2238c394143ec4fa89af",
+        "samples": 42
+      }
+    ],
+    "files": {
+      "ci-resources/promoter-resources-macos-14-py3.11/ci.json": "001b225d2af81609f3feef108f6dabf738650c6f90336b596482c36e3e787f37",
+      "ci-resources/promoter-resources-macos-14-py3.14/ci.json": "abc8acf6ade28894076f1196889e0b0a9caf6dbedf195aea8f368792b1726338",
+      "ci-resources/promoter-resources-ubuntu-24.04-py3.11/ci.json": "8c61b2a4f59320f8def84293789d9007a7b367c186e6083fb019214fb5475e81",
+      "ci-resources/promoter-resources-ubuntu-24.04-py3.14/ci.json": "7b822e25b4ce9e4780fb0448dba021517e720eee0b6b2238c394143ec4fa89af",
+      "resources-local.json": "0f968b8505c167d54ca59d219388152f7fe6867eaf94334ba54b723c4b1162bc",
+      "resources-tight-deadline.json": "a77a816bf41039b738d17ea82d08788c2ee36b273d3b73c3920afd97e26cc946"
+    },
+    "finite_samples_only": true,
+    "local_candidate_passed": true,
+    "tight_deadline_diagnostic_expected_incomplete": true
+  },
+  "reviews": {
+    "independent_evidence": "Session B16b57d3 reviewed/integrated at3df4ae7",
+    "resource_tool": "DEM-533 e4520a1 independently inspected and reproduced by Session A;82focusedtests100%358statements138branches",
+    "runtime": "DEM-532 accepted core/equations/parameters and exports through1a87508; first-character diagnostic clarified at53fcd35 with128focusedtests"
+  },
+  "runtime_limits": {
+    "default_seconds_per_batch": 300.0,
+    "default_seconds_per_record": 30.0,
+    "max_all_state_sites_per_record": 100,
+    "max_all_states_per_batch": 2000,
+    "max_all_states_per_record": 2000,
+    "max_contig_chars": 128,
+    "max_host_name_chars": 200,
+    "max_id_chars": 128,
+    "max_input_json_bytes": 4000000,
+    "max_metadata_depth": 4,
+    "max_metadata_json_bytes": 4096,
+    "max_normalized_bases_per_batch": 100000,
+    "max_normalized_bases_per_record": 5000,
+    "max_planned_sites_per_batch": 4000,
+    "max_planned_sites_per_record": 1000,
+    "max_raw_sequence_chars_per_record": 50000,
+    "max_records_per_batch": 100,
+    "max_result_json_bytes": 67108864,
+    "max_seconds_per_batch": 3600.0,
+    "max_seconds_per_record": 120.0
+  },
+  "schema_version": "promoter-candidate-1",
+  "source_date_epoch": 1792366486,
+  "source_parity": {
+    "audit": {
+      "absolute_tolerance": 1e-12,
+      "adapter_tool_sha256": "7743b89b923afdec93ca6d5abe44b42dcb1aa7efc994b8b4a244c70687824239",
+      "authoritative_result_sha256": "24773ae1178f9eaeedf7dcbbe491164a704abbff8b498cfbc398013ff821e9e1",
+      "candidate_commit": "2dff23cb5697507281f7ffa73fc617d56989b40c",
+      "expectations_sha256": "bc7121f05f7b1a87e93995bd627a1a44a808e09b5167236c75fd5547eb6f33fc",
+      "manifest_sha256": "7e332197471781bba175362f2fec25d99ba97fe72d8e94a19f778582a903558c",
+      "no_candidate_records": 4,
+      "records_passed": 22,
+      "relative_tolerance": 1e-12,
+      "request_sha256": "fbc5b8b9c99c7ffc4558ff5a423c1b7bdd237a7ebc993aac9505890c4a9c89d3",
+      "result_sha256": "24773ae1178f9eaeedf7dcbbe491164a704abbff8b498cfbc398013ff821e9e1",
+      "schema_version": "promoter-source-parity-audit-1",
+      "scope": "synthetic source parity; no native accuracy or hosted equivalence",
+      "states_passed": 424,
+      "tool_sha256": "d49cd41d13dbef287f3a4d42973afb5081e97c3880c714bb3da475cc191a7aef",
+      "wheel_sha256": "4443e3558c6c689373fe09af4eabc1530b4af2a166391773056a69053939b1ff"
+    },
+    "manifest_sha256": "aefb298eec60e154e93f446ff5fbf5c6053464ae76d3d6053f69dd0e43c86871",
+    "result_sha256": "24773ae1178f9eaeedf7dcbbe491164a704abbff8b498cfbc398013ff821e9e1",
+    "scope": "public synthetic source/coordinate parity; no native or hosted accuracy"
+  },
+  "source_sha256": {
+    "benchmarks/promoter/runtime_adapter.py": "7743b89b923afdec93ca6d5abe44b42dcb1aa7efc994b8b4a244c70687824239",
+    "benchmarks/promoter/source_parity_check.py": "d49cd41d13dbef287f3a4d42973afb5081e97c3880c714bb3da475cc191a7aef",
+    "docs/validation/promoter-runtime.md": "6b2dc397c0820327e95a21558e74a3e8ba07d85bf6d7956bd977597789d116bb",
+    "pyproject.toml": "bddc82d340308c9e404903070c269b114eff1e25a69b38851e2e45fef10a8fcc",
+    "requirements-dev.lock": "5f797f5050246897197fda677fbcdb3ad98c73062a3d590fc5e7c69514bb4267",
+    "schemas/promoter-request-1.0.schema.json": "e911eb71eb3ead36042de00fa7d76d6aa73b9bc931efd2a69ff2fb880266a7da",
+    "schemas/promoter-result-1.0.schema.json": "1072fe2dfb44c8480e7d07a2cbf60e1df65625454e8784df3c6969c253062ca9",
+    "src/regsite/__init__.py": "3e31111c9b9f49253d2c5e65774ffb37f861686d135f5752de8ef9707fd982e8",
+    "src/regsite/data/promoter-ORIGINAL-NOTICE.txt": "45d25f34fe826d27d344175bd622cbf3d35cbf53bd993d1350d44ee706571ffd",
+    "src/regsite/data/promoter-parameters-1.json": "f45bda817d1a0db323964b1ab8f37cb5d2e071dc9e09adf0ef5d791f2415f15e",
+    "src/regsite/promoter.py": "5624c4f035b04d8c4b7161511556d5a0133c4a12af9911caa91a0777aa1668c5",
+    "src/regsite/promoter_cli.py": "deac2a5fc28eb878087adb154cbad66fb7f82e8c9c1039525e21a6dcef315ed7",
+    "src/regsite/promoter_io.py": "a06de643dec20daaf19a8e5afb93bd97afda89bbd72b53e73eac2775fecead42",
+    "tools/derive_promoter_parameters.py": "0cf78a4b0cdc29fbe30fe881a1c75d0cea8e4bc16f43f2c160b8c466521424e9",
+    "tools/measure_promoter_resources.py": "f83b5810eb60b21bd20923f7218dc9dd9436d98da24b6b8301cd647e0408c96f"
+  }
+}

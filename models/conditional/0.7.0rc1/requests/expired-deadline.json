@@ -1,0 +1,28 @@
+{
+  "id": "expired-deadline",
+  "input": {
+    "aptamer": {
+      "constraint": {
+        "mode": "full",
+        "structure": "((((((....))))))"
+      },
+      "id": "synthetic-hairpin",
+      "range": [
+        0,
+        16
+      ]
+    },
+    "sequence": "GGGAGCGAAAGCUCCC",
+    "temperature_kelvin": 310.15
+  },
+  "profile": "canonical_structure_pair",
+  "provenance": {
+    "kind": "synthetic",
+    "reference": "Independent hand-computable controls; no aptamer efficacy or native outcomes."
+  },
+  "schema_version": "conditional-aptamer-request-1",
+  "settings": {
+    "seconds_per_job": 1e-300,
+    "seconds_total": 1e-300
+  }
+}

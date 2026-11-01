@@ -1,0 +1,152 @@
+{
+  "candidate_commit": "920215602a837b0fd2fed403512f3b3ed59bfda2",
+  "cases": [
+    {
+      "coverage": {
+        "comparable": 512,
+        "complete": true,
+        "current": {
+          "complete": true,
+          "expected": 512,
+          "returned": 512,
+          "scored": 512
+        },
+        "diagnostic_only": false,
+        "paired": 512,
+        "recoded": {
+          "complete": true,
+          "expected": 512,
+          "returned": 512,
+          "scored": 512
+        },
+        "unmatched": 0
+      },
+      "exit_code": 0,
+      "output_bytes": 24206824,
+      "output_sha256": "4155b8a6d4774ce7e2a299f2fabfb8b7b885a6e5fe8bce4a84a091cd3c3d53aa",
+      "peak_rss_bytes": 142475264,
+      "request_sha256": "bdd6e11fdf4917c864eeb4f077f21f125209bb8829ec0c3a410371481e200d1d",
+      "scenario": "selected-acgt",
+      "seconds": 7.205611041,
+      "timing_sha256": "281516a1f45db869b691aab27f1c92e534a141dbe7b34ef4c066cde36f68f473"
+    },
+    {
+      "coverage": {
+        "comparable": 512,
+        "complete": true,
+        "current": {
+          "complete": true,
+          "expected": 512,
+          "returned": 512,
+          "scored": 512
+        },
+        "diagnostic_only": false,
+        "paired": 512,
+        "recoded": {
+          "complete": true,
+          "expected": 512,
+          "returned": 512,
+          "scored": 512
+        },
+        "unmatched": 0
+      },
+      "exit_code": 0,
+      "output_bytes": 24086208,
+      "output_sha256": "f79355db4a9128d5c3992bfb5200fb0567c1ccbd0c2f5498b88b06fb0626a676",
+      "peak_rss_bytes": 146145280,
+      "request_sha256": "d1d05d42dc2802062a8f8c29d83d8b96be727b436ae568a2da4d596419106c11",
+      "scenario": "selected-poly-a",
+      "seconds": 4.305222334,
+      "timing_sha256": "55b09682b9397e46ed0c0513fc9ab27337bebcfe4501ab6f455434a1973f74dc"
+    },
+    {
+      "coverage": {
+        "comparable": 512,
+        "complete": true,
+        "current": {
+          "complete": true,
+          "expected": 512,
+          "returned": 512,
+          "scored": 512
+        },
+        "diagnostic_only": false,
+        "paired": 512,
+        "recoded": {
+          "complete": true,
+          "expected": 512,
+          "returned": 512,
+          "scored": 512
+        },
+        "unmatched": 0
+      },
+      "exit_code": 0,
+      "output_bytes": 24051074,
+      "output_sha256": "12ac58984eb4dae8f7f86cfb2f52620a19f64aaa7091169c6530947e0a0e6724",
+      "peak_rss_bytes": 147390464,
+      "request_sha256": "10d87e0eecc598f0f7ca1561c12dbb25ae58990db0b3f254c66fe171b917c3e5",
+      "scenario": "selected-gc",
+      "seconds": 2.807533792000001,
+      "timing_sha256": "b800d36523199a837d84ca1097e89974c28e0a4bf543b0e14b157db0966a5c9e"
+    },
+    {
+      "coverage": {
+        "comparable": 66,
+        "complete": true,
+        "current": {
+          "complete": true,
+          "expected": 66,
+          "returned": 66,
+          "scored": 66
+        },
+        "diagnostic_only": false,
+        "paired": 66,
+        "recoded": {
+          "complete": true,
+          "expected": 66,
+          "returned": 66,
+          "scored": 66
+        },
+        "unmatched": 0
+      },
+      "exit_code": 0,
+      "output_bytes": 21220390,
+      "output_sha256": "8289468bd730acdae2055963e4563babc1facace3d4b40352669c459d8361bfe",
+      "peak_rss_bytes": 143327232,
+      "request_sha256": "87cc267fdc312f3ea0f5764452e53eeb2af9d15dbc02b6a5f6e54481627f7f87",
+      "scenario": "all-states",
+      "seconds": 1.0935812919999996,
+      "timing_sha256": "d9982c37a73171a7f97f18d84f27cd5b99225134edc9fe27b1a80fc8b3fe4bf9"
+    },
+    {
+      "coverage": {
+        "comparable": 0,
+        "complete": false,
+        "current": {
+          "complete": false,
+          "expected": 512,
+          "returned": 512,
+          "scored": 0
+        },
+        "diagnostic_only": true,
+        "paired": 512,
+        "recoded": {
+          "complete": false,
+          "expected": 512,
+          "returned": 512,
+          "scored": 0
+        },
+        "unmatched": 0
+      },
+      "exit_code": 1,
+      "output_bytes": 7147395,
+      "output_sha256": "b831e850e3c8efd236e0a927ea9c8a6c2cb711b08869f2caa22ee37612f72513",
+      "peak_rss_bytes": 60751872,
+      "request_sha256": "dbc67951ba619b6d595591871e0363978942ba5adefbce3404c96f518f8f6754",
+      "scenario": "tight-deadline",
+      "seconds": 0.5238016669999972,
+      "timing_sha256": "61d7f3738f3203aaed3f15fbb5fd6faf3a4404932475b64dda412dcb503fd3b5"
+    }
+  ],
+  "method": "macOS /usr/bin/time -l maximum resident set size in bytes; installed CLI; one repetition each; no universal memory limit claimed",
+  "schema_version": "paired-runtime-memory-measurement-1"
+}

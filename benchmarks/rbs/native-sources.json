@@ -1,0 +1,313 @@
+{
+  "schema_version": 1,
+  "scope": "Verified source identities; dataset eligibility and final partitions are separate artifacts",
+  "sources": [
+    {
+      "name": "tan2018.xlsx",
+      "bytes": 3339692,
+      "sha256": "098ecbd204cd1042a6edee1d2a500eaeca4efe034c503e2ade3db1c605e79b00",
+      "url": "https://static-content.springer.com/esm/art%3A10.1186%2Fs13068-018-1215-8/MediaObjects/13068_2018_1215_MOESM1_ESM.xlsx",
+      "id": "tan2018.xlsx",
+      "retrieved_utc_date": "2026-10-17",
+      "study": "Tan2018",
+      "doi": "10.1186/s13068-018-1215-8",
+      "licence": "CC-BY-4.0; article data CC0 unless otherwise stated",
+      "purpose": "TSS/context and homology-based annotation proposals only",
+      "attribution": "Tan et al. (2018), Additional file 1, Tables S1/S2"
+    },
+    {
+      "name": "karlsen2018-s2.xlsx",
+      "bytes": 687601,
+      "sha256": "ac99487c400e2f753dc55dc9057978afca592b86b27bbeb26ab10b21e4e28eaa",
+      "url": "https://ndownloader.figshare.com/files/12739190",
+      "id": "karlsen2018-s2.xlsx",
+      "retrieved_utc_date": "2026-10-17",
+      "study": "Karlsen2018",
+      "doi": "10.1128/mSystems.00126-18",
+      "deposit_doi": "10.6084/m9.figshare.6743276.v1",
+      "licence": "CC-BY-4.0",
+      "purpose": "Native relative TE proxy and assay/QC evidence; not direct TIS labels",
+      "attribution": "Karlsen, Asplund-Samuelsson, Thomas, Jahn and Hudson (2018)"
+    },
+    {
+      "name": "karlsen2018-legends.pdf",
+      "bytes": 103418,
+      "sha256": "ce2ead47553e61bf30cdbc059f0e8e2e6ffc3b55e591bb4e805b92ccf132989f",
+      "url": "https://ndownloader.figshare.com/files/13015040",
+      "id": "karlsen2018-legends.pdf",
+      "retrieved_utc_date": "2026-10-17",
+      "study": "Karlsen2018",
+      "doi": "10.1128/mSystems.00126-18",
+      "deposit_doi": "10.6084/m9.figshare.6743276.v1",
+      "licence": "CC-BY-4.0",
+      "purpose": "Native relative TE proxy and assay/QC evidence; not direct TIS labels",
+      "attribution": "Karlsen, Asplund-Samuelsson, Thomas, Jahn and Hudson (2018)"
+    },
+    {
+      "name": "karlsen2018-methods.pdf",
+      "bytes": 171208,
+      "sha256": "af4e6bbaba43efc55a5559d606a61e7cdd5e69767e11bd2e32723892a2f93327",
+      "url": "https://ndownloader.figshare.com/files/12315467",
+      "id": "karlsen2018-methods.pdf",
+      "retrieved_utc_date": "2026-10-17",
+      "study": "Karlsen2018",
+      "doi": "10.1128/mSystems.00126-18",
+      "deposit_doi": "10.6084/m9.figshare.6743276.v1",
+      "licence": "CC-BY-4.0",
+      "purpose": "Native relative TE proxy and assay/QC evidence; not direct TIS labels",
+      "attribution": "Karlsen, Asplund-Samuelsson, Thomas, Jahn and Hudson (2018)"
+    },
+    {
+      "name": "utex-genomic.fna.gz",
+      "bytes": 815693,
+      "sha256": "22a2b07881c1099c32454778de0e90b1c40f74f44c0f59e000507106c0deb567",
+      "url": "https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/817/325/GCF_000817325.1_ASM81732v1/GCF_000817325.1_ASM81732v1_genomic.fna.gz",
+      "id": "utex-genomic.fna.gz",
+      "retrieved_utc_date": "2026-10-17",
+      "study": "NCBI-UTEX2973",
+      "assembly": "GCF_000817325.1",
+      "annotation": "NCBI RefSeq GCF_000817325.1-RS_2026_05_13",
+      "licence": "NCBI public sequence data; no blanket CC licence asserted",
+      "purpose": "Versioned reference sequence and current CDS association",
+      "attribution": "NCBI RefSeq; Washington University in St Louis; PRJNA209528"
+    },
+    {
+      "name": "utex-genomic.gff.gz",
+      "bytes": 240383,
+      "sha256": "7f606a08892b061667a1988cc05dee889a82f9407066dcf81010ec2e25bb215f",
+      "url": "https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/817/325/GCF_000817325.1_ASM81732v1/GCF_000817325.1_ASM81732v1_genomic.gff.gz",
+      "id": "utex-genomic.gff.gz",
+      "retrieved_utc_date": "2026-10-17",
+      "study": "NCBI-UTEX2973",
+      "assembly": "GCF_000817325.1",
+      "annotation": "NCBI RefSeq GCF_000817325.1-RS_2026_05_13",
+      "licence": "NCBI public sequence data; no blanket CC licence asserted",
+      "purpose": "Versioned reference sequence and current CDS association",
+      "attribution": "NCBI RefSeq; Washington University in St Louis; PRJNA209528"
+    },
+    {
+      "name": "utex-md5.txt",
+      "bytes": 1279,
+      "sha256": "e23c9a1b5be2d4adf2c9f95ef7ec075d6a721f5740f419de5c931d7359438b93",
+      "url": "https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/817/325/GCF_000817325.1_ASM81732v1/md5checksums.txt",
+      "id": "utex-md5.txt",
+      "retrieved_utc_date": "2026-10-17",
+      "study": "NCBI-UTEX2973",
+      "assembly": "GCF_000817325.1",
+      "annotation": "NCBI RefSeq GCF_000817325.1-RS_2026_05_13",
+      "licence": "NCBI public sequence data; no blanket CC licence asserted",
+      "purpose": "Versioned reference sequence and current CDS association",
+      "attribution": "NCBI RefSeq; Washington University in St Louis; PRJNA209528"
+    },
+    {
+      "id": "tan2018.xml",
+      "name": "tan2018.xml",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC6091082/fullTextXML",
+      "bytes": 190589,
+      "sha256": "7063969b6577a330390269bec64df5f22c696203239257cb06fc21ef5148f7d8",
+      "study": "Tan2018",
+      "purpose": "Primary methods/identity evidence",
+      "retrieved_utc_date": "2026-10-17",
+      "licence": "CC-BY-4.0"
+    },
+    {
+      "id": "utex-report.txt",
+      "name": "utex-report.txt",
+      "url": "https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/817/325/GCF_000817325.1_ASM81732v1/GCF_000817325.1_ASM81732v1_assembly_report.txt",
+      "bytes": 1478,
+      "sha256": "d20004f66641303245127964328a01edd5f9473c2b4a128eeb39571f5f24b7f8",
+      "study": "NCBI-UTEX2973",
+      "purpose": "Primary methods/identity evidence",
+      "retrieved_utc_date": "2026-10-17",
+      "licence": "NCBI public sequence data; no blanket CC licence asserted"
+    },
+    {
+      "id": "pcc6803-report.txt",
+      "name": "pcc6803-report.txt",
+      "url": "https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/009/725/GCF_000009725.1_ASM972v1/GCF_000009725.1_ASM972v1_assembly_report.txt",
+      "bytes": 1509,
+      "sha256": "7f5a161a24d51c03c4a47f3f2c852c473be2f6e32f74abe60ac7a56e758d7ba3",
+      "licence": "NCBI public sequence data; no blanket CC licence asserted",
+      "use": "Exact current PCC6803 reference/annotation input; not measured translation starts",
+      "retrieved_utc": "2026-10-17"
+    },
+    {
+      "id": "pcc6803-genomic.fna.gz",
+      "name": "pcc6803-genomic.fna.gz",
+      "url": "https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/009/725/GCF_000009725.1_ASM972v1/GCF_000009725.1_ASM972v1_genomic.fna.gz",
+      "bytes": 1169667,
+      "sha256": "cfaccf8f61d32314e91d1c6258ecc266f3d458d6dae21c15d2c9b736a0502577",
+      "licence": "NCBI public sequence data; no blanket CC licence asserted",
+      "use": "Exact current PCC6803 reference/annotation input; not measured translation starts",
+      "retrieved_utc": "2026-10-17"
+    },
+    {
+      "id": "pcc6803-genomic.gff.gz",
+      "name": "pcc6803-genomic.gff.gz",
+      "url": "https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/009/725/GCF_000009725.1_ASM972v1/GCF_000009725.1_ASM972v1_genomic.gff.gz",
+      "bytes": 310851,
+      "sha256": "8e220cc9a09d679470dc8036ed8004c4e51903a676316e8fb67a7fc2cb909687",
+      "licence": "NCBI public sequence data; no blanket CC licence asserted",
+      "use": "Exact current PCC6803 reference/annotation input; not measured translation starts",
+      "retrieved_utc": "2026-10-17"
+    },
+    {
+      "id": "pcc6803-protein.faa.gz",
+      "name": "pcc6803-protein.faa.gz",
+      "url": "https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/009/725/GCF_000009725.1_ASM972v1/GCF_000009725.1_ASM972v1_protein.faa.gz",
+      "bytes": 743676,
+      "sha256": "a1d83cd1653ba8e6e97b7d170bbb27f9082833bc6f4268d9eabe51945f65ccc2",
+      "licence": "NCBI public sequence data; no blanket CC licence asserted",
+      "use": "Exact current PCC6803 reference/annotation input; not measured translation starts",
+      "retrieved_utc": "2026-10-17"
+    },
+    {
+      "id": "pcc6803-md5.txt",
+      "name": "pcc6803-md5.txt",
+      "url": "https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/009/725/GCF_000009725.1_ASM972v1/md5checksums.txt",
+      "bytes": 1249,
+      "sha256": "d850258032d1eea604d40406fe6258fb71e3aca5c789d0485c93858498a3e1ba",
+      "licence": "NCBI public sequence data; no blanket CC licence asserted",
+      "use": "Exact current PCC6803 reference/annotation input; not measured translation starts",
+      "retrieved_utc": "2026-10-17"
+    },
+    {
+      "id": "karlsen2018-ena.tsv",
+      "name": "karlsen2018-ena.tsv",
+      "url": "https://www.ebi.ac.uk/ena/portal/api/filereport?accession=PRJEB28203&result=read_run&fields=run_accession,experiment_accession,sample_accession,scientific_name,library_strategy,library_source,library_selection,library_layout,study_title,experiment_title,sample_title&format=tsv",
+      "bytes": 1723,
+      "sha256": "9394002fad9f3c4779f5139d890149c2dc9184755ceb9ecb514ba373de29d227",
+      "licence": "Public ENA study metadata",
+      "use": "Sequencing sample/replication identity",
+      "retrieved_utc": "2026-10-17",
+      "raw_first_retrieval_sha256": "04dd7598aa2aa65b4e4628d7eac898041a04bfcaec4d69a5eb701b16b9921526",
+      "canonicalization": "tsv_header_sort_data_lines_v1",
+      "identity_note": "ENA row order is unstable; pin header and lexicographically sorted complete data rows; preserve raw bytes and retrieval receipt"
+    },
+    {
+      "id": "thiel2018-article.xml",
+      "name": "thiel2018-article.xml",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC5834881/fullTextXML",
+      "bytes": 121572,
+      "sha256": "aec3a032ebff073cc444b10c19866f30ffa8d55f75f46a235c5b063049a15fdb",
+      "licence": "CC-BY-4.0 article/supplements; Thiel et al.2018",
+      "use": "Reporter construct/context audit; numerical endpoint means not tabulated",
+      "retrieved_utc": "2026-10-17"
+    },
+    {
+      "id": "12934_2018_882_MOESM1_ESM.pdf",
+      "name": "12934_2018_882_MOESM1_ESM.pdf",
+      "url": "https://media.springernature.com/original/springer-static/esm/art%3A10.1186%2Fs12934-018-0882-2/MediaObjects/12934_2018_882_MOESM1_ESM.pdf",
+      "bytes": 10026,
+      "sha256": "b5d28c2a3b418ae7d57799d41b5a1a8cfbf8bc4ea20b02714346d6442e75e235",
+      "licence": "CC-BY-4.0 article/supplements; Thiel et al.2018",
+      "use": "Reporter construct/context audit; numerical endpoint means not tabulated",
+      "retrieved_utc": "2026-10-17"
+    },
+    {
+      "id": "12934_2018_882_MOESM2_ESM.pdf",
+      "name": "12934_2018_882_MOESM2_ESM.pdf",
+      "url": "https://media.springernature.com/original/springer-static/esm/art%3A10.1186%2Fs12934-018-0882-2/MediaObjects/12934_2018_882_MOESM2_ESM.pdf",
+      "bytes": 21550,
+      "sha256": "674b7926175a11d81ed80e15f7a1820eac096352967ab0e11b7c9161837c4692",
+      "licence": "CC-BY-4.0 article/supplements; Thiel et al.2018",
+      "use": "Reporter construct/context audit; numerical endpoint means not tabulated",
+      "retrieved_utc": "2026-10-17"
+    },
+    {
+      "id": "12934_2018_882_MOESM3_ESM.pdf",
+      "name": "12934_2018_882_MOESM3_ESM.pdf",
+      "url": "https://media.springernature.com/original/springer-static/esm/art%3A10.1186%2Fs12934-018-0882-2/MediaObjects/12934_2018_882_MOESM3_ESM.pdf",
+      "bytes": 443438,
+      "sha256": "9e8e52c0fc1e644cbdacfc515eb2c9bc121728b83919b49c3a265289e805613c",
+      "licence": "CC-BY-4.0 article/supplements; Thiel et al.2018",
+      "use": "Reporter construct/context audit; numerical endpoint means not tabulated",
+      "retrieved_utc": "2026-10-17"
+    },
+    {
+      "id": "12934_2018_882_MOESM4_ESM.pdf",
+      "name": "12934_2018_882_MOESM4_ESM.pdf",
+      "url": "https://media.springernature.com/original/springer-static/esm/art%3A10.1186%2Fs12934-018-0882-2/MediaObjects/12934_2018_882_MOESM4_ESM.pdf",
+      "bytes": 786274,
+      "sha256": "d29ab591108f0fd8802a9b9de6f51de4f1521e0d79597394a22027e0635a3878",
+      "licence": "CC-BY-4.0 article/supplements; Thiel et al.2018",
+      "use": "Reporter construct/context audit; numerical endpoint means not tabulated",
+      "retrieved_utc": "2026-10-17"
+    },
+    {
+      "id": "12934_2018_882_MOESM5_ESM.pdf",
+      "name": "12934_2018_882_MOESM5_ESM.pdf",
+      "url": "https://media.springernature.com/original/springer-static/esm/art%3A10.1186%2Fs12934-018-0882-2/MediaObjects/12934_2018_882_MOESM5_ESM.pdf",
+      "bytes": 61843,
+      "sha256": "95d179790b4455b6245eaf7110707c316bc6009492d9fc67bef7966d46a72eee",
+      "licence": "CC-BY-4.0 article/supplements; Thiel et al.2018",
+      "use": "Reporter construct/context audit; numerical endpoint means not tabulated",
+      "retrieved_utc": "2026-10-17"
+    },
+    {
+      "id": "12934_2018_882_MOESM6_ESM.pdf",
+      "name": "12934_2018_882_MOESM6_ESM.pdf",
+      "url": "https://media.springernature.com/original/springer-static/esm/art%3A10.1186%2Fs12934-018-0882-2/MediaObjects/12934_2018_882_MOESM6_ESM.pdf",
+      "bytes": 142613,
+      "sha256": "b35ae080b2c62fddb91a2f16100d6bdda9189c5efa2237350bc7353179facf29",
+      "licence": "CC-BY-4.0 article/supplements; Thiel et al.2018",
+      "use": "Reporter construct/context audit; numerical endpoint means not tabulated",
+      "retrieved_utc": "2026-10-17"
+    },
+    {
+      "id": "12934_2018_882_MOESM7_ESM.pdf",
+      "name": "12934_2018_882_MOESM7_ESM.pdf",
+      "url": "https://media.springernature.com/original/springer-static/esm/art%3A10.1186%2Fs12934-018-0882-2/MediaObjects/12934_2018_882_MOESM7_ESM.pdf",
+      "bytes": 92722,
+      "sha256": "7cc61c0689c7e3e41ad129ccc88cb9d6adff07835ee9d1ed557580d6a516cb29",
+      "licence": "CC-BY-4.0 article/supplements; Thiel et al.2018",
+      "use": "Reporter construct/context audit; numerical endpoint means not tabulated",
+      "retrieved_utc": "2026-10-17"
+    },
+    {
+      "id": "diurnal2021-supp.zip",
+      "name": "diurnal2021-supp.zip",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC8237939/supplementaryFiles",
+      "bytes": 4310291,
+      "sha256": "22dd4987f05686e8f398da11c8688a4c7544c74f620fe94224d37a350c47f248",
+      "licence": "CC-BY-4.0 article supplemental workbook",
+      "use": "Secondary study admission; primary workbook outcomes remain evaluator-private",
+      "retrieved_utc": "2026-10-17"
+    },
+    {
+      "id": "diurnal2021-source-coordinates.tab",
+      "name": "diurnal2021-source-coordinates.tab",
+      "url": "https://raw.githubusercontent.com/J-Karlsen/diurnal-gene-expression/5baf8fc148b511478cf89569e6a6ce167dcd5428/input_data/rnaseq_all_CDS_RPKM_no_filter_orf_scaled.tab",
+      "bytes": 4911296,
+      "sha256": "b627d06bffe454ca365df5e478f129780115adb7fe23903945b401aabe297d34",
+      "licence": "Repository has no recovered standalone licence; external research source only, coordinate facts used; no code or raw table bundled",
+      "use": "Secondary study admission; primary workbook outcomes remain evaluator-private",
+      "retrieved_utc": "2026-10-17"
+    }
+  ],
+  "utex_identity": {
+    "assembly": "GCF_000817325.1",
+    "taxid": 1350461,
+    "annotation": "GCF_000817325.1-RS_2026_05_13",
+    "replicons": {
+      "NZ_CP006471.1": 2690418,
+      "NZ_CP006472.1": 46366,
+      "NZ_CP006473.1": 7842
+    },
+    "ncbi_md5_verified": true
+  },
+  "consumer_provenance": "Inspected read-only; publisher workbook hash independently re-fetched and matched. No sibling checkout is required.",
+  "pcc6803_identity": {
+    "assembly": "GCF_000009725.1",
+    "assembly_name": "ASM972v1",
+    "annotation": "NCBI RefSeq GCF_000009725.1-RS_2025_06_29",
+    "paper_reference": "NC_000911.1; paper-era 2017 annotation not recovered",
+    "replicons": {
+      "NC_000911.1": 3573470,
+      "NC_005230.1": 103307,
+      "NC_005231.1": 44343,
+      "NC_005229.1": 119895,
+      "NC_005232.1": 106004
+    }
+  }
+}

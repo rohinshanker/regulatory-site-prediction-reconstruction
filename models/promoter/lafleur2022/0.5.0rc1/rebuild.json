@@ -1,0 +1,13 @@
+{
+  "candidate_commit": "2dff23cb5697507281f7ffa73fc617d56989b40c",
+  "container_metadata_difference": true,
+  "method": "git archive exact commit; locked development Python; SOURCE_DATE_EPOCH=1792366486; python -m build --no-isolation",
+  "original_sdist_sha256": "6a20cb6a71123d141332646dfe6bebc904ac98d94cfdf51448b8322c11444fbd",
+  "rebuilt_sdist_sha256": "f867598d879a8a70eb80bb1abbc77c286d2c7f9daba88f094e4f53996b0d4eea",
+  "schema_version": "promoter-package-rebuild-1",
+  "sdist_bit_identical": false,
+  "sdist_member_content_equal": true,
+  "sdist_member_manifest_sha256": "24f6419f6266f6a296ac05eb568de5d6403e92eaa8611624d6bb65e42f4b65bb",
+  "wheel_bit_identical": true,
+  "wheel_sha256": "4443e3558c6c689373fe09af4eabc1530b4af2a166391773056a69053939b1ff"
+}

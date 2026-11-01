@@ -1,0 +1,22 @@
+--- a/Promoter_Calculator_v1_0.py
++++ b/Promoter_Calculator_v1_0.py
+@@ -69 +69 @@
+-    print "best: ", min(seq_query.items(), key=operator.itemgetter(0))
++    print("best: ", min(seq_query.items(), key=operator.itemgetter(0)))
+@@ -307 +307 @@
+-        print "Fwd TSS: %s. TX Rate: %s. Calcs: %s" % (TSS, result['Tx_rate'], str(result) )
++        print("Fwd TSS: %s. TX Rate: %s. Calcs: %s" % (TSS, result['Tx_rate'], str(result) ))
+@@ -309 +309 @@
+-        print "Rev TSS: %s. TX Rate: %s. Calcs: %s" % (TSS, result['Tx_rate'], str(result) )
++        print("Rev TSS: %s. TX Rate: %s. Calcs: %s" % (TSS, result['Tx_rate'], str(result) ))
+@@ -311 +311 @@
+-    print "Elapsed Time: ", time.time() - begin, " seconds."
++    print("Elapsed Time: ", time.time() - begin, " seconds.")
+--- a/util.py
++++ b/util.py
+@@ -215 +215 @@
+-    onehot_encoder = OneHotEncoder(sparse=False)
++    onehot_encoder = OneHotEncoder(sparse_output=False)
+@@ -229 +229 @@
+-    onehot_encoder = OneHotEncoder(sparse=False)
++    onehot_encoder = OneHotEncoder(sparse_output=False)

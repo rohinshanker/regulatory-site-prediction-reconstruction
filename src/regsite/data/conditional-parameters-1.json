@@ -1,0 +1,85 @@
+{
+  "assumptions": [
+    "S4-S26 independently expressed; no copied fitted parameters",
+    "direct supplied affinity and energies share their asserted temperature and explicit standard",
+    "beta is apparent and independent of physical 1/RT",
+    "strict-positive metastability has a discontinuous positive-side limit at zero",
+    "free RNA and RNA-ligand complex have equal relative volume",
+    "volume sum above one is reported without adding a packing law",
+    "RNAstructure canonical folding is not constrained ribosome binding",
+    "exact admitted original Mac binaries only; new builds require independent admission"
+  ],
+  "backend": {
+    "dangles_coaxial": "original defaults",
+    "efn2_flags": [
+      "--simple",
+      "--ne",
+      "--temperature",
+      "310.15",
+      "--alphabet",
+      "rna"
+    ],
+    "environment": [
+      "DATAPATH=<source-local data_tables>",
+      "OMP_NUM_THREADS=1",
+      "LC_ALL=C"
+    ],
+    "fold_flags": [
+      "--MFE",
+      "--loop",
+      "30",
+      "--temperature",
+      "310.15",
+      "--alphabet",
+      "rna"
+    ],
+    "isolated_pairs": "original default",
+    "retries": 0,
+    "temperature_kelvin": 310.15
+  },
+  "backend_pins": {
+    "algorithm_cpp_sha256": "c024b600aabfad624fa0d4dbcd2297b9aacdb654ad2e491686847b705fa343d8",
+    "efn2_sha256": "1084934450523428af0ef15258f16c3f1fa174cb4949cf62e78b4581190dd8aa",
+    "fold_sha256": "803a5322799779df276282601a393b3d31ea35fffc4359f6d609134643ade0f6",
+    "gpl_sha256": "e6d6a009505e345fe949e1310334fcb0747f28dae2856759de102ab66b722cb4",
+    "readme_sha256": "68fd4a4e44b76f23f68920372a4d8d72d44eef7254463e46cf5d9510a6aadb88",
+    "source_archive_sha256": "1bedc62aaab984279055caaa6234d48fca113f4b8e17a8060e0b3784d5a397c3",
+    "table_manifest_sha256": "5ff86be816a614c729a3d0a6e0ce50dcc277b3f156439e5aecf762d41f59fa0a"
+  },
+  "convention_id": "natural_logs_equal_rna_complex_volume_explicit_molar_standard_strict_positive_zero_uncorrected_binary64_kd_guarded_certified_min_total_bracket_3",
+  "gas_constant_joule_mol_kelvin": 8.31446261815324,
+  "joules_per_kcal": 4184,
+  "license": "GPL-3.0-or-later",
+  "limits": {
+    "max_backend_output_bytes": 1000000,
+    "max_input_json_bytes": 65536,
+    "max_jobs": 4,
+    "max_json_depth": 16,
+    "max_json_nodes": 20000,
+    "max_result_json_bytes": 1000000,
+    "max_seconds_per_job": 120,
+    "max_seconds_response": 30,
+    "max_seconds_structural": 480,
+    "max_sequence_nt": 200
+  },
+  "numerics": {
+    "arithmetic": "binary64 output; exact rational combined energies and stationary arguments; directed Decimal ln intervals; log-domain response mixtures",
+    "kd_continuation": "rounded continuation must certify the same strict-positive/negative/exact-zero branch as cost + exact binary64 R*T*ln(exact Kd/standard); otherwise numerical_range",
+    "kd_stationary_energy": "unrounded composite enclosure propagated through beta, stationary sign and residual scaling",
+    "max_iterations": 256,
+    "max_kd_certification_stages": 2,
+    "max_sign_certifications_per_iteration": 2,
+    "relative_bracket_denominator": "min(mrna_total_molar,ligand_total_molar)",
+    "relative_bracket_tolerance": 1e-12,
+    "root_bracket": "exact rational width check; every interior endpoint selected by certified sign; collapse only for proven exact zero",
+    "scaled_residual_tolerance": 1e-12,
+    "sign_precision_decimal_digits": [
+      80,
+      160
+    ],
+    "uncertifiable_sign": "numerical_range"
+  },
+  "schema_version": "conditional-parameters-1",
+  "source_manifest_sha256": "ac4d7be48ba856dc6a713829425b584ffd55551743b10c51049de0ec70dc2f6e",
+  "source_supplement_sha256": "b68da105ea6c8f6c26f6e6f66863d066c34b1052dd0eeb23159c96d0c1a861fe"
+}

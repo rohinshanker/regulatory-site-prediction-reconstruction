@@ -2,12 +2,34 @@
 
 ## Scope and order
 
+- Owner authorization on 2026-10-21 adds Session C for continued producer work.
+  A owns runtime/package integration and bounded offline job execution; B owns
+  independent evidence/evaluation; C owns separately scoped Operon components,
+  currently reinitiation and intrinsic-termination admission. Agree exact paths
+  and bases before child dispatch.
+  Reviewed completion receipts trigger concrete next-task handoffs between the
+  coordinators; no duplicate workers or unattended unbounded task creation.
+- Owner authorization on 2026-10-21 resumes producer implementation, including
+  the named native Promoter download/pilot and reviewed calculator branch
+  integration. A owns runtime/source fidelity/integration; B owns independent
+  benchmark/evidence tooling. Agree disjoint paths and freeze each evaluation
+  before execution. Preserve source, backend and private-evaluation limits;
+  consumer admission, publication and new paid collection remain separate.
+  PV-R1 and stopped DEM-577/568 remain held. The bounded consumer preview remains
+  on the immutable paired 0.6 candidate. This wave does not start a new transcript
+  adapter or the unaccepted portable-original-backend assignment. A newly built
+  original backend must satisfy the unchanged conditional admission gate.
 - Read `README.md`, `docs/notes/tickets/INDEX.md`, and applicable validation
   contracts before significant work. The user authorized the complete four-tool
-  reconstruction program; this initial repository only records its plan.
+  reconstruction program; the first implemented runtime is the Wave 1 RBS reconstruction.
 - RBS is the first implemented and released calculator. Discovery for other
   calculators can run in parallel; do not let a suite-wide audit block a ready
   RBS slice. Avoid duplicate implementations in the cyano consumer repository.
+- Owner authorization on 2026-10-18 permits isolated Promoter and subsequent
+  calculator/recoding-comparison implementation alongside RBS release preparation.
+  Actual RBS publication is no longer a prerequisite for branch implementation.
+  Publication and consumer admission retain their separate gates; preserve the
+  canonical/cyano checkouts. See `docs/validation/wave5-program.md`.
 - Search for a complete, usable, openly licensed implementation before writing
   a replacement. A wrapper, public form, directory listing, or `.pyc` file is not
   proof of a complete source implementation.
@@ -43,6 +65,16 @@
 - Predictions are not measurements. Distinguish host configuration from host
   calibration, start scoring from site discovery, and aptamer identification
   from conditional riboswitch scoring.
+- Follow `docs/validation/rbs-native-validation.md` for native evidence. Tan
+  2018 TSSs are transcription/context evidence, not translation-initiation labels.
+  Preserve alternate transcripts, assembly/annotation versions and unlabelled
+  sites; absence of an experimental peak is not automatically a negative.
+- The RBS program includes independently evaluated improvements beyond hosted
+  compatibility. Read `docs/validation/rbs-comparator-landscape.md` before selecting
+  learned components; review code, weights, training data and dependencies
+  separately. Keep final outcomes with the independent evaluator and freeze
+  candidate commits/settings before evaluation. No universal or native-host
+  superiority claim without task-matched independent evidence.
 
 ## Work and verification
 
@@ -54,8 +86,9 @@
   new path, failures, boundaries, strand/coordinate conversions and reproducibility.
   Use Google style for the chosen language. No stubs, invented outputs, silent
   fallback models, or placeholder returns in a claimed implementation.
-- Ticket 02 establishes exact CI/test commands. Before that, documentation-only
-  changes require ticket-field/index consistency, link checks and
+- Follow `docs/validation/rbs-runtime.md` for exact CI/test commands. Runtime
+  validation requires the real pinned backend, not skipped integration tests.
+  Documentation changes require ticket-field/index consistency, local links and
   `git diff --check`. Do not claim unavailable runtime tests passed.
 - Each release needs fresh-install/offline smoke tests, unit and integration
   tests, scientific benchmarks, dependency/licence inventory and measured resource

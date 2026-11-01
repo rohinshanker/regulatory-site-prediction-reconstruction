@@ -1,0 +1,124 @@
+{
+  "candidate_commit": "920215602a837b0fd2fed403512f3b3ed59bfda2",
+  "profiles": [
+    {
+      "execution": {
+        "backend": {
+          "binary_sha256": {
+            "Fold": "81f962573b7f43c023dd23eab4ae1e8e7f6402d8679e89a6a1a539cfdc6a5458",
+            "bifold": "9f8156cabaf8e13f91e90d410c46aef1cff1c2badda1c4243b194f54eb1f8136",
+            "efn2": "f0b2ce5971d482f50867615e3870b4743d42d6b0e266e05c0c0c1f1bc63d8b4d"
+          },
+          "build_provenance": {
+            "component": "rnastructure-6.6-linker-3",
+            "license": "GPL-2.0-only",
+            "patch_sha256": "2ef6ef61496b034110f4151e2fc1aec77cbd011c88a36bcef574be0dfecebb2d",
+            "patched_source_sha256": "b19a9ad1634f7e8f7669410b1eb7f5e8c27542f073054acb65647891e62ddbc7",
+            "source_archive_sha256": "1bedc62aaab984279055caaa6234d48fca113f4b8e17a8060e0b3784d5a397c3"
+          },
+          "build_receipt_sha256": "7fabba75b3f49cb9be9a5633f8fb149e318e6e48a971487acf7cceb743b806e2",
+          "expected_source_archive_sha256": "1bedc62aaab984279055caaa6234d48fca113f4b8e17a8060e0b3784d5a397c3",
+          "interface": "independent executables via sequence/CT files",
+          "licence": "GPL-2.0-only (separate installation)",
+          "name": "RNAstructure",
+          "settings": {
+            "alphabet": "rna",
+            "bifold_maximum": 100,
+            "bifold_percent": 100,
+            "bifold_window": 0,
+            "coaxial_stacking": true,
+            "dangles": "RNAstructure 6.6 native; no historical auto-dangle switch",
+            "efn2_multibranch_model": "simple",
+            "energy_evaluation": "efn2 --simple for every structure",
+            "fold_maximum": 1,
+            "fold_mfe_only": true,
+            "fold_window": 0,
+            "intramolecular_pairs": true,
+            "isolated_pairs": false,
+            "maximum_loop": 30
+          },
+          "table_manifest_sha256": "ece4c4b535783cb4e03c7ce8f243d09be84a165ecd113b1d20941b5ed8b69501",
+          "variant": "rnastructure-6.6-linker-3",
+          "version": "6.6"
+        },
+        "implementation_version": "0.6.0rc1",
+        "seconds_per_batch": 3600.0,
+        "seconds_per_record": 60.0
+      },
+      "exit_code": 0,
+      "model_id": "salis-v1-rnastructure-6.6-reconstruction-1",
+      "output_bytes": 103761,
+      "output_sha256": "46e3ee9f7cd67bce3b132591cca116a9bd5643827ac2b52884d5da336b84855d",
+      "peak_rss_bytes": 85442560,
+      "profile": "historical",
+      "seconds": 3.363721708,
+      "statuses": {
+        "no_candidate": 1,
+        "ok": 7,
+        "unsupported": 2
+      }
+    },
+    {
+      "execution": {
+        "backend": {
+          "binary_sha256": {
+            "Fold": "81f962573b7f43c023dd23eab4ae1e8e7f6402d8679e89a6a1a539cfdc6a5458",
+            "bifold": "9f8156cabaf8e13f91e90d410c46aef1cff1c2badda1c4243b194f54eb1f8136",
+            "efn2": "f0b2ce5971d482f50867615e3870b4743d42d6b0e266e05c0c0c1f1bc63d8b4d"
+          },
+          "build_provenance": {
+            "component": "rnastructure-6.6-linker-3",
+            "license": "GPL-2.0-only",
+            "patch_sha256": "2ef6ef61496b034110f4151e2fc1aec77cbd011c88a36bcef574be0dfecebb2d",
+            "patched_source_sha256": "b19a9ad1634f7e8f7669410b1eb7f5e8c27542f073054acb65647891e62ddbc7",
+            "source_archive_sha256": "1bedc62aaab984279055caaa6234d48fca113f4b8e17a8060e0b3784d5a397c3"
+          },
+          "build_receipt_sha256": "7fabba75b3f49cb9be9a5633f8fb149e318e6e48a971487acf7cceb743b806e2",
+          "expected_source_archive_sha256": "1bedc62aaab984279055caaa6234d48fca113f4b8e17a8060e0b3784d5a397c3",
+          "interface": "independent executables via sequence/CT files",
+          "licence": "GPL-2.0-only (separate installation)",
+          "name": "RNAstructure",
+          "settings": {
+            "alphabet": "rna",
+            "bifold_maximum": 100,
+            "bifold_percent": 100,
+            "bifold_window": 0,
+            "coaxial_stacking": true,
+            "dangles": "RNAstructure 6.6 native; no historical auto-dangle switch",
+            "efn2_multibranch_model": "simple",
+            "energy_evaluation": "efn2 --simple for every structure",
+            "fold_maximum": 1,
+            "fold_mfe_only": true,
+            "fold_window": 0,
+            "intramolecular_pairs": true,
+            "isolated_pairs": false,
+            "maximum_loop": 30
+          },
+          "table_manifest_sha256": "ece4c4b535783cb4e03c7ce8f243d09be84a165ecd113b1d20941b5ed8b69501",
+          "variant": "rnastructure-6.6-linker-3",
+          "version": "6.6"
+        },
+        "implementation_version": "0.6.0rc1",
+        "seconds_per_batch": 3600.0,
+        "seconds_per_record": 60.0
+      },
+      "exit_code": 0,
+      "model_id": "context2017-rnastructure-6.6-reconstruction-1",
+      "output_bytes": 136741,
+      "output_sha256": "d98d34d5c07e2c66bef27583cfac7eb5fbdc11c80898720ba1c3743d2dbeae37",
+      "peak_rss_bytes": 85491712,
+      "profile": "context2017",
+      "seconds": 3.1579887920000003,
+      "statuses": {
+        "no_candidate": 1,
+        "ok": 7,
+        "unsupported": 2
+      }
+    }
+  ],
+  "request_count": 10,
+  "request_sha256": "eec457af49e35a94e8d334069bfb53c01fcf96b54eeff0e7e2d37872c17ca1f6",
+  "schema_version": "rbs-context-synthetic-feasibility-1",
+  "scope": "Seven public synthetic geometry/context cases plus three explicit201nt resource controls. No native data or outcomes. Feasibility only; not worst-case timing proof or final collection authorization.",
+  "wheel_sha256": "b87e7a34e09f1163e03dd69d5112307bc4cb3013e75b5ade0812cf7098ab449a"
+}

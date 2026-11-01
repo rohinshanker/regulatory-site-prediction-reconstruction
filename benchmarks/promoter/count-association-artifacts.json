@@ -1,0 +1,210 @@
+{
+  "artifacts": [
+    {
+      "bytes": 4520,
+      "id": "audit-audit-inputs-py",
+      "path": "audit/audit_inputs.py",
+      "role": "parameter",
+      "sha256": "609bc1374ff475763d9d25053b84f8654210ce423fef6cddef70c2fe0e9fccec"
+    },
+    {
+      "bytes": 1771,
+      "id": "audit-execution-json",
+      "path": "audit/execution.json",
+      "role": "report",
+      "sha256": "b558213de1e813bc444dcb20504d9306bdb52748bdaba78929b5006d20a846f0"
+    },
+    {
+      "bytes": 477,
+      "id": "audit-independent-bootstrap-json",
+      "path": "audit/independent-bootstrap.json",
+      "role": "report",
+      "sha256": "270263a794888ca92a5f9bddcacccf06f17d556301975b08872163c1c87296c0"
+    },
+    {
+      "bytes": 2029,
+      "id": "audit-independent-bootstrap-py",
+      "path": "audit/independent_bootstrap.py",
+      "role": "parameter",
+      "sha256": "97de5f3a837ed1647efe5b6197eecc4181094cc1ba67de530023974d6a60eb8a"
+    },
+    {
+      "bytes": 4270,
+      "id": "audit-independent-point-metrics-json",
+      "path": "audit/independent-point-metrics.json",
+      "role": "report",
+      "sha256": "08bd220bb66d8fdaa3405c8bf9f6f6054c490b4c436cf56a213c717fbeff9341"
+    },
+    {
+      "bytes": 3217,
+      "id": "audit-independent-point-metrics-py",
+      "path": "audit/independent_point_metrics.py",
+      "role": "parameter",
+      "sha256": "2ce5d998afb74ce18cda2fd692a864a49189dd0dad65c6c9245cb73e69233575"
+    },
+    {
+      "bytes": 6542,
+      "id": "audit-independent-rank-oracle-json",
+      "path": "audit/independent-rank-oracle.json",
+      "role": "report",
+      "sha256": "c9cf3398b01735b9c4ada2412bb10fe7cb758b27b80c49455376e7c7f5a320ce"
+    },
+    {
+      "bytes": 1493,
+      "id": "audit-independent-rank-oracle-py",
+      "path": "audit/independent_rank_oracle.py",
+      "role": "parameter",
+      "sha256": "6af03c08ab8c5f11e4d93f9b784838f145cfa79f8e36a4e009fa77f00761c5ff"
+    },
+    {
+      "bytes": 507,
+      "id": "audit-independent-verification-json",
+      "path": "audit/independent-verification.json",
+      "role": "report",
+      "sha256": "3a2f9bfa5fa8706fa1eb00db5697a9994cac06c93d712d9e1a5e42fb46dedc6a"
+    },
+    {
+      "bytes": 965445,
+      "id": "audit-input-audit-all-rows-json",
+      "path": "audit/input-audit-all-rows.json",
+      "role": "report",
+      "sha256": "95d85a3d5cb8493d05c12fa20b6c0af7298a17bb82840ef60bd205c29697dadf"
+    },
+    {
+      "bytes": 755470,
+      "id": "audit-input-audit-json",
+      "path": "audit/input-audit.json",
+      "role": "report",
+      "sha256": "c84fc9b8b1a7e580c8ac9bd51f7362477dbaeff23cfc86622ed4556c9eb4308d"
+    },
+    {
+      "bytes": 564,
+      "id": "audit-outcome-access-receipt-json",
+      "path": "audit/outcome-access-receipt.json",
+      "role": "report",
+      "sha256": "b07f4c1e22a3396f6389c71be01e1f8cf54d860e96c509fa1f059266026d61d9"
+    },
+    {
+      "bytes": 256,
+      "id": "audit-preparation-audit-json",
+      "path": "audit/preparation-audit.json",
+      "role": "report",
+      "sha256": "4801ad55662e981e5ec4048a6e6cde4fd67737fe2da9d2615f12a02c8f071634"
+    },
+    {
+      "bytes": 976,
+      "id": "audit-source-report-admission-json",
+      "path": "audit/source-report-admission.json",
+      "role": "report",
+      "sha256": "1dca3dcd1784e183c018073091cabaa2339e71d8449f559e5287a5cb76763baf"
+    },
+    {
+      "bytes": 3344,
+      "id": "audit-verify-metrics-py",
+      "path": "audit/verify_metrics.py",
+      "role": "parameter",
+      "sha256": "99d9470208f84813c35600f6b48cda229acd613209837540d66ea68743fbb8ac"
+    },
+    {
+      "bytes": 7257466,
+      "id": "evaluation",
+      "path": "evaluation.json",
+      "role": "benchmark",
+      "sha256": "bf0222d8145f6da7b6a1e69ea1364a9036cc1ab07627dc52f79be5d813c91057"
+    },
+    {
+      "bytes": 43991,
+      "id": "evaluator",
+      "path": "code/count_association.py",
+      "role": "parameter",
+      "sha256": "a3b612164b6a414696cfa55512c3f3b500a9f9c400890dc0b2e0c0834b2c9ea7"
+    },
+    {
+      "bytes": 3333032,
+      "id": "input-crosswalk",
+      "path": "inputs/data/annotation/releases/GCF_000817325.1-RS_2026_05_13/identifier-crosswalk-v1.tsv",
+      "role": "benchmark",
+      "sha256": "97e3022e53cd1e31f5931ead37f425e1d99c032704e5ff8f02c0d75d1755e9ae"
+    },
+    {
+      "bytes": 815693,
+      "id": "input-fasta",
+      "path": "inputs/data/raw/GCF_000817325.1_ASM81732v1_genomic.fna.gz",
+      "role": "benchmark",
+      "sha256": "22a2b07881c1099c32454778de0e90b1c40f74f44c0f59e000507106c0deb567"
+    },
+    {
+      "bytes": 2010,
+      "id": "input-manifest",
+      "path": "input-manifest.json",
+      "role": "parameter",
+      "sha256": "c5e67fc2845db5b45fdb508bd444d6ada13bacfefb5947222ce1e3e165699697"
+    },
+    {
+      "bytes": 1666851,
+      "id": "input-terminators",
+      "path": "inputs/data/annotations/regulatory-transterm/native-v1.json",
+      "role": "benchmark",
+      "sha256": "f19003f1973e002ba8bb0edd52e420b878d0fbe4e46d2ca532e9b6d9c85f9629"
+    },
+    {
+      "bytes": 989,
+      "id": "input-terminators_release",
+      "path": "inputs/data/annotations/regulatory-transterm/release.json",
+      "role": "benchmark",
+      "sha256": "820b7587825edee61702668088039bd6d4edb83095c8280d4dca3d9a261c5847"
+    },
+    {
+      "bytes": 491394,
+      "id": "input-tss",
+      "path": "inputs/data/expression/tan2018_utex2973_tss_table_s1.tsv",
+      "role": "benchmark",
+      "sha256": "d06524cf492aa8f009bf004c596a5d305ac54acbe7537ec98bbc7992ce164bff"
+    },
+    {
+      "bytes": 2429486,
+      "id": "input-tu",
+      "path": "inputs/data/annotations/biocyc-utex-tu-membership/membership.json",
+      "role": "benchmark",
+      "sha256": "8eb68fcd33988e2b81940ff80d9ea471ef97fced87af3a4703f684c881dd60d0"
+    },
+    {
+      "bytes": 577,
+      "id": "input-tu_release",
+      "path": "inputs/data/annotations/biocyc-utex-tu-membership/release.json",
+      "role": "benchmark",
+      "sha256": "e791b76b45976449ff2cde1e6863eeabbfefc3eebfbede7c4361f470ecbd9e02"
+    },
+    {
+      "bytes": 14915,
+      "id": "original-receipt",
+      "path": "original/receipt.json",
+      "role": "report",
+      "sha256": "1366c8782ce15dc63e40665924ffa49c1881a4e6fa24543cd756c99cda9bb884"
+    },
+    {
+      "bytes": 25515500,
+      "id": "original-report",
+      "path": "original/report.json",
+      "role": "result",
+      "sha256": "f4021ed3941a66b656df9e40f4a6a406b4cf59c651ec00dd7c54865080ebbc5f"
+    },
+    {
+      "bytes": 13463278,
+      "id": "prepared",
+      "path": "prepared.json",
+      "role": "benchmark",
+      "sha256": "55077acaaf5d4cb4449801257c3cab0abbf16ce66033a11f1395fc5ad6c2bbce"
+    },
+    {
+      "bytes": 6884,
+      "id": "protocol",
+      "path": "protocol.json",
+      "role": "parameter",
+      "sha256": "2aaff3b1c3b22f85590a13c6bf00b6502bb4487b05aa812cff34d6a5acb7e49e"
+    }
+  ],
+  "producer_commit": "12da1a3ba8f8212a46a19de415f2098d93eafce6",
+  "producer_repository": "https://github.com/rohinshanker/regulatory-site-prediction-reconstruction",
+  "schema_version": "calculator-artifact-manifest-1.0"
+}

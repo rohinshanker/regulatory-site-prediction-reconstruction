@@ -1,0 +1,130 @@
+{
+  "schema_version": 1,
+  "frozen_at": "2026-10-16T19:23:55.431325+00:00",
+  "mode": "RBS Calculator Predict Translation Rates",
+  "displayed_version": "2020",
+  "host": "Escherichia coli str. K-12 substr. MG1655 (NC_000913)",
+  "enable_long_utrs": false,
+  "temperature": "not exposed by form",
+  "price_per_job_coins": 1,
+  "maximum_jobs": 12,
+  "maximum_coins": 12,
+  "records": [
+    {
+      "id": "w1-atg",
+      "sequence": "AAAAAAAAAAAAAGGAGGAAAAAAAATGAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCC",
+      "selected_start_zero_based": 25,
+      "purpose": "canonical start",
+      "origin": "synthetic; created for this project; project licence",
+      "partition": "development-diagnostic",
+      "sequence_sha256": "24d215f5a1ac0e8f45335413bd83818d3c8ac6d426c5e93fa0a078f534ce43ba"
+    },
+    {
+      "id": "w1-gtg",
+      "sequence": "AAAAAAAAAAAAAGGAGGAAAAAAAGTGAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCC",
+      "selected_start_zero_based": 25,
+      "purpose": "GTG start",
+      "origin": "synthetic; created for this project; project licence",
+      "partition": "development-diagnostic",
+      "sequence_sha256": "2c33635b1ae97f1c2fa848d71e868f499fd288c16ccd8c4522bfa21cf25193ae"
+    },
+    {
+      "id": "w1-ttg",
+      "sequence": "AAAAAAAAAAAAAGGAGGAAAAAAATTGAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCC",
+      "selected_start_zero_based": 25,
+      "purpose": "TTG start",
+      "origin": "synthetic; created for this project; project licence",
+      "partition": "development-diagnostic",
+      "sequence_sha256": "5258a98cce6e808a43a29eb2007173ea6d36535877e2b406b1a24d0b5c80a692"
+    },
+    {
+      "id": "w1-ctg",
+      "sequence": "AAAAAAAAAAAAAGGAGGAAAAAAACTGAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCC",
+      "selected_start_zero_based": 25,
+      "purpose": "CTG scanner coverage",
+      "origin": "synthetic; created for this project; project licence",
+      "partition": "development-diagnostic",
+      "sequence_sha256": "e79e76eea57a324accabc7ca4ec7e88bebb27a581b089d5025ed6a42e73f1bf9"
+    },
+    {
+      "id": "w1-short-spacer",
+      "sequence": "AAAAAAAAAAAAAGGAGGAAAATGAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCC",
+      "selected_start_zero_based": 21,
+      "purpose": "remove four spacer bases",
+      "origin": "synthetic; created for this project; project licence",
+      "partition": "development-diagnostic",
+      "sequence_sha256": "27d9fc2f5f8e6d32f9ae3a83a88d887f70f64e7cbef2cef1bc3ffc97eb56b6ed"
+    },
+    {
+      "id": "w1-long-spacer",
+      "sequence": "AAAAAAAAAAAAAGGAGGAAAAAAAAAAAAAATGAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCC",
+      "selected_start_zero_based": 31,
+      "purpose": "add six spacer bases",
+      "origin": "synthetic; created for this project; project licence",
+      "partition": "development-diagnostic",
+      "sequence_sha256": "cc1406fdbfe98649f7b55e3196b88e719e73283c642e0a60ca1cc76c4080b014"
+    },
+    {
+      "id": "w1-no-sd",
+      "sequence": "AAAAAAAAAAAAAAAAAAAAAAAAAATGAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCC",
+      "selected_start_zero_based": 25,
+      "purpose": "replace SD with A",
+      "origin": "synthetic; created for this project; project licence",
+      "partition": "development-diagnostic",
+      "sequence_sha256": "4a076d5497f09838a968ca95eb35b5761bc73b350c845c058921b89e98e03950"
+    },
+    {
+      "id": "w1-hairpin",
+      "sequence": "GGGCCCAAAAGGGCCCAAAAAAAAAAAAAGGAGGAAAAAAAATGAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCC",
+      "selected_start_zero_based": 41,
+      "purpose": "upstream hairpin",
+      "origin": "synthetic; created for this project; project licence",
+      "partition": "development-diagnostic",
+      "sequence_sha256": "431d1f5d8d3a678d79d8229cb2e07988ad7f7d4ef5b738aa71fa109a8f58a3dc"
+    },
+    {
+      "id": "w1-leaderless",
+      "sequence": "ATGAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCC",
+      "selected_start_zero_based": 0,
+      "purpose": "leaderless boundary",
+      "origin": "synthetic; created for this project; project licence",
+      "partition": "development-diagnostic",
+      "sequence_sha256": "d7a9a9528c33bb92e5cfbb7b7a8c44cd51392eda23cb76dbf08b93d7b717c3b3"
+    },
+    {
+      "id": "w1-no-start",
+      "sequence": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCCAAACCC",
+      "selected_start_zero_based": null,
+      "purpose": "no ATG GTG TTG CTG start",
+      "origin": "synthetic; created for this project; project licence",
+      "partition": "development-diagnostic",
+      "sequence_sha256": "1d992769eb41340d0d06a171ae06f8d8fde50d19044c88d85074199c588c7ca2"
+    },
+    {
+      "id": "w1-standby2014-136",
+      "sequence": "TCTAGAAAAAAAAATAAGGAGGTAAAAAATGGCGAGCTCTGAAGACGTTATCAAAGAGTTCATGCGTTTCAAAGTTCGTATGGAAGGTTCCGTTAACGGTCACGAGTTCGAAATCGAAGGTGAAGGTGAA",
+      "selected_start_zero_based": 28,
+      "purpose": "2014 unstructured control",
+      "origin": {
+        "id": "standby2014:5'UTR_136",
+        "doi": "10.1093/nar/gkt1139",
+        "licence": "CC-BY-3.0"
+      },
+      "partition": "development-diagnostic",
+      "sequence_sha256": "de0f89ca9a8f73590f663fe9781b29148eb976f5d8b384d023d02320ab5dd059"
+    },
+    {
+      "id": "w1-standby2014-1",
+      "sequence": "TCTAGAGGCCGACGCAAGCCCATATCGGGGCTTCCGTCGGCCATAAGGAGGTAAAAAATGGCGAGCTCTGAAGACGTTATCAAAGAGTTCATGCGTTTCAAAGTTCGTATGGAAGGTTCCGTTAACGGTCACGAGTTCGAAATCGAAGGTGAAGGTGAA",
+      "selected_start_zero_based": 57,
+      "purpose": "2014 structured leader",
+      "origin": {
+        "id": "standby2014:5'UTR_1",
+        "doi": "10.1093/nar/gkt1139",
+        "licence": "CC-BY-3.0"
+      },
+      "partition": "development-diagnostic",
+      "sequence_sha256": "94d14316d7082322838b8f87fafd30a5a8cec8069641b8e8d586aab30cc40916"
+    }
+  ]
+}

@@ -1,0 +1,199 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/raw/main/schemas/calculator-job-receipt-1.schema.json",
+  "title": "Offline calculator job attempt receipt 1",
+  "description": "One attempt's request, recorded argv template, outcome, exit status and complete opaque stdout/stderr byte identities. Runtime checks additionally bind the campaign hash, job, attempt location, argv and outcome/exit consistency. Runtime checks additionally enforce strict JSON syntax, byte limits and filesystem rules; hashes bind bytes only and establish neither scientific validity nor authenticity.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "argv",
+    "attempt",
+    "campaign_sha256",
+    "elapsed_seconds",
+    "exit_code",
+    "job_id",
+    "kind",
+    "outcome",
+    "request",
+    "schema_version",
+    "signal",
+    "stderr",
+    "stdout",
+    "terminal"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "calculator-job-receipt-1"
+    },
+    "campaign_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+    },
+    "job_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,63}(?![\\s\\S])"
+    },
+    "kind": {
+      "enum": [
+        "rbs",
+        "promoter",
+        "compare",
+        "transcript",
+        "conditional"
+      ]
+    },
+    "attempt": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "request": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "bytes",
+        "path",
+        "sha256"
+      ],
+      "properties": {
+        "path": {
+          "type": "string"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+        },
+        "bytes": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "argv": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    },
+    "outcome": {
+      "enum": [
+        "succeeded",
+        "partial",
+        "refused",
+        "abnormal_exit",
+        "timed_out",
+        "output_limit",
+        "interrupted",
+        "campaign_deadline",
+        "launch_failed",
+        "storage_error",
+        "runtime_changed"
+      ]
+    },
+    "terminal": {
+      "type": "boolean"
+    },
+    "exit_code": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "signal": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 1
+    },
+    "elapsed_seconds": {
+      "type": "number",
+      "minimum": 0
+    },
+    "stdout": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "bytes",
+        "path",
+        "sha256",
+        "truncated"
+      ],
+      "properties": {
+        "path": {
+          "type": "string"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+        },
+        "bytes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "truncated": {
+          "type": "boolean"
+        }
+      }
+    },
+    "stderr": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "bytes",
+        "path",
+        "sha256",
+        "truncated"
+      ],
+      "properties": {
+        "path": {
+          "type": "string"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+        },
+        "bytes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "truncated": {
+          "type": "boolean"
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "outcome": {
+            "enum": [
+              "succeeded",
+              "partial",
+              "refused",
+              "abnormal_exit",
+              "timed_out",
+              "output_limit"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "terminal": {
+            "const": true
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "terminal": {
+            "const": false
+          }
+        }
+      }
+    }
+  ]
+}

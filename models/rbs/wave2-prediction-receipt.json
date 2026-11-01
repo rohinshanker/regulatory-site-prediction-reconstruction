@@ -1,0 +1,135 @@
+{
+  "calibration_applied": false,
+  "candidate_collection_code_commit": "49822f1890312def680f28b2bfea7c9e0060c9a8",
+  "candidate_outputs": [
+    {
+      "candidates": 1018,
+      "deadline_failures": 0,
+      "file": "tis-historical.json",
+      "profile": "historical",
+      "queries": 165,
+      "seconds_per_candidate": 60,
+      "seconds_per_collection": 3600.0,
+      "sha256": "ba89add1d0865128d585557fbcce28a2e98e4876a202b786192086f0d532c40c",
+      "successful_candidates": 1009
+    },
+    {
+      "candidates": 1018,
+      "deadline_failures": 0,
+      "file": "tis-footprint2017.json",
+      "profile": "footprint2017",
+      "queries": 165,
+      "seconds_per_candidate": 60,
+      "seconds_per_collection": 3600.0,
+      "sha256": "22f85c6e826ec24d1ba1feb50da045995f07a170fe81a09fcb23d7082af8944c",
+      "successful_candidates": 1009
+    },
+    {
+      "candidates": 1018,
+      "deadline_failures": 0,
+      "file": "tis-context2017.json",
+      "profile": "context2017",
+      "queries": 165,
+      "seconds_per_candidate": 60,
+      "seconds_per_collection": 3600.0,
+      "sha256": "cc77f98ec4db8498c653a2191657b052534729ea6e760171a1aa9d3f358d65af",
+      "successful_candidates": 915
+    }
+  ],
+  "candidate_source_file_hashes": {
+    "experiments/rbs/candidates.py": "45acbd1e25ea3d5a63904226c4464ff681361ab1707bbc379ca49ccbd9793c74",
+    "src/regsite/__init__.py": "0b1259826d4992bb78afee240677d43fd66760ae001aeb9b102e6b3ec6245776",
+    "src/regsite/backend.py": "f0612f1c6ea0b6f9b5fd815b7b80f57e9ccf920d329ddce12637b06fe493d0b3",
+    "src/regsite/contracts.py": "44dec45866842e47bf0a97d2908d9bcbabdde46db80899c0c15c22b27e1e9a7f",
+    "src/regsite/profiles.py": "d8974c9574396d5e350d30a2d31f82bd62d7dcea32ebb966bb16c8ba1966a466",
+    "src/regsite/rbs.py": "f3cb26d6edb52b85c69344597e7a2660fd19f3fd4b94a424560405ba34d662ca",
+    "src/regsite/sequence.py": "1d38b3e074092ebcbeec2b6fd1b0a95492f3a8d57a215d72adee81ee53ddbb24",
+    "src/regsite/structures.py": "68f694b4b91e33690287136445fdad0fbad58c4130516ed1946eb56821fbe4cc"
+  },
+  "code_commit": "7547778c508d4a31b4a4f95df370923ce8bd07c3",
+  "freeze_manifest_sha256": "6315148ab9a11a60bdff1a8412c78cf5f57eb9be2acdfa6689b66376e218d4d4",
+  "learned_collections": [
+    {
+      "file": "karlsen-learned-sequence-v1.frozen.json",
+      "kind": "sequence-v1",
+      "panel": "karlsen",
+      "records": 2530,
+      "seconds": 0.1901207909686491,
+      "sha256": "8ca6d1c0fb53c65369eda7296a102a4f8d0d6faea0cac502fa9720587cb9c53c",
+      "successful": 2502,
+      "unchanged_from_previous_export_except_code_identity": true
+    },
+    {
+      "file": "karlsen-learned-context-energy-sequence-v1.frozen.json",
+      "kind": "context-energy-sequence-v1",
+      "panel": "karlsen",
+      "records": 2530,
+      "seconds": 1.662894207984209,
+      "sha256": "deefadb9441bd5fd208a877cbb740edc4634c4cd73efc84871d5ed7b91783095",
+      "successful": 2234,
+      "unchanged_from_previous_export_except_code_identity": true
+    },
+    {
+      "file": "diurnal-learned-sequence-v1.frozen.json",
+      "kind": "sequence-v1",
+      "panel": "diurnal",
+      "records": 1126,
+      "seconds": 0.11358029197435826,
+      "sha256": "3acf613c4113b3baa7e3b5f005678c8e0af2a6e1ba2c1b98da85d7d655bac6a6",
+      "successful": 1000,
+      "unchanged_from_previous_export_except_code_identity": true
+    },
+    {
+      "file": "diurnal-learned-context-energy-sequence-v1.frozen.json",
+      "kind": "context-energy-sequence-v1",
+      "panel": "diurnal",
+      "records": 1126,
+      "seconds": 0.615863332990557,
+      "sha256": "cc5361d27c54096e200cab6b9bb40287907fa77c8b58b31787f8205027aefe3d",
+      "successful": 893,
+      "unchanged_from_previous_export_except_code_identity": true
+    },
+    {
+      "file": "tis-learned-sequence-v1.frozen.json",
+      "kind": "sequence-v1",
+      "panel": "tis",
+      "records": 1020,
+      "seconds": 0.09976129198912531,
+      "sha256": "b9a4d98cd067e36a5a6a4c549da687348f06be9365d2e7f32aab928a9eae511f",
+      "successful": 1018,
+      "unchanged_from_previous_export_except_code_identity": true
+    },
+    {
+      "file": "footprint2017-learned-sequence-v1.frozen.json",
+      "sha256": "215c2337fb4fc26fd9364ad4d28e3ed58abddee159884262abbd6abde2125efd",
+      "statuses": {
+        "ok": 27
+      }
+    },
+    {
+      "file": "footprint2017-learned-context-energy-sequence-v1.frozen.json",
+      "sha256": "073ef90397577ad9fa534cd8c2277094f052618807031a504999949400b8119a",
+      "statuses": {
+        "ok": 27
+      }
+    },
+    {
+      "file": "tis-learned-context-energy-sequence-v1.frozen.json",
+      "sha256": "e4bb13fc39c85c901e8bf899b5ab0de8fab57a39134cc7566f064f64d22be172",
+      "statuses": {
+        "failed": 103,
+        "ok": 915,
+        "unsupported": 2
+      }
+    }
+  ],
+  "raw_source_exports": "Kept locally with source rights; hashes and aggregate counts are public. Evaluator owns final outcomes.",
+  "schema_version": "rbs-wave2-prediction-receipt-1",
+  "scientific_models_unchanged_after_freeze": true,
+  "secondary_prepared_inputs": {
+    "footprint2017_cache_sha256": "77a7cb484e0ed9c2c461e0d7c33b7fd4bf57b2eb638c9d260608000a07b7f924",
+    "footprint2017_input_sha256": "58b0d90818ef6c4916a21cb6cf4495d869e64aaccb6a383c1f7f191e6b026da0",
+    "tis_cache_sha256": "aef86744b0d5caa8eee083d005f81f46837bf73bdd0e9115ce2078fc52210755",
+    "tis_context_sha256": "cc77f98ec4db8498c653a2191657b052534729ea6e760171a1aa9d3f358d65af"
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "schema_version": "1.0",
+  "defaults": {
+    "calibration": "ecoli_mg1655",
+    "host": {
+      "name": "Synthetic example; no host-specific calibration"
+    },
+    "output": {
+      "states": "selected",
+      "legacy_keys": false,
+      "elements": true
+    }
+  },
+  "records": [
+    {
+      "id": "synthetic-transcript-circular",
+      "sequence": "ACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTAC",
+      "scan": {
+        "mode": "scan",
+        "range": [
+          67,
+          71
+        ],
+        "strands": [
+          "+"
+        ]
+      },
+      "projection": {
+        "contig": "synthetic-circular-contig",
+        "origin": 50,
+        "contig_length": 1000,
+        "sequence_strand": "-",
+        "topology": "circular",
+        "origin_crossing": true
+      },
+      "metadata": {
+        "purpose": "Contract example only; supplied synthetic reference is transcript-oriented.",
+        "sequence_recipe": "ACGT repeated 22 times, then AC (90 bases).",
+        "context": "67 upstream + 4 candidate + 19 downstream bases; local + maps to genomic -.",
+        "mapping": "90 supplied bases map from origin 50 down through 0, then 999 through 961."
+      }
+    },
+    {
+      "id": "synthetic-record-override",
+      "sequence": "ACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTAC",
+      "calibration": "in_vitro",
+      "host": {
+        "name": "in vitro"
+      },
+      "scan": {
+        "mode": "positions",
+        "positions": [
+          {
+            "strand": "+",
+            "tss": 0
+          },
+          {
+            "strand": "-",
+            "tss": 89
+          }
+        ]
+      },
+      "output": {
+        "states": "all",
+        "legacy_keys": true,
+        "elements": false
+      },
+      "metadata": {
+        "purpose": "Explicit record overrides; boundary candidates are valid inputs despite incomplete context.",
+        "sequence_recipe": "ACGT repeated 22 times, then AC (90 bases)."
+      }
+    }
+  ]
+}

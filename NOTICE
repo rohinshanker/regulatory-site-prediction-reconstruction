@@ -1,0 +1,74 @@
+Regulatory site prediction reconstruction — GPL-3.0-or-later.
+
+src/regsite/rbs.py adapts equations and the structural calculation procedure of:
+RBS_Calculator.py, Ribosome Binding Site Calculator v1.0
+Copyright 2008–2009 University of California Regents. All rights reserved.
+GNU General Public License version 3 or (at your option) any later version.
+https://github.com/hsalis/Ribosome-Binding-Site-Calculator-v1.0/blob/8a9c1de1bdd847bb90d2ab6ceaa3c20feceda307/RBS_Calculator.py
+
+This program is distributed WITHOUT ANY WARRANTY; without even the implied
+warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See LICENSE.
+
+RNAstructure 6.6 is independently installed software (GPL-2.0-only) by the
+Mathews Lab, University of Rochester. The Python package neither links nor bundles
+its executables or thermodynamic tables. It exchanges ordinary
+sequence/CT files with separate command-line processes. The included table
+manifest contains hashes, not table contents. Preserve RNAstructure's own
+ReadMe.txt, gpl.txt and corresponding source when separately distributing it.
+
+The separate backends/rnastructure66 component contains a source patch, builder
+and fixtures under GPL-2.0-only, an exception to the repository default. Its own
+LICENSE and README govern that component. It builds independent executables;
+no GPL-2.0-only implementation is copied into or linked with src/regsite.
+
+src/regsite/standby.py independently implements scientific relationships from
+Espah Borujeni, Channarasappa and Salis (2014), doi:10.1093/nar/gkt1139,
+including Supplementary Figure S3. The source article is CC BY 3.0. See
+docs/validation/rbs-standby.md for attribution, source pins and reconstruction
+choices. No source measurements or private model parameters are embedded.
+
+The Promoter runtime and optional benchmarks/promoter reference tools derive
+from the GPL-3.0-or-later Promoter Calculator by Travis La Fleur, Ayaan Hossain
+and Howard Salis (Copyright 2021). The source distribution preserves that scope's
+NOTICE, ORIGINAL-NOTICE, COPYING and explicit historical compatibility patch.
+The runtime wheel includes independently converted coefficients and utility tables
+in src/regsite/data/promoter-parameters-1.json, the complete original copyright and
+licence notice in promoter-ORIGINAL-NOTICE.txt, and GPLv3 in LICENSE. The deterministic
+conversion script ships in the source distribution. Historical reference tools,
+their optional dependencies and experimental measurements are not runtime wheel
+contents. See docs/validation/promoter-runtime.md and promoter-executed-reference.md
+for source, parameter and environment pins.
+
+src/regsite/conditional*.py independently implements the bounded canonical-state
+and supplied-energy relationships admitted from Espah Borujeni, Mishler, Wang,
+Huso and Salis (2015), doi:10.1093/nar/gkv1289, supplementary equations S4-S26.
+The source article and supplement are CC-BY-NC-4.0 and remain external: neither
+original prose/figures nor measurement tables are bundled in the required runtime.
+The newly expressed equations, numerical conventions, synthetic fixtures and new
+code use the repository GPL-3.0-or-later licence. Canonical folding uses separately
+installed original RNAstructure under its own GPL-2.0-only terms. This component
+does not recover constrained ribosome binding, pseudoknots or a complete
+sequence-to-switch model. See docs/validation/conditional-aptamer-contract.md
+and conditional-aptamer-runtime.md for source pins and explicit limits.
+
+No iDOG wrapper, ViennaRNA, NUPACK or private DNAc code is included.
+
+src/regsite/drafting*.py independently expresses the stationary three-state
+balances from Espah Borujeni and Salis (2016), doi:10.1021/jacs.6b01453,
+supplementary pages S15-S16. The CC-BY-NC-4.0 supplement stays external; no
+original prose, figures or experimental measurements are bundled. The new
+code and artificial mathematical fixtures use GPL-3.0-or-later. All rates and
+their time unit must be supplied explicitly; this component does not infer
+rates from sequence or establish native-host calibration. Source pins and the
+admitted domain are in docs/validation/rbs-kinetics-source-admission.md and
+docs/validation/rbs-drafting-contract.md.
+
+The optional intrinsic-termination adapter exchanges FASTA/coordinate files with
+separately installed TransTermHP 2.09. Its original source headers specify GNU
+GPL version 2; this project conservatively treats that external component as
+GPL-2.0-only. No TransTermHP source, executable or expterm.dat parameter table is
+bundled in the Python package. The offline builder preserves the external source,
+notices and exact compatibility-patch identities with its installation. See
+docs/validation/intrinsic-termination-source.md for authorship, source hashes,
+parameter provenance and the archive/banner version discrepancy. Native motif
+scores are not termination efficiencies or readthrough probabilities.

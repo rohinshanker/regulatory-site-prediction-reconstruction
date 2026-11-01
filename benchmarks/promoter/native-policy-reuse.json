@@ -1,0 +1,134 @@
+{
+  "schema_version": "wave5-cyano-policy-reuse-1",
+  "observed_date": "2026-10-18",
+  "repository": "https://github.com/rohinshanker/isaacs-cyano-gene-selection",
+  "commit": "086111949f5039782d1ed8f2fa4a4a647c0fc956",
+  "working_tree_clean": false,
+  "dirty_paths_at_observation": [
+    " M docs/notes/tickets/INDEX.md",
+    " M docs/notes/tickets/O_folding-compute-backend__20260930.md",
+    " M docs/notes/tickets/O_idog-promoter-prediction__20260930.md",
+    " M docs/notes/tickets/O_rbs-calculator-gene-visualizer__20260930.md",
+    " M docs/notes/tickets/O_recoding-regulatory-site-change__20260930.md",
+    " M docs/validation/INDEX.md",
+    " M docs/validation/regulatory-methods.md",
+    " M docs/validation/regulatory-transfer.md",
+    "?? docs/validation/denovo-calculators.md"
+  ],
+  "authority": "Only hash-pinned files identical to the recorded commit are reused. Unrelated uncommitted documentation is not authority. No writes or tests that modify consumer artifacts were performed.",
+  "files": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "9dd1105c9974e56a108a55bea138b5364a47dff012c4ef4657184a6b334d6f25",
+      "bytes": 3428,
+      "matches_pinned_commit": true
+    },
+    {
+      "path": "data/expression/TAN2018_TSS_PROVENANCE.md",
+      "sha256": "dc45563ee2a92aaa74b231becafa28992a787a0f8210765705e5aedfcc7d8adf",
+      "bytes": 26095,
+      "matches_pinned_commit": true
+    },
+    {
+      "path": "data/expression/tan2018_utex2973_tss_table_s1.tsv",
+      "sha256": "d06524cf492aa8f009bf004c596a5d305ac54acbe7537ec98bbc7992ce164bff",
+      "bytes": 491394,
+      "matches_pinned_commit": true
+    },
+    {
+      "path": "data/expression/tan2018_utex2973_regulatory_tss_table_s1.tsv",
+      "sha256": "98a19729bf47940bf6832e3f08c3548fc4ddc7bb866176ab70e9c92c7c8d3dbe",
+      "bytes": 548552,
+      "matches_pinned_commit": true
+    },
+    {
+      "path": "data/expression/tan2018_utex2973_tss_initiation_control.tsv",
+      "sha256": "1264631c1fd9f041082c970828cf2a3a40c87999b692601f6de8aa4d53b4eb65",
+      "bytes": 74660,
+      "matches_pinned_commit": true
+    },
+    {
+      "path": "scripts/prepare_tan2018.py",
+      "sha256": "8a1d232f2ec21279f4377bef91fd5197e5eb90b86f7a5b0c99a189df7feb4011",
+      "bytes": 3400,
+      "matches_pinned_commit": true
+    },
+    {
+      "path": "scripts/tss_evidence.py",
+      "sha256": "6c43afa7c6e53c49a599585b3ca537646a5f2af3087adb6c6ee6b64286387237",
+      "bytes": 5658,
+      "matches_pinned_commit": true
+    },
+    {
+      "path": "tools/tan2018_condition_initiation.py",
+      "sha256": "23072fc74c9913a629f9629bee939ab0d434b145dd9900c818a6e726ef9c983b",
+      "bytes": 16209,
+      "matches_pinned_commit": true
+    },
+    {
+      "path": "site/js/core/gene-view-model.js",
+      "sha256": "38817c5cb36fa917fbe04d3a09c995968d31e3e9eb35f09ae4eb4d5843c6381a",
+      "bytes": 18998,
+      "matches_pinned_commit": true
+    },
+    {
+      "path": "site/data/genes.json",
+      "sha256": "d87acf792efbd62a54ca872b7d2c6c44de0bef1702989963ed6d8ce4bab2d610",
+      "bytes": 4079627,
+      "matches_pinned_commit": true
+    },
+    {
+      "path": "site/data/tss_evidence.json",
+      "sha256": "5bc931e453064411611a504271e99890452f677fcd09752a819e863e08535a1a",
+      "bytes": 1193977,
+      "matches_pinned_commit": true
+    },
+    {
+      "path": "data/manifest/annotation-release-v1.json",
+      "sha256": "8c72eccb0b5dfbe1588d5746c6827d5ad4adfd024061c3bfc7a8e5b0fbe29015",
+      "bytes": 9002,
+      "matches_pinned_commit": true
+    },
+    {
+      "path": "data/annotation/releases/GCF_000817325.1-RS_2026_05_13/release-summary-v1.json",
+      "sha256": "fc8cff608959eef1f96e6bfd4b2c77e90d4d741a2294030b40aa6873b031d810",
+      "bytes": 1650,
+      "matches_pinned_commit": true
+    },
+    {
+      "path": "tests/test_genome_integration.py",
+      "sha256": "d9ec97a7a8ec6537df538ba314e173c97f4a1609b577d229b6ed9c29096e4d67",
+      "bytes": 15265,
+      "matches_pinned_commit": true
+    },
+    {
+      "path": "docs/validation/regulatory-promoter.md",
+      "sha256": "b461a5b98dd99d8f88e6be096121cacf264abf92213970c33327b665e9d79999",
+      "bytes": 11689,
+      "matches_pinned_commit": true
+    }
+  ],
+  "portable_source": "benchmarks/rbs/native-sources.json; unchanged Tan envelope sha256 c442baf07480ddece0956a9ac10aefd5884472ec63ed0c62166e2ad7ef8a03d5",
+  "policy": [
+    "Use publisher Table S1 rows and per-condition source metadata; legacy pooled layer is a different historical artifact.",
+    "Exact locus/replicon/strand joins only. Preserve source absolute TSS and source distance to paper-era CDS separately from current CDS.",
+    "Display placement disagreement is already handled by tssSiteRows; it is not authority to repair either source.",
+    "No new alias, nearest-coordinate, reannotation, consumer-runtime or UI work.",
+    "Native positional evaluation uses absolute source TSS on its pinned replicon, independent genome tiles and no CDS join. RBS context sensitivity preserves current/source annotation scenarios."
+  ],
+  "known_denominators": {
+    "consumer_gTSS_rows": 2475,
+    "consumer_exact_current_cds_rows": 2432,
+    "consumer_current_loci": 1789,
+    "consumer_no_current_id_rows": 10,
+    "consumer_absent_current_cds_rows": 33,
+    "source_current_start_disagreements": 236,
+    "internal_current_cds_gTSS_rows": 15,
+    "portable_all_s1_rows": 4808
+  },
+  "limits": [
+    "Consumer protein-coding-only joined population differs from portable GFF-preserving population; do not claim denominator parity.",
+    "Source S1/S8 differential-value conflict is already documented by consumer. Native envelope does not carry DESeq2/S8 fields; Wave5 does not use differential-expression values.",
+    "Consumer prior localization pilot uses answer-centered +/-20nt neighborhoods; reuse source and coordinate cautions only, not that evaluation design as independent localization."
+  ]
+}

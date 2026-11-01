@@ -1,0 +1,4791 @@
+{
+  "conditions": {
+    "BRISE": {
+      "n_train": 581,
+      "n_final": 213,
+      "n_final_groups": 203,
+      "models": {
+        "historical": {
+          "condition_training_calibration": {
+            "method": "development_train_median_log2_residual",
+            "offset_log2": -5.670409646138783,
+            "n_training_cases": 581,
+            "n_fitted": 562,
+            "assay_exclusions": {},
+            "final_refit": false
+          },
+          "frozen_HC_transfer": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": -4.141397223615085,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 198,
+              "failures": {
+                "failed": 1,
+                "no_candidate": 14
+              },
+              "coverage": 0.9295774647887324,
+              "pearson_r_log": 0.1780844796976136,
+              "pearson_r2_log": 0.03171408190916975,
+              "spearman_rho": 0.2625485430896542,
+              "rmse_log2": 6.109370387696052,
+              "mae_log2": 4.451106469846693,
+              "median_absolute_log2": 3.374704368978537,
+              "bias_log2": 0.3642937267698431,
+              "within_2fold": {
+                "n": 32,
+                "all_case_fraction": 0.15023474178403756,
+                "successful_pair_fraction": 0.16161616161616163,
+                "all_case_wilson95": [
+                  0.10847236159522582,
+                  0.20438966760183896
+                ]
+              },
+              "within_5fold": {
+                "n": 62,
+                "all_case_fraction": 0.29107981220657275,
+                "successful_pair_fraction": 0.31313131313131315,
+                "all_case_wilson95": [
+                  0.23420588674224646,
+                  0.3553559964694231
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              3.9077936359625616,
+              4.991350814773124
+            ]
+          },
+          "condition_train_intercept": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": -5.670409646138783,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 198,
+              "failures": {
+                "failed": 1,
+                "no_candidate": 14
+              },
+              "coverage": 0.9295774647887324,
+              "pearson_r_log": 0.1780844796976136,
+              "pearson_r2_log": 0.03171408190916975,
+              "spearman_rho": 0.2625485430896542,
+              "rmse_log2": 6.208725010413339,
+              "mae_log2": 4.15198537327075,
+              "median_absolute_log2": 2.7773348266564466,
+              "bias_log2": -1.1647186957538544,
+              "within_2fold": {
+                "n": 35,
+                "all_case_fraction": 0.1643192488262911,
+                "successful_pair_fraction": 0.17676767676767677,
+                "all_case_wilson95": [
+                  0.12058672442281199,
+                  0.2199452901757133
+                ]
+              },
+              "within_5fold": {
+                "n": 87,
+                "all_case_fraction": 0.4084507042253521,
+                "successful_pair_fraction": 0.4393939393939394,
+                "all_case_wilson95": [
+                  0.34462767497361263,
+                  0.4755174199168944
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              3.530899209674726,
+              4.785034912723281
+            ]
+          }
+        },
+        "footprint2017": {
+          "condition_training_calibration": {
+            "method": "development_train_median_log2_residual",
+            "offset_log2": -7.066202959353552,
+            "n_training_cases": 581,
+            "n_fitted": 562,
+            "assay_exclusions": {},
+            "final_refit": false
+          },
+          "frozen_HC_transfer": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": -5.575386760969535,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 198,
+              "failures": {
+                "failed": 1,
+                "no_candidate": 14
+              },
+              "coverage": 0.9295774647887324,
+              "pearson_r_log": 0.15575757411940216,
+              "pearson_r2_log": 0.02426042189556106,
+              "spearman_rho": 0.23905257385099102,
+              "rmse_log2": 6.194197617874262,
+              "mae_log2": 4.497737572638419,
+              "median_absolute_log2": 3.600444527287002,
+              "bias_log2": 0.32920249843545824,
+              "within_2fold": {
+                "n": 31,
+                "all_case_fraction": 0.14553990610328638,
+                "successful_pair_fraction": 0.15656565656565657,
+                "all_case_wilson95": [
+                  0.10446432339143151,
+                  0.19917437733847976
+                ]
+              },
+              "within_5fold": {
+                "n": 59,
+                "all_case_fraction": 0.27699530516431925,
+                "successful_pair_fraction": 0.29797979797979796,
+                "all_case_wilson95": [
+                  0.22125109949423383,
+                  0.3406407983159754
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              3.9350524473722746,
+              5.061253674850764
+            ]
+          },
+          "condition_train_intercept": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": -7.066202959353552,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 198,
+              "failures": {
+                "failed": 1,
+                "no_candidate": 14
+              },
+              "coverage": 0.9295774647887324,
+              "pearson_r_log": 0.1557575741194022,
+              "pearson_r2_log": 0.024260421895561067,
+              "spearman_rho": 0.23905257385099102,
+              "rmse_log2": 6.293572612770207,
+              "mae_log2": 4.194780204825435,
+              "median_absolute_log2": 2.6793982399272496,
+              "bias_log2": -1.1616136999485582,
+              "within_2fold": {
+                "n": 31,
+                "all_case_fraction": 0.14553990610328638,
+                "successful_pair_fraction": 0.15656565656565657,
+                "all_case_wilson95": [
+                  0.10446432339143151,
+                  0.19917437733847976
+                ]
+              },
+              "within_5fold": {
+                "n": 86,
+                "all_case_fraction": 0.40375586854460094,
+                "successful_pair_fraction": 0.43434343434343436,
+                "all_case_wilson95": [
+                  0.34013333173986837,
+                  0.4707884346834851
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              3.572855806287633,
+              4.834921680555222
+            ]
+          }
+        },
+        "context2017": {
+          "condition_training_calibration": {
+            "method": "development_train_median_log2_residual",
+            "offset_log2": -3.7452938301128866,
+            "n_training_cases": 581,
+            "n_fitted": 514,
+            "assay_exclusions": {},
+            "final_refit": false
+          },
+          "frozen_HC_transfer": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": -1.9932562199351087,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 190,
+              "failures": {
+                "failed": 23
+              },
+              "coverage": 0.892018779342723,
+              "pearson_r_log": 0.0976830788191082,
+              "pearson_r2_log": 0.009541983887580105,
+              "spearman_rho": 0.16266239886909004,
+              "rmse_log2": 63.31779927975586,
+              "mae_log2": 27.607388103516506,
+              "median_absolute_log2": 5.410970593195952,
+              "bias_log2": -21.836994965472122,
+              "within_2fold": {
+                "n": 19,
+                "all_case_fraction": 0.0892018779342723,
+                "successful_pair_fraction": 0.1,
+                "all_case_wilson95": [
+                  0.057849629498576194,
+                  0.13510912962549318
+                ]
+              },
+              "within_5fold": {
+                "n": 41,
+                "all_case_fraction": 0.19248826291079812,
+                "successful_pair_fraction": 0.21578947368421053,
+                "all_case_wilson95": [
+                  0.14517884654013308,
+                  0.25069313886131317
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              19.781112348547147,
+              36.02412817046131
+            ]
+          },
+          "condition_train_intercept": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": -3.7452938301128866,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 190,
+              "failures": {
+                "failed": 23
+              },
+              "coverage": 0.892018779342723,
+              "pearson_r_log": 0.0976830788191082,
+              "pearson_r2_log": 0.009541983887580105,
+              "spearman_rho": 0.16266239886909004,
+              "rmse_log2": 63.94319208769976,
+              "mae_log2": 27.52447215664211,
+              "median_absolute_log2": 4.723333112323291,
+              "bias_log2": -23.5890325756499,
+              "within_2fold": {
+                "n": 19,
+                "all_case_fraction": 0.0892018779342723,
+                "successful_pair_fraction": 0.1,
+                "all_case_wilson95": [
+                  0.057849629498576194,
+                  0.13510912962549318
+                ]
+              },
+              "within_5fold": {
+                "n": 44,
+                "all_case_fraction": 0.20657276995305165,
+                "successful_pair_fraction": 0.23157894736842105,
+                "all_case_wilson95": [
+                  0.15763594087690821,
+                  0.26590602992599854
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              19.566473170109422,
+              36.0970329691038
+            ]
+          }
+        },
+        "ostir": {
+          "condition_training_calibration": {
+            "method": "development_train_median_log2_residual",
+            "offset_log2": -8.419856206509166,
+            "n_training_cases": 581,
+            "n_fitted": 580,
+            "assay_exclusions": {},
+            "final_refit": false
+          },
+          "frozen_HC_transfer": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": -7.0141898124920505,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 213,
+              "failures": {},
+              "coverage": 1.0,
+              "pearson_r_log": 0.17986468872471187,
+              "pearson_r2_log": 0.032351306250037494,
+              "spearman_rho": 0.25553334786846443,
+              "rmse_log2": 3.678910209704971,
+              "mae_log2": 2.8014443698101874,
+              "median_absolute_log2": 2.2062960553830164,
+              "bias_log2": 0.9546491624262938,
+              "within_2fold": {
+                "n": 46,
+                "all_case_fraction": 0.215962441314554,
+                "successful_pair_fraction": 0.215962441314554,
+                "all_case_wilson95": [
+                  0.16599469107381842,
+                  0.2759939366633953
+                ]
+              },
+              "within_5fold": {
+                "n": 113,
+                "all_case_fraction": 0.5305164319248826,
+                "successful_pair_fraction": 0.5305164319248826,
+                "all_case_wilson95": [
+                  0.46354785500819395,
+                  0.5964037800283037
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              2.4934437245015904,
+              3.1322787125777865
+            ]
+          },
+          "condition_train_intercept": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": -8.419856206509166,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 213,
+              "failures": {},
+              "coverage": 1.0,
+              "pearson_r_log": 0.17986468872471184,
+              "pearson_r2_log": 0.03235130625003748,
+              "spearman_rho": 0.25553334786846443,
+              "rmse_log2": 3.581402218537049,
+              "mae_log2": 2.390248610747962,
+              "median_absolute_log2": 1.5351197270954016,
+              "bias_log2": -0.4510172315908221,
+              "within_2fold": {
+                "n": 77,
+                "all_case_fraction": 0.3615023474178404,
+                "successful_pair_fraction": 0.3615023474178404,
+                "all_case_wilson95": [
+                  0.2999630342048558,
+                  0.4279487760141162
+                ]
+              },
+              "within_5fold": {
+                "n": 139,
+                "all_case_fraction": 0.6525821596244131,
+                "successful_pair_fraction": 0.6525821596244131,
+                "all_case_wilson95": [
+                  0.5864460867792577,
+                  0.7133120884032308
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              2.0612192323066227,
+              2.7522356512736894
+            ]
+          }
+        },
+        "rebeca": {
+          "condition_training_calibration": {
+            "method": "development_train_median_log2_residual",
+            "offset_log2": -8.768710958626599,
+            "n_training_cases": 581,
+            "n_fitted": 581,
+            "assay_exclusions": {},
+            "final_refit": false
+          },
+          "frozen_HC_transfer": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": -7.582779119016097,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 213,
+              "failures": {},
+              "coverage": 1.0,
+              "pearson_r_log": 0.193699682063278,
+              "pearson_r2_log": 0.03751956683141498,
+              "spearman_rho": 0.20180011474241322,
+              "rmse_log2": 4.719035052803049,
+              "mae_log2": 3.8214294154731623,
+              "median_absolute_log2": 3.2399096869351096,
+              "bias_log2": 2.1428786831086413,
+              "within_2fold": {
+                "n": 30,
+                "all_case_fraction": 0.14084507042253522,
+                "successful_pair_fraction": 0.14084507042253522,
+                "all_case_wilson95": [
+                  0.10047228580295067,
+                  0.19394308645980715
+                ]
+              },
+              "within_5fold": {
+                "n": 80,
+                "all_case_fraction": 0.3755868544600939,
+                "successful_pair_fraction": 0.3755868544600939,
+                "all_case_wilson95": [
+                  0.3132965150855755,
+                  0.442285280534857
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              3.463953367534973,
+              4.187831062778434
+            ]
+          },
+          "condition_train_intercept": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": -8.768710958626599,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 213,
+              "failures": {},
+              "coverage": 1.0,
+              "pearson_r_log": 0.193699682063278,
+              "pearson_r2_log": 0.03751956683141498,
+              "spearman_rho": 0.20180011474241322,
+              "rmse_log2": 4.311972871012004,
+              "mae_log2": 3.624482164407556,
+              "median_absolute_log2": 3.4314304350617295,
+              "bias_log2": 0.9569468434981391,
+              "within_2fold": {
+                "n": 34,
+                "all_case_fraction": 0.1596244131455399,
+                "successful_pair_fraction": 0.1596244131455399,
+                "all_case_wilson95": [
+                  0.11653409589998884,
+                  0.21477459023138293
+                ]
+              },
+              "within_5fold": {
+                "n": 73,
+                "all_case_fraction": 0.3427230046948357,
+                "successful_pair_fraction": 0.3427230046948357,
+                "all_case_wilson95": [
+                  0.2822761024998846,
+                  0.40874239385047345
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              3.318257749769072,
+              3.926773776773588
+            ]
+          }
+        },
+        "sequence_v1": {
+          "condition_training_calibration": {
+            "method": "development_train_median_log2_residual",
+            "offset_log2": -1.0355315420045474,
+            "n_training_cases": 581,
+            "n_fitted": 581,
+            "assay_exclusions": {},
+            "final_refit": false
+          },
+          "frozen_HC_transfer": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": 0.04659637563372265,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 213,
+              "failures": {},
+              "coverage": 1.0,
+              "pearson_r_log": 0.22370643695628917,
+              "pearson_r2_log": 0.05004456993567818,
+              "spearman_rho": 0.25483619402892405,
+              "rmse_log2": 1.4120009132720996,
+              "mae_log2": 1.2149269792029596,
+              "median_absolute_log2": 1.146254662338526,
+              "bias_log2": 1.0940731806044963,
+              "within_2fold": {
+                "n": 93,
+                "all_case_fraction": 0.43661971830985913,
+                "successful_pair_fraction": 0.43661971830985913,
+                "all_case_wilson95": [
+                  0.37171999144689516,
+                  0.5037650742465327
+                ]
+              },
+              "within_5fold": {
+                "n": 198,
+                "all_case_fraction": 0.9295774647887324,
+                "successful_pair_fraction": 0.9295774647887324,
+                "all_case_wilson95": [
+                  0.8870727291215519,
+                  0.9568618256229928
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              1.121793081960646,
+              1.3168433391010241
+            ]
+          },
+          "condition_train_intercept": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": -1.0355315420045474,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 213,
+              "failures": {},
+              "coverage": 1.0,
+              "pearson_r_log": 0.22370643695628917,
+              "pearson_r2_log": 0.05004456993567818,
+              "spearman_rho": 0.25483619402892405,
+              "rmse_log2": 0.8926887161102334,
+              "mae_log2": 0.6857524198126538,
+              "median_absolute_log2": 0.5287965492704279,
+              "bias_log2": 0.011945262966226174,
+              "within_2fold": {
+                "n": 169,
+                "all_case_fraction": 0.7934272300469484,
+                "successful_pair_fraction": 0.7934272300469484,
+                "all_case_wilson95": [
+                  0.7340939700740015,
+                  0.8423640591230919
+                ]
+              },
+              "within_5fold": {
+                "n": 209,
+                "all_case_fraction": 0.9812206572769953,
+                "successful_pair_fraction": 0.9812206572769953,
+                "all_case_wilson95": [
+                  0.9527177201011988,
+                  0.9926734477820341
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              0.6124690184383005,
+              0.7659678406046403
+            ]
+          }
+        },
+        "hybrid": {
+          "condition_training_calibration": {
+            "method": "development_train_median_log2_residual",
+            "offset_log2": -1.0098831060751332,
+            "n_training_cases": 581,
+            "n_fitted": 514,
+            "assay_exclusions": {},
+            "final_refit": false
+          },
+          "frozen_HC_transfer": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": 0.039102431228718926,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 190,
+              "failures": {
+                "failed": 23
+              },
+              "coverage": 0.892018779342723,
+              "pearson_r_log": 0.26892101331727986,
+              "pearson_r2_log": 0.0723185114035926,
+              "spearman_rho": 0.3006057902172534,
+              "rmse_log2": 1.3941926811752379,
+              "mae_log2": 1.2035970439988135,
+              "median_absolute_log2": 1.1636221554994968,
+              "bias_log2": 1.0888846503980711,
+              "within_2fold": {
+                "n": 80,
+                "all_case_fraction": 0.3755868544600939,
+                "successful_pair_fraction": 0.42105263157894735,
+                "all_case_wilson95": [
+                  0.3132965150855755,
+                  0.442285280534857
+                ]
+              },
+              "within_5fold": {
+                "n": 177,
+                "all_case_fraction": 0.8309859154929577,
+                "successful_pair_fraction": 0.9315789473684211,
+                "all_case_wilson95": [
+                  0.774897867344703,
+                  0.8753467895896182
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              1.1020985803181873,
+              1.3024220777481725
+            ]
+          },
+          "condition_train_intercept": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": -1.0098831060751332,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 190,
+              "failures": {
+                "failed": 23
+              },
+              "coverage": 0.892018779342723,
+              "pearson_r_log": 0.26892101331727986,
+              "pearson_r2_log": 0.0723185114035926,
+              "spearman_rho": 0.3006057902172534,
+              "rmse_log2": 0.8716050651503662,
+              "mae_log2": 0.6629393195733128,
+              "median_absolute_log2": 0.5454163311984459,
+              "bias_log2": 0.039899113094218994,
+              "within_2fold": {
+                "n": 154,
+                "all_case_fraction": 0.7230046948356808,
+                "successful_pair_fraction": 0.8105263157894737,
+                "all_case_wilson95": [
+                  0.6593592016840247,
+                  0.7787489005057663
+                ]
+              },
+              "within_5fold": {
+                "n": 186,
+                "all_case_fraction": 0.8732394366197183,
+                "successful_pair_fraction": 0.9789473684210527,
+                "all_case_wilson95": [
+                  0.821853518132522,
+                  0.9114010950061805
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              0.5842410003569182,
+              0.7454498017366523
+            ]
+          }
+        },
+        "historical_affine": {
+          "condition_training_calibration": {
+            "method": "development_train_median_log2_residual",
+            "offset_log2": -1.0749648188080092,
+            "n_training_cases": 581,
+            "n_fitted": 562,
+            "assay_exclusions": {},
+            "final_refit": false
+          },
+          "frozen_HC_transfer": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": 5.551115123125783e-17,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 198,
+              "failures": {
+                "failed": 1,
+                "no_candidate": 14
+              },
+              "coverage": 0.9295774647887324,
+              "pearson_r_log": 0.17808447969761343,
+              "pearson_r2_log": 0.03171408190916969,
+              "spearman_rho": 0.2624321275247393,
+              "rmse_log2": 1.397224472334264,
+              "mae_log2": 1.1990358421871867,
+              "median_absolute_log2": 1.1170091663817447,
+              "bias_log2": 1.0914117103172833,
+              "within_2fold": {
+                "n": 89,
+                "all_case_fraction": 0.41784037558685444,
+                "successful_pair_fraction": 0.4494949494949495,
+                "all_case_wilson95": [
+                  0.3536345122107952,
+                  0.4849572396140187
+                ]
+              },
+              "within_5fold": {
+                "n": 186,
+                "all_case_fraction": 0.8732394366197183,
+                "successful_pair_fraction": 0.9393939393939394,
+                "all_case_wilson95": [
+                  0.821853518132522,
+                  0.9114010950061805
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              1.102039994375494,
+              1.3020626762426286
+            ]
+          },
+          "condition_train_intercept": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": -1.0749648188080092,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 198,
+              "failures": {
+                "failed": 1,
+                "no_candidate": 14
+              },
+              "coverage": 0.9295774647887324,
+              "pearson_r_log": 0.17808447969761348,
+              "pearson_r2_log": 0.03171408190916971,
+              "spearman_rho": 0.2624321275247393,
+              "rmse_log2": 0.8725406608934525,
+              "mae_log2": 0.6849655000392424,
+              "median_absolute_log2": 0.5979740734697356,
+              "bias_log2": 0.016446891509274062,
+              "within_2fold": {
+                "n": 155,
+                "all_case_fraction": 0.7276995305164319,
+                "successful_pair_fraction": 0.7828282828282829,
+                "all_case_wilson95": [
+                  0.6642800823645946,
+                  0.7830513482923497
+                ]
+              },
+              "within_5fold": {
+                "n": 195,
+                "all_case_fraction": 0.9154929577464789,
+                "successful_pair_fraction": 0.9848484848484849,
+                "all_case_wilson95": [
+                  0.8703864075027176,
+                  0.9458781618403665
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              0.6156362667230755,
+              0.7572409980148083
+            ]
+          }
+        },
+        "ostir_affine": {
+          "condition_training_calibration": {
+            "method": "development_train_median_log2_residual",
+            "offset_log2": -1.1151142173828692,
+            "n_training_cases": 581,
+            "n_fitted": 580,
+            "assay_exclusions": {},
+            "final_refit": false
+          },
+          "frozen_HC_transfer": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": 0.0,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 213,
+              "failures": {},
+              "coverage": 1.0,
+              "pearson_r_log": 0.17986468872471187,
+              "pearson_r2_log": 0.032351306250037494,
+              "spearman_rho": 0.25553334786846443,
+              "rmse_log2": 1.4233004160300156,
+              "mae_log2": 1.2283864137236744,
+              "median_absolute_log2": 1.1548715445320226,
+              "bias_log2": 1.1015391388250628,
+              "within_2fold": {
+                "n": 94,
+                "all_case_fraction": 0.4413145539906103,
+                "successful_pair_fraction": 0.4413145539906103,
+                "all_case_wilson95": [
+                  0.3762561751629617,
+                  0.5084522189976197
+                ]
+              },
+              "within_5fold": {
+                "n": 199,
+                "all_case_fraction": 0.9342723004694836,
+                "successful_pair_fraction": 0.9342723004694836,
+                "all_case_wilson95": [
+                  0.8927107458966729,
+                  0.9604471373150253
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              1.1380130157392716,
+              1.3302370479334114
+            ]
+          },
+          "condition_train_intercept": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": -1.1151142173828692,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 213,
+              "failures": {},
+              "coverage": 1.0,
+              "pearson_r_log": 0.1798646887247119,
+              "pearson_r2_log": 0.0323513062500375,
+              "spearman_rho": 0.25553334786846443,
+              "rmse_log2": 0.901432128707206,
+              "mae_log2": 0.6870257601034507,
+              "median_absolute_log2": 0.5389533288659133,
+              "bias_log2": -0.013575078557806292,
+              "within_2fold": {
+                "n": 173,
+                "all_case_fraction": 0.812206572769953,
+                "successful_pair_fraction": 0.812206572769953,
+                "all_case_wilson95": [
+                  0.7544005654978688,
+                  0.8589507775678383
+                ]
+              },
+              "within_5fold": {
+                "n": 208,
+                "all_case_fraction": 0.9765258215962441,
+                "successful_pair_fraction": 0.9765258215962441,
+                "all_case_wilson95": [
+                  0.9462353262426276,
+                  0.9899325131734519
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              0.6140620532632902,
+              0.7659515579903604
+            ]
+          }
+        },
+        "constant": {
+          "condition_training_calibration": {
+            "method": "development_train_median_log2_residual",
+            "offset_log2": -0.22536428796639996,
+            "n_training_cases": 581,
+            "n_fitted": 581,
+            "assay_exclusions": {},
+            "final_refit": false
+          },
+          "frozen_HC_transfer": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": 0.8639384504239717,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 213,
+              "failures": {},
+              "coverage": 1.0,
+              "pearson_r_log": null,
+              "pearson_r2_log": null,
+              "spearman_rho": null,
+              "rmse_log2": 1.407951858859278,
+              "mae_log2": 1.2009112776984854,
+              "median_absolute_log2": 1.0963524451254718,
+              "bias_log2": 1.0693944305055563,
+              "within_2fold": {
+                "n": 96,
+                "all_case_fraction": 0.4507042253521127,
+                "successful_pair_fraction": 0.4507042253521127,
+                "all_case_wilson95": [
+                  0.3853461719025096,
+                  0.517808879192379
+                ]
+              },
+              "within_5fold": {
+                "n": 199,
+                "all_case_fraction": 0.9342723004694836,
+                "successful_pair_fraction": 0.9342723004694836,
+                "all_case_wilson95": [
+                  0.8927107458966729,
+                  0.9604471373150253
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              1.1065072298342797,
+              1.3043542524893894
+            ]
+          },
+          "condition_train_intercept": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": -0.22536428796639996,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 213,
+              "failures": {},
+              "coverage": 1.0,
+              "pearson_r_log": null,
+              "pearson_r2_log": null,
+              "spearman_rho": null,
+              "rmse_log2": 0.9160351137329998,
+              "mae_log2": 0.7104019163146799,
+              "median_absolute_log2": 0.6050748293649999,
+              "bias_log2": -0.01990830788481533,
+              "within_2fold": {
+                "n": 169,
+                "all_case_fraction": 0.7934272300469484,
+                "successful_pair_fraction": 0.7934272300469484,
+                "all_case_wilson95": [
+                  0.7340939700740015,
+                  0.8423640591230919
+                ]
+              },
+              "within_5fold": {
+                "n": 209,
+                "all_case_fraction": 0.9812206572769953,
+                "successful_pair_fraction": 0.9812206572769953,
+                "all_case_wilson95": [
+                  0.9527177201011988,
+                  0.9926734477820341
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              0.6345667282570917,
+              0.7887428586492039
+            ]
+          }
+        }
+      }
+    },
+    "ARISE": {
+      "n_train": 581,
+      "n_final": 213,
+      "n_final_groups": 203,
+      "models": {
+        "historical": {
+          "condition_training_calibration": {
+            "method": "development_train_median_log2_residual",
+            "offset_log2": -5.873342908128338,
+            "n_training_cases": 581,
+            "n_fitted": 562,
+            "assay_exclusions": {},
+            "final_refit": false
+          },
+          "frozen_HC_transfer": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": -4.141397223615085,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 198,
+              "failures": {
+                "failed": 1,
+                "no_candidate": 14
+              },
+              "coverage": 0.9295774647887324,
+              "pearson_r_log": 0.12956177047232104,
+              "pearson_r2_log": 0.0167862523679224,
+              "spearman_rho": 0.2298221529639107,
+              "rmse_log2": 6.170332685150342,
+              "mae_log2": 4.582403104087191,
+              "median_absolute_log2": 3.6606963647221793,
+              "bias_log2": 0.5956799068489994,
+              "within_2fold": {
+                "n": 27,
+                "all_case_fraction": 0.1267605633802817,
+                "successful_pair_fraction": 0.13636363636363635,
+                "all_case_wilson95": [
+                  0.08859890499381946,
+                  0.1781464818674779
+                ]
+              },
+              "within_5fold": {
+                "n": 60,
+                "all_case_fraction": 0.28169014084507044,
+                "successful_pair_fraction": 0.30303030303030304,
+                "all_case_wilson95": [
+                  0.22556153349778882,
+                  0.3455536927795739
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              4.037027408434261,
+              5.1103112769720145
+            ]
+          },
+          "condition_train_intercept": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": -5.873342908128338,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 198,
+              "failures": {
+                "failed": 1,
+                "no_candidate": 14
+              },
+              "coverage": 0.9295774647887324,
+              "pearson_r_log": 0.12956177047232104,
+              "pearson_r2_log": 0.0167862523679224,
+              "spearman_rho": 0.2298221529639107,
+              "rmse_log2": 6.245740213257508,
+              "mae_log2": 4.215480375777278,
+              "median_absolute_log2": 2.8788524467757792,
+              "bias_log2": -1.1362657776642533,
+              "within_2fold": {
+                "n": 33,
+                "all_case_fraction": 0.15492957746478872,
+                "successful_pair_fraction": 0.16666666666666666,
+                "all_case_wilson95": [
+                  0.11249580356146419,
+                  0.20958955410275407
+                ]
+              },
+              "within_5fold": {
+                "n": 83,
+                "all_case_fraction": 0.38967136150234744,
+                "successful_pair_fraction": 0.41919191919191917,
+                "all_case_wilson95": [
+                  0.3266870021522688,
+                  0.45656477886962427
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              3.6082846836662346,
+              4.845156053643389
+            ]
+          }
+        },
+        "footprint2017": {
+          "condition_training_calibration": {
+            "method": "development_train_median_log2_residual",
+            "offset_log2": -7.31946304520965,
+            "n_training_cases": 581,
+            "n_fitted": 562,
+            "assay_exclusions": {},
+            "final_refit": false
+          },
+          "frozen_HC_transfer": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": -5.575386760969535,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 198,
+              "failures": {
+                "failed": 1,
+                "no_candidate": 14
+              },
+              "coverage": 0.9295774647887324,
+              "pearson_r_log": 0.1031669265516751,
+              "pearson_r2_log": 0.010643414734118724,
+              "spearman_rho": 0.19842010613908687,
+              "rmse_log2": 6.256606872352338,
+              "mae_log2": 4.654630135055287,
+              "median_absolute_log2": 4.068505204124402,
+              "bias_log2": 0.5605886785146145,
+              "within_2fold": {
+                "n": 27,
+                "all_case_fraction": 0.1267605633802817,
+                "successful_pair_fraction": 0.13636363636363635,
+                "all_case_wilson95": [
+                  0.08859890499381946,
+                  0.1781464818674779
+                ]
+              },
+              "within_5fold": {
+                "n": 56,
+                "all_case_fraction": 0.26291079812206575,
+                "successful_pair_fraction": 0.2828282828282828,
+                "all_case_wilson95": [
+                  0.20836822250514192,
+                  0.3258536899036068
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              4.094527313946926,
+              5.200710411808783
+            ]
+          },
+          "condition_train_intercept": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": -7.31946304520965,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 198,
+              "failures": {
+                "failed": 1,
+                "no_candidate": 14
+              },
+              "coverage": 0.9295774647887324,
+              "pearson_r_log": 0.10316692655167509,
+              "pearson_r2_log": 0.010643414734118723,
+              "spearman_rho": 0.19842010613908687,
+              "rmse_log2": 6.34283160753883,
+              "mae_log2": 4.259735059186529,
+              "median_absolute_log2": 2.884752076378438,
+              "bias_log2": -1.1834876057255004,
+              "within_2fold": {
+                "n": 31,
+                "all_case_fraction": 0.14553990610328638,
+                "successful_pair_fraction": 0.15656565656565657,
+                "all_case_wilson95": [
+                  0.10446432339143151,
+                  0.19917437733847976
+                ]
+              },
+              "within_5fold": {
+                "n": 76,
+                "all_case_fraction": 0.3568075117370892,
+                "successful_pair_fraction": 0.3838383838383838,
+                "all_case_wilson95": [
+                  0.29553143652344943,
+                  0.4231570452283691
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              3.6287709009153337,
+              4.914657333970256
+            ]
+          }
+        },
+        "context2017": {
+          "condition_training_calibration": {
+            "method": "development_train_median_log2_residual",
+            "offset_log2": -4.0481642465534575,
+            "n_training_cases": 581,
+            "n_fitted": 514,
+            "assay_exclusions": {},
+            "final_refit": false
+          },
+          "frozen_HC_transfer": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": -1.9932562199351087,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 190,
+              "failures": {
+                "failed": 23
+              },
+              "coverage": 0.892018779342723,
+              "pearson_r_log": 0.07455181171169076,
+              "pearson_r2_log": 0.005557972629495391,
+              "spearman_rho": 0.1350147336118495,
+              "rmse_log2": 63.267666937227546,
+              "mae_log2": 27.693612758676025,
+              "median_absolute_log2": 5.812764014526274,
+              "bias_log2": -21.63135378496628,
+              "within_2fold": {
+                "n": 19,
+                "all_case_fraction": 0.0892018779342723,
+                "successful_pair_fraction": 0.1,
+                "all_case_wilson95": [
+                  0.057849629498576194,
+                  0.13510912962549318
+                ]
+              },
+              "within_5fold": {
+                "n": 37,
+                "all_case_fraction": 0.17370892018779344,
+                "successful_pair_fraction": 0.19473684210526315,
+                "all_case_wilson95": [
+                  0.1287331073270636,
+                  0.23024556420576864
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              19.863840478117073,
+              36.09030184587883
+            ]
+          },
+          "condition_train_intercept": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": -4.0481642465534575,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 190,
+              "failures": {
+                "failed": 23
+              },
+              "coverage": 0.892018779342723,
+              "pearson_r_log": 0.07455181171169073,
+              "pearson_r2_log": 0.005557972629495387,
+              "spearman_rho": 0.1350147336118495,
+              "rmse_log2": 63.99938446357522,
+              "mae_log2": 27.61090780757505,
+              "median_absolute_log2": 4.649109683136608,
+              "bias_log2": -23.68626181158463,
+              "within_2fold": {
+                "n": 16,
+                "all_case_fraction": 0.07511737089201878,
+                "successful_pair_fraction": 0.08421052631578947,
+                "all_case_wilson95": [
+                  0.04676351177342122,
+                  0.11852526194918767
+                ]
+              },
+              "within_5fold": {
+                "n": 43,
+                "all_case_fraction": 0.20187793427230047,
+                "successful_pair_fraction": 0.22631578947368422,
+                "all_case_wilson95": [
+                  0.15347250119907369,
+                  0.26084614113667953
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              19.659983908169284,
+              36.17899459212386
+            ]
+          }
+        },
+        "ostir": {
+          "condition_training_calibration": {
+            "method": "development_train_median_log2_residual",
+            "offset_log2": -8.651998339937768,
+            "n_training_cases": 581,
+            "n_fitted": 580,
+            "assay_exclusions": {},
+            "final_refit": false
+          },
+          "frozen_HC_transfer": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": -7.0141898124920505,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 213,
+              "failures": {},
+              "coverage": 1.0,
+              "pearson_r_log": 0.20179318483479133,
+              "pearson_r2_log": 0.04072048944576826,
+              "spearman_rho": 0.25441447751769547,
+              "rmse_log2": 3.720668333694891,
+              "mae_log2": 2.931217467968377,
+              "median_absolute_log2": 2.4606470255460042,
+              "bias_log2": 1.1736421230548113,
+              "within_2fold": {
+                "n": 43,
+                "all_case_fraction": 0.20187793427230047,
+                "successful_pair_fraction": 0.20187793427230047,
+                "all_case_wilson95": [
+                  0.15347250119907369,
+                  0.26084614113667953
+                ]
+              },
+              "within_5fold": {
+                "n": 97,
+                "all_case_fraction": 0.45539906103286387,
+                "successful_pair_fraction": 0.45539906103286387,
+                "all_case_wilson95": [
+                  0.38989994946704404,
+                  0.5224784300949978
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              2.630127024273526,
+              3.2418145419319613
+            ]
+          },
+          "condition_train_intercept": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": -8.651998339937768,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 213,
+              "failures": {},
+              "coverage": 1.0,
+              "pearson_r_log": 0.20179318483479133,
+              "pearson_r2_log": 0.04072048944576826,
+              "spearman_rho": 0.25441447751769547,
+              "rmse_log2": 3.561093577444504,
+              "mae_log2": 2.4077629971359467,
+              "median_absolute_log2": 1.5315128030615668,
+              "bias_log2": -0.4641664043909058,
+              "within_2fold": {
+                "n": 75,
+                "all_case_fraction": 0.352112676056338,
+                "successful_pair_fraction": 0.352112676056338,
+                "all_case_wilson95": [
+                  0.2911063764221591,
+                  0.4183587768625059
+                ]
+              },
+              "within_5fold": {
+                "n": 139,
+                "all_case_fraction": 0.6525821596244131,
+                "successful_pair_fraction": 0.6525821596244131,
+                "all_case_wilson95": [
+                  0.5864460867792577,
+                  0.7133120884032308
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              2.0801498298951975,
+              2.7685522216092058
+            ]
+          }
+        },
+        "rebeca": {
+          "condition_training_calibration": {
+            "method": "development_train_median_log2_residual",
+            "offset_log2": -8.992556169762231,
+            "n_training_cases": 581,
+            "n_fitted": 581,
+            "assay_exclusions": {},
+            "final_refit": false
+          },
+          "frozen_HC_transfer": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": -7.582779119016097,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 213,
+              "failures": {},
+              "coverage": 1.0,
+              "pearson_r_log": 0.16254094867025642,
+              "pearson_r2_log": 0.026419559994626935,
+              "spearman_rho": 0.1831755832118438,
+              "rmse_log2": 4.846204269299297,
+              "mae_log2": 3.895864411886662,
+              "median_absolute_log2": 3.0045219939312546,
+              "bias_log2": 2.3618716437371585,
+              "within_2fold": {
+                "n": 32,
+                "all_case_fraction": 0.15023474178403756,
+                "successful_pair_fraction": 0.15023474178403756,
+                "all_case_wilson95": [
+                  0.10847236159522582,
+                  0.20438966760183896
+                ]
+              },
+              "within_5fold": {
+                "n": 85,
+                "all_case_fraction": 0.39906103286384975,
+                "successful_pair_fraction": 0.39906103286384975,
+                "all_case_wilson95": [
+                  0.3356450817458827,
+                  0.4660533562103173
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              3.5346161336280946,
+              4.276661020658386
+            ]
+          },
+          "condition_train_intercept": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": -8.992556169762231,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 213,
+              "failures": {},
+              "coverage": 1.0,
+              "pearson_r_log": 0.16254094867025642,
+              "pearson_r2_log": 0.026419559994626935,
+              "spearman_rho": 0.1831755832118438,
+              "rmse_log2": 4.337481097628877,
+              "mae_log2": 3.6424292154942313,
+              "median_absolute_log2": 3.548359964904031,
+              "bias_log2": 0.9520945929910241,
+              "within_2fold": {
+                "n": 36,
+                "all_case_fraction": 0.16901408450704225,
+                "successful_pair_fraction": 0.16901408450704225,
+                "all_case_wilson95": [
+                  0.12465321041038174,
+                  0.225102132655297
+                ]
+              },
+              "within_5fold": {
+                "n": 74,
+                "all_case_fraction": 0.3474178403755869,
+                "successful_pair_fraction": 0.3474178403755869,
+                "all_case_wilson95": [
+                  0.2866879115967692,
+                  0.4135539132207424
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              3.3275140772738725,
+              3.9469289797612985
+            ]
+          }
+        },
+        "sequence_v1": {
+          "condition_training_calibration": {
+            "method": "development_train_median_log2_residual",
+            "offset_log2": -1.2082689903208612,
+            "n_training_cases": 581,
+            "n_fitted": 581,
+            "assay_exclusions": {},
+            "final_refit": false
+          },
+          "frozen_HC_transfer": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": 0.04659637563372265,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 213,
+              "failures": {},
+              "coverage": 1.0,
+              "pearson_r_log": 0.2699735517033922,
+              "pearson_r2_log": 0.07288571861934419,
+              "spearman_rho": 0.2926875305793498,
+              "rmse_log2": 1.5627703699352475,
+              "mae_log2": 1.3926947892937955,
+              "median_absolute_log2": 1.4081934760187462,
+              "bias_log2": 1.3130661412330136,
+              "within_2fold": {
+                "n": 66,
+                "all_case_fraction": 0.30985915492957744,
+                "successful_pair_fraction": 0.30985915492957744,
+                "all_case_wilson95": [
+                  0.2515855085389823,
+                  0.3748696885413012
+                ]
+              },
+              "within_5fold": {
+                "n": 195,
+                "all_case_fraction": 0.9154929577464789,
+                "successful_pair_fraction": 0.9154929577464789,
+                "all_case_wilson95": [
+                  0.8703864075027176,
+                  0.9458781618403665
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              1.2969941906781255,
+              1.494110016953279
+            ]
+          },
+          "condition_train_intercept": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": -1.2082689903208612,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 213,
+              "failures": {},
+              "coverage": 1.0,
+              "pearson_r_log": 0.2699735517033923,
+              "pearson_r2_log": 0.07288571861934424,
+              "spearman_rho": 0.2926875305793498,
+              "rmse_log2": 0.8494091288289786,
+              "mae_log2": 0.6463167041869606,
+              "median_absolute_log2": 0.49098221471175324,
+              "bias_log2": 0.05820077527842977,
+              "within_2fold": {
+                "n": 175,
+                "all_case_fraction": 0.8215962441314554,
+                "successful_pair_fraction": 0.8215962441314554,
+                "all_case_wilson95": [
+                  0.7646239979214325,
+                  0.8671740020785818
+                ]
+              },
+              "within_5fold": {
+                "n": 208,
+                "all_case_fraction": 0.9765258215962441,
+                "successful_pair_fraction": 0.9765258215962441,
+                "all_case_wilson95": [
+                  0.9462353262426276,
+                  0.9899325131734519
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              0.5747928582433767,
+              0.7253192483000577
+            ]
+          }
+        },
+        "hybrid": {
+          "condition_training_calibration": {
+            "method": "development_train_median_log2_residual",
+            "offset_log2": -1.2229657529820501,
+            "n_training_cases": 581,
+            "n_fitted": 514,
+            "assay_exclusions": {},
+            "final_refit": false
+          },
+          "frozen_HC_transfer": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": 0.039102431228718926,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 190,
+              "failures": {
+                "failed": 23
+              },
+              "coverage": 0.892018779342723,
+              "pearson_r_log": 0.32956824518560435,
+              "pearson_r2_log": 0.10861522823471863,
+              "spearman_rho": 0.34884331246965583,
+              "rmse_log2": 1.5437187099562388,
+              "mae_log2": 1.3826908588575397,
+              "median_absolute_log2": 1.4262591813194754,
+              "bias_log2": 1.294525830903914,
+              "within_2fold": {
+                "n": 61,
+                "all_case_fraction": 0.2863849765258216,
+                "successful_pair_fraction": 0.32105263157894737,
+                "all_case_wilson95": [
+                  0.2298798340111711,
+                  0.3504587207333451
+                ]
+              },
+              "within_5fold": {
+                "n": 174,
+                "all_case_fraction": 0.8169014084507042,
+                "successful_pair_fraction": 0.9157894736842105,
+                "all_case_wilson95": [
+                  0.7595061631903719,
+                  0.8630685083424889
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              1.2813516727445666,
+              1.4831137996424648
+            ]
+          },
+          "condition_train_intercept": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": -1.2229657529820501,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 190,
+              "failures": {
+                "failed": 23
+              },
+              "coverage": 0.892018779342723,
+              "pearson_r_log": 0.32956824518560435,
+              "pearson_r2_log": 0.10861522823471863,
+              "spearman_rho": 0.34884331246965583,
+              "rmse_log2": 0.8416197641573907,
+              "mae_log2": 0.6355930357356371,
+              "median_absolute_log2": 0.5079165233240939,
+              "bias_log2": 0.03245764669314496,
+              "within_2fold": {
+                "n": 159,
+                "all_case_fraction": 0.7464788732394366,
+                "successful_pair_fraction": 0.8368421052631579,
+                "all_case_wilson95": [
+                  0.684046068332772,
+                  0.8001786761927865
+                ]
+              },
+              "within_5fold": {
+                "n": 185,
+                "all_case_fraction": 0.8685446009389671,
+                "successful_pair_fraction": 0.9736842105263158,
+                "all_case_wilson95": [
+                  0.8165701318917294,
+                  0.9074611527798199
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              0.5627983062022213,
+              0.7200351513831695
+            ]
+          }
+        },
+        "historical_affine": {
+          "condition_training_calibration": {
+            "method": "development_train_median_log2_residual",
+            "offset_log2": -1.2425119565757758,
+            "n_training_cases": 581,
+            "n_fitted": 562,
+            "assay_exclusions": {},
+            "final_refit": false
+          },
+          "frozen_HC_transfer": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": 5.551115123125783e-17,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 198,
+              "failures": {
+                "failed": 1,
+                "no_candidate": 14
+              },
+              "coverage": 0.9295774647887324,
+              "pearson_r_log": 0.12956177047232073,
+              "pearson_r2_log": 0.01678625236792232,
+              "spearman_rho": 0.22974202951453998,
+              "rmse_log2": 1.575624179240148,
+              "mae_log2": 1.3903569973613983,
+              "median_absolute_log2": 1.38437179430094,
+              "bias_log2": 1.3227978903964397,
+              "within_2fold": {
+                "n": 66,
+                "all_case_fraction": 0.30985915492957744,
+                "successful_pair_fraction": 0.3333333333333333,
+                "all_case_wilson95": [
+                  0.2515855085389823,
+                  0.3748696885413012
+                ]
+              },
+              "within_5fold": {
+                "n": 179,
+                "all_case_fraction": 0.8403755868544601,
+                "successful_pair_fraction": 0.9040404040404041,
+                "all_case_wilson95": [
+                  0.7852254097686171,
+                  0.8834659041000112
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              1.2853730275365067,
+              1.4986611155092726
+            ]
+          },
+          "condition_train_intercept": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": -1.2425119565757758,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 198,
+              "failures": {
+                "failed": 1,
+                "no_candidate": 14
+              },
+              "coverage": 0.9295774647887324,
+              "pearson_r_log": 0.12956177047232093,
+              "pearson_r2_log": 0.01678625236792237,
+              "spearman_rho": 0.22974202951453998,
+              "rmse_log2": 0.8597924903942664,
+              "mae_log2": 0.6535006441437058,
+              "median_absolute_log2": 0.5440391554945616,
+              "bias_log2": 0.08028593382066372,
+              "within_2fold": {
+                "n": 157,
+                "all_case_fraction": 0.7370892018779343,
+                "successful_pair_fraction": 0.7929292929292929,
+                "all_case_wilson95": [
+                  0.6741463100963933,
+                  0.7916317774948581
+                ]
+              },
+              "within_5fold": {
+                "n": 193,
+                "all_case_fraction": 0.9061032863849765,
+                "successful_pair_fraction": 0.9747474747474747,
+                "all_case_wilson95": [
+                  0.8594248224401767,
+                  0.9383930899686005
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              0.579848203472294,
+              0.7298929824275963
+            ]
+          }
+        },
+        "ostir_affine": {
+          "condition_training_calibration": {
+            "method": "development_train_median_log2_residual",
+            "offset_log2": -1.2570547848776454,
+            "n_training_cases": 581,
+            "n_fitted": 580,
+            "assay_exclusions": {},
+            "final_refit": false
+          },
+          "frozen_HC_transfer": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": 0.0,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 213,
+              "failures": {},
+              "coverage": 1.0,
+              "pearson_r_log": 0.2017931848347914,
+              "pearson_r2_log": 0.04072048944576828,
+              "spearman_rho": 0.25441447751769547,
+              "rmse_log2": 1.577151729579008,
+              "mae_log2": 1.3996148454075286,
+              "median_absolute_log2": 1.389345733559581,
+              "bias_log2": 1.3205320994535803,
+              "within_2fold": {
+                "n": 68,
+                "all_case_fraction": 0.3192488262910798,
+                "successful_pair_fraction": 0.3192488262910798,
+                "all_case_wilson95": [
+                  0.26031921571390726,
+                  0.3845826383006834
+                ]
+              },
+              "within_5fold": {
+                "n": 196,
+                "all_case_fraction": 0.92018779342723,
+                "successful_pair_fraction": 0.92018779342723,
+                "all_case_wilson95": [
+                  0.8759135568498294,
+                  0.9495743409604082
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              1.3015045016245583,
+              1.5022615970864484
+            ]
+          },
+          "condition_train_intercept": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": -1.2570547848776454,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 213,
+              "failures": {},
+              "coverage": 1.0,
+              "pearson_r_log": 0.20179318483479142,
+              "pearson_r2_log": 0.040720489445768296,
+              "spearman_rho": 0.25441447751769547,
+              "rmse_log2": 0.8646571123240406,
+              "mae_log2": 0.6466372971802415,
+              "median_absolute_log2": 0.5222484960861422,
+              "bias_log2": 0.06347731457593486,
+              "within_2fold": {
+                "n": 174,
+                "all_case_fraction": 0.8169014084507042,
+                "successful_pair_fraction": 0.8169014084507042,
+                "all_case_wilson95": [
+                  0.7595061631903719,
+                  0.8630685083424889
+                ]
+              },
+              "within_5fold": {
+                "n": 207,
+                "all_case_fraction": 0.971830985915493,
+                "successful_pair_fraction": 0.971830985915493,
+                "all_case_wilson95": [
+                  0.9399172154271388,
+                  0.9870272955217875
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              0.575743379707475,
+              0.7262902096767152
+            ]
+          }
+        },
+        "constant": {
+          "condition_training_calibration": {
+            "method": "development_train_median_log2_residual",
+            "offset_log2": -0.36374582053390014,
+            "n_training_cases": 581,
+            "n_fitted": 581,
+            "assay_exclusions": {},
+            "final_refit": false
+          },
+          "frozen_HC_transfer": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": 0.8639384504239717,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 213,
+              "failures": {},
+              "coverage": 1.0,
+              "pearson_r_log": null,
+              "pearson_r2_log": null,
+              "spearman_rho": null,
+              "rmse_log2": 1.5599189596369614,
+              "mae_log2": 1.3731009584129898,
+              "median_absolute_log2": 1.3491306130000618,
+              "bias_log2": 1.2883873911340735,
+              "within_2fold": {
+                "n": 72,
+                "all_case_fraction": 0.3380281690140845,
+                "successful_pair_fraction": 0.3380281690140845,
+                "all_case_wilson95": [
+                  0.27787101244674667,
+                  0.40392415543645793
+                ]
+              },
+              "within_5fold": {
+                "n": 192,
+                "all_case_fraction": 0.9014084507042254,
+                "successful_pair_fraction": 0.9014084507042254,
+                "all_case_wilson95": [
+                  0.8539863885986632,
+                  0.9346081953429606
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              1.2750393359323164,
+              1.4764165196260568
+            ]
+          },
+          "condition_train_intercept": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": -0.36374582053390014,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 213,
+              "failures": {},
+              "coverage": 1.0,
+              "pearson_r_log": null,
+              "pearson_r2_log": null,
+              "spearman_rho": null,
+              "rmse_log2": 0.8815270612980192,
+              "mae_log2": 0.6639375504000721,
+              "median_absolute_log2": 0.5325860292946194,
+              "bias_log2": 0.06070312017620186,
+              "within_2fold": {
+                "n": 172,
+                "all_case_fraction": 0.8075117370892019,
+                "successful_pair_fraction": 0.8075117370892019,
+                "all_case_wilson95": [
+                  0.7493068611386869,
+                  0.854821153459867
+                ]
+              },
+              "within_5fold": {
+                "n": 207,
+                "all_case_fraction": 0.971830985915493,
+                "successful_pair_fraction": 0.971830985915493,
+                "all_case_wilson95": [
+                  0.9399172154271388,
+                  0.9870272955217875
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              0.5893923033808341,
+              0.7449727237684272
+            ]
+          }
+        }
+      }
+    },
+    "MDAY": {
+      "n_train": 581,
+      "n_final": 213,
+      "n_final_groups": 203,
+      "models": {
+        "historical": {
+          "condition_training_calibration": {
+            "method": "development_train_median_log2_residual",
+            "offset_log2": -6.022086156262329,
+            "n_training_cases": 581,
+            "n_fitted": 562,
+            "assay_exclusions": {},
+            "final_refit": false
+          },
+          "frozen_HC_transfer": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": -4.141397223615085,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 198,
+              "failures": {
+                "failed": 1,
+                "no_candidate": 14
+              },
+              "coverage": 0.9295774647887324,
+              "pearson_r_log": 0.14698702069024325,
+              "pearson_r2_log": 0.021605184251393995,
+              "spearman_rho": 0.23877402419179666,
+              "rmse_log2": 6.175388833828437,
+              "mae_log2": 4.61506017840311,
+              "median_absolute_log2": 3.7410451425691913,
+              "bias_log2": 0.7771560893896772,
+              "within_2fold": {
+                "n": 27,
+                "all_case_fraction": 0.1267605633802817,
+                "successful_pair_fraction": 0.13636363636363635,
+                "all_case_wilson95": [
+                  0.08859890499381946,
+                  0.1781464818674779
+                ]
+              },
+              "within_5fold": {
+                "n": 60,
+                "all_case_fraction": 0.28169014084507044,
+                "successful_pair_fraction": 0.30303030303030304,
+                "all_case_wilson95": [
+                  0.22556153349778882,
+                  0.3455536927795739
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              4.080445047146631,
+              5.134309970132051
+            ]
+          },
+          "condition_train_intercept": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": -6.022086156262329,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 198,
+              "failures": {
+                "failed": 1,
+                "no_candidate": 14
+              },
+              "coverage": 0.9295774647887324,
+              "pearson_r_log": 0.14698702069024328,
+              "pearson_r2_log": 0.021605184251394006,
+              "spearman_rho": 0.23877402419179666,
+              "rmse_log2": 6.224888785982094,
+              "mae_log2": 4.187770776789111,
+              "median_absolute_log2": 2.831726936111229,
+              "bias_log2": -1.1035328432575666,
+              "within_2fold": {
+                "n": 34,
+                "all_case_fraction": 0.1596244131455399,
+                "successful_pair_fraction": 0.1717171717171717,
+                "all_case_wilson95": [
+                  0.11653409589998884,
+                  0.21477459023138293
+                ]
+              },
+              "within_5fold": {
+                "n": 87,
+                "all_case_fraction": 0.4084507042253521,
+                "successful_pair_fraction": 0.4393939393939394,
+                "all_case_wilson95": [
+                  0.34462767497361263,
+                  0.4755174199168944
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              3.592720269034351,
+              4.813415295902023
+            ]
+          }
+        },
+        "footprint2017": {
+          "condition_training_calibration": {
+            "method": "development_train_median_log2_residual",
+            "offset_log2": -7.480155017410707,
+            "n_training_cases": 581,
+            "n_fitted": 562,
+            "assay_exclusions": {},
+            "final_refit": false
+          },
+          "frozen_HC_transfer": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": -5.575386760969535,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 198,
+              "failures": {
+                "failed": 1,
+                "no_candidate": 14
+              },
+              "coverage": 0.9295774647887324,
+              "pearson_r_log": 0.13396396322913734,
+              "pearson_r2_log": 0.017946343444057662,
+              "spearman_rho": 0.2265333894530532,
+              "rmse_log2": 6.249904898630486,
+              "mae_log2": 4.668560217131064,
+              "median_absolute_log2": 4.017682929192866,
+              "bias_log2": 0.7420648610552923,
+              "within_2fold": {
+                "n": 25,
+                "all_case_fraction": 0.11737089201877934,
+                "successful_pair_fraction": 0.12626262626262627,
+                "all_case_wilson95": [
+                  0.08077672149795292,
+                  0.16752200842903742
+                ]
+              },
+              "within_5fold": {
+                "n": 60,
+                "all_case_fraction": 0.28169014084507044,
+                "successful_pair_fraction": 0.30303030303030304,
+                "all_case_wilson95": [
+                  0.22556153349778882,
+                  0.3455536927795739
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              4.117809659579956,
+              5.2110495940674815
+            ]
+          },
+          "condition_train_intercept": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": -7.480155017410707,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 198,
+              "failures": {
+                "failed": 1,
+                "no_candidate": 14
+              },
+              "coverage": 0.9295774647887324,
+              "pearson_r_log": 0.13396396322913734,
+              "pearson_r2_log": 0.017946343444057662,
+              "spearman_rho": 0.2265333894530532,
+              "rmse_log2": 6.313678022322186,
+              "mae_log2": 4.209873524822766,
+              "median_absolute_log2": 2.9247781167906,
+              "bias_log2": -1.1627033953858799,
+              "within_2fold": {
+                "n": 32,
+                "all_case_fraction": 0.15023474178403756,
+                "successful_pair_fraction": 0.16161616161616163,
+                "all_case_wilson95": [
+                  0.10847236159522582,
+                  0.20438966760183896
+                ]
+              },
+              "within_5fold": {
+                "n": 80,
+                "all_case_fraction": 0.3755868544600939,
+                "successful_pair_fraction": 0.40404040404040403,
+                "all_case_wilson95": [
+                  0.3132965150855755,
+                  0.442285280534857
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              3.5778106431183465,
+              4.856418500614457
+            ]
+          }
+        },
+        "context2017": {
+          "condition_training_calibration": {
+            "method": "development_train_median_log2_residual",
+            "offset_log2": -4.136164699301499,
+            "n_training_cases": 581,
+            "n_fitted": 514,
+            "assay_exclusions": {},
+            "final_refit": false
+          },
+          "frozen_HC_transfer": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": -1.9932562199351087,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 190,
+              "failures": {
+                "failed": 23
+              },
+              "coverage": 0.892018779342723,
+              "pearson_r_log": 0.07880112865084118,
+              "pearson_r2_log": 0.006209617876646424,
+              "spearman_rho": 0.13599362104810492,
+              "rmse_log2": 63.19880031213911,
+              "mae_log2": 27.70718923546509,
+              "median_absolute_log2": 6.131322358401449,
+              "bias_log2": -21.45464633437702,
+              "within_2fold": {
+                "n": 19,
+                "all_case_fraction": 0.0892018779342723,
+                "successful_pair_fraction": 0.1,
+                "all_case_wilson95": [
+                  0.057849629498576194,
+                  0.13510912962549318
+                ]
+              },
+              "within_5fold": {
+                "n": 37,
+                "all_case_fraction": 0.17370892018779344,
+                "successful_pair_fraction": 0.19473684210526315,
+                "all_case_wilson95": [
+                  0.1287331073270636,
+                  0.23024556420576864
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              19.857213365492935,
+              36.07654863011455
+            ]
+          },
+          "condition_train_intercept": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": -4.136164699301499,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 190,
+              "failures": {
+                "failed": 23
+              },
+              "coverage": 0.892018779342723,
+              "pearson_r_log": 0.07880112865084118,
+              "pearson_r2_log": 0.006209617876646424,
+              "spearman_rho": 0.13599362104810492,
+              "rmse_log2": 63.95804175198036,
+              "mae_log2": 27.586409158549003,
+              "median_absolute_log2": 4.745113334969017,
+              "bias_log2": -23.59755481374341,
+              "within_2fold": {
+                "n": 20,
+                "all_case_fraction": 0.09389671361502347,
+                "successful_pair_fraction": 0.10526315789473684,
+                "all_case_wilson95": [
+                  0.06160691003139952,
+                  0.14057517755982335
+                ]
+              },
+              "within_5fold": {
+                "n": 41,
+                "all_case_fraction": 0.19248826291079812,
+                "successful_pair_fraction": 0.21578947368421053,
+                "all_case_wilson95": [
+                  0.14517884654013308,
+                  0.25069313886131317
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              19.637499327689756,
+              36.14553081773388
+            ]
+          }
+        },
+        "ostir": {
+          "condition_training_calibration": {
+            "method": "development_train_median_log2_residual",
+            "offset_log2": -8.774853765505298,
+            "n_training_cases": 581,
+            "n_fitted": 580,
+            "assay_exclusions": {},
+            "final_refit": false
+          },
+          "frozen_HC_transfer": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": -7.0141898124920505,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 213,
+              "failures": {},
+              "coverage": 1.0,
+              "pearson_r_log": 0.23006101948847146,
+              "pearson_r2_log": 0.05292807268807485,
+              "spearman_rho": 0.2572693975359173,
+              "rmse_log2": 3.760863820781662,
+              "mae_log2": 3.009745778420021,
+              "median_absolute_log2": 2.6395064573168456,
+              "bias_log2": 1.35654233256751,
+              "within_2fold": {
+                "n": 39,
+                "all_case_fraction": 0.18309859154929578,
+                "successful_pair_fraction": 0.18309859154929578,
+                "all_case_wilson95": [
+                  0.13693149165751112,
+                  0.24049383680962816
+                ]
+              },
+              "within_5fold": {
+                "n": 89,
+                "all_case_fraction": 0.41784037558685444,
+                "successful_pair_fraction": 0.41784037558685444,
+                "all_case_wilson95": [
+                  0.3536345122107952,
+                  0.4849572396140187
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              2.710419907918588,
+              3.309034914250485
+            ]
+          },
+          "condition_train_intercept": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": -8.774853765505298,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 213,
+              "failures": {},
+              "coverage": 1.0,
+              "pearson_r_log": 0.23006101948847146,
+              "pearson_r2_log": 0.05292807268807485,
+              "spearman_rho": 0.2572693975359173,
+              "rmse_log2": 3.5308927854762784,
+              "mae_log2": 2.411160052970807,
+              "median_absolute_log2": 1.5276158307462468,
+              "bias_log2": -0.40412162044573813,
+              "within_2fold": {
+                "n": 72,
+                "all_case_fraction": 0.3380281690140845,
+                "successful_pair_fraction": 0.3380281690140845,
+                "all_case_wilson95": [
+                  0.27787101244674667,
+                  0.40392415543645793
+                ]
+              },
+              "within_5fold": {
+                "n": 141,
+                "all_case_fraction": 0.6619718309859155,
+                "successful_pair_fraction": 0.6619718309859155,
+                "all_case_wilson95": [
+                  0.5960758445635422,
+                  0.7221289875532534
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              2.089456474682354,
+              2.7517838342267655
+            ]
+          }
+        },
+        "rebeca": {
+          "condition_training_calibration": {
+            "method": "development_train_median_log2_residual",
+            "offset_log2": -9.110093726877267,
+            "n_training_cases": 581,
+            "n_fitted": 581,
+            "assay_exclusions": {},
+            "final_refit": false
+          },
+          "frozen_HC_transfer": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": -7.582779119016097,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 213,
+              "failures": {},
+              "coverage": 1.0,
+              "pearson_r_log": 0.16222807586104848,
+              "pearson_r2_log": 0.026317948597578102,
+              "spearman_rho": 0.1778457732819062,
+              "rmse_log2": 4.9422963014439505,
+              "mae_log2": 3.9414477251867757,
+              "median_absolute_log2": 3.0395307764558117,
+              "bias_log2": 2.5447718532498573,
+              "within_2fold": {
+                "n": 35,
+                "all_case_fraction": 0.1643192488262911,
+                "successful_pair_fraction": 0.1643192488262911,
+                "all_case_wilson95": [
+                  0.12058672442281199,
+                  0.2199452901757133
+                ]
+              },
+              "within_5fold": {
+                "n": 85,
+                "all_case_fraction": 0.39906103286384975,
+                "successful_pair_fraction": 0.39906103286384975,
+                "all_case_wilson95": [
+                  0.3356450817458827,
+                  0.4660533562103173
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              3.5742426145481496,
+              4.337704526095994
+            ]
+          },
+          "condition_train_intercept": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": -9.110093726877267,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 213,
+              "failures": {},
+              "coverage": 1.0,
+              "pearson_r_log": 0.16222807586104848,
+              "pearson_r2_log": 0.026317948597578102,
+              "spearman_rho": 0.1778457732819062,
+              "rmse_log2": 4.357252367303021,
+              "mae_log2": 3.638232267775849,
+              "median_absolute_log2": 3.4983829600011154,
+              "bias_log2": 1.0174572453886872,
+              "within_2fold": {
+                "n": 36,
+                "all_case_fraction": 0.16901408450704225,
+                "successful_pair_fraction": 0.16901408450704225,
+                "all_case_wilson95": [
+                  0.12465321041038174,
+                  0.225102132655297
+                ]
+              },
+              "within_5fold": {
+                "n": 74,
+                "all_case_fraction": 0.3474178403755869,
+                "successful_pair_fraction": 0.3474178403755869,
+                "all_case_wilson95": [
+                  0.2866879115967692,
+                  0.4135539132207424
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              3.3228313895720767,
+              3.951126952075379
+            ]
+          }
+        },
+        "sequence_v1": {
+          "condition_training_calibration": {
+            "method": "development_train_median_log2_residual",
+            "offset_log2": -1.3847270787107016,
+            "n_training_cases": 581,
+            "n_fitted": 581,
+            "assay_exclusions": {},
+            "final_refit": false
+          },
+          "frozen_HC_transfer": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": 0.04659637563372265,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 213,
+              "failures": {},
+              "coverage": 1.0,
+              "pearson_r_log": 0.23184755404191743,
+              "pearson_r2_log": 0.05375328831521982,
+              "spearman_rho": 0.2640528411165281,
+              "rmse_log2": 1.768059346185199,
+              "mae_log2": 1.5901319880211136,
+              "median_absolute_log2": 1.6021367615213882,
+              "bias_log2": 1.4959663507457122,
+              "within_2fold": {
+                "n": 52,
+                "all_case_fraction": 0.24413145539906103,
+                "successful_pair_fraction": 0.24413145539906103,
+                "all_case_wilson95": [
+                  0.19130914194817075,
+                  0.3060194565919639
+                ]
+              },
+              "within_5fold": {
+                "n": 179,
+                "all_case_fraction": 0.8403755868544601,
+                "successful_pair_fraction": 0.8403755868544601,
+                "all_case_wilson95": [
+                  0.7852254097686171,
+                  0.8834659041000112
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              1.4858621024228833,
+              1.6963442376484714
+            ]
+          },
+          "condition_train_intercept": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": -1.3847270787107016,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 213,
+              "failures": {},
+              "coverage": 1.0,
+              "pearson_r_log": 0.23184755404191748,
+              "pearson_r2_log": 0.053753288315219847,
+              "spearman_rho": 0.2640528411165281,
+              "rmse_log2": 0.9446148596780266,
+              "mae_log2": 0.7259325803991726,
+              "median_absolute_log2": 0.5942276193951087,
+              "bias_log2": 0.06464289640128802,
+              "within_2fold": {
+                "n": 164,
+                "all_case_fraction": 0.7699530516431925,
+                "successful_pair_fraction": 0.7699530516431925,
+                "all_case_wilson95": [
+                  0.7089502494748566,
+                  0.8213911373864692
+                ]
+              },
+              "within_5fold": {
+                "n": 207,
+                "all_case_fraction": 0.971830985915493,
+                "successful_pair_fraction": 0.971830985915493,
+                "all_case_wilson95": [
+                  0.9399172154271388,
+                  0.9870272955217875
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              0.6448934540197857,
+              0.8055126029610723
+            ]
+          }
+        },
+        "hybrid": {
+          "condition_training_calibration": {
+            "method": "development_train_median_log2_residual",
+            "offset_log2": -1.3955669026627522,
+            "n_training_cases": 581,
+            "n_fitted": 514,
+            "assay_exclusions": {},
+            "final_refit": false
+          },
+          "frozen_HC_transfer": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": 0.039102431228718926,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 190,
+              "failures": {
+                "failed": 23
+              },
+              "coverage": 0.892018779342723,
+              "pearson_r_log": 0.2879607902069092,
+              "pearson_r2_log": 0.08292141669658756,
+              "spearman_rho": 0.31137092294435914,
+              "rmse_log2": 1.7430034245302772,
+              "mae_log2": 1.5712842205280357,
+              "median_absolute_log2": 1.5859553816796508,
+              "bias_log2": 1.4712332814931712,
+              "within_2fold": {
+                "n": 45,
+                "all_case_fraction": 0.2112676056338028,
+                "successful_pair_fraction": 0.23684210526315788,
+                "all_case_wilson95": [
+                  0.16181008935598568,
+                  0.2709552099140745
+                ]
+              },
+              "within_5fold": {
+                "n": 161,
+                "all_case_fraction": 0.755868544600939,
+                "successful_pair_fraction": 0.8473684210526315,
+                "all_case_wilson95": [
+                  0.6939805434080362,
+                  0.8086908580518293
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              1.4595234899978113,
+              1.6815441763947725
+            ]
+          },
+          "condition_train_intercept": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": -1.3955669026627522,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 190,
+              "failures": {
+                "failed": 23
+              },
+              "coverage": 0.892018779342723,
+              "pearson_r_log": 0.2879607902069092,
+              "pearson_r2_log": 0.08292141669658756,
+              "spearman_rho": 0.31137092294435914,
+              "rmse_log2": 0.9353451189883492,
+              "mae_log2": 0.7082042508946444,
+              "median_absolute_log2": 0.5312221032034656,
+              "bias_log2": 0.03656394760170016,
+              "within_2fold": {
+                "n": 149,
+                "all_case_fraction": 0.6995305164319249,
+                "successful_pair_fraction": 0.7842105263157895,
+                "all_case_wilson95": [
+                  0.6348722769742241,
+                  0.7571191828797994
+                ]
+              },
+              "within_5fold": {
+                "n": 185,
+                "all_case_fraction": 0.8685446009389671,
+                "successful_pair_fraction": 0.9736842105263158,
+                "all_case_wilson95": [
+                  0.8165701318917294,
+                  0.9074611527798199
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              0.6251912758477657,
+              0.7949501409687935
+            ]
+          }
+        },
+        "historical_affine": {
+          "condition_training_calibration": {
+            "method": "development_train_median_log2_residual",
+            "offset_log2": -1.4267743567616638,
+            "n_training_cases": 581,
+            "n_fitted": 562,
+            "assay_exclusions": {},
+            "final_refit": false
+          },
+          "frozen_HC_transfer": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": 5.551115123125783e-17,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 198,
+              "failures": {
+                "failed": 1,
+                "no_candidate": 14
+              },
+              "coverage": 0.9295774647887324,
+              "pearson_r_log": 0.146987020690243,
+              "pearson_r2_log": 0.021605184251393923,
+              "spearman_rho": 0.23871941946253022,
+              "rmse_log2": 1.775929369976685,
+              "mae_log2": 1.588717365338124,
+              "median_absolute_log2": 1.610122363646971,
+              "bias_log2": 1.5042740729371173,
+              "within_2fold": {
+                "n": 52,
+                "all_case_fraction": 0.24413145539906103,
+                "successful_pair_fraction": 0.26262626262626265,
+                "all_case_wilson95": [
+                  0.19130914194817075,
+                  0.3060194565919639
+                ]
+              },
+              "within_5fold": {
+                "n": 163,
+                "all_case_fraction": 0.7652582159624414,
+                "successful_pair_fraction": 0.8232323232323232,
+                "all_case_wilson95": [
+                  0.7039510437141041,
+                  0.8171670146800685
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              1.4784267077775732,
+              1.7027874966967071
+            ]
+          },
+          "condition_train_intercept": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": -1.4267743567616638,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 198,
+              "failures": {
+                "failed": 1,
+                "no_candidate": 14
+              },
+              "coverage": 0.9295774647887324,
+              "pearson_r_log": 0.14698702069024308,
+              "pearson_r2_log": 0.021605184251393947,
+              "spearman_rho": 0.23871941946253022,
+              "rmse_log2": 0.9471487985750903,
+              "mae_log2": 0.7343933245217431,
+              "median_absolute_log2": 0.6125037117222811,
+              "bias_log2": 0.07749971617545362,
+              "within_2fold": {
+                "n": 150,
+                "all_case_fraction": 0.704225352112676,
+                "successful_pair_fraction": 0.7575757575757576,
+                "all_case_wilson95": [
+                  0.6397543708578192,
+                  0.7614604174633578
+                ]
+              },
+              "within_5fold": {
+                "n": 193,
+                "all_case_fraction": 0.9061032863849765,
+                "successful_pair_fraction": 0.9747474747474747,
+                "all_case_wilson95": [
+                  0.8594248224401767,
+                  0.9383930899686005
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              0.654447728686353,
+              0.8164100840316154
+            ]
+          }
+        },
+        "ostir_affine": {
+          "condition_training_calibration": {
+            "method": "development_train_median_log2_residual",
+            "offset_log2": -1.4342639815929974,
+            "n_training_cases": 581,
+            "n_fitted": 580,
+            "assay_exclusions": {},
+            "final_refit": false
+          },
+          "frozen_HC_transfer": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": 0.0,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 213,
+              "failures": {},
+              "coverage": 1.0,
+              "pearson_r_log": 0.23006101948847144,
+              "pearson_r2_log": 0.05292807268807483,
+              "spearman_rho": 0.2572693975359173,
+              "rmse_log2": 1.7765938259546166,
+              "mae_log2": 1.5938333972571772,
+              "median_absolute_log2": 1.5421418523123651,
+              "bias_log2": 1.5034323089662789,
+              "within_2fold": {
+                "n": 55,
+                "all_case_fraction": 0.25821596244131456,
+                "successful_pair_fraction": 0.25821596244131456,
+                "all_case_wilson95": [
+                  0.20409051038734347,
+                  0.3209080735542517
+                ]
+              },
+              "within_5fold": {
+                "n": 175,
+                "all_case_fraction": 0.8215962441314554,
+                "successful_pair_fraction": 0.8215962441314554,
+                "all_case_wilson95": [
+                  0.7646239979214325,
+                  0.8671740020785818
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              1.49057918349131,
+              1.701929074011313
+            ]
+          },
+          "condition_train_intercept": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": -1.4342639815929974,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 213,
+              "failures": {},
+              "coverage": 1.0,
+              "pearson_r_log": 0.23006101948847144,
+              "pearson_r2_log": 0.05292807268807483,
+              "spearman_rho": 0.2572693975359173,
+              "rmse_log2": 0.9490843862839613,
+              "mae_log2": 0.7270766268636154,
+              "median_absolute_log2": 0.607446336730871,
+              "bias_log2": 0.06916832737328148,
+              "within_2fold": {
+                "n": 165,
+                "all_case_fraction": 0.7746478873239436,
+                "successful_pair_fraction": 0.7746478873239436,
+                "all_case_wilson95": [
+                  0.7139590157797016,
+                  0.8256056995487777
+                ]
+              },
+              "within_5fold": {
+                "n": 208,
+                "all_case_fraction": 0.9765258215962441,
+                "successful_pair_fraction": 0.9765258215962441,
+                "all_case_wilson95": [
+                  0.9462353262426276,
+                  0.9899325131734519
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              0.6443452084978432,
+              0.8089786974951665
+            ]
+          }
+        },
+        "constant": {
+          "condition_training_calibration": {
+            "method": "development_train_median_log2_residual",
+            "offset_log2": -0.5431139682188499,
+            "n_training_cases": 581,
+            "n_fitted": 581,
+            "assay_exclusions": {},
+            "final_refit": false
+          },
+          "frozen_HC_transfer": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": 0.8639384504239717,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 213,
+              "failures": {},
+              "coverage": 1.0,
+              "pearson_r_log": null,
+              "pearson_r2_log": null,
+              "spearman_rho": null,
+              "rmse_log2": 1.7614874963560025,
+              "mae_log2": 1.5717788689835452,
+              "median_absolute_log2": 1.5326317891186414,
+              "bias_log2": 1.471287600646772,
+              "within_2fold": {
+                "n": 56,
+                "all_case_fraction": 0.26291079812206575,
+                "successful_pair_fraction": 0.26291079812206575,
+                "all_case_wilson95": [
+                  0.20836822250514192,
+                  0.3258536899036068
+                ]
+              },
+              "within_5fold": {
+                "n": 176,
+                "all_case_fraction": 0.8262910798122066,
+                "successful_pair_fraction": 0.8262910798122066,
+                "all_case_wilson95": [
+                  0.7697544357942315,
+                  0.8712668926729364
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              1.4694346912602183,
+              1.6823040418494408
+            ]
+          },
+          "condition_train_intercept": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": -0.5431139682188499,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 213,
+              "failures": {},
+              "coverage": 1.0,
+              "pearson_r_log": null,
+              "pearson_r2_log": null,
+              "spearman_rho": null,
+              "rmse_log2": 0.9707096139467677,
+              "mae_log2": 0.7428776713495192,
+              "median_absolute_log2": 0.61390727073747,
+              "bias_log2": 0.06423518200395065,
+              "within_2fold": {
+                "n": 162,
+                "all_case_fraction": 0.7605633802816901,
+                "successful_pair_fraction": 0.7605633802816901,
+                "all_case_wilson95": [
+                  0.6989612034440782,
+                  0.8129335264829407
+                ]
+              },
+              "within_5fold": {
+                "n": 206,
+                "all_case_fraction": 0.9671361502347418,
+                "successful_pair_fraction": 0.9671361502347418,
+                "all_case_wilson95": [
+                  0.9337298994623284,
+                  0.9839912830194442
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              0.661134010783504,
+              0.826598378327985
+            ]
+          }
+        }
+      }
+    },
+    "BSET": {
+      "n_train": 581,
+      "n_final": 213,
+      "n_final_groups": 203,
+      "models": {
+        "historical": {
+          "condition_training_calibration": {
+            "method": "development_train_median_log2_residual",
+            "offset_log2": -6.0100160477410896,
+            "n_training_cases": 581,
+            "n_fitted": 562,
+            "assay_exclusions": {},
+            "final_refit": false
+          },
+          "frozen_HC_transfer": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": -4.141397223615085,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 198,
+              "failures": {
+                "failed": 1,
+                "no_candidate": 14
+              },
+              "coverage": 0.9295774647887324,
+              "pearson_r_log": 0.1354014479399717,
+              "pearson_r2_log": 0.018333552104240865,
+              "spearman_rho": 0.23740275922691714,
+              "rmse_log2": 6.1906140156738845,
+              "mae_log2": 4.644938425133058,
+              "median_absolute_log2": 3.9230167109530854,
+              "bias_log2": 0.7999677931254143,
+              "within_2fold": {
+                "n": 25,
+                "all_case_fraction": 0.11737089201877934,
+                "successful_pair_fraction": 0.12626262626262627,
+                "all_case_wilson95": [
+                  0.08077672149795292,
+                  0.16752200842903742
+                ]
+              },
+              "within_5fold": {
+                "n": 57,
+                "all_case_fraction": 0.2676056338028169,
+                "successful_pair_fraction": 0.2878787878787879,
+                "all_case_wilson95": [
+                  0.21265431555895656,
+                  0.33079092531694565
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              4.1062110829959355,
+              5.169229484907212
+            ]
+          },
+          "condition_train_intercept": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": -6.0100160477410896,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 198,
+              "failures": {
+                "failed": 1,
+                "no_candidate": 14
+              },
+              "coverage": 0.9295774647887324,
+              "pearson_r_log": 0.13540144793997172,
+              "pearson_r2_log": 0.018333552104240872,
+              "spearman_rho": 0.23740275922691714,
+              "rmse_log2": 6.231032695073796,
+              "mae_log2": 4.198379021850082,
+              "median_absolute_log2": 2.8822386210338453,
+              "bias_log2": -1.0686510310005901,
+              "within_2fold": {
+                "n": 35,
+                "all_case_fraction": 0.1643192488262911,
+                "successful_pair_fraction": 0.17676767676767677,
+                "all_case_wilson95": [
+                  0.12058672442281199,
+                  0.2199452901757133
+                ]
+              },
+              "within_5fold": {
+                "n": 87,
+                "all_case_fraction": 0.4084507042253521,
+                "successful_pair_fraction": 0.4393939393939394,
+                "all_case_wilson95": [
+                  0.34462767497361263,
+                  0.4755174199168944
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              3.5984506121229556,
+              4.823609379963903
+            ]
+          }
+        },
+        "footprint2017": {
+          "condition_training_calibration": {
+            "method": "development_train_median_log2_residual",
+            "offset_log2": -7.454918353888484,
+            "n_training_cases": 581,
+            "n_fitted": 562,
+            "assay_exclusions": {},
+            "final_refit": false
+          },
+          "frozen_HC_transfer": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": -5.575386760969535,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 198,
+              "failures": {
+                "failed": 1,
+                "no_candidate": 14
+              },
+              "coverage": 0.9295774647887324,
+              "pearson_r_log": 0.12713542822817536,
+              "pearson_r2_log": 0.016163417110761528,
+              "spearman_rho": 0.23546903847998338,
+              "rmse_log2": 6.260807277230128,
+              "mae_log2": 4.692928467125021,
+              "median_absolute_log2": 4.054822871104495,
+              "bias_log2": 0.7648765647910295,
+              "within_2fold": {
+                "n": 25,
+                "all_case_fraction": 0.11737089201877934,
+                "successful_pair_fraction": 0.12626262626262627,
+                "all_case_wilson95": [
+                  0.08077672149795292,
+                  0.16752200842903742
+                ]
+              },
+              "within_5fold": {
+                "n": 54,
+                "all_case_fraction": 0.2535211267605634,
+                "successful_pair_fraction": 0.2727272727272727,
+                "all_case_wilson95": [
+                  0.19982132380721357,
+                  0.3159539316672281
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              4.145388809367657,
+              5.225656395733889
+            ]
+          },
+          "condition_train_intercept": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": -7.454918353888484,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 198,
+              "failures": {
+                "failed": 1,
+                "no_candidate": 14
+              },
+              "coverage": 0.9295774647887324,
+              "pearson_r_log": 0.12713542822817536,
+              "pearson_r2_log": 0.016163417110761528,
+              "spearman_rho": 0.23546903847998338,
+              "rmse_log2": 6.313091749292265,
+              "mae_log2": 4.2150221835099035,
+              "median_absolute_log2": 2.9899405711624483,
+              "bias_log2": -1.1146550281279193,
+              "within_2fold": {
+                "n": 34,
+                "all_case_fraction": 0.1596244131455399,
+                "successful_pair_fraction": 0.1717171717171717,
+                "all_case_wilson95": [
+                  0.11653409589998884,
+                  0.21477459023138293
+                ]
+              },
+              "within_5fold": {
+                "n": 81,
+                "all_case_fraction": 0.38028169014084506,
+                "successful_pair_fraction": 0.4090909090909091,
+                "all_case_wilson95": [
+                  0.31775373792441497,
+                  0.4470513861631711
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              3.593597316753287,
+              4.856603404456182
+            ]
+          }
+        },
+        "context2017": {
+          "condition_training_calibration": {
+            "method": "development_train_median_log2_residual",
+            "offset_log2": -4.253762745065662,
+            "n_training_cases": 581,
+            "n_fitted": 514,
+            "assay_exclusions": {},
+            "final_refit": false
+          },
+          "frozen_HC_transfer": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": -1.9932562199351087,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 190,
+              "failures": {
+                "failed": 23
+              },
+              "coverage": 0.892018779342723,
+              "pearson_r_log": 0.0914111478269763,
+              "pearson_r2_log": 0.008355997947045314,
+              "spearman_rho": 0.21447869870082958,
+              "rmse_log2": 63.17300350079387,
+              "mae_log2": 27.664174430061422,
+              "median_absolute_log2": 5.844193603092696,
+              "bias_log2": -21.4269973807294,
+              "within_2fold": {
+                "n": 16,
+                "all_case_fraction": 0.07511737089201878,
+                "successful_pair_fraction": 0.08421052631578947,
+                "all_case_wilson95": [
+                  0.04676351177342122,
+                  0.11852526194918767
+                ]
+              },
+              "within_5fold": {
+                "n": 38,
+                "all_case_fraction": 0.1784037558685446,
+                "successful_pair_fraction": 0.2,
+                "all_case_wilson95": [
+                  0.13282599792141822,
+                  0.23537600207856754
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              19.80138637004414,
+              36.046683797756025
+            ]
+          },
+          "condition_train_intercept": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": -4.253762745065662,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 190,
+              "failures": {
+                "failed": 23
+              },
+              "coverage": 0.892018779342723,
+              "pearson_r_log": 0.0914111478269763,
+              "pearson_r2_log": 0.008355997947045314,
+              "spearman_rho": 0.21447869870082958,
+              "rmse_log2": 63.97507323831416,
+              "mae_log2": 27.53571309877901,
+              "median_absolute_log2": 4.515128245324361,
+              "bias_log2": -23.687503905859952,
+              "within_2fold": {
+                "n": 20,
+                "all_case_fraction": 0.09389671361502347,
+                "successful_pair_fraction": 0.10526315789473684,
+                "all_case_wilson95": [
+                  0.06160691003139952,
+                  0.14057517755982335
+                ]
+              },
+              "within_5fold": {
+                "n": 40,
+                "all_case_fraction": 0.18779342723004694,
+                "successful_pair_fraction": 0.21052631578947367,
+                "all_case_wilson95": [
+                  0.14104922243216161,
+                  0.24559943450213112
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              19.59881003505389,
+              36.116799935635655
+            ]
+          }
+        },
+        "ostir": {
+          "condition_training_calibration": {
+            "method": "development_train_median_log2_residual",
+            "offset_log2": -8.861274902983244,
+            "n_training_cases": 581,
+            "n_fitted": 580,
+            "assay_exclusions": {},
+            "final_refit": false
+          },
+          "frozen_HC_transfer": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": -7.0141898124920505,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 213,
+              "failures": {},
+              "coverage": 1.0,
+              "pearson_r_log": 0.21925590648036314,
+              "pearson_r2_log": 0.04807315252652575,
+              "spearman_rho": 0.25890423972990995,
+              "rmse_log2": 3.7849125710175135,
+              "mae_log2": 3.0528679295084014,
+              "median_absolute_log2": 2.598674628877636,
+              "bias_log2": 1.385639413783928,
+              "within_2fold": {
+                "n": 34,
+                "all_case_fraction": 0.1596244131455399,
+                "successful_pair_fraction": 0.1596244131455399,
+                "all_case_wilson95": [
+                  0.11653409589998884,
+                  0.21477459023138293
+                ]
+              },
+              "within_5fold": {
+                "n": 90,
+                "all_case_fraction": 0.4225352112676056,
+                "successful_pair_fraction": 0.4225352112676056,
+                "all_case_wilson95": [
+                  0.35814694645984246,
+                  0.48966813383212504
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              2.760565271468872,
+              3.357773435663016
+            ]
+          },
+          "condition_train_intercept": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": -8.861274902983244,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 213,
+              "failures": {},
+              "coverage": 1.0,
+              "pearson_r_log": 0.21925590648036314,
+              "pearson_r2_log": 0.04807315252652575,
+              "spearman_rho": 0.25890423972990995,
+              "rmse_log2": 3.5522526230220115,
+              "mae_log2": 2.4035864963761497,
+              "median_absolute_log2": 1.6110290159398408,
+              "bias_log2": -0.4614456767072649,
+              "within_2fold": {
+                "n": 69,
+                "all_case_fraction": 0.323943661971831,
+                "successful_pair_fraction": 0.323943661971831,
+                "all_case_wilson95": [
+                  0.264696735068225,
+                  0.3894284474135191
+                ]
+              },
+              "within_5fold": {
+                "n": 140,
+                "all_case_fraction": 0.6572769953051644,
+                "successful_pair_fraction": 0.6572769953051644,
+                "all_case_wilson95": [
+                  0.5912576061495266,
+                  0.7177238975001156
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              2.0735167766792544,
+              2.7521314649955664
+            ]
+          }
+        },
+        "rebeca": {
+          "condition_training_calibration": {
+            "method": "development_train_median_log2_residual",
+            "offset_log2": -9.200901807427009,
+            "n_training_cases": 581,
+            "n_fitted": 581,
+            "assay_exclusions": {},
+            "final_refit": false
+          },
+          "frozen_HC_transfer": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": -7.582779119016097,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 213,
+              "failures": {},
+              "coverage": 1.0,
+              "pearson_r_log": 0.20783115952761633,
+              "pearson_r2_log": 0.04319379087059351,
+              "spearman_rho": 0.22288465407149297,
+              "rmse_log2": 4.920405889329958,
+              "mae_log2": 3.9323336219208915,
+              "median_absolute_log2": 3.016745274479094,
+              "bias_log2": 2.5738689344662755,
+              "within_2fold": {
+                "n": 36,
+                "all_case_fraction": 0.16901408450704225,
+                "successful_pair_fraction": 0.16901408450704225,
+                "all_case_wilson95": [
+                  0.12465321041038174,
+                  0.225102132655297
+                ]
+              },
+              "within_5fold": {
+                "n": 85,
+                "all_case_fraction": 0.39906103286384975,
+                "successful_pair_fraction": 0.39906103286384975,
+                "all_case_wilson95": [
+                  0.3356450817458827,
+                  0.4660533562103173
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              3.5677328612368666,
+              4.320125317241212
+            ]
+          },
+          "condition_train_intercept": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": -9.200901807427009,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 213,
+              "failures": {},
+              "coverage": 1.0,
+              "pearson_r_log": 0.20783115952761633,
+              "pearson_r2_log": 0.04319379087059351,
+              "spearman_rho": 0.22288465407149297,
+              "rmse_log2": 4.3010514657222245,
+              "mae_log2": 3.6073965638133654,
+              "median_absolute_log2": 3.495517110590195,
+              "bias_log2": 0.9557462460553636,
+              "within_2fold": {
+                "n": 37,
+                "all_case_fraction": 0.17370892018779344,
+                "successful_pair_fraction": 0.17370892018779344,
+                "all_case_wilson95": [
+                  0.1287331073270636,
+                  0.23024556420576864
+                ]
+              },
+              "within_5fold": {
+                "n": 72,
+                "all_case_fraction": 0.3380281690140845,
+                "successful_pair_fraction": 0.3380281690140845,
+                "all_case_wilson95": [
+                  0.27787101244674667,
+                  0.40392415543645793
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              3.306992574159813,
+              3.9096608340202876
+            ]
+          }
+        },
+        "sequence_v1": {
+          "condition_training_calibration": {
+            "method": "development_train_median_log2_residual",
+            "offset_log2": -1.4200567112059599,
+            "n_training_cases": 581,
+            "n_fitted": 581,
+            "assay_exclusions": {},
+            "final_refit": false
+          },
+          "frozen_HC_transfer": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": 0.04659637563372265,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 213,
+              "failures": {},
+              "coverage": 1.0,
+              "pearson_r_log": 0.25764806199068296,
+              "pearson_r2_log": 0.06638252384755482,
+              "spearman_rho": 0.27661490012194484,
+              "rmse_log2": 1.8226843595373874,
+              "mae_log2": 1.6316024006912186,
+              "median_absolute_log2": 1.6577012735705847,
+              "bias_log2": 1.5250634319621306,
+              "within_2fold": {
+                "n": 58,
+                "all_case_fraction": 0.27230046948356806,
+                "successful_pair_fraction": 0.27230046948356806,
+                "all_case_wilson95": [
+                  0.2169486517076502,
+                  0.33571991763540543
+                ]
+              },
+              "within_5fold": {
+                "n": 176,
+                "all_case_fraction": 0.8262910798122066,
+                "successful_pair_fraction": 0.8262910798122066,
+                "all_case_wilson95": [
+                  0.7697544357942315,
+                  0.8712668926729364
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              1.5209013555317623,
+              1.7438071379751205
+            ]
+          },
+          "condition_train_intercept": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": -1.4200567112059599,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 213,
+              "failures": {},
+              "coverage": 1.0,
+              "pearson_r_log": 0.25764806199068296,
+              "pearson_r2_log": 0.06638252384755482,
+              "spearman_rho": 0.27661490012194484,
+              "rmse_log2": 0.9998857791825163,
+              "mae_log2": 0.7735399600378395,
+              "median_absolute_log2": 0.6271836549492285,
+              "bias_log2": 0.05841034512244804,
+              "within_2fold": {
+                "n": 162,
+                "all_case_fraction": 0.7605633802816901,
+                "successful_pair_fraction": 0.7605633802816901,
+                "all_case_wilson95": [
+                  0.6989612034440782,
+                  0.8129335264829407
+                ]
+              },
+              "within_5fold": {
+                "n": 204,
+                "all_case_fraction": 0.9577464788732394,
+                "successful_pair_fraction": 0.9577464788732394,
+                "all_case_wilson95": [
+                  0.9216609543715258,
+                  0.9776135711759396
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              0.6898760183416411,
+              0.8579495792451819
+            ]
+          }
+        },
+        "hybrid": {
+          "condition_training_calibration": {
+            "method": "development_train_median_log2_residual",
+            "offset_log2": -1.4377642610057717,
+            "n_training_cases": 581,
+            "n_fitted": 514,
+            "assay_exclusions": {},
+            "final_refit": false
+          },
+          "frozen_HC_transfer": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": 0.039102431228718926,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 190,
+              "failures": {
+                "failed": 23
+              },
+              "coverage": 0.892018779342723,
+              "pearson_r_log": 0.2957096749295647,
+              "pearson_r2_log": 0.08744421184694881,
+              "spearman_rho": 0.29722211287380756,
+              "rmse_log2": 1.8015603542522614,
+              "mae_log2": 1.6155945556227664,
+              "median_absolute_log2": 1.6098738442305192,
+              "bias_log2": 1.498882235140793,
+              "within_2fold": {
+                "n": 50,
+                "all_case_fraction": 0.2347417840375587,
+                "successful_pair_fraction": 0.2631578947368421,
+                "all_case_wilson95": [
+                  0.18283298531993167,
+                  0.296048956285896
+                ]
+              },
+              "within_5fold": {
+                "n": 157,
+                "all_case_fraction": 0.7370892018779343,
+                "successful_pair_fraction": 0.8263157894736842,
+                "all_case_wilson95": [
+                  0.6741463100963933,
+                  0.7916317774948581
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              1.5024775500655825,
+              1.7303403413092495
+            ]
+          },
+          "condition_train_intercept": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": -1.4377642610057717,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 190,
+              "failures": {
+                "failed": 23
+              },
+              "coverage": 0.892018779342723,
+              "pearson_r_log": 0.2957096749295647,
+              "pearson_r2_log": 0.08744421184694881,
+              "spearman_rho": 0.29722211287380756,
+              "rmse_log2": 0.9997281827188496,
+              "mae_log2": 0.7615918404435945,
+              "median_absolute_log2": 0.5934805806094416,
+              "bias_log2": 0.022015542906302393,
+              "within_2fold": {
+                "n": 145,
+                "all_case_fraction": 0.6807511737089202,
+                "successful_pair_fraction": 0.7631578947368421,
+                "all_case_wilson95": [
+                  0.6154173616993168,
+                  0.7396807842860929
+                ]
+              },
+              "within_5fold": {
+                "n": 183,
+                "all_case_fraction": 0.8591549295774648,
+                "successful_pair_fraction": 0.9631578947368421,
+                "all_case_wilson95": [
+                  0.8060569135401928,
+                  0.8995277141970494
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              0.6792058973755936,
+              0.8537669621667788
+            ]
+          }
+        },
+        "historical_affine": {
+          "condition_training_calibration": {
+            "method": "development_train_median_log2_residual",
+            "offset_log2": -1.443445211459315,
+            "n_training_cases": 581,
+            "n_fitted": 562,
+            "assay_exclusions": {},
+            "final_refit": false
+          },
+          "frozen_HC_transfer": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": 5.551115123125783e-17,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 198,
+              "failures": {
+                "failed": 1,
+                "no_candidate": 14
+              },
+              "coverage": 0.9295774647887324,
+              "pearson_r_log": 0.13540144793997144,
+              "pearson_r2_log": 0.018333552104240796,
+              "spearman_rho": 0.2373110498667632,
+              "rmse_log2": 1.826103109790988,
+              "mae_log2": 1.6230081826421279,
+              "median_absolute_log2": 1.5863931021650561,
+              "bias_log2": 1.5270857766728545,
+              "within_2fold": {
+                "n": 50,
+                "all_case_fraction": 0.2347417840375587,
+                "successful_pair_fraction": 0.25252525252525254,
+                "all_case_wilson95": [
+                  0.18283298531993167,
+                  0.296048956285896
+                ]
+              },
+              "within_5fold": {
+                "n": 162,
+                "all_case_fraction": 0.7605633802816901,
+                "successful_pair_fraction": 0.8181818181818182,
+                "all_case_wilson95": [
+                  0.6989612034440782,
+                  0.8129335264829407
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              1.5068715321060735,
+              1.7441263395310322
+            ]
+          },
+          "condition_train_intercept": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": -1.443445211459315,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 198,
+              "failures": {
+                "failed": 1,
+                "no_candidate": 14
+              },
+              "coverage": 0.9295774647887324,
+              "pearson_r_log": 0.13540144793997164,
+              "pearson_r2_log": 0.018333552104240848,
+              "spearman_rho": 0.2373110498667632,
+              "rmse_log2": 1.0048170691329954,
+              "mae_log2": 0.7712027097708329,
+              "median_absolute_log2": 0.6073335740078474,
+              "bias_log2": 0.08364056521353949,
+              "within_2fold": {
+                "n": 146,
+                "all_case_fraction": 0.6854460093896714,
+                "successful_pair_fraction": 0.7373737373737373,
+                "all_case_wilson95": [
+                  0.6202702536058882,
+                  0.7440512208466747
+                ]
+              },
+              "within_5fold": {
+                "n": 189,
+                "all_case_fraction": 0.8873239436619719,
+                "successful_pair_fraction": 0.9545454545454546,
+                "all_case_wilson95": [
+                  0.8378209747136608,
+                  0.9231036238265026
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              0.6868332508146463,
+              0.8576402495131396
+            ]
+          }
+        },
+        "ostir_affine": {
+          "condition_training_calibration": {
+            "method": "development_train_median_log2_residual",
+            "offset_log2": -1.459869338194847,
+            "n_training_cases": 581,
+            "n_fitted": 580,
+            "assay_exclusions": {},
+            "final_refit": false
+          },
+          "frozen_HC_transfer": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": 0.0,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 213,
+              "failures": {},
+              "coverage": 1.0,
+              "pearson_r_log": 0.21925590648036314,
+              "pearson_r2_log": 0.04807315252652575,
+              "spearman_rho": 0.25890423972990995,
+              "rmse_log2": 1.835430053846649,
+              "mae_log2": 1.635471912680667,
+              "median_absolute_log2": 1.6078278920690026,
+              "bias_log2": 1.5325293901826973,
+              "within_2fold": {
+                "n": 49,
+                "all_case_fraction": 0.2300469483568075,
+                "successful_pair_fraction": 0.2300469483568075,
+                "all_case_wilson95": [
+                  0.17860886261353073,
+                  0.29104975052514337
+                ]
+              },
+              "within_5fold": {
+                "n": 174,
+                "all_case_fraction": 0.8169014084507042,
+                "successful_pair_fraction": 0.8169014084507042,
+                "all_case_wilson95": [
+                  0.7595061631903719,
+                  0.8630685083424889
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              1.5234094987917428,
+              1.7496227358464094
+            ]
+          },
+          "condition_train_intercept": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": -1.459869338194847,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 213,
+              "failures": {},
+              "coverage": 1.0,
+              "pearson_r_log": 0.21925590648036314,
+              "pearson_r2_log": 0.04807315252652575,
+              "spearman_rho": 0.25890423972990995,
+              "rmse_log2": 1.0126384517411138,
+              "mae_log2": 0.7699141561278021,
+              "median_absolute_log2": 0.6073674176055448,
+              "bias_log2": 0.07266005198785014,
+              "within_2fold": {
+                "n": 161,
+                "all_case_fraction": 0.755868544600939,
+                "successful_pair_fraction": 0.755868544600939,
+                "all_case_wilson95": [
+                  0.6939805434080362,
+                  0.8086908580518293
+                ]
+              },
+              "within_5fold": {
+                "n": 203,
+                "all_case_fraction": 0.9530516431924883,
+                "successful_pair_fraction": 0.9530516431924883,
+                "all_case_wilson95": [
+                  0.9157495975030594,
+                  0.9743015995772526
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              0.6831094246086953,
+              0.8575258096940195
+            ]
+          }
+        },
+        "constant": {
+          "condition_training_calibration": {
+            "method": "development_train_median_log2_residual",
+            "offset_log2": -0.5647232690323093,
+            "n_training_cases": 581,
+            "n_fitted": 581,
+            "assay_exclusions": {},
+            "final_refit": false
+          },
+          "frozen_HC_transfer": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": 0.8639384504239717,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 213,
+              "failures": {},
+              "coverage": 1.0,
+              "pearson_r_log": null,
+              "pearson_r2_log": null,
+              "spearman_rho": null,
+              "rmse_log2": 1.820541364344989,
+              "mae_log2": 1.6127136241551012,
+              "median_absolute_log2": 1.5716837057147814,
+              "bias_log2": 1.5003846818631905,
+              "within_2fold": {
+                "n": 57,
+                "all_case_fraction": 0.2676056338028169,
+                "successful_pair_fraction": 0.2676056338028169,
+                "all_case_wilson95": [
+                  0.21265431555895656,
+                  0.33079092531694565
+                ]
+              },
+              "within_5fold": {
+                "n": 175,
+                "all_case_fraction": 0.8215962441314554,
+                "successful_pair_fraction": 0.8215962441314554,
+                "all_case_wilson95": [
+                  0.7646239979214325,
+                  0.8671740020785818
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              1.502106284791527,
+              1.7272213971251809
+            ]
+          },
+          "condition_train_intercept": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": -0.5647232690323093,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 213,
+              "failures": {},
+              "coverage": 1.0,
+              "pearson_r_log": null,
+              "pearson_r2_log": null,
+              "spearman_rho": null,
+              "rmse_log2": 1.0336154260932011,
+              "mae_log2": 0.7857800346326835,
+              "median_absolute_log2": 0.6238517226413098,
+              "bias_log2": 0.07172296240690966,
+              "within_2fold": {
+                "n": 155,
+                "all_case_fraction": 0.7276995305164319,
+                "successful_pair_fraction": 0.7276995305164319,
+                "all_case_wilson95": [
+                  0.6642800823645946,
+                  0.7830513482923497
+                ]
+              },
+              "within_5fold": {
+                "n": 203,
+                "all_case_fraction": 0.9530516431924883,
+                "successful_pair_fraction": 0.9530516431924883,
+                "all_case_wilson95": [
+                  0.9157495975030594,
+                  0.9743015995772526
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              0.698841269656534,
+              0.8754593500744409
+            ]
+          }
+        }
+      }
+    },
+    "ASET": {
+      "n_train": 581,
+      "n_final": 213,
+      "n_final_groups": 203,
+      "models": {
+        "historical": {
+          "condition_training_calibration": {
+            "method": "development_train_median_log2_residual",
+            "offset_log2": -5.739618845751322,
+            "n_training_cases": 581,
+            "n_fitted": 562,
+            "assay_exclusions": {},
+            "final_refit": false
+          },
+          "frozen_HC_transfer": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": -4.141397223615085,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 198,
+              "failures": {
+                "failed": 1,
+                "no_candidate": 14
+              },
+              "coverage": 0.9295774647887324,
+              "pearson_r_log": 0.14119132684348312,
+              "pearson_r2_log": 0.019934990775823277,
+              "spearman_rho": 0.24426681384254853,
+              "rmse_log2": 6.15325068868896,
+              "mae_log2": 4.528530075453782,
+              "median_absolute_log2": 3.695877772878735,
+              "bias_log2": 0.5141534861578146,
+              "within_2fold": {
+                "n": 27,
+                "all_case_fraction": 0.1267605633802817,
+                "successful_pair_fraction": 0.13636363636363635,
+                "all_case_wilson95": [
+                  0.08859890499381946,
+                  0.1781464818674779
+                ]
+              },
+              "within_5fold": {
+                "n": 64,
+                "all_case_fraction": 0.3004694835680751,
+                "successful_pair_fraction": 0.32323232323232326,
+                "all_case_wilson95": [
+                  0.24288081712020065,
+                  0.36512772302577595
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              3.9808823600298577,
+              5.061628326596283
+            ]
+          },
+          "condition_train_intercept": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": -5.739618845751322,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 198,
+              "failures": {
+                "failed": 1,
+                "no_candidate": 14
+              },
+              "coverage": 0.9295774647887324,
+              "pearson_r_log": 0.14119132684348312,
+              "pearson_r2_log": 0.019934990775823277,
+              "spearman_rho": 0.24426681384254853,
+              "rmse_log2": 6.2268245481920115,
+              "mae_log2": 4.193736041472735,
+              "median_absolute_log2": 2.8947309573537354,
+              "bias_log2": -1.0840681359784226,
+              "within_2fold": {
+                "n": 33,
+                "all_case_fraction": 0.15492957746478872,
+                "successful_pair_fraction": 0.16666666666666666,
+                "all_case_wilson95": [
+                  0.11249580356146419,
+                  0.20958955410275407
+                ]
+              },
+              "within_5fold": {
+                "n": 84,
+                "all_case_fraction": 0.39436619718309857,
+                "successful_pair_fraction": 0.42424242424242425,
+                "all_case_wilson95": [
+                  0.3311629596592097,
+                  0.4613121498298367
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              3.5873180298881264,
+              4.830323653169822
+            ]
+          }
+        },
+        "footprint2017": {
+          "condition_training_calibration": {
+            "method": "development_train_median_log2_residual",
+            "offset_log2": -7.104146750828686,
+            "n_training_cases": 581,
+            "n_fitted": 562,
+            "assay_exclusions": {},
+            "final_refit": false
+          },
+          "frozen_HC_transfer": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": -5.575386760969535,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 198,
+              "failures": {
+                "failed": 1,
+                "no_candidate": 14
+              },
+              "coverage": 0.9295774647887324,
+              "pearson_r_log": 0.12243378277620257,
+              "pearson_r2_log": 0.014990031164890356,
+              "spearman_rho": 0.22631231716743883,
+              "rmse_log2": 6.234858801530266,
+              "mae_log2": 4.576365180075,
+              "median_absolute_log2": 3.7426990121527552,
+              "bias_log2": 0.47906225782342976,
+              "within_2fold": {
+                "n": 26,
+                "all_case_fraction": 0.12206572769953052,
+                "successful_pair_fraction": 0.13131313131313133,
+                "all_case_wilson95": [
+                  0.08467789495192457,
+                  0.17284416344221926
+                ]
+              },
+              "within_5fold": {
+                "n": 59,
+                "all_case_fraction": 0.27699530516431925,
+                "successful_pair_fraction": 0.29797979797979796,
+                "all_case_wilson95": [
+                  0.22125109949423383,
+                  0.3406407983159754
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              4.014996717129445,
+              5.1342856812722815
+            ]
+          },
+          "condition_train_intercept": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": -7.104146750828686,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 198,
+              "failures": {
+                "failed": 1,
+                "no_candidate": 14
+              },
+              "coverage": 0.9295774647887324,
+              "pearson_r_log": 0.12243378277620257,
+              "pearson_r2_log": 0.014990031164890356,
+              "spearman_rho": 0.22631231716743883,
+              "rmse_log2": 6.304429312538089,
+              "mae_log2": 4.251083800866634,
+              "median_absolute_log2": 2.8967318017834884,
+              "bias_log2": -1.0496977320357213,
+              "within_2fold": {
+                "n": 26,
+                "all_case_fraction": 0.12206572769953052,
+                "successful_pair_fraction": 0.13131313131313133,
+                "all_case_wilson95": [
+                  0.08467789495192457,
+                  0.17284416344221926
+                ]
+              },
+              "within_5fold": {
+                "n": 83,
+                "all_case_fraction": 0.38967136150234744,
+                "successful_pair_fraction": 0.41919191919191917,
+                "all_case_wilson95": [
+                  0.3266870021522688,
+                  0.45656477886962427
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              3.6210030550367263,
+              4.896445324585004
+            ]
+          }
+        },
+        "context2017": {
+          "condition_training_calibration": {
+            "method": "development_train_median_log2_residual",
+            "offset_log2": -3.876679651877766,
+            "n_training_cases": 581,
+            "n_fitted": 514,
+            "assay_exclusions": {},
+            "final_refit": false
+          },
+          "frozen_HC_transfer": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": -1.9932562199351087,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 190,
+              "failures": {
+                "failed": 23
+              },
+              "coverage": 0.892018779342723,
+              "pearson_r_log": 0.04113327580158367,
+              "pearson_r2_log": 0.0016919463781691487,
+              "spearman_rho": 0.15256472444845,
+              "rmse_log2": 63.31949106944423,
+              "mae_log2": 27.648464258446506,
+              "median_absolute_log2": 5.564893177271579,
+              "bias_log2": -21.70719264506954,
+              "within_2fold": {
+                "n": 20,
+                "all_case_fraction": 0.09389671361502347,
+                "successful_pair_fraction": 0.10526315789473684,
+                "all_case_wilson95": [
+                  0.06160691003139952,
+                  0.14057517755982335
+                ]
+              },
+              "within_5fold": {
+                "n": 38,
+                "all_case_fraction": 0.1784037558685446,
+                "successful_pair_fraction": 0.2,
+                "all_case_wilson95": [
+                  0.13282599792141822,
+                  0.23537600207856754
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              19.846476486534712,
+              36.076489850602215
+            ]
+          },
+          "condition_train_intercept": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": -3.876679651877766,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 190,
+              "failures": {
+                "failed": 23
+              },
+              "coverage": 0.892018779342723,
+              "pearson_r_log": 0.04113327580158367,
+              "pearson_r2_log": 0.0016919463781691487,
+              "spearman_rho": 0.15256472444845,
+              "rmse_log2": 63.98963121988009,
+              "mae_log2": 27.565047719641772,
+              "median_absolute_log2": 4.7622524460063165,
+              "bias_log2": -23.590616077012196,
+              "within_2fold": {
+                "n": 18,
+                "all_case_fraction": 0.08450704225352113,
+                "successful_pair_fraction": 0.09473684210526316,
+                "all_case_wilson95": [
+                  0.05412183815963345,
+                  0.12961359249728244
+                ]
+              },
+              "within_5fold": {
+                "n": 46,
+                "all_case_fraction": 0.215962441314554,
+                "successful_pair_fraction": 0.24210526315789474,
+                "all_case_wilson95": [
+                  0.16599469107381842,
+                  0.2759939366633953
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              19.618406055281778,
+              36.16155922946543
+            ]
+          }
+        },
+        "ostir": {
+          "condition_training_calibration": {
+            "method": "development_train_median_log2_residual",
+            "offset_log2": -8.490029668213936,
+            "n_training_cases": 581,
+            "n_fitted": 580,
+            "assay_exclusions": {},
+            "final_refit": false
+          },
+          "frozen_HC_transfer": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": -7.0141898124920505,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 213,
+              "failures": {},
+              "coverage": 1.0,
+              "pearson_r_log": 0.17694355639308806,
+              "pearson_r2_log": 0.03130902214903394,
+              "spearman_rho": 0.24410994236710615,
+              "rmse_log2": 3.723984582051596,
+              "mae_log2": 2.8895096822399022,
+              "median_absolute_log2": 2.4348998910081523,
+              "bias_log2": 1.0934490655650666,
+              "within_2fold": {
+                "n": 42,
+                "all_case_fraction": 0.19718309859154928,
+                "successful_pair_fraction": 0.19718309859154928,
+                "all_case_wilson95": [
+                  0.1493200408551023,
+                  0.2557752730134974
+                ]
+              },
+              "within_5fold": {
+                "n": 103,
+                "all_case_fraction": 0.4835680751173709,
+                "successful_pair_fraction": 0.4835680751173709,
+                "all_case_wilson95": [
+                  0.41734465821901745,
+                  0.5503736921459454
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              2.5809221871754042,
+              3.220103781311397
+            ]
+          },
+          "condition_train_intercept": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": -8.490029668213936,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 213,
+              "failures": {},
+              "coverage": 1.0,
+              "pearson_r_log": 0.17694355639308806,
+              "pearson_r2_log": 0.03130902214903394,
+              "spearman_rho": 0.24410994236710615,
+              "rmse_log2": 3.580314654436065,
+              "mae_log2": 2.420839678946298,
+              "median_absolute_log2": 1.4671948631325054,
+              "bias_log2": -0.3823907901568185,
+              "within_2fold": {
+                "n": 72,
+                "all_case_fraction": 0.3380281690140845,
+                "successful_pair_fraction": 0.3380281690140845,
+                "all_case_wilson95": [
+                  0.27787101244674667,
+                  0.40392415543645793
+                ]
+              },
+              "within_5fold": {
+                "n": 135,
+                "all_case_fraction": 0.6338028169014085,
+                "successful_pair_fraction": 0.6338028169014085,
+                "all_case_wilson95": [
+                  0.5672659757421484,
+                  0.6955988855717262
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              2.085911651453043,
+              2.7849187763533023
+            ]
+          }
+        },
+        "rebeca": {
+          "condition_training_calibration": {
+            "method": "development_train_median_log2_residual",
+            "offset_log2": -8.74113853882155,
+            "n_training_cases": 581,
+            "n_fitted": 581,
+            "assay_exclusions": {},
+            "final_refit": false
+          },
+          "frozen_HC_transfer": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": -7.582779119016097,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 213,
+              "failures": {},
+              "coverage": 1.0,
+              "pearson_r_log": 0.17758545166930262,
+              "pearson_r2_log": 0.03153659264459022,
+              "spearman_rho": 0.20415953665920758,
+              "rmse_log2": 4.798722682662457,
+              "mae_log2": 3.8626039598631623,
+              "median_absolute_log2": 3.230775693171039,
+              "bias_log2": 2.281678586247414,
+              "within_2fold": {
+                "n": 37,
+                "all_case_fraction": 0.17370892018779344,
+                "successful_pair_fraction": 0.17370892018779344,
+                "all_case_wilson95": [
+                  0.1287331073270636,
+                  0.23024556420576864
+                ]
+              },
+              "within_5fold": {
+                "n": 86,
+                "all_case_fraction": 0.40375586854460094,
+                "successful_pair_fraction": 0.40375586854460094,
+                "all_case_wilson95": [
+                  0.34013333173986837,
+                  0.4707884346834851
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              3.4963930040002946,
+              4.249352681094298
+            ]
+          },
+          "condition_train_intercept": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": -8.74113853882155,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 213,
+              "failures": {},
+              "coverage": 1.0,
+              "pearson_r_log": 0.17758545166930262,
+              "pearson_r2_log": 0.03153659264459022,
+              "spearman_rho": 0.20415953665920758,
+              "rmse_log2": 4.36846977371425,
+              "mae_log2": 3.641978081231907,
+              "median_absolute_log2": 3.401585866406135,
+              "bias_log2": 1.1233191664419604,
+              "within_2fold": {
+                "n": 36,
+                "all_case_fraction": 0.16901408450704225,
+                "successful_pair_fraction": 0.16901408450704225,
+                "all_case_wilson95": [
+                  0.12465321041038174,
+                  0.225102132655297
+                ]
+              },
+              "within_5fold": {
+                "n": 73,
+                "all_case_fraction": 0.3427230046948357,
+                "successful_pair_fraction": 0.3427230046948357,
+                "all_case_wilson95": [
+                  0.2822761024998846,
+                  0.40874239385047345
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              3.3295407672897386,
+              3.960247278877702
+            ]
+          }
+        },
+        "sequence_v1": {
+          "condition_training_calibration": {
+            "method": "development_train_median_log2_residual",
+            "offset_log2": -1.069526867764802,
+            "n_training_cases": 581,
+            "n_fitted": 581,
+            "assay_exclusions": {},
+            "final_refit": false
+          },
+          "frozen_HC_transfer": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": 0.04659637563372265,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 213,
+              "failures": {},
+              "coverage": 1.0,
+              "pearson_r_log": 0.22607640936863868,
+              "pearson_r2_log": 0.0511105428730163,
+              "spearman_rho": 0.25610034745592225,
+              "rmse_log2": 1.5507018820324212,
+              "mae_log2": 1.3288208490895888,
+              "median_absolute_log2": 1.2371787379959287,
+              "bias_log2": 1.2328730837432689,
+              "within_2fold": {
+                "n": 78,
+                "all_case_fraction": 0.36619718309859156,
+                "successful_pair_fraction": 0.36619718309859156,
+                "all_case_wilson95": [
+                  0.3044011144282739,
+                  0.4327340242578517
+                ]
+              },
+              "within_5fold": {
+                "n": 187,
+                "all_case_fraction": 0.8779342723004695,
+                "successful_pair_fraction": 0.8779342723004695,
+                "all_case_wilson95": [
+                  0.8271558365577808,
+                  0.9153221050480754
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              1.2284934177298759,
+              1.4443531128239755
+            ]
+          },
+          "condition_train_intercept": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": -1.069526867764802,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 213,
+              "failures": {},
+              "coverage": 1.0,
+              "pearson_r_log": 0.22607640936863874,
+              "pearson_r2_log": 0.05111054287301633,
+              "spearman_rho": 0.25610034745592225,
+              "rmse_log2": 0.9478031502061907,
+              "mae_log2": 0.7303414752851638,
+              "median_absolute_log2": 0.5972294273410537,
+              "bias_log2": 0.1167498403447443,
+              "within_2fold": {
+                "n": 164,
+                "all_case_fraction": 0.7699530516431925,
+                "successful_pair_fraction": 0.7699530516431925,
+                "all_case_wilson95": [
+                  0.7089502494748566,
+                  0.8213911373864692
+                ]
+              },
+              "within_5fold": {
+                "n": 207,
+                "all_case_fraction": 0.971830985915493,
+                "successful_pair_fraction": 0.971830985915493,
+                "all_case_wilson95": [
+                  0.9399172154271388,
+                  0.9870272955217875
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              0.6487299829709167,
+              0.814907125498353
+            ]
+          }
+        },
+        "hybrid": {
+          "condition_training_calibration": {
+            "method": "development_train_median_log2_residual",
+            "offset_log2": -1.0638292879552416,
+            "n_training_cases": 581,
+            "n_fitted": 514,
+            "assay_exclusions": {},
+            "final_refit": false
+          },
+          "frozen_HC_transfer": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": 0.039102431228718926,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 190,
+              "failures": {
+                "failed": 23
+              },
+              "coverage": 0.892018779342723,
+              "pearson_r_log": 0.263353321177509,
+              "pearson_r2_log": 0.0693549717752242,
+              "spearman_rho": 0.2894277578763663,
+              "rmse_log2": 1.5403323591592801,
+              "mae_log2": 1.32361873260552,
+              "median_absolute_log2": 1.2484147508637453,
+              "bias_log2": 1.218686970800653,
+              "within_2fold": {
+                "n": 71,
+                "all_case_fraction": 0.3333333333333333,
+                "successful_pair_fraction": 0.3736842105263158,
+                "all_case_wilson95": [
+                  0.2734727077281967,
+                  0.3990991316878543
+                ]
+              },
+              "within_5fold": {
+                "n": 168,
+                "all_case_fraction": 0.7887323943661971,
+                "successful_pair_fraction": 0.8842105263157894,
+                "all_case_wilson95": [
+                  0.7290447900859254,
+                  0.8381899106440143
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              1.2123334431031412,
+              1.4344546854483948
+            ]
+          },
+          "condition_train_intercept": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": -1.0638292879552416,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 190,
+              "failures": {
+                "failed": 23
+              },
+              "coverage": 0.892018779342723,
+              "pearson_r_log": 0.263353321177509,
+              "pearson_r2_log": 0.0693549717752242,
+              "spearman_rho": 0.2894277578763663,
+              "rmse_log2": 0.9491180759793618,
+              "mae_log2": 0.7293092548954185,
+              "median_absolute_log2": 0.6130421069153584,
+              "bias_log2": 0.1157552516166925,
+              "within_2fold": {
+                "n": 149,
+                "all_case_fraction": 0.6995305164319249,
+                "successful_pair_fraction": 0.7842105263157895,
+                "all_case_wilson95": [
+                  0.6348722769742241,
+                  0.7571191828797994
+                ]
+              },
+              "within_5fold": {
+                "n": 183,
+                "all_case_fraction": 0.8591549295774648,
+                "successful_pair_fraction": 0.9631578947368421,
+                "all_case_wilson95": [
+                  0.8060569135401928,
+                  0.8995277141970494
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              0.6482195120554796,
+              0.8186281779253479
+            ]
+          }
+        },
+        "historical_affine": {
+          "condition_training_calibration": {
+            "method": "development_train_median_log2_residual",
+            "offset_log2": -1.1271506837991832,
+            "n_training_cases": 581,
+            "n_fitted": 562,
+            "assay_exclusions": {},
+            "final_refit": false
+          },
+          "frozen_HC_transfer": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": 5.551115123125783e-17,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 198,
+              "failures": {
+                "failed": 1,
+                "no_candidate": 14
+              },
+              "coverage": 0.9295774647887324,
+              "pearson_r_log": 0.14119132684348287,
+              "pearson_r2_log": 0.019934990775823207,
+              "spearman_rho": 0.24414960410043546,
+              "rmse_log2": 1.5530433550250158,
+              "mae_log2": 1.3237396722787884,
+              "median_absolute_log2": 1.193990158189878,
+              "bias_log2": 1.241271469705255,
+              "within_2fold": {
+                "n": 81,
+                "all_case_fraction": 0.38028169014084506,
+                "successful_pair_fraction": 0.4090909090909091,
+                "all_case_wilson95": [
+                  0.31775373792441497,
+                  0.4470513861631711
+                ]
+              },
+              "within_5fold": {
+                "n": 174,
+                "all_case_fraction": 0.8169014084507042,
+                "successful_pair_fraction": 0.8787878787878788,
+                "all_case_wilson95": [
+                  0.7595061631903719,
+                  0.8630685083424889
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              1.2087415341002081,
+              1.4410254056565255
+            ]
+          },
+          "condition_train_intercept": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": -1.1271506837991832,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 198,
+              "failures": {
+                "failed": 1,
+                "no_candidate": 14
+              },
+              "coverage": 0.9295774647887324,
+              "pearson_r_log": 0.14119132684348296,
+              "pearson_r2_log": 0.01993499077582323,
+              "spearman_rho": 0.24414960410043546,
+              "rmse_log2": 0.9403256642562371,
+              "mae_log2": 0.7406972225749965,
+              "median_absolute_log2": 0.6388913723851715,
+              "bias_log2": 0.11412078590607169,
+              "within_2fold": {
+                "n": 149,
+                "all_case_fraction": 0.6995305164319249,
+                "successful_pair_fraction": 0.7525252525252525,
+                "all_case_wilson95": [
+                  0.6348722769742241,
+                  0.7571191828797994
+                ]
+              },
+              "within_5fold": {
+                "n": 194,
+                "all_case_fraction": 0.9107981220657277,
+                "successful_pair_fraction": 0.9797979797979798,
+                "all_case_wilson95": [
+                  0.864890870374507,
+                  0.9421503705014239
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              0.6633819130920069,
+              0.821357493758065
+            ]
+          }
+        },
+        "ostir_affine": {
+          "condition_training_calibration": {
+            "method": "development_train_median_log2_residual",
+            "offset_log2": -1.151038860430493,
+            "n_training_cases": 581,
+            "n_fitted": 580,
+            "assay_exclusions": {},
+            "final_refit": false
+          },
+          "frozen_HC_transfer": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": 0.0,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 213,
+              "failures": {},
+              "coverage": 1.0,
+              "pearson_r_log": 0.17694355639308806,
+              "pearson_r2_log": 0.03130902214903394,
+              "spearman_rho": 0.24410994236710615,
+              "rmse_log2": 1.562883149501481,
+              "mae_log2": 1.3409057862025322,
+              "median_absolute_log2": 1.2403112903496845,
+              "bias_log2": 1.2403390419638356,
+              "within_2fold": {
+                "n": 84,
+                "all_case_fraction": 0.39436619718309857,
+                "successful_pair_fraction": 0.39436619718309857,
+                "all_case_wilson95": [
+                  0.3311629596592097,
+                  0.4613121498298367
+                ]
+              },
+              "within_5fold": {
+                "n": 188,
+                "all_case_fraction": 0.8826291079812206,
+                "successful_pair_fraction": 0.8826291079812206,
+                "all_case_wilson95": [
+                  0.8324779915709626,
+                  0.9192232785020471
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              1.2351806062618644,
+              1.4612296541477559
+            ]
+          },
+          "condition_train_intercept": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": -1.151038860430493,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 213,
+              "failures": {},
+              "coverage": 1.0,
+              "pearson_r_log": 0.1769435563930881,
+              "pearson_r2_log": 0.031309022149033944,
+              "spearman_rho": 0.24410994236710615,
+              "rmse_log2": 0.9550588057275797,
+              "mae_log2": 0.738232669427817,
+              "median_absolute_log2": 0.6186133661658946,
+              "bias_log2": 0.0893001815333425,
+              "within_2fold": {
+                "n": 163,
+                "all_case_fraction": 0.7652582159624414,
+                "successful_pair_fraction": 0.7652582159624414,
+                "all_case_wilson95": [
+                  0.7039510437141041,
+                  0.8171670146800685
+                ]
+              },
+              "within_5fold": {
+                "n": 208,
+                "all_case_fraction": 0.9765258215962441,
+                "successful_pair_fraction": 0.9765258215962441,
+                "all_case_wilson95": [
+                  0.9462353262426276,
+                  0.9899325131734519
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              0.659795347656315,
+              0.8218022760096815
+            ]
+          }
+        },
+        "constant": {
+          "condition_training_calibration": {
+            "method": "development_train_median_log2_residual",
+            "offset_log2": -0.2699470187048013,
+            "n_training_cases": 581,
+            "n_fitted": 581,
+            "assay_exclusions": {},
+            "final_refit": false
+          },
+          "frozen_HC_transfer": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": 0.8639384504239717,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 213,
+              "failures": {},
+              "coverage": 1.0,
+              "pearson_r_log": null,
+              "pearson_r2_log": null,
+              "spearman_rho": null,
+              "rmse_log2": 1.5465741368076333,
+              "mae_log2": 1.3122064265492703,
+              "median_absolute_log2": 1.2090642187945329,
+              "bias_log2": 1.2081943336443288,
+              "within_2fold": {
+                "n": 88,
+                "all_case_fraction": 0.4131455399061033,
+                "successful_pair_fraction": 0.4131455399061033,
+                "all_case_wilson95": [
+                  0.34912807873323526,
+                  0.4802403446244252
+                ]
+              },
+              "within_5fold": {
+                "n": 187,
+                "all_case_fraction": 0.8779342723004695,
+                "successful_pair_fraction": 0.8779342723004695,
+                "all_case_wilson95": [
+                  0.8271558365577808,
+                  0.9153221050480754
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              1.209467506213127,
+              1.4291667717840364
+            ]
+          },
+          "condition_train_intercept": {
+            "n_source_cases": 213,
+            "n_log_eligible": 213,
+            "assay_exclusions": {},
+            "offset_log2": -0.2699470187048013,
+            "metrics": {
+              "n_submitted": 213,
+              "n_success": 213,
+              "failures": {},
+              "coverage": 1.0,
+              "pearson_r_log": null,
+              "pearson_r2_log": null,
+              "spearman_rho": null,
+              "rmse_log2": 0.9683386908192831,
+              "mae_log2": 0.7580302250483654,
+              "median_absolute_log2": 0.6495872369286788,
+              "bias_log2": 0.07430886451555598,
+              "within_2fold": {
+                "n": 160,
+                "all_case_fraction": 0.7511737089201878,
+                "successful_pair_fraction": 0.7511737089201878,
+                "all_case_wilson95": [
+                  0.6890088875270953,
+                  0.8044391854656164
+                ]
+              },
+              "within_5fold": {
+                "n": 208,
+                "all_case_fraction": 0.9765258215962441,
+                "successful_pair_fraction": 0.9765258215962441,
+                "all_case_wilson95": [
+                  0.9462353262426276,
+                  0.9899325131734519
+                ]
+              }
+            },
+            "descriptive_family_mae_log2_95": [
+              0.6780437131661333,
+              0.8409453502409874
+            ]
+          }
+        }
+      }
+    }
+  },
+  "scope": "secondary descriptive transfer; no model selection or pooled phases",
+  "uncertainty_scope": "homology-group sampling; not replicate noise; intervals not simultaneous",
+  "frozen_HC_offsets_log2": {
+    "sequence_v1": 0.04659637563372265,
+    "hybrid": 0.039102431228718926,
+    "historical": -4.141397223615085,
+    "footprint2017": -5.575386760969535,
+    "context2017": -1.9932562199351087,
+    "historical_affine": 5.551115123125783e-17,
+    "ostir": -7.0141898124920505,
+    "ostir_affine": 0.0,
+    "rebeca": -7.582779119016097,
+    "constant": 0.8639384504239717
+  },
+  "bootstrap_repetitions": 2000,
+  "bootstrap_seed": 20261016,
+  "manifest_sha256": "3a9c281238d67e1889e7e0aad421687b4cf84af401ecb478a24adb524df4be89",
+  "evaluator_sha256": "e1b12f70dc7690004ed7c67141f7fc1c6fc5243a53b0dbacda243c254d4777d7",
+  "public_export": {
+    "private_report_sha256": "46ab6056cabb118b0ed3a9091ab1a0cfce65c3c16a1c338b035af2ae61a6ea85",
+    "policy": "Aggregate performance/provenance only; raw outcomes, per-case errors and private service exports excluded"
+  }
+}

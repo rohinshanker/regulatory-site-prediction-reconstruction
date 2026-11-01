@@ -1,0 +1,63 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "1.0",
+      "default": "1.0"
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "host": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "sequence": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 100000
+    },
+    "anti_sd": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 90
+    },
+    "strand": {
+      "enum": [
+        "+",
+        "-"
+      ]
+    },
+    "start_positions": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "integer",
+        "minimum": 0
+      },
+      "maxItems": 1000,
+      "uniqueItems": true
+    },
+    "temperature_c": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100
+    }
+  },
+  "required": [
+    "sequence",
+    "anti_sd"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "RBS request 1.0",
+  "description": "Structural schema. Runtime additionally validates normalized ACGU sequence length, exact 9-nt anti_sd, control characters and codon-fit bounds."
+}

@@ -1,0 +1,193 @@
+{
+  "schema_version": 1,
+  "provenance": "Original hand-counted synthetic genomes; no runtime scorer or experimental outcomes consulted",
+  "coordinate_contract": "zero-based half-open segments in transcript order; points are first transcript-oriented nucleotide",
+  "records": [
+    {
+      "id": "plus-linear",
+      "genome": "TTACCGGATGAAATTTCCGG",
+      "strand": "+",
+      "tss_zero_based": 3,
+      "cds_start_zero_based": 7,
+      "leader_length_nt": 4,
+      "origin_crossing": false,
+      "upstream_limit_nt": 100,
+      "downstream_length_nt": 6,
+      "expected_segments": [
+        [
+          3,
+          13
+        ]
+      ],
+      "expected_sequence": "CCGGATGAAA",
+      "expected_start": 4,
+      "expected_start_interval": [
+        7,
+        10
+      ],
+      "tss_one_based": 4,
+      "cds_start_one_based": 8,
+      "topology": "linear"
+    },
+    {
+      "id": "minus-linear",
+      "genome": "CCGGAAATTTCATCCGGTAA",
+      "strand": "-",
+      "tss_zero_based": 16,
+      "cds_start_zero_based": 12,
+      "leader_length_nt": 4,
+      "origin_crossing": false,
+      "upstream_limit_nt": 100,
+      "downstream_length_nt": 6,
+      "expected_segments": [
+        [
+          7,
+          17
+        ]
+      ],
+      "expected_sequence": "CCGGATGAAA",
+      "expected_start": 4,
+      "expected_start_interval": [
+        10,
+        13
+      ],
+      "tss_one_based": 17,
+      "cds_start_one_based": 13,
+      "topology": "linear"
+    },
+    {
+      "id": "plus-origin",
+      "genome": "TTACCGGATGAAATTTCCGG",
+      "strand": "+",
+      "tss_zero_based": 18,
+      "cds_start_zero_based": 7,
+      "leader_length_nt": 9,
+      "origin_crossing": true,
+      "upstream_limit_nt": 100,
+      "downstream_length_nt": 6,
+      "expected_segments": [
+        [
+          18,
+          20
+        ],
+        [
+          0,
+          13
+        ]
+      ],
+      "expected_sequence": "GGTTACCGGATGAAA",
+      "expected_start": 9,
+      "expected_start_interval": [
+        7,
+        10
+      ],
+      "tss_one_based": 19,
+      "cds_start_one_based": 8,
+      "topology": "circular"
+    },
+    {
+      "id": "minus-origin",
+      "genome": "CCGGAAATTTCATCCGGTAA",
+      "strand": "-",
+      "tss_zero_based": 1,
+      "cds_start_zero_based": 12,
+      "leader_length_nt": 9,
+      "origin_crossing": true,
+      "upstream_limit_nt": 100,
+      "downstream_length_nt": 6,
+      "expected_segments": [
+        [
+          0,
+          2
+        ],
+        [
+          7,
+          20
+        ]
+      ],
+      "expected_sequence": "GGTTACCGGATGAAA",
+      "expected_start": 9,
+      "expected_start_interval": [
+        10,
+        13
+      ],
+      "tss_one_based": 2,
+      "cds_start_one_based": 13,
+      "topology": "circular"
+    },
+    {
+      "id": "plus-clipped-leader",
+      "genome": "TTACCGGATGAAATTTCCGG",
+      "strand": "+",
+      "tss_zero_based": 3,
+      "cds_start_zero_based": 7,
+      "leader_length_nt": 4,
+      "origin_crossing": false,
+      "upstream_limit_nt": 2,
+      "downstream_length_nt": 6,
+      "expected_segments": [
+        [
+          5,
+          13
+        ]
+      ],
+      "expected_sequence": "GGATGAAA",
+      "expected_start": 2,
+      "expected_start_interval": [
+        7,
+        10
+      ],
+      "tss_one_based": 4,
+      "cds_start_one_based": 8,
+      "topology": "linear"
+    },
+    {
+      "id": "leaderless",
+      "genome": "TTACCGGATGAAATTTCCGG",
+      "strand": "+",
+      "tss_zero_based": 7,
+      "cds_start_zero_based": 7,
+      "leader_length_nt": 0,
+      "origin_crossing": false,
+      "upstream_limit_nt": 100,
+      "downstream_length_nt": 6,
+      "expected_segments": [
+        [
+          7,
+          13
+        ]
+      ],
+      "expected_sequence": "ATGAAA",
+      "expected_start": 0,
+      "expected_start_interval": [
+        7,
+        10
+      ],
+      "tss_one_based": 8,
+      "cds_start_one_based": 8,
+      "topology": "linear"
+    },
+    {
+      "id": "internal-tss",
+      "genome": "TTACCGGATGAAATTTCCGG",
+      "strand": "+",
+      "tss_zero_based": 8,
+      "cds_start_zero_based": 7,
+      "leader_length_nt": -1,
+      "origin_crossing": false,
+      "upstream_limit_nt": 100,
+      "downstream_length_nt": 6,
+      "expected_mapping_status": "tss_inside_current_cds",
+      "expected_segments": [],
+      "expected_sequence": null,
+      "expected_start": null,
+      "expected_start_interval": [
+        7,
+        10
+      ],
+      "tss_one_based": 9,
+      "cds_start_one_based": 8,
+      "topology": "linear"
+    }
+  ]
+}

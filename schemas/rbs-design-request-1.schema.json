@@ -1,0 +1,136 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "rbs-design-request-1"
+    },
+    "rbs": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "const": "1.0",
+          "default": "1.0"
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "host": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "sequence": {
+          "type": "string",
+          "pattern": "^[ACGT]+$",
+          "minLength": 1,
+          "maxLength": 1000
+        },
+        "anti_sd": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 90
+        },
+        "strand": {
+          "enum": [
+            "+",
+            "-"
+          ]
+        },
+        "start_positions": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 1,
+          "items": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 997
+          }
+        },
+        "temperature_c": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        }
+      },
+      "required": [
+        "sequence",
+        "anti_sd",
+        "start_positions"
+      ]
+    },
+    "profile": {
+      "enum": [
+        "historical",
+        "footprint2017",
+        "context2017",
+        "standby2014",
+        "joint_standby"
+      ]
+    },
+    "target_tir": {
+      "type": "number",
+      "exclusiveMinimum": 0,
+      "maximum": 1.7976931348623157e+308
+    },
+    "editable_positions": {
+      "type": "array",
+      "uniqueItems": true,
+      "maxItems": 1000,
+      "items": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 999
+      }
+    },
+    "max_changes": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 2
+    },
+    "limits": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "max_candidates": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 256
+        },
+        "seconds_per_score": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 120
+        },
+        "seconds_total": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 3600
+        }
+      },
+      "required": [
+        "max_candidates",
+        "seconds_per_score",
+        "seconds_total"
+      ]
+    }
+  },
+  "required": [
+    "schema_version",
+    "rbs",
+    "profile",
+    "target_tir",
+    "editable_positions",
+    "max_changes",
+    "limits"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Bounded RBS design request 1",
+  "description": "Structural JSON schema. Runtime additionally requires exact integer Python values for edit/count fields, normalized 9-base anti-SD, supported transcript-oriented start, valid upstream edit positions and the complete combinatorial roster within the declared cap. No hosted design equivalence or expression calibration."
+}

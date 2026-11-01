@@ -1,0 +1,3 @@
+Initializing nucleic acids...done.
+Calculating free energies...done.
+efn2 complete.

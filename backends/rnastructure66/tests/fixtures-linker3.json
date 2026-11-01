@@ -1,0 +1,1982 @@
+{
+ "license": "GPL-2.0-only",
+ "component": "rnastructure-6.6-linker-3",
+ "patch_sha256": "2ef6ef61496b034110f4151e2fc1aec77cbd011c88a36bcef574be0dfecebb2d",
+ "patched_source_sha256": "b19a9ad1634f7e8f7669410b1eb7f5e8c27542f073054acb65647891e62ddbc7",
+ "predecessor": {
+  "component": "rnastructure-6.6-traceback-2",
+  "manifest_sha256": "84a44f2cce515e7c45a221ebfa6d256b308438d0c0be7fe63f6228fd01509d37",
+  "patch_sha256": "2d599e7fa9f6581b605350508163c4aa14458ebb8f444c096e5f923c8742d671",
+  "patched_source_sha256": "6300df34e26fe674b6e87260cee69617130c015910e3ed67fd1b45aa1e2dca6c",
+  "fixtures_sha256": "f6ae85f9d3fcce9a99067949d6322ce08e153e9073d56d424384f3fc2a90bd7c"
+ },
+ "provenance": "Deterministic synthetic inputs, hand-checkable boundary strands and permitted public development leaders run through the original, traceback-2 and linker-3 engines; every structure independently reevaluated with efn2 --simple. No experimental outcomes used.",
+ "settings": "bifold --maximum 100 --percent 100 --window 0 --loop 30 --temperature 303.15 --alphabet rna unless stated; Fold --MFE or --maximum 20 --percent 10 --window 0.",
+ "linker_484_17": {
+  "leader": "GGAGGGUAUAACAGUGAGUCACCUGAGGUGGUAAGGUUUGGAUAACUGCGUCUUAGCAGU",
+  "anti_sd": "ACCUCCUUU",
+  "temperature": "303.15",
+  "generator": "Python random.Random(484).choice(ACGU), lengths random.choice((60, 80, 100)); zero-based index 17.",
+  "original_status": "Folding failed: exit 0; error # 2",
+  "traceback2_status": "Folding failed: exit 0; error # 2",
+  "linker3": {
+   "structure_count": 100,
+   "structure_sha256": "fe573aab8e141f1fcb2813671937040efcf86215a90cea8a68b2d5c2d03521e4",
+   "evaluated_sha256": "8e1bda1348fd26bb032228a26292cf6cfbae542d226828f2f93999db9fa1bc0f",
+   "native_evaluation_mismatches": 33,
+   "energy_census": {
+    "connected/1/0.0": 46,
+    "connected/1/0.2": 4,
+    "connected/2/-0.8": 1,
+    "connected/2/-2.5": 1,
+    "connected/2/0.0": 14,
+    "connected/3/-0.4": 1,
+    "connected/3/-0.8": 1,
+    "connected/3/-1.1": 7,
+    "connected/3/-1.3": 1,
+    "connected/3/-1.4": 1,
+    "connected/3/-1.5": 3,
+    "connected/3/-1.6": 1,
+    "connected/3/-1.7": 2,
+    "connected/3/-1.8": 1,
+    "connected/3/-2.1": 1,
+    "connected/3/-2.2": 1,
+    "connected/3/-2.3": 3,
+    "connected/3/-2.4": 1,
+    "connected/3/-3.7": 2,
+    "connected/3/-4.0": 1,
+    "connected/3/0.0": 7
+   },
+   "multibranch_anomalies": 0,
+   "first_energy": "-23.3",
+   "first_pairs": [
+    [
+     1,
+     69
+    ],
+    [
+     2,
+     68
+    ],
+    [
+     3,
+     67
+    ],
+    [
+     4,
+     66
+    ],
+    [
+     5,
+     65
+    ],
+    [
+     10,
+     38
+    ],
+    [
+     11,
+     37
+    ],
+    [
+     12,
+     36
+    ],
+    [
+     15,
+     33
+    ],
+    [
+     16,
+     32
+    ],
+    [
+     19,
+     31
+    ],
+    [
+     20,
+     30
+    ],
+    [
+     21,
+     29
+    ],
+    [
+     22,
+     28
+    ],
+    [
+     23,
+     27
+    ],
+    [
+     45,
+     60
+    ],
+    [
+     46,
+     59
+    ],
+    [
+     47,
+     58
+    ],
+    [
+     48,
+     57
+    ],
+    [
+     49,
+     56
+    ]
+   ]
+  }
+ },
+ "traceback2_fixtures_on_linker3": [
+  {
+   "id": "hairpin",
+   "status": "valid",
+   "changed_from_traceback2": false,
+   "evaluated_changed": false,
+   "multibranch_anomalies": 0
+  },
+  {
+   "id": "unpaired",
+   "status": "valid",
+   "changed_from_traceback2": false,
+   "evaluated_changed": false,
+   "multibranch_anomalies": 0
+  },
+  {
+   "id": "duplex",
+   "status": "valid",
+   "changed_from_traceback2": false,
+   "evaluated_changed": false,
+   "multibranch_anomalies": 0
+  },
+  {
+   "id": "synthetic-30",
+   "status": "valid",
+   "changed_from_traceback2": false,
+   "evaluated_changed": false,
+   "multibranch_anomalies": 0
+  },
+  {
+   "id": "synthetic-33",
+   "status": "valid",
+   "changed_from_traceback2": false,
+   "evaluated_changed": false,
+   "multibranch_anomalies": 0
+  },
+  {
+   "id": "synthetic-54",
+   "status": "valid",
+   "changed_from_traceback2": false,
+   "evaluated_changed": false,
+   "multibranch_anomalies": 0
+  },
+  {
+   "id": "karlsen2018:SGL_RS10810",
+   "status": "valid",
+   "changed_from_traceback2": false,
+   "evaluated_changed": false,
+   "multibranch_anomalies": 0
+  },
+  {
+   "id": "karlsen2018:sll0085",
+   "status": "valid",
+   "changed_from_traceback2": false,
+   "evaluated_changed": false,
+   "multibranch_anomalies": 0
+  }
+ ],
+ "panel_6603": {
+  "count": 60,
+  "valid": {
+   "original": 54,
+   "v2": 60,
+   "v3": 60
+  },
+  "v3_identical_to_v2": 54,
+  "v3_changed_from_v2": 6,
+  "v3_eval_changed_from_v2": 6,
+  "v3_identical_to_original": 41,
+  "v3_anomalies": 0,
+  "original_failed_indices": [
+   30,
+   33,
+   34,
+   45,
+   54,
+   55
+  ],
+  "v2_failed_indices": [],
+  "v3_failed_indices": [],
+  "changed_indices": [
+   20,
+   38,
+   40,
+   43,
+   44,
+   58
+  ],
+  "generator": "Python random.Random(6603).choice(ACGU), first 30 sequences length 60, next 30 length 100.",
+  "changed": {
+   "6603/20": {
+    "mfe_same": true,
+    "v2_mfe": [
+     "-13.6",
+     "-9.5"
+    ],
+    "v3_mfe": [
+     "-13.6",
+     "-9.5"
+    ],
+    "only_traceback2": [
+     {
+      "native": "-10.5",
+      "evaluated": "-13.8",
+      "topology": [
+       "connected",
+       3
+      ]
+     },
+     {
+      "native": "-8.1",
+      "evaluated": "-11.4",
+      "topology": [
+       "connected",
+       3
+      ]
+     }
+    ],
+    "only_linker3": [
+     {
+      "native": "-10.1",
+      "evaluated": "-10.1",
+      "topology": [
+       "connected",
+       1
+      ]
+     },
+     {
+      "native": "-7.7",
+      "evaluated": "-3.6",
+      "topology": [
+       "disconnected",
+       2
+      ]
+     }
+    ],
+    "common_native_energy_changed": []
+   },
+   "6603/38": {
+    "mfe_same": true,
+    "v2_mfe": [
+     "-33.3",
+     "-33.3"
+    ],
+    "v3_mfe": [
+     "-33.3",
+     "-33.3"
+    ],
+    "only_traceback2": [
+     {
+      "native": "-30.1",
+      "evaluated": "-32.6",
+      "topology": [
+       "connected",
+       4
+      ]
+     },
+     {
+      "native": "-29.5",
+      "evaluated": "-32.8",
+      "topology": [
+       "connected",
+       3
+      ]
+     },
+     {
+      "native": "-29.2",
+      "evaluated": "-31.9",
+      "topology": [
+       "connected",
+       4
+      ]
+     },
+     {
+      "native": "-28.7",
+      "evaluated": "-30.6",
+      "topology": [
+       "connected",
+       5
+      ]
+     },
+     {
+      "native": "-28.7",
+      "evaluated": "-32.0",
+      "topology": [
+       "connected",
+       3
+      ]
+     },
+     {
+      "native": "-28.6",
+      "evaluated": "-31.3",
+      "topology": [
+       "connected",
+       4
+      ]
+     }
+    ],
+    "only_linker3": [
+     {
+      "native": "-29.2",
+      "evaluated": "-32.7",
+      "topology": [
+       "connected",
+       3
+      ]
+     },
+     {
+      "native": "-29.2",
+      "evaluated": "-30.4",
+      "topology": [
+       "connected",
+       4
+      ]
+     },
+     {
+      "native": "-28.6",
+      "evaluated": "-31.7",
+      "topology": [
+       "connected",
+       3
+      ]
+     },
+     {
+      "native": "-28.4",
+      "evaluated": "-30.9",
+      "topology": [
+       "connected",
+       4
+      ]
+     },
+     {
+      "native": "-28.2",
+      "evaluated": "-28.2",
+      "topology": [
+       "connected",
+       3
+      ]
+     },
+     {
+      "native": "-28.2",
+      "evaluated": "-28.2",
+      "topology": [
+       "connected",
+       1
+      ]
+     }
+    ],
+    "common_native_energy_changed": []
+   },
+   "6603/40": {
+    "mfe_same": true,
+    "v2_mfe": [
+     "-34.3",
+     "-34.3"
+    ],
+    "v3_mfe": [
+     "-34.3",
+     "-34.3"
+    ],
+    "only_traceback2": [
+     {
+      "native": "-29.8",
+      "evaluated": "-33.1",
+      "topology": [
+       "connected",
+       3
+      ]
+     },
+     {
+      "native": "-29.1",
+      "evaluated": "-32.4",
+      "topology": [
+       "connected",
+       3
+      ]
+     },
+     {
+      "native": "-28.9",
+      "evaluated": "-32.2",
+      "topology": [
+       "connected",
+       3
+      ]
+     }
+    ],
+    "only_linker3": [
+     {
+      "native": "-28.4",
+      "evaluated": "-28.4",
+      "topology": [
+       "connected",
+       1
+      ]
+     },
+     {
+      "native": "-28.4",
+      "evaluated": "-28.4",
+      "topology": [
+       "connected",
+       0
+      ]
+     },
+     {
+      "native": "-28.4",
+      "evaluated": "-28.4",
+      "topology": [
+       "connected",
+       1
+      ]
+     }
+    ],
+    "common_native_energy_changed": [
+     {
+      "traceback2": "-31.8",
+      "linker3": "-30.0"
+     },
+     {
+      "traceback2": "-29.7",
+      "linker3": "-29.0"
+     }
+    ]
+   },
+   "6603/43": {
+    "mfe_same": true,
+    "v2_mfe": [
+     "-31.7",
+     "-27.6"
+    ],
+    "v3_mfe": [
+     "-31.7",
+     "-27.6"
+    ],
+    "only_traceback2": [
+     {
+      "native": "-27.2",
+      "evaluated": "-29.9",
+      "topology": [
+       "connected",
+       4
+      ]
+     }
+    ],
+    "only_linker3": [
+     {
+      "native": "-26.4",
+      "evaluated": "-22.3",
+      "topology": [
+       "disconnected",
+       2
+      ]
+     }
+    ],
+    "common_native_energy_changed": []
+   },
+   "6603/44": {
+    "mfe_same": true,
+    "v2_mfe": [
+     "-39.6",
+     "-39.6"
+    ],
+    "v3_mfe": [
+     "-39.6",
+     "-39.6"
+    ],
+    "only_traceback2": [
+     {
+      "native": "-37.8",
+      "evaluated": "-41.1",
+      "topology": [
+       "connected",
+       3
+      ]
+     },
+     {
+      "native": "-36.1",
+      "evaluated": "-39.4",
+      "topology": [
+       "connected",
+       3
+      ]
+     },
+     {
+      "native": "-36.0",
+      "evaluated": "-39.3",
+      "topology": [
+       "connected",
+       3
+      ]
+     },
+     {
+      "native": "-33.2",
+      "evaluated": "-36.5",
+      "topology": [
+       "connected",
+       3
+      ]
+     },
+     {
+      "native": "-32.9",
+      "evaluated": "-36.2",
+      "topology": [
+       "connected",
+       3
+      ]
+     }
+    ],
+    "only_linker3": [
+     {
+      "native": "-37.8",
+      "evaluated": "-40.0",
+      "topology": [
+       "connected",
+       3
+      ]
+     },
+     {
+      "native": "-36.0",
+      "evaluated": "-39.0",
+      "topology": [
+       "connected",
+       3
+      ]
+     },
+     {
+      "native": "-35.6",
+      "evaluated": "-37.0",
+      "topology": [
+       "connected",
+       3
+      ]
+     },
+     {
+      "native": "-35.4",
+      "evaluated": "-38.9",
+      "topology": [
+       "connected",
+       3
+      ]
+     },
+     {
+      "native": "-32.8",
+      "evaluated": "-34.2",
+      "topology": [
+       "connected",
+       3
+      ]
+     }
+    ],
+    "common_native_energy_changed": []
+   },
+   "6603/58": {
+    "mfe_same": true,
+    "v2_mfe": [
+     "-26.1",
+     "-26.1"
+    ],
+    "v3_mfe": [
+     "-26.1",
+     "-26.1"
+    ],
+    "only_traceback2": [
+     {
+      "native": "-23.7",
+      "evaluated": "-27.0",
+      "topology": [
+       "connected",
+       3
+      ]
+     },
+     {
+      "native": "-23.1",
+      "evaluated": "-26.4",
+      "topology": [
+       "connected",
+       3
+      ]
+     },
+     {
+      "native": "-22.6",
+      "evaluated": "-25.9",
+      "topology": [
+       "connected",
+       3
+      ]
+     },
+     {
+      "native": "-22.4",
+      "evaluated": "-25.7",
+      "topology": [
+       "connected",
+       3
+      ]
+     },
+     {
+      "native": "-21.5",
+      "evaluated": "-24.8",
+      "topology": [
+       "connected",
+       3
+      ]
+     },
+     {
+      "native": "-21.4",
+      "evaluated": "-24.7",
+      "topology": [
+       "connected",
+       3
+      ]
+     }
+    ],
+    "only_linker3": [
+     {
+      "native": "-23.7",
+      "evaluated": "-23.7",
+      "topology": [
+       "connected",
+       2
+      ]
+     },
+     {
+      "native": "-23.1",
+      "evaluated": "-23.1",
+      "topology": [
+       "connected",
+       2
+      ]
+     },
+     {
+      "native": "-22.6",
+      "evaluated": "-22.6",
+      "topology": [
+       "connected",
+       2
+      ]
+     },
+     {
+      "native": "-22.4",
+      "evaluated": "-22.4",
+      "topology": [
+       "connected",
+       2
+      ]
+     },
+     {
+      "native": "-21.5",
+      "evaluated": "-21.5",
+      "topology": [
+       "connected",
+       2
+      ]
+     },
+     {
+      "native": "-21.4",
+      "evaluated": "-21.4",
+      "topology": [
+       "connected",
+       2
+      ]
+     }
+    ],
+    "common_native_energy_changed": []
+   }
+  }
+ },
+ "panel_development": {
+  "count": 12,
+  "valid": {
+   "original": 11,
+   "v2": 12,
+   "v3": 12
+  },
+  "v3_identical_to_v2": 11,
+  "v3_changed_from_v2": 1,
+  "v3_eval_changed_from_v2": 1,
+  "v3_identical_to_original": 9,
+  "v3_anomalies": 0,
+  "original_failed_indices": [
+   10
+  ],
+  "v2_failed_indices": [],
+  "v3_failed_indices": [],
+  "changed_indices": [
+   8
+  ],
+  "selection": "12 unique leaders from benchmarks/rbs/karlsen2018-development.json, first 100 bases, T->U, ordered by SHA-256.",
+  "changed": {
+   "dev/8": {
+    "mfe_same": true,
+    "v2_mfe": [
+     "-28.1",
+     "-28.1"
+    ],
+    "v3_mfe": [
+     "-28.1",
+     "-28.1"
+    ],
+    "only_traceback2": [],
+    "only_linker3": [],
+    "common_native_energy_changed": [
+     {
+      "traceback2": "-23.5",
+      "linker3": "-23.3"
+     }
+    ]
+   }
+  }
+ },
+ "panel_fresh_26003": {
+  "count": 40,
+  "valid": {
+   "original": 38,
+   "v2": 40,
+   "v3": 40
+  },
+  "v3_identical_to_v2": 38,
+  "v3_changed_from_v2": 2,
+  "v3_eval_changed_from_v2": 2,
+  "v3_identical_to_original": 27,
+  "v3_anomalies": 0,
+  "original_failed_indices": [
+   8,
+   37
+  ],
+  "v2_failed_indices": [],
+  "v3_failed_indices": [],
+  "changed_indices": [
+   23,
+   37
+  ],
+  "generator": "Python random.Random(26003); 40 sequences, each length generator.choice((60, 80, 100)) drawn before its bases.",
+  "lengths": [
+   100,
+   60,
+   100,
+   60,
+   80,
+   80,
+   100,
+   60,
+   100,
+   100,
+   80,
+   60,
+   80,
+   60,
+   80,
+   60,
+   80,
+   100,
+   100,
+   80,
+   80,
+   80,
+   80,
+   80,
+   100,
+   60,
+   80,
+   80,
+   100,
+   60,
+   80,
+   60,
+   60,
+   100,
+   100,
+   80,
+   80,
+   100,
+   80,
+   100
+  ],
+  "changed": {
+   "fresh/23": {
+    "mfe_same": true,
+    "v2_mfe": [
+     "-22.7",
+     "-23.5"
+    ],
+    "v3_mfe": [
+     "-22.7",
+     "-23.5"
+    ],
+    "only_traceback2": [
+     {
+      "native": "-16.0",
+      "evaluated": "-19.3",
+      "topology": [
+       "connected",
+       3
+      ]
+     }
+    ],
+    "only_linker3": [
+     {
+      "native": "-16.0",
+      "evaluated": "-16.0",
+      "topology": [
+       "connected",
+       0
+      ]
+     }
+    ],
+    "common_native_energy_changed": []
+   },
+   "fresh/37": {
+    "mfe_same": true,
+    "v2_mfe": [
+     "-35.1",
+     "-35.1"
+    ],
+    "v3_mfe": [
+     "-35.1",
+     "-35.1"
+    ],
+    "only_traceback2": [
+     {
+      "native": "-32.8",
+      "evaluated": "-35.5",
+      "topology": [
+       "connected",
+       4
+      ]
+     },
+     {
+      "native": "-32.7",
+      "evaluated": "-35.4",
+      "topology": [
+       "connected",
+       4
+      ]
+     }
+    ],
+    "only_linker3": [
+     {
+      "native": "-32.1",
+      "evaluated": "-35.6",
+      "topology": [
+       "connected",
+       3
+      ]
+     },
+     {
+      "native": "-30.3",
+      "evaluated": "-30.3",
+      "topology": [
+       "connected",
+       1
+      ]
+     }
+    ],
+    "common_native_energy_changed": []
+   }
+  }
+ },
+ "boundary": {
+  "tiny-duplex": {
+   "leader": "GGGG",
+   "anti_sd": "CCCC",
+   "identical_across_engines": true,
+   "linker3": {
+    "structure_count": 4,
+    "structure_sha256": "4106217c908a05a2f4b5b227d399b4039e21773427ed3b8a0ab6d325abea3323",
+    "evaluated_sha256": "5f7330af118bdbccc2beafb69763add88e5ba32dd832b7a12202a59f0c92033d",
+    "native_evaluation_mismatches": 0,
+    "energy_census": {
+     "connected/0/0.0": 4
+    },
+    "multibranch_anomalies": 0,
+    "first_energy": "-6.4",
+    "first_pairs": [
+     [
+      1,
+      11
+     ],
+     [
+      2,
+      10
+     ],
+     [
+      3,
+      9
+     ],
+     [
+      4,
+      8
+     ]
+    ]
+   }
+  },
+  "no-pairs": {
+   "leader": "AAAAAAAAAA",
+   "anti_sd": "AAAAAAAAA",
+   "identical_across_engines": true,
+   "linker3": {
+    "structure_count": 1,
+    "structure_sha256": "f30104b50bc115d59d92a739efb3bbd5c53cf242d938813b17273bc34f79d483",
+    "evaluated_sha256": "ab80227abae42909a3bf04d0d05a9d8f50f2f214dc6fb9bbdb86ae35ee32a565",
+    "native_evaluation_mismatches": 0,
+    "energy_census": {
+     "disconnected/0/missing": 1
+    },
+    "multibranch_anomalies": 0,
+    "first_energy": "0.0",
+    "first_pairs": []
+   }
+  },
+  "pure-duplex": {
+   "leader": "GGGGGGGGGG",
+   "anti_sd": "CCCCCCCCC",
+   "identical_across_engines": true,
+   "linker3": {
+    "structure_count": 15,
+    "structure_sha256": "4d281f4c7684055558c1ffab4eb8a39c4b0aa5d5d94d5e169da902e878457aed",
+    "evaluated_sha256": "a9de367b545f2477fd45a62e5a8904a1deac2c324f854ee9e692beb050fa28fc",
+    "native_evaluation_mismatches": 0,
+    "energy_census": {
+     "connected/0/0.0": 15
+    },
+    "multibranch_anomalies": 0,
+    "first_energy": "-25.3",
+    "first_pairs": [
+     [
+      1,
+      22
+     ],
+     [
+      2,
+      21
+     ],
+     [
+      3,
+      20
+     ],
+     [
+      4,
+      19
+     ],
+     [
+      5,
+      18
+     ],
+     [
+      6,
+      17
+     ],
+     [
+      7,
+      16
+     ],
+     [
+      8,
+      15
+     ],
+     [
+      9,
+      14
+     ]
+    ]
+   }
+  },
+  "linker-adjacent-duplex": {
+   "leader": "AAAAAGGGGG",
+   "anti_sd": "CCCCCAAAAA",
+   "identical_across_engines": true,
+   "linker3": {
+    "structure_count": 7,
+    "structure_sha256": "37e3221797843eb2309ecd8e6b48525427ffd1226162e0c4c7be29c319566306",
+    "evaluated_sha256": "f730294fa50cedfb16aad4a1673215f668a83f6ae987b93f06bf5a92f1ba9043",
+    "native_evaluation_mismatches": 0,
+    "energy_census": {
+     "connected/0/0.0": 7
+    },
+    "multibranch_anomalies": 0,
+    "first_energy": "-11.8",
+    "first_pairs": [
+     [
+      6,
+      18
+     ],
+     [
+      7,
+      17
+     ],
+     [
+      8,
+      16
+     ],
+     [
+      9,
+      15
+     ],
+     [
+      10,
+      14
+     ]
+    ]
+   }
+  },
+  "sd-at-strand-ends": {
+   "leader": "AAGGAGGAAAAAAAAAAAAAAAAAAAACCUCC",
+   "anti_sd": "GGAGGUUUACCUCCU",
+   "identical_across_engines": true,
+   "linker3": {
+    "structure_count": 100,
+    "structure_sha256": "ba024073010ba93e1d20999a4530ea46465b4e266f47fd950bff8fcc35807487",
+    "evaluated_sha256": "ba2684a8faed1f9bb0ccfdad3bd89b4aa18a62d5e8586f2b34c558706f4d614a",
+    "native_evaluation_mismatches": 19,
+    "energy_census": {
+     "connected/0/0.0": 74,
+     "connected/1/0.0": 7,
+     "disconnected/2/4.1": 19
+    },
+    "multibranch_anomalies": 0,
+    "first_energy": "-19.4",
+    "first_pairs": [
+     [
+      2,
+      50
+     ],
+     [
+      3,
+      49
+     ],
+     [
+      4,
+      48
+     ],
+     [
+      5,
+      47
+     ],
+     [
+      6,
+      46
+     ],
+     [
+      7,
+      45
+     ],
+     [
+      25,
+      43
+     ],
+     [
+      26,
+      42
+     ],
+     [
+      27,
+      41
+     ],
+     [
+      28,
+      40
+     ],
+     [
+      29,
+      39
+     ],
+     [
+      30,
+      38
+     ],
+     [
+      31,
+      37
+     ],
+     [
+      32,
+      36
+     ]
+    ]
+   }
+  }
+ },
+ "fold": {
+  "hairpin": {
+   "sequence": null,
+   "temperature": "310.15",
+   "mfe": {
+    "n": 1,
+    "structure_sha256": "1e7f70e113ec4e0436244176198cc52d03c619b4050e69bbcac426a08568184d",
+    "evaluated_sha256": "575b39fa6be7d00de0ce4f9670861e1d925043f48a2e6710724b11cbcf772be0",
+    "mfe_pairs": [
+     [
+      1,
+      9
+     ],
+     [
+      2,
+      8
+     ],
+     [
+      3,
+      7
+     ]
+    ],
+    "native": "-1.2",
+    "efn2": "-1.2"
+   },
+   "suboptimal": {
+    "n": 1,
+    "structure_sha256": "1e7f70e113ec4e0436244176198cc52d03c619b4050e69bbcac426a08568184d",
+    "evaluated_sha256": "575b39fa6be7d00de0ce4f9670861e1d925043f48a2e6710724b11cbcf772be0",
+    "mfe_pairs": [
+     [
+      1,
+      9
+     ],
+     [
+      2,
+      8
+     ],
+     [
+      3,
+      7
+     ]
+    ],
+    "native": "-1.2",
+    "efn2": "-1.2"
+   }
+  },
+  "unpaired": {
+   "sequence": null,
+   "temperature": "310.15",
+   "mfe": {
+    "n": 1,
+    "structure_sha256": "73b04c45b4c2114cc672c7500ca88e381acab45b231cd0cce65c871c4940a08b",
+    "evaluated_sha256": "5b7ae026f51b1a853c200789caf8567d608c743626f18fbadde4b212239e23e2",
+    "mfe_pairs": [],
+    "native": "None",
+    "efn2": "0.0"
+   },
+   "suboptimal": {
+    "n": 1,
+    "structure_sha256": "73b04c45b4c2114cc672c7500ca88e381acab45b231cd0cce65c871c4940a08b",
+    "evaluated_sha256": "5b7ae026f51b1a853c200789caf8567d608c743626f18fbadde4b212239e23e2",
+    "mfe_pairs": [],
+    "native": "None",
+    "efn2": "0.0"
+   }
+  },
+  "leader-484-17": {
+   "sequence": "GGAGGGUAUAACAGUGAGUCACCUGAGGUGGUAAGGUUUGGAUAACUGCGUCUUAGCAGU",
+   "temperature": "303.15",
+   "mfe": {
+    "n": 1,
+    "structure_sha256": "455bdc4978d9f0b29d1a7a3829e53fbda71692f5a77a2b10b711b4120730cfac",
+    "evaluated_sha256": "457d1f4dde0f647bf43968e159db8948aadf8c269a8f1206f1e53bae7a715082",
+    "mfe_pairs": [
+     [
+      18,
+      43
+     ],
+     [
+      19,
+      42
+     ],
+     [
+      20,
+      41
+     ],
+     [
+      21,
+      37
+     ],
+     [
+      22,
+      36
+     ],
+     [
+      23,
+      35
+     ],
+     [
+      24,
+      34
+     ],
+     [
+      45,
+      60
+     ],
+     [
+      46,
+      59
+     ],
+     [
+      47,
+      58
+     ],
+     [
+      48,
+      57
+     ],
+     [
+      49,
+      56
+     ]
+    ],
+    "native": "-14.0",
+    "efn2": "-14.0"
+   },
+   "suboptimal": {
+    "n": 6,
+    "structure_sha256": "ff608a5840d645f3c133bd227881b9da98a0b704cb6dd48a83976db1233fe0a3",
+    "evaluated_sha256": "86ba040fdecbe040f5978e532c844241cd64e49d4541e7e56c4e85bc78da6000",
+    "mfe_pairs": [
+     [
+      18,
+      43
+     ],
+     [
+      19,
+      42
+     ],
+     [
+      20,
+      41
+     ],
+     [
+      21,
+      37
+     ],
+     [
+      22,
+      36
+     ],
+     [
+      23,
+      35
+     ],
+     [
+      24,
+      34
+     ],
+     [
+      45,
+      60
+     ],
+     [
+      46,
+      59
+     ],
+     [
+      47,
+      58
+     ],
+     [
+      48,
+      57
+     ],
+     [
+      49,
+      56
+     ]
+    ],
+    "native": "-14.0",
+    "efn2": "-14.0"
+   }
+  },
+  "6603-0": {
+   "sequence": "panel_6603:0",
+   "temperature": "303.15",
+   "mfe": {
+    "n": 1,
+    "structure_sha256": "51295eeef4eeee5ce472b001986115c5524a817edf9ea7bd7801be63b4fe7349",
+    "evaluated_sha256": "2abf43b2f44a7b240cbe9478455d278c29a9bd4f08e531c774b530e77fa7220d",
+    "mfe_pairs": [
+     [
+      5,
+      36
+     ],
+     [
+      6,
+      35
+     ],
+     [
+      7,
+      34
+     ],
+     [
+      9,
+      33
+     ],
+     [
+      10,
+      32
+     ],
+     [
+      11,
+      31
+     ],
+     [
+      15,
+      30
+     ],
+     [
+      16,
+      29
+     ],
+     [
+      17,
+      28
+     ],
+     [
+      18,
+      27
+     ],
+     [
+      19,
+      26
+     ],
+     [
+      43,
+      59
+     ],
+     [
+      44,
+      58
+     ],
+     [
+      45,
+      57
+     ],
+     [
+      46,
+      56
+     ],
+     [
+      47,
+      55
+     ],
+     [
+      48,
+      54
+     ]
+    ],
+    "native": "-14.9",
+    "efn2": "-14.9"
+   },
+   "suboptimal": {
+    "n": 8,
+    "structure_sha256": "57abc7810f7668f5ea9b3dd16e91f4d19dceb55093e073fc24cc286f42c1ad67",
+    "evaluated_sha256": "320b807f2547ea2518b29b4c25b62732d6ccec0564a0481011c1b1623e289106",
+    "mfe_pairs": [
+     [
+      5,
+      36
+     ],
+     [
+      6,
+      35
+     ],
+     [
+      7,
+      34
+     ],
+     [
+      9,
+      33
+     ],
+     [
+      10,
+      32
+     ],
+     [
+      11,
+      31
+     ],
+     [
+      15,
+      30
+     ],
+     [
+      16,
+      29
+     ],
+     [
+      17,
+      28
+     ],
+     [
+      18,
+      27
+     ],
+     [
+      19,
+      26
+     ],
+     [
+      43,
+      59
+     ],
+     [
+      44,
+      58
+     ],
+     [
+      45,
+      57
+     ],
+     [
+      46,
+      56
+     ],
+     [
+      47,
+      55
+     ],
+     [
+      48,
+      54
+     ]
+    ],
+    "native": "-14.9",
+    "efn2": "-14.9"
+   }
+  },
+  "6603-31": {
+   "sequence": "panel_6603:31",
+   "temperature": "303.15",
+   "mfe": {
+    "n": 1,
+    "structure_sha256": "f07c33fa344117e06cc314fe60a4852ec26efca28018655fc6fc7e1077fa252b",
+    "evaluated_sha256": "9d984809fc14534e7a87a6cdd489f11d645ffcba1f944c32adc24689410bca42",
+    "mfe_pairs": [
+     [
+      17,
+      95
+     ],
+     [
+      18,
+      94
+     ],
+     [
+      20,
+      93
+     ],
+     [
+      21,
+      92
+     ],
+     [
+      22,
+      91
+     ],
+     [
+      28,
+      86
+     ],
+     [
+      29,
+      85
+     ],
+     [
+      30,
+      84
+     ],
+     [
+      32,
+      82
+     ],
+     [
+      33,
+      81
+     ],
+     [
+      34,
+      80
+     ],
+     [
+      35,
+      79
+     ],
+     [
+      36,
+      78
+     ],
+     [
+      37,
+      77
+     ],
+     [
+      38,
+      76
+     ],
+     [
+      42,
+      71
+     ],
+     [
+      43,
+      70
+     ],
+     [
+      46,
+      67
+     ],
+     [
+      47,
+      66
+     ],
+     [
+      48,
+      65
+     ],
+     [
+      49,
+      63
+     ],
+     [
+      50,
+      62
+     ],
+     [
+      52,
+      60
+     ],
+     [
+      53,
+      59
+     ]
+    ],
+    "native": "-25.6",
+    "efn2": "-25.6"
+   },
+   "suboptimal": {
+    "n": 15,
+    "structure_sha256": "13d940b8e7a26a5614d5cc99284784df6ac592f8c9f4fd1a27d51e8dfe92fd0a",
+    "evaluated_sha256": "0cf279b2ba57cb02ce13356e3e2460e15d4b5c92fe5d1462f17d96b1064a2253",
+    "mfe_pairs": [
+     [
+      17,
+      95
+     ],
+     [
+      18,
+      94
+     ],
+     [
+      20,
+      93
+     ],
+     [
+      21,
+      92
+     ],
+     [
+      22,
+      91
+     ],
+     [
+      28,
+      86
+     ],
+     [
+      29,
+      85
+     ],
+     [
+      30,
+      84
+     ],
+     [
+      32,
+      82
+     ],
+     [
+      33,
+      81
+     ],
+     [
+      34,
+      80
+     ],
+     [
+      35,
+      79
+     ],
+     [
+      36,
+      78
+     ],
+     [
+      37,
+      77
+     ],
+     [
+      38,
+      76
+     ],
+     [
+      42,
+      71
+     ],
+     [
+      43,
+      70
+     ],
+     [
+      46,
+      67
+     ],
+     [
+      47,
+      66
+     ],
+     [
+      48,
+      65
+     ],
+     [
+      49,
+      63
+     ],
+     [
+      50,
+      62
+     ],
+     [
+      52,
+      60
+     ],
+     [
+      53,
+      59
+     ]
+    ],
+    "native": "-25.6",
+    "efn2": "-25.6"
+   }
+  }
+ },
+ "fold_constraint": {
+  "leader-484-17": {
+   "sequence": "GGAGGGUAUAACAGUGAGUCACCUGAGGUGGUAAGGUUUGGAUAACUGCGUCUUAGCAGU",
+   "temperature": "303.15",
+   "constraint": "DS:\n19\n-1\nSS:\n1\n-1\nMod:\n-1\nPairs:\n-1 -1\nFMN:\n-1\nForbids:\n18 43\n-1 -1\n",
+   "result": {
+    "n": 1,
+    "structure_sha256": "b29f76a39b5593130b89db7653e299452207187347c1350e2bf67af2abb59ae2",
+    "evaluated_sha256": "130d788d01425c50a9737c0d40e00cccd45da75392c8cb777b8af72cc2db6b3b",
+    "mfe_pairs": [
+     [
+      6,
+      43
+     ],
+     [
+      7,
+      42
+     ],
+     [
+      10,
+      38
+     ],
+     [
+      11,
+      37
+     ],
+     [
+      12,
+      36
+     ],
+     [
+      15,
+      33
+     ],
+     [
+      16,
+      32
+     ],
+     [
+      19,
+      31
+     ],
+     [
+      20,
+      30
+     ],
+     [
+      21,
+      29
+     ],
+     [
+      22,
+      28
+     ],
+     [
+      23,
+      27
+     ],
+     [
+      45,
+      60
+     ],
+     [
+      46,
+      59
+     ],
+     [
+      47,
+      58
+     ],
+     [
+      48,
+      57
+     ],
+     [
+      49,
+      56
+     ]
+    ],
+    "native": "-13.8",
+    "efn2": "-13.8"
+   },
+   "double_stranded": 19,
+   "single_stranded": 1,
+   "forbidden_pair": [
+    18,
+    43
+   ]
+  },
+  "6603-31": {
+   "sequence": "panel_6603:31",
+   "temperature": "303.15",
+   "constraint": "DS:\n18\n-1\nSS:\n1\n-1\nMod:\n-1\nPairs:\n-1 -1\nFMN:\n-1\nForbids:\n17 95\n-1 -1\n",
+   "result": {
+    "n": 1,
+    "structure_sha256": "e94bc3ea8ec23472769bb94239505fd1aaa487b3ea465e29e2e9786f6f6f25c3",
+    "evaluated_sha256": "94ad1811a2eccc5c58203745953e6f669c0525f41345c3fc6af9e72c6528cd78",
+    "mfe_pairs": [
+     [
+      18,
+      94
+     ],
+     [
+      20,
+      93
+     ],
+     [
+      21,
+      92
+     ],
+     [
+      22,
+      91
+     ],
+     [
+      28,
+      86
+     ],
+     [
+      29,
+      85
+     ],
+     [
+      30,
+      84
+     ],
+     [
+      32,
+      82
+     ],
+     [
+      33,
+      81
+     ],
+     [
+      34,
+      80
+     ],
+     [
+      35,
+      79
+     ],
+     [
+      36,
+      78
+     ],
+     [
+      37,
+      77
+     ],
+     [
+      38,
+      76
+     ],
+     [
+      42,
+      71
+     ],
+     [
+      43,
+      70
+     ],
+     [
+      46,
+      67
+     ],
+     [
+      47,
+      66
+     ],
+     [
+      48,
+      65
+     ],
+     [
+      49,
+      63
+     ],
+     [
+      50,
+      62
+     ],
+     [
+      52,
+      60
+     ],
+     [
+      53,
+      59
+     ]
+    ],
+    "native": "-24.1",
+    "efn2": "-24.1"
+   },
+   "double_stranded": 18,
+   "single_stranded": 1,
+   "forbidden_pair": [
+    17,
+    95
+   ]
+  }
+ },
+ "intramolecular": {
+  "484-17": {
+   "sequence": "GGAGGGUAUAACAGUGAGUCACCUGAGGUGGUAAGGUUUGGAUAACUGCGUCUUAGCAGU",
+   "anti_sd": "ACCUCCUUU",
+   "result": {
+    "n": 65,
+    "structure_sha256": "135deeada761e0db672256ff747338c8f7c56a254e2cbaa9b3448fc27946d976",
+    "evaluated_sha256": "a63a5d6b7da2a02e2c9706efc46468c9b8f2e751e5fc3769f5e7add483b49c51",
+    "mfe_pairs": [
+     [
+      1,
+      69
+     ],
+     [
+      2,
+      68
+     ],
+     [
+      3,
+      67
+     ],
+     [
+      4,
+      66
+     ],
+     [
+      5,
+      65
+     ]
+    ],
+    "native": "-10.8",
+    "efn2": "-10.8"
+   }
+  },
+  "6603-20": {
+   "sequence": "panel_6603:20",
+   "anti_sd": "ACCUCCUUU",
+   "result": {
+    "n": 14,
+    "structure_sha256": "522e5c033901b98a20be95cd9fdb6cb7ba31eddd26c1d41ad1121a2cc8128e64",
+    "evaluated_sha256": "a8ab6d3bd74b2f302c1e9beaa99703f469dc98f748188e6e8cc613f93f78b5f2",
+    "mfe_pairs": [
+     [
+      5,
+      72
+     ],
+     [
+      6,
+      71
+     ],
+     [
+      7,
+      70
+     ],
+     [
+      8,
+      69
+     ],
+     [
+      10,
+      67
+     ],
+     [
+      11,
+      66
+     ],
+     [
+      12,
+      65
+     ],
+     [
+      13,
+      64
+     ]
+    ],
+    "native": "-6.5",
+    "efn2": "-6.5"
+   }
+  },
+  "6603-0": {
+   "sequence": "panel_6603:0",
+   "anti_sd": "ACCUCCUUU",
+   "result": {
+    "n": 16,
+    "structure_sha256": "070594c005543bb2efaa2bcff504ca12ba327715852313d7ab66c799f100ba1a",
+    "evaluated_sha256": "c76c543a35f943ff2627036832b50ee889c21042e1271044551e911cf342621c",
+    "mfe_pairs": [
+     [
+      9,
+      67
+     ],
+     [
+      10,
+      66
+     ],
+     [
+      11,
+      65
+     ],
+     [
+      12,
+      64
+     ]
+    ],
+    "native": "-4.5",
+    "efn2": "-4.5"
+   }
+  }
+ }
+}

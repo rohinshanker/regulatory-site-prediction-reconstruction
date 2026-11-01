@@ -1,0 +1,199 @@
+{
+  "artifacts": {
+    "external": [
+      {
+        "bytes": 2744922,
+        "path": "candidate-301cfe2/execution-receipts/execution.json",
+        "sha256": "08a8342bf3b10a57d72c3abc4dd859ac57b93a7d6e05e04a11d8f684159421db"
+      },
+      {
+        "bytes": 10784,
+        "path": "candidate-301cfe2/semantic-report.json",
+        "sha256": "9c1bb04f222b92132912da3dc3863af134a5bac800db9cee71678e1c9e9f49b4"
+      },
+      {
+        "bytes": 1039,
+        "path": "candidate-301cfe2/execution-audit.json",
+        "sha256": "f33bb6f38cd0f0da62afa1749f903d4874825c58ca76dd9592430c707d4467f2"
+      },
+      {
+        "bytes": 5136,
+        "path": "candidate-301cfe2/semantic-command.json",
+        "sha256": "e98935803c21952e08bed00d27bd8877bcc17d275baa10e63decdeb76f9bb44c"
+      },
+      {
+        "bytes": 195,
+        "path": "candidate-301cfe2/semantic-invocation.json",
+        "sha256": "d434a6989fc672336a9271cc1e4c214a5a303271cfdc5b9cf5522d63f9f6d42b"
+      },
+      {
+        "bytes": 968,
+        "path": "candidate-301cfe2/identity.json",
+        "sha256": "fca167e97a6d80b296295b85c23a9719a4b0b9c26f1d15b0a709640a5e815360"
+      },
+      {
+        "bytes": 38987,
+        "path": "candidate-301cfe2/settings.json",
+        "sha256": "f08858710de51c57e67405251ea95558f5e8642d0315e313b82341fb0f11a746"
+      },
+      {
+        "bytes": 2311,
+        "path": "a-freeze-acknowledgement.json",
+        "sha256": "d919fd3d1707bb1430982e99f06f0b263a54953e9e5bad6dc076ced599cb3908"
+      },
+      {
+        "bytes": 14112,
+        "path": "a-preexecution-bytecode.json",
+        "sha256": "0ab717343ef3776c55d91e42f8a272ee75cff1a33c05023646f1e993824e9f79"
+      },
+      {
+        "bytes": 13871,
+        "path": "local-driver/collect.py",
+        "sha256": "f5c147cac19d9d3632b04e372e4cf4d3495ce135ce3a176355914abb78df657f"
+      },
+      {
+        "bytes": 15156,
+        "path": "local-driver/test_collect.py",
+        "sha256": "e7bd6ebd1e2a5182d9946e64e0288936df8217e886d556a0e1f4a2201056a4b0"
+      },
+      {
+        "bytes": 41483,
+        "path": "local-driver/review-receipt.json",
+        "sha256": "7847974c9890dab4c07eef0d6d29c74189b68ca06dcd9ca2711614453c7ac682"
+      },
+      {
+        "bytes": 733,
+        "path": "a-driver-review/receipt.json",
+        "sha256": "4e08bcc671b65e8cba22fb6f7b2d47787e5adb1e3f2df408dea5f6bfecc1713e"
+      },
+      {
+        "bytes": 422,
+        "path": "a-driver-review/independent-probe.json",
+        "sha256": "3d912fbfde502252c7eaa525469b66155bfc51b18643fa8ebf1389850a5cfd5f"
+      }
+    ],
+    "external_cache_base": "/Users/Rohin/.cache/regsite-drafting-numeric-20261021",
+    "repository": [
+      {
+        "bytes": 513526,
+        "path": "benchmarks/rbs/drafting-numeric-fixtures.json",
+        "sha256": "54ff3c58945f43cd636ac42474c8ede4f39fe25fe49a62aa32327952973a69b6"
+      },
+      {
+        "bytes": 27187,
+        "path": "benchmarks/rbs/drafting_numeric.py",
+        "sha256": "8794a752316e858caf05caf6f540eb5bba29f9c27460abcc3aae07c44d4858e8"
+      },
+      {
+        "bytes": 17660,
+        "path": "docs/validation/rbs-drafting-numeric-validation.md",
+        "sha256": "975e1fed8c8fb75809954545e3c05a3d87d08283947cd4a8f4b59d9c5df9eede"
+      }
+    ]
+  },
+  "candidate": {
+    "settings_sha256": "f08858710de51c57e67405251ea95558f5e8642d0315e313b82341fb0f11a746",
+    "source_commit": "356abc2d40198a95f807967a38126a14b0f3d0c9",
+    "wheel_sha256": "a95abeeca03360e94b2d79a469520c62cfb8d45ff505dc6395032d9aa2f6c11b"
+  },
+  "claims_excluded": [
+    "biological_accuracy",
+    "native_host_calibration",
+    "automatic_sequence_to_rates",
+    "hosted_equivalence",
+    "release_or_consumer_admission"
+  ],
+  "evaluation_date": "2026-10-22",
+  "execution_checks": {
+    "all_elapsed_below_10s": true,
+    "all_identity_checks_passed": true,
+    "assets_per_identity_check": 145,
+    "authoritative_outputs": 30,
+    "candidate_rerun": false,
+    "cases": 30,
+    "empty_stderr_outputs": 30,
+    "envelope_status_counts": {
+      "complete": 11,
+      "invalid_input": 17,
+      "partial": 2
+    },
+    "exit_counts": {
+      "0": 11,
+      "1": 2,
+      "2": 17
+    },
+    "max_elapsed_seconds": 0.07011183397844434,
+    "max_stdout_bytes": 42947,
+    "original_settings_equal": true,
+    "output_files_rehashed": 60,
+    "postprocessing_disposition": "An initial aggregation assertion used shorthand status names invalid/unsupported; corrected to public invalid_input/unsupported_domain. Original execution and semantic report unchanged.",
+    "quantity_representation_counts": {
+      "exact_zero": 9,
+      "finite": 177,
+      "underflow": 6
+    },
+    "record_status_counts": {
+      "invalid_input": 139,
+      "ok": 48,
+      "unsupported_domain": 11
+    },
+    "schema_version": "drafting-execution-audit-1",
+    "sum_child_elapsed_seconds": 1.6710290412884206
+  },
+  "failed_or_missing_cases": [],
+  "frozen_preparation_commit": "301cfe2bd1d0f5ff7c92708152fac355b2994d86",
+  "implementation_version": "0.12.0rc1",
+  "independent_review": {
+    "checker_and_math": "DEM636 reused unchanged",
+    "driver": "A finite local exact-byte acceptance, 39 synthetic tests, 204 statements/68 branches fully covered; extra dual-stream probe",
+    "outcome_recomputed_by_another_session": false
+  },
+  "limits": {
+    "folding_processes": 0,
+    "retries": 0,
+    "serial_processes": 1,
+    "stderr_bytes_per_case": 65536,
+    "stdout_bytes_per_case": 4194305,
+    "timeout_seconds_per_case": 10.0
+  },
+  "passed": true,
+  "quantity_accounting": {
+    "checked": 192,
+    "representation_counts": {
+      "exact_zero": 9,
+      "finite": 177,
+      "underflow": 6
+    }
+  },
+  "record_accounting": {
+    "accepted_roster_records": 198,
+    "credited": 198,
+    "status_counts": {
+      "invalid_input": 139,
+      "ok": 48,
+      "unsupported_domain": 11
+    },
+    "submitted_parseable_roster_entries": 305
+  },
+  "request_accounting": {
+    "attempted": 30,
+    "expected": 30,
+    "failed": 0,
+    "invalid_envelopes_expected_and_observed": 17,
+    "missing": 0,
+    "passed": 30,
+    "retries": 0,
+    "started": 30,
+    "unstarted": 0
+  },
+  "schema_version": "drafting-numeric-summary-1",
+  "scope": "artificial_supplied_rate_stationary_arithmetic_and_public_contract",
+  "semantic_checks": {
+    "all_passed": true,
+    "checker_exit": 0,
+    "natural_log_absolute_tolerance": "1e-10",
+    "ordinary_relative_tolerance": "1e-11",
+    "representation_rule": "round_exact_expectation_to_binary64_ties_even_before_tolerance",
+    "transport_failures": 0
+  }
+}

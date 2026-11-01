@@ -1,0 +1,14 @@
+{
+  "source_sha256": "c442baf07480ddece0956a9ac10aefd5884472ec63ed0c62166e2ad7ef8a03d5",
+  "selection": "first prepared record per strand/mapping-status/leaderless/start-disagreement category in source order; no strength outcomes",
+  "record_ids": [
+    "tan2018:gTSS+1705796",
+    "tan2018:gTSS-1843052",
+    "tan2018:gTSS+1492412",
+    "tan2018:gTSS-2314271",
+    "tan2018:gTSS-238574",
+    "tan2018:gTSS+247534",
+    "tan2018:gTSS+2386564",
+    "tan2018:gTSS+2283289"
+  ]
+}

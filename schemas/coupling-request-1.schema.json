@@ -1,0 +1,158 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "records",
+    "settings"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "coupling-request-1"
+    },
+    "records": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 100,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "sequence",
+          "strand",
+          "upstream",
+          "downstream",
+          "energies"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128,
+            "not": {
+              "pattern": "[^A-Za-z0-9_.:-]"
+            }
+          },
+          "sequence": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1000000,
+            "pattern": "^[ACGTUacgtu\\s]+$"
+          },
+          "strand": {
+            "enum": [
+              "+",
+              "-"
+            ]
+          },
+          "upstream": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "interval"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 128,
+                "not": {
+                  "pattern": "[^A-Za-z0-9_.:-]"
+                }
+              },
+              "interval": {
+                "type": "array",
+                "minItems": 2,
+                "maxItems": 2,
+                "items": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 100000
+                }
+              }
+            }
+          },
+          "downstream": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "interval"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 128,
+                "not": {
+                  "pattern": "[^A-Za-z0-9_.:-]"
+                }
+              },
+              "interval": {
+                "type": "array",
+                "minItems": 2,
+                "maxItems": 2,
+                "items": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 100000
+                }
+              }
+            }
+          },
+          "energies": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "upstream_total_kcal_mol",
+              "downstream_independent_total_kcal_mol",
+              "beta_mol_per_kcal",
+              "provenance"
+            ],
+            "properties": {
+              "upstream_total_kcal_mol": {
+                "type": "number",
+                "minimum": -1000000.0,
+                "maximum": 1000000.0
+              },
+              "downstream_independent_total_kcal_mol": {
+                "type": "number",
+                "minimum": -1000000.0,
+                "maximum": 1000000.0
+              },
+              "beta_mol_per_kcal": {
+                "type": "number",
+                "const": 0.45
+              },
+              "provenance": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 1000,
+                "pattern": "\\S"
+              }
+            }
+          }
+        }
+      }
+    },
+    "settings": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "seconds_total"
+      ],
+      "properties": {
+        "seconds_total": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 60
+        }
+      }
+    }
+  },
+  "description": "Shape contract. CDS order, codons, normalized length, unique IDs, byte cap and energy provenance also require runtime validation.",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "coupling-request-1.schema.json"
+}

@@ -1,0 +1,122 @@
+{
+  "purpose": "Outcome-independent source arithmetic, not biological validation or executed predictor output",
+  "fixtures": [
+    {
+      "name": "spacer_17",
+      "source": "Promoter_Calculator_v1_0.py:108",
+      "input": {
+        "spacer_length": 17
+      },
+      "expected": -0.09239999999999071
+    },
+    {
+      "name": "groove_homopolymer_12",
+      "source": "util.py:197",
+      "input": {
+        "base": "A",
+        "length": 12
+      },
+      "expected": 30
+    },
+    {
+      "name": "rigidity_homopolymer_44",
+      "source": "util.py:153",
+      "input": {
+        "base": "A",
+        "length": 44
+      },
+      "expected": 25.2
+    },
+    {
+      "name": "hybrid_homopolymer_20",
+      "source": "util.py:181",
+      "input": {
+        "base": "A",
+        "length": 20
+      },
+      "expected": {
+        "nonoverlapping_dimers": 7,
+        "dna": -7.0,
+        "rna": -1.4000000000000001,
+        "difference": -5.6000000000000005
+      }
+    },
+    {
+      "name": "forward_feature_intervals",
+      "source": "Promoter_Calculator_v1_0.py:188-214",
+      "input": {
+        "length": 200,
+        "tss": 100,
+        "discriminator_length": 6,
+        "spacer_length": 17
+      },
+      "expected": {
+        "UP": [
+          40,
+          64
+        ],
+        "gap": [
+          64,
+          65
+        ],
+        "hex35": [
+          65,
+          71
+        ],
+        "spacer": [
+          71,
+          88
+        ],
+        "extended10": [
+          85,
+          87
+        ],
+        "hex10": [
+          88,
+          94
+        ],
+        "disc": [
+          94,
+          100
+        ],
+        "ITR": [
+          100,
+          120
+        ]
+      }
+    },
+    {
+      "name": "reverse_coordinate_contract",
+      "source": "Promoter_Calculator_v1_0.py:231,248-250",
+      "input": {
+        "length": 200,
+        "oriented_tss": 70,
+        "oriented_interval": [
+          10,
+          34
+        ]
+      },
+      "expected": {
+        "upstream_dictionary_key": 130,
+        "upstream_nested_TSS": 70,
+        "base_index_on_forward_reference": 129,
+        "mapped_half_open_interval": [
+          166,
+          190
+        ]
+      },
+      "note": "The latter two values are mathematical conversions for a downstream adapter, not upstream remapped output."
+    },
+    {
+      "name": "context_boundaries",
+      "source": "Promoter_Calculator_v1_0.py:168-198",
+      "expected": {
+        "minimum_tss": 58,
+        "minimum_sequence_length": 78,
+        "maximum_context_length": 87,
+        "forward_site_count_for_length_200": 123,
+        "full_context_states_per_tss": 30
+      }
+    }
+  ]
+}

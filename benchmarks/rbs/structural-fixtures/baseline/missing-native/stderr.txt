@@ -1,0 +1,4 @@
+error # 2
+A traceback error occurred.
+
+Bimolecular folding complete with errors.

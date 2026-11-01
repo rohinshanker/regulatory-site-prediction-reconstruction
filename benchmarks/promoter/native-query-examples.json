@@ -1,0 +1,263 @@
+{
+  "schema_version": "promoter-native-query-examples-1",
+  "scope": "Input-only genomic examples; no labels or predictions. Full-document grid selection remains authoritative.",
+  "source_query_document_sha256": "f71f7d82f9ebf8b1f58c40851436000fbff9e139d07210794961e82720e251f5",
+  "source_envelope_sha256": "c442baf07480ddece0956a9ac10aefd5884472ec63ed0c62166e2ad7ef8a03d5",
+  "genomes": {
+    "NZ_CP006471.1": {
+      "accession": "NZ_CP006471.1",
+      "annotation": "GCF_000817325.1-RS_2026_05_13",
+      "assembly": "GCF_000817325.1",
+      "length": 2690418,
+      "sequence_sha256": "4791d3b30e081dc8b557cde1c026378c72be73305510cabb9f726491e4df09d0",
+      "topology": "circular"
+    },
+    "NZ_CP006472.1": {
+      "accession": "NZ_CP006472.1",
+      "annotation": "GCF_000817325.1-RS_2026_05_13",
+      "assembly": "GCF_000817325.1",
+      "length": 46366,
+      "sequence_sha256": "b4a6ab1574fcfc9f80afa4e8fa0782d2bd01c2db91d2ef5480163912ef16f2a0",
+      "topology": "circular"
+    },
+    "NZ_CP006473.1": {
+      "accession": "NZ_CP006473.1",
+      "annotation": "GCF_000817325.1-RS_2026_05_13",
+      "assembly": "GCF_000817325.1",
+      "length": 7842,
+      "sequence_sha256": "0b5c1b88dd98850d8cb41972f15390ca3e5229878168c3b3bf7d014382806a5b",
+      "topology": "circular"
+    }
+  },
+  "attribution": "NCBI assembly GCF_000817325.1 sequences. Public sequence facts; no blanket CC licence asserted. Tan source metadata stay in the separately pinned envelope.",
+  "queries": [
+    {
+      "candidate_genomic_interval": [
+        1428000,
+        1429000
+      ],
+      "candidate_local_range": [
+        67,
+        1067
+      ],
+      "context": {
+        "downstream_pad_nt": 19,
+        "downstream_shortfall_nt": 0,
+        "limit_reason": null,
+        "upstream_pad_nt": 67,
+        "upstream_shortfall_nt": 0
+      },
+      "context_status": "complete",
+      "full_state_support_local_range": [
+        67,
+        1067
+      ],
+      "genome_id": "NZ_CP006471.1",
+      "n_candidates": 1000,
+      "n_candidates_full_state_support": 1000,
+      "orientation": "transcript 5'->3'",
+      "query_id": "promoter-grid:NZ_CP006471.1:plus:1428",
+      "segments": [
+        {
+          "genomic": [
+            1427933,
+            1429019
+          ],
+          "local": [
+            0,
+            1086
+          ],
+          "oriented": [
+            1427933,
+            1429019
+          ]
+        }
+      ],
+      "selection_key": "000965a444b5bc1a35342c572b118034362399f363c92d5ba4bee4280e566bb8",
+      "selection_rank": 0,
+      "sequence": "TCTAAGACGGCATGGATGCGAATTTGCTCCTCATCTTGATAGCGCTGGACTTCCCAGCCCGGATAGTCGTAGGAGCGCAACTCTTTTTCGATTTCAATCAAGCGGGCACGCAGCAGAGCAGACATCAGCAAACAGCCTTGGGCGCAACGGTAGGAGGAGCAAAAAGGGTTTGGGGTTGGGGACGGTGGTGCAGATGCCAAGGCCCCTCGGAGAGACATTGGCCGAGATACCAGAGCGATCGACTGGGATGAGCCGCAATCTGAAGGGGAGCCTCAGCCTGCCACTCGGTTGGCGGCGGTAGGGGCTCACCGGGCCTGGGCGATCGCTCGGCATCCCAGCTCCTGAGCCGGAAGCGGCGCTGGCCTAGGCAGCGAATCTGGAGTTGAGCTGTGCGCCGACTCCATTGCTGTGAAGGGCTCTGACAATCCACTTGAAACTGCTGATCCAACCAGGACAGCTTCAGCGCCGATCGCACCCTCTCTGACTGCCAGGTATGGCGGCGCCATTGTTGGTGCAGATGGGCCATCGGCTGGGAAAGTCCCAGCTTCAGGCTGCCCAGAAAGGGGCGATCGCCCACGAGTCCGACCGAAACGGTACGGATCGAGGCTGCCGCAAGCTGCACGATCGCGGTTTGCCAGTCTCCCCAAAGCTGTAACTCTTCACAGAGCTGGCGATCGCGGTCCAAGGGCAGCAGTAACCAAGGGCGATCGCTGGGCCAAATCGTCAGCACTGCACTTACTGTCTCTGGATCTGCTGCCGTTACAAGGCCCTCCACTGCAGTACCGTGCTGGCGGATGAGCGCTGGAACGTCTCGGGGCTCTCGACAGATGGGCTGGGTGATCGCCCTGCCTTGAGCCTGCAGAGCTTCTCGAACACATCGCTGCGATCGGGCAGCCACAACCGTCCTTGGCAAAAGGACCAGTAGCTGGTGAGGCATCACAGCCCACCCTCAAGTTCTGAGGAATAACCAAGATCGCCTTGGGTTGGTCGCCAAGTCAGGGAATCCAGAATTTTTGCCACCCCAGAGAAAAATATCGTCAGAATGGGGTCACAATCGCCCCTCCGCGTTATGTCTTGGCTTGCCGA",
+      "sequence_length": 1086,
+      "sequence_sha256": "183e9b6544937a51a32741ae834d2c0730066a5df05c6455187f8d9954ee59cc",
+      "strand": "+",
+      "tile_ordinal": 1428
+    },
+    {
+      "candidate_genomic_interval": [
+        0,
+        1000
+      ],
+      "candidate_local_range": [
+        67,
+        1067
+      ],
+      "context": {
+        "downstream_pad_nt": 19,
+        "downstream_shortfall_nt": 0,
+        "limit_reason": null,
+        "upstream_pad_nt": 67,
+        "upstream_shortfall_nt": 0
+      },
+      "context_status": "complete",
+      "full_state_support_local_range": [
+        67,
+        1067
+      ],
+      "genome_id": "NZ_CP006472.1",
+      "n_candidates": 1000,
+      "n_candidates_full_state_support": 1000,
+      "orientation": "transcript 5'->3'",
+      "query_id": "promoter-grid:NZ_CP006472.1:plus:0",
+      "segments": [
+        {
+          "genomic": [
+            46299,
+            46366
+          ],
+          "local": [
+            0,
+            67
+          ],
+          "oriented": [
+            46299,
+            46366
+          ]
+        },
+        {
+          "genomic": [
+            0,
+            1019
+          ],
+          "local": [
+            67,
+            1086
+          ],
+          "oriented": [
+            0,
+            1019
+          ]
+        }
+      ],
+      "selection_key": "0c330ee9b5f64ad71b0df3312a771a6d5a40d3fb38aff81b8110bc37c0f42283",
+      "selection_rank": 2,
+      "sequence": "GTAGTTACCTGACTGGGTGGTCTGAATCAGGAAGGCGAGGAGTTCTCGGACGCCGAGGATTTCTGCGCCGGTGGTGAGTAGTTGCGCTCCGGGGAGGTCTTGCGCCGGAATGGGTTGCTGCCACTGGATCAATTTGTCGAGCTTTTGCTTGTCTTTGACTTGGGCAAGTTTTGACCAGACGAGGAATTCCCAGGCTTCGACTTGGCGACGCTGGCGGCCATTGGCGTCCATCAAAATGTCCTCCAGACAGAGCTTGTCAGGGTTGATGCCGTAGAACTGGCAAAGGTCATAGCGACTGAGTTTGTGGCGATCGCTAAGAGTTAAGACCCGCTTTTGGCGTAGGGCGATCGCCGTTTCTTCATCAATCGCTTCAGCCCGAGCGATCGCGGCTGCATCCGCTTGTCGGACTTGCTGCGTGGCTGCTTTCCAGAGTTCGAGAGCAGATTGTAAGTTGGGGTTTTCTGGATCAGCCGTGGTGAGGGAAACAAAGTTGCCCGCCTGTTCTAAGCGCAATCGCAAGGACAAACCAAACTCCGCCATCGCTGCATTGCGCTCGGCAGAACTGGCGGCGTGATAGCGAGCAGAAGGCGAGTGAAAGTCCACTTGATCTAAGAGCGATCGATTGCCGGAGAACCACGACAGGAGTTCAGTACGGCGATAGAGATCGGCTTGATAAGTCAGCGCATTCTGAGCCGCTGAAATGCCTTGTGATTTGCCGTGGGCGACGGCGAAGACAATCCGAGGCACGGGCTGCCGGACACGGGAGAGGGCTTGGTCCACGTCCCATGGCGCGATGCTCTGGCCTTCGAAGAAGCCGAAGACCAGATTGAAGTAATCCAGCTCAATCGAAACGCCAGAAGTCAGCGAGGGACTGGCAATCACGAGCTGAGGTTTGTTTTGGCTAATCCAGCGAGCGGGGGCATCCGCAAAGCAGCGCTGTGCCGGATCGCTGGAGGTATCGCCATCGAAGCGCAGGATCTTTTTCTCGGGCACCCCAAGGGCGATCGCCAGTTGAAACAGGGCTTTGCTGGCTTTGAGAGTATCGACGGCAATCCAAAGGCGATCACCTCTGCCAATGGCCTCAAT",
+      "sequence_length": 1086,
+      "sequence_sha256": "8c0d4b77a08ccb8fdb936df6142245ea6f3ab4fb40f78503a56fcfc525552d03",
+      "strand": "+",
+      "tile_ordinal": 0
+    },
+    {
+      "candidate_genomic_interval": [
+        1796000,
+        1797000
+      ],
+      "candidate_local_range": [
+        67,
+        1067
+      ],
+      "context": {
+        "downstream_pad_nt": 19,
+        "downstream_shortfall_nt": 0,
+        "limit_reason": null,
+        "upstream_pad_nt": 67,
+        "upstream_shortfall_nt": 0
+      },
+      "context_status": "complete",
+      "full_state_support_local_range": [
+        67,
+        1067
+      ],
+      "genome_id": "NZ_CP006471.1",
+      "n_candidates": 1000,
+      "n_candidates_full_state_support": 1000,
+      "orientation": "transcript 5'->3'",
+      "query_id": "promoter-grid:NZ_CP006471.1:minus:1796",
+      "segments": [
+        {
+          "genomic": [
+            1795981,
+            1797067
+          ],
+          "local": [
+            0,
+            1086
+          ],
+          "oriented": [
+            893351,
+            894437
+          ]
+        }
+      ],
+      "selection_key": "0004666074cc33731fd83fd3d6613ed9e2e5a73a9eb5d70fdb58dcfabcc7a589",
+      "selection_rank": 0,
+      "sequence": "TCCATTGGTGGAAAGGAACCGCAGAAATTTTGAAAGCAATGCCAGCGATTACAAAAATCAATGAAATCAGCAGTGCCAGCGGCTGAGCTTCGCCCAGTTTTTCCGCGATCGCAGGCAACTGGGTCTCCCCCCCAGCTAAGCCGTAGAGCAGTGAAACACCGTAGAGGAAGATAGCCGAGCTGGCAGCGCCAATCAGCAAATACTTCAGTGCTGCTTCATTGGAACGGGGGTCGCGCTTCATATATCCCGTCAAGAGATAAGACGAAATACTGAGCGTTTCCAGTGACACAAAAATAGTTACGAGCTCATTCGCACCGGAGAGAAACATCCCCCCCAGTGATGCCGTGAGCAGAATCGTAATGAATTCTCCAAGAGACGTTCCCGACTGCTCAACGTAGCGAATCGAGAGCAGGATGGTGACCGCTGCAGACAGCAGCACAATGCCTCGGAAAACAATACTGAGATTATCGCCGTTGAAGCCACCAAGAAAAGCCAGATTTTGACTCGTATTCCATTGGAGTGTGAGCACTGCGATCGCAGCACTAAGCCCCGTGATGGCGAGGGCTGGAGTTAGGCGCAGCGATTGCCGTCCCAAAATCAAATCCGTGACCAGAACCGTCAACAGTGTGACGATTACGATGCCTTCTGGCAGAATCACACCGGCATTGAGTTGACCGGCGAGGGTTAAAAAGTCCATAGGTCGGTGCGACTCAGAACTGGGGAACGCCAGCAGGTTGATTGAGTAACCTGAGGCATCAGCCACTGATTCTACCTTCCTCTCAGCCTGATCCTTCCGCGATCGCAGTTGCAGGAGACTTCACATCTTTGGCTATAAGTGGAAGAGGAGGTTACCCATTGATCAGCCCTTTGGGTTGGGCCCTCTCGATCGCCTGCGATCGCTTTTTTTGACTTCCCTAGCTGCCAATCGGGCAGAATCGTGACTCCATGCCCAAACTCGTCATCGTCGAGTCGCCCACCAAGGCGCGCACCATCCGCAACTACCTGCCGAAGGATTACCGCGTCGAAGCATCGATGGGACATGTCCGCGATCTTCCACAGTCGGCAAGCGACATTCCCACCGAACTG",
+      "sequence_length": 1086,
+      "sequence_sha256": "e788ea01404143e46c045b837087cfa8e055259b2b49d1066703c98600b67fe0",
+      "strand": "-",
+      "tile_ordinal": 1796
+    },
+    {
+      "candidate_genomic_interval": [
+        0,
+        1000
+      ],
+      "candidate_local_range": [
+        67,
+        1067
+      ],
+      "context": {
+        "downstream_pad_nt": 19,
+        "downstream_shortfall_nt": 0,
+        "limit_reason": null,
+        "upstream_pad_nt": 67,
+        "upstream_shortfall_nt": 0
+      },
+      "context_status": "complete",
+      "full_state_support_local_range": [
+        67,
+        1067
+      ],
+      "genome_id": "NZ_CP006472.1",
+      "n_candidates": 1000,
+      "n_candidates_full_state_support": 1000,
+      "orientation": "transcript 5'->3'",
+      "query_id": "promoter-grid:NZ_CP006472.1:minus:0",
+      "segments": [
+        {
+          "genomic": [
+            0,
+            1067
+          ],
+          "local": [
+            0,
+            1067
+          ],
+          "oriented": [
+            45299,
+            46366
+          ]
+        },
+        {
+          "genomic": [
+            46347,
+            46366
+          ],
+          "local": [
+            1067,
+            1086
+          ],
+          "oriented": [
+            0,
+            19
+          ]
+        }
+      ],
+      "selection_key": "abe727c4795880116f37e450a9a2a6c9397eab23e095982288e55bb8d21622fb",
+      "selection_rank": 29,
+      "sequence": "CAAACCGGCTCCCGCAATCGTGCCCGAGGGGCAGCTTTAGCTCAACTCATTGAGGCCATTGGCAGAGGTGATCGCCTTTGGATTGCCGTCGATACTCTCAAAGCCAGCAAAGCCCTGTTTCAACTGGCGATCGCCCTTGGGGTGCCCGAGAAAAAGATCCTGCGCTTCGATGGCGATACCTCCAGCGATCCGGCACAGCGCTGCTTTGCGGATGCCCCCGCTCGCTGGATTAGCCAAAACAAACCTCAGCTCGTGATTGCCAGTCCCTCGCTGACTTCTGGCGTTTCGATTGAGCTGGATTACTTCAATCTGGTCTTCGGCTTCTTCGAAGGCCAGAGCATCGCGCCATGGGACGTGGACCAAGCCCTCTCCCGTGTCCGGCAGCCCGTGCCTCGGATTGTCTTCGCCGTCGCCCACGGCAAATCACAAGGCATTTCAGCGGCTCAGAATGCGCTGACTTATCAAGCCGATCTCTATCGCCGTACTGAACTCCTGTCGTGGTTCTCCGGCAATCGATCGCTCTTAGATCAAGTGGACTTTCACTCGCCTTCTGCTCGCTATCACGCCGCCAGTTCTGCCGAGCGCAATGCAGCGATGGCGGAGTTTGGTTTGTCCTTGCGATTGCGCTTAGAACAGGCGGGCAACTTTGTTTCCCTCACCACGGCTGATCCAGAAAACCCCAACTTACAATCTGCTCTCGAACTCTGGAAAGCAGCCACGCAGCAAGTCCGACAAGCGGATGCAGCCGCGATCGCTCGGGCTGAAGCGATTGATGAAGAAACGGCGATCGCCCTACGCCAAAAGCGGGTCTTAACTCTTAGCGATCGCCACAAACTCAGTCGCTATGACCTTTGCCAGTTCTACGGCATCAACCCTGACAAGCTCTGTCTGGAGGACATTTTGATGGACGCCAATGGCCGCCAGCGTCGCCAAGTCGAAGCCTGGGAATTCCTCGTCTGGTCAAAACTTGCCCAAGTCAAAGACAAGCAAAAGCTCGACAAATTGATCCAGTGGCAGCAACCCATTCCGGCGCAAGACCTCCCCGGAGCGCAACTACTCACCACCGGCGCAGAAATCCTCGGCGTC",
+      "sequence_length": 1086,
+      "sequence_sha256": "f9ce595f18c99f94f10e54932801d96ab7960ab75eb5112565297a6646d14d7e",
+      "strand": "-",
+      "tile_ordinal": 0
+    }
+  ]
+}

@@ -1,0 +1,1586 @@
+{
+  "calculator": "rbs",
+  "comparisons": [
+    {
+      "current_candidate_id": "pcandidate1:cbd1716ab7a261cdf341c2b5d7550339:current:rbs:+:14",
+      "deltas": {
+        "dG_accessible_complex": {
+          "reason": null,
+          "unit": "kcal/mol",
+          "value": 0.0
+        },
+        "dG_cofold_native_prediction": {
+          "reason": null,
+          "unit": "kcal/mol",
+          "value": 0.0
+        },
+        "dG_cofold_search": {
+          "reason": null,
+          "unit": "kcal/mol",
+          "value": 0.0
+        },
+        "dG_complex": {
+          "reason": null,
+          "unit": "kcal/mol",
+          "value": 0.0
+        },
+        "dG_distortion": {
+          "reason": "value_unavailable",
+          "unit": "kcal/mol",
+          "value": null
+        },
+        "dG_mRNA": {
+          "reason": null,
+          "unit": "kcal/mol",
+          "value": 0.0
+        },
+        "dG_mRNA_native_prediction": {
+          "reason": "value_unavailable",
+          "unit": "kcal/mol",
+          "value": null
+        },
+        "dG_post_footprint": {
+          "reason": "value_unavailable",
+          "unit": "kcal/mol",
+          "value": null
+        },
+        "dG_search_with_spacing": {
+          "reason": null,
+          "unit": "kcal/mol",
+          "value": 0.0
+        },
+        "dG_sliding": {
+          "reason": "value_unavailable",
+          "unit": "kcal/mol",
+          "value": null
+        },
+        "dG_spacing": {
+          "reason": null,
+          "unit": "kcal/mol",
+          "value": 0.0
+        },
+        "dG_standby": {
+          "reason": "value_unavailable",
+          "unit": "kcal/mol",
+          "value": null
+        },
+        "dG_standby_signed": {
+          "reason": null,
+          "unit": "kcal/mol",
+          "value": 0.0
+        },
+        "dG_start": {
+          "reason": null,
+          "unit": "kcal/mol",
+          "value": 0.0
+        },
+        "dG_total": {
+          "reason": null,
+          "unit": "kcal/mol",
+          "value": 0.0
+        },
+        "dG_unfolding": {
+          "reason": "value_unavailable",
+          "unit": "kcal/mol",
+          "value": null
+        },
+        "dG_unfolding_raw": {
+          "reason": "value_unavailable",
+          "unit": "kcal/mol",
+          "value": null
+        },
+        "log_tir": {
+          "reason": null,
+          "unit": "ln_relative_initiation_score",
+          "value": 0.0
+        },
+        "tir": {
+          "reason": null,
+          "unit": "relative_initiation_score",
+          "value": 0.0
+        }
+      },
+      "feature_changes": {
+        "binding_interval": {
+          "mapped_bases_equal": true,
+          "reason": null
+        },
+        "coding_footprint": {
+          "mapped_bases_equal": null,
+          "reason": "feature_unavailable"
+        },
+        "standby_interval": {
+          "mapped_bases_equal": true,
+          "reason": null
+        },
+        "start_codon": {
+          "mapped_bases_equal": true,
+          "reason": null
+        },
+        "window": {
+          "mapped_bases_equal": true,
+          "reason": null
+        }
+      },
+      "identity_mismatches": [],
+      "reason": null,
+      "recoded_candidate_id": "pcandidate1:f3751b3b049dc896ba338e1916c80459:recoded:rbs:+:14",
+      "status": "paired"
+    }
+  ],
+  "coverage": {
+    "comparable": 1,
+    "complete": true,
+    "current": {
+      "complete": true,
+      "expected": 1,
+      "returned": 1,
+      "scored": 1
+    },
+    "diagnostic_only": false,
+    "paired": 1,
+    "recoded": {
+      "complete": true,
+      "expected": 1,
+      "returned": 1,
+      "scored": 1
+    },
+    "unmatched": 0
+  },
+  "edit_map": {
+    "current_declared_edited": [
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      true,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false
+    ],
+    "current_sha256": "6f6cd8be90c2085b75800dd6b6dc8f3c61e8b7a863d99329ecb8883fd6b2d750",
+    "current_to_recoded": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51
+    ],
+    "current_unmatched": [],
+    "edits_sha256": "e6f086a1907b74998deca8a246b11b9ff57931052f407a3b0b749f64a2d02610",
+    "pair_id": "paired-rbs-substitution",
+    "recoded_sha256": "bb739c09eeff4114932bdbbe045a310a2d1f730c48d3a4c72bf822f702bd38f5",
+    "recoded_to_current": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51
+    ],
+    "recoded_unmatched": [],
+    "schema_version": "paired-edit-map-1",
+    "topology": "linear"
+  },
+  "limits": {
+    "max_bases_per_side": 10000,
+    "max_candidates_per_side": 512,
+    "max_edits": 1000,
+    "max_feature_bases": 2000000,
+    "max_input_json_bytes": 2000000,
+    "max_json_depth": 20,
+    "max_json_nodes": 100000,
+    "max_result_json_bytes": 67108864,
+    "max_seconds_per_side": 120,
+    "predictors": {
+      "promoter": {
+        "default_seconds_per_batch": 300.0,
+        "default_seconds_per_record": 30.0,
+        "max_all_state_sites_per_record": 100,
+        "max_all_states_per_batch": 2000,
+        "max_all_states_per_record": 2000,
+        "max_contig_chars": 128,
+        "max_host_name_chars": 200,
+        "max_id_chars": 128,
+        "max_input_json_bytes": 4000000,
+        "max_metadata_depth": 4,
+        "max_metadata_json_bytes": 4096,
+        "max_normalized_bases_per_batch": 100000,
+        "max_normalized_bases_per_record": 5000,
+        "max_planned_sites_per_batch": 4000,
+        "max_planned_sites_per_record": 1000,
+        "max_raw_sequence_chars_per_record": 50000,
+        "max_records_per_batch": 100,
+        "max_result_json_bytes": 67108864,
+        "max_seconds_per_batch": 3600.0,
+        "max_seconds_per_record": 120.0
+      },
+      "rbs": {
+        "max_explicit_or_scanned_starts": 1000,
+        "max_normalized_bases_per_record": 10000,
+        "max_seconds_per_record": 120
+      }
+    }
+  },
+  "pair_id": "paired-rbs-substitution",
+  "prediction_sha256": "3acce9fa01161095bff099a0a9309d093cd5cf9c44230d0b64cbe8b4986d788b",
+  "request_sha256": "da411a700ac8cf3b4f908ed109f9323d278ffceaff71f9f1ed00c6373f04baaa",
+  "schema_version": "paired-regulatory-result-1",
+  "settings": {
+    "profile": "historical",
+    "seconds_per_side": 30.0
+  },
+  "sides": {
+    "current": {
+      "candidates": [
+        {
+          "anchor": 14,
+          "codon_bases": [
+            14,
+            15,
+            16
+          ],
+          "features": {
+            "binding_interval": {
+              "genomic": null,
+              "interval": [
+                1,
+                8
+              ],
+              "mapping": {
+                "complete_base_mapping": true,
+                "contiguous_target_path": true,
+                "mapped_bases": [
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7
+                ],
+                "mapped_runs": [
+                  [
+                    1,
+                    8
+                  ]
+                ],
+                "source_bases": [
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7
+                ],
+                "unmatched_bases": 0
+              },
+              "reason": null,
+              "strand": "+"
+            },
+            "coding_footprint": {
+              "genomic": null,
+              "interval": null,
+              "mapping": null,
+              "reason": "feature_unavailable",
+              "strand": "+"
+            },
+            "standby_interval": {
+              "genomic": null,
+              "interval": [
+                0,
+                1
+              ],
+              "mapping": {
+                "complete_base_mapping": true,
+                "contiguous_target_path": true,
+                "mapped_bases": [
+                  0
+                ],
+                "mapped_runs": [
+                  [
+                    0,
+                    1
+                  ]
+                ],
+                "source_bases": [
+                  0
+                ],
+                "unmatched_bases": 0
+              },
+              "reason": null,
+              "strand": "+"
+            },
+            "start_codon": {
+              "genomic": null,
+              "interval": [
+                14,
+                17
+              ],
+              "mapping": {
+                "complete_base_mapping": true,
+                "contiguous_target_path": true,
+                "mapped_bases": [
+                  14,
+                  15,
+                  16
+                ],
+                "mapped_runs": [
+                  [
+                    14,
+                    17
+                  ]
+                ],
+                "source_bases": [
+                  14,
+                  15,
+                  16
+                ],
+                "unmatched_bases": 0
+              },
+              "reason": null,
+              "strand": "+"
+            },
+            "window": {
+              "genomic": null,
+              "interval": [
+                0,
+                49
+              ],
+              "mapping": {
+                "complete_base_mapping": true,
+                "contiguous_target_path": true,
+                "mapped_bases": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  11,
+                  12,
+                  13,
+                  14,
+                  15,
+                  16,
+                  17,
+                  18,
+                  19,
+                  20,
+                  21,
+                  22,
+                  23,
+                  24,
+                  25,
+                  26,
+                  27,
+                  28,
+                  29,
+                  30,
+                  31,
+                  32,
+                  33,
+                  34,
+                  35,
+                  36,
+                  37,
+                  38,
+                  39,
+                  40,
+                  41,
+                  42,
+                  43,
+                  44,
+                  45,
+                  46,
+                  47,
+                  48
+                ],
+                "mapped_runs": [
+                  [
+                    0,
+                    49
+                  ]
+                ],
+                "source_bases": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  11,
+                  12,
+                  13,
+                  14,
+                  15,
+                  16,
+                  17,
+                  18,
+                  19,
+                  20,
+                  21,
+                  22,
+                  23,
+                  24,
+                  25,
+                  26,
+                  27,
+                  28,
+                  29,
+                  30,
+                  31,
+                  32,
+                  33,
+                  34,
+                  35,
+                  36,
+                  37,
+                  38,
+                  39,
+                  40,
+                  41,
+                  42,
+                  43,
+                  44,
+                  45,
+                  46,
+                  47,
+                  48
+                ],
+                "unmatched_bases": 0
+              },
+              "reason": null,
+              "strand": "+"
+            }
+          },
+          "genomic": null,
+          "id": "pcandidate1:cbd1716ab7a261cdf341c2b5d7550339:current:rbs:+:14",
+          "reason": null,
+          "scalars": {
+            "dG_accessible_complex": {
+              "reason": null,
+              "unit": "kcal/mol",
+              "value": -11.6
+            },
+            "dG_cofold_native_prediction": {
+              "reason": null,
+              "unit": "kcal/mol",
+              "value": -11.6
+            },
+            "dG_cofold_search": {
+              "reason": null,
+              "unit": "kcal/mol",
+              "value": -11.6
+            },
+            "dG_complex": {
+              "reason": null,
+              "unit": "kcal/mol",
+              "value": -11.6
+            },
+            "dG_distortion": {
+              "reason": "value_unavailable",
+              "unit": "kcal/mol",
+              "value": null
+            },
+            "dG_mRNA": {
+              "reason": null,
+              "unit": "kcal/mol",
+              "value": 0.0
+            },
+            "dG_mRNA_native_prediction": {
+              "reason": "value_unavailable",
+              "unit": "kcal/mol",
+              "value": null
+            },
+            "dG_post_footprint": {
+              "reason": "value_unavailable",
+              "unit": "kcal/mol",
+              "value": null
+            },
+            "dG_search_with_spacing": {
+              "reason": null,
+              "unit": "kcal/mol",
+              "value": -11.6
+            },
+            "dG_sliding": {
+              "reason": "value_unavailable",
+              "unit": "kcal/mol",
+              "value": null
+            },
+            "dG_spacing": {
+              "reason": null,
+              "unit": "kcal/mol",
+              "value": 0.0
+            },
+            "dG_standby": {
+              "reason": "value_unavailable",
+              "unit": "kcal/mol",
+              "value": null
+            },
+            "dG_standby_signed": {
+              "reason": null,
+              "unit": "kcal/mol",
+              "value": 0.0
+            },
+            "dG_start": {
+              "reason": null,
+              "unit": "kcal/mol",
+              "value": -1.194
+            },
+            "dG_total": {
+              "reason": null,
+              "unit": "kcal/mol",
+              "value": -12.794
+            },
+            "dG_unfolding": {
+              "reason": "value_unavailable",
+              "unit": "kcal/mol",
+              "value": null
+            },
+            "dG_unfolding_raw": {
+              "reason": "value_unavailable",
+              "unit": "kcal/mol",
+              "value": null
+            },
+            "log_tir": {
+              "reason": null,
+              "unit": "ln_relative_initiation_score",
+              "value": 13.58192179843505
+            },
+            "tir": {
+              "reason": null,
+              "unit": "relative_initiation_score",
+              "value": 791687.3228275315
+            }
+          },
+          "site_index": 0,
+          "status": "ok",
+          "strand": "+"
+        }
+      ],
+      "identities": {
+        "backend_sha256": "4f53aa402e68d2c4a5ba14a6698d4c9842b5591e9cc8741174827a7ec7079bf3",
+        "calibration_sha256": "449d6b93d56dc0485d33c329cbd13d6a1827a2362cea9842b8e1d295ebf4b366",
+        "model_sha256": "1ec329e5323d75444d8236fbeea1fafa8abd840444945774584dc3aa506ae3fc",
+        "settings_sha256": "492760b94f4661a47443dd3d9031c9e15b7bb4dd71c2bddeba89563ab6ba617b"
+      },
+      "prediction": {
+        "backend": {
+          "binary_sha256": {
+            "Fold": "81f962573b7f43c023dd23eab4ae1e8e7f6402d8679e89a6a1a539cfdc6a5458",
+            "bifold": "9f8156cabaf8e13f91e90d410c46aef1cff1c2badda1c4243b194f54eb1f8136",
+            "efn2": "f0b2ce5971d482f50867615e3870b4743d42d6b0e266e05c0c0c1f1bc63d8b4d"
+          },
+          "build_provenance": {
+            "component": "rnastructure-6.6-linker-3",
+            "license": "GPL-2.0-only",
+            "patch_sha256": "2ef6ef61496b034110f4151e2fc1aec77cbd011c88a36bcef574be0dfecebb2d",
+            "patched_source_sha256": "b19a9ad1634f7e8f7669410b1eb7f5e8c27542f073054acb65647891e62ddbc7",
+            "source_archive_sha256": "1bedc62aaab984279055caaa6234d48fca113f4b8e17a8060e0b3784d5a397c3"
+          },
+          "build_receipt_sha256": "7fabba75b3f49cb9be9a5633f8fb149e318e6e48a971487acf7cceb743b806e2",
+          "expected_source_archive_sha256": "1bedc62aaab984279055caaa6234d48fca113f4b8e17a8060e0b3784d5a397c3",
+          "interface": "independent executables via sequence/CT files",
+          "licence": "GPL-2.0-only (separate installation)",
+          "name": "RNAstructure",
+          "settings": {
+            "alphabet": "rna",
+            "bifold_maximum": 100,
+            "bifold_percent": 100,
+            "bifold_window": 0,
+            "coaxial_stacking": true,
+            "dangles": "RNAstructure 6.6 native; no historical auto-dangle switch",
+            "efn2_multibranch_model": "simple",
+            "energy_evaluation": "efn2 --simple for every structure",
+            "fold_maximum": 1,
+            "fold_mfe_only": true,
+            "fold_window": 0,
+            "intramolecular_pairs": true,
+            "isolated_pairs": false,
+            "maximum_loop": 30
+          },
+          "table_manifest_sha256": "ece4c4b535783cb4e03c7ce8f243d09be84a165ecd113b1d20941b5ed8b69501",
+          "variant": "rnastructure-6.6-linker-3",
+          "version": "6.6"
+        },
+        "id": "current",
+        "input": {
+          "anti_sd": "ACCUCCUUA",
+          "host": null,
+          "id": "current",
+          "input_sha256": "6f6cd8be90c2085b75800dd6b6dc8f3c61e8b7a863d99329ecb8883fd6b2d750",
+          "normalized_sha256": "59ac8ea25f3a647a56c858788345d1b93f06a6f63aa51f0e6fcbda66882b1f9b",
+          "oriented_sequence": "AAAGGAGGAAAAAAAUGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "oriented_sha256": "59ac8ea25f3a647a56c858788345d1b93f06a6f63aa51f0e6fcbda66882b1f9b",
+          "sequence": "AAAGGAGGAAAAAAAUGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "start_positions": null,
+          "strand": "+",
+          "temperature_c": 37.0
+        },
+        "model": {
+          "id": "salis-v1-rnastructure-6.6-reconstruction-1",
+          "implementation_version": "0.6.0rc1",
+          "parameters": {
+            "downstream_nt": 35,
+            "effective_RT": 2.222,
+            "energy_comparison_tolerance_kcal_mol": 1e-09,
+            "historical_footprint_nt": 1000,
+            "optimal_aligned_spacing": 5,
+            "rate_scale": 2500.0,
+            "spacing_pull": [
+              0.048,
+              0.24,
+              0.0
+            ],
+            "spacing_push": [
+              12.2,
+              2.5,
+              2.0,
+              3.0
+            ],
+            "standby_nt": 4,
+            "start_energies_kcal_mol": {
+              "AUG": -1.194,
+              "CUG": -0.03406,
+              "GUG": -0.0748,
+              "UUG": -0.0435
+            },
+            "suboptimal_filter_kcal_mol": 3.0,
+            "suboptimal_reference": "lowest_interstrand_connected_complex",
+            "upstream_nt": 35
+          },
+          "source_commit": "8a9c1de1bdd847bb90d2ab6ceaa3c20feceda307"
+        },
+        "prediction_id": "de8cb0ce8609b28885d80cc036a7caa8a2d6d271753325038a7f71caa9c901a1",
+        "reason": null,
+        "schema_version": "1.0",
+        "sites": [
+          {
+            "aligned_spacing": 5,
+            "binding_interval": {
+              "end": 8,
+              "start": 1,
+              "strand": "+"
+            },
+            "candidate_search": {
+              "band_reference_kcal_mol": -11.6,
+              "connected_returned": 15,
+              "exhaustive": false,
+              "returned": 15,
+              "selected_index": 0,
+              "viable_in_band": 1
+            },
+            "codon": "AUG",
+            "energies": {
+              "dG_accessible_complex": -11.6,
+              "dG_cofold_native_prediction": -11.6,
+              "dG_cofold_search": -11.6,
+              "dG_complex": -11.6,
+              "dG_mRNA": 0.0,
+              "dG_mRNA_native_prediction": null,
+              "dG_search_with_spacing": -11.6,
+              "dG_spacing": 0.0,
+              "dG_standby_signed": 0.0,
+              "dG_start": -1.194,
+              "dG_total": -12.794,
+              "units": "kcal/mol"
+            },
+            "log_tir": 13.58192179843505,
+            "oriented_start": 14,
+            "reason": null,
+            "standby_interval": {
+              "end": 1,
+              "start": 0,
+              "strand": "+"
+            },
+            "start_codon": {
+              "end": 17,
+              "start": 14,
+              "strand": "+"
+            },
+            "status": "ok",
+            "structures": {
+              "bound_after_standby": {
+                "anti_sd_dot_bracket": ".))))))).",
+                "coordinate_space": "zero-based window-relative mRNA and 5-prime-to-3-prime anti_sd",
+                "energy_kcal_mol": -11.6,
+                "mrna_anti_sd_pairs": [
+                  [
+                    1,
+                    7
+                  ],
+                  [
+                    2,
+                    6
+                  ],
+                  [
+                    3,
+                    5
+                  ],
+                  [
+                    4,
+                    4
+                  ],
+                  [
+                    5,
+                    3
+                  ],
+                  [
+                    6,
+                    2
+                  ],
+                  [
+                    7,
+                    1
+                  ]
+                ],
+                "mrna_dot_bracket": ".(((((((.........................................",
+                "mrna_intramolecular_pairs": [],
+                "prediction_energy_kcal_mol": null
+              },
+              "bound_before_standby": {
+                "anti_sd_dot_bracket": ".))))))).",
+                "coordinate_space": "zero-based window-relative mRNA and 5-prime-to-3-prime anti_sd",
+                "energy_kcal_mol": -11.6,
+                "mrna_anti_sd_pairs": [
+                  [
+                    1,
+                    7
+                  ],
+                  [
+                    2,
+                    6
+                  ],
+                  [
+                    3,
+                    5
+                  ],
+                  [
+                    4,
+                    4
+                  ],
+                  [
+                    5,
+                    3
+                  ],
+                  [
+                    6,
+                    2
+                  ],
+                  [
+                    7,
+                    1
+                  ]
+                ],
+                "mrna_dot_bracket": ".(((((((.........................................",
+                "mrna_intramolecular_pairs": [],
+                "prediction_energy_kcal_mol": null
+              },
+              "unbound": {
+                "anti_sd_dot_bracket": null,
+                "coordinate_space": "zero-based window-relative mRNA and 5-prime-to-3-prime anti_sd",
+                "energy_kcal_mol": 0.0,
+                "mrna_anti_sd_pairs": [],
+                "mrna_dot_bracket": ".................................................",
+                "mrna_intramolecular_pairs": [],
+                "prediction_energy_kcal_mol": null
+              }
+            },
+            "tir": 791687.3228275315,
+            "warnings": [
+              "standby_region_truncated_at_window_boundary",
+              "folding_window_touches_supplied_sequence_boundary"
+            ],
+            "window": {
+              "input_interval": {
+                "end": 49,
+                "start": 0,
+                "strand": "+"
+              },
+              "oriented_end": 49,
+              "oriented_start": 0
+            }
+          }
+        ],
+        "status": "ok",
+        "warnings": [
+          "reconstruction_not_historical_or_hosted_equivalence",
+          "RNAstructure_parameters_and_dangles_differ_from_NUPACK_rna1999",
+          "bounded_bifold_tracebacks_not_exhaustive_suboptimal_enumeration",
+          "relative_initiation_score_not_absolute_rate_or_probability",
+          "host_configuration_is_not_host_calibration",
+          "patched_traceback_changes_candidate_search_results"
+        ]
+      },
+      "prediction_sha256": "6e94df26e0725bdd2eb345265742ad3e2481a6261cf7e8a8627459f68cfd4ee5",
+      "projection": null,
+      "request": {
+        "anti_sd": "ACCUCCUUA",
+        "host": null,
+        "id": "current",
+        "sequence": "AAAGGAGGAAAAAAATGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "strand": "+",
+        "temperature_c": 37
+      },
+      "roster_status": "known"
+    },
+    "recoded": {
+      "candidates": [
+        {
+          "anchor": 14,
+          "codon_bases": [
+            14,
+            15,
+            16
+          ],
+          "features": {
+            "binding_interval": {
+              "genomic": null,
+              "interval": [
+                1,
+                8
+              ],
+              "mapping": {
+                "complete_base_mapping": true,
+                "contiguous_target_path": true,
+                "mapped_bases": [
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7
+                ],
+                "mapped_runs": [
+                  [
+                    1,
+                    8
+                  ]
+                ],
+                "source_bases": [
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7
+                ],
+                "unmatched_bases": 0
+              },
+              "reason": null,
+              "strand": "+"
+            },
+            "coding_footprint": {
+              "genomic": null,
+              "interval": null,
+              "mapping": null,
+              "reason": "feature_unavailable",
+              "strand": "+"
+            },
+            "standby_interval": {
+              "genomic": null,
+              "interval": [
+                0,
+                1
+              ],
+              "mapping": {
+                "complete_base_mapping": true,
+                "contiguous_target_path": true,
+                "mapped_bases": [
+                  0
+                ],
+                "mapped_runs": [
+                  [
+                    0,
+                    1
+                  ]
+                ],
+                "source_bases": [
+                  0
+                ],
+                "unmatched_bases": 0
+              },
+              "reason": null,
+              "strand": "+"
+            },
+            "start_codon": {
+              "genomic": null,
+              "interval": [
+                14,
+                17
+              ],
+              "mapping": {
+                "complete_base_mapping": true,
+                "contiguous_target_path": true,
+                "mapped_bases": [
+                  14,
+                  15,
+                  16
+                ],
+                "mapped_runs": [
+                  [
+                    14,
+                    17
+                  ]
+                ],
+                "source_bases": [
+                  14,
+                  15,
+                  16
+                ],
+                "unmatched_bases": 0
+              },
+              "reason": null,
+              "strand": "+"
+            },
+            "window": {
+              "genomic": null,
+              "interval": [
+                0,
+                49
+              ],
+              "mapping": {
+                "complete_base_mapping": true,
+                "contiguous_target_path": true,
+                "mapped_bases": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  11,
+                  12,
+                  13,
+                  14,
+                  15,
+                  16,
+                  17,
+                  18,
+                  19,
+                  20,
+                  21,
+                  22,
+                  23,
+                  24,
+                  25,
+                  26,
+                  27,
+                  28,
+                  29,
+                  30,
+                  31,
+                  32,
+                  33,
+                  34,
+                  35,
+                  36,
+                  37,
+                  38,
+                  39,
+                  40,
+                  41,
+                  42,
+                  43,
+                  44,
+                  45,
+                  46,
+                  47,
+                  48
+                ],
+                "mapped_runs": [
+                  [
+                    0,
+                    49
+                  ]
+                ],
+                "source_bases": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  11,
+                  12,
+                  13,
+                  14,
+                  15,
+                  16,
+                  17,
+                  18,
+                  19,
+                  20,
+                  21,
+                  22,
+                  23,
+                  24,
+                  25,
+                  26,
+                  27,
+                  28,
+                  29,
+                  30,
+                  31,
+                  32,
+                  33,
+                  34,
+                  35,
+                  36,
+                  37,
+                  38,
+                  39,
+                  40,
+                  41,
+                  42,
+                  43,
+                  44,
+                  45,
+                  46,
+                  47,
+                  48
+                ],
+                "unmatched_bases": 0
+              },
+              "reason": null,
+              "strand": "+"
+            }
+          },
+          "genomic": null,
+          "id": "pcandidate1:f3751b3b049dc896ba338e1916c80459:recoded:rbs:+:14",
+          "reason": null,
+          "scalars": {
+            "dG_accessible_complex": {
+              "reason": null,
+              "unit": "kcal/mol",
+              "value": -11.6
+            },
+            "dG_cofold_native_prediction": {
+              "reason": null,
+              "unit": "kcal/mol",
+              "value": -11.6
+            },
+            "dG_cofold_search": {
+              "reason": null,
+              "unit": "kcal/mol",
+              "value": -11.6
+            },
+            "dG_complex": {
+              "reason": null,
+              "unit": "kcal/mol",
+              "value": -11.6
+            },
+            "dG_distortion": {
+              "reason": "value_unavailable",
+              "unit": "kcal/mol",
+              "value": null
+            },
+            "dG_mRNA": {
+              "reason": null,
+              "unit": "kcal/mol",
+              "value": 0.0
+            },
+            "dG_mRNA_native_prediction": {
+              "reason": "value_unavailable",
+              "unit": "kcal/mol",
+              "value": null
+            },
+            "dG_post_footprint": {
+              "reason": "value_unavailable",
+              "unit": "kcal/mol",
+              "value": null
+            },
+            "dG_search_with_spacing": {
+              "reason": null,
+              "unit": "kcal/mol",
+              "value": -11.6
+            },
+            "dG_sliding": {
+              "reason": "value_unavailable",
+              "unit": "kcal/mol",
+              "value": null
+            },
+            "dG_spacing": {
+              "reason": null,
+              "unit": "kcal/mol",
+              "value": 0.0
+            },
+            "dG_standby": {
+              "reason": "value_unavailable",
+              "unit": "kcal/mol",
+              "value": null
+            },
+            "dG_standby_signed": {
+              "reason": null,
+              "unit": "kcal/mol",
+              "value": 0.0
+            },
+            "dG_start": {
+              "reason": null,
+              "unit": "kcal/mol",
+              "value": -1.194
+            },
+            "dG_total": {
+              "reason": null,
+              "unit": "kcal/mol",
+              "value": -12.794
+            },
+            "dG_unfolding": {
+              "reason": "value_unavailable",
+              "unit": "kcal/mol",
+              "value": null
+            },
+            "dG_unfolding_raw": {
+              "reason": "value_unavailable",
+              "unit": "kcal/mol",
+              "value": null
+            },
+            "log_tir": {
+              "reason": null,
+              "unit": "ln_relative_initiation_score",
+              "value": 13.58192179843505
+            },
+            "tir": {
+              "reason": null,
+              "unit": "relative_initiation_score",
+              "value": 791687.3228275315
+            }
+          },
+          "site_index": 0,
+          "status": "ok",
+          "strand": "+"
+        }
+      ],
+      "identities": {
+        "backend_sha256": "4f53aa402e68d2c4a5ba14a6698d4c9842b5591e9cc8741174827a7ec7079bf3",
+        "calibration_sha256": "449d6b93d56dc0485d33c329cbd13d6a1827a2362cea9842b8e1d295ebf4b366",
+        "model_sha256": "1ec329e5323d75444d8236fbeea1fafa8abd840444945774584dc3aa506ae3fc",
+        "settings_sha256": "492760b94f4661a47443dd3d9031c9e15b7bb4dd71c2bddeba89563ab6ba617b"
+      },
+      "prediction": {
+        "backend": {
+          "binary_sha256": {
+            "Fold": "81f962573b7f43c023dd23eab4ae1e8e7f6402d8679e89a6a1a539cfdc6a5458",
+            "bifold": "9f8156cabaf8e13f91e90d410c46aef1cff1c2badda1c4243b194f54eb1f8136",
+            "efn2": "f0b2ce5971d482f50867615e3870b4743d42d6b0e266e05c0c0c1f1bc63d8b4d"
+          },
+          "build_provenance": {
+            "component": "rnastructure-6.6-linker-3",
+            "license": "GPL-2.0-only",
+            "patch_sha256": "2ef6ef61496b034110f4151e2fc1aec77cbd011c88a36bcef574be0dfecebb2d",
+            "patched_source_sha256": "b19a9ad1634f7e8f7669410b1eb7f5e8c27542f073054acb65647891e62ddbc7",
+            "source_archive_sha256": "1bedc62aaab984279055caaa6234d48fca113f4b8e17a8060e0b3784d5a397c3"
+          },
+          "build_receipt_sha256": "7fabba75b3f49cb9be9a5633f8fb149e318e6e48a971487acf7cceb743b806e2",
+          "expected_source_archive_sha256": "1bedc62aaab984279055caaa6234d48fca113f4b8e17a8060e0b3784d5a397c3",
+          "interface": "independent executables via sequence/CT files",
+          "licence": "GPL-2.0-only (separate installation)",
+          "name": "RNAstructure",
+          "settings": {
+            "alphabet": "rna",
+            "bifold_maximum": 100,
+            "bifold_percent": 100,
+            "bifold_window": 0,
+            "coaxial_stacking": true,
+            "dangles": "RNAstructure 6.6 native; no historical auto-dangle switch",
+            "efn2_multibranch_model": "simple",
+            "energy_evaluation": "efn2 --simple for every structure",
+            "fold_maximum": 1,
+            "fold_mfe_only": true,
+            "fold_window": 0,
+            "intramolecular_pairs": true,
+            "isolated_pairs": false,
+            "maximum_loop": 30
+          },
+          "table_manifest_sha256": "ece4c4b535783cb4e03c7ce8f243d09be84a165ecd113b1d20941b5ed8b69501",
+          "variant": "rnastructure-6.6-linker-3",
+          "version": "6.6"
+        },
+        "id": "recoded",
+        "input": {
+          "anti_sd": "ACCUCCUUA",
+          "host": null,
+          "id": "recoded",
+          "input_sha256": "bb739c09eeff4114932bdbbe045a310a2d1f730c48d3a4c72bf822f702bd38f5",
+          "normalized_sha256": "206bd91bd11a5e8f9bdbde9f1424e1876ceb4a071914888350c0e0587d8aef79",
+          "oriented_sequence": "AAAGGAGGAAAAAAAUGAAAAAAAAGAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "oriented_sha256": "206bd91bd11a5e8f9bdbde9f1424e1876ceb4a071914888350c0e0587d8aef79",
+          "sequence": "AAAGGAGGAAAAAAAUGAAAAAAAAGAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "start_positions": null,
+          "strand": "+",
+          "temperature_c": 37.0
+        },
+        "model": {
+          "id": "salis-v1-rnastructure-6.6-reconstruction-1",
+          "implementation_version": "0.6.0rc1",
+          "parameters": {
+            "downstream_nt": 35,
+            "effective_RT": 2.222,
+            "energy_comparison_tolerance_kcal_mol": 1e-09,
+            "historical_footprint_nt": 1000,
+            "optimal_aligned_spacing": 5,
+            "rate_scale": 2500.0,
+            "spacing_pull": [
+              0.048,
+              0.24,
+              0.0
+            ],
+            "spacing_push": [
+              12.2,
+              2.5,
+              2.0,
+              3.0
+            ],
+            "standby_nt": 4,
+            "start_energies_kcal_mol": {
+              "AUG": -1.194,
+              "CUG": -0.03406,
+              "GUG": -0.0748,
+              "UUG": -0.0435
+            },
+            "suboptimal_filter_kcal_mol": 3.0,
+            "suboptimal_reference": "lowest_interstrand_connected_complex",
+            "upstream_nt": 35
+          },
+          "source_commit": "8a9c1de1bdd847bb90d2ab6ceaa3c20feceda307"
+        },
+        "prediction_id": "9f8159aa0622a15e679e349d413c7920ae189eee2f642f3dbf30ce7dbf126570",
+        "reason": null,
+        "schema_version": "1.0",
+        "sites": [
+          {
+            "aligned_spacing": 5,
+            "binding_interval": {
+              "end": 8,
+              "start": 1,
+              "strand": "+"
+            },
+            "candidate_search": {
+              "band_reference_kcal_mol": -11.6,
+              "connected_returned": 15,
+              "exhaustive": false,
+              "returned": 15,
+              "selected_index": 0,
+              "viable_in_band": 1
+            },
+            "codon": "AUG",
+            "energies": {
+              "dG_accessible_complex": -11.6,
+              "dG_cofold_native_prediction": -11.6,
+              "dG_cofold_search": -11.6,
+              "dG_complex": -11.6,
+              "dG_mRNA": 0.0,
+              "dG_mRNA_native_prediction": null,
+              "dG_search_with_spacing": -11.6,
+              "dG_spacing": 0.0,
+              "dG_standby_signed": 0.0,
+              "dG_start": -1.194,
+              "dG_total": -12.794,
+              "units": "kcal/mol"
+            },
+            "log_tir": 13.58192179843505,
+            "oriented_start": 14,
+            "reason": null,
+            "standby_interval": {
+              "end": 1,
+              "start": 0,
+              "strand": "+"
+            },
+            "start_codon": {
+              "end": 17,
+              "start": 14,
+              "strand": "+"
+            },
+            "status": "ok",
+            "structures": {
+              "bound_after_standby": {
+                "anti_sd_dot_bracket": ".))))))).",
+                "coordinate_space": "zero-based window-relative mRNA and 5-prime-to-3-prime anti_sd",
+                "energy_kcal_mol": -11.6,
+                "mrna_anti_sd_pairs": [
+                  [
+                    1,
+                    7
+                  ],
+                  [
+                    2,
+                    6
+                  ],
+                  [
+                    3,
+                    5
+                  ],
+                  [
+                    4,
+                    4
+                  ],
+                  [
+                    5,
+                    3
+                  ],
+                  [
+                    6,
+                    2
+                  ],
+                  [
+                    7,
+                    1
+                  ]
+                ],
+                "mrna_dot_bracket": ".(((((((.........................................",
+                "mrna_intramolecular_pairs": [],
+                "prediction_energy_kcal_mol": null
+              },
+              "bound_before_standby": {
+                "anti_sd_dot_bracket": ".))))))).",
+                "coordinate_space": "zero-based window-relative mRNA and 5-prime-to-3-prime anti_sd",
+                "energy_kcal_mol": -11.6,
+                "mrna_anti_sd_pairs": [
+                  [
+                    1,
+                    7
+                  ],
+                  [
+                    2,
+                    6
+                  ],
+                  [
+                    3,
+                    5
+                  ],
+                  [
+                    4,
+                    4
+                  ],
+                  [
+                    5,
+                    3
+                  ],
+                  [
+                    6,
+                    2
+                  ],
+                  [
+                    7,
+                    1
+                  ]
+                ],
+                "mrna_dot_bracket": ".(((((((.........................................",
+                "mrna_intramolecular_pairs": [],
+                "prediction_energy_kcal_mol": null
+              },
+              "unbound": {
+                "anti_sd_dot_bracket": null,
+                "coordinate_space": "zero-based window-relative mRNA and 5-prime-to-3-prime anti_sd",
+                "energy_kcal_mol": 0.0,
+                "mrna_anti_sd_pairs": [],
+                "mrna_dot_bracket": ".................................................",
+                "mrna_intramolecular_pairs": [],
+                "prediction_energy_kcal_mol": null
+              }
+            },
+            "tir": 791687.3228275315,
+            "warnings": [
+              "standby_region_truncated_at_window_boundary",
+              "folding_window_touches_supplied_sequence_boundary"
+            ],
+            "window": {
+              "input_interval": {
+                "end": 49,
+                "start": 0,
+                "strand": "+"
+              },
+              "oriented_end": 49,
+              "oriented_start": 0
+            }
+          }
+        ],
+        "status": "ok",
+        "warnings": [
+          "reconstruction_not_historical_or_hosted_equivalence",
+          "RNAstructure_parameters_and_dangles_differ_from_NUPACK_rna1999",
+          "bounded_bifold_tracebacks_not_exhaustive_suboptimal_enumeration",
+          "relative_initiation_score_not_absolute_rate_or_probability",
+          "host_configuration_is_not_host_calibration",
+          "patched_traceback_changes_candidate_search_results"
+        ]
+      },
+      "prediction_sha256": "229e4b120c990b29e509abcb0ff45eb466c3a75f90477034676f8a4172fcd043",
+      "projection": null,
+      "request": {
+        "anti_sd": "ACCUCCUUA",
+        "host": null,
+        "id": "recoded",
+        "sequence": "AAAGGAGGAAAAAAATGAAAAAAAAGAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "strand": "+",
+        "temperature_c": 37
+      },
+      "roster_status": "known"
+    }
+  },
+  "status": "complete",
+  "warnings": [
+    "predicted_differences_are_not_measured_regulatory_effects"
+  ]
+}

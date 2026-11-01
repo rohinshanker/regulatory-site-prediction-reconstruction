@@ -1,0 +1,227 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Supplied transcript request 1",
+  "description": "Structural contract for explicit supplied transcript/CDS component requests. See ../docs/validation/supplied-transcript-contract.md. Validation is not biological validation or execution success.",
+  "$comment": "Resolve references offline through a local registry keyed by sibling schema file names. The transport must reject duplicate keys, nonfinite JSON tokens (including NaN) and invalid UTF-8 before validation. Runtime remains authoritative for ascending nonempty transcript ranges, CDS spans of at least three bases, sequence-relative bounds, unique CDS IDs/starts and increasing CDS order; scan range ordering, bounds and the range-width times strand-count cap of 512; normalization/sequence identity and native request construction; projection fit, traversal and declared origin crossing; received/canonical root bytes (1000000), depth (16) and node (20000) caps; biological meaning, model/backend availability, deadline sufficiency and execution success. Draft 2020-12 treats integral floats as integers and integers as numbers; genuine integer-versus-float wire types require runtime checks. JSON object key order is immaterial; CDS and coordinate arrays retain caller order. No defaults are inserted, and explicit null host/projection is required when absent.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "id",
+    "sequence",
+    "transcript",
+    "cds",
+    "rbs",
+    "promoter",
+    "projection",
+    "settings"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "supplied-transcript-request-1"
+    },
+    "id": {
+      "$ref": "#/$defs/id"
+    },
+    "sequence": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 5000,
+      "pattern": "^[ACGT]+(?![\\s\\S])"
+    },
+    "transcript": {
+      "$ref": "#/$defs/annotation"
+    },
+    "cds": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 10,
+      "items": {
+        "$ref": "#/$defs/annotation"
+      },
+      "$comment": "Preserve ordered annotations, including overlaps and transcript-incompatible starts. Relational organization and uniqueness require runtime checks."
+    },
+    "rbs": {
+      "$ref": "#/$defs/rbs"
+    },
+    "promoter": {
+      "$ref": "#/$defs/promoter"
+    },
+    "projection": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/projection"
+        }
+      ]
+    },
+    "settings": {
+      "$ref": "#/$defs/settings"
+    }
+  },
+  "$defs": {
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+(?![\\s\\S])"
+    },
+    "annotation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "range",
+        "provenance"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "range": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": {
+            "$ref": "promoter-request-1.0.schema.json#/$defs/coordinate"
+          }
+        },
+        "provenance": {
+          "$ref": "#/$defs/provenance"
+        }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "reference"
+      ],
+      "properties": {
+        "kind": {
+          "enum": [
+            "user_supplied",
+            "annotation",
+            "measured",
+            "synthetic"
+          ]
+        },
+        "reference": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1024,
+          "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+(?![\\s\\S])"
+        }
+      }
+    },
+    "rbs": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "profile",
+        "anti_sd",
+        "temperature_c",
+        "host"
+      ],
+      "properties": {
+        "profile": {
+          "enum": [
+            "historical",
+            "salis-v1-rnastructure-6.6-reconstruction-1",
+            "footprint2017",
+            "footprint2017-rnastructure-6.6-reconstruction-1",
+            "context2017",
+            "context2017-rnastructure-6.6-reconstruction-1",
+            "standby2014",
+            "standby2014-rnastructure-6.6-reconstruction-1",
+            "joint_standby",
+            "joint-standby-rnastructure-6.6-reconstruction-1"
+          ]
+        },
+        "anti_sd": {
+          "type": "string",
+          "minLength": 9,
+          "maxLength": 9,
+          "pattern": "^[ACGU]{9}(?![\\s\\S])"
+        },
+        "temperature_c": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "host": {
+          "$ref": "rbs-request-1.0.schema.json#/properties/host"
+        }
+      }
+    },
+    "promoter": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "calibration",
+        "host",
+        "scan"
+      ],
+      "properties": {
+        "calibration": {
+          "$ref": "promoter-request-1.0.schema.json#/$defs/calibration"
+        },
+        "host": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "promoter-request-1.0.schema.json#/$defs/host"
+            }
+          ]
+        },
+        "scan": {
+          "$ref": "promoter-request-1.0.schema.json#/$defs/scan",
+          "properties": {
+            "positions": {
+              "maxItems": 512
+            }
+          },
+          "$comment": "Empty rosters are valid. The explicit list cap narrows the native 5000-item cap; range-width times strand count still requires runtime validation."
+        }
+      }
+    },
+    "projection": {
+      "$ref": "promoter-request-1.0.schema.json#/$defs/projection",
+      "required": [
+        "sequence_strand"
+      ]
+    },
+    "component_seconds": {
+      "type": "number",
+      "exclusiveMinimum": 0,
+      "maximum": 120
+    },
+    "settings": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "seconds_per_rbs_record",
+        "seconds_per_promoter_record",
+        "seconds_total"
+      ],
+      "properties": {
+        "seconds_per_rbs_record": {
+          "$ref": "#/$defs/component_seconds"
+        },
+        "seconds_per_promoter_record": {
+          "$ref": "#/$defs/component_seconds"
+        },
+        "seconds_total": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 240
+        }
+      }
+    }
+  }
+}

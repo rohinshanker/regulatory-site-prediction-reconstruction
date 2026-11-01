@@ -1,0 +1,158 @@
+{
+  "artifacts": {
+    "regulatory_site_prediction_reconstruction-0.6.0rc1-py3-none-any.whl": "b87e7a34e09f1163e03dd69d5112307bc4cb3013e75b5ade0812cf7098ab449a",
+    "regulatory_site_prediction_reconstruction-0.6.0rc1.tar.gz": "94c44c4ebad8f9b7be143cc9863b0b8b51a310154d1a0fcd8e9d4829349545c7"
+  },
+  "candidate_commit": "920215602a837b0fd2fed403512f3b3ed59bfda2",
+  "ci": {
+    "full_success_requires_separate_admission_receipt": true,
+    "required_job_count": 8,
+    "run_id": 39180666203
+  },
+  "claims": {
+    "biological_recoding_effect": false,
+    "hosted_equivalence": false,
+    "native_calibration": false
+  },
+  "collection_gate": "Preparation only until final successful CI receipt and B frozen exact inputs/settings/stage acknowledgement. Every failed or unstarted candidate retained; no retries/tuning.",
+  "csv_smoke": {
+    "rows": 24,
+    "sha256": "ccbfc6065afe977403313dab3bd383e8af680b1e2329d8f9ec1448f9d0ee7fa8"
+  },
+  "identity_examples": {
+    "paired-promoter-indel": "6805254bfb8eb3c5a610c19ecb5ecddd3f714c671aa1a3417893293160f1f085",
+    "paired-promoter-unchanged": "129e5977bf1d1420d45d3b8237807092e269d03cf4e51aa8e5db4754fab535a6",
+    "paired-rbs-substitution": "1b05c4a35fb2fe40fc943db96ca3ad3e733d9afceb451e6e543e2387fb4d96cd"
+  },
+  "implementation_version": "0.6.0rc1",
+  "limits": {
+    "max_bases_per_side": 10000,
+    "max_candidates_per_side": 512,
+    "max_edits": 1000,
+    "max_feature_bases": 2000000,
+    "max_input_json_bytes": 2000000,
+    "max_json_depth": 20,
+    "max_json_nodes": 100000,
+    "max_result_json_bytes": 67108864,
+    "max_seconds_per_side": 120,
+    "predictors": {
+      "promoter": {
+        "default_seconds_per_batch": 300.0,
+        "default_seconds_per_record": 30.0,
+        "max_all_state_sites_per_record": 100,
+        "max_all_states_per_batch": 2000,
+        "max_all_states_per_record": 2000,
+        "max_contig_chars": 128,
+        "max_host_name_chars": 200,
+        "max_id_chars": 128,
+        "max_input_json_bytes": 4000000,
+        "max_metadata_depth": 4,
+        "max_metadata_json_bytes": 4096,
+        "max_normalized_bases_per_batch": 100000,
+        "max_normalized_bases_per_record": 5000,
+        "max_planned_sites_per_batch": 4000,
+        "max_planned_sites_per_record": 1000,
+        "max_raw_sequence_chars_per_record": 50000,
+        "max_records_per_batch": 100,
+        "max_result_json_bytes": 67108864,
+        "max_seconds_per_batch": 3600.0,
+        "max_seconds_per_record": 120.0
+      },
+      "rbs": {
+        "max_explicit_or_scanned_starts": 1000,
+        "max_normalized_bases_per_record": 10000,
+        "max_seconds_per_record": 120
+      }
+    }
+  },
+  "offline_smoke": {
+    "paired-promoter-indel": {
+      "coverage": {
+        "comparable": 2,
+        "complete": true,
+        "current": {
+          "complete": true,
+          "expected": 2,
+          "returned": 2,
+          "scored": 2
+        },
+        "diagnostic_only": false,
+        "paired": 2,
+        "recoded": {
+          "complete": true,
+          "expected": 2,
+          "returned": 2,
+          "scored": 2
+        },
+        "unmatched": 0
+      },
+      "request_sha256": "ef323ff2d39b616106de961bf3afb3dcbd0f1ab505d9f95130e6387d25e701b9",
+      "result_sha256": "60920a6d11016e5bd3d03c4bffcc03cbf49beb1a95c839235f2caa27657777c6",
+      "status": "complete"
+    },
+    "paired-promoter-unchanged": {
+      "coverage": {
+        "comparable": 2,
+        "complete": true,
+        "current": {
+          "complete": true,
+          "expected": 2,
+          "returned": 2,
+          "scored": 2
+        },
+        "diagnostic_only": false,
+        "paired": 2,
+        "recoded": {
+          "complete": true,
+          "expected": 2,
+          "returned": 2,
+          "scored": 2
+        },
+        "unmatched": 0
+      },
+      "request_sha256": "a5834b10907788465663f5a1b99d3bc3903b246d6ff725ff9265ec5d7570ef45",
+      "result_sha256": "7634875794bb5cb4aff32a688a44e98d8974099365e4c5f0687ac5e0deda7557",
+      "status": "complete"
+    },
+    "paired-rbs-substitution": {
+      "coverage": {
+        "comparable": 1,
+        "complete": true,
+        "current": {
+          "complete": true,
+          "expected": 1,
+          "returned": 1,
+          "scored": 1
+        },
+        "diagnostic_only": false,
+        "paired": 1,
+        "recoded": {
+          "complete": true,
+          "expected": 1,
+          "returned": 1,
+          "scored": 1
+        },
+        "unmatched": 0
+      },
+      "request_sha256": "94fad5878c14482906a342170ea6cdd12b80c880d067202669df7850ba46a6ce",
+      "result_sha256": "c44da29ac031b47131858f8674fb7d872833e5ce9eff34ac3b829c370aa6393e",
+      "status": "complete"
+    }
+  },
+  "request_schema_sha256": "3e38751e56a6b161196f419bb6d55cbee0f68cd39cca9ea4ab82014b84cb7cc5",
+  "resource_receipt_sha256": "c157fb2d2784aeae9f4d617c3bfd910cdb2cb2a14bf13053eb7c08c2bfe36f46",
+  "result_schema_sha256": "543e37d2d12851cb1172dacb594c503371ce93579b807f9cda9618eb23839e0e",
+  "runtime_contract_sha256": "2d296cc5a2673e0c608aa0d862e4cc15eb066276290d8b69587864c29413e398",
+  "schema_version": "paired-runtime-candidate-1",
+  "source_date_epoch": 1792369436,
+  "source_manifest_sha256": "dadcbd5ef38ef52faa7bbf650a2f1fa5541a6ce5f95aad9c8dbf27a649800975",
+  "verification": {
+    "final_changes": "Version0.6 plus real-result schema assertions and fresh-wheel CI, no changed scoring mathematics.",
+    "reviewed_commit": "e2f85846d9d311b2beff6de1602a8ecc75a0e8d6",
+    "runtime_and_transport_tests": 285,
+    "runtime_coverage_branches": 182,
+    "runtime_coverage_percent": 100,
+    "runtime_coverage_statements": 434,
+    "schema_tests": 136
+  }
+}

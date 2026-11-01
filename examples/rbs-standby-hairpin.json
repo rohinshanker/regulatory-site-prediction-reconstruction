@@ -1,0 +1,12 @@
+{
+  "schema_version": "1.0",
+  "id": "synthetic-standby-hairpin",
+  "host": "synthetic structural example; not host-calibrated",
+  "sequence": "AAGGGGGGAAAACCCCCCAAGGAGGAAAAAAATGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+  "anti_sd": "ACCUCCUUA",
+  "temperature_c": 37,
+  "strand": "+",
+  "start_positions": [
+    31
+  ]
+}

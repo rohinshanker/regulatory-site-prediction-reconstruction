@@ -1,0 +1,84 @@
+{
+  "schema_version": "rbs-wave4-protocol-1",
+  "planning_commit": "73521a6ae3251678073dce76181ee5909b34fe8b",
+  "input_file_sha256": "c96399ddf396bbce4eb56802579f703c92dc46569ebcfee28db94a4001354271",
+  "input_envelope_sha256": "00648504305dddb7accede06ab07ca0ce12749f271b8ec3858dd6f44c359ba5d",
+  "split_file_sha256": "dcccc24f43993e82c71b23dba602ceb41b81404c34c04459c297d2149028ce9a",
+  "private_outcomes_sha256": "443bc60476d79d2d1690b016d8acedd86eef05fdd5b49f4d10d5a6db6dc6015b",
+  "selection_freeze_commit": "55da050fc3543cf9ff61e41eb269c3071d92b9fc",
+  "primary_endpoint": {
+    "study": "Cambray2018",
+    "quantity_field": "observed",
+    "quantity": "ordinary clean.lin.prot.mean, source protein fluorescence 1-100",
+    "n_inputs": 335,
+    "n_observed": 332,
+    "n_blocks": 56,
+    "block": "group (seed), retain all design families/members",
+    "contrast": "joint_standby minus standby2014 on same accepted backend; newly reviewed backend if admitted before freeze, otherwise traceback-2"
+  },
+  "fallback": {
+    "contrast": "standby2014 minus historical on traceback-2",
+    "requires": "A explicitly freezes fallback roster and acknowledges final-panel consumption before B collection"
+  },
+  "secondary_endpoints": {
+    "Kuo2020": [
+      "arti",
+      "dmsC",
+      "fepB"
+    ],
+    "quantity_field": "observed",
+    "n_inputs_per_context": 87,
+    "status": "exposed secondary; no pooled context metric or independent superiority claim",
+    "uncertainty": "undefined: one connected source sequence family per context",
+    "facilitated_cambray": "not evaluated in this wave"
+  },
+  "bootstrap": {
+    "draws": 10000,
+    "seed": 20261018,
+    "interval": 0.95,
+    "minimum_usable_draws": 9900,
+    "minimum_common_rows": 30,
+    "minimum_common_blocks": 10,
+    "sampling": "sample all original Cambray seed blocks with replacement, same draws for both models; include all members and repeated blocks; filter to finite measured common successes only after sampling; recompute average ranks with multiplicities each draw",
+    "quantiles": "sorted usable draws at floor(.025*(n-1)) and ceil(.975*(n-1)); no interpolation",
+    "undefined": "fewer than two pairs or either vector constant; null with reason, never zero; insufficient support/usable draws means no advancement"
+  },
+  "advancement": {
+    "minimum_coverage": 0.95,
+    "minimum_rank_gain": 0.05,
+    "minimum_interval_lower_exclusive": 0.0,
+    "lost_baseline_successes_allowed": 0,
+    "software_resource_gates_required": true,
+    "complete_collection_required": true,
+    "scope": "one prespecified primary contrast; all others descriptive; point gain and interval use same measured common-success rows"
+  },
+  "controls": {
+    "constant": 1.0,
+    "gc_content": "fraction G/C in available supplied window [max(0,start-35),min(length,start+70)); higher GC has higher score; fixed direction and no fitted scale"
+  },
+  "subgroups": {
+    "Cambray2018": "descriptive only: coding sequence after start+3, GC <0.4, [0.4,0.6), >=0.6",
+    "minimum_common_rows_to_display_rank_difference": 30,
+    "small_strata": "retain coverage/counts, null subgroup contrast; no subgroup promotion gate or post-hoc strata",
+    "Kuo2020": "three prespecified contexts only"
+  },
+  "collection": {
+    "max_processes": 2,
+    "seconds_per_record": 60,
+    "total_seconds": 14400,
+    "roster_max_excluding_controls": 9,
+    "schedule": "Cambray then Kuo; input IDs sorted within study; model IDs sorted then cyclically rotated by input index, submitted in that deterministic record-major order",
+    "timeout_policy": "terminate process group, preserve timeout with null score; no retry",
+    "total_cap_policy": "stop scheduling, terminate running work at cap, preserve every remaining row as not_run; collection incomplete and no advancement",
+    "outputs": "exclusive new private directory 0700 and files 0600; immutable per-record receipts before aggregate results"
+  },
+  "independence": {
+    "no_fitting": true,
+    "no_outlier_removal": true,
+    "no_success_based_selection": true,
+    "no_fold_error": true,
+    "all_predictions_before_any_label_join": true,
+    "private_outcomes_and_residuals": true,
+    "comparators": "OSTIR1.1.3, frozen public2014 sequence-v1 and rebeca exp67_true only if admitted; rebeca Kuo-trained, not independent on Kuo; UTR degeneracy retained as undefined rank"
+  }
+}

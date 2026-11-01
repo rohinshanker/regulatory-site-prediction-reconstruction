@@ -1,0 +1,12 @@
+{
+  "schema_version": "1.0",
+  "id": "synthetic-learned-supplied-start",
+  "host": null,
+  "sequence": "AAAGGAGGAAAAAAATGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+  "anti_sd": "ACCUCCUUA",
+  "temperature_c": 37,
+  "strand": "+",
+  "start_positions": [
+    14
+  ]
+}

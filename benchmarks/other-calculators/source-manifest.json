@@ -1,0 +1,298 @@
+{
+  "schema_version": "wave5-other-calculator-sources-1",
+  "verified_date": "2026-10-18",
+  "search_scope": [
+    "SalisLabCode immutable/current tree",
+    "Pinned iDOG tree",
+    "Official Operon documentation",
+    "2015 riboswitch primary article and both supplement members",
+    "2023 protein-sensing riboswitch primary article and supplements",
+    "2024 mRNA stability primary article and linked repository files"
+  ],
+  "salislabcode_commit": "46da9132740bce30bccd107f02808adf2215e2f0",
+  "idog_commit": "9d71187f0b2eb27ee681918927e12850470a0688",
+  "files": [
+    {
+      "path": "PMC10140043-supplements.zip",
+      "bytes": 5664976,
+      "sha256": "2efe27d48ffa8dad4346b15a78829c3a3bd212d7727f62842db133e0b222b1a9",
+      "retrieval_date": "2026-10-18",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC10140043/supplementaryFiles"
+    },
+    {
+      "path": "PMC10140043.xml",
+      "bytes": 129123,
+      "sha256": "89d6e12a9d85af7b10b5dabc8764e5a4f2cc68ad977f19e74e9f77d223b10b8f",
+      "retrieval_date": "2026-10-18",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC10140043/fullTextXML"
+    },
+    {
+      "path": "PMC11541907.xml",
+      "bytes": 152753,
+      "sha256": "2c1e78aaf2d1038dd2ef88467777eaa923d1978affb3dfa0d15c80857565f23f",
+      "retrieval_date": "2026-10-18",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC11541907/fullTextXML"
+    },
+    {
+      "path": "PMC4705656-supplements.zip",
+      "bytes": 2534921,
+      "sha256": "d3b82d0e248b8aa2caac75142d4b41048eabe7812078a74d1690fc8c660580bb",
+      "retrieval_date": "2026-10-18",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC4705656/supplementaryFiles"
+    },
+    {
+      "path": "PMC4705656.xml",
+      "bytes": 121084,
+      "sha256": "fa0d7350adf4b07bcdb2b818c779ffabf135c50a72318569232a725f0d1868a6",
+      "retrieval_date": "2026-10-18",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC4705656/fullTextXML"
+    },
+    {
+      "path": "TestDataset.csv.zip",
+      "bytes": 4346679,
+      "sha256": "75d6a8172bcaf7b4ee0e7258cf3ecbccd81fb4c844f02b7b009f3c64be8ace9d",
+      "retrieval_date": "2026-10-18",
+      "url": "https://raw.githubusercontent.com/hsalis/SalisLabCode/46da9132740bce30bccd107f02808adf2215e2f0/mRNA_Stability_Calculator/TestDataset.csv.zip"
+    },
+    {
+      "path": "TestDataset.csv.zip.header.json",
+      "bytes": 10557,
+      "sha256": "a56fa4f3f390ee227acc7c8de070ff6504548c1e6c1f18849e268e6c81592ae5",
+      "retrieval_date": "2026-10-18",
+      "derivation": "Local source header/schema inspection or isolated AST component execution; original raw file pins retained in this manifest."
+    },
+    {
+      "path": "TrainingDataset.csv.zip",
+      "bytes": 16642876,
+      "sha256": "86473bd96ae37ed675824b1fcfc688e0eb0046b58b4cf2cd62fff7777b89d7c8",
+      "retrieval_date": "2026-10-18",
+      "url": "https://raw.githubusercontent.com/hsalis/SalisLabCode/46da9132740bce30bccd107f02808adf2215e2f0/mRNA_Stability_Calculator/TrainingDataset.csv.zip"
+    },
+    {
+      "path": "TrainingDataset.csv.zip.header.json",
+      "bytes": 10556,
+      "sha256": "c7dbd079d69f9a320030a34866c455e4eb6a94bcb72a9d7fff80deff6c3a2e39",
+      "retrieval_date": "2026-10-18",
+      "derivation": "Local source header/schema inspection or isolated AST component execution; original raw file pins retained in this manifest."
+    },
+    {
+      "path": "idog-LICENSE",
+      "bytes": 1067,
+      "sha256": "85e80ab312d3bd0d8eef956d8dff361db48ca0ce178b3ff9257adc286d1a200f",
+      "retrieval_date": "2026-10-18",
+      "url": "https://raw.githubusercontent.com/jayman1466/iDOG/9d71187f0b2eb27ee681918927e12850470a0688/LICENSE"
+    },
+    {
+      "path": "idog-plot_operon.py",
+      "bytes": 4193,
+      "sha256": "f547e5217c9ffab52ca60608891b1b971d7a3075c4749de3554803ecaffbdb7f",
+      "retrieval_date": "2026-10-18",
+      "url": "https://raw.githubusercontent.com/jayman1466/iDOG/9d71187f0b2eb27ee681918927e12850470a0688/plot_operon.py"
+    },
+    {
+      "path": "idog-tree.json",
+      "bytes": 11404,
+      "sha256": "d0e28ef41f91e97274254257df3c825a5fe6b8e2d44b6f206305e50680b1acdf",
+      "retrieval_date": "2026-10-18",
+      "url": "https://api.github.com/repos/jayman1466/iDOG/git/trees/9d71187f0b2eb27ee681918927e12850470a0688?recursive=1"
+    },
+    {
+      "path": "salis-commit.json",
+      "bytes": 643800,
+      "sha256": "fc43dd9c15f613eee0fa13e046633e4197ab9c3da732469169d1dc41dad43d75",
+      "retrieval_date": "2026-10-18",
+      "url": "https://api.github.com/repos/hsalis/SalisLabCode/commits/46da9132740bce30bccd107f02808adf2215e2f0"
+    },
+    {
+      "path": "salis-model-wrapper.py",
+      "bytes": 11333,
+      "sha256": "b74f78cf738cfe6112752c9283386df49cae146580927fd3f7b7785c0ddd3a10",
+      "retrieval_date": "2026-10-18",
+      "url": "https://raw.githubusercontent.com/hsalis/SalisLabCode/46da9132740bce30bccd107f02808adf2215e2f0/ModelTestSystem/examples/RBS/models/TranslationRateModels.py"
+    },
+    {
+      "path": "salis-tree.json",
+      "bytes": 91834,
+      "sha256": "4f40043a74933f845895b166b2a7e610cdc13fec7f2d342f18b724fbd0f0ce1e",
+      "retrieval_date": "2026-10-18",
+      "url": "https://api.github.com/repos/hsalis/SalisLabCode/git/trees/46da9132740bce30bccd107f02808adf2215e2f0?recursive=1"
+    },
+    {
+      "path": "stability-Dockerfile",
+      "bytes": 1382,
+      "sha256": "dcd78469cb4be02f387c121da064c318cbc8615bf9aa8d98282664c5886c29d8",
+      "retrieval_date": "2026-10-18",
+      "url": "https://raw.githubusercontent.com/hsalis/SalisLabCode/46da9132740bce30bccd107f02808adf2215e2f0/mRNA_Stability_Calculator/Dockerfile"
+    },
+    {
+      "path": "stability-LICENSE",
+      "bytes": 1104,
+      "sha256": "768b8dd915b7a965c831ab6c8b5d72bb39d7664c98c80a14983c1569482551d3",
+      "retrieval_date": "2026-10-18",
+      "url": "https://raw.githubusercontent.com/hsalis/SalisLabCode/46da9132740bce30bccd107f02808adf2215e2f0/mRNA_Stability_Calculator/LICENSE"
+    },
+    {
+      "path": "stability-ModelTrainingTesting.py",
+      "bytes": 12803,
+      "sha256": "de015f8aef21aeb584c3a15a04131fe6f46060ba679ff17b5f4dd923e0f42bf0",
+      "retrieval_date": "2026-10-18",
+      "url": "https://raw.githubusercontent.com/hsalis/SalisLabCode/46da9132740bce30bccd107f02808adf2215e2f0/mRNA_Stability_Calculator/ModelTrainingTesting.py"
+    },
+    {
+      "path": "stability-README.md",
+      "bytes": 1873,
+      "sha256": "a9c62cffc21c32affdd2aa43eefdd39465da37af6499f5b6ce3ad6d15f6c5457",
+      "retrieval_date": "2026-10-18",
+      "url": "https://raw.githubusercontent.com/hsalis/SalisLabCode/46da9132740bce30bccd107f02808adf2215e2f0/mRNA_Stability_Calculator/README.md"
+    },
+    {
+      "path": "stability-feature-smoke.json",
+      "bytes": 874,
+      "sha256": "e68f52d10e343d49903c54ace220148322201ccbcefc53d5927cc5fd2802ec7b",
+      "retrieval_date": "2026-10-18",
+      "derivation": "Local source header/schema inspection or isolated AST component execution; original raw file pins retained in this manifest."
+    },
+    {
+      "path": "stability-publication.json",
+      "bytes": 1091,
+      "sha256": "6767469db7963faebcedbdd105bd4a30da5619411e66adeef04d916a871ea2dd",
+      "retrieval_date": "2026-10-18",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=DOI:10.1038/s41467-024-54059-7&format=json"
+    },
+    {
+      "path": "supplements/PMC10140043/41467_2023_38098_MOESM1_ESM.pdf",
+      "bytes": 363301,
+      "sha256": "c8d0d719e7c4fbb344ea95f8660e19a6ec10c9f090422567781904caec247429",
+      "retrieval_date": "2026-10-18",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC10140043/supplementaryFiles",
+      "archive_member": "41467_2023_38098_MOESM1_ESM.pdf"
+    },
+    {
+      "path": "supplements/PMC10140043/41467_2023_38098_MOESM2_ESM.pdf",
+      "bytes": 316892,
+      "sha256": "9dd448d52cdac8ba79546b818077ae978e8f446c03240bcdc02f0ce404831d21",
+      "retrieval_date": "2026-10-18",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC10140043/supplementaryFiles",
+      "archive_member": "41467_2023_38098_MOESM2_ESM.pdf"
+    },
+    {
+      "path": "supplements/PMC10140043/41467_2023_38098_MOESM3_ESM.pdf",
+      "bytes": 4501419,
+      "sha256": "87955d3cd6f7fd38e6f115b3bdea8cb6a1efcb8e0a7c3586ba0fb9b8700b6008",
+      "retrieval_date": "2026-10-18",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC10140043/supplementaryFiles",
+      "archive_member": "41467_2023_38098_MOESM3_ESM.pdf"
+    },
+    {
+      "path": "supplements/PMC10140043/41467_2023_38098_MOESM4_ESM.xlsx",
+      "bytes": 61379,
+      "sha256": "eed842253c93d2bbe10f9b3de98a616ee0ad29cac78862bc603e05d2ede0c892",
+      "retrieval_date": "2026-10-18",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC10140043/supplementaryFiles",
+      "archive_member": "41467_2023_38098_MOESM4_ESM.xlsx"
+    },
+    {
+      "path": "supplements/PMC4705656/supp_gkv1289_nar-02272-r-2015-File009.pdf",
+      "bytes": 1875653,
+      "sha256": "b68da105ea6c8f6c26f6e6f66863d066c34b1052dd0eeb23159c96d0c1a861fe",
+      "retrieval_date": "2026-10-18",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC4705656/supplementaryFiles",
+      "archive_member": "supp_gkv1289_nar-02272-r-2015-File009.pdf"
+    },
+    {
+      "path": "supplements/PMC4705656/supp_gkv1289_nar-02272-r-2015-File010.xls",
+      "bytes": 200704,
+      "sha256": "3f68ce6dbb5150bcfea00a1736c9291ac0e2c25073edf6fdb2388447d77d6925",
+      "retrieval_date": "2026-10-18",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC4705656/supplementaryFiles",
+      "archive_member": "supp_gkv1289_nar-02272-r-2015-File010.xls"
+    }
+  ],
+  "redistribution": "No upstream code, parameter archive or measurement table is copied into this repository. Manifest, independently derived arithmetic and scoped component-smoke aggregate only.",
+  "components": [
+    {
+      "id": "mrna-stability-2024",
+      "code_license": "MIT; Copyright2023-2024 Daniel Cetnar,Ayaan Hossain,Howard Salis",
+      "paper_doi": "10.1038/s41467-024-54059-7",
+      "paper_license": "CC-BY-4.0; article third-party-material exception retained",
+      "available": "Train/test procedure, hyperparameters, precomputed train/test feature tables and measurements",
+      "not_recovered": [
+        "sequence-to-feature generator",
+        "frozen six-model LightGBM artifact set",
+        "release-specific categorical encoding/order and complete environment lock"
+      ],
+      "runtime_imports": [
+        "numpy",
+        "pandas",
+        "matplotlib",
+        "lightgbm",
+        "sklearn",
+        "openpyxl via pandas Excel"
+      ],
+      "version_evidence": {
+        "paper_lightgbm": "3.3.2",
+        "paper_viennarna": "2.4.11",
+        "docker_viennarna": "2.5.0",
+        "docker_python": "ubuntu22.04 unpinned python3/pip packages"
+      },
+      "required_open_admission": "Training code can be reused with MIT notice. Precomputed features do not prove an open from-sequence deployment; source data provenance and derived-model rights remain explicit. ViennaRNA dependency is not admitted to the required all-open runtime. No fitting performed.",
+      "smoke": "stability-feature-smoke.json"
+    },
+    {
+      "id": "riboswitch-2015",
+      "paper_doi": "10.1093/nar/gkv1289",
+      "paper_license": "CC-BY-NC-4.0; not a permissive code/data grant",
+      "available": "Published constrained-state, occupancy, metastability and pseudoknot relationships; XLS measurements and PDF supplement",
+      "not_recovered": [
+        "complete standalone inference source",
+        "constrained RBSv2.0 state/standby implementation matching publication",
+        "full pseudoknot parameter/algorithm source pin and open dependency grant",
+        "exact deployed-hosted parameters/version"
+      ],
+      "required_open_admission": "Independent equation reconstruction requires independently admitted folding/parameter components; no NC supplement or unlicensed code becomes required runtime. No source numerical execution claimed."
+    },
+    {
+      "id": "riboswitch-protein-2023",
+      "paper_doi": "10.1038/s41467-023-38098-0",
+      "paper_license": "CC-BY-4.0 with third-party exception",
+      "available": "Source Data XLSX with sequences/calculations/measurements; aptamer-constraint methods",
+      "not_recovered": [
+        "standalone full inference code",
+        "general steric-hindrance model",
+        "prospectively held-out optimized-constraint accuracy result"
+      ],
+      "exposure": "Aptamer constraints selected for best accuracy across measured riboswitches; exposed optimization, not untouched validation.",
+      "required_open_admission": "Raw source dataset not redistributed; archive identified separately. Source equation parity and assay accuracy remain separate."
+    },
+    {
+      "id": "idog-operon",
+      "code_license": "MIT repository notice",
+      "available": "plot_operon.py visualization and .pyc-only operon_design/web_operon_design modules",
+      "decision": "Not complete Operon inference; bytecode is not admitted source."
+    },
+    {
+      "id": "operon-integrated",
+      "available": "Official supplied-construct input/output contract; local RBS and admitted Promoter components",
+      "not_recovered": [
+        "complete integration source",
+        "host-specific elongation/pause parameter tables",
+        "termination inference source/weights",
+        "sequence-derived mRNA decay/isoform feature generation",
+        "RNase/ribosome-protection integration",
+        "translational coupling and independent ORF/context contract",
+        "genetic-instability detectors/parameters"
+      ],
+      "decision": "No complete standalone current Operon engine established by this bounded audit. Named missing components require their own implementation/evidence gates."
+    }
+  ],
+  "retrieval_limits": [
+    {
+      "url": "https://dotknot.csse.uwa.edu.au/DotKnot_1.3.2.tar.gz",
+      "result": "HTTP403; bytes/licence not verified; no bypass"
+    },
+    {
+      "url": "https://docs.salislab.net/design-genetic-systems/models-and-design-algorithms/operon-calculator.md",
+      "result": "Direct fetch403; official page text accessible in browser search tool; no hash-pinned raw copy claimed."
+    }
+  ]
+}

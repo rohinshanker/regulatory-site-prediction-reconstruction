@@ -1,0 +1,183 @@
+{
+  "baseline_scoring_commit": "9edb989fbfa6d252d0c1b7b12c1a4d0a7d0ce923",
+  "candidate_commit": "920215602a837b0fd2fed403512f3b3ed59bfda2",
+  "claims": {
+    "improvement": false,
+    "input_context_sensitivity_only": true,
+    "native_calibration": false,
+    "translation_accuracy": false
+  },
+  "collection_gate": "Preparation only. Final eight-job CI success, exact B panel/job/settings hashes and slot acknowledgement precede scoring. No tuning/retries/repacking after outcomes.",
+  "complete_models": {
+    "context2017": {
+      "id": "context2017-rnastructure-6.6-reconstruction-1",
+      "implementation_version": "0.6.0rc1",
+      "parameters": {
+        "coding_footprint_nt": 13,
+        "context_source": "published 2014/2017 context-inspired bounded reconstruction; not a recovered production parameter set",
+        "downstream_nt": 100,
+        "effective_RT": 2.222,
+        "energy_comparison_tolerance_kcal_mol": 1e-09,
+        "footprint_coordinate": "[start, start+13), first coding nucleotide is start",
+        "footprint_source": "https://doi.org/10.1093/nar/gkx061; Methods equation 3",
+        "optimal_aligned_spacing": 5,
+        "rate_scale": 2500.0,
+        "spacing_pull": [
+          0.048,
+          0.24,
+          0.0
+        ],
+        "spacing_push": [
+          12.2,
+          2.5,
+          2.0,
+          3.0
+        ],
+        "standby_model": "historical four-base opening; later geometry unimplemented",
+        "standby_nt": 4,
+        "start_energies_kcal_mol": {
+          "AUG": -1.194,
+          "CUG": -0.03406,
+          "GUG": -0.0748,
+          "UUG": -0.0435
+        },
+        "suboptimal_filter_kcal_mol": 3.0,
+        "suboptimal_reference": "lowest_interstrand_connected_complex",
+        "upstream_nt": 100
+      },
+      "source_commit": "8a9c1de1bdd847bb90d2ab6ceaa3c20feceda307"
+    },
+    "historical": {
+      "id": "salis-v1-rnastructure-6.6-reconstruction-1",
+      "implementation_version": "0.6.0rc1",
+      "parameters": {
+        "downstream_nt": 35,
+        "effective_RT": 2.222,
+        "energy_comparison_tolerance_kcal_mol": 1e-09,
+        "historical_footprint_nt": 1000,
+        "optimal_aligned_spacing": 5,
+        "rate_scale": 2500.0,
+        "spacing_pull": [
+          0.048,
+          0.24,
+          0.0
+        ],
+        "spacing_push": [
+          12.2,
+          2.5,
+          2.0,
+          3.0
+        ],
+        "standby_nt": 4,
+        "start_energies_kcal_mol": {
+          "AUG": -1.194,
+          "CUG": -0.03406,
+          "GUG": -0.0748,
+          "UUG": -0.0435
+        },
+        "suboptimal_filter_kcal_mol": 3.0,
+        "suboptimal_reference": "lowest_interstrand_connected_complex",
+        "upstream_nt": 35
+      },
+      "source_commit": "8a9c1de1bdd847bb90d2ab6ceaa3c20feceda307"
+    }
+  },
+  "execution": {
+    "backend": {
+      "binary_sha256": {
+        "Fold": "81f962573b7f43c023dd23eab4ae1e8e7f6402d8679e89a6a1a539cfdc6a5458",
+        "bifold": "9f8156cabaf8e13f91e90d410c46aef1cff1c2badda1c4243b194f54eb1f8136",
+        "efn2": "f0b2ce5971d482f50867615e3870b4743d42d6b0e266e05c0c0c1f1bc63d8b4d"
+      },
+      "build_provenance": {
+        "component": "rnastructure-6.6-linker-3",
+        "license": "GPL-2.0-only",
+        "patch_sha256": "2ef6ef61496b034110f4151e2fc1aec77cbd011c88a36bcef574be0dfecebb2d",
+        "patched_source_sha256": "b19a9ad1634f7e8f7669410b1eb7f5e8c27542f073054acb65647891e62ddbc7",
+        "source_archive_sha256": "1bedc62aaab984279055caaa6234d48fca113f4b8e17a8060e0b3784d5a397c3"
+      },
+      "build_receipt_sha256": "7fabba75b3f49cb9be9a5633f8fb149e318e6e48a971487acf7cceb743b806e2",
+      "expected_source_archive_sha256": "1bedc62aaab984279055caaa6234d48fca113f4b8e17a8060e0b3784d5a397c3",
+      "interface": "independent executables via sequence/CT files",
+      "licence": "GPL-2.0-only (separate installation)",
+      "name": "RNAstructure",
+      "settings": {
+        "alphabet": "rna",
+        "bifold_maximum": 100,
+        "bifold_percent": 100,
+        "bifold_window": 0,
+        "coaxial_stacking": true,
+        "dangles": "RNAstructure 6.6 native; no historical auto-dangle switch",
+        "efn2_multibranch_model": "simple",
+        "energy_evaluation": "efn2 --simple for every structure",
+        "fold_maximum": 1,
+        "fold_mfe_only": true,
+        "fold_window": 0,
+        "intramolecular_pairs": true,
+        "isolated_pairs": false,
+        "maximum_loop": 30
+      },
+      "table_manifest_sha256": "ece4c4b535783cb4e03c7ce8f243d09be84a165ecd113b1d20941b5ed8b69501",
+      "variant": "rnastructure-6.6-linker-3",
+      "version": "6.6"
+    },
+    "implementation_version": "0.6.0rc1",
+    "seconds_per_batch": 3600.0,
+    "seconds_per_record": 60.0
+  },
+  "implementation_version_changed": true,
+  "limits": {
+    "local_folding_processes": 1,
+    "max_canonical_identity_bytes": 40000000,
+    "max_genomes_per_batch": 100,
+    "max_records_per_batch": 10000,
+    "max_seconds_per_batch": 3600,
+    "max_seconds_per_record": 120,
+    "max_total_genome_bases": 20000000,
+    "whole_stage_seconds": 7200
+  },
+  "mode": "supplied_start",
+  "proposed_fixed_settings": {
+    "format": "json",
+    "mode": "supplied_start",
+    "profiles": [
+      "historical",
+      "context2017"
+    ],
+    "seconds_per_batch": 3600.0,
+    "seconds_per_record": 60.0
+  },
+  "schema_version": "rbs-context-candidate-preparation-1",
+  "synthetic_resource_receipt_sha256": "00e9c931173c6097a062de99abbf641f5b83b8086c38216d059cad7ddaea217c",
+  "transport_conditions": [
+    "Explicit strict UTF-8 LF-only file paths, no stdin",
+    "Raw serialized inputs <=40000000 bytes before native text-mode loading",
+    "Clear PYTHONPATH/PYTHONHOME and disable user sites",
+    "Hash and validate all outputs; preserve failed/not-run rows and every planned scenario"
+  ],
+  "unchanged_prior_runtime_files": {
+    "src/regsite/__main__.py": "03909d4646d450af7366c3753e048c9591cf1cb5788afdda1c2b85642aab0358",
+    "src/regsite/backend.py": "c63d27f6c73a0414553a02fb229cd0fc198276cbc3e26289d27cb5e3dfde515c",
+    "src/regsite/cli.py": "71001ec89b5f01fe6f21d3c2690e24215d7bf397ee3d373f72776e99cc557b96",
+    "src/regsite/contracts.py": "44dec45866842e47bf0a97d2908d9bcbabdde46db80899c0c15c22b27e1e9a7f",
+    "src/regsite/data/rnastructure-tables.json": "ece4c4b535783cb4e03c7ce8f243d09be84a165ecd113b1d20941b5ed8b69501",
+    "src/regsite/features.py": "92c7cafd07d81c606c55a99b3022f9121686a94e51c937ed3d57525c9fbfb341",
+    "src/regsite/genome.py": "851215db437765611cc60358ab8b485fcccd2c5848950488394bb8cdd9e7f0fc",
+    "src/regsite/io.py": "dc6e29533632a68fce08baa0e8bff37a9c6f098e8e0462ab710fe6ed9fa21bba",
+    "src/regsite/learned.py": "6a0d94edbffbe943ea06028a53120b830a90675fc62ab38f9ddfaa05ffc21f63",
+    "src/regsite/learned_cli.py": "7d8ad38d4788f2ad40df80d5f72c823aad00a9b888fe52ca3f84349a44c127db",
+    "src/regsite/learning.py": "8a3e3d7b6a238c9a8e199f20d1298aef382692d7ec52693dbdfb1117095095ff",
+    "src/regsite/native.py": "d6b90c66780cd53167cb81c50f3c941b52cc20bdd4f8dcee0bcbe089bc508766",
+    "src/regsite/native_cli.py": "71a3c15662e03a3dfba026bf2b9d15602184ae969c748c9bcde765fc8c39c1c7",
+    "src/regsite/native_io.py": "7e55167f95ccdf63ce6240fcc68d3246410a2af7ffebc55792574942846c75f5",
+    "src/regsite/partitioned_training.py": "03cfca3bc27e94f763c3075f0a8104f34df461ad34b2309443ac0f291cbe617b",
+    "src/regsite/profiles.py": "17c3a8d1858425ef042eab8b6513161e77c0ca5ad611c90dbb2df2f65e6887be",
+    "src/regsite/provenance.py": "53afe99e8c8230cefd180c724aaa007a212f700b1c1040bb914e64add4beffed",
+    "src/regsite/rbs.py": "2bdd62771ba9d276dc34897cf182e0ecd8fdf3ddc9d9d1e4fe0027bfeb571309",
+    "src/regsite/sequence.py": "1d38b3e074092ebcbeec2b6fd1b0a95492f3a8d57a215d72adee81ee53ddbb24",
+    "src/regsite/standby.py": "9b8803766853fd6de98abc99622ff4bc973a8a7749e64f824a9268ffe5ed4a9b",
+    "src/regsite/structures.py": "68f694b4b91e33690287136445fdad0fbad58c4130516ed1946eb56821fbe4cc",
+    "src/regsite/training.py": "7406355889db9c1012d184a6ce4cc61fa92ace707e1eaa97a5094332615b594a"
+  },
+  "wheel_sha256": "b87e7a34e09f1163e03dd69d5112307bc4cb3013e75b5ade0812cf7098ab449a"
+}

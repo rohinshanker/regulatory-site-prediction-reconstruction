@@ -1,0 +1,20 @@
+{
+  "purpose": "Independent coordinate arithmetic for the paper's CDS numbering; no measured outcomes or runtime scoring source",
+  "paper": "10.1093/nar/gkx061",
+  "sequence": "GGAGGTTATGAAACCCGGGTTTAAACCC",
+  "start_zero_based": 7,
+  "cds_position_plus4_zero_based": 10,
+  "interpretations": [
+    {
+      "name": "13_nt_including_start_codon",
+      "first_refold_zero_based": 20,
+      "refold_suffix": "TTAAACCC"
+    },
+    {
+      "name": "13_nt_after_complete_start_codon",
+      "first_refold_zero_based": 23,
+      "refold_suffix": "AACCC"
+    }
+  ],
+  "source_decision": "Prefer start+13 from 13nt into CDS and +4 second-codon numbering; start+16 is a distinct interpretation used by iDOG, not asserted identical to the paper."
+}

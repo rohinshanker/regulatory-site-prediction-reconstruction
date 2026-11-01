@@ -1,0 +1,17 @@
+{
+  "schema_version": "termination-request-1",
+  "settings": {
+    "max_seconds": 30,
+    "per_record_seconds": 5
+  },
+  "records": [
+    {
+      "id": "original-synthetic-tie",
+      "sequence": "ACTTTTTTGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCGCAAAAAAAAGCGCGCAAAAGCGCGCTTTCCCTTTCCCTTTCAC"
+    },
+    {
+      "id": "original-synthetic-negative",
+      "sequence": "ACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACACAC"
+    }
+  ]
+}

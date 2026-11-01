@@ -1,0 +1,107 @@
+{
+  "complete": true,
+  "errors": [],
+  "id": "supplied-half-occupancy",
+  "input": {
+    "affinity": {
+      "delta_g_kcal_mol": -2.386294361119891,
+      "mode": "delta_g",
+      "standard_molar": 1.0
+    },
+    "beta_mol_per_kcal": 1.0,
+    "energies": {
+      "ribosome_off_kcal_mol": 0.0,
+      "ribosome_on_kcal_mol": -1.3862943611198906,
+      "rna_off_kcal_mol": -2.0,
+      "rna_on_kcal_mol": -1.0
+    },
+    "energy_basis": {
+      "ribosome": {
+        "backend_sha256": null,
+        "model_id": "synthetic-algebra-1",
+        "parameter_sha256": null,
+        "sequence_sha256": null,
+        "source_id": "synthetic-explicit-energies"
+      },
+      "rna": {
+        "backend_sha256": null,
+        "model_id": "synthetic-algebra-1",
+        "parameter_sha256": null,
+        "sequence_sha256": null,
+        "source_id": "synthetic-explicit-energies"
+      }
+    },
+    "occupancy": {
+      "fraction": 0.5,
+      "mode": "supplied_fraction"
+    },
+    "temperature_kelvin": 310.15
+  },
+  "model": {
+    "backend": null,
+    "convention_id": "natural_logs_equal_rna_complex_volume_explicit_molar_standard_strict_positive_zero_uncorrected_binary64_kd_guarded_certified_min_total_bracket_3",
+    "id": "conditional-aptamer-1",
+    "implementation_version": "0.7.0rc1",
+    "parameter_sha256": "99bb08423e2d321947e1cf5bb8cc3061bd99ab02414bff4d25377b5003f51b3f",
+    "source_manifest_sha256": "ac4d7be48ba856dc6a713829425b584ffd55551743b10c51049de0ec70dc2f6e"
+  },
+  "profile": "supplied_energy_response",
+  "provenance": {
+    "kind": "synthetic",
+    "reference": "Independent hand-computable controls; no aptamer efficacy or native outcomes."
+  },
+  "reasons": [],
+  "request_sha256": "29f00b659ec38f883431f34b219d6fa20b6e301556a442c8dacd4c51dda666a1",
+  "response": {
+    "ar_actual": 2.5,
+    "ar_conc": 2.5,
+    "ar_max": 4.0,
+    "ligand_binding_kcal_mol": -2.386294361119891,
+    "log_ar_max": 1.3862943611198906,
+    "metastability_applied": false,
+    "metastability_factor": 1.0,
+    "occupancy": {
+      "concentrations": null,
+      "fraction": 0.5,
+      "mode": "supplied_fraction",
+      "solver": null,
+      "status": "ok",
+      "volume_fractions": null
+    },
+    "switching_kcal_mol": -1.3862943611198908
+  },
+  "schema_version": "conditional-aptamer-result-1",
+  "settings": {
+    "max_iterations": 256,
+    "seconds_total": 30.0
+  },
+  "states": [],
+  "status": "ok",
+  "structural_cost_kcal_mol": 1.0,
+  "warnings": [
+    {
+      "code": "no_native_calibration",
+      "message": "No native-host or biological accuracy calibration is established"
+    },
+    {
+      "code": "supplied_energies",
+      "message": "Energy pairs and their common bases are caller assertions"
+    },
+    {
+      "code": "assumed_occupancy",
+      "message": "Occupancy fractions or volume/concentration inputs are supplied assumptions"
+    },
+    {
+      "code": "piecewise_zero_boundary",
+      "message": "Strict-positive correction leaves zero uncorrected; the positive-side limit is discontinuous"
+    },
+    {
+      "code": "affinity_beta_convention",
+      "message": "An explicit affinity standard does not equate physical Kd with apparent-beta volume occupancy"
+    },
+    {
+      "code": "unverified_energy_basis",
+      "message": "Some common energy-basis identities are unknown"
+    }
+  ]
+}

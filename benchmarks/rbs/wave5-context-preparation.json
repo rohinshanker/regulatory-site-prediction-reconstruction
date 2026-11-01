@@ -1,0 +1,80 @@
+{
+  "backend_verification_receipt_sha256": "e72ea2ca2ca69925e5eca2a0234b3e43adab898fc532b12140b309ada7219f11",
+  "candidate_commit": "920215602a837b0fd2fed403512f3b3ed59bfda2",
+  "candidate_preparation_sha256": "0cdedfbd10b42501b7dad3563f5fbb2b9bc2deb58a10a34d1f374c53dc7c72a1",
+  "claims": {
+    "improvement": false,
+    "input_context_sensitivity_only": true,
+    "native_calibration": false,
+    "translation_accuracy": false
+  },
+  "deduplicate_execution": false,
+  "distinct_prepared_input_contexts": 57,
+  "installation_receipt_sha256": "993e9a897e7798cecee02c5f60d27e1ba0056175795ea9c4c22e9bc4b9266ef2",
+  "internal_tss_scenario_count": 4,
+  "max_concurrent_folding_processes": 1,
+  "missing_anchor_scenario_count": 14,
+  "panel_bytes": 2985606,
+  "panel_sha256": "5cf8ec26ed614edc9b51eb94e5c13207e4ce94fab6e59cec06282893f3e85bf5",
+  "prepared_scenario_count": 106,
+  "preserve_complete_native_batches": true,
+  "process_exit_grace_seconds": 30.0,
+  "profile_scenario_count": 248,
+  "profiles": [
+    "historical",
+    "context2017"
+  ],
+  "retry": false,
+  "scenario_count": 124,
+  "schema_version": "rbs-context-b-preparation-1",
+  "settings": {
+    "execution": {
+      "backend": {
+        "binary_sha256": {
+          "Fold": "81f962573b7f43c023dd23eab4ae1e8e7f6402d8679e89a6a1a539cfdc6a5458",
+          "bifold": "9f8156cabaf8e13f91e90d410c46aef1cff1c2badda1c4243b194f54eb1f8136",
+          "efn2": "f0b2ce5971d482f50867615e3870b4743d42d6b0e266e05c0c0c1f1bc63d8b4d"
+        },
+        "build_provenance": {
+          "component": "rnastructure-6.6-linker-3",
+          "license": "GPL-2.0-only",
+          "patch_sha256": "2ef6ef61496b034110f4151e2fc1aec77cbd011c88a36bcef574be0dfecebb2d",
+          "patched_source_sha256": "b19a9ad1634f7e8f7669410b1eb7f5e8c27542f073054acb65647891e62ddbc7",
+          "source_archive_sha256": "1bedc62aaab984279055caaa6234d48fca113f4b8e17a8060e0b3784d5a397c3"
+        },
+        "build_receipt_sha256": "7fabba75b3f49cb9be9a5633f8fb149e318e6e48a971487acf7cceb743b806e2",
+        "expected_source_archive_sha256": "1bedc62aaab984279055caaa6234d48fca113f4b8e17a8060e0b3784d5a397c3",
+        "interface": "independent executables via sequence/CT files",
+        "licence": "GPL-2.0-only (separate installation)",
+        "name": "RNAstructure",
+        "settings": {
+          "alphabet": "rna",
+          "bifold_maximum": 100,
+          "bifold_percent": 100,
+          "bifold_window": 0,
+          "coaxial_stacking": true,
+          "dangles": "RNAstructure 6.6 native; no historical auto-dangle switch",
+          "efn2_multibranch_model": "simple",
+          "energy_evaluation": "efn2 --simple for every structure",
+          "fold_maximum": 1,
+          "fold_mfe_only": true,
+          "fold_window": 0,
+          "intramolecular_pairs": true,
+          "isolated_pairs": false,
+          "maximum_loop": 30
+        },
+        "table_manifest_sha256": "ece4c4b535783cb4e03c7ce8f243d09be84a165ecd113b1d20941b5ed8b69501",
+        "variant": "rnastructure-6.6-linker-3",
+        "version": "6.6"
+      },
+      "implementation_version": "0.6.0rc1",
+      "seconds_per_batch": 3600.0,
+      "seconds_per_record": 60.0
+    },
+    "mode": "supplied_start"
+  },
+  "state": "preparation_only_awaiting_final_admission_and_reviewed_executor",
+  "synthetic_resource_receipt_sha256": "00e9c931173c6097a062de99abbf641f5b83b8086c38216d059cad7ddaea217c",
+  "wheel_sha256": "b87e7a34e09f1163e03dd69d5112307bc4cb3013e75b5ade0812cf7098ab449a",
+  "whole_stage_seconds": 7200.0
+}

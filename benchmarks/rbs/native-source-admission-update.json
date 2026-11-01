@@ -1,0 +1,31 @@
+{
+  "checked_utc": "2026-10-18",
+  "correction": "Sebesta and Peebles 2020 uses PCC 6803, not PCC 7942. The source map was correct; the new-evaluation-data summary had the wrong strain number.",
+  "limitations": "Existing construct/prediction evidence does not substitute for experimental measurements. Complete numerical sequence-assay panels remain unrecovered in the scoped audit. No host calibration, model tuning or new final-data admission follows.",
+  "rights": "Article CC-BY-NC-ND-4.0 notices do not establish a separate permissive grant for source data; no raw tables or article are redistributed.",
+  "schema_version": "rbs-native-source-admission-update-1",
+  "scope": "Bounded primary-source host clarification during frozen collection; no evaluation change",
+  "source_version": "Read-only verification of previously cached primary XML bytes; no claim of a new publication version or fresh remote retrieval.",
+  "sources": [
+    {
+      "article_license_attributes": {},
+      "cached_primary_xml_sha256": "eed6bc4d8c21b65d6d76e9b906b0fad38b0000ca98647ba60d8bd77d7a776416",
+      "doi": "10.1016/j.mec.2019.e00117",
+      "host": "Synechocystis sp. PCC 6803",
+      "locator": "article title and Methods / Strains and cultivation",
+      "pmcid": "PMC6940699",
+      "primary_xml_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC6940699/fullTextXML",
+      "status": "not admitted as a complete numerical sequence-measurement benchmark; no new predictions, outcome rows or raw data release"
+    },
+    {
+      "article_license_attributes": {},
+      "cached_primary_xml_sha256": "7b88c7c6fe738f999d3bd1c5ca51158c04b4c6a9e53e7e9ba1ef3ceb716ba713",
+      "doi": "10.1016/j.mec.2021.e00164",
+      "host": "Synechococcus elongatus UTEX 2973",
+      "locator": "Methods / Growth conditions and Construction of strains",
+      "pmcid": "PMC7890178",
+      "primary_xml_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC7890178/fullTextXML",
+      "status": "not admitted as a complete numerical sequence-measurement benchmark; no new predictions, outcome rows or raw data release"
+    }
+  ]
+}

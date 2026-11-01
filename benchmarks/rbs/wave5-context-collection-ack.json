@@ -1,0 +1,65 @@
+{
+  "acknowledgement": "Session B 9677689a: once-only frozen historical then context2017 collection; candidate 920215602a837b0fd2fed403512f3b3ed59bfda2, 124 scenarios per profile, 60s record, 3600s batch, 7200s stage, 30s grace inside stage, one reserved folding slot, no retries or tuning.",
+  "admission_sha256": "6cb1705b9e3c1d34713479c4da629a6de5f9715999de134a4926bfdd8ff132de",
+  "analysis_launcher_sha256": "e0faa79f33eee84cd8500b07b8c929fa94e21d5a81df1c346ac67a91026b6ee2",
+  "candidate_commit": "920215602a837b0fd2fed403512f3b3ed59bfda2",
+  "candidate_receipt_sha256": "0cdedfbd10b42501b7dad3563f5fbb2b9bc2deb58a10a34d1f374c53dc7c72a1",
+  "claims": {
+    "input_context_sensitivity_only": true,
+    "native_calibration": false,
+    "translation_accuracy": false
+  },
+  "deduplicate_execution": false,
+  "external_receipt_sha256": {
+    "backend-verification.json": "e72ea2ca2ca69925e5eca2a0234b3e43adab898fc532b12140b309ada7219f11",
+    "ci-admission.json": "6cb1705b9e3c1d34713479c4da629a6de5f9715999de134a4926bfdd8ff132de",
+    "ci-independent-verification.json": "43e2ab41a513a0601e6138e0674417a3ad44bdaddfd64738eb2e73abdd31f8b3",
+    "context-candidate.json": "0cdedfbd10b42501b7dad3563f5fbb2b9bc2deb58a10a34d1f374c53dc7c72a1",
+    "installation.json": "993e9a897e7798cecee02c5f60d27e1ba0056175795ea9c4c22e9bc4b9266ef2",
+    "schema-and-model-preparation.json": "534e8f14211631c59717a1b538c09c9cd21223c814d9e62c1a6270810aa2c328"
+  },
+  "independent_context_expectations_sha256": "efbebe4485a5fe0131168446c8ef74c7de4a3b2b0f114bf1504a68a92a30a55a",
+  "launcher_sha256": "5ab072b9f22a18cb9089e1066fc550481458f5249831b8026fb0853c4bdb03bb",
+  "max_concurrent_folding_processes": 1,
+  "model_ids": {
+    "context2017": "context2017-rnastructure-6.6-reconstruction-1",
+    "historical": "salis-v1-rnastructure-6.6-reconstruction-1"
+  },
+  "owner": "Session B 9677689a-1792176763",
+  "panel_sha256": "5cf8ec26ed614edc9b51eb94e5c13207e4ce94fab6e59cec06282893f3e85bf5",
+  "plan_sha256": "5a6ca00531d3d4b1e4f6a1c531192de960053e744d43d2a220f23f3ee89e13fe",
+  "process_contract_commit": "5da1e27",
+  "process_grace_seconds_inside_stage": 30.0,
+  "profile_order": [
+    "historical",
+    "context2017"
+  ],
+  "profile_scenario_count": 248,
+  "protocol": "docs/validation/promoter-wave5-evaluation.md#3-unchanged-rbs-transcript-context-sensitivity",
+  "retry": false,
+  "reviewed_collector_commit": "3e271727a1728d7925953e0cecb14e3f4b1056dd",
+  "scenario_count": 124,
+  "schema_version": "rbs-context-collection-ack-1",
+  "seconds_per_batch": 3600.0,
+  "seconds_per_record": 60.0,
+  "slot_agreement": "https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/34#issuecomment-6257554267",
+  "stage_seconds": 7200.0,
+  "state": "acknowledged_once_only_collection",
+  "tool_sha256": {
+    "benchmarks/promoter/native_inputs.py": "a1625e4206bdd39587bba9f0691d5048e9bc2522037e886b4f8a38472d06013a",
+    "benchmarks/rbs/context_collect.py": "08fa3a99dc53e1ef749196db6f3e6ecede484199c697efa7a9250eb265c07fa1",
+    "benchmarks/rbs/context_metrics.py": "c3af14a90cc5bec214526b825367bb4d2a34dffce6dc8645635eb7ceb95ee9b2",
+    "benchmarks/rbs/context_panel.py": "d9351cb78999f93d1197d53f32024b5200ceab5ea8cb62253b7f751658bd7849",
+    "benchmarks/rbs/datasets.py": "6022162ae31f265aaf8b3dc6bfe3cca0fe49973cde7f2deb06fdb70a7724ffe4",
+    "benchmarks/rbs/metrics.py": "c3ed9ecaa6c0ace5d145f9fad94651fe0c3cff3231598e42e1b0bc86d28ace11",
+    "benchmarks/rbs/native.py": "e03b58f967f2df14163318e4195dd54d13bbc965ed7ceaae019ff9d6367db158"
+  },
+  "verification": {
+    "branches": 256,
+    "coverage_percent": 100,
+    "integrated_subtests": 140,
+    "integrated_tests": 158,
+    "scope": "context and paired collectors only; no inference tests claimed",
+    "statements": 667
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "jobs": [
+    {
+      "backend": true,
+      "id": "rbs-single",
+      "kind": "rbs",
+      "options": {
+        "profile": "historical",
+        "seconds_per_record": 60
+      },
+      "request": {
+        "path": "rbs-single.json",
+        "sha256": "e0b1e052155ba498965cec498f2d51de0882000217d4ae76337aced17d5401ae"
+      }
+    },
+    {
+      "backend": true,
+      "id": "paired-rbs-substitution",
+      "kind": "compare",
+      "options": {},
+      "request": {
+        "path": "paired-rbs-substitution.json",
+        "sha256": "94fad5878c14482906a342170ea6cdd12b80c880d067202669df7850ba46a6ce"
+      }
+    },
+    {
+      "backend": true,
+      "id": "transcript-single",
+      "kind": "transcript",
+      "options": {},
+      "request": {
+        "path": "transcript-single.json",
+        "sha256": "e6ba3a07000f1026d4225d6e141c48b93106ad27086d0c280db4a83a29c2b2fb"
+      }
+    }
+  ],
+  "limits": {
+    "output_bytes_total": 1073741824,
+    "seconds_per_job": 300,
+    "seconds_total": 1800,
+    "stderr_bytes_per_job": 1048576,
+    "stdout_bytes_per_job": 67108864
+  },
+  "schema_version": "calculator-job-manifest-1"
+}

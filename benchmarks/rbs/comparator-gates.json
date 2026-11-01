@@ -1,0 +1,587 @@
+{
+  "repository_pins": {
+    "emopec": "f4c3665dfea6bb8655dac180b7913d280d4721a9",
+    "gardn": "8694e3ef614ba89e519d093f06caf624a2345189",
+    "genelm": "f05cabfd0be2f2b940612d24032880758b4da8a1",
+    "prodigal": "004218fbeb2cf54fe12d88ec2eede6a27d70ebf7",
+    "sapiens": "316a562e85379b03ba3bea8f5149391f59c581ed"
+  },
+  "rights": {
+    "EMOPEC": {
+      "code": "all rights reserved; README no sharing pending licence choice",
+      "disposition": "not bundled; no inference",
+      "parameters": "same all-rights-reserved headers"
+    },
+    "GARDN-SANDSTORM": {
+      "code": "academic noncommercial",
+      "data": "originating SAPIENs rights persist",
+      "disposition": "optional research candidate; no inference or import patch",
+      "weights": "separate grant unresolved; four real RBS SavedModel files recovered, 538485 bytes"
+    },
+    "GeneLM": {
+      "code": "no affirmative grant located",
+      "disposition": "not admitted; positional only",
+      "weights": "no grant in pinned author cards; two 356843058-byte checkpoints not downloaded"
+    },
+    "Prodigal": {
+      "code": "GPL-3.0-or-later",
+      "disposition": "actual unmodified positional comparator",
+      "embedded_parameters": "GPL-3.0-or-later source headers"
+    },
+    "SAPIENs": {
+      "code": "BSD-3-Clause scoped to code",
+      "data": "CC-BY-NC-ND-4.0",
+      "disposition": "full 446133160-byte ensemble and legacy TF1.12 environment unverified; no single-member substitution",
+      "weights": "scope unresolved"
+    }
+  },
+  "schema_version": "rbs-comparator-gates-1",
+  "source_retrievals": [
+    {
+      "bytes": 4822,
+      "path": "emopec/metadata.json",
+      "retrieved_utc": "2026-10-17T02:28:04.713111+00:00",
+      "sha256": "3c62bd4ccd7c496f4bcd2a9a7c36792d4035c24efb9bdd8f0707d4e2623cdf06",
+      "url": "https://api.github.com/repos/micked/EMOPEC"
+    },
+    {
+      "bytes": 229414,
+      "path": "emopec/commit.json",
+      "retrieved_utc": "2026-10-17T02:28:04.906885+00:00",
+      "sha256": "0d93eb12496ae87b67003716bab08d583a4c960083cc73b437de1e3b9426ab41",
+      "url": "https://api.github.com/repos/micked/EMOPEC/commits/f4c3665dfea6bb8655dac180b7913d280d4721a9"
+    },
+    {
+      "bytes": 7575,
+      "path": "emopec/tree.json",
+      "retrieved_utc": "2026-10-17T02:28:05.323862+00:00",
+      "sha256": "41fda1549ed44fbdbd708830595cb38558d4c6878b3cac40ba68a19ed086805b",
+      "url": "https://api.github.com/repos/micked/EMOPEC/git/trees/f4c3665dfea6bb8655dac180b7913d280d4721a9?recursive=1"
+    },
+    {
+      "bytes": 17248,
+      "path": "sapiens/metadata.json",
+      "retrieved_utc": "2026-10-17T02:28:05.476587+00:00",
+      "sha256": "56ec791e39a5074ef561d5ad5e93fa6fd4c3fd2b3c5f47944e0ad9136cb46e4e",
+      "url": "https://api.github.com/repos/BorgwardtLab/SAPIENs"
+    },
+    {
+      "bytes": 6001,
+      "path": "sapiens/commit.json",
+      "retrieved_utc": "2026-10-17T02:28:05.701833+00:00",
+      "sha256": "e391d42068ca2da50fc82589d28523704cebd06cfb4832efa319a7161bdc16ba",
+      "url": "https://api.github.com/repos/BorgwardtLab/SAPIENs/commits/316a562e85379b03ba3bea8f5149391f59c581ed"
+    },
+    {
+      "bytes": 21847,
+      "path": "sapiens/tree.json",
+      "retrieved_utc": "2026-10-17T02:28:06.218832+00:00",
+      "sha256": "83ae05fcec209e7058ccfc15ede3dd5f464cfdc7c671ce8336a46233885b7906",
+      "url": "https://api.github.com/repos/BorgwardtLab/SAPIENs/git/trees/316a562e85379b03ba3bea8f5149391f59c581ed?recursive=1"
+    },
+    {
+      "bytes": 6873,
+      "path": "gardn/metadata.json",
+      "retrieved_utc": "2026-10-17T02:28:06.397092+00:00",
+      "sha256": "f29ce0b1e283cb589a0870556867e53da572c60aacf862e74ffcc1e55e1d7b7a",
+      "url": "https://api.github.com/repos/AlexGreenLab/GARDN-SANDSTORM"
+    },
+    {
+      "bytes": 87190,
+      "path": "gardn/commit.json",
+      "retrieved_utc": "2026-10-17T02:28:06.581916+00:00",
+      "sha256": "8960309f539785349b488815bc2d92027b6f3b8226168c7467aba72a0a780994",
+      "url": "https://api.github.com/repos/AlexGreenLab/GARDN-SANDSTORM/commits/main"
+    },
+    {
+      "bytes": 431233,
+      "path": "gardn/tree.json",
+      "retrieved_utc": "2026-10-17T02:28:07.276764+00:00",
+      "sha256": "47a5c86034074745b8b3c4378292d95291051c94eab5deb9b32a397786128b2d",
+      "url": "https://api.github.com/repos/AlexGreenLab/GARDN-SANDSTORM/git/trees/8694e3ef614ba89e519d093f06caf624a2345189?recursive=1"
+    },
+    {
+      "bytes": 6726,
+      "path": "genelm/metadata.json",
+      "retrieved_utc": "2026-10-17T02:28:07.875092+00:00",
+      "sha256": "93efd1e700222b0f3b31ae08cb5a84be641e46bdd252e06da0fefdcad0a82e50",
+      "url": "https://api.github.com/repos/Bioinformatics-UM6P/GeneLM"
+    },
+    {
+      "bytes": 932327,
+      "path": "genelm/commit.json",
+      "retrieved_utc": "2026-10-17T02:28:08.053486+00:00",
+      "sha256": "aa6012a77ccaeebc5ac7b019d1c6e271fd9dd376433ab5bd582d5e8ac189d6c4",
+      "url": "https://api.github.com/repos/Bioinformatics-UM6P/GeneLM/commits/main"
+    },
+    {
+      "bytes": 119061,
+      "path": "genelm/tree.json",
+      "retrieved_utc": "2026-10-17T02:28:10.173590+00:00",
+      "sha256": "b48b376e2d7070ec40e938030d8fff5d02a474a192a0aee5bbed3a90aa5a3cd4",
+      "url": "https://api.github.com/repos/Bioinformatics-UM6P/GeneLM/git/trees/f05cabfd0be2f2b940612d24032880758b4da8a1?recursive=1"
+    },
+    {
+      "bytes": 5129,
+      "path": "prodigal/metadata.json",
+      "retrieved_utc": "2026-10-17T02:28:10.437717+00:00",
+      "sha256": "b1394fd324e135198793c12a0b0530a14d70e500bd3981a01d53dfee433b53e8",
+      "url": "https://api.github.com/repos/hyattpd/Prodigal"
+    },
+    {
+      "bytes": 4640,
+      "path": "prodigal/commit.json",
+      "retrieved_utc": "2026-10-17T02:28:10.620770+00:00",
+      "sha256": "8b355e8ace4fc17b7a4bdb5f306d34e935a693b173f22473c2d40019b2e68724",
+      "url": "https://api.github.com/repos/hyattpd/Prodigal/commits/v2.6.3"
+    },
+    {
+      "bytes": 4515,
+      "path": "prodigal/tree.json",
+      "retrieved_utc": "2026-10-17T02:28:10.919332+00:00",
+      "sha256": "73b42f46ae831e3c4e88cf461168390813dfecb18b6de69a306980c2c3be571c",
+      "url": "https://api.github.com/repos/hyattpd/Prodigal/git/trees/004218fbeb2cf54fe12d88ec2eede6a27d70ebf7?recursive=1"
+    },
+    {
+      "bytes": 2845,
+      "path": "emopec/files/README",
+      "retrieved_utc": "2026-10-17T02:28:27.619661+00:00",
+      "sha256": "15aceaac0d562026e2abc33da6dda09c05eb482b845bf8a77c0a74a309efadfc",
+      "url": "https://raw.githubusercontent.com/micked/EMOPEC/f4c3665dfea6bb8655dac180b7913d280d4721a9/README"
+    },
+    {
+      "bytes": 1124,
+      "path": "emopec/files/emopec/__init__.py",
+      "retrieved_utc": "2026-10-17T02:28:27.844860+00:00",
+      "sha256": "07f68c7db9b5f9507bed370119504d8876b9e0b81995737a5d07b5c95b54859b",
+      "url": "https://raw.githubusercontent.com/micked/EMOPEC/f4c3665dfea6bb8655dac180b7913d280d4721a9/emopec/__init__.py"
+    },
+    {
+      "bytes": 8080,
+      "path": "emopec/files/emopec/_emopec.py",
+      "retrieved_utc": "2026-10-17T02:28:27.978924+00:00",
+      "sha256": "43782bf06d4dd962d7d8d6c216377ba79dc20259d433fa7c53bab706d76dd529",
+      "url": "https://raw.githubusercontent.com/micked/EMOPEC/f4c3665dfea6bb8655dac180b7913d280d4721a9/emopec/_emopec.py"
+    },
+    {
+      "bytes": 2739,
+      "path": "emopec/files/emopec/viennarna.py",
+      "retrieved_utc": "2026-10-17T02:28:28.107937+00:00",
+      "sha256": "d5eef59495427319fac79cc323630714e39337751cb7db751458533de060b11d",
+      "url": "https://raw.githubusercontent.com/micked/EMOPEC/f4c3665dfea6bb8655dac180b7913d280d4721a9/emopec/viennarna.py"
+    },
+    {
+      "bytes": 529,
+      "path": "emopec/files/setup.py",
+      "retrieved_utc": "2026-10-17T02:28:28.332350+00:00",
+      "sha256": "7afbe9c2b49bc16289b1027bec62b7d63d1c98bcc9144becfb9ae04ba383d3a1",
+      "url": "https://raw.githubusercontent.com/micked/EMOPEC/f4c3665dfea6bb8655dac180b7913d280d4721a9/setup.py"
+    },
+    {
+      "bytes": 3271,
+      "path": "sapiens/files/README.md",
+      "retrieved_utc": "2026-10-17T02:28:28.454710+00:00",
+      "sha256": "31315a46afd85336a5f44b9abd32eedee082389d6479cc4ef79ff0c8430d2757",
+      "url": "https://raw.githubusercontent.com/BorgwardtLab/SAPIENs/316a562e85379b03ba3bea8f5149391f59c581ed/README.md"
+    },
+    {
+      "bytes": 1539,
+      "path": "sapiens/files/code/LICENSE.md",
+      "retrieved_utc": "2026-10-17T02:28:28.563108+00:00",
+      "sha256": "4cf55285e3e4fa3bdbcd1384087135f918835238364748df32138cd4160b12be",
+      "url": "https://raw.githubusercontent.com/BorgwardtLab/SAPIENs/316a562e85379b03ba3bea8f5149391f59c581ed/code/LICENSE.md"
+    },
+    {
+      "bytes": 233,
+      "path": "sapiens/files/data/LICENSE.md",
+      "retrieved_utc": "2026-10-17T02:28:28.739540+00:00",
+      "sha256": "7bd38c9f63d7bfd0c3784079740d4b1f114fbe25a1a618d139efaf2a17f945ca",
+      "url": "https://raw.githubusercontent.com/BorgwardtLab/SAPIENs/316a562e85379b03ba3bea8f5149391f59c581ed/data/LICENSE.md"
+    },
+    {
+      "bytes": 527,
+      "path": "sapiens/files/data/Readme.md",
+      "retrieved_utc": "2026-10-17T02:28:28.857031+00:00",
+      "sha256": "6484d8d31bb016429264fad3974d9f3378b1176c6b5ca5cd544ff55e5f519e3b",
+      "url": "https://raw.githubusercontent.com/BorgwardtLab/SAPIENs/316a562e85379b03ba3bea8f5149391f59c581ed/data/Readme.md"
+    },
+    {
+      "bytes": 120019,
+      "path": "sapiens/files/code/trained_model/notebook/load_trained_model.ipynb",
+      "retrieved_utc": "2026-10-17T02:28:28.977556+00:00",
+      "sha256": "4e04ea948c00f5a04e808311bfd4ee8eed89f9aaef61b3c2c6ced21b98889beb",
+      "url": "https://raw.githubusercontent.com/BorgwardtLab/SAPIENs/316a562e85379b03ba3bea8f5149391f59c581ed/code/trained_model/notebook/load_trained_model.ipynb"
+    },
+    {
+      "bytes": 4593,
+      "path": "sapiens/files/code/training/resnet_model.py",
+      "retrieved_utc": "2026-10-17T02:28:29.135621+00:00",
+      "sha256": "18987b59a4998dcb1981bbb0b7b70fc196884206e1319976f5ee4b98125a6786",
+      "url": "https://raw.githubusercontent.com/BorgwardtLab/SAPIENs/316a562e85379b03ba3bea8f5149391f59c581ed/code/training/resnet_model.py"
+    },
+    {
+      "bytes": 5439,
+      "path": "sapiens/files/code/training/run_resnet.py",
+      "retrieved_utc": "2026-10-17T02:28:29.352432+00:00",
+      "sha256": "ff51aa70ba71bcf126e073fd70f6d713441bca1d7896b9f685c8f1b78e1fe3f6",
+      "url": "https://raw.githubusercontent.com/BorgwardtLab/SAPIENs/316a562e85379b03ba3bea8f5149391f59c581ed/code/training/run_resnet.py"
+    },
+    {
+      "bytes": 2718,
+      "path": "gardn/files/LICENSE.txt",
+      "retrieved_utc": "2026-10-17T02:28:29.488619+00:00",
+      "sha256": "42c8cc915fedb7d39845804fb9641856a749706d000b307a0d71e2ba181fd584",
+      "url": "https://raw.githubusercontent.com/AlexGreenLab/GARDN-SANDSTORM/8694e3ef614ba89e519d093f06caf624a2345189/LICENSE.txt"
+    },
+    {
+      "bytes": 1845,
+      "path": "gardn/files/NUPACK_info.txt",
+      "retrieved_utc": "2026-10-17T02:28:29.796195+00:00",
+      "sha256": "6fe5eb92fb86a76fc0f34f9a83afefb40fc38e4869753e958a352f4096595be2",
+      "url": "https://raw.githubusercontent.com/AlexGreenLab/GARDN-SANDSTORM/8694e3ef614ba89e519d093f06caf624a2345189/NUPACK_info.txt"
+    },
+    {
+      "bytes": 4459,
+      "path": "gardn/files/README.txt",
+      "retrieved_utc": "2026-10-17T02:28:29.926791+00:00",
+      "sha256": "4074e4880a4e73a4a9f913971b97c528781476d77e0812ea0a84e5fbde17776c",
+      "url": "https://raw.githubusercontent.com/AlexGreenLab/GARDN-SANDSTORM/8694e3ef614ba89e519d093f06caf624a2345189/README.txt"
+    },
+    {
+      "bytes": 273055,
+      "path": "gardn/files/SANDSTORM/RBS_Predictor.ipynb",
+      "retrieved_utc": "2026-10-17T02:28:30.059267+00:00",
+      "sha256": "70464e0e41721241635605379758df68f5eb3d33d8db082eb0d1c418d1802363",
+      "url": "https://raw.githubusercontent.com/AlexGreenLab/GARDN-SANDSTORM/8694e3ef614ba89e519d093f06caf624a2345189/SANDSTORM/RBS_Predictor.ipynb"
+    },
+    {
+      "bytes": 10353,
+      "path": "genelm/files/README.md",
+      "retrieved_utc": "2026-10-17T02:28:30.370066+00:00",
+      "sha256": "a16e9f146c46d56dd4f3df7a30f91a610527bddce102d65181cbcf1c19412153",
+      "url": "https://raw.githubusercontent.com/Bioinformatics-UM6P/GeneLM/f05cabfd0be2f2b940612d24032880758b4da8a1/README.md"
+    },
+    {
+      "bytes": 12203,
+      "path": "genelm/files/run-as-script/README.md",
+      "retrieved_utc": "2026-10-17T02:28:30.643283+00:00",
+      "sha256": "83693d8a10391fac1ee839d596ae37a045e5399ce79a2d7c8fc528d8e1e71f8d",
+      "url": "https://raw.githubusercontent.com/Bioinformatics-UM6P/GeneLM/f05cabfd0be2f2b940612d24032880758b4da8a1/run-as-script/README.md"
+    },
+    {
+      "bytes": 21901,
+      "path": "genelm/files/run-as-script/genelm/core.py",
+      "retrieved_utc": "2026-10-17T02:28:30.840348+00:00",
+      "sha256": "6da85d190d590f0445b084faf3af36756fee2f59968a637075d17c04b328a214",
+      "url": "https://raw.githubusercontent.com/Bioinformatics-UM6P/GeneLM/f05cabfd0be2f2b940612d24032880758b4da8a1/run-as-script/genelm/core.py"
+    },
+    {
+      "bytes": 88,
+      "path": "genelm/files/run-as-script/genelm/requirements.txt",
+      "retrieved_utc": "2026-10-17T02:28:30.969108+00:00",
+      "sha256": "a20234ee2e0545b0b69c9a0881f947e2a58eaa04fb3453848387e3d127c5f0cf",
+      "url": "https://raw.githubusercontent.com/Bioinformatics-UM6P/GeneLM/f05cabfd0be2f2b940612d24032880758b4da8a1/run-as-script/genelm/requirements.txt"
+    },
+    {
+      "bytes": 2401,
+      "path": "prodigal/files/README.md",
+      "retrieved_utc": "2026-10-17T02:28:31.092227+00:00",
+      "sha256": "1a0de0008a9e80f9b0798984137496a6e3167223993685f5ff0986918d832aee",
+      "url": "https://raw.githubusercontent.com/hyattpd/Prodigal/004218fbeb2cf54fe12d88ec2eede6a27d70ebf7/README.md"
+    },
+    {
+      "bytes": 1575,
+      "path": "prodigal/files/Makefile",
+      "retrieved_utc": "2026-10-17T02:28:31.243623+00:00",
+      "sha256": "53de0532f50ea757f893c6d21e6c8fab9e103b6d3cba7d148a847832ce66c538",
+      "url": "https://raw.githubusercontent.com/hyattpd/Prodigal/004218fbeb2cf54fe12d88ec2eede6a27d70ebf7/Makefile"
+    },
+    {
+      "bytes": 35148,
+      "path": "prodigal/files/LICENSE",
+      "retrieved_utc": "2026-10-17T02:28:31.463978+00:00",
+      "sha256": "87946a54ba55e1b6a76c47ea26a3ea625882979fe5c9b3482af71823a602ba4b",
+      "url": "https://raw.githubusercontent.com/hyattpd/Prodigal/004218fbeb2cf54fe12d88ec2eede6a27d70ebf7/LICENSE"
+    },
+    {
+      "bytes": 27835,
+      "path": "prodigal/files/main.c",
+      "retrieved_utc": "2026-10-17T02:28:31.598086+00:00",
+      "sha256": "9420f5c847aaa6af9003eb7b52167d4d4d6ad11592ea5248240c281045e6e29d",
+      "url": "https://raw.githubusercontent.com/hyattpd/Prodigal/004218fbeb2cf54fe12d88ec2eede6a27d70ebf7/main.c"
+    },
+    {
+      "bytes": 5222,
+      "path": "prodigal/files/training.h",
+      "retrieved_utc": "2026-10-17T02:28:31.720010+00:00",
+      "sha256": "763647f8cda8387aa617fb8f37932120438c2b24075e3ab2b2473e9450cdcef2",
+      "url": "https://raw.githubusercontent.com/hyattpd/Prodigal/004218fbeb2cf54fe12d88ec2eede6a27d70ebf7/training.h"
+    },
+    {
+      "bytes": 11958,
+      "path": "prodigal/files/metagenomic.c",
+      "retrieved_utc": "2026-10-17T02:28:31.886232+00:00",
+      "sha256": "2c0fa7f21e465112a5cd72aca90964b76ac35bccc9248c75df11e99f878dfcca",
+      "url": "https://raw.githubusercontent.com/hyattpd/Prodigal/004218fbeb2cf54fe12d88ec2eede6a27d70ebf7/metagenomic.c"
+    },
+    {
+      "bytes": 22,
+      "path": "prodigal/files/VERSION",
+      "retrieved_utc": "2026-10-17T02:28:32.012238+00:00",
+      "sha256": "808b8ea8c3c115b706f2299c65cd7527e9df55b9814735b186656371ec59ff74",
+      "url": "https://raw.githubusercontent.com/hyattpd/Prodigal/004218fbeb2cf54fe12d88ec2eede6a27d70ebf7/VERSION"
+    },
+    {
+      "bytes": 187153,
+      "path": "papers/PMC7363850.xml",
+      "retrieved_utc": "2026-10-17T02:28:32.159193+00:00",
+      "sha256": "50446aea83adf521ae5102ca487249b10c5ba04c56cdfd8663fcd3685ea2e354",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC7363850/fullTextXML"
+    },
+    {
+      "bytes": 176021,
+      "path": "papers/PMC12050331.xml",
+      "retrieved_utc": "2026-10-17T02:28:33.031764+00:00",
+      "sha256": "0281b7ec3eb1fc24756daa720c5da83beeee14448291e72d6510725649b339c7",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC12050331/fullTextXML"
+    },
+    {
+      "bytes": 123119,
+      "path": "papers/PMC12222049.xml",
+      "retrieved_utc": "2026-10-17T02:28:33.838162+00:00",
+      "sha256": "7426c893cdd818b7cf1acfd1c0e3343f989cbae6222ca1181f6d07a61adafa56",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC12222049/fullTextXML"
+    },
+    {
+      "bytes": 229414,
+      "path": "emopec/current-commit.json",
+      "retrieved_utc": "2026-10-17T02:28:40.053723+00:00",
+      "sha256": "0d93eb12496ae87b67003716bab08d583a4c960083cc73b437de1e3b9426ab41",
+      "url": "https://api.github.com/repos/micked/EMOPEC/commits/master"
+    },
+    {
+      "bytes": 6001,
+      "path": "sapiens/current-commit.json",
+      "retrieved_utc": "2026-10-17T02:28:40.325686+00:00",
+      "sha256": "e391d42068ca2da50fc82589d28523704cebd06cfb4832efa319a7161bdc16ba",
+      "url": "https://api.github.com/repos/BorgwardtLab/SAPIENs/commits/main"
+    },
+    {
+      "bytes": 8126,
+      "path": "papers/search-0.json",
+      "retrieved_utc": "2026-10-17T02:28:40.483010+00:00",
+      "sha256": "782499db2f765acbbc1d4c2822cf5e1a13125e1e6c364695820515cd099be2b5",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?format=json&resultType=core&query=DOI%3A10.1038/nmeth.3727"
+    },
+    {
+      "bytes": 5429,
+      "path": "papers/search-1.json",
+      "retrieved_utc": "2026-10-17T02:28:40.933101+00:00",
+      "sha256": "5e2559428874d68724c9acd954a0db44f9beac35f7b385502ba8f77b336270f2",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?format=json&resultType=core&query=DOI%3A10.1186/1471-2105-11-119"
+    },
+    {
+      "bytes": 97754,
+      "path": "papers/PMC2848648.xml",
+      "retrieved_utc": "2026-10-17T02:28:41.327531+00:00",
+      "sha256": "9e21df7d209b4d81c96644662c2173237b404db31fdb999af740ec0e36ae1f5d",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC2848648/fullTextXML"
+    },
+    {
+      "bytes": 8903,
+      "path": "papers/search-2.json",
+      "retrieved_utc": "2026-10-17T02:28:42.049887+00:00",
+      "sha256": "c3afaf4cd2bb84035b2dc564b9077b43cf3e86093c6e6ee40ab03281500e9b05",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?format=json&resultType=core&query=DOI%3A10.1038/s41467-020-17222-4"
+    },
+    {
+      "bytes": 7014,
+      "path": "papers/search-3.json",
+      "retrieved_utc": "2026-10-17T02:28:42.524428+00:00",
+      "sha256": "a6753f649cf1a9ca656992bd0135a63cf5d28ac080d54c9c9d231860b5b283d1",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?format=json&resultType=core&query=DOI%3A10.1038/s41467-025-59389-8"
+    },
+    {
+      "bytes": 6047,
+      "path": "papers/search-4.json",
+      "retrieved_utc": "2026-10-17T02:28:43.012631+00:00",
+      "sha256": "83ffaf1508e76d4daf93c70e01632c2f10abb6631c71871e52be63e7cc6f4d55",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?format=json&resultType=core&query=DOI%3A10.1093/bib/bbaf311"
+    },
+    {
+      "bytes": 7564,
+      "path": "gardn/files/environment.yml",
+      "retrieved_utc": "2026-10-17T02:29:30.242254+00:00",
+      "sha256": "06186cde4cd4dda61a54eba14e70a36db3ba52940954a06f3685ecfecb1d03e1",
+      "url": "https://raw.githubusercontent.com/AlexGreenLab/GARDN-SANDSTORM/8694e3ef614ba89e519d093f06caf624a2345189/environment.yml"
+    },
+    {
+      "bytes": 281,
+      "path": "gardn/files/requirements.txt",
+      "retrieved_utc": "2026-10-17T02:29:30.397118+00:00",
+      "sha256": "e6602d8a9ec9eb71a4a2fb6f867a5c7e68c713aa538eefb45aed55bf5d00b586",
+      "url": "https://raw.githubusercontent.com/AlexGreenLab/GARDN-SANDSTORM/8694e3ef614ba89e519d093f06caf624a2345189/requirements.txt"
+    },
+    {
+      "bytes": 37595,
+      "path": "gardn/files/src/GA_util.py",
+      "retrieved_utc": "2026-10-17T02:29:30.605621+00:00",
+      "sha256": "67a50d2a79d74baaac7a35a616973203c51256d8ed262ed4cdce6f9f7077366e",
+      "url": "https://raw.githubusercontent.com/AlexGreenLab/GARDN-SANDSTORM/8694e3ef614ba89e519d093f06caf624a2345189/src/GA_util.py"
+    },
+    {
+      "bytes": 16879,
+      "path": "gardn/files/src/util.py",
+      "retrieved_utc": "2026-10-17T02:29:30.724919+00:00",
+      "sha256": "f5c794545741f0af5b8658ba1a4773bf149ae17053e6a2bb7511ff4eec4fad92",
+      "url": "https://raw.githubusercontent.com/AlexGreenLab/GARDN-SANDSTORM/8694e3ef614ba89e519d093f06caf624a2345189/src/util.py"
+    },
+    {
+      "bytes": 110560,
+      "path": "emopec/files/emopec/_sequences.py",
+      "retrieved_utc": "2026-10-17T02:29:30.837191+00:00",
+      "sha256": "ee130e82fd048985eefd04c0e5d2747533dae752db3a17a597bd4b090b7f66a8",
+      "url": "https://raw.githubusercontent.com/micked/EMOPEC/f4c3665dfea6bb8655dac180b7913d280d4721a9/emopec/_sequences.py"
+    },
+    {
+      "bytes": 132154,
+      "path": "emopec/files/emopec/_predicted_sequences.py",
+      "retrieved_utc": "2026-10-17T02:29:30.981999+00:00",
+      "sha256": "16ad9607912e664dd4c1c7aab07dc5ea5030db9f8038e9b5d0f98f4e457914dc",
+      "url": "https://raw.githubusercontent.com/micked/EMOPEC/f4c3665dfea6bb8655dac180b7913d280d4721a9/emopec/_predicted_sequences.py"
+    },
+    {
+      "bytes": 3796,
+      "path": "genelm/hf-CDS.json",
+      "retrieved_utc": "2026-10-17T02:29:31.145612+00:00",
+      "sha256": "868bf5a8ed1d21cf12fb9f6e051c1386d53ff7022afd5cf3afbf8728c904b9b8",
+      "url": "https://huggingface.co/api/models/Genereux-akotenou/BacteriaCDS-DNABERT-K6-89M?blobs=true"
+    },
+    {
+      "bytes": 2189,
+      "path": "genelm/hf-CDS-README.md",
+      "retrieved_utc": "2026-10-17T02:29:31.262250+00:00",
+      "sha256": "b45a13cd8fe038e84f8f8f457f14e2448f5ecf643705b7cb932aacb615d11f11",
+      "url": "https://huggingface.co/Genereux-akotenou/BacteriaCDS-DNABERT-K6-89M/raw/f1adb8a661ee962db8a5975647dce573c5162a5e/README.md"
+    },
+    {
+      "bytes": 3823,
+      "path": "genelm/hf-TIS.json",
+      "retrieved_utc": "2026-10-17T02:29:31.340080+00:00",
+      "sha256": "c2b51cff119899ec6cb0d14f40430cd05c96c24061aaf379fbc1488c2b548296",
+      "url": "https://huggingface.co/api/models/Genereux-akotenou/BacteriaTIS-DNABERT-K6-89M?blobs=true"
+    },
+    {
+      "bytes": 2515,
+      "path": "genelm/hf-TIS-README.md",
+      "retrieved_utc": "2026-10-17T02:29:31.507992+00:00",
+      "sha256": "571e93b03fd9749a91da88e6e7ceab116514f706e934a221323e0173f5f9330f",
+      "url": "https://huggingface.co/Genereux-akotenou/BacteriaTIS-DNABERT-K6-89M/raw/1e14ff0800221782996d24cf08d136f376821541/README.md"
+    },
+    {
+      "bytes": 4352,
+      "path": "gardn/zenodo-15058435.json",
+      "retrieved_utc": "2026-10-17T02:29:31.656946+00:00",
+      "sha256": "64a94cf56ef71f4b86b6963837e197e7fe6bb9234e8022cbe5dc49df14b60864",
+      "url": "https://zenodo.org/api/records/15058435"
+    },
+    {
+      "bytes": 611023,
+      "path": "prodigal/source.tar.gz",
+      "retrieved_utc": "2026-10-17T02:30:18.189115+00:00",
+      "sha256": "9caafa079a29ff8f02b5ea84729fec4ecf03975c9ccf4acade4909368b69f317",
+      "url": "https://codeload.github.com/hyattpd/Prodigal/tar.gz/004218fbeb2cf54fe12d88ec2eede6a27d70ebf7"
+    },
+    {
+      "bytes": 591752,
+      "path": "gardn/files/rbs/Activation_Maximization_Final.ipynb",
+      "retrieved_utc": "2026-10-17T02:31:02.482381+00:00",
+      "sha256": "87a7332562cae4056caf6318285253d828a65e6abfdcc5abfc746ee64022f13c",
+      "url": "https://raw.githubusercontent.com/AlexGreenLab/GARDN-SANDSTORM/8694e3ef614ba89e519d093f06caf624a2345189/rbs/Activation_Maximization_Final.ipynb"
+    },
+    {
+      "bytes": 38776,
+      "path": "gardn/files/rbs/models/sandstorm_rbs/keras_metadata.pb",
+      "retrieved_utc": "2026-10-17T02:31:02.775695+00:00",
+      "sha256": "34442702d7337a4fb7e8576059840bd2cf7307709227a1db679ba66cb6cad39b",
+      "url": "https://raw.githubusercontent.com/AlexGreenLab/GARDN-SANDSTORM/8694e3ef614ba89e519d093f06caf624a2345189/rbs/models/sandstorm_rbs/keras_metadata.pb"
+    },
+    {
+      "bytes": 336928,
+      "path": "gardn/files/rbs/models/sandstorm_rbs/saved_model.pb",
+      "retrieved_utc": "2026-10-17T02:31:03.076975+00:00",
+      "sha256": "c0ab521f306573faa2e843caedaf20721d6c31fe7c8ee981afa68a59475deb87",
+      "url": "https://raw.githubusercontent.com/AlexGreenLab/GARDN-SANDSTORM/8694e3ef614ba89e519d093f06caf624a2345189/rbs/models/sandstorm_rbs/saved_model.pb"
+    },
+    {
+      "bytes": 157248,
+      "path": "gardn/files/rbs/models/sandstorm_rbs/variables/variables.data-00000-of-00001",
+      "retrieved_utc": "2026-10-17T02:31:03.463947+00:00",
+      "sha256": "5545573df0059dd88dd6bb8ab42963899d402e3d12cc6c1aaba56afd57e9f634",
+      "url": "https://raw.githubusercontent.com/AlexGreenLab/GARDN-SANDSTORM/8694e3ef614ba89e519d093f06caf624a2345189/rbs/models/sandstorm_rbs/variables/variables.data-00000-of-00001"
+    },
+    {
+      "bytes": 5533,
+      "path": "gardn/files/rbs/models/sandstorm_rbs/variables/variables.index",
+      "retrieved_utc": "2026-10-17T02:31:03.766363+00:00",
+      "sha256": "4a778455d3606fd2ffdafee0861d75669428df2e98d59a65306e41de88305bd2",
+      "url": "https://raw.githubusercontent.com/AlexGreenLab/GARDN-SANDSTORM/8694e3ef614ba89e519d093f06caf624a2345189/rbs/models/sandstorm_rbs/variables/variables.index"
+    },
+    {
+      "bytes": 1223121,
+      "path": "sapiens/tensorflow-1.12.0-pypi.json",
+      "retrieved_utc": "2026-10-17T02:31:03.948579+00:00",
+      "sha256": "56ef0012260e4d6e4434c865eec7a50ef8fd15f34da4fa96c37c1087d8e6fccc",
+      "url": "https://pypi.org/pypi/tensorflow/1.12.0/json"
+    },
+    {
+      "bytes": 11416,
+      "path": "dependencies/tensorflow-1.12.0-LICENSE",
+      "retrieved_utc": "2026-10-17T02:31:04.728527+00:00",
+      "sha256": "9dc6ae3884ee868d517aa040c43b68cf08a9481cb8540a672b4703dccd592747",
+      "url": "https://raw.githubusercontent.com/tensorflow/tensorflow/v1.12.0/LICENSE"
+    },
+    {
+      "bytes": 1616,
+      "path": "dependencies/keras-2.2.4-LICENSE",
+      "retrieved_utc": "2026-10-17T02:31:04.880065+00:00",
+      "sha256": "5148de88caad8ded91e55321f754d514ca098e8c1e7442d0b36078068c46bf67",
+      "url": "https://raw.githubusercontent.com/keras-team/keras/2.2.4/LICENSE"
+    },
+    {
+      "bytes": 338440,
+      "path": "papers/emopec-publisher.html",
+      "retrieved_utc": "2026-10-17T02:31:49.386816+00:00",
+      "sha256": "faafce829f0987a56b1c359fbc2b544279e48852770acb9a3a2cbbeede0a4f8f",
+      "url": "https://www.nature.com/articles/nmeth.3727"
+    },
+    {
+      "bytes": 6190,
+      "path": "prodigal/latest-release.json",
+      "retrieved_utc": "2026-10-17T02:31:51.136612+00:00",
+      "sha256": "6ef398bb1512e176828879cb34426119d9d2841a1177dbfc2b1148fc297cbb15",
+      "url": "https://api.github.com/repos/hyattpd/Prodigal/releases/latest"
+    },
+    {
+      "bytes": 5484,
+      "path": "gardn/zenodo-tag-commit.json",
+      "retrieved_utc": "2026-10-17T02:31:51.423258+00:00",
+      "sha256": "9927cbef35babbd547c42d0cfde28012df23972e678ae5e4d775af71890d5ad7",
+      "url": "https://api.github.com/repos/AlexGreenLab/GARDN-SANDSTORM/commits/v0.1.0-alpha"
+    },
+    {
+      "bytes": 2718,
+      "path": "gardn/tag-LICENSE.txt",
+      "retrieved_utc": "2026-10-17T02:31:51.935714+00:00",
+      "sha256": "42c8cc915fedb7d39845804fb9641856a749706d000b307a0d71e2ba181fd584",
+      "url": "https://raw.githubusercontent.com/AlexGreenLab/GARDN-SANDSTORM/1ec8a27f21197ff6c46cb7961b28f42f63211b78/LICENSE.txt"
+    },
+    {
+      "bytes": 1158551,
+      "path": "emopec/publisher-software.zip",
+      "retrieved_utc": "2026-10-17T02:32:21.328337+00:00",
+      "sha256": "3a2b743266a88239e8a9fbe7bc25cb6bf666b4198c8a4f2fb4720c5c715be9b9",
+      "url": "https://media.springernature.com/original/springer-static/esm/art%3A10.1038%2Fnmeth.3727/MediaObjects/41592_2016_BFnmeth3727_MOESM592_ESM.zip"
+    }
+  ]
+}

@@ -1,0 +1,413 @@
+{
+  "artifacts": [
+    {
+      "bytes": 1771,
+      "id": "audit-execution-json",
+      "path": "audit/execution.json",
+      "sha256": "b558213de1e813bc444dcb20504d9306bdb52748bdaba78929b5006d20a846f0"
+    },
+    {
+      "bytes": 7257466,
+      "id": "evaluation",
+      "path": "evaluation.json",
+      "sha256": "bf0222d8145f6da7b6a1e69ea1364a9036cc1ab07627dc52f79be5d813c91057"
+    },
+    {
+      "bytes": 43991,
+      "id": "evaluator",
+      "path": "code/count_association.py",
+      "sha256": "a3b612164b6a414696cfa55512c3f3b500a9f9c400890dc0b2e0c0834b2c9ea7"
+    },
+    {
+      "bytes": 3333032,
+      "id": "input-crosswalk",
+      "path": "inputs/data/annotation/releases/GCF_000817325.1-RS_2026_05_13/identifier-crosswalk-v1.tsv",
+      "sha256": "97e3022e53cd1e31f5931ead37f425e1d99c032704e5ff8f02c0d75d1755e9ae"
+    },
+    {
+      "bytes": 815693,
+      "id": "input-fasta",
+      "path": "inputs/data/raw/GCF_000817325.1_ASM81732v1_genomic.fna.gz",
+      "sha256": "22a2b07881c1099c32454778de0e90b1c40f74f44c0f59e000507106c0deb567"
+    },
+    {
+      "bytes": 2010,
+      "id": "input-manifest",
+      "path": "input-manifest.json",
+      "sha256": "c5e67fc2845db5b45fdb508bd444d6ada13bacfefb5947222ce1e3e165699697"
+    },
+    {
+      "bytes": 1666851,
+      "id": "input-terminators",
+      "path": "inputs/data/annotations/regulatory-transterm/native-v1.json",
+      "sha256": "f19003f1973e002ba8bb0edd52e420b878d0fbe4e46d2ca532e9b6d9c85f9629"
+    },
+    {
+      "bytes": 989,
+      "id": "input-terminators_release",
+      "path": "inputs/data/annotations/regulatory-transterm/release.json",
+      "sha256": "820b7587825edee61702668088039bd6d4edb83095c8280d4dca3d9a261c5847"
+    },
+    {
+      "bytes": 491394,
+      "id": "input-tss",
+      "path": "inputs/data/expression/tan2018_utex2973_tss_table_s1.tsv",
+      "sha256": "d06524cf492aa8f009bf004c596a5d305ac54acbe7537ec98bbc7992ce164bff"
+    },
+    {
+      "bytes": 2429486,
+      "id": "input-tu",
+      "path": "inputs/data/annotations/biocyc-utex-tu-membership/membership.json",
+      "sha256": "8eb68fcd33988e2b81940ff80d9ea471ef97fced87af3a4703f684c881dd60d0"
+    },
+    {
+      "bytes": 577,
+      "id": "input-tu_release",
+      "path": "inputs/data/annotations/biocyc-utex-tu-membership/release.json",
+      "sha256": "e791b76b45976449ff2cde1e6863eeabbfefc3eebfbede7c4361f470ecbd9e02"
+    },
+    {
+      "bytes": 14915,
+      "id": "original-receipt",
+      "path": "original/receipt.json",
+      "sha256": "1366c8782ce15dc63e40665924ffa49c1881a4e6fa24543cd756c99cda9bb884"
+    },
+    {
+      "bytes": 25515500,
+      "id": "original-report",
+      "path": "original/report.json",
+      "sha256": "f4021ed3941a66b656df9e40f4a6a406b4cf59c651ec00dd7c54865080ebbc5f"
+    },
+    {
+      "bytes": 13463278,
+      "id": "prepared",
+      "path": "prepared.json",
+      "sha256": "55077acaaf5d4cb4449801257c3cab0abbf16ce66033a11f1395fc5ad6c2bbce"
+    },
+    {
+      "bytes": 6884,
+      "id": "protocol",
+      "path": "protocol.json",
+      "sha256": "2aaff3b1c3b22f85590a13c6bf00b6502bb4487b05aa812cff34d6a5acb7e49e"
+    }
+  ],
+  "cohort_history": "Tan labels were used in prior fixed-grid Wave5; not held-out confirmation.",
+  "forbidden_claims": [
+    "held-out confirmation",
+    "UTEX calibration",
+    "absolute promoter strength",
+    "specificity or false-positive rate",
+    "complete operons or experimental termination",
+    "visualizer admission",
+    "reconstruction-source equivalence"
+  ],
+  "freeze": {
+    "execution_code_commit": "95acf67e4640dfdbdf5bb6d0a3495d133fce1727",
+    "implementation_commit": "7fe20c70a203280e5a05ba33c0836bd4b2d22d57",
+    "protocol_commit": "04ae86d968efcb3fc08a9801d3318a91d780cac9",
+    "protocol_frozen_at_utc": "2026-10-21T18:50:03.119231+00:00"
+  },
+  "model_identity_referenced_not_executed": {
+    "model_host": "Escherichia coli str. K-12 substr. MG1655",
+    "prepared_files_sha256": {
+      "LICENSE": "45d25f34fe826d27d344175bd622cbf3d35cbf53bd993d1350d44ee706571ffd",
+      "Promoter_Calculator_v1_0.py": "142823781d1ef70eaf3a1fe6be9e4e005c73edf78b9f8bef9a3e12b86d9849ff",
+      "README.md": "a5f3269206f5425e2c21ca58d9cb638fe87a4cbb1dbdff537a676747dc4b26d2",
+      "free_energy_coeffs.npy": "fddf16b38bf29799481e8a45890b669111e16cf2e3448e99d1934d19a8f0b8e9",
+      "model_intercept.npy": "f7c66a8d838da71a6b2ab17936cd6ff2564e446af8c0676fba95de2116e99a7b",
+      "util.py": "f80c4bec9b0922e9ed92645bc68343f811ac713e6107343463a1747c16345b74"
+    },
+    "producer_sha256": "7d3440ad5239f216ec072dbaac49b430bbaa17d7b28674e18effadcc131f4766",
+    "schema_version": 1,
+    "upstream_commit": "46da9132740bce30bccd107f02808adf2215e2f0"
+  },
+  "omitted_from_summary": [
+    "per-case records",
+    "sequences",
+    "coordinates",
+    "group identities and membership",
+    "context rows",
+    "descriptive stratum results",
+    "non-preregistered secondary shuffled and paired diagnostics"
+  ],
+  "primary": {
+    "bootstrap": {
+      "native": {
+        "interval": [
+          0.12575830370558086,
+          0.21908567897001208
+        ],
+        "reason": null,
+        "requested": 2000,
+        "undefined": 0,
+        "valid": 2000
+      },
+      "native_minus_shuffled": {
+        "interval": [
+          0.057063150615411985,
+          0.1879017844058845
+        ],
+        "reason": null,
+        "requested": 2000,
+        "undefined": 0,
+        "valid": 2000
+      },
+      "shuffled": {
+        "interval": [
+          0.0021191540982770174,
+          0.09642379227951883
+        ],
+        "reason": null,
+        "requested": 2000,
+        "undefined": 0,
+        "valid": 2000
+      }
+    },
+    "eligible": 1597,
+    "eligible_groups": 1351,
+    "groups": 1351,
+    "missing": 0,
+    "n": 1597,
+    "native": {
+      "reason": null,
+      "value": 0.17263166639150462
+    },
+    "native_minus_shuffled": {
+      "reason": null,
+      "value": 0.12385226585359412
+    },
+    "shuffled": {
+      "reason": null,
+      "value": 0.04877940053791051
+    }
+  },
+  "primary_comparison": {
+    "control_predictor": "ecoli_model_Tx_rate at offset_nt=0, paired mononucleotide-shuffled arm",
+    "interpretation": "synthetic composition control; not biological negatives or false-positive rate",
+    "statistic": "native rho minus shuffled rho on identical eligible rows"
+  },
+  "primary_definition": {
+    "condition": "control",
+    "minimum_pairs": 3,
+    "missing": "empty or NA source count -> missing, never zero; invalid or nonfinite or negative numeric input fails",
+    "outliers": "all retained",
+    "predictor": "ecoli_model_Tx_rate at offset_nt=0, native arm",
+    "response": "arithmetic mean of both finite nonnegative source-reported replicate counts; both required; no library-size renormalization",
+    "statistic": "Spearman correlation, average ranks for ties",
+    "zeros": "retained"
+  },
+  "receipt_scope": "Exact aggregate projection of the reviewed existing evaluation; no predictor, preparation or statistical rerun. Artifact hashes establish byte integrity, not scientific validity.",
+  "review": {
+    "independent_code_review": "DEM-611",
+    "native_arithmetic_review": "Session A",
+    "release_or_consumer_admission": false,
+    "reviewed_base": "1ec44e5bfecc2ce2878427ef7222dc3fd344697c",
+    "reviewed_head": "12da1a3ba8f8212a46a19de415f2098d93eafce6",
+    "scope": "Evaluator code/protocol and native aggregate arithmetic at the reviewed head; this summary is a later deterministic extraction.",
+    "status": "accepted"
+  },
+  "schema": "promoter-count-association-summary-1",
+  "secondary": {
+    "control": {
+      "mean": {
+        "eligible": 1597,
+        "eligible_groups": 1351,
+        "groups": 1351,
+        "missing": 0,
+        "n": 1597,
+        "reason": null,
+        "value": 0.17263166639150462
+      },
+      "replicate_1": {
+        "eligible": 1597,
+        "eligible_groups": 1351,
+        "groups": 1351,
+        "missing": 0,
+        "n": 1597,
+        "reason": null,
+        "value": 0.19107375087019243
+      },
+      "replicate_2": {
+        "eligible": 1597,
+        "eligible_groups": 1351,
+        "groups": 1351,
+        "missing": 0,
+        "n": 1597,
+        "reason": null,
+        "value": 0.15121636325200535
+      },
+      "replicate_agreement": {
+        "eligible": 1597,
+        "eligible_groups": 1351,
+        "groups": 1351,
+        "missing": 0,
+        "n": 1597,
+        "reason": null,
+        "value": 0.9695957854924024
+      }
+    },
+    "dark": {
+      "mean": {
+        "eligible": 1597,
+        "eligible_groups": 1351,
+        "groups": 1351,
+        "missing": 0,
+        "n": 1597,
+        "reason": null,
+        "value": -0.08020635212334613
+      },
+      "replicate_1": {
+        "eligible": 1597,
+        "eligible_groups": 1351,
+        "groups": 1351,
+        "missing": 0,
+        "n": 1597,
+        "reason": null,
+        "value": -0.08061874612900803
+      },
+      "replicate_2": {
+        "eligible": 1597,
+        "eligible_groups": 1351,
+        "groups": 1351,
+        "missing": 0,
+        "n": 1597,
+        "reason": null,
+        "value": -0.07940404624201035
+      },
+      "replicate_agreement": {
+        "eligible": 1597,
+        "eligible_groups": 1351,
+        "groups": 1351,
+        "missing": 0,
+        "n": 1597,
+        "reason": null,
+        "value": 0.9926263660905611
+      }
+    },
+    "high_light": {
+      "mean": {
+        "eligible": 1597,
+        "eligible_groups": 1351,
+        "groups": 1351,
+        "missing": 0,
+        "n": 1597,
+        "reason": null,
+        "value": 0.20450183521060797
+      },
+      "replicate_1": {
+        "eligible": 1597,
+        "eligible_groups": 1351,
+        "groups": 1351,
+        "missing": 0,
+        "n": 1597,
+        "reason": null,
+        "value": 0.19717955869277004
+      },
+      "replicate_2": {
+        "eligible": 1597,
+        "eligible_groups": 1351,
+        "groups": 1351,
+        "missing": 0,
+        "n": 1597,
+        "reason": null,
+        "value": 0.20897973356377614
+      },
+      "replicate_agreement": {
+        "eligible": 1597,
+        "eligible_groups": 1351,
+        "groups": 1351,
+        "missing": 0,
+        "n": 1597,
+        "reason": null,
+        "value": 0.993134817428406
+      }
+    },
+    "high_temperature": {
+      "mean": {
+        "eligible": 1597,
+        "eligible_groups": 1351,
+        "groups": 1351,
+        "missing": 0,
+        "n": 1597,
+        "reason": null,
+        "value": 0.16602259080849707
+      },
+      "replicate_1": {
+        "eligible": 1597,
+        "eligible_groups": 1351,
+        "groups": 1351,
+        "missing": 0,
+        "n": 1597,
+        "reason": null,
+        "value": 0.16627445607738797
+      },
+      "replicate_2": {
+        "eligible": 1597,
+        "eligible_groups": 1351,
+        "groups": 1351,
+        "missing": 0,
+        "n": 1597,
+        "reason": null,
+        "value": 0.16834811031118924
+      },
+      "replicate_agreement": {
+        "eligible": 1597,
+        "eligible_groups": 1351,
+        "groups": 1351,
+        "missing": 0,
+        "n": 1597,
+        "reason": null,
+        "value": 0.9703587727736861
+      }
+    }
+  },
+  "secondary_definition": {
+    "conditions": [
+      "control",
+      "dark",
+      "high_light",
+      "high_temperature"
+    ],
+    "contrasts": "source log2FC/padj not analyzed; static sequence model cannot predict condition changes",
+    "endpoints": [
+      "native-rate versus each replicate",
+      "native-rate versus replicate mean",
+      "replicate1 versus replicate2"
+    ],
+    "uncertainty": "point estimates only; descriptive, no multiple-testing or significance claims"
+  },
+  "source_accounting": {
+    "excluded": {
+      "identical_or_reverse_complement_window": 1,
+      "overlapping_window": 264,
+      "same_locus": 613
+    },
+    "input_groups": 1539,
+    "input_rows": 2475,
+    "selected": 1597
+  },
+  "stage": "exploratory-exposed-cohort",
+  "storage": {
+    "artifact_manifest": "benchmarks/promoter/count-association-artifacts.json",
+    "artifact_manifest_sha256": "8e6ed661111a368c344cbe9ee12b3b697039cea3bb648971745b4d599b04f5fa",
+    "paths_relative_to": "Original 29-file external archive; reserved native-pilot/count-association contains byte-identical prepared.json, evaluation.json and execution.json."
+  },
+  "target": "Association of E. coli model anchor rates with source-reported native UTEX gTSS counts; no absolute-strength or causal claim.",
+  "uncertainty": {
+    "endpoints": [
+      "primary-native-rho",
+      "primary-shuffled-rho",
+      "primary-paired-rho-difference"
+    ],
+    "interval": [
+      0.025,
+      0.975
+    ],
+    "invalid_draws": "Track requested/valid/undefined; undefined constant/too-small draws excluded explicitly; fewer than 90% valid means null interval. Point estimates retained when defined.",
+    "method": "Resample sorted input-only groups with replacement, same number of groups; retain all rows in each sampled group; recalculate average ranks each draw. Same draw for both arms.",
+    "minimum_groups": 2,
+    "quantile": "linear interpolation at (n-1)*p over valid draws",
+    "replicates": 2000,
+    "seed": 2973
+  }
+}

@@ -1,0 +1,138 @@
+{
+  "cohort_history": "Tan labels were used in prior fixed-grid Wave5; not held-out confirmation.",
+  "forbidden_claims": [
+    "held-out confirmation",
+    "UTEX calibration",
+    "absolute promoter strength",
+    "specificity or false-positive rate",
+    "complete operons or experimental termination",
+    "visualizer admission",
+    "reconstruction-source equivalence"
+  ],
+  "frozen_at_utc": "2026-10-21T18:50:03.119231+00:00",
+  "grouping": {
+    "basis": "Connected components of all current loci sharing any admitted TU ID, projected through exact current or native old-locus crosswalk; also union rows sharing a source locus. Unmapped source loci form separate groups. Build before scores.",
+    "join": "Only current_locus_tag/RefSeq_locus_tag or old_locus_tag/legacy_locus_tag; require one distinct target with matching replicon and strand. Never names, donor orthologs, proximity or correction of aliases.",
+    "limitation": "Source membership is partial, unordered and inferred, not experimentally verified operon or statistical independence.",
+    "status": [
+      "unique",
+      "unmatched",
+      "ambiguous",
+      "identity_conflict"
+    ]
+  },
+  "io": {
+    "max_fasta_decoded_bytes": 8000000,
+    "max_input_bytes": 67108864,
+    "network": false,
+    "new_dependencies": false,
+    "output": "sorted keys, indent2, ensure_ascii, allow_nan false, trailing LF; no-clobber atomic publication; failures exit2 and leave no new final output",
+    "private_reads": false
+  },
+  "manifest_sha256": "c5e67fc2845db5b45fdb508bd444d6ada13bacfefb5947222ce1e3e165699697",
+  "primary": {
+    "condition": "control",
+    "minimum_pairs": 3,
+    "missing": "empty or NA source count -> missing, never zero; invalid or nonfinite or negative numeric input fails",
+    "outliers": "all retained",
+    "predictor": "ecoli_model_Tx_rate at offset_nt=0, native arm",
+    "response": "arithmetic mean of both finite nonnegative source-reported replicate counts; both required; no library-size renormalization",
+    "statistic": "Spearman correlation, average ranks for ties",
+    "zeros": "retained"
+  },
+  "primary_comparison": {
+    "control_predictor": "ecoli_model_Tx_rate at offset_nt=0, paired mononucleotide-shuffled arm",
+    "interpretation": "synthetic composition control; not biological negatives or false-positive rate",
+    "statistic": "native rho minus shuffled rho on identical eligible rows"
+  },
+  "report_gate": {
+    "accounting": "All source rows, every exclusion reason, selected requests, condition/replicate missingness, endpoint denominators and group sizes retained; never treat model failure as zero.",
+    "mode": "Atomic complete original runner only; exact expected selected roster, order, sequences, native coordinate maps and deterministic controls; no partial-run estimates.",
+    "numeric_validation": "Finite JSON numbers, no bool-as-number; strictly positive model rates and finite energies; all41 offsets retained in each arm, unique contiguous -20..20; duplicate keys/nonfinite JSON rejected.",
+    "reference_identity": "Caller supplies exact SHA256 of report and prepared input artifact; never inferred or overwritten."
+  },
+  "runner": {
+    "model_host": "Escherichia coli str. K-12 substr. MG1655",
+    "prepared_files_sha256": {
+      "LICENSE": "45d25f34fe826d27d344175bd622cbf3d35cbf53bd993d1350d44ee706571ffd",
+      "Promoter_Calculator_v1_0.py": "142823781d1ef70eaf3a1fe6be9e4e005c73edf78b9f8bef9a3e12b86d9849ff",
+      "README.md": "a5f3269206f5425e2c21ca58d9cb638fe87a4cbb1dbdff537a676747dc4b26d2",
+      "free_energy_coeffs.npy": "fddf16b38bf29799481e8a45890b669111e16cf2e3448e99d1934d19a8f0b8e9",
+      "model_intercept.npy": "f7c66a8d838da71a6b2ab17936cd6ff2564e446af8c0676fba95de2116e99a7b",
+      "util.py": "f80c4bec9b0922e9ed92645bc68343f811ac713e6107343463a1747c16345b74"
+    },
+    "producer_sha256": "7d3440ad5239f216ec072dbaac49b430bbaa17d7b28674e18effadcc131f4766",
+    "schema_version": 1,
+    "upstream_commit": "46da9132740bce30bccd107f02808adf2215e2f0"
+  },
+  "schema": "promoter-count-association-protocol-1",
+  "secondary": {
+    "conditions": [
+      "control",
+      "dark",
+      "high_light",
+      "high_temperature"
+    ],
+    "contrasts": "source log2FC/padj not analyzed; static sequence model cannot predict condition changes",
+    "endpoints": [
+      "native-rate versus each replicate",
+      "native-rate versus replicate mean",
+      "replicate1 versus replicate2"
+    ],
+    "uncertainty": "point estimates only; descriptive, no multiple-testing or significance claims"
+  },
+  "selection": {
+    "candidate_offsets": [
+      -20,
+      20
+    ],
+    "downstream_nt": 40,
+    "exclusions_in_order": [
+      "same_locus",
+      "overlapping_window",
+      "identical_or_reverse_complement_window",
+      "sample_limit"
+    ],
+    "layouts_per_candidate": 30,
+    "max_sites": 2475,
+    "order": "SHA256 UTF-8 seed:tss_id ascending",
+    "replicon_lengths": {
+      "NZ_CP006471.1": 2690418,
+      "NZ_CP006472.1": 46366,
+      "NZ_CP006473.1": 7842
+    },
+    "seed": 2973,
+    "source_rows": 2475,
+    "upstream_nt": 87
+  },
+  "stage": "exploratory-exposed-cohort",
+  "strata": {
+    "condition": "control",
+    "families": [
+      "current-locus mapping status",
+      "TU membership state: membership-observed, source-membership-empty, unresolved-source-link, no-source-data, mapping-unavailable",
+      "same-strand predicted terminator intersects associated current CDS: observed, none-in-complete-coverage, coverage-incomplete, not-applicable, mapping-unavailable"
+    ],
+    "no_adjustment": "Stratification only; no fitted regression, weighting, significance-based choice, causal confounder removal or model changes.",
+    "statistics": "native and shuffled rho and difference, point estimates only",
+    "terminator_definition": "Use mapped-locus cdsOverlap.sameStrandCallIds; observed takes precedence even if coverage partial. Zero counts require complete coverage. Not a transcript termination or between-TSS/CDS assertion."
+  },
+  "target": "Association of E. coli model anchor rates with source-reported native UTEX gTSS counts; no absolute-strength or causal claim.",
+  "uncertainty": {
+    "endpoints": [
+      "primary-native-rho",
+      "primary-shuffled-rho",
+      "primary-paired-rho-difference"
+    ],
+    "interval": [
+      0.025,
+      0.975
+    ],
+    "invalid_draws": "Track requested/valid/undefined; undefined constant/too-small draws excluded explicitly; fewer than 90% valid means null interval. Point estimates retained when defined.",
+    "method": "Resample sorted input-only groups with replacement, same number of groups; retain all rows in each sampled group; recalculate average ranks each draw. Same draw for both arms.",
+    "minimum_groups": 2,
+    "quantile": "linear interpolation at (n-1)*p over valid draws",
+    "replicates": 2000,
+    "seed": 2973
+  }
+}

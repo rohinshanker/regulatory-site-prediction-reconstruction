@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "OSTIR": {
+    "release": "1.1.3",
+    "commit": "9a1a5744bd70f28313a342ba9bf7946c8cd12bd2",
+    "code_license": "GPL-3.0; distribution classifier GPL-3.0-or-later",
+    "files": {
+      "ostir/ViennaRNA.py": "b96ea15d40e2fa6d6111fa5d7badc90067ea387b0f5384dea98ec6cb4cab80a4",
+      "ostir/__init__.py": "d89d23f3b4dd683f5307d742d0e1388d43064a7a2492b33983489c1f8c7b9b37",
+      "ostir/data_classes.py": "4647f7ec28f1be1f2bc016fa2cc33afe2a754d02f6eb095c6ee02c4f85ec4896",
+      "ostir/ostir.py": "1059044f00e4a147eef0987af5bab3e4cb0a6ee8ca9bf6799d61d233084f717d",
+      "ostir/ostir_calculations.py": "2fb92fda3c10c21a36c1e6706319ee37a8ed594cb7ac9ccfed3a910f7bcc8a2d",
+      "ostir/ostir_engine.py": "5711d561a298ce1afb5a02dce122d47eb31925c10e94eeabec3e81882560d5b0",
+      "ostir/ostir_factory.py": "e763e29b6bf78411334fdfb022607f83dfb62cb3b076658c4ae0310d26c7c115",
+      "ostir/ostir_farm.py": "5b4090a8484e85ac29a3e29d549e82d4ce752018f91d5906ede7e31cafb77531",
+      "ostir/ostir_worker.py": "b356e4a64a0349de839b93834ede47b710ddf3fd76e22fa778e41cd4bfb9eb3a",
+      "ostir/rna_turner1999.par": "59297d7a0e9b9e53ca261a7eda08493f212e8e90be0b0c65eb488fecdac6aef2",
+      "ostir/rna_turner2004.par": "0c671a7455f5686bc160fc655194b11888594ab7d506626cdad1470bcadd17d9",
+      "ostir/shortcuts.py": "e8ea757cda117cd6e01321033e5b6c641b638a53a15358543c2d9e4583f3c398"
+    },
+    "wheel_sha256": "13f94950a2316ff83f06f0830477e2d4ebd240bc1941453716a5db8055a6ce2f",
+    "dependency": "ViennaRNA2.7.2 optional research environment; fee-redistribution and NAVIEW noncommercial restrictions retained",
+    "native_temperature_celsius": 37,
+    "cli_smoke": "failed: genuine RNAfold/RNAsubopt/RNAeval executables absent",
+    "library_smoke": "passed using actual RNA.fold_compound bindings"
+  },
+  "rebeca": {
+    "deposit": "https://zenodo.org/records/11081336",
+    "archive": "rebeca.zip",
+    "archive_bytes": 12534256262,
+    "archive_declared_md5": "136db226bd954ed88a5c6851b09fc418",
+    "whole_archive_checksum_verified": false,
+    "recovered_bytes": 6826181,
+    "source_code_license": "MIT, embedded LICENSE",
+    "weight_deposit_license": "CC-BY-4.0; no separate weight-only notice located",
+    "original_training_data_license": "unverified; deposit licence not extended to original Kuo data",
+    "weight_member": "rebeca/rebeca/experiments/exp_67_true/best_model_124605_seed_3.pth",
+    "weight_sha256": "5b17912c6a177db87dfc5008ecebb6c13c2095747748eface1fc72fa46b43b9b",
+    "weight_bytes": 4726795,
+    "embedded_git_ref": "59d951cbe8ed321045a6cd643e62b8f407142e61",
+    "git_ref_limit": "does not prove all archived working files match; per-file pins authoritative",
+    "output": "mean natural-log fluorescence parameter; exp(output) geometric-mean/median scale under source lognormal model",
+    "input": "last30UTR, exclude start/CDS, DNA->RNA, right zero padding for shortUTR, N unsupported",
+    "training_exposure": "Kuo fepB data_4, MSE, scratch_tuning/true_fluo_diversity; exact rows and final published-checkpoint mapping unverified"
+  },
+  "smokes": {
+    "ostir": {
+      "sequence": "ACACACACACACACACACACAGGAGGAAAAAAATGGCTGCTGCTGCTGCTGCTGCTGCTGCTGCTGCTGCT",
+      "sequence_sha256": "64f55022fa0606c6d27bdcf74842549d4e71991a87a68d7e1f03995a2b076816",
+      "supplied_start_zero_based": 32,
+      "aSD": "ACCUCCUUA",
+      "temperature_celsius": 37.0,
+      "result": [
+        {
+          "name": "synthetic_supplied_start",
+          "start_codon": "ATG",
+          "start_position": 33,
+          "expression": 3325.07148797,
+          "RBS_distance_bp": 5,
+          "dG_total": -2.075,
+          "dG_rRNA:mRNA": -12.781,
+          "dG_mRNA": -11.9,
+          "dG_spacing": 0.0,
+          "dG_standby": 0.0,
+          "dG_start_codon": -1.194
+        }
+      ],
+      "repeat_equal": true,
+      "offset_control": []
+    },
+    "rebeca": {
+      "synthetic_utr": "ACGUACGUACGUACGUACGUACGUACGUAC",
+      "native_output": 6.047040939331055,
+      "exp_native_output": 422.85990880362544,
+      "repeat_equal": true,
+      "parameter_count": 1180837,
+      "shape": [
+        1,
+        1
+      ]
+    }
+  }
+}

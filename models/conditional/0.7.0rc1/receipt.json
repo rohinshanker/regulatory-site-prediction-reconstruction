@@ -1,0 +1,150 @@
+{
+  "artifacts": {
+    "regulatory_site_prediction_reconstruction-0.7.0rc1-py3-none-any.whl": "9aeaeb5b636247768f1ea34e871fb3269f3f2ea419d39df76976dc483967b17d",
+    "regulatory_site_prediction_reconstruction-0.7.0rc1.tar.gz": "cf9bbb7640809cecdd5c9d64fcb93d27c69b02eae85559fc862c1c64bcaf09fb"
+  },
+  "candidate_commit": "163802fddd3e49c8d72380167d661c7d8291f41b",
+  "cases": [
+    {
+      "exit_code": 0,
+      "id": "conditional-hairpin-structure-control",
+      "jobs": 4,
+      "output_bytes": 4769,
+      "output_sha256": "618678f4f055c96ba24056a97067bc8bd0c2351eaf834ae3abf8f34d122dc314",
+      "peak_rss_bytes": 85409792,
+      "profile": "canonical_structure_pair",
+      "reasons": [],
+      "request_sha256": "838b5eef79d58d2a7ef0c75abd6de48f682f6b621612987ebc0e2255f1786407",
+      "seconds": 0.4769417500356212,
+      "status": "ok",
+      "timing_sha256": "98ad8df1b4597eea65e44a921eb5592d1c8cbc8f761022560e21f0a9a9215add"
+    },
+    {
+      "exit_code": 0,
+      "id": "conditional-supplied-half-occupancy",
+      "jobs": 0,
+      "output_bytes": 3317,
+      "output_sha256": "a441d59915651257bf4ce7be06d7ca15d6fe3f2120cf4164384739d870fd2d87",
+      "peak_rss_bytes": 26558464,
+      "profile": "supplied_energy_response",
+      "reasons": [],
+      "request_sha256": "a87db53dab38a19b96647b0427d3bedc1a4da41cf6d7c3487c637182068b3898",
+      "seconds": 0.0656376670813188,
+      "status": "ok",
+      "timing_sha256": "e9013ebf4528168133afe06a94c1250d96ad449ffaea0dff0c9ec4a560ae362a"
+    },
+    {
+      "exit_code": 0,
+      "id": "conditional-supplied-volume-fifth",
+      "jobs": 0,
+      "output_bytes": 4096,
+      "output_sha256": "6a58877bf0978777b96a416de08bfb2ca28783c1238888896764215a1c19ff00",
+      "peak_rss_bytes": 27131904,
+      "profile": "supplied_energy_response",
+      "reasons": [],
+      "request_sha256": "c2fa5809bc1b17c09667ef33aa59eccc6bda886f52227e470b74d6f39dbf0d87",
+      "seconds": 0.08375237497966737,
+      "status": "ok",
+      "timing_sha256": "410aa4f637713858f6fa137d87d8b3be7cf008a125de0ea16f45a7899b454a7b"
+    },
+    {
+      "exit_code": 1,
+      "id": "expired-deadline",
+      "jobs": 0,
+      "output_bytes": 1624,
+      "output_sha256": "2d9e40990d6a9e1a89a7ecaf4d0e36ca861c303f556c43ced13bc6820da448f4",
+      "peak_rss_bytes": 26263552,
+      "profile": "canonical_structure_pair",
+      "reasons": [
+        "deadline_exceeded"
+      ],
+      "request_sha256": "bc6648f119751c1767b9a2549df36bda2122353a023c0fe9d085043d726bb33e",
+      "seconds": 0.0625135840382427,
+      "status": "failed",
+      "timing_sha256": "80efc025b0968f1ac6b10228f1760ced981cc0e234f71e89ee6060e2ed4ab461"
+    },
+    {
+      "exit_code": 0,
+      "id": "full-200",
+      "jobs": 4,
+      "output_bytes": 14513,
+      "output_sha256": "2377e93b9e4f7267cee621b649a7a1084809dd209a97bcf39f08174335762597",
+      "peak_rss_bytes": 85426176,
+      "profile": "canonical_structure_pair",
+      "reasons": [],
+      "request_sha256": "c2df7c792caaae6368050f675ceeab74e1daf59f5b21ed6a8a4369ec708eab8a",
+      "seconds": 0.30472345801535994,
+      "status": "ok",
+      "timing_sha256": "97e00cc3fdc5b982ea78876ec019ec4c4be4eb672a5ea36e2127bf07172ee70d"
+    },
+    {
+      "exit_code": 1,
+      "id": "iteration-limit",
+      "jobs": 0,
+      "output_bytes": 3751,
+      "output_sha256": "1f2491293c44d5ddb887043f2e2144234ce6aed0addc225fd9750a66394bab4a",
+      "peak_rss_bytes": 26951680,
+      "profile": "supplied_energy_response",
+      "reasons": [
+        "nonconvergence"
+      ],
+      "request_sha256": "c4c0b2aed61416bffb05d46e30034c0eeba7eeec3506941563d8db9b81c60bf6",
+      "seconds": 0.07071516697760671,
+      "status": "failed",
+      "timing_sha256": "e9b95ecacc8e929cf7277e0525dab9abe53abc5c28481e8d0cd23b0e931bfc87"
+    },
+    {
+      "exit_code": 0,
+      "id": "noop-200",
+      "jobs": 4,
+      "output_bytes": 14444,
+      "output_sha256": "f170d0e450923a26f0ac783243099cc52cdddec08a723b9056cdb5cb90c77e46",
+      "peak_rss_bytes": 85458944,
+      "profile": "canonical_structure_pair",
+      "reasons": [],
+      "request_sha256": "8167ae49863a9066e7c7d51f98a6b5c0be1c14d54131bde21f6d1ef2dec56cd7",
+      "seconds": 0.30480529100168496,
+      "status": "ok",
+      "timing_sha256": "fe3277340eb30c28b60dea54685eb915f7dc85b3b964403659e785cda7fcb236"
+    },
+    {
+      "exit_code": 0,
+      "id": "unpaired-200",
+      "jobs": 4,
+      "output_bytes": 7755,
+      "output_sha256": "031f4cbf78fff58c9591284d2681e838649314a3ee6572e6e6b064b43b28d7a4",
+      "peak_rss_bytes": 85393408,
+      "profile": "canonical_structure_pair",
+      "reasons": [],
+      "request_sha256": "a253490e57ad9c3e1b9ac81e6ffc4350643cc375c1497b085ecb4a9767cc1e89",
+      "seconds": 0.23901854210998863,
+      "status": "ok",
+      "timing_sha256": "19264c756bc54a52fb58ff0fd4d24bfd943d38d577cbd5b9c956d547be3069da"
+    },
+    {
+      "exit_code": 0,
+      "id": "volume-solve",
+      "jobs": 0,
+      "output_bytes": 4087,
+      "output_sha256": "38ab9a9385a98cf1629040e5f37355578ada476c049b259442dc3acfcad74f75",
+      "peak_rss_bytes": 27017216,
+      "profile": "supplied_energy_response",
+      "reasons": [],
+      "request_sha256": "fac9613560403a4e34c9f19736052df7ce610814c354c24cea4275dd17e8a16b",
+      "seconds": 0.09242312493734062,
+      "status": "ok",
+      "timing_sha256": "c9194b6780ea22324e78fc5dbc8dfe7ec158166b4da724ecb791d8ea97c9a4e1"
+    }
+  ],
+  "claims": {
+    "biological_accuracy": false,
+    "cross_platform_structural_admission": false,
+    "full_sequence_to_switch": false
+  },
+  "implementation_version": "0.7.0rc1",
+  "parameter_sha256": "99bb08423e2d321947e1cf5bb8cc3061bd99ab02414bff4d25377b5003f51b3f",
+  "schema_version": "conditional-installed-synthetic-receipt-1",
+  "scope": "Fresh offline wheel; three examples and six fixed synthetic resource/boundary cases, original admitted arm64 engine. One process at a time; /usr/bin/time -l RSS bytes. Finite measurements, not worst-case guarantees or OS memory quota.",
+  "source_date_epoch": 1792371816,
+  "source_manifest_sha256": "6c45d4f81cfb3dc035edaa839aa4ae49905281f62c020afac26d7e4d534f4821"
+}

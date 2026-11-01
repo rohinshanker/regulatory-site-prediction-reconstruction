@@ -1,0 +1,7 @@
+{
+  "cli_calibration": null,
+  "cli_states": null,
+  "output_format": "json",
+  "seconds_per_batch": 300.0,
+  "seconds_per_record": 30.0
+}

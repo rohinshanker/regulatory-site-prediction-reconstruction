@@ -1,0 +1,1493 @@
+{
+  "stage": "final",
+  "configuration": {
+    "champion": "sequence_v1",
+    "baseline": "constant",
+    "upstream": "ostir_affine",
+    "historical": "historical",
+    "original_upstream": "ostir",
+    "constant": "constant",
+    "final_roster_frozen": true,
+    "bootstrap_repetitions": 10000,
+    "bootstrap_seed": 20261017
+  },
+  "n_train": 1465,
+  "n_evaluated": 468,
+  "n_evaluation_groups": 423,
+  "models": {
+    "sequence_v1": {
+      "calibration": {
+        "method": "development_train_median_log2_residual",
+        "offset_log2": 0.04659637563372265,
+        "n_training_cases": 1465,
+        "n_fitted": 1465,
+        "assay_exclusions": {},
+        "final_refit": false
+      },
+      "evaluation": {
+        "n_source_cases": 468,
+        "n_log_eligible": 468,
+        "assay_exclusions": {},
+        "offset_log2": 0.04659637563372265,
+        "metrics": {
+          "n_submitted": 468,
+          "n_success": 468,
+          "failures": {},
+          "coverage": 1.0,
+          "pearson_r_log": 0.2352081422229048,
+          "pearson_r2_log": 0.055322870167950206,
+          "spearman_rho": 0.2439899025156824,
+          "rmse_log2": 1.2388398120208366,
+          "mae_log2": 0.9572264557770293,
+          "median_absolute_log2": 0.7721802502402164,
+          "bias_log2": 0.06903987023388271,
+          "within_2fold": {
+            "n": 284,
+            "all_case_fraction": 0.6068376068376068,
+            "successful_pair_fraction": 0.6068376068376068,
+            "all_case_wilson95": [
+              0.561886249659199,
+              0.6500493446608442
+            ]
+          },
+          "within_5fold": {
+            "n": 440,
+            "all_case_fraction": 0.9401709401709402,
+            "successful_pair_fraction": 0.9401709401709402,
+            "all_case_wilson95": [
+              0.9148895506616826,
+              0.9582850979368952
+            ]
+          }
+        }
+      }
+    },
+    "hybrid": {
+      "calibration": {
+        "method": "development_train_median_log2_residual",
+        "offset_log2": 0.039102431228718926,
+        "n_training_cases": 1465,
+        "n_fitted": 1293,
+        "assay_exclusions": {},
+        "final_refit": false
+      },
+      "evaluation": {
+        "n_source_cases": 468,
+        "n_log_eligible": 468,
+        "assay_exclusions": {},
+        "offset_log2": 0.039102431228718926,
+        "metrics": {
+          "n_submitted": 468,
+          "n_success": 423,
+          "failures": {
+            "failed": 45
+          },
+          "coverage": 0.9038461538461539,
+          "pearson_r_log": 0.29166751707506666,
+          "pearson_r2_log": 0.0850699405167343,
+          "spearman_rho": 0.3082461297347018,
+          "rmse_log2": 1.2235147910285564,
+          "mae_log2": 0.9397314576950705,
+          "median_absolute_log2": 0.7193410898492967,
+          "bias_log2": 0.060387397432654685,
+          "within_2fold": {
+            "n": 259,
+            "all_case_fraction": 0.5534188034188035,
+            "successful_pair_fraction": 0.6122931442080378,
+            "all_case_wilson95": [
+              0.5081251013192849,
+              0.5978426958407368
+            ]
+          },
+          "within_5fold": {
+            "n": 399,
+            "all_case_fraction": 0.8525641025641025,
+            "successful_pair_fraction": 0.9432624113475178,
+            "all_case_wilson95": [
+              0.8175751444987199,
+              0.8818123167574224
+            ]
+          }
+        }
+      }
+    },
+    "historical": {
+      "calibration": {
+        "method": "development_train_median_log2_residual",
+        "offset_log2": -4.141397223615085,
+        "n_training_cases": 1465,
+        "n_fitted": 1418,
+        "assay_exclusions": {},
+        "final_refit": false
+      },
+      "evaluation": {
+        "n_source_cases": 468,
+        "n_log_eligible": 468,
+        "assay_exclusions": {},
+        "offset_log2": -4.141397223615085,
+        "metrics": {
+          "n_submitted": 468,
+          "n_success": 445,
+          "failures": {
+            "failed": 2,
+            "no_candidate": 21
+          },
+          "coverage": 0.9508547008547008,
+          "pearson_r_log": 0.13388850999307644,
+          "pearson_r2_log": 0.01792613310816613,
+          "spearman_rho": 0.1598583541691025,
+          "rmse_log2": 7.449310175624868,
+          "mae_log2": 5.195557066432665,
+          "median_absolute_log2": 3.5069740421505595,
+          "bias_log2": -2.1005659986619394,
+          "within_2fold": {
+            "n": 66,
+            "all_case_fraction": 0.14102564102564102,
+            "successful_pair_fraction": 0.14831460674157304,
+            "all_case_wilson95": [
+              0.11240819967990073,
+              0.17548820340475407
+            ]
+          },
+          "within_5fold": {
+            "n": 162,
+            "all_case_fraction": 0.34615384615384615,
+            "successful_pair_fraction": 0.36404494382022473,
+            "all_case_wilson95": [
+              0.3044619059854756,
+              0.3903508381936621
+            ]
+          }
+        }
+      }
+    },
+    "footprint2017": {
+      "calibration": {
+        "method": "development_train_median_log2_residual",
+        "offset_log2": -5.575386760969535,
+        "n_training_cases": 1465,
+        "n_fitted": 1418,
+        "assay_exclusions": {},
+        "final_refit": false
+      },
+      "evaluation": {
+        "n_source_cases": 468,
+        "n_log_eligible": 468,
+        "assay_exclusions": {},
+        "offset_log2": -5.575386760969535,
+        "metrics": {
+          "n_submitted": 468,
+          "n_success": 445,
+          "failures": {
+            "failed": 2,
+            "no_candidate": 21
+          },
+          "coverage": 0.9508547008547008,
+          "pearson_r_log": 0.10205985032856568,
+          "pearson_r2_log": 0.010416213049089228,
+          "spearman_rho": 0.12716953695216923,
+          "rmse_log2": 7.365622344781757,
+          "mae_log2": 5.138887288813688,
+          "median_absolute_log2": 3.4017328191842493,
+          "bias_log2": -2.025604989098069,
+          "within_2fold": {
+            "n": 64,
+            "all_case_fraction": 0.13675213675213677,
+            "successful_pair_fraction": 0.14382022471910114,
+            "all_case_wilson95": [
+              0.10856709959710965,
+              0.17085187971474347
+            ]
+          },
+          "within_5fold": {
+            "n": 162,
+            "all_case_fraction": 0.34615384615384615,
+            "successful_pair_fraction": 0.36404494382022473,
+            "all_case_wilson95": [
+              0.3044619059854756,
+              0.3903508381936621
+            ]
+          }
+        }
+      }
+    },
+    "context2017": {
+      "calibration": {
+        "method": "development_train_median_log2_residual",
+        "offset_log2": -1.9932562199351087,
+        "n_training_cases": 1465,
+        "n_fitted": 1293,
+        "assay_exclusions": {},
+        "final_refit": false
+      },
+      "evaluation": {
+        "n_source_cases": 468,
+        "n_log_eligible": 468,
+        "assay_exclusions": {},
+        "offset_log2": -1.9932562199351087,
+        "metrics": {
+          "n_submitted": 468,
+          "n_success": 423,
+          "failures": {
+            "failed": 45
+          },
+          "coverage": 0.9038461538461539,
+          "pearson_r_log": 0.052552133914556626,
+          "pearson_r2_log": 0.002761726778973493,
+          "spearman_rho": 0.10540609724643847,
+          "rmse_log2": 69.07860620398377,
+          "mae_log2": 30.91237885519823,
+          "median_absolute_log2": 5.18306514768825,
+          "bias_log2": -26.83261508227848,
+          "within_2fold": {
+            "n": 44,
+            "all_case_fraction": 0.09401709401709402,
+            "successful_pair_fraction": 0.10401891252955082,
+            "all_case_wilson95": [
+              0.07078195576150004,
+              0.12386278582233576
+            ]
+          },
+          "within_5fold": {
+            "n": 94,
+            "all_case_fraction": 0.20085470085470086,
+            "successful_pair_fraction": 0.2222222222222222,
+            "all_case_wilson95": [
+              0.16705858487626926,
+              0.23952175102760973
+            ]
+          }
+        }
+      }
+    },
+    "historical_affine": {
+      "calibration": {
+        "method": "development_train_median_log2_residual",
+        "offset_log2": 5.551115123125783e-17,
+        "n_training_cases": 1465,
+        "n_fitted": 1418,
+        "assay_exclusions": {},
+        "final_refit": false
+      },
+      "evaluation": {
+        "n_source_cases": 468,
+        "n_log_eligible": 468,
+        "assay_exclusions": {},
+        "offset_log2": 5.551115123125783e-17,
+        "metrics": {
+          "n_submitted": 468,
+          "n_success": 445,
+          "failures": {
+            "failed": 2,
+            "no_candidate": 21
+          },
+          "coverage": 0.9508547008547008,
+          "pearson_r_log": 0.1338885099930764,
+          "pearson_r2_log": 0.017926133108166115,
+          "spearman_rho": 0.15982196860918843,
+          "rmse_log2": 1.2619755118673288,
+          "mae_log2": 0.9790962722223022,
+          "median_absolute_log2": 0.7759312488955579,
+          "bias_log2": 0.08548759584536998,
+          "within_2fold": {
+            "n": 272,
+            "all_case_fraction": 0.5811965811965812,
+            "successful_pair_fraction": 0.6112359550561798,
+            "all_case_wilson95": [
+              0.536014562184852,
+              0.625056489498381
+            ]
+          },
+          "within_5fold": {
+            "n": 417,
+            "all_case_fraction": 0.8910256410256411,
+            "successful_pair_fraction": 0.9370786516853933,
+            "all_case_wilson95": [
+              0.8595462390676151,
+              0.9161380361437431
+            ]
+          }
+        }
+      }
+    },
+    "ostir": {
+      "calibration": {
+        "method": "development_train_median_log2_residual",
+        "offset_log2": -7.0141898124920505,
+        "n_training_cases": 1465,
+        "n_fitted": 1463,
+        "assay_exclusions": {},
+        "final_refit": false
+      },
+      "evaluation": {
+        "n_source_cases": 468,
+        "n_log_eligible": 468,
+        "assay_exclusions": {},
+        "offset_log2": -7.0141898124920505,
+        "metrics": {
+          "n_submitted": 468,
+          "n_success": 467,
+          "failures": {
+            "no_candidate": 1
+          },
+          "coverage": 0.9978632478632479,
+          "pearson_r_log": 0.19451115454607706,
+          "pearson_r2_log": 0.037834589242847876,
+          "spearman_rho": 0.20245879615115345,
+          "rmse_log2": 4.04688967319705,
+          "mae_log2": 2.7966058965981513,
+          "median_absolute_log2": 1.8565737183056807,
+          "bias_log2": -0.6859945573953722,
+          "within_2fold": {
+            "n": 138,
+            "all_case_fraction": 0.2948717948717949,
+            "successful_pair_fraction": 0.2955032119914347,
+            "all_case_wilson95": [
+              0.25536449995027666,
+              0.3377191589552403
+            ]
+          },
+          "within_5fold": {
+            "n": 271,
+            "all_case_fraction": 0.5790598290598291,
+            "successful_pair_fraction": 0.5802997858672377,
+            "all_case_wilson95": [
+              0.5338641625430632,
+              0.6229681772537689
+            ]
+          }
+        }
+      }
+    },
+    "ostir_affine": {
+      "calibration": {
+        "method": "development_train_median_log2_residual",
+        "offset_log2": 0.0,
+        "n_training_cases": 1465,
+        "n_fitted": 1463,
+        "assay_exclusions": {},
+        "final_refit": false
+      },
+      "evaluation": {
+        "n_source_cases": 468,
+        "n_log_eligible": 468,
+        "assay_exclusions": {},
+        "offset_log2": 0.0,
+        "metrics": {
+          "n_submitted": 468,
+          "n_success": 467,
+          "failures": {
+            "no_candidate": 1
+          },
+          "coverage": 0.9978632478632479,
+          "pearson_r_log": 0.1945111545460771,
+          "pearson_r2_log": 0.03783458924284789,
+          "spearman_rho": 0.20245879615115345,
+          "rmse_log2": 1.2529639162566333,
+          "mae_log2": 0.9736708981901919,
+          "median_absolute_log2": 0.7757987949530838,
+          "bias_log2": 0.08308254284929205,
+          "within_2fold": {
+            "n": 287,
+            "all_case_fraction": 0.6132478632478633,
+            "successful_pair_fraction": 0.6145610278372591,
+            "all_case_wilson95": [
+              0.568373727457147,
+              0.6562780025220989
+            ]
+          },
+          "within_5fold": {
+            "n": 432,
+            "all_case_fraction": 0.9230769230769231,
+            "successful_pair_fraction": 0.9250535331905781,
+            "all_case_wilson95": [
+              0.8953435265111542,
+              0.9439214269962168
+            ]
+          }
+        }
+      }
+    },
+    "rebeca": {
+      "calibration": {
+        "method": "development_train_median_log2_residual",
+        "offset_log2": -7.582779119016097,
+        "n_training_cases": 1465,
+        "n_fitted": 1465,
+        "assay_exclusions": {},
+        "final_refit": false
+      },
+      "evaluation": {
+        "n_source_cases": 468,
+        "n_log_eligible": 468,
+        "assay_exclusions": {},
+        "offset_log2": -7.582779119016097,
+        "metrics": {
+          "n_submitted": 468,
+          "n_success": 468,
+          "failures": {},
+          "coverage": 1.0,
+          "pearson_r_log": 0.06403493410807105,
+          "pearson_r2_log": 0.004100472786225002,
+          "spearman_rho": 0.0670356335855404,
+          "rmse_log2": 4.392944834835927,
+          "mae_log2": 3.630777147047412,
+          "median_absolute_log2": 3.3766659156440193,
+          "bias_log2": 0.7177735981929075,
+          "within_2fold": {
+            "n": 72,
+            "all_case_fraction": 0.15384615384615385,
+            "successful_pair_fraction": 0.15384615384615385,
+            "all_case_wilson95": [
+              0.12398755958586291,
+              0.1893411148171971
+            ]
+          },
+          "within_5fold": {
+            "n": 174,
+            "all_case_fraction": 0.3717948717948718,
+            "successful_pair_fraction": 0.3717948717948718,
+            "all_case_wilson95": [
+              0.3292195279738537,
+              0.41645775884209446
+            ]
+          }
+        }
+      }
+    },
+    "constant": {
+      "calibration": {
+        "method": "development_train_median_log2_residual",
+        "offset_log2": 0.8639384504239717,
+        "n_training_cases": 1465,
+        "n_fitted": 1465,
+        "assay_exclusions": {},
+        "final_refit": false
+      },
+      "evaluation": {
+        "n_source_cases": 468,
+        "n_log_eligible": 468,
+        "assay_exclusions": {},
+        "offset_log2": 0.8639384504239717,
+        "metrics": {
+          "n_submitted": 468,
+          "n_success": 468,
+          "failures": {},
+          "coverage": 1.0,
+          "pearson_r_log": null,
+          "pearson_r2_log": null,
+          "spearman_rho": null,
+          "rmse_log2": 1.2721124967636572,
+          "mae_log2": 0.9898862237055961,
+          "median_absolute_log2": 0.7947676152554901,
+          "bias_log2": 0.07659364996512188,
+          "within_2fold": {
+            "n": 281,
+            "all_case_fraction": 0.6004273504273504,
+            "successful_pair_fraction": 0.6004273504273504,
+            "all_case_wilson95": [
+              0.5554066567065697,
+              0.6438128019542707
+            ]
+          },
+          "within_5fold": {
+            "n": 437,
+            "all_case_fraction": 0.9337606837606838,
+            "successful_pair_fraction": 0.9337606837606838,
+            "all_case_wilson95": [
+              0.9075129339709324,
+              0.952945578968443
+            ]
+          }
+        }
+      }
+    }
+  },
+  "historical_common_case_diagnostics": {
+    "sequence_v1": {
+      "n_all_log_eligible": 468,
+      "n_historical_success": 445,
+      "n_contender_success": 468,
+      "n_common_success": 445,
+      "historical_valid_cases_dropped": 0,
+      "historical_common_metrics": {
+        "n_submitted": 445,
+        "n_success": 445,
+        "failures": {},
+        "coverage": 1.0,
+        "pearson_r_log": 0.13388850999307644,
+        "pearson_r2_log": 0.01792613310816613,
+        "spearman_rho": 0.1598583541691025,
+        "rmse_log2": 7.449310175624868,
+        "mae_log2": 5.195557066432665,
+        "median_absolute_log2": 3.5069740421505595,
+        "bias_log2": -2.1005659986619394,
+        "within_2fold": {
+          "n": 66,
+          "all_case_fraction": 0.14831460674157304,
+          "successful_pair_fraction": 0.14831460674157304,
+          "all_case_wilson95": [
+            0.11830695995507953,
+            0.18434212949759707
+          ]
+        },
+        "within_5fold": {
+          "n": 162,
+          "all_case_fraction": 0.36404494382022473,
+          "successful_pair_fraction": 0.36404494382022473,
+          "all_case_wilson95": [
+            0.32067976520581765,
+            0.409737294934035
+          ]
+        }
+      },
+      "contender_common_metrics": {
+        "n_submitted": 445,
+        "n_success": 445,
+        "failures": {},
+        "coverage": 1.0,
+        "pearson_r_log": 0.2327754872384523,
+        "pearson_r2_log": 0.05418442745909886,
+        "spearman_rho": 0.24013122675393944,
+        "rmse_log2": 1.2351161773253665,
+        "mae_log2": 0.9521472135495116,
+        "median_absolute_log2": 0.7687357666086561,
+        "bias_log2": 0.06144624241089051,
+        "within_2fold": {
+          "n": 270,
+          "all_case_fraction": 0.6067415730337079,
+          "successful_pair_fraction": 0.6067415730337079,
+          "all_case_wilson95": [
+            0.5606287633753907,
+            0.6510272637875351
+          ]
+        },
+        "within_5fold": {
+          "n": 420,
+          "all_case_fraction": 0.9438202247191011,
+          "successful_pair_fraction": 0.9438202247191011,
+          "all_case_wilson95": [
+            0.9183829596884063,
+            0.9616605216732317
+          ]
+        }
+      },
+      "reference_selection_coverage_eligible": true
+    },
+    "hybrid": {
+      "n_all_log_eligible": 468,
+      "n_historical_success": 445,
+      "n_contender_success": 423,
+      "n_common_success": 401,
+      "historical_valid_cases_dropped": 44,
+      "historical_common_metrics": {
+        "n_submitted": 401,
+        "n_success": 401,
+        "failures": {},
+        "coverage": 1.0,
+        "pearson_r_log": 0.13640300796403743,
+        "pearson_r2_log": 0.018605780581637258,
+        "spearman_rho": 0.168755925388281,
+        "rmse_log2": 7.401895184892192,
+        "mae_log2": 5.163031715687553,
+        "median_absolute_log2": 3.494288467265911,
+        "bias_log2": -1.9258071102226846,
+        "within_2fold": {
+          "n": 58,
+          "all_case_fraction": 0.14463840399002495,
+          "successful_pair_fraction": 0.14463840399002495,
+          "all_case_wilson95": [
+            0.11358207818944574,
+            0.18243863858643264
+          ]
+        },
+        "within_5fold": {
+          "n": 147,
+          "all_case_fraction": 0.36658354114713215,
+          "successful_pair_fraction": 0.36658354114713215,
+          "all_case_wilson95": [
+            0.32089311881905247,
+            0.4148058871283824
+          ]
+        }
+      },
+      "contender_common_metrics": {
+        "n_submitted": 401,
+        "n_success": 401,
+        "failures": {},
+        "coverage": 1.0,
+        "pearson_r_log": 0.29084933448841777,
+        "pearson_r2_log": 0.08459333537235551,
+        "spearman_rho": 0.30815593558272,
+        "rmse_log2": 1.2266559853301062,
+        "mae_log2": 0.9394350223484146,
+        "median_absolute_log2": 0.7168209345396632,
+        "bias_log2": 0.05934637209682236,
+        "within_2fold": {
+          "n": 245,
+          "all_case_fraction": 0.6109725685785536,
+          "successful_pair_fraction": 0.6109725685785536,
+          "all_case_wilson95": [
+            0.5624174186981964,
+            0.657421725887582
+          ]
+        },
+        "within_5fold": {
+          "n": 379,
+          "all_case_fraction": 0.9451371571072319,
+          "successful_pair_fraction": 0.9451371571072319,
+          "all_case_wilson95": [
+            0.9183332070771635,
+            0.9634934740141046
+          ]
+        }
+      },
+      "reference_selection_coverage_eligible": false
+    },
+    "historical": {
+      "n_all_log_eligible": 468,
+      "n_historical_success": 445,
+      "n_contender_success": 445,
+      "n_common_success": 445,
+      "historical_valid_cases_dropped": 0,
+      "historical_common_metrics": {
+        "n_submitted": 445,
+        "n_success": 445,
+        "failures": {},
+        "coverage": 1.0,
+        "pearson_r_log": 0.13388850999307644,
+        "pearson_r2_log": 0.01792613310816613,
+        "spearman_rho": 0.1598583541691025,
+        "rmse_log2": 7.449310175624868,
+        "mae_log2": 5.195557066432665,
+        "median_absolute_log2": 3.5069740421505595,
+        "bias_log2": -2.1005659986619394,
+        "within_2fold": {
+          "n": 66,
+          "all_case_fraction": 0.14831460674157304,
+          "successful_pair_fraction": 0.14831460674157304,
+          "all_case_wilson95": [
+            0.11830695995507953,
+            0.18434212949759707
+          ]
+        },
+        "within_5fold": {
+          "n": 162,
+          "all_case_fraction": 0.36404494382022473,
+          "successful_pair_fraction": 0.36404494382022473,
+          "all_case_wilson95": [
+            0.32067976520581765,
+            0.409737294934035
+          ]
+        }
+      },
+      "contender_common_metrics": {
+        "n_submitted": 445,
+        "n_success": 445,
+        "failures": {},
+        "coverage": 1.0,
+        "pearson_r_log": 0.13388850999307644,
+        "pearson_r2_log": 0.01792613310816613,
+        "spearman_rho": 0.1598583541691025,
+        "rmse_log2": 7.449310175624868,
+        "mae_log2": 5.195557066432665,
+        "median_absolute_log2": 3.5069740421505595,
+        "bias_log2": -2.1005659986619394,
+        "within_2fold": {
+          "n": 66,
+          "all_case_fraction": 0.14831460674157304,
+          "successful_pair_fraction": 0.14831460674157304,
+          "all_case_wilson95": [
+            0.11830695995507953,
+            0.18434212949759707
+          ]
+        },
+        "within_5fold": {
+          "n": 162,
+          "all_case_fraction": 0.36404494382022473,
+          "successful_pair_fraction": 0.36404494382022473,
+          "all_case_wilson95": [
+            0.32067976520581765,
+            0.409737294934035
+          ]
+        }
+      },
+      "reference_selection_coverage_eligible": true
+    },
+    "footprint2017": {
+      "n_all_log_eligible": 468,
+      "n_historical_success": 445,
+      "n_contender_success": 445,
+      "n_common_success": 445,
+      "historical_valid_cases_dropped": 0,
+      "historical_common_metrics": {
+        "n_submitted": 445,
+        "n_success": 445,
+        "failures": {},
+        "coverage": 1.0,
+        "pearson_r_log": 0.13388850999307644,
+        "pearson_r2_log": 0.01792613310816613,
+        "spearman_rho": 0.1598583541691025,
+        "rmse_log2": 7.449310175624868,
+        "mae_log2": 5.195557066432665,
+        "median_absolute_log2": 3.5069740421505595,
+        "bias_log2": -2.1005659986619394,
+        "within_2fold": {
+          "n": 66,
+          "all_case_fraction": 0.14831460674157304,
+          "successful_pair_fraction": 0.14831460674157304,
+          "all_case_wilson95": [
+            0.11830695995507953,
+            0.18434212949759707
+          ]
+        },
+        "within_5fold": {
+          "n": 162,
+          "all_case_fraction": 0.36404494382022473,
+          "successful_pair_fraction": 0.36404494382022473,
+          "all_case_wilson95": [
+            0.32067976520581765,
+            0.409737294934035
+          ]
+        }
+      },
+      "contender_common_metrics": {
+        "n_submitted": 445,
+        "n_success": 445,
+        "failures": {},
+        "coverage": 1.0,
+        "pearson_r_log": 0.10205985032856568,
+        "pearson_r2_log": 0.010416213049089228,
+        "spearman_rho": 0.12716953695216923,
+        "rmse_log2": 7.365622344781757,
+        "mae_log2": 5.138887288813688,
+        "median_absolute_log2": 3.4017328191842493,
+        "bias_log2": -2.025604989098069,
+        "within_2fold": {
+          "n": 64,
+          "all_case_fraction": 0.14382022471910114,
+          "successful_pair_fraction": 0.14382022471910114,
+          "all_case_wilson95": [
+            0.11426241054490097,
+            0.17947484618512613
+          ]
+        },
+        "within_5fold": {
+          "n": 162,
+          "all_case_fraction": 0.36404494382022473,
+          "successful_pair_fraction": 0.36404494382022473,
+          "all_case_wilson95": [
+            0.32067976520581765,
+            0.409737294934035
+          ]
+        }
+      },
+      "reference_selection_coverage_eligible": true
+    },
+    "context2017": {
+      "n_all_log_eligible": 468,
+      "n_historical_success": 445,
+      "n_contender_success": 423,
+      "n_common_success": 401,
+      "historical_valid_cases_dropped": 44,
+      "historical_common_metrics": {
+        "n_submitted": 401,
+        "n_success": 401,
+        "failures": {},
+        "coverage": 1.0,
+        "pearson_r_log": 0.13640300796403743,
+        "pearson_r2_log": 0.018605780581637258,
+        "spearman_rho": 0.168755925388281,
+        "rmse_log2": 7.401895184892192,
+        "mae_log2": 5.163031715687553,
+        "median_absolute_log2": 3.494288467265911,
+        "bias_log2": -1.9258071102226846,
+        "within_2fold": {
+          "n": 58,
+          "all_case_fraction": 0.14463840399002495,
+          "successful_pair_fraction": 0.14463840399002495,
+          "all_case_wilson95": [
+            0.11358207818944574,
+            0.18243863858643264
+          ]
+        },
+        "within_5fold": {
+          "n": 147,
+          "all_case_fraction": 0.36658354114713215,
+          "successful_pair_fraction": 0.36658354114713215,
+          "all_case_wilson95": [
+            0.32089311881905247,
+            0.4148058871283824
+          ]
+        }
+      },
+      "contender_common_metrics": {
+        "n_submitted": 401,
+        "n_success": 401,
+        "failures": {},
+        "coverage": 1.0,
+        "pearson_r_log": 0.032168749271615206,
+        "pearson_r2_log": 0.0010348284297000438,
+        "spearman_rho": 0.0966147954438741,
+        "rmse_log2": 68.23034854608018,
+        "mae_log2": 29.730039637476686,
+        "median_absolute_log2": 5.119407748148392,
+        "bias_log2": -25.500380746179488,
+        "within_2fold": {
+          "n": 44,
+          "all_case_fraction": 0.10972568578553615,
+          "successful_pair_fraction": 0.10972568578553615,
+          "all_case_wilson95": [
+            0.08275912564129928,
+            0.14409871418624431
+          ]
+        },
+        "within_5fold": {
+          "n": 92,
+          "all_case_fraction": 0.22942643391521197,
+          "successful_pair_fraction": 0.22942643391521197,
+          "all_case_wilson95": [
+            0.1909558729194576,
+            0.27303183073094806
+          ]
+        }
+      },
+      "reference_selection_coverage_eligible": false
+    },
+    "historical_affine": {
+      "n_all_log_eligible": 468,
+      "n_historical_success": 445,
+      "n_contender_success": 445,
+      "n_common_success": 445,
+      "historical_valid_cases_dropped": 0,
+      "historical_common_metrics": {
+        "n_submitted": 445,
+        "n_success": 445,
+        "failures": {},
+        "coverage": 1.0,
+        "pearson_r_log": 0.13388850999307644,
+        "pearson_r2_log": 0.01792613310816613,
+        "spearman_rho": 0.1598583541691025,
+        "rmse_log2": 7.449310175624868,
+        "mae_log2": 5.195557066432665,
+        "median_absolute_log2": 3.5069740421505595,
+        "bias_log2": -2.1005659986619394,
+        "within_2fold": {
+          "n": 66,
+          "all_case_fraction": 0.14831460674157304,
+          "successful_pair_fraction": 0.14831460674157304,
+          "all_case_wilson95": [
+            0.11830695995507953,
+            0.18434212949759707
+          ]
+        },
+        "within_5fold": {
+          "n": 162,
+          "all_case_fraction": 0.36404494382022473,
+          "successful_pair_fraction": 0.36404494382022473,
+          "all_case_wilson95": [
+            0.32067976520581765,
+            0.409737294934035
+          ]
+        }
+      },
+      "contender_common_metrics": {
+        "n_submitted": 445,
+        "n_success": 445,
+        "failures": {},
+        "coverage": 1.0,
+        "pearson_r_log": 0.1338885099930764,
+        "pearson_r2_log": 0.017926133108166115,
+        "spearman_rho": 0.15982196860918843,
+        "rmse_log2": 1.2619755118673288,
+        "mae_log2": 0.9790962722223022,
+        "median_absolute_log2": 0.7759312488955579,
+        "bias_log2": 0.08548759584536998,
+        "within_2fold": {
+          "n": 272,
+          "all_case_fraction": 0.6112359550561798,
+          "successful_pair_fraction": 0.6112359550561798,
+          "all_case_wilson95": [
+            0.565176731732284,
+            0.6553911281532911
+          ]
+        },
+        "within_5fold": {
+          "n": 417,
+          "all_case_fraction": 0.9370786516853933,
+          "successful_pair_fraction": 0.9370786516853933,
+          "all_case_wilson95": [
+            0.9105644523657299,
+            0.956111279911934
+          ]
+        }
+      },
+      "reference_selection_coverage_eligible": true
+    },
+    "ostir": {
+      "n_all_log_eligible": 468,
+      "n_historical_success": 445,
+      "n_contender_success": 467,
+      "n_common_success": 444,
+      "historical_valid_cases_dropped": 1,
+      "historical_common_metrics": {
+        "n_submitted": 444,
+        "n_success": 444,
+        "failures": {},
+        "coverage": 1.0,
+        "pearson_r_log": 0.13411616112668148,
+        "pearson_r2_log": 0.01798714467535799,
+        "spearman_rho": 0.1597099543540412,
+        "rmse_log2": 7.4576919684861,
+        "mae_log2": 5.206977693990247,
+        "median_absolute_log2": 3.5118997988212013,
+        "bias_log2": -2.1050159256164345,
+        "within_2fold": {
+          "n": 65,
+          "all_case_fraction": 0.1463963963963964,
+          "successful_pair_fraction": 0.1463963963963964,
+          "all_case_wilson95": [
+            0.11654926832766813,
+            0.18230975015878534
+          ]
+        },
+        "within_5fold": {
+          "n": 161,
+          "all_case_fraction": 0.36261261261261263,
+          "successful_pair_fraction": 0.36261261261261263,
+          "all_case_wilson95": [
+            0.31924995728630723,
+            0.4083322091319964
+          ]
+        }
+      },
+      "contender_common_metrics": {
+        "n_submitted": 444,
+        "n_success": 444,
+        "failures": {},
+        "coverage": 1.0,
+        "pearson_r_log": 0.18739396882414844,
+        "pearson_r2_log": 0.03511649955166592,
+        "spearman_rho": 0.20156848782746892,
+        "rmse_log2": 4.06993590433703,
+        "mae_log2": 2.8087412676444306,
+        "median_absolute_log2": 1.8716493055157168,
+        "bias_log2": -0.659042234864976,
+        "within_2fold": {
+          "n": 131,
+          "all_case_fraction": 0.29504504504504503,
+          "successful_pair_fraction": 0.29504504504504503,
+          "all_case_wilson95": [
+            0.2545277968039434,
+            0.33907838588565703
+          ]
+        },
+        "within_5fold": {
+          "n": 256,
+          "all_case_fraction": 0.5765765765765766,
+          "successful_pair_fraction": 0.5765765765765766,
+          "all_case_wilson95": [
+            0.5301533385873481,
+            0.6216861096385154
+          ]
+        }
+      },
+      "reference_selection_coverage_eligible": false
+    },
+    "ostir_affine": {
+      "n_all_log_eligible": 468,
+      "n_historical_success": 445,
+      "n_contender_success": 467,
+      "n_common_success": 444,
+      "historical_valid_cases_dropped": 1,
+      "historical_common_metrics": {
+        "n_submitted": 444,
+        "n_success": 444,
+        "failures": {},
+        "coverage": 1.0,
+        "pearson_r_log": 0.13411616112668148,
+        "pearson_r2_log": 0.01798714467535799,
+        "spearman_rho": 0.1597099543540412,
+        "rmse_log2": 7.4576919684861,
+        "mae_log2": 5.206977693990247,
+        "median_absolute_log2": 3.5118997988212013,
+        "bias_log2": -2.1050159256164345,
+        "within_2fold": {
+          "n": 65,
+          "all_case_fraction": 0.1463963963963964,
+          "successful_pair_fraction": 0.1463963963963964,
+          "all_case_wilson95": [
+            0.11654926832766813,
+            0.18230975015878534
+          ]
+        },
+        "within_5fold": {
+          "n": 161,
+          "all_case_fraction": 0.36261261261261263,
+          "successful_pair_fraction": 0.36261261261261263,
+          "all_case_wilson95": [
+            0.31924995728630723,
+            0.4083322091319964
+          ]
+        }
+      },
+      "contender_common_metrics": {
+        "n_submitted": 444,
+        "n_success": 444,
+        "failures": {},
+        "coverage": 1.0,
+        "pearson_r_log": 0.18739396882414844,
+        "pearson_r2_log": 0.03511649955166592,
+        "spearman_rho": 0.20156848782746892,
+        "rmse_log2": 1.2501886500423198,
+        "mae_log2": 0.9714200016570389,
+        "median_absolute_log2": 0.7754364929058046,
+        "bias_log2": 0.08392905025857407,
+        "within_2fold": {
+          "n": 272,
+          "all_case_fraction": 0.6126126126126126,
+          "successful_pair_fraction": 0.6126126126126126,
+          "all_case_wilson95": [
+            0.566518126030817,
+            0.6567751801836883
+          ]
+        },
+        "within_5fold": {
+          "n": 412,
+          "all_case_fraction": 0.9279279279279279,
+          "successful_pair_fraction": 0.9279279279279279,
+          "all_case_wilson95": [
+            0.9000264799967573,
+            0.9484880836183626
+          ]
+        }
+      },
+      "reference_selection_coverage_eligible": false
+    },
+    "rebeca": {
+      "n_all_log_eligible": 468,
+      "n_historical_success": 445,
+      "n_contender_success": 468,
+      "n_common_success": 445,
+      "historical_valid_cases_dropped": 0,
+      "historical_common_metrics": {
+        "n_submitted": 445,
+        "n_success": 445,
+        "failures": {},
+        "coverage": 1.0,
+        "pearson_r_log": 0.13388850999307644,
+        "pearson_r2_log": 0.01792613310816613,
+        "spearman_rho": 0.1598583541691025,
+        "rmse_log2": 7.449310175624868,
+        "mae_log2": 5.195557066432665,
+        "median_absolute_log2": 3.5069740421505595,
+        "bias_log2": -2.1005659986619394,
+        "within_2fold": {
+          "n": 66,
+          "all_case_fraction": 0.14831460674157304,
+          "successful_pair_fraction": 0.14831460674157304,
+          "all_case_wilson95": [
+            0.11830695995507953,
+            0.18434212949759707
+          ]
+        },
+        "within_5fold": {
+          "n": 162,
+          "all_case_fraction": 0.36404494382022473,
+          "successful_pair_fraction": 0.36404494382022473,
+          "all_case_wilson95": [
+            0.32067976520581765,
+            0.409737294934035
+          ]
+        }
+      },
+      "contender_common_metrics": {
+        "n_submitted": 445,
+        "n_success": 445,
+        "failures": {},
+        "coverage": 1.0,
+        "pearson_r_log": 0.056794908368236564,
+        "pearson_r2_log": 0.003225661616556388,
+        "spearman_rho": 0.06171350078602973,
+        "rmse_log2": 4.427800553991337,
+        "mae_log2": 3.658634581352838,
+        "median_absolute_log2": 3.395393033162321,
+        "bias_log2": 0.8847481584029777,
+        "within_2fold": {
+          "n": 70,
+          "all_case_fraction": 0.15730337078651685,
+          "successful_pair_fraction": 0.15730337078651685,
+          "all_case_wilson95": [
+            0.12642626900930082,
+            0.1940464858886748
+          ]
+        },
+        "within_5fold": {
+          "n": 161,
+          "all_case_fraction": 0.36179775280898874,
+          "successful_pair_fraction": 0.36179775280898874,
+          "all_case_wilson95": [
+            0.3185105459462424,
+            0.40745059783228543
+          ]
+        }
+      },
+      "reference_selection_coverage_eligible": true
+    },
+    "constant": {
+      "n_all_log_eligible": 468,
+      "n_historical_success": 445,
+      "n_contender_success": 468,
+      "n_common_success": 445,
+      "historical_valid_cases_dropped": 0,
+      "historical_common_metrics": {
+        "n_submitted": 445,
+        "n_success": 445,
+        "failures": {},
+        "coverage": 1.0,
+        "pearson_r_log": 0.13388850999307644,
+        "pearson_r2_log": 0.01792613310816613,
+        "spearman_rho": 0.1598583541691025,
+        "rmse_log2": 7.449310175624868,
+        "mae_log2": 5.195557066432665,
+        "median_absolute_log2": 3.5069740421505595,
+        "bias_log2": -2.1005659986619394,
+        "within_2fold": {
+          "n": 66,
+          "all_case_fraction": 0.14831460674157304,
+          "successful_pair_fraction": 0.14831460674157304,
+          "all_case_wilson95": [
+            0.11830695995507953,
+            0.18434212949759707
+          ]
+        },
+        "within_5fold": {
+          "n": 162,
+          "all_case_fraction": 0.36404494382022473,
+          "successful_pair_fraction": 0.36404494382022473,
+          "all_case_wilson95": [
+            0.32067976520581765,
+            0.409737294934035
+          ]
+        }
+      },
+      "contender_common_metrics": {
+        "n_submitted": 445,
+        "n_success": 445,
+        "failures": {},
+        "coverage": 1.0,
+        "pearson_r_log": null,
+        "pearson_r2_log": null,
+        "spearman_rho": null,
+        "rmse_log2": 1.2681412356181292,
+        "mae_log2": 0.9864042001153164,
+        "median_absolute_log2": 0.7935491225325737,
+        "bias_log2": 0.07647409072069711,
+        "within_2fold": {
+          "n": 267,
+          "all_case_fraction": 0.6,
+          "successful_pair_fraction": 0.6,
+          "all_case_wilson95": [
+            0.5538142504091017,
+            0.6444740276698495
+          ]
+        },
+        "within_5fold": {
+          "n": 417,
+          "all_case_fraction": 0.9370786516853933,
+          "successful_pair_fraction": 0.9370786516853933,
+          "all_case_wilson95": [
+            0.9105644523657299,
+            0.956111279911934
+          ]
+        }
+      },
+      "reference_selection_coverage_eligible": true
+    }
+  },
+  "champion_contrasts": {
+    "constant": {
+      "n_all_cases": 468,
+      "n_common_success": 468,
+      "n_common_groups": 423,
+      "baseline_valid_cases_dropped": 0,
+      "mae_log2_gain": 0.032659767928566785,
+      "confidence": 0.975,
+      "paired_group_bootstrap_interval": [
+        0.01091186519285003,
+        0.0538401413203541
+      ],
+      "bootstrap_seed": 20261017,
+      "bootstrap_repetitions": 10000,
+      "coverage_gate": true,
+      "reference_spearman_common": null,
+      "contender_spearman_common": 0.2439899025156824,
+      "spearman_gate": null,
+      "statistical_and_practical_gain": false,
+      "subgroup_gate_required_separately": true,
+      "subgroup_results": {
+        "protein_length:agreement": {
+          "n_all": 398,
+          "n_common": 398,
+          "mae_increase_log2": -0.029796276502565496,
+          "gate": true
+        },
+        "protein_length:discrepant": {
+          "n_all": 70,
+          "n_common": 70,
+          "mae_increase_log2": -0.048940762036402664,
+          "gate": true
+        },
+        "start_codon:ATG": {
+          "n_all": 404,
+          "n_common": 404,
+          "mae_increase_log2": -0.035967127854495275,
+          "gate": true
+        },
+        "start_codon:GTG": {
+          "n_all": 50,
+          "n_common": 50,
+          "mae_increase_log2": -0.026296054305340762,
+          "gate": true
+        },
+        "start_codon:TTG": {
+          "n_all": 14,
+          "n_common": 14,
+          "mae_increase_log2": 0.040053641279562395,
+          "gate": null
+        },
+        "strand:+": {
+          "n_all": 254,
+          "n_common": 254,
+          "mae_increase_log2": -0.04135403355767139,
+          "gate": true
+        },
+        "strand:-": {
+          "n_all": 214,
+          "n_common": 214,
+          "mae_increase_log2": -0.022340405920190296,
+          "gate": true
+        }
+      },
+      "subgroup_gate": true,
+      "confirmatory": true,
+      "rank_comparison": "not applicable: constant correlation is undefined",
+      "historical_coverage_gate": true,
+      "historical_spearman_gate": true,
+      "upstream_spearman_gate": true,
+      "all_prespecified_gates_pass": false
+    },
+    "ostir_affine": {
+      "n_all_cases": 468,
+      "n_common_success": 467,
+      "n_common_groups": 423,
+      "baseline_valid_cases_dropped": 0,
+      "mae_log2_gain": 0.014808391194779563,
+      "confidence": 0.975,
+      "paired_group_bootstrap_interval": [
+        -0.009560061378820598,
+        0.03867963057411778
+      ],
+      "bootstrap_seed": 20261017,
+      "bootstrap_repetitions": 10000,
+      "coverage_gate": true,
+      "reference_spearman_common": 0.20245879615115345,
+      "contender_spearman_common": 0.24236588707092854,
+      "spearman_gate": true,
+      "statistical_and_practical_gain": false,
+      "subgroup_gate_required_separately": true,
+      "subgroup_results": {
+        "protein_length:agreement": {
+          "n_all": 398,
+          "n_common": 398,
+          "mae_increase_log2": -0.012577605758249708,
+          "gate": true
+        },
+        "protein_length:discrepant": {
+          "n_all": 70,
+          "n_common": 69,
+          "mae_increase_log2": -0.027675820234473507,
+          "gate": true
+        },
+        "start_codon:ATG": {
+          "n_all": 404,
+          "n_common": 403,
+          "mae_increase_log2": -0.019937493301363945,
+          "gate": true
+        },
+        "start_codon:GTG": {
+          "n_all": 50,
+          "n_common": 50,
+          "mae_increase_log2": -0.007609450223045261,
+          "gate": true
+        },
+        "start_codon:TTG": {
+          "n_all": 14,
+          "n_common": 14,
+          "mae_increase_log2": 0.10712597311713402,
+          "gate": null
+        },
+        "strand:+": {
+          "n_all": 254,
+          "n_common": 253,
+          "mae_increase_log2": -0.03425550897164584,
+          "gate": true
+        },
+        "strand:-": {
+          "n_all": 214,
+          "n_common": 214,
+          "mae_increase_log2": 0.008182827485347391,
+          "gate": true
+        }
+      },
+      "subgroup_gate": true,
+      "confirmatory": true,
+      "historical_coverage_gate": true,
+      "historical_spearman_gate": true,
+      "upstream_spearman_gate": true,
+      "all_prespecified_gates_pass": false
+    }
+  },
+  "descriptive_champion_contrasts": {
+    "historical": {
+      "n_all_cases": 468,
+      "n_common_success": 445,
+      "n_common_groups": 402,
+      "baseline_valid_cases_dropped": 0,
+      "mae_log2_gain": 4.243409852883153,
+      "confidence": 0.975,
+      "paired_group_bootstrap_interval": [
+        3.63824936502363,
+        4.841743485148475
+      ],
+      "bootstrap_seed": 20261017,
+      "bootstrap_repetitions": 10000,
+      "coverage_gate": true,
+      "reference_spearman_common": 0.1598583541691025,
+      "contender_spearman_common": 0.24013122675393944,
+      "spearman_gate": true,
+      "statistical_and_practical_gain": true,
+      "subgroup_gate_required_separately": true,
+      "subgroup_results": {
+        "protein_length:agreement": {
+          "n_all": 398,
+          "n_common": 378,
+          "mae_increase_log2": -4.138834285445254,
+          "gate": true
+        },
+        "protein_length:discrepant": {
+          "n_all": 70,
+          "n_common": 67,
+          "mae_increase_log2": -4.833403352756672,
+          "gate": true
+        },
+        "start_codon:ATG": {
+          "n_all": 404,
+          "n_common": 381,
+          "mae_increase_log2": -4.3640457270261654,
+          "gate": true
+        },
+        "start_codon:GTG": {
+          "n_all": 50,
+          "n_common": 50,
+          "mae_increase_log2": -3.3198187146921923,
+          "gate": true
+        },
+        "start_codon:TTG": {
+          "n_all": 14,
+          "n_common": 14,
+          "mae_increase_log2": -4.258930485816046,
+          "gate": null
+        },
+        "strand:+": {
+          "n_all": 254,
+          "n_common": 240,
+          "mae_increase_log2": -3.83857483747383,
+          "gate": true
+        },
+        "strand:-": {
+          "n_all": 214,
+          "n_common": 205,
+          "mae_increase_log2": -4.717363041655044,
+          "gate": true
+        }
+      },
+      "subgroup_gate": true,
+      "confirmatory": false
+    },
+    "ostir": {
+      "n_all_cases": 468,
+      "n_common_success": 467,
+      "n_common_groups": 423,
+      "baseline_valid_cases_dropped": 0,
+      "mae_log2_gain": 1.8377433896027389,
+      "confidence": 0.975,
+      "paired_group_bootstrap_interval": [
+        1.500991634511516,
+        2.204834157370195
+      ],
+      "bootstrap_seed": 20261017,
+      "bootstrap_repetitions": 10000,
+      "coverage_gate": true,
+      "reference_spearman_common": 0.20245879615115345,
+      "contender_spearman_common": 0.24236588707092854,
+      "spearman_gate": true,
+      "statistical_and_practical_gain": true,
+      "subgroup_gate_required_separately": true,
+      "subgroup_results": {
+        "protein_length:agreement": {
+          "n_all": 398,
+          "n_common": 398,
+          "mae_increase_log2": -1.757242544453881,
+          "gate": true
+        },
+        "protein_length:discrepant": {
+          "n_all": 70,
+          "n_common": 69,
+          "mae_increase_log2": -2.302081597852672,
+          "gate": true
+        },
+        "start_codon:ATG": {
+          "n_all": 404,
+          "n_common": 403,
+          "mae_increase_log2": -1.8898114726421804,
+          "gate": true
+        },
+        "start_codon:GTG": {
+          "n_all": 50,
+          "n_common": 50,
+          "mae_increase_log2": -1.2397469364105158,
+          "gate": true
+        },
+        "start_codon:TTG": {
+          "n_all": 14,
+          "n_common": 14,
+          "mae_increase_log2": -2.4746280463681836,
+          "gate": null
+        },
+        "strand:+": {
+          "n_all": 254,
+          "n_common": 253,
+          "mae_increase_log2": -1.548208187648347,
+          "gate": true
+        },
+        "strand:-": {
+          "n_all": 214,
+          "n_common": 214,
+          "mae_increase_log2": -2.1800443526609685,
+          "gate": true
+        }
+      },
+      "subgroup_gate": true,
+      "confirmatory": false
+    }
+  },
+  "multiplicity": "two prespecified contrasts; individual 97.5% intervals",
+  "uncertainty_scope": "homology-group sampling, not biological replicate noise",
+  "manifest_sha256": "6a5a4ddefd958afde843afdf060853ea283b0f41122be57d562cb94f1f8f3f8c",
+  "evaluator_sha256": "c37e5b011972f601b604cd7ef7edce7e8e51bd6bdb15b780718455f74407742b",
+  "public_export": {
+    "private_report_sha256": "a49330f670a334c7622db06dcefd9629552f2c7b3aa695a24594b9b6c730a518",
+    "policy": "Aggregate performance/provenance only; raw outcomes, per-case errors and private service exports excluded"
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "cds": [
+    {
+      "id": "cds-1",
+      "provenance": {
+        "kind": "synthetic",
+        "reference": "Existing public synthetic RBS smoke sequence with repeat padding; no experimental efficacy claim"
+      },
+      "range": [
+        94,
+        132
+      ]
+    },
+    {
+      "id": "cds-2",
+      "provenance": {
+        "kind": "synthetic",
+        "reference": "Existing public synthetic RBS smoke sequence with repeat padding; no experimental efficacy claim"
+      },
+      "range": [
+        146,
+        184
+      ]
+    }
+  ],
+  "id": "supplied-transcript-two-cds",
+  "projection": null,
+  "promoter": {
+    "calibration": "ecoli_mg1655",
+    "host": null,
+    "scan": {
+      "mode": "positions",
+      "positions": [
+        {
+          "strand": "+",
+          "tss": 80
+        }
+      ]
+    }
+  },
+  "rbs": {
+    "anti_sd": "ACCUCCUUA",
+    "host": null,
+    "profile": "historical",
+    "temperature_c": 37.0
+  },
+  "schema_version": "supplied-transcript-request-1",
+  "sequence": "ACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTAAAGGAGGAAAAAAATGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGGAGGAAAAAAATGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT",
+  "settings": {
+    "seconds_per_promoter_record": 30.0,
+    "seconds_per_rbs_record": 60.0,
+    "seconds_total": 120.0
+  },
+  "transcript": {
+    "id": "supplied-transcript-two-cds-rna",
+    "provenance": {
+      "kind": "synthetic",
+      "reference": "Existing public synthetic RBS smoke sequence with repeat padding; no experimental efficacy claim"
+    },
+    "range": [
+      80,
+      184
+    ]
+  }
+}

@@ -1,0 +1,1074 @@
+{
+  "collection": {
+    "candidate_commit": "920215602a837b0fd2fed403512f3b3ed59bfda2",
+    "candidate_commit_status": "caller assertion; checkout execution is not verifiable here",
+    "settings": {
+      "execution": {
+        "backend": {
+          "binary_sha256": {
+            "Fold": "81f962573b7f43c023dd23eab4ae1e8e7f6402d8679e89a6a1a539cfdc6a5458",
+            "bifold": "9f8156cabaf8e13f91e90d410c46aef1cff1c2badda1c4243b194f54eb1f8136",
+            "efn2": "f0b2ce5971d482f50867615e3870b4743d42d6b0e266e05c0c0c1f1bc63d8b4d"
+          },
+          "build_provenance": {
+            "component": "rnastructure-6.6-linker-3",
+            "license": "GPL-2.0-only",
+            "patch_sha256": "2ef6ef61496b034110f4151e2fc1aec77cbd011c88a36bcef574be0dfecebb2d",
+            "patched_source_sha256": "b19a9ad1634f7e8f7669410b1eb7f5e8c27542f073054acb65647891e62ddbc7",
+            "source_archive_sha256": "1bedc62aaab984279055caaa6234d48fca113f4b8e17a8060e0b3784d5a397c3"
+          },
+          "build_receipt_sha256": "7fabba75b3f49cb9be9a5633f8fb149e318e6e48a971487acf7cceb743b806e2",
+          "expected_source_archive_sha256": "1bedc62aaab984279055caaa6234d48fca113f4b8e17a8060e0b3784d5a397c3",
+          "interface": "independent executables via sequence/CT files",
+          "licence": "GPL-2.0-only (separate installation)",
+          "name": "RNAstructure",
+          "settings": {
+            "alphabet": "rna",
+            "bifold_maximum": 100,
+            "bifold_percent": 100,
+            "bifold_window": 0,
+            "coaxial_stacking": true,
+            "dangles": "RNAstructure 6.6 native; no historical auto-dangle switch",
+            "efn2_multibranch_model": "simple",
+            "energy_evaluation": "efn2 --simple for every structure",
+            "fold_maximum": 1,
+            "fold_mfe_only": true,
+            "fold_window": 0,
+            "intramolecular_pairs": true,
+            "isolated_pairs": false,
+            "maximum_loop": 30
+          },
+          "table_manifest_sha256": "ece4c4b535783cb4e03c7ce8f243d09be84a165ecd113b1d20941b5ed8b69501",
+          "variant": "rnastructure-6.6-linker-3",
+          "version": "6.6"
+        },
+        "implementation_version": "0.6.0rc1",
+        "seconds_per_batch": 3600.0,
+        "seconds_per_record": 60.0
+      },
+      "mode": "supplied_start"
+    },
+    "settings_sha256": "5cab4be8cdc203e06ad0d71dc451be45a9ebb6b16e1778f7336e9292628a7df5",
+    "sha256": "2cea4e9691b616dd6bfc9311eb2785dc4e58db8b0ed6b9198c5dc9b89db6d080"
+  },
+  "definitions": {
+    "change": "measured_tss minus genomic_flank per source association",
+    "changed": "count with absolute change > 1e-12",
+    "not_collected": "requested scenario of a failed or not_run profile",
+    "quantiles": "ascending linear interpolation at (n-1)*p; no exclusion",
+    "rank": "higher log_tir first with exact-tie midranks within each fixed eligible pair set; change is measured rank minus flank rank",
+    "reason_presence": "Only presence counts are emitted; reason text and reason hashes stay private. Error categories need separately reviewed claims."
+  },
+  "interpretation": "Descriptive input sensitivity of unchanged profiles. Source associations and repeated loci are not independent samples; no significance, accuracy or translation-improvement claim. Profiles are not compared on a common scale.",
+  "panel": {
+    "counts": {
+      "gtss_rows_without_locus": 0,
+      "input_scenarios": 124,
+      "loci_by_stratum": {
+        "internal": 16,
+        "leaderless": 42,
+        "ordinary": 1288,
+        "short_leader": 304,
+        "start_disagreement": 140,
+        "unresolved": 30
+      },
+      "profile_jobs": 248,
+      "selected_loci": 24,
+      "selected_source_rows": 31,
+      "source_gtss_rows": 2475,
+      "source_loci": 1820,
+      "source_rows": 4808
+    },
+    "settings": {
+      "anti_sd": "ACCUCCUUU",
+      "downstream_length_nt": 100,
+      "maximum_selected_source_rows": 1024,
+      "per_stratum": 4,
+      "profiles": [
+        "historical",
+        "context2017"
+      ],
+      "seed": "wave5-tan-context-v1",
+      "stratum_priority": [
+        "internal",
+        "leaderless",
+        "short_leader",
+        "start_disagreement",
+        "ordinary",
+        "unresolved"
+      ],
+      "temperature_c": 37.0,
+      "upstream_limit_nt": 100
+    },
+    "settings_sha256": "4a2bca021e1e28965c359dc00d6707c0ba77274b57efd79dc29358d5dc8001b1",
+    "sha256": "5cf8ec26ed614edc9b51eb94e5c13207e4ce94fab6e59cec06282893f3e85bf5",
+    "source_sha256": "c442baf07480ddece0956a9ac10aefd5884472ec63ed0c62166e2ad7ef8a03d5",
+    "tool_sha256": "d9351cb78999f93d1197d53f32024b5200ceab5ea8cb62253b7f751658bd7849"
+  },
+  "profiles": {
+    "context2017": {
+      "anchors": {
+        "current": {
+          "audit_changes": {
+            "dG_cofold_native_prediction": {
+              "changed": 6,
+              "max": 32.9,
+              "median": 0.0,
+              "min": 0.0,
+              "missing_pairs": 1,
+              "n": 14,
+              "q25": 0.0,
+              "q75": 25.05
+            },
+            "dG_mRNA_native_prediction": {
+              "changed": 7,
+              "max": 45.9,
+              "median": 0.0,
+              "min": 0.0,
+              "missing_pairs": 0,
+              "n": 15,
+              "q25": 0.0,
+              "q75": 25.25
+            }
+          },
+          "changes": {
+            "dG_accessible_complex": {
+              "changed": 7,
+              "max": 30.4,
+              "median": 0.0,
+              "min": -2.8999999999999986,
+              "n": 15,
+              "q25": 0.0,
+              "q75": 17.450000000000003
+            },
+            "dG_cofold_search": {
+              "changed": 7,
+              "max": 33.1,
+              "median": 0.0,
+              "min": 0.0,
+              "n": 15,
+              "q25": 0.0,
+              "q75": 25.0
+            },
+            "dG_complex": {
+              "changed": 7,
+              "max": 32.1,
+              "median": 0.0,
+              "min": -2.8999999999999986,
+              "n": 15,
+              "q25": 0.0,
+              "q75": 17.1
+            },
+            "dG_mRNA": {
+              "changed": 7,
+              "max": 45.9,
+              "median": 0.0,
+              "min": 0.0,
+              "n": 15,
+              "q25": 0.0,
+              "q75": 25.25
+            },
+            "dG_post_footprint": {
+              "changed": 0,
+              "max": 0.0,
+              "median": 0.0,
+              "min": 0.0,
+              "n": 15,
+              "q25": 0.0,
+              "q75": 0.0
+            },
+            "dG_search_with_spacing": {
+              "changed": 7,
+              "max": 45.27977948347841,
+              "median": 0.0,
+              "min": -209.988,
+              "n": 15,
+              "q25": 0.0,
+              "q75": 10.12866279107042
+            },
+            "dG_spacing": {
+              "changed": 5,
+              "max": 12.179779483478407,
+              "median": 0.0,
+              "min": -237.88800000000003,
+              "n": 15,
+              "q25": 0.0,
+              "q75": 0.0
+            },
+            "dG_standby_signed": {
+              "changed": 5,
+              "max": 4.100000000000001,
+              "median": 0.0,
+              "min": -3.0,
+              "n": 15,
+              "q25": 0.0,
+              "q75": 0.0
+            },
+            "dG_start": {
+              "changed": 0,
+              "max": 0.0,
+              "median": 0.0,
+              "min": 0.0,
+              "n": 15,
+              "q25": 0.0,
+              "q75": 0.0
+            },
+            "dG_total": {
+              "changed": 7,
+              "max": 6.650338513435724,
+              "median": 0.0,
+              "min": -271.98800000000006,
+              "n": 15,
+              "q25": -3.7101102582607934,
+              "q75": 0.0
+            },
+            "log_tir": {
+              "changed": 7,
+              "max": 122.40684068406841,
+              "median": 0.0,
+              "min": -2.992951626208696,
+              "n": 15,
+              "q25": 0.0,
+              "q75": 1.6697165878761444
+            }
+          },
+          "coverage": {
+            "genomic_flank": {
+              "reasons": [
+                {
+                  "count": 7,
+                  "reason_present": true,
+                  "status": "unsupported"
+                }
+              ],
+              "requested": 31,
+              "statuses": {
+                "failed": {
+                  "rows": 0,
+                  "with_prepared_context": 0
+                },
+                "invalid_input": {
+                  "rows": 0,
+                  "with_prepared_context": 0
+                },
+                "no_candidate": {
+                  "rows": 0,
+                  "with_prepared_context": 0
+                },
+                "not_collected": {
+                  "rows": 0,
+                  "with_prepared_context": 0
+                },
+                "ok": {
+                  "rows": 24,
+                  "with_prepared_context": 24
+                },
+                "unsupported": {
+                  "rows": 7,
+                  "with_prepared_context": 0
+                }
+              }
+            },
+            "measured_tss": {
+              "reasons": [
+                {
+                  "count": 1,
+                  "reason_present": true,
+                  "status": "no_candidate"
+                },
+                {
+                  "count": 15,
+                  "reason_present": true,
+                  "status": "unsupported"
+                }
+              ],
+              "requested": 31,
+              "statuses": {
+                "failed": {
+                  "rows": 0,
+                  "with_prepared_context": 0
+                },
+                "invalid_input": {
+                  "rows": 0,
+                  "with_prepared_context": 0
+                },
+                "no_candidate": {
+                  "rows": 1,
+                  "with_prepared_context": 1
+                },
+                "not_collected": {
+                  "rows": 0,
+                  "with_prepared_context": 0
+                },
+                "ok": {
+                  "rows": 15,
+                  "with_prepared_context": 15
+                },
+                "unsupported": {
+                  "rows": 15,
+                  "with_prepared_context": 4
+                }
+              }
+            }
+          },
+          "log_tir_rank_changes": {
+            "changed": 12,
+            "max": 8.0,
+            "median": 1.0,
+            "min": -10.0,
+            "n": 15,
+            "q25": 0.0,
+            "q75": 2.0
+          },
+          "pairs": {
+            "eligible": 15,
+            "identical_prepared_context": 8,
+            "ineligible": 16,
+            "status_combinations": [
+              {
+                "count": 1,
+                "genomic_flank": "ok",
+                "measured_tss": "no_candidate"
+              },
+              {
+                "count": 15,
+                "genomic_flank": "ok",
+                "measured_tss": "ok"
+              },
+              {
+                "count": 8,
+                "genomic_flank": "ok",
+                "measured_tss": "unsupported"
+              },
+              {
+                "count": 7,
+                "genomic_flank": "unsupported",
+                "measured_tss": "unsupported"
+              }
+            ]
+          },
+          "requested_source_associations": 31
+        },
+        "historical": {
+          "audit_changes": {
+            "dG_cofold_native_prediction": {
+              "changed": 11,
+              "max": 35.8,
+              "median": 0.0,
+              "min": 0.0,
+              "missing_pairs": 0,
+              "n": 25,
+              "q25": 0.0,
+              "q75": 23.599999999999998
+            },
+            "dG_mRNA_native_prediction": {
+              "changed": 11,
+              "max": 31.800000000000004,
+              "median": 0.0,
+              "min": 0.0,
+              "missing_pairs": 0,
+              "n": 25,
+              "q25": 0.0,
+              "q75": 24.900000000000002
+            }
+          },
+          "changes": {
+            "dG_accessible_complex": {
+              "changed": 11,
+              "max": 36.400000000000006,
+              "median": 0.0,
+              "min": -18.599999999999994,
+              "n": 25,
+              "q25": 0.0,
+              "q75": 20.8
+            },
+            "dG_cofold_search": {
+              "changed": 11,
+              "max": 35.8,
+              "median": 0.0,
+              "min": 0.0,
+              "n": 25,
+              "q25": 0.0,
+              "q75": 23.599999999999998
+            },
+            "dG_complex": {
+              "changed": 11,
+              "max": 36.900000000000006,
+              "median": 0.0,
+              "min": -18.799999999999997,
+              "n": 25,
+              "q25": 0.0,
+              "q75": 21.799999999999997
+            },
+            "dG_mRNA": {
+              "changed": 11,
+              "max": 31.800000000000004,
+              "median": 0.0,
+              "min": 0.0,
+              "n": 25,
+              "q25": 0.0,
+              "q75": 24.900000000000002
+            },
+            "dG_post_footprint": {
+              "changed": 0,
+              "max": 0.0,
+              "median": 0.0,
+              "min": 0.0,
+              "n": 25,
+              "q25": 0.0,
+              "q75": 0.0
+            },
+            "dG_search_with_spacing": {
+              "changed": 11,
+              "max": 31.350338513435723,
+              "median": 0.0,
+              "min": -354.12,
+              "n": 25,
+              "q25": 0.0,
+              "q75": 22.9
+            },
+            "dG_spacing": {
+              "changed": 6,
+              "max": 6.150338513435724,
+              "median": 0.0,
+              "min": -373.92,
+              "n": 25,
+              "q25": 0.0,
+              "q75": 0.0
+            },
+            "dG_standby_signed": {
+              "changed": 10,
+              "max": 4.100000000000001,
+              "median": 0.0,
+              "min": -3.6000000000000014,
+              "n": 25,
+              "q25": 0.0,
+              "q75": 0.0
+            },
+            "dG_start": {
+              "changed": 0,
+              "max": 0.0,
+              "median": 0.0,
+              "min": 0.0,
+              "n": 25,
+              "q25": 0.0,
+              "q75": 0.0
+            },
+            "dG_total": {
+              "changed": 11,
+              "max": 6.650338513435724,
+              "median": 0.0,
+              "min": -406.72,
+              "n": 25,
+              "q25": -4.099999999999998,
+              "q75": 0.0
+            },
+            "log_tir": {
+              "changed": 11,
+              "max": 183.04230423042304,
+              "median": 0.0,
+              "min": -2.992951626208696,
+              "n": 25,
+              "q25": 0.0,
+              "q75": 1.8451845184518438
+            }
+          },
+          "coverage": {
+            "genomic_flank": {
+              "reasons": [],
+              "requested": 31,
+              "statuses": {
+                "failed": {
+                  "rows": 0,
+                  "with_prepared_context": 0
+                },
+                "invalid_input": {
+                  "rows": 0,
+                  "with_prepared_context": 0
+                },
+                "no_candidate": {
+                  "rows": 0,
+                  "with_prepared_context": 0
+                },
+                "not_collected": {
+                  "rows": 0,
+                  "with_prepared_context": 0
+                },
+                "ok": {
+                  "rows": 31,
+                  "with_prepared_context": 31
+                },
+                "unsupported": {
+                  "rows": 0,
+                  "with_prepared_context": 0
+                }
+              }
+            },
+            "measured_tss": {
+              "reasons": [
+                {
+                  "count": 2,
+                  "reason_present": true,
+                  "status": "no_candidate"
+                },
+                {
+                  "count": 4,
+                  "reason_present": true,
+                  "status": "unsupported"
+                }
+              ],
+              "requested": 31,
+              "statuses": {
+                "failed": {
+                  "rows": 0,
+                  "with_prepared_context": 0
+                },
+                "invalid_input": {
+                  "rows": 0,
+                  "with_prepared_context": 0
+                },
+                "no_candidate": {
+                  "rows": 2,
+                  "with_prepared_context": 2
+                },
+                "not_collected": {
+                  "rows": 0,
+                  "with_prepared_context": 0
+                },
+                "ok": {
+                  "rows": 25,
+                  "with_prepared_context": 25
+                },
+                "unsupported": {
+                  "rows": 4,
+                  "with_prepared_context": 4
+                }
+              }
+            }
+          },
+          "log_tir_rank_changes": {
+            "changed": 25,
+            "max": 9.0,
+            "median": 2.0,
+            "min": -16.0,
+            "n": 25,
+            "q25": -1.0,
+            "q75": 3.0
+          },
+          "pairs": {
+            "eligible": 25,
+            "identical_prepared_context": 14,
+            "ineligible": 6,
+            "status_combinations": [
+              {
+                "count": 2,
+                "genomic_flank": "ok",
+                "measured_tss": "no_candidate"
+              },
+              {
+                "count": 25,
+                "genomic_flank": "ok",
+                "measured_tss": "ok"
+              },
+              {
+                "count": 4,
+                "genomic_flank": "ok",
+                "measured_tss": "unsupported"
+              }
+            ]
+          },
+          "requested_source_associations": 31
+        }
+      },
+      "batch_id": "f40a203bf011a68b0d36d76385e828d53876332f8634b602895bcc37599d0ace",
+      "collected_scenarios": 124,
+      "expected_model_id": "context2017-rnastructure-6.6-reconstruction-1",
+      "expected_prediction_schema_version": "1.1",
+      "observed_prediction_schema_version": "1.1",
+      "output_sha256": "3f026f290f0711e33911478e4acee0558ee13c9da41aa5efa0eb6e1664ebeb64",
+      "repeated_contexts": {
+        "distinct_prepared_contexts": 57,
+        "repeated_prepared_contexts": 29,
+        "rows_in_repeated_prepared_contexts": 78,
+        "rows_with_prepared_context": 106
+      },
+      "requested_scenarios": 124,
+      "run_reason_present": false,
+      "run_status": "completed"
+    },
+    "historical": {
+      "anchors": {
+        "current": {
+          "audit_changes": {
+            "dG_cofold_native_prediction": {
+              "changed": 5,
+              "max": 6.9,
+              "median": 0.0,
+              "min": 0.0,
+              "missing_pairs": 1,
+              "n": 14,
+              "q25": 0.0,
+              "q75": 4.1000000000000005
+            },
+            "dG_mRNA_native_prediction": {
+              "changed": 6,
+              "max": 11.200000000000001,
+              "median": 0.0,
+              "min": 0.0,
+              "missing_pairs": 0,
+              "n": 15,
+              "q25": 0.0,
+              "q75": 6.049999999999999
+            }
+          },
+          "changes": {
+            "dG_accessible_complex": {
+              "changed": 5,
+              "max": 6.699999999999999,
+              "median": 0.0,
+              "min": -4.7,
+              "n": 15,
+              "q25": 0.0,
+              "q75": 0.0
+            },
+            "dG_cofold_search": {
+              "changed": 6,
+              "max": 6.9,
+              "median": 0.0,
+              "min": 0.0,
+              "n": 15,
+              "q25": 0.0,
+              "q75": 4.050000000000001
+            },
+            "dG_complex": {
+              "changed": 6,
+              "max": 4.6000000000000005,
+              "median": 0.0,
+              "min": -4.7,
+              "n": 15,
+              "q25": 0.0,
+              "q75": 0.45000000000000007
+            },
+            "dG_mRNA": {
+              "changed": 6,
+              "max": 11.200000000000001,
+              "median": 0.0,
+              "min": 0.0,
+              "n": 15,
+              "q25": 0.0,
+              "q75": 5.949999999999999
+            },
+            "dG_search_with_spacing": {
+              "changed": 6,
+              "max": 16.779779483478407,
+              "median": 0.0,
+              "min": -10.72267441785916,
+              "n": 15,
+              "q25": 0.0,
+              "q75": 1.3000000000000007
+            },
+            "dG_spacing": {
+              "changed": 5,
+              "max": 12.179779483478407,
+              "median": 0.0,
+              "min": -16.12267441785916,
+              "n": 15,
+              "q25": 0.0,
+              "q75": 0.0
+            },
+            "dG_standby_signed": {
+              "changed": 3,
+              "max": 2.6000000000000014,
+              "median": 0.0,
+              "min": -3.0,
+              "n": 15,
+              "q25": 0.0,
+              "q75": 0.0
+            },
+            "dG_start": {
+              "changed": 0,
+              "max": 0.0,
+              "median": 0.0,
+              "min": 0.0,
+              "n": 15,
+              "q25": 0.0,
+              "q75": 0.0
+            },
+            "dG_total": {
+              "changed": 6,
+              "max": 10.17977948347841,
+              "median": 0.0,
+              "min": -19.98667441785916,
+              "n": 15,
+              "q25": -3.499999999999999,
+              "q75": 0.0
+            },
+            "log_tir": {
+              "changed": 6,
+              "max": 8.994902978334455,
+              "median": 0.0,
+              "min": -4.58135890345563,
+              "n": 15,
+              "q25": 0.0,
+              "q75": 1.5751575157515747
+            }
+          },
+          "coverage": {
+            "genomic_flank": {
+              "reasons": [
+                {
+                  "count": 7,
+                  "reason_present": true,
+                  "status": "unsupported"
+                }
+              ],
+              "requested": 31,
+              "statuses": {
+                "failed": {
+                  "rows": 0,
+                  "with_prepared_context": 0
+                },
+                "invalid_input": {
+                  "rows": 0,
+                  "with_prepared_context": 0
+                },
+                "no_candidate": {
+                  "rows": 0,
+                  "with_prepared_context": 0
+                },
+                "not_collected": {
+                  "rows": 0,
+                  "with_prepared_context": 0
+                },
+                "ok": {
+                  "rows": 24,
+                  "with_prepared_context": 24
+                },
+                "unsupported": {
+                  "rows": 7,
+                  "with_prepared_context": 0
+                }
+              }
+            },
+            "measured_tss": {
+              "reasons": [
+                {
+                  "count": 1,
+                  "reason_present": true,
+                  "status": "no_candidate"
+                },
+                {
+                  "count": 15,
+                  "reason_present": true,
+                  "status": "unsupported"
+                }
+              ],
+              "requested": 31,
+              "statuses": {
+                "failed": {
+                  "rows": 0,
+                  "with_prepared_context": 0
+                },
+                "invalid_input": {
+                  "rows": 0,
+                  "with_prepared_context": 0
+                },
+                "no_candidate": {
+                  "rows": 1,
+                  "with_prepared_context": 1
+                },
+                "not_collected": {
+                  "rows": 0,
+                  "with_prepared_context": 0
+                },
+                "ok": {
+                  "rows": 15,
+                  "with_prepared_context": 15
+                },
+                "unsupported": {
+                  "rows": 15,
+                  "with_prepared_context": 4
+                }
+              }
+            }
+          },
+          "log_tir_rank_changes": {
+            "changed": 14,
+            "max": 8.0,
+            "median": 1.0,
+            "min": -11.0,
+            "n": 15,
+            "q25": 0.5,
+            "q75": 2.0
+          },
+          "pairs": {
+            "eligible": 15,
+            "identical_prepared_context": 8,
+            "ineligible": 16,
+            "status_combinations": [
+              {
+                "count": 1,
+                "genomic_flank": "ok",
+                "measured_tss": "no_candidate"
+              },
+              {
+                "count": 15,
+                "genomic_flank": "ok",
+                "measured_tss": "ok"
+              },
+              {
+                "count": 8,
+                "genomic_flank": "ok",
+                "measured_tss": "unsupported"
+              },
+              {
+                "count": 7,
+                "genomic_flank": "unsupported",
+                "measured_tss": "unsupported"
+              }
+            ]
+          },
+          "requested_source_associations": 31
+        },
+        "historical": {
+          "audit_changes": {
+            "dG_cofold_native_prediction": {
+              "changed": 9,
+              "max": 7.1000000000000005,
+              "median": 0.0,
+              "min": 0.0,
+              "missing_pairs": 0,
+              "n": 25,
+              "q25": 0.0,
+              "q75": 3.1
+            },
+            "dG_mRNA_native_prediction": {
+              "changed": 9,
+              "max": 9.200000000000001,
+              "median": 0.0,
+              "min": 0.0,
+              "missing_pairs": 0,
+              "n": 25,
+              "q25": 0.0,
+              "q75": 3.200000000000001
+            }
+          },
+          "changes": {
+            "dG_accessible_complex": {
+              "changed": 8,
+              "max": 8.1,
+              "median": 0.0,
+              "min": 0.0,
+              "n": 25,
+              "q25": 0.0,
+              "q75": 3.1
+            },
+            "dG_cofold_search": {
+              "changed": 9,
+              "max": 7.1000000000000005,
+              "median": 0.0,
+              "min": 0.0,
+              "n": 25,
+              "q25": 0.0,
+              "q75": 3.1
+            },
+            "dG_complex": {
+              "changed": 9,
+              "max": 8.1,
+              "median": 0.0,
+              "min": 0.0,
+              "n": 25,
+              "q25": 0.0,
+              "q75": 2.6000000000000014
+            },
+            "dG_mRNA": {
+              "changed": 9,
+              "max": 9.200000000000001,
+              "median": 0.0,
+              "min": 0.0,
+              "n": 25,
+              "q25": 0.0,
+              "q75": 3.200000000000001
+            },
+            "dG_search_with_spacing": {
+              "changed": 9,
+              "max": 13.050338513435724,
+              "median": 0.0,
+              "min": -21.668,
+              "n": 25,
+              "q25": 0.0,
+              "q75": 0.0
+            },
+            "dG_spacing": {
+              "changed": 7,
+              "max": 6.150338513435724,
+              "median": 0.0,
+              "min": -24.768,
+              "n": 25,
+              "q25": 0.0,
+              "q75": 0.0
+            },
+            "dG_standby_signed": {
+              "changed": 5,
+              "max": 2.6000000000000014,
+              "median": 0.0,
+              "min": -3.5999999999999996,
+              "n": 25,
+              "q25": 0.0,
+              "q75": 0.0
+            },
+            "dG_start": {
+              "changed": 0,
+              "max": 0.0,
+              "median": 0.0,
+              "min": 0.0,
+              "n": 25,
+              "q25": 0.0,
+              "q75": 0.0
+            },
+            "dG_total": {
+              "changed": 9,
+              "max": 3.6503385134357202,
+              "median": 0.0,
+              "min": -25.467999999999996,
+              "n": 25,
+              "q25": -0.24799999999999933,
+              "q75": 0.0
+            },
+            "log_tir": {
+              "changed": 9,
+              "max": 11.46174617461746,
+              "median": 0.0,
+              "min": -1.6428166127073451,
+              "n": 25,
+              "q25": 0.0,
+              "q75": 0.11161116111611147
+            }
+          },
+          "coverage": {
+            "genomic_flank": {
+              "reasons": [],
+              "requested": 31,
+              "statuses": {
+                "failed": {
+                  "rows": 0,
+                  "with_prepared_context": 0
+                },
+                "invalid_input": {
+                  "rows": 0,
+                  "with_prepared_context": 0
+                },
+                "no_candidate": {
+                  "rows": 0,
+                  "with_prepared_context": 0
+                },
+                "not_collected": {
+                  "rows": 0,
+                  "with_prepared_context": 0
+                },
+                "ok": {
+                  "rows": 31,
+                  "with_prepared_context": 31
+                },
+                "unsupported": {
+                  "rows": 0,
+                  "with_prepared_context": 0
+                }
+              }
+            },
+            "measured_tss": {
+              "reasons": [
+                {
+                  "count": 2,
+                  "reason_present": true,
+                  "status": "no_candidate"
+                },
+                {
+                  "count": 4,
+                  "reason_present": true,
+                  "status": "unsupported"
+                }
+              ],
+              "requested": 31,
+              "statuses": {
+                "failed": {
+                  "rows": 0,
+                  "with_prepared_context": 0
+                },
+                "invalid_input": {
+                  "rows": 0,
+                  "with_prepared_context": 0
+                },
+                "no_candidate": {
+                  "rows": 2,
+                  "with_prepared_context": 2
+                },
+                "not_collected": {
+                  "rows": 0,
+                  "with_prepared_context": 0
+                },
+                "ok": {
+                  "rows": 25,
+                  "with_prepared_context": 25
+                },
+                "unsupported": {
+                  "rows": 4,
+                  "with_prepared_context": 4
+                }
+              }
+            }
+          },
+          "log_tir_rank_changes": {
+            "changed": 22,
+            "max": 5.0,
+            "median": 1.0,
+            "min": -15.0,
+            "n": 25,
+            "q25": 0.0,
+            "q75": 4.0
+          },
+          "pairs": {
+            "eligible": 25,
+            "identical_prepared_context": 14,
+            "ineligible": 6,
+            "status_combinations": [
+              {
+                "count": 2,
+                "genomic_flank": "ok",
+                "measured_tss": "no_candidate"
+              },
+              {
+                "count": 25,
+                "genomic_flank": "ok",
+                "measured_tss": "ok"
+              },
+              {
+                "count": 4,
+                "genomic_flank": "ok",
+                "measured_tss": "unsupported"
+              }
+            ]
+          },
+          "requested_source_associations": 31
+        }
+      },
+      "batch_id": "65f079e7eefc5793f4ac698f6ed15a2ac35128c8a9966d9286fddcf4e1c2f437",
+      "collected_scenarios": 124,
+      "expected_model_id": "salis-v1-rnastructure-6.6-reconstruction-1",
+      "expected_prediction_schema_version": "1.0",
+      "observed_prediction_schema_version": "1.0",
+      "output_sha256": "5869e12c0d779e59080e830e25897c1fd2fc060af8ea7c59e3293d4ce19cb0e3",
+      "repeated_contexts": {
+        "distinct_prepared_contexts": 57,
+        "repeated_prepared_contexts": 29,
+        "rows_in_repeated_prepared_contexts": 78,
+        "rows_with_prepared_context": 106
+      },
+      "requested_scenarios": 124,
+      "run_reason_present": false,
+      "run_status": "completed"
+    }
+  },
+  "schema_version": "rbs-context-metrics-1",
+  "tool_sha256": "c3af14a90cc5bec214526b825367bb4d2a34dffce6dc8645635eb7ceb95ee9b2"
+}

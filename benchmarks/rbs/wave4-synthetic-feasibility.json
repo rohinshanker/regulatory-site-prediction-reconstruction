@@ -1,0 +1,111 @@
+{
+  "schema_version": "rbs-wave4-synthetic-feasibility-1",
+  "uses_experimental_labels": false,
+  "generation_seed": 42026018,
+  "n_inputs": 335,
+  "n_blocks": 56,
+  "missing_rule": "first three sorted input IDs, synthetic only; not source missingness",
+  "interpretation": "fixed invented correlated-noise scenarios demonstrate computable bounds/undefined cases, not measured biological power or a noise ceiling",
+  "protocol_sha256": "fbf594040a3fb4f91c29893f5055d7c94ac2fe8f107280ce22312383e58605b7",
+  "results": {
+    "identical": {
+      "comparison": {
+        "n_inputs": 335,
+        "n_common_success": 335,
+        "n_common_measured": 332,
+        "n_blocks": 56,
+        "n_common_blocks": 56,
+        "lost_reference_successes": 0,
+        "rank_gain": 0.0,
+        "requested_draws": 10000,
+        "attempted_draws": 10000,
+        "usable_draws": 10000,
+        "undefined_draws": 0,
+        "interval95": [
+          0.0,
+          0.0
+        ],
+        "interval_status": "ok"
+      },
+      "gate": {
+        "advance": false,
+        "reasons": [
+          "rank_gain_below_threshold_or_undefined",
+          "interval_not_above_zero_or_undefined"
+        ]
+      }
+    },
+    "constant": {
+      "comparison": {
+        "n_inputs": 335,
+        "n_common_success": 335,
+        "n_common_measured": 332,
+        "n_blocks": 56,
+        "n_common_blocks": 56,
+        "lost_reference_successes": 0,
+        "rank_gain": null,
+        "requested_draws": 10000,
+        "attempted_draws": 0,
+        "usable_draws": 0,
+        "undefined_draws": 0,
+        "interval95": null,
+        "interval_status": "undefined_point_correlation"
+      },
+      "gate": {
+        "advance": false,
+        "reasons": [
+          "rank_gain_below_threshold_or_undefined",
+          "interval_not_above_zero_or_undefined"
+        ]
+      }
+    },
+    "small_noise_reduction": {
+      "comparison": {
+        "n_inputs": 335,
+        "n_common_success": 335,
+        "n_common_measured": 332,
+        "n_blocks": 56,
+        "n_common_blocks": 56,
+        "lost_reference_successes": 0,
+        "rank_gain": 0.05585041234588062,
+        "requested_draws": 10000,
+        "attempted_draws": 10000,
+        "usable_draws": 10000,
+        "undefined_draws": 0,
+        "interval95": [
+          0.04373200783504294,
+          0.07018648212108247
+        ],
+        "interval_status": "ok"
+      },
+      "gate": {
+        "advance": true,
+        "reasons": []
+      }
+    },
+    "large_noise_reduction": {
+      "comparison": {
+        "n_inputs": 335,
+        "n_common_success": 335,
+        "n_common_measured": 332,
+        "n_blocks": 56,
+        "n_common_blocks": 56,
+        "lost_reference_successes": 0,
+        "rank_gain": 0.31018464320251526,
+        "requested_draws": 10000,
+        "attempted_draws": 10000,
+        "usable_draws": 10000,
+        "undefined_draws": 0,
+        "interval95": [
+          0.24286968731735925,
+          0.3882910936067532
+        ],
+        "interval_status": "ok"
+      },
+      "gate": {
+        "advance": true,
+        "reasons": []
+      }
+    }
+  }
+}

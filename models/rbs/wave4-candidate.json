@@ -1,0 +1,1059 @@
+{
+  "claims": "No hosted equivalence, native cyanobacterial calibration, absolute TIR or universal superiority. Lower computed energy is not measured biological improvement.",
+  "collection_boundary": "B verifies and acknowledges this receipt, then publishes exact bounded command/artifact roster; A confirms final execution before any collection. No interim ranks or outcome feedback; all predictions finalized before private labels. No scoring changes after final evaluation starts.",
+  "component_artifact_sha256": {
+    "backends/rnastructure66/.gitattributes": "e3bd4df33e9ade28cf6977345a98a336cc8e71c60ae870115bf2cded43fa0ea7",
+    "backends/rnastructure66/LICENSE": "e6d6a009505e345fe949e1310334fcb0747f28dae2856759de102ab66b722cb4",
+    "backends/rnastructure66/README.md": "d9f5a06dc579a3450a2318d22d04025d0db7b0d898f1855f89eba10ec3823367",
+    "backends/rnastructure66/build.py": "c97ef8643bfaa679200ff3e923b3e3401c1d04093e6638f93a84c4ce5bcb2a40",
+    "backends/rnastructure66/linker.patch": "2ef6ef61496b034110f4151e2fc1aec77cbd011c88a36bcef574be0dfecebb2d",
+    "backends/rnastructure66/manifest-linker-3.json": "b895fb7fb3ccbc24f2bfa1ff26258a93596f1fe7162651c1de9d521dfa0d1b29",
+    "backends/rnastructure66/manifest.json": "84a44f2cce515e7c45a221ebfa6d256b308438d0c0be7fe63f6228fd01509d37",
+    "backends/rnastructure66/tests/engine.py": "43123bbc5db9e96dfad4cd08cf74a6422b2f2cc6a46ff403c1547828e20a13b2",
+    "backends/rnastructure66/tests/fixtures-linker3.json": "343fd3b4a2e07f655e4a00d9a7e28ce8c155549179aa4813a0270caae0b4f1e5",
+    "backends/rnastructure66/tests/fixtures-traceback2.json": "f6ae85f9d3fcce9a99067949d6322ce08e153e9073d56d424384f3fc2a90bd7c",
+    "backends/rnastructure66/tests/fixtures.json": "490837ebc7f1eb2f7342468a56ae198b1eac293e59fd9a521fd28b511cc0349f",
+    "backends/rnastructure66/tests/test_component.py": "afa34a6a8aa3079284468376e2319b5625b658c1ed573c719edee7ff66809b40",
+    "backends/rnastructure66/tests/test_linker3.py": "cdc747508209b986dfefcf78bec01cc3954e1a46e32b852622faa4168176f3cc",
+    "backends/rnastructure66/tests/test_linker_fill.py": "c0cc94e35b776389c4045ac36367c32b6ceeaeecd64bb09bde4aaa0dedd8e9af",
+    "backends/rnastructure66/tests/test_trace_states.py": "59358a49777074da5973d3b7d539f764ab0052fc68f419afbd08676d1bff9ddb",
+    "backends/rnastructure66/traceback.patch": "2d599e7fa9f6581b605350508163c4aa14458ebb8f444c096e5f923c8742d671"
+  },
+  "engines": {
+    "linker3": {
+      "algorithm_source": {
+        "path": "/Users/Rohin/.cache/regsite-runtime/6.6-linker-3-arm64/RNAstructure/src/algorithm.cpp",
+        "sha256": "b19a9ad1634f7e8f7669410b1eb7f5e8c27542f073054acb65647891e62ddbc7"
+      },
+      "binaries": {
+        "Fold": {
+          "path": "/Users/Rohin/.cache/regsite-runtime/6.6-linker-3-arm64/RNAstructure/exe/Fold",
+          "sha256": "81f962573b7f43c023dd23eab4ae1e8e7f6402d8679e89a6a1a539cfdc6a5458"
+        },
+        "bifold": {
+          "path": "/Users/Rohin/.cache/regsite-runtime/6.6-linker-3-arm64/RNAstructure/exe/bifold",
+          "sha256": "9f8156cabaf8e13f91e90d410c46aef1cff1c2badda1c4243b194f54eb1f8136"
+        },
+        "efn2": {
+          "path": "/Users/Rohin/.cache/regsite-runtime/6.6-linker-3-arm64/RNAstructure/exe/efn2",
+          "sha256": "f0b2ce5971d482f50867615e3870b4743d42d6b0e266e05c0c0c1f1bc63d8b4d"
+        }
+      },
+      "build_receipt": {
+        "path": "/Users/Rohin/.cache/regsite-runtime/6.6-linker-3-arm64/RNAstructure/traceback-build.json",
+        "sha256": "7fabba75b3f49cb9be9a5633f8fb149e318e6e48a971487acf7cceb743b806e2"
+      },
+      "identity": {
+        "binary_sha256": {
+          "Fold": "81f962573b7f43c023dd23eab4ae1e8e7f6402d8679e89a6a1a539cfdc6a5458",
+          "bifold": "9f8156cabaf8e13f91e90d410c46aef1cff1c2badda1c4243b194f54eb1f8136",
+          "efn2": "f0b2ce5971d482f50867615e3870b4743d42d6b0e266e05c0c0c1f1bc63d8b4d"
+        },
+        "build_provenance": {
+          "component": "rnastructure-6.6-linker-3",
+          "license": "GPL-2.0-only",
+          "patch_sha256": "2ef6ef61496b034110f4151e2fc1aec77cbd011c88a36bcef574be0dfecebb2d",
+          "patched_source_sha256": "b19a9ad1634f7e8f7669410b1eb7f5e8c27542f073054acb65647891e62ddbc7",
+          "source_archive_sha256": "1bedc62aaab984279055caaa6234d48fca113f4b8e17a8060e0b3784d5a397c3"
+        },
+        "build_receipt_sha256": "7fabba75b3f49cb9be9a5633f8fb149e318e6e48a971487acf7cceb743b806e2",
+        "expected_source_archive_sha256": "1bedc62aaab984279055caaa6234d48fca113f4b8e17a8060e0b3784d5a397c3",
+        "interface": "independent executables via sequence/CT files",
+        "licence": "GPL-2.0-only (separate installation)",
+        "name": "RNAstructure",
+        "settings": {
+          "alphabet": "rna",
+          "bifold_maximum": 100,
+          "bifold_percent": 100,
+          "bifold_window": 0,
+          "coaxial_stacking": true,
+          "dangles": "RNAstructure 6.6 native; no historical auto-dangle switch",
+          "efn2_multibranch_model": "simple",
+          "energy_evaluation": "efn2 --simple for every structure",
+          "fold_maximum": 1,
+          "fold_mfe_only": true,
+          "fold_window": 0,
+          "intramolecular_pairs": true,
+          "isolated_pairs": false,
+          "maximum_loop": 30
+        },
+        "table_manifest_sha256": "ece4c4b535783cb4e03c7ce8f243d09be84a165ecd113b1d20941b5ed8b69501",
+        "variant": "rnastructure-6.6-linker-3",
+        "version": "6.6"
+      },
+      "root": "/Users/Rohin/.cache/regsite-runtime/6.6-linker-3-arm64/RNAstructure"
+    },
+    "traceback2": {
+      "algorithm_source": {
+        "path": "/Users/Rohin/.cache/regsite-runtime/6.6-traceback-2-arm64/RNAstructure/src/algorithm.cpp",
+        "sha256": "6300df34e26fe674b6e87260cee69617130c015910e3ed67fd1b45aa1e2dca6c"
+      },
+      "binaries": {
+        "Fold": {
+          "path": "/Users/Rohin/.cache/regsite-runtime/6.6-traceback-2-arm64/RNAstructure/exe/Fold",
+          "sha256": "22950e05e608440427942c46a1755496bd208ae433099390f9b6ebe4ce0fa30c"
+        },
+        "bifold": {
+          "path": "/Users/Rohin/.cache/regsite-runtime/6.6-traceback-2-arm64/RNAstructure/exe/bifold",
+          "sha256": "397f92eb38d0c8db06bcd56aa02547e017fe3f912c4062311ba18be6ccb1f2f5"
+        },
+        "efn2": {
+          "path": "/Users/Rohin/.cache/regsite-runtime/6.6-traceback-2-arm64/RNAstructure/exe/efn2",
+          "sha256": "c9a23ed0e9b7416f8c06d8413f0a736e286e497e4c71a339ec3204abf7373b05"
+        }
+      },
+      "build_receipt": {
+        "path": "/Users/Rohin/.cache/regsite-runtime/6.6-traceback-2-arm64/RNAstructure/traceback-build.json",
+        "sha256": "a88ca5647b1446c5900aced0b73515932c6457a19b3eaf7d651900a858979266"
+      },
+      "identity": {
+        "binary_sha256": {
+          "Fold": "22950e05e608440427942c46a1755496bd208ae433099390f9b6ebe4ce0fa30c",
+          "bifold": "397f92eb38d0c8db06bcd56aa02547e017fe3f912c4062311ba18be6ccb1f2f5",
+          "efn2": "c9a23ed0e9b7416f8c06d8413f0a736e286e497e4c71a339ec3204abf7373b05"
+        },
+        "build_provenance": {
+          "component": "rnastructure-6.6-traceback-2",
+          "license": "GPL-2.0-only",
+          "patch_sha256": "2d599e7fa9f6581b605350508163c4aa14458ebb8f444c096e5f923c8742d671",
+          "patched_source_sha256": "6300df34e26fe674b6e87260cee69617130c015910e3ed67fd1b45aa1e2dca6c",
+          "source_archive_sha256": "1bedc62aaab984279055caaa6234d48fca113f4b8e17a8060e0b3784d5a397c3"
+        },
+        "build_receipt_sha256": "a88ca5647b1446c5900aced0b73515932c6457a19b3eaf7d651900a858979266",
+        "expected_source_archive_sha256": "1bedc62aaab984279055caaa6234d48fca113f4b8e17a8060e0b3784d5a397c3",
+        "interface": "independent executables via sequence/CT files",
+        "licence": "GPL-2.0-only (separate installation)",
+        "name": "RNAstructure",
+        "settings": {
+          "alphabet": "rna",
+          "bifold_maximum": 100,
+          "bifold_percent": 100,
+          "bifold_window": 0,
+          "coaxial_stacking": true,
+          "dangles": "RNAstructure 6.6 native; no historical auto-dangle switch",
+          "efn2_multibranch_model": "simple",
+          "energy_evaluation": "efn2 --simple for every structure",
+          "fold_maximum": 1,
+          "fold_mfe_only": true,
+          "fold_window": 0,
+          "intramolecular_pairs": true,
+          "isolated_pairs": false,
+          "maximum_loop": 30
+        },
+        "table_manifest_sha256": "ece4c4b535783cb4e03c7ce8f243d09be84a165ecd113b1d20941b5ed8b69501",
+        "variant": "rnastructure-6.6-traceback-2",
+        "version": "6.6"
+      },
+      "root": "/Users/Rohin/.cache/regsite-runtime/6.6-traceback-2-arm64/RNAstructure"
+    }
+  },
+  "execution_source_sha256": {
+    "benchmarks/rbs/__init__.py": "64b2048927399a3c622f1bbb2ee33bd8a5687b251b571d10d5da96ff04f10af3",
+    "benchmarks/rbs/__main__.py": "62e81578dd913ffaf0dd3aa73cf79e63d222a3805eb708ff09acdfb2a854aca2",
+    "benchmarks/rbs/audit.py": "bfaad967383a512c257fa8b7b039009866e72a1978b57cf6915002453e64acfc",
+    "benchmarks/rbs/comparators.py": "67ae36264600678410e93d8776bd2926ac095f16dd8e31d9915f9e94f7dc4be9",
+    "benchmarks/rbs/context_reuse.py": "16b7ce98ad321405ba89d6b101041410e051cee97a322d3ebeee7654d37a5e6f",
+    "benchmarks/rbs/datasets.py": "6022162ae31f265aaf8b3dc6bfe3cca0fe49973cde7f2deb06fdb70a7724ffe4",
+    "benchmarks/rbs/development.py": "7d26329d19edd060d497ab6294e7a0a6b921fe5f287676a9e4c72825b161763e",
+    "benchmarks/rbs/diurnal.py": "eea28b13262c0a20f947004c6decb7879bbdd2787fb0543ab098c086a0c1d949",
+    "benchmarks/rbs/evaluation.py": "9f63687001888da79baf4f54bd4b4cdd3e259006386550b4839e427eb873172c",
+    "benchmarks/rbs/fetch.py": "70b556ba3f056ad08061de36bd5e23af081ce07e6dc5661184fcd067eedc89c6",
+    "benchmarks/rbs/karlsen.py": "cf85ad2d6b4b983811f7e615883291c17195973ee5a160d241d32e89341db13d",
+    "benchmarks/rbs/live.py": "d76810bcba842ca1c192323ddfe2899afda44db00a7d4731f273cfd80521554a",
+    "benchmarks/rbs/live_compare.py": "e0194ec5737461a4b70fc0045c11ee419128a3a3e347c4aa95f1b661a2429c60",
+    "benchmarks/rbs/metrics.py": "c3ed9ecaa6c0ace5d145f9fad94651fe0c3cff3231598e42e1b0bc86d28ace11",
+    "benchmarks/rbs/native.py": "e03b58f967f2df14163318e4195dd54d13bbc965ed7ceaae019ff9d6367db158",
+    "benchmarks/rbs/native_evaluation.py": "c37e5b011972f601b604cd7ef7edce7e8e51bd6bdb15b780718455f74407742b",
+    "benchmarks/rbs/new_data.py": "75ae0a2702f4f426306e8e6c324a3ac213e2f971457f5e46e237e752d477260b",
+    "benchmarks/rbs/oof.py": "29713c4370d4a9e997820046db0ec77903e2d9bab44c7ad252f8d95bf0b9bfe6",
+    "benchmarks/rbs/partitions.py": "21da7089f306cedd3c17b509282bc91cdeba3673c39beb1bc61d38e3d460c017",
+    "benchmarks/rbs/position.py": "bbc2b299bd5d32e1169e76889b917d061af335035cb430fbcace85b9534693fa",
+    "benchmarks/rbs/positional_adapters.py": "6479ac2f2891ba7811458a79586f64c8f59a4179019a455e4b29dca33050740a",
+    "benchmarks/rbs/prediction_io.py": "d7a15c9d065f8f3fb0282d053b707d96409e3577b95222a829a367abeb985d7e",
+    "benchmarks/rbs/reporter.py": "e2b4074c8c55ddb955bf6f9716557036c9c8330a2ca3c162c08bac91b24e8bd5",
+    "benchmarks/rbs/secondary.py": "e1b12f70dc7690004ed7c67141f7fc1c6fc5243a53b0dbacda243c254d4777d7",
+    "benchmarks/rbs/strength.py": "a06098fb78501c665dfd70019c55da77512ffe8add8f601c7ae049e274bb9ced",
+    "benchmarks/rbs/structural.py": "95ac3ca6b98e13b0892296366da277f4c50f0735feb5b23962ae7025f21483a9",
+    "benchmarks/rbs/tis.py": "4e329b088fcecc65edd63cd529d993c1b72347913e8a31f5310ae47d70d058e9",
+    "benchmarks/rbs/wave4_collect.py": "9cc1323c4f1ce291e2c5ee03e20879129a03a52e8e8f63e554c3cbe24d882db4",
+    "benchmarks/rbs/wave4_evaluate.py": "054f5992b7db3524fb4583c852758ac1c81e2c2d31848a3912db8a58aa6499b4",
+    "benchmarks/rbs/wave4_feasibility.py": "4ef323eb716ab6bddc9b6b67012ba3031698f12df515f19ca03d8fc4e09b4dbd",
+    "benchmarks/rbs/wave4_metrics.py": "dc1a4535315c57f708692887184d90ec1c9ef315354fb9175e2bec5061deed1c",
+    "benchmarks/rbs/wave4_predict.py": "ad42621f51162691883cce5c6c9cdd24311a55d51c61b183d29b51c4a635c865"
+  },
+  "exposure": {
+    "degeneracy": "Cambray UTR and last30 identical; retain constant ML predictions and undefined rank",
+    "development": "public2014 and prior native development inputs; published scalar equations and synthetic structural controls",
+    "final": "Cambray reserved, no labels/residuals inspected by A; all study members reserved from training",
+    "old_final": "Wave2 final cohorts consumed, unchanged frozen models retained",
+    "secondary": "Kuo previously exposed; rebeca training overlap; no independent superiority claim"
+  },
+  "frozen_utc": "2026-10-18T00:15:28.836375+00:00",
+  "immutable_checkout": "/Users/Rohin/Desktop/coding_stuff/ISAACS-LAB/worktrees/reconstruction-rbs-wave4-frozen",
+  "input_envelope_sha256": "00648504305dddb7accede06ab07ca0ce12749f271b8ec3858dd6f44c359ba5d",
+  "input_file_sha256": "c96399ddf396bbce4eb56802579f703c92dc46569ebcfee28db94a4001354271",
+  "limits": {
+    "backend_process_seconds": 15,
+    "bound_state_attempts_per_joint_site": 4096,
+    "candidate_tie_absolute_kcal_mol": 1e-09,
+    "collection": {
+      "max_processes": 2,
+      "outputs": "exclusive new private directory 0700 and files 0600; immutable per-record receipts before aggregate results",
+      "roster_max_excluding_controls": 9,
+      "schedule": "Cambray then Kuo; input IDs sorted within study; model IDs sorted then cyclically rotated by input index, submitted in that deterministic record-major order",
+      "seconds_per_record": 60,
+      "timeout_policy": "terminate process group, preserve timeout with null score; no retry",
+      "total_cap_policy": "stop scheduling, terminate running work at cap, preserve every remaining row as not_run; collection incomplete and no advancement",
+      "total_seconds": 14400
+    },
+    "fixed_state_batch_size": 100,
+    "opening_states_per_candidate": 512,
+    "record_seconds": 60,
+    "returned_candidates": 100
+  },
+  "mechanistic_configurations": [
+    {
+      "backend": "rnastructure-6.6-traceback-2",
+      "command": [
+        "/Users/Rohin/Desktop/coding_stuff/ISAACS-LAB/worktrees/reconstruction-rbs-wave4-runtime/.venv/bin/python",
+        "-m",
+        "benchmarks.rbs.wave4_predict",
+        "mechanistic",
+        "--engine",
+        "/Users/Rohin/.cache/regsite-runtime/6.6-traceback-2-arm64/RNAstructure",
+        "--backend-variant",
+        "rnastructure-6.6-traceback-2",
+        "--profile",
+        "historical",
+        "--expected-model",
+        "salis-v1-rnastructure-6.6-reconstruction-1",
+        "--seconds",
+        "60"
+      ],
+      "cwd": "/Users/Rohin/Desktop/coding_stuff/ISAACS-LAB/worktrees/reconstruction-rbs-wave4-frozen",
+      "environment": {
+        "PYTHONPATH": "/Users/Rohin/Desktop/coding_stuff/ISAACS-LAB/worktrees/reconstruction-rbs-wave4-frozen/src"
+      },
+      "hash_encoding": "UTF-8 sorted compact finite JSON without trailing newline",
+      "id": "historical-traceback2",
+      "kind": "mechanistic",
+      "model": {
+        "id": "salis-v1-rnastructure-6.6-reconstruction-1",
+        "implementation_version": "0.4.0rc1",
+        "parameters": {
+          "downstream_nt": 35,
+          "effective_RT": 2.222,
+          "energy_comparison_tolerance_kcal_mol": 1e-09,
+          "historical_footprint_nt": 1000,
+          "optimal_aligned_spacing": 5,
+          "rate_scale": 2500.0,
+          "spacing_pull": [
+            0.048,
+            0.24,
+            0.0
+          ],
+          "spacing_push": [
+            12.2,
+            2.5,
+            2.0,
+            3.0
+          ],
+          "standby_nt": 4,
+          "start_energies_kcal_mol": {
+            "AUG": -1.194,
+            "CUG": -0.03406,
+            "GUG": -0.0748,
+            "UUG": -0.0435
+          },
+          "suboptimal_filter_kcal_mol": 3.0,
+          "suboptimal_reference": "lowest_interstrand_connected_complex",
+          "upstream_nt": 35
+        },
+        "source_commit": "8a9c1de1bdd847bb90d2ab6ceaa3c20feceda307"
+      },
+      "model_sha256": "37d713da1b40263ff4fdfd95f7a47a19c819fe87a188b584254bcc893d86c731",
+      "parameter_sha256": "12599da462a0e094d1b55012e9851a7cf3de9316e45e2bf77c8090b1e679ed09",
+      "profile": "historical",
+      "result_schema": "1.0",
+      "score": "native positive relative initiation score; no fitted transformation"
+    },
+    {
+      "backend": "rnastructure-6.6-traceback-2",
+      "command": [
+        "/Users/Rohin/Desktop/coding_stuff/ISAACS-LAB/worktrees/reconstruction-rbs-wave4-runtime/.venv/bin/python",
+        "-m",
+        "benchmarks.rbs.wave4_predict",
+        "mechanistic",
+        "--engine",
+        "/Users/Rohin/.cache/regsite-runtime/6.6-traceback-2-arm64/RNAstructure",
+        "--backend-variant",
+        "rnastructure-6.6-traceback-2",
+        "--profile",
+        "standby2014",
+        "--expected-model",
+        "standby2014-rnastructure-6.6-reconstruction-1",
+        "--seconds",
+        "60"
+      ],
+      "cwd": "/Users/Rohin/Desktop/coding_stuff/ISAACS-LAB/worktrees/reconstruction-rbs-wave4-frozen",
+      "environment": {
+        "PYTHONPATH": "/Users/Rohin/Desktop/coding_stuff/ISAACS-LAB/worktrees/reconstruction-rbs-wave4-frozen/src"
+      },
+      "hash_encoding": "UTF-8 sorted compact finite JSON without trailing newline",
+      "id": "standby2014-traceback2",
+      "kind": "mechanistic",
+      "model": {
+        "id": "standby2014-rnastructure-6.6-reconstruction-1",
+        "implementation_version": "0.4.0rc1",
+        "parameters": {
+          "coding_footprint_nt": 13,
+          "context_source": "published 2014/2017 context-inspired bounded reconstruction; not a recovered production parameter set",
+          "downstream_nt": 100,
+          "effective_RT": 2.222,
+          "energy_comparison_tolerance_kcal_mol": 1e-09,
+          "footprint_coordinate": "[start, start+13), first coding nucleotide is start",
+          "footprint_source": "https://doi.org/10.1093/nar/gkx061; Methods equation 3",
+          "optimal_aligned_spacing": 5,
+          "rate_scale": 2500.0,
+          "spacing_pull": [
+            0.048,
+            0.24,
+            0.0
+          ],
+          "spacing_push": [
+            12.2,
+            2.5,
+            2.0,
+            3.0
+          ],
+          "standby_model": {
+            "accessibility_height_cap_nt": 15,
+            "binding_candidate_rule": "historical cofold-plus-spacing selection before standby",
+            "distortion_coefficients": [
+              0.038,
+              -1.629,
+              17.359
+            ],
+            "distortion_continuation": "zero at and above first quadratic root",
+            "distortion_zero_area_nt": 19.81878754370649,
+            "energy_rule": "nonnegative fixed whole-complex energy difference",
+            "height_rule": "mean contour sides; recursive base-only/individual branch average",
+            "maximum_unique_states": 512,
+            "opening_search": "ancestor-closed pair removals within one original module",
+            "sliding_kcal_mol_per_nt": 0.2,
+            "source_doi": "10.1093/nar/gkt1139",
+            "source_xml_sha256": "3410c14d94f74845fe5ffa8d879bd33144909c0fc72e439bc91e9ca032333a39",
+            "supplement_pdf_sha256": "a36ae7d252442865f4dc813ceb34022e2c0e01899c02fca61012d97c6558ffaf",
+            "surface_area_offset_nt": 15,
+            "tie_rule": "cost, opened pair count, original module order, remaining core order"
+          },
+          "start_energies_kcal_mol": {
+            "AUG": -1.194,
+            "CUG": -0.03406,
+            "GUG": -0.0748,
+            "UUG": -0.0435
+          },
+          "suboptimal_filter_kcal_mol": 3.0,
+          "suboptimal_reference": "lowest_interstrand_connected_complex",
+          "upstream_nt": 100
+        },
+        "source_commit": "8a9c1de1bdd847bb90d2ab6ceaa3c20feceda307"
+      },
+      "model_sha256": "e2d1385be2fe4c7feb30ae48eaca3c660f1736aea6d6eb4d3966e0dd3e491c84",
+      "parameter_sha256": "49cb687e00bbaec96eec68b69d30053f2a332d562df79c1ef816311bff5149d1",
+      "profile": "standby2014",
+      "result_schema": "1.2",
+      "score": "native positive relative initiation score; no fitted transformation"
+    },
+    {
+      "backend": "rnastructure-6.6-traceback-2",
+      "command": [
+        "/Users/Rohin/Desktop/coding_stuff/ISAACS-LAB/worktrees/reconstruction-rbs-wave4-runtime/.venv/bin/python",
+        "-m",
+        "benchmarks.rbs.wave4_predict",
+        "mechanistic",
+        "--engine",
+        "/Users/Rohin/.cache/regsite-runtime/6.6-traceback-2-arm64/RNAstructure",
+        "--backend-variant",
+        "rnastructure-6.6-traceback-2",
+        "--profile",
+        "joint_standby",
+        "--expected-model",
+        "joint-standby-rnastructure-6.6-reconstruction-1",
+        "--seconds",
+        "60"
+      ],
+      "cwd": "/Users/Rohin/Desktop/coding_stuff/ISAACS-LAB/worktrees/reconstruction-rbs-wave4-frozen",
+      "environment": {
+        "PYTHONPATH": "/Users/Rohin/Desktop/coding_stuff/ISAACS-LAB/worktrees/reconstruction-rbs-wave4-frozen/src"
+      },
+      "hash_encoding": "UTF-8 sorted compact finite JSON without trailing newline",
+      "id": "joint_standby-traceback2",
+      "kind": "mechanistic",
+      "model": {
+        "id": "joint-standby-rnastructure-6.6-reconstruction-1",
+        "implementation_version": "0.4.0rc1",
+        "parameters": {
+          "coding_footprint_nt": 13,
+          "context_source": "published 2014/2017 context-inspired bounded reconstruction; not a recovered production parameter set",
+          "downstream_nt": 100,
+          "effective_RT": 2.222,
+          "energy_comparison_tolerance_kcal_mol": 1e-09,
+          "footprint_coordinate": "[start, start+13), first coding nucleotide is start",
+          "footprint_source": "https://doi.org/10.1093/nar/gkx061; Methods equation 3",
+          "joint_search": {
+            "candidate_deduplication": "none; each returned traceback retains its index",
+            "energy_summation": "math.fsum(complex, spacing, start, -unbound, standby)",
+            "incomplete_search": "no winner or site score after any candidate failure or limit",
+            "maximum_bound_state_attempts_per_site": 4096,
+            "maximum_fixed_states_per_process": 100,
+            "objective": "minimum complete initiation energy over eligible returned candidates",
+            "prefix_suffix_fold_cache": "per-site sequence cache; no bound-state deduplication",
+            "tie_rule": "lowest backend index within absolute tolerance of global minimum",
+            "tie_tolerance_kcal_mol": 1e-09
+          },
+          "optimal_aligned_spacing": 5,
+          "rate_scale": 2500.0,
+          "spacing_pull": [
+            0.048,
+            0.24,
+            0.0
+          ],
+          "spacing_push": [
+            12.2,
+            2.5,
+            2.0,
+            3.0
+          ],
+          "standby_model": {
+            "accessibility_height_cap_nt": 15,
+            "binding_candidate_rule": "minimum complete initiation energy across eligible returned candidates",
+            "distortion_coefficients": [
+              0.038,
+              -1.629,
+              17.359
+            ],
+            "distortion_continuation": "zero at and above first quadratic root",
+            "distortion_zero_area_nt": 19.81878754370649,
+            "energy_rule": "nonnegative fixed whole-complex energy difference",
+            "height_rule": "mean contour sides; recursive base-only/individual branch average",
+            "maximum_unique_states": 512,
+            "opening_search": "ancestor-closed pair removals within one original module",
+            "sliding_kcal_mol_per_nt": 0.2,
+            "source_doi": "10.1093/nar/gkt1139",
+            "source_xml_sha256": "3410c14d94f74845fe5ffa8d879bd33144909c0fc72e439bc91e9ca032333a39",
+            "supplement_pdf_sha256": "a36ae7d252442865f4dc813ceb34022e2c0e01899c02fca61012d97c6558ffaf",
+            "surface_area_offset_nt": 15,
+            "tie_rule": "cost, opened pair count, original module order, remaining core order"
+          },
+          "start_energies_kcal_mol": {
+            "AUG": -1.194,
+            "CUG": -0.03406,
+            "GUG": -0.0748,
+            "UUG": -0.0435
+          },
+          "suboptimal_filter_kcal_mol": 3.0,
+          "suboptimal_reference": "lowest_interstrand_connected_complex",
+          "upstream_nt": 100
+        },
+        "source_commit": "8a9c1de1bdd847bb90d2ab6ceaa3c20feceda307"
+      },
+      "model_sha256": "c33d4533121d3b5f7e1cceb8eec90055a52fd384462b708aeeb2298a10f40a5b",
+      "parameter_sha256": "80a5c5d042012ed231fde6d6406994a3cd912f016e29c8ad59cc26ef1f4880a6",
+      "profile": "joint_standby",
+      "result_schema": "1.3",
+      "score": "native positive relative initiation score; no fitted transformation"
+    },
+    {
+      "backend": "rnastructure-6.6-linker-3",
+      "command": [
+        "/Users/Rohin/Desktop/coding_stuff/ISAACS-LAB/worktrees/reconstruction-rbs-wave4-runtime/.venv/bin/python",
+        "-m",
+        "benchmarks.rbs.wave4_predict",
+        "mechanistic",
+        "--engine",
+        "/Users/Rohin/.cache/regsite-runtime/6.6-linker-3-arm64/RNAstructure",
+        "--backend-variant",
+        "rnastructure-6.6-linker-3",
+        "--profile",
+        "historical",
+        "--expected-model",
+        "salis-v1-rnastructure-6.6-reconstruction-1",
+        "--seconds",
+        "60"
+      ],
+      "cwd": "/Users/Rohin/Desktop/coding_stuff/ISAACS-LAB/worktrees/reconstruction-rbs-wave4-frozen",
+      "environment": {
+        "PYTHONPATH": "/Users/Rohin/Desktop/coding_stuff/ISAACS-LAB/worktrees/reconstruction-rbs-wave4-frozen/src"
+      },
+      "hash_encoding": "UTF-8 sorted compact finite JSON without trailing newline",
+      "id": "historical-linker3",
+      "kind": "mechanistic",
+      "model": {
+        "id": "salis-v1-rnastructure-6.6-reconstruction-1",
+        "implementation_version": "0.4.0rc1",
+        "parameters": {
+          "downstream_nt": 35,
+          "effective_RT": 2.222,
+          "energy_comparison_tolerance_kcal_mol": 1e-09,
+          "historical_footprint_nt": 1000,
+          "optimal_aligned_spacing": 5,
+          "rate_scale": 2500.0,
+          "spacing_pull": [
+            0.048,
+            0.24,
+            0.0
+          ],
+          "spacing_push": [
+            12.2,
+            2.5,
+            2.0,
+            3.0
+          ],
+          "standby_nt": 4,
+          "start_energies_kcal_mol": {
+            "AUG": -1.194,
+            "CUG": -0.03406,
+            "GUG": -0.0748,
+            "UUG": -0.0435
+          },
+          "suboptimal_filter_kcal_mol": 3.0,
+          "suboptimal_reference": "lowest_interstrand_connected_complex",
+          "upstream_nt": 35
+        },
+        "source_commit": "8a9c1de1bdd847bb90d2ab6ceaa3c20feceda307"
+      },
+      "model_sha256": "37d713da1b40263ff4fdfd95f7a47a19c819fe87a188b584254bcc893d86c731",
+      "parameter_sha256": "12599da462a0e094d1b55012e9851a7cf3de9316e45e2bf77c8090b1e679ed09",
+      "profile": "historical",
+      "result_schema": "1.0",
+      "score": "native positive relative initiation score; no fitted transformation"
+    },
+    {
+      "backend": "rnastructure-6.6-linker-3",
+      "command": [
+        "/Users/Rohin/Desktop/coding_stuff/ISAACS-LAB/worktrees/reconstruction-rbs-wave4-runtime/.venv/bin/python",
+        "-m",
+        "benchmarks.rbs.wave4_predict",
+        "mechanistic",
+        "--engine",
+        "/Users/Rohin/.cache/regsite-runtime/6.6-linker-3-arm64/RNAstructure",
+        "--backend-variant",
+        "rnastructure-6.6-linker-3",
+        "--profile",
+        "standby2014",
+        "--expected-model",
+        "standby2014-rnastructure-6.6-reconstruction-1",
+        "--seconds",
+        "60"
+      ],
+      "cwd": "/Users/Rohin/Desktop/coding_stuff/ISAACS-LAB/worktrees/reconstruction-rbs-wave4-frozen",
+      "environment": {
+        "PYTHONPATH": "/Users/Rohin/Desktop/coding_stuff/ISAACS-LAB/worktrees/reconstruction-rbs-wave4-frozen/src"
+      },
+      "hash_encoding": "UTF-8 sorted compact finite JSON without trailing newline",
+      "id": "standby2014-linker3",
+      "kind": "mechanistic",
+      "model": {
+        "id": "standby2014-rnastructure-6.6-reconstruction-1",
+        "implementation_version": "0.4.0rc1",
+        "parameters": {
+          "coding_footprint_nt": 13,
+          "context_source": "published 2014/2017 context-inspired bounded reconstruction; not a recovered production parameter set",
+          "downstream_nt": 100,
+          "effective_RT": 2.222,
+          "energy_comparison_tolerance_kcal_mol": 1e-09,
+          "footprint_coordinate": "[start, start+13), first coding nucleotide is start",
+          "footprint_source": "https://doi.org/10.1093/nar/gkx061; Methods equation 3",
+          "optimal_aligned_spacing": 5,
+          "rate_scale": 2500.0,
+          "spacing_pull": [
+            0.048,
+            0.24,
+            0.0
+          ],
+          "spacing_push": [
+            12.2,
+            2.5,
+            2.0,
+            3.0
+          ],
+          "standby_model": {
+            "accessibility_height_cap_nt": 15,
+            "binding_candidate_rule": "historical cofold-plus-spacing selection before standby",
+            "distortion_coefficients": [
+              0.038,
+              -1.629,
+              17.359
+            ],
+            "distortion_continuation": "zero at and above first quadratic root",
+            "distortion_zero_area_nt": 19.81878754370649,
+            "energy_rule": "nonnegative fixed whole-complex energy difference",
+            "height_rule": "mean contour sides; recursive base-only/individual branch average",
+            "maximum_unique_states": 512,
+            "opening_search": "ancestor-closed pair removals within one original module",
+            "sliding_kcal_mol_per_nt": 0.2,
+            "source_doi": "10.1093/nar/gkt1139",
+            "source_xml_sha256": "3410c14d94f74845fe5ffa8d879bd33144909c0fc72e439bc91e9ca032333a39",
+            "supplement_pdf_sha256": "a36ae7d252442865f4dc813ceb34022e2c0e01899c02fca61012d97c6558ffaf",
+            "surface_area_offset_nt": 15,
+            "tie_rule": "cost, opened pair count, original module order, remaining core order"
+          },
+          "start_energies_kcal_mol": {
+            "AUG": -1.194,
+            "CUG": -0.03406,
+            "GUG": -0.0748,
+            "UUG": -0.0435
+          },
+          "suboptimal_filter_kcal_mol": 3.0,
+          "suboptimal_reference": "lowest_interstrand_connected_complex",
+          "upstream_nt": 100
+        },
+        "source_commit": "8a9c1de1bdd847bb90d2ab6ceaa3c20feceda307"
+      },
+      "model_sha256": "e2d1385be2fe4c7feb30ae48eaca3c660f1736aea6d6eb4d3966e0dd3e491c84",
+      "parameter_sha256": "49cb687e00bbaec96eec68b69d30053f2a332d562df79c1ef816311bff5149d1",
+      "profile": "standby2014",
+      "result_schema": "1.2",
+      "score": "native positive relative initiation score; no fitted transformation"
+    },
+    {
+      "backend": "rnastructure-6.6-linker-3",
+      "command": [
+        "/Users/Rohin/Desktop/coding_stuff/ISAACS-LAB/worktrees/reconstruction-rbs-wave4-runtime/.venv/bin/python",
+        "-m",
+        "benchmarks.rbs.wave4_predict",
+        "mechanistic",
+        "--engine",
+        "/Users/Rohin/.cache/regsite-runtime/6.6-linker-3-arm64/RNAstructure",
+        "--backend-variant",
+        "rnastructure-6.6-linker-3",
+        "--profile",
+        "joint_standby",
+        "--expected-model",
+        "joint-standby-rnastructure-6.6-reconstruction-1",
+        "--seconds",
+        "60"
+      ],
+      "cwd": "/Users/Rohin/Desktop/coding_stuff/ISAACS-LAB/worktrees/reconstruction-rbs-wave4-frozen",
+      "environment": {
+        "PYTHONPATH": "/Users/Rohin/Desktop/coding_stuff/ISAACS-LAB/worktrees/reconstruction-rbs-wave4-frozen/src"
+      },
+      "hash_encoding": "UTF-8 sorted compact finite JSON without trailing newline",
+      "id": "joint_standby-linker3",
+      "kind": "mechanistic",
+      "model": {
+        "id": "joint-standby-rnastructure-6.6-reconstruction-1",
+        "implementation_version": "0.4.0rc1",
+        "parameters": {
+          "coding_footprint_nt": 13,
+          "context_source": "published 2014/2017 context-inspired bounded reconstruction; not a recovered production parameter set",
+          "downstream_nt": 100,
+          "effective_RT": 2.222,
+          "energy_comparison_tolerance_kcal_mol": 1e-09,
+          "footprint_coordinate": "[start, start+13), first coding nucleotide is start",
+          "footprint_source": "https://doi.org/10.1093/nar/gkx061; Methods equation 3",
+          "joint_search": {
+            "candidate_deduplication": "none; each returned traceback retains its index",
+            "energy_summation": "math.fsum(complex, spacing, start, -unbound, standby)",
+            "incomplete_search": "no winner or site score after any candidate failure or limit",
+            "maximum_bound_state_attempts_per_site": 4096,
+            "maximum_fixed_states_per_process": 100,
+            "objective": "minimum complete initiation energy over eligible returned candidates",
+            "prefix_suffix_fold_cache": "per-site sequence cache; no bound-state deduplication",
+            "tie_rule": "lowest backend index within absolute tolerance of global minimum",
+            "tie_tolerance_kcal_mol": 1e-09
+          },
+          "optimal_aligned_spacing": 5,
+          "rate_scale": 2500.0,
+          "spacing_pull": [
+            0.048,
+            0.24,
+            0.0
+          ],
+          "spacing_push": [
+            12.2,
+            2.5,
+            2.0,
+            3.0
+          ],
+          "standby_model": {
+            "accessibility_height_cap_nt": 15,
+            "binding_candidate_rule": "minimum complete initiation energy across eligible returned candidates",
+            "distortion_coefficients": [
+              0.038,
+              -1.629,
+              17.359
+            ],
+            "distortion_continuation": "zero at and above first quadratic root",
+            "distortion_zero_area_nt": 19.81878754370649,
+            "energy_rule": "nonnegative fixed whole-complex energy difference",
+            "height_rule": "mean contour sides; recursive base-only/individual branch average",
+            "maximum_unique_states": 512,
+            "opening_search": "ancestor-closed pair removals within one original module",
+            "sliding_kcal_mol_per_nt": 0.2,
+            "source_doi": "10.1093/nar/gkt1139",
+            "source_xml_sha256": "3410c14d94f74845fe5ffa8d879bd33144909c0fc72e439bc91e9ca032333a39",
+            "supplement_pdf_sha256": "a36ae7d252442865f4dc813ceb34022e2c0e01899c02fca61012d97c6558ffaf",
+            "surface_area_offset_nt": 15,
+            "tie_rule": "cost, opened pair count, original module order, remaining core order"
+          },
+          "start_energies_kcal_mol": {
+            "AUG": -1.194,
+            "CUG": -0.03406,
+            "GUG": -0.0748,
+            "UUG": -0.0435
+          },
+          "suboptimal_filter_kcal_mol": 3.0,
+          "suboptimal_reference": "lowest_interstrand_connected_complex",
+          "upstream_nt": 100
+        },
+        "source_commit": "8a9c1de1bdd847bb90d2ab6ceaa3c20feceda307"
+      },
+      "model_sha256": "c33d4533121d3b5f7e1cceb8eec90055a52fd384462b708aeeb2298a10f40a5b",
+      "parameter_sha256": "80a5c5d042012ed231fde6d6406994a3cd912f016e29c8ad59cc26ef1f4880a6",
+      "profile": "joint_standby",
+      "result_schema": "1.3",
+      "score": "native positive relative initiation score; no fitted transformation"
+    }
+  ],
+  "new_backend": {
+    "accepted_before_freeze": true,
+    "basis": "source invariant, independent exact-patch review and three-engine software/structural gates; no experimental outcomes",
+    "id": "rnastructure-6.6-linker-3"
+  },
+  "optional_comparators": {
+    "admission": {
+      "path": "benchmarks/rbs/wave4-comparator-admission.json",
+      "sha256": "25b5eaa2228cf757d93c5017aaf08336d410be718ef4ef3fcef0d33e938d1674"
+    },
+    "execution_receipt": "B must pin exact optional interpreters, commands, source, checkpoints and environments before collection; no replacement or retraining",
+    "manifest": {
+      "path": "benchmarks/rbs/comparator-artifacts.json",
+      "sha256": "40e0f83f0611d65ef6c695ebd3aa00cf39ec2d6fcaa6be781fdf80c230b1ce93"
+    },
+    "roster": [
+      "OSTIR1.1.3 with ViennaRNA2.7.2, optional restrictive research environment",
+      "unchanged public2014 sequence-v1",
+      "rebeca exp67_true, Kuo-exposed; full training history uncertain"
+    ],
+    "unchanged_public2014_model": {
+      "path": "models/rbs/standby2014/sequence-v1.json",
+      "sha256": "90081b12780af1bbfca508ced58de3a0ed7a488eca0ceb26efa43f19c0d9b36b"
+    }
+  },
+  "package_version": "0.4.0rc1",
+  "phase": "before_independent_final_collection",
+  "planning_baseline": "73521a6ae3251678073dce76181ee5909b34fe8b",
+  "primary": {
+    "contender": "joint_standby-linker3",
+    "mode": "joint",
+    "reference": "standby2014-linker3"
+  },
+  "protocol": {
+    "path": "benchmarks/rbs/wave4-protocol.json",
+    "sha256": "d8eb48c4d019e7e3a6da1ed826ec9f4b43232baf03129fbf37822e9057b474ab"
+  },
+  "python": {
+    "path": "/Users/Rohin/Desktop/coding_stuff/ISAACS-LAB/worktrees/reconstruction-rbs-wave4-runtime/.venv/bin/python",
+    "resolved": "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "sha256": "87d4df53fd91304be5bac391fb204643c36b7df2023c04a0953bcbc7d4fdf634",
+    "version": "Python 3.14.7"
+  },
+  "request_settings": {
+    "anti_sd": "ACCUCCUUA",
+    "hosts": {
+      "Cambray2018": "Escherichia coli MDS42 delta-recA (configuration only)",
+      "Kuo2020": "Escherichia coli MG1655 (configuration only)"
+    },
+    "starts": "one exact supplied zero-based start; no context augmentation",
+    "strand": "+",
+    "temperature_c": 37
+  },
+  "required_python_dependencies": [],
+  "schema_version": "rbs-wave4-candidate-1",
+  "scientific_execution_commit": "a11cb5bd13d3c021eedc98cf451609eb4710bb6a",
+  "software_resource_gates": {
+    "ci": {
+      "jobs": [
+        {
+          "completedAt": "2026-10-17T23:59:47Z",
+          "conclusion": "success",
+          "name": "runtime (ubuntu-24.04, 3.14)",
+          "url": "https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/actions/runs/39080285855/job/117535712876"
+        },
+        {
+          "completedAt": "2026-10-18T00:07:56Z",
+          "conclusion": "success",
+          "name": "runtime (macos-14, 3.11)",
+          "url": "https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/actions/runs/39080285855/job/117535713036"
+        },
+        {
+          "completedAt": "2026-10-18T00:12:21Z",
+          "conclusion": "success",
+          "name": "runtime (ubuntu-24.04, 3.11)",
+          "url": "https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/actions/runs/39080285855/job/117535713097"
+        },
+        {
+          "completedAt": "2026-10-18T00:03:39Z",
+          "conclusion": "success",
+          "name": "runtime (macos-14, 3.14)",
+          "url": "https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/actions/runs/39080285855/job/117535713099"
+        }
+      ],
+      "run_id": 39080285855,
+      "url": "https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/actions/runs/39080285855"
+    },
+    "complete": true,
+    "component_suite": {
+      "command": "RNASTRUCTURE66_ORIGINAL=/path/to/original RNASTRUCTURE66_PATCHED=/path/to/traceback-2 RNASTRUCTURE66_LINKER3=/path/to/linker-3 .venv/bin/python -m unittest discover -s backends/rnastructure66/tests -v",
+      "components": [
+        "original6.6",
+        "rnastructure-6.6-traceback-2",
+        "rnastructure-6.6-linker-3"
+      ],
+      "seconds": 686.956,
+      "source_commits": [
+        "aaa0532cba40635fff22275da93ae3a3bef6ecfd",
+        "945436ed1e3bee62b6cc6a02a5c36dd027b3a3bb"
+      ],
+      "tests": 35
+    },
+    "fresh_offline": {
+      "command_recipe": ".github/workflows/ci.yml: Build and run fresh offline wheel installation",
+      "engines": [
+        "original6.6",
+        "traceback2",
+        "linker3"
+      ],
+      "exit_code": 0,
+      "formats": [
+        "JSON",
+        "CSV",
+        "GFF3"
+      ],
+      "paths": [
+        "historical",
+        "footprint2017",
+        "context2017",
+        "standby2014",
+        "joint_standby",
+        "native",
+        "learned"
+      ],
+      "required_python_dependencies": 0,
+      "source_wheel_sha256": {
+        "regulatory_site_prediction_reconstruction-0.4.0rc1-py3-none-any.whl": "29158e3cea64f9224f9c169adb0700b883537f2c24ec12c327512230a4c9c3d6",
+        "regulatory_site_prediction_reconstruction-0.4.0rc1.tar.gz": "3777efad209b5d904587563f637cf99a442cc2e97c143eb63fa9b44aca93a5e5"
+      },
+      "wheel_runtime_files_match_frozen_source": 23
+    },
+    "independent_reviews": {
+      "B_harness": {
+        "accepted_commit": "2b7217fb15ec3735626657782236765d813f58bd",
+        "handoff": "https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/28#issuecomment-6243119669",
+        "result": "independently reviewed; no unresolved findings"
+      },
+      "backend_source": {
+        "issue": "DEM-513",
+        "issue_id": "01a14c33-3c66-7d5a-8946-c1bd0ef8f07b",
+        "result": "approved; source invariant and14adversarial settings verified; broader constraints/SHAPE remain outside scope"
+      },
+      "joint_and_admission": {
+        "accepted_commits": [
+          "cd6cb3a62cdd560b226f6cbae3d152f103afa606",
+          "0a10d3b34ef0cc65a900aa35b13c4c1097848339",
+          "a11cb5bd13d3c021eedc98cf451609eb4710bb6a"
+        ],
+        "issue": "DEM-507",
+        "issue_id": "01a14c11-6c75-7924-81a2-aaa14bc5e076",
+        "result": "no blocking defect; receipt-presence finding fixed and independently confirmed"
+      }
+    },
+    "legacy_compatibility": {
+      "all_unchanged_except": [
+        "implementation_version",
+        "prediction_id"
+      ],
+      "complete_original_engine_outputs": 32,
+      "independent_original_and_v2_examples": "confirmed unchanged by reviewer"
+    },
+    "public_development_resources": {
+      "linker3": {
+        "backend": {
+          "binary_sha256": {
+            "Fold": "81f962573b7f43c023dd23eab4ae1e8e7f6402d8679e89a6a1a539cfdc6a5458",
+            "bifold": "9f8156cabaf8e13f91e90d410c46aef1cff1c2badda1c4243b194f54eb1f8136",
+            "efn2": "f0b2ce5971d482f50867615e3870b4743d42d6b0e266e05c0c0c1f1bc63d8b4d"
+          },
+          "build_provenance": {
+            "component": "rnastructure-6.6-linker-3",
+            "license": "GPL-2.0-only",
+            "patch_sha256": "2ef6ef61496b034110f4151e2fc1aec77cbd011c88a36bcef574be0dfecebb2d",
+            "patched_source_sha256": "b19a9ad1634f7e8f7669410b1eb7f5e8c27542f073054acb65647891e62ddbc7",
+            "source_archive_sha256": "1bedc62aaab984279055caaa6234d48fca113f4b8e17a8060e0b3784d5a397c3"
+          },
+          "build_receipt_sha256": "7fabba75b3f49cb9be9a5633f8fb149e318e6e48a971487acf7cceb743b806e2",
+          "expected_source_archive_sha256": "1bedc62aaab984279055caaa6234d48fca113f4b8e17a8060e0b3784d5a397c3",
+          "interface": "independent executables via sequence/CT files",
+          "licence": "GPL-2.0-only (separate installation)",
+          "name": "RNAstructure",
+          "settings": {
+            "alphabet": "rna",
+            "bifold_maximum": 100,
+            "bifold_percent": 100,
+            "bifold_window": 0,
+            "coaxial_stacking": true,
+            "dangles": "RNAstructure 6.6 native; no historical auto-dangle switch",
+            "efn2_multibranch_model": "simple",
+            "energy_evaluation": "efn2 --simple for every structure",
+            "fold_maximum": 1,
+            "fold_mfe_only": true,
+            "fold_window": 0,
+            "intramolecular_pairs": true,
+            "isolated_pairs": false,
+            "maximum_loop": 30
+          },
+          "table_manifest_sha256": "ece4c4b535783cb4e03c7ce8f243d09be84a165ecd113b1d20941b5ed8b69501",
+          "variant": "rnastructure-6.6-linker-3",
+          "version": "6.6"
+        },
+        "changed_winner": 3,
+        "code_commit": "0a10d3b34ef0cc65a900aa35b13c4c1097848339",
+        "complete_searches": 136,
+        "max_child_rss_bytes": 85721088,
+        "max_eligible": 6,
+        "max_states": 252,
+        "profile": "joint_standby",
+        "python_rss_bytes": 37584896,
+        "records": 136,
+        "seconds_max": 2.500349916983396,
+        "seconds_median": 0.8702577294898219,
+        "seconds_p95": 1.9198693330399692,
+        "source_sha256": "d74967eb964f1797138076ed12a35ef5f44c0ac3e87241e5186505503fd698f4",
+        "statuses": {
+          "ok": 136
+        },
+        "total_seconds": 139.9371769579593
+      },
+      "traceback2": {
+        "backend": {
+          "binary_sha256": {
+            "Fold": "22950e05e608440427942c46a1755496bd208ae433099390f9b6ebe4ce0fa30c",
+            "bifold": "397f92eb38d0c8db06bcd56aa02547e017fe3f912c4062311ba18be6ccb1f2f5",
+            "efn2": "c9a23ed0e9b7416f8c06d8413f0a736e286e497e4c71a339ec3204abf7373b05"
+          },
+          "build_provenance": {
+            "component": "rnastructure-6.6-traceback-2",
+            "license": "GPL-2.0-only",
+            "patch_sha256": "2d599e7fa9f6581b605350508163c4aa14458ebb8f444c096e5f923c8742d671",
+            "patched_source_sha256": "6300df34e26fe674b6e87260cee69617130c015910e3ed67fd1b45aa1e2dca6c",
+            "source_archive_sha256": "1bedc62aaab984279055caaa6234d48fca113f4b8e17a8060e0b3784d5a397c3"
+          },
+          "build_receipt_sha256": "a88ca5647b1446c5900aced0b73515932c6457a19b3eaf7d651900a858979266",
+          "expected_source_archive_sha256": "1bedc62aaab984279055caaa6234d48fca113f4b8e17a8060e0b3784d5a397c3",
+          "interface": "independent executables via sequence/CT files",
+          "licence": "GPL-2.0-only (separate installation)",
+          "name": "RNAstructure",
+          "settings": {
+            "alphabet": "rna",
+            "bifold_maximum": 100,
+            "bifold_percent": 100,
+            "bifold_window": 0,
+            "coaxial_stacking": true,
+            "dangles": "RNAstructure 6.6 native; no historical auto-dangle switch",
+            "efn2_multibranch_model": "simple",
+            "energy_evaluation": "efn2 --simple for every structure",
+            "fold_maximum": 1,
+            "fold_mfe_only": true,
+            "fold_window": 0,
+            "intramolecular_pairs": true,
+            "isolated_pairs": false,
+            "maximum_loop": 30
+          },
+          "table_manifest_sha256": "ece4c4b535783cb4e03c7ce8f243d09be84a165ecd113b1d20941b5ed8b69501",
+          "variant": "rnastructure-6.6-traceback-2",
+          "version": "6.6"
+        },
+        "changed_winner": 3,
+        "code_commit": "cd6cb3a62cdd560b226f6cbae3d152f103afa606",
+        "complete_searches": 136,
+        "max_child_rss_bytes": 85671936,
+        "max_eligible": 6,
+        "max_states": 252,
+        "profile": "joint_standby",
+        "python_rss_bytes": 38780928,
+        "records": 136,
+        "seconds_max": 2.0682035419158638,
+        "seconds_median": 0.8230722084990703,
+        "seconds_p95": 1.5692422499414533,
+        "source_sha256": "d74967eb964f1797138076ed12a35ef5f44c0ac3e87241e5186505503fd698f4",
+        "statuses": {
+          "ok": 136
+        },
+        "total_seconds": 124.88007225003093
+      }
+    },
+    "runtime_suite": {
+      "branches": 2314,
+      "command": "REGSITE_RNASTRUCTURE=/path/to/linker-3/RNAstructure .venv/bin/python -m pytest --cov=regsite --cov=benchmarks.rbs --cov=benchmarks.promoter --cov=experiments.rbs --cov-report=term-missing",
+      "coverage_percent": 100,
+      "engine": "rnastructure-6.6-linker-3",
+      "python": "3.14.7",
+      "statements": 5603,
+      "tests": 1614
+    },
+    "scientific_commit": "a11cb5bd13d3c021eedc98cf451609eb4710bb6a",
+    "scope": "Software, structural and development resource gates only; no experimental advancement implied.",
+    "six_configuration_synthetic_bridge": {
+      "input": "examples/rbs-single.json; explicit supplied start and synthetic host; no study input",
+      "passed": 6,
+      "receipt_sha256": "b82f463199e5244274433f841be79e371dc631d106ce19db4d3bf4c6659367df"
+    },
+    "static_checks": [
+      "Ruff check/format",
+      "mypy src/regsite experiments",
+      "pip check",
+      "git diff --check",
+      "scoped ticket/document validation"
+    ]
+  },
+  "source_and_schema_sha256": {
+    "LICENSE": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986",
+    "NOTICE": "b1c14de0ae5c31aca608c238ea14412f96da4bea7c0fe931b75f0bcecc7ed619",
+    "pyproject.toml": "8de992971e958931c51f6e3bfcef66354689b94ff5425a328d7b1bb8f1bba2e4",
+    "requirements-dev.lock": "5f797f5050246897197fda677fbcdb3ad98c73062a3d590fc5e7c69514bb4267",
+    "schemas/native-rbs-evidence-1.schema.json": "44a96341e5dc5b3f8dc379b10f24113c19084f62142b7bf67ccba21103096800",
+    "schemas/native-rbs-result-1.schema.json": "85d56dbc1f9850b8b338da7df08d5f8c7d7d036f18655a185e36875f9ba3a550",
+    "schemas/rbs-learned-result-1.schema.json": "662e824e3d471f8ece70fa03c5442743fd8cfc2c704866afcdf6f123a329eec3",
+    "schemas/rbs-request-1.0.schema.json": "b8c285256bdd33148ae0343fa15be97aec680af73d42498d5e29bb2a13b731ac",
+    "schemas/rbs-result-1.0.schema.json": "bad2ac5e455df400d68fbf71013b5f4b61075ce2a6e0027686bdb993f90a60e7",
+    "schemas/rbs-result-1.1.schema.json": "7d3b8d8eb7daf795fdb08c5cb4a37f0f001b285a7a9512abccf1be0b123b382f",
+    "schemas/rbs-result-1.2.schema.json": "a8660b31aada067a73c763778c0f17fc8f9e0bb056306a17086fe4d1d022a12b",
+    "schemas/rbs-result-1.3.schema.json": "87d79df16809a2b9810ef1e44838987d038d647dd0e9e78a8da8c87aec3fbf10",
+    "src/regsite/__init__.py": "61c2e1d2bd269f9459f6a502c5d4c85408661588af066eb2e432728e369402dc",
+    "src/regsite/__main__.py": "03909d4646d450af7366c3753e048c9591cf1cb5788afdda1c2b85642aab0358",
+    "src/regsite/backend.py": "c63d27f6c73a0414553a02fb229cd0fc198276cbc3e26289d27cb5e3dfde515c",
+    "src/regsite/cli.py": "71001ec89b5f01fe6f21d3c2690e24215d7bf397ee3d373f72776e99cc557b96",
+    "src/regsite/contracts.py": "44dec45866842e47bf0a97d2908d9bcbabdde46db80899c0c15c22b27e1e9a7f",
+    "src/regsite/data/rnastructure-tables.json": "ece4c4b535783cb4e03c7ce8f243d09be84a165ecd113b1d20941b5ed8b69501",
+    "src/regsite/features.py": "92c7cafd07d81c606c55a99b3022f9121686a94e51c937ed3d57525c9fbfb341",
+    "src/regsite/genome.py": "851215db437765611cc60358ab8b485fcccd2c5848950488394bb8cdd9e7f0fc",
+    "src/regsite/io.py": "dc6e29533632a68fce08baa0e8bff37a9c6f098e8e0462ab710fe6ed9fa21bba",
+    "src/regsite/learned.py": "6a0d94edbffbe943ea06028a53120b830a90675fc62ab38f9ddfaa05ffc21f63",
+    "src/regsite/learned_cli.py": "7d8ad38d4788f2ad40df80d5f72c823aad00a9b888fe52ca3f84349a44c127db",
+    "src/regsite/learning.py": "8a3e3d7b6a238c9a8e199f20d1298aef382692d7ec52693dbdfb1117095095ff",
+    "src/regsite/native.py": "d6b90c66780cd53167cb81c50f3c941b52cc20bdd4f8dcee0bcbe089bc508766",
+    "src/regsite/native_cli.py": "71a3c15662e03a3dfba026bf2b9d15602184ae969c748c9bcde765fc8c39c1c7",
+    "src/regsite/native_io.py": "7e55167f95ccdf63ce6240fcc68d3246410a2af7ffebc55792574942846c75f5",
+    "src/regsite/partitioned_training.py": "03cfca3bc27e94f763c3075f0a8104f34df461ad34b2309443ac0f291cbe617b",
+    "src/regsite/profiles.py": "17c3a8d1858425ef042eab8b6513161e77c0ca5ad611c90dbb2df2f65e6887be",
+    "src/regsite/provenance.py": "53afe99e8c8230cefd180c724aaa007a212f700b1c1040bb914e64add4beffed",
+    "src/regsite/rbs.py": "2bdd62771ba9d276dc34897cf182e0ecd8fdf3ddc9d9d1e4fe0027bfeb571309",
+    "src/regsite/sequence.py": "1d38b3e074092ebcbeec2b6fd1b0a95492f3a8d57a215d72adee81ee53ddbb24",
+    "src/regsite/standby.py": "9b8803766853fd6de98abc99622ff4bc973a8a7749e64f824a9268ffe5ed4a9b",
+    "src/regsite/structures.py": "68f694b4b91e33690287136445fdad0fbad58c4130516ed1946eb56821fbe4cc",
+    "src/regsite/training.py": "7406355889db9c1012d184a6ce4cc61fa92ace707e1eaa97a5094332615b594a"
+  },
+  "split_file_sha256": "dcccc24f43993e82c71b23dba602ceb41b81404c34c04459c297d2149028ce9a"
+}

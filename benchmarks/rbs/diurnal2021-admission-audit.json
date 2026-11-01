@@ -1,0 +1,24 @@
+{
+  "n_source_genes": 1126,
+  "n_condition_records": 5630,
+  "mapping_status": {
+    "exact_source_and_current_cds": 1014,
+    "source_current_bounds_disagree": 109,
+    "unmatched_identifier": 3
+  },
+  "primary_partition_counts": {
+    "development_validation": 206,
+    "development_train": 581,
+    "final": 213
+  },
+  "n_primary_genes": 1000,
+  "frozen_split_sha256": "d989341afcb3e463112e85134a322086d968a4cea6ad4b9cb4fa8cc893312409",
+  "eligibility_independent_of_model_output": true,
+  "independent_workbook_recomputation": {
+    "n_agree_at_3e_minus_16": 5630,
+    "n_byte_equal_numeric_values": 5622,
+    "maximum_absolute_difference": 2.220446049250313e-16,
+    "maximum_relative_difference": 2.220446049250313e-16,
+    "cause": "floating-point exponentiation rounding across Python/libm versions; no changed source values"
+  }
+}

@@ -1,0 +1,66 @@
+{
+  "cases": [
+    {
+      "expected_exit": 1,
+      "id": "supplied-transcript-incompatible",
+      "kind": "public_example",
+      "request_sha256": "3aca441815f3c5ddf3627d84aba08044f8d25f495c2867d38f3a1a7744a47e0e"
+    },
+    {
+      "expected_exit": 0,
+      "id": "supplied-transcript-single",
+      "kind": "public_example",
+      "request_sha256": "e6ba3a07000f1026d4225d6e141c48b93106ad27086d0c280db4a83a29c2b2fb"
+    },
+    {
+      "expected_exit": 0,
+      "id": "supplied-transcript-two-cds",
+      "kind": "public_example",
+      "request_sha256": "4437b53f597ae79d6cb6322499df5972a9ed5e2e2912ef64eb0eb0b3925a233f"
+    },
+    {
+      "expected_exit": 1,
+      "id": "maximum-A",
+      "kind": "maximum_roster_without_supported_start_codons",
+      "request_sha256": "0b2b2efcb5111109a95b76010c6b45cb4a22e7bd6c3ea3885bf423a1608884e8"
+    },
+    {
+      "expected_exit": 1,
+      "id": "maximum-GC",
+      "kind": "maximum_roster_without_supported_start_codons",
+      "request_sha256": "56f39d52ec6d18280f110f369f9c8f0700a4bbecdae5bc298efc50b8df64cf82"
+    },
+    {
+      "expected_exit": 1,
+      "id": "maximum-ACGT",
+      "kind": "maximum_roster_without_supported_start_codons",
+      "request_sha256": "aa180bc10cff31a7a3b5bdcc3facd08466265e0fe8192b0cc9601acb87e03ca4"
+    },
+    {
+      "expected_exit": 0,
+      "id": "maximum-ten-starts",
+      "kind": "ten_explicit_RBS_starts_and_512_Promoter_positions",
+      "request_sha256": "d762bdc3fa20478041450f6a2a9c305d642b58e560cdf7bb6061bd10902fa347"
+    },
+    {
+      "expected_exit": 1,
+      "id": "expired-deadline",
+      "kind": "unstarted_component_accounting",
+      "request_sha256": "1b2bf189673d021fce0ef0b9bb25a7b37a2f9ee3a76ed5614f9e7c3109e93374"
+    }
+  ],
+  "execution": {
+    "backend": "separately_installed_rnastructure-6.6-linker-3",
+    "concurrent_cli_processes": 1,
+    "csv_replay_request_ids": [
+      "supplied-transcript-two-cds"
+    ],
+    "memory_measurement": "macOS /usr/bin/time -l maximum resident set size, bytes",
+    "repetitions": 1,
+    "timeout_seconds_per_cli": 250,
+    "total_output_cap_bytes": 33554432
+  },
+  "implementation_version": "0.8.0rc1",
+  "limits": "Finite synthetic accounting, packaging and resource checks, not experimental validation or worst-input performance guarantees. Preserve every failed receipt; no selective retries. No native source outcomes used.",
+  "schema_version": "supplied-transcript-resource-plan-1"
+}

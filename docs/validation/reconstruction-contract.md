@@ -1,8 +1,8 @@
 # Reconstruction and release contract
 
 - Purpose: Define reproducible, fully open calculator reconstruction and release requirements.
-- Scope: All four calculators; specification reviewed, implementation not yet verified.
-- Last verified: 2026-10-16
+- Scope: All four calculators; RBS runtime gates are defined in rbs-runtime.md.
+- Last verified: 2026-10-17
 
 ## Target and implementation identity
 
@@ -55,7 +55,7 @@ invalid structure constraints, overflow/underflow and empty/no-hit results.
 1. **Does the implementation reproduce its specified equations?** Unit tests for
    each term, paper examples, manually checkable cases and preserved historical
    fixtures. Pin folding engines, energy tables, temperature, dangles, constraints,
-   suboptimal enumeration and numerical tolerances. Substituting ViennaRNA for
+   suboptimal enumeration and numerical tolerances. Substituting an open folding backend for
    NUPACK is a model change until equivalence is demonstrated.
 2. **How close is it to the hosted calculator?** Freeze a held-out panel before
    tuning. Compare matching sites/states, per-term energies, log-rate errors,
@@ -76,6 +76,17 @@ and checked against every stated sequence/structure constraint.
 
 ## Fully usable release
 
+For the RBS wave, apply [native validation](rbs-native-validation.md) and
+[comparator selection](rbs-comparator-landscape.md) in addition to the three
+questions above. Real experimental TSS context, TIS localization and translation
+strength are separate evidence types and require separate claims/metrics.
+Compare suitable mechanistic and learned methods; record pretrained-data overlap,
+code/weight/data permissions and coverage. Preserve the compatibility profile
+when developing a cyanobacterial specialist. A narrowly scoped, independently
+demonstrated improvement is the promotion target; universal superiority cannot
+be inferred from one reporter panel or website agreement.
+
+
 - Source and required model parameters are available under compatible open terms;
   preserve notices and supply a component/dependency inventory. No private
   `DNAc`, required NUPACK research licence, `.pyc`-only module, or account dependency.
@@ -93,6 +104,50 @@ and checked against every stated sequence/structure constraint.
 - No calculator ticket is closed merely because source hunting ended. Its
   functional acceptance criteria must pass, or the owner must explicitly change
   its scope. Unknowns remain tracked while independent work continues.
+
+## RBS 0.4.0rc1 applicability
+
+The candidate includes historical, footprint/context, published-standby and
+[joint binding/standby](rbs-joint-selection.md) profiles, a transcript-aware native
+adapter, versioned JSON/CSV/GFF3 exports and frozen experimental learned models. The [runtime](rbs-runtime.md),
+[native adapter](rbs-native-runtime.md) and [learned runtime](rbs-learning-runtime.md)
+contracts define their inputs, limits and reproduction commands. Single/batch
+examples and the two-strand PCC 6803 genome example ship with the source release.
+
+The [independent Wave 2 result card](rbs-wave2-results.md) records the original
+learned-model scientific gate. It reports a failed model-promotion decision, restricted comparator
+roles, backend failure coverage and limits on native transfer. Learned models
+remain experimental; release availability does not imply superiority. The
+immutable [freeze](../../models/rbs/wave2-freeze.json) and
+[prediction receipt](../../models/rbs/wave2-prediction-receipt.json) identify the
+evaluated code, weights, inputs and controls. New scientific changes require a
+new development cycle and untouched evaluation.
+
+The [standby contract](rbs-standby.md) defines schema 1.2, source equations,
+structural optimization and declared reconstruction choices. The optional
+[traceback repair](rbs-backend-repair.md) is a separately identified GPL-2.0-only
+component, built outside the GPL-3.0-or-later Python runtime and communicated with
+through files/processes. The source distribution preserves its separate licence;
+the wheel contains no backend code or executable. Original profiles, installations
+and Wave 2 artifacts remain available. The separate linker-3 component corrects
+ordinary WMB linker handling and retains its own source/patch/build identity.
+Joint selection uses schema 1.3 with complete-search diagnostics, explicit limits
+and null-score incomplete searches. Its scientific gate is the frozen
+[Wave 4 independent protocol](rbs-wave4-evaluation.md): Cambray ordinary protein
+output is primary, Kuo is exposed secondary, and no native calibration follows.
+The [completed joint-model result](rbs-joint-selection.md#frozen-independent-experimental-result)
+failed that advancement gate: both primary profiles covered 335/335 inputs,
+but the paired rank gain was -0.000166 with a 95% interval spanning zero.
+The selected Cambray panel and earlier final cohorts are now consumed. Joint
+selection remains an opt-in research profile, with no new native-calibration or
+biological superiority claim. A lower optimized energy or repaired folding
+failure alone cannot satisfy the experimental advancement gate.
+
+Remaining scope includes drafting, kinetics and distinct production stacking,
+backend enumeration differences, design modes, the other three calculators and
+native UTEX calibration. A draft release candidate does not close those tickets.
+Main merge, a public tag/package and downstream consumer admission are separate
+release actions.
 
 ## Hosted access
 

@@ -1,0 +1,87 @@
+{
+  "audit": {
+    "mapping_status": {
+      "current_pseudogene": 2,
+      "matched": 2416,
+      "multiple_current_cds_segments_or_models": 1,
+      "non_gene_tss": 2333,
+      "source_locus_absent_from_current_cds": 41,
+      "tss_inside_current_cds": 15
+    },
+    "n_s1": 4808,
+    "n_s2_proposals": 127,
+    "n_source_current_start_disagreements": 236,
+    "n_tss_nucleotide_disagreements": 2,
+    "s2_notes": [
+      {
+        "source_row": 131,
+        "text": "a Possibility to be misannotated. It represents percentages of ptotein homologs have a shorter N-terminal than the query protein (standard: the hits should have a subject start as 1 and a query start no less than 1);\nb Possibility to be leaderless transcripts. It represents percentages of protein homologs have a exact same N-terminal as the query protein (standard: the hits should have a subject start as 1 and a query start also as 1; should be a gTSS);\nc Hit_counts represent the hits after blastP analysis with a limited maximum hit number as 100 and a e-value less than 1e-5;\nd It represents percentages of hits with a subject start as 1 among all hits;\ne It represents percentages of hits with a query start no less than 1, among hits with a subject start as 1."
+      }
+    ],
+    "types": {
+      "aTSS": 1380,
+      "gTSS": 2475,
+      "iTSS": 724,
+      "nTSS": 229
+    }
+  },
+  "excluded_from_strength_and_tis_labels": true,
+  "genomes": {
+    "NZ_CP006471.1": {
+      "accession": "NZ_CP006471.1",
+      "annotation": "GCF_000817325.1-RS_2026_05_13",
+      "assembly": "GCF_000817325.1",
+      "sequence_sha256": "4791d3b30e081dc8b557cde1c026378c72be73305510cabb9f726491e4df09d0",
+      "topology": "circular"
+    },
+    "NZ_CP006472.1": {
+      "accession": "NZ_CP006472.1",
+      "annotation": "GCF_000817325.1-RS_2026_05_13",
+      "assembly": "GCF_000817325.1",
+      "sequence_sha256": "b4a6ab1574fcfc9f80afa4e8fa0782d2bd01c2db91d2ef5480163912ef16f2a0",
+      "topology": "circular"
+    },
+    "NZ_CP006473.1": {
+      "accession": "NZ_CP006473.1",
+      "annotation": "GCF_000817325.1-RS_2026_05_13",
+      "assembly": "GCF_000817325.1",
+      "sequence_sha256": "0b5c1b88dd98850d8cb41972f15390ca3e5229878168c3b3bf7d014382806a5b",
+      "topology": "circular"
+    }
+  },
+  "mapping_rule": "Exact locus/replicon/strand; multiple CDS segments retained as ambiguous, no alias/name substitution; source gTSS distance anchors signed local annotation delta.",
+  "n_distinct_matched_loci": 1777,
+  "n_leaderless_current_contexts": 42,
+  "n_origin_crossing_contexts": 0,
+  "n_unambiguous_current_cds_contexts": 2433,
+  "output_bytes": 16225349,
+  "output_sha256": "c442baf07480ddece0956a9ac10aefd5884472ec63ed0c62166e2ad7ef8a03d5",
+  "rrna_tail_scenario": [
+    {
+      "anti_sd": "ACCUCCUUU",
+      "evidence": "terminal 9 nt of versioned annotated 16S; processing unmeasured",
+      "locus_tag": "M744_RS03180",
+      "replicon": "NZ_CP006471.1",
+      "rrna_interval": [
+        603901,
+        605390
+      ],
+      "rrna_sha256": "62b6eb0227c38d8521281584d0ea1e012587d8cc8f118017bf3401742d95cde5",
+      "strand": "+"
+    },
+    {
+      "anti_sd": "ACCUCCUUU",
+      "evidence": "terminal 9 nt of versioned annotated 16S; processing unmeasured",
+      "locus_tag": "M744_RS13280",
+      "replicon": "NZ_CP006471.1",
+      "rrna_interval": [
+        2688677,
+        2690166
+      ],
+      "rrna_sha256": "62b6eb0227c38d8521281584d0ea1e012587d8cc8f118017bf3401742d95cde5",
+      "strand": "-"
+    }
+  ],
+  "schema_version": "tan-context-audit-1",
+  "source_manifest": "native-sources.json"
+}

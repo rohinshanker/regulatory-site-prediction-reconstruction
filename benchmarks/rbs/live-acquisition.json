@@ -1,0 +1,363 @@
+{
+  "schema_version": 2,
+  "acquired_utc_date": "2026-10-16",
+  "panel_sha256": "dd58758467b242b8e0c9f9feaacce7aac639200b5cac700d73514cbd7bb0f038",
+  "n_planned": 12,
+  "n_submitted": 11,
+  "n_finished_exported": 9,
+  "n_unsubmitted": 1,
+  "advertised_coins_per_job": 1,
+  "advertised_submitted_total_coins": 11,
+  "observed_balance_delta": 0.0,
+  "actual_charge_status": "unreconciled",
+  "stop_reason": null,
+  "form_version": "2020",
+  "returned_version": "v2.1.1",
+  "returned_settings": {
+    "pre_cutoff_nt": 100,
+    "post_cutoff_nt": 35,
+    "dangles": 0,
+    "suboptimal_gap_kcal_mol": 8,
+    "footprint_nt": 13,
+    "temperature_c": 37,
+    "rna_energy_model": "rna_andronescu2007.par",
+    "rrna_displayed": "ACCUCCUUA",
+    "maximum_bulge_nt": null
+  },
+  "outputs_redistribution": "not established; raw outputs private",
+  "jobs": [
+    {
+      "id": "w1-atg",
+      "input_sha256": "24d215f5a1ac0e8f45335413bd83818d3c8ac6d426c5e93fa0a078f534ce43ba",
+      "status": "finished_exported",
+      "exports": [
+        {
+          "file": "w1-atg.csv",
+          "sha256": "2ed6b48bc9d8ecf557d7688919286160790eafc4858fec1c4d276fd1d57e23bc",
+          "bytes": 249
+        },
+        {
+          "file": "w1-atg-rendered.txt",
+          "sha256": "1cb3bc713ff22f82d9e8771d038c5cd468e81fe964d792219d521ddfd5e9626b",
+          "bytes": 2925
+        }
+      ],
+      "job_id_sha256": "6f1aa8498f509b9deeca5ee9e858ae7cfd0d15e01bc860c003d2c88d980ce7f8",
+      "export_checks": {
+        "id": "w1-atg",
+        "csv_sha256": "2ed6b48bc9d8ecf557d7688919286160790eafc4858fec1c4d276fd1d57e23bc",
+        "n_candidates": 1,
+        "candidate_starts_zero_based": [
+          25
+        ],
+        "n_candidates_with_warnings": 0,
+        "selected_start_returned": true,
+        "max_component_sum_residual_kcal_mol": 0.0,
+        "scope": "export integrity and target coverage; not experimental accuracy"
+      }
+    },
+    {
+      "id": "w1-gtg",
+      "input_sha256": "2c33635b1ae97f1c2fa848d71e868f499fd288c16ccd8c4522bfa21cf25193ae",
+      "status": "finished_exported",
+      "exports": [
+        {
+          "file": "w1-gtg.csv",
+          "sha256": "10e44d8c6187c02df11bbbaa70aec5d00e14024e062005f06ee9806137b39fc8",
+          "bytes": 249
+        },
+        {
+          "file": "w1-gtg-rendered.txt",
+          "sha256": "84b7e869bc4141c21aa5783fdc6e3e5b7921555b8d89f2d0444ec89321e94aa4",
+          "bytes": 3233
+        }
+      ],
+      "job_id_sha256": "8bb5288b40980ddf71599eed8131da1f8e6414321eecf28d78ed437864e3f257",
+      "export_checks": {
+        "id": "w1-gtg",
+        "csv_sha256": "10e44d8c6187c02df11bbbaa70aec5d00e14024e062005f06ee9806137b39fc8",
+        "n_candidates": 1,
+        "candidate_starts_zero_based": [
+          25
+        ],
+        "n_candidates_with_warnings": 0,
+        "selected_start_returned": true,
+        "max_component_sum_residual_kcal_mol": 0.0,
+        "scope": "export integrity and target coverage; not experimental accuracy"
+      }
+    },
+    {
+      "id": "w1-ttg",
+      "input_sha256": "5258a98cce6e808a43a29eb2007173ea6d36535877e2b406b1a24d0b5c80a692",
+      "status": "finished_exported",
+      "exports": [
+        {
+          "file": "w1-ttg.csv",
+          "sha256": "31a75ddf4c8638b4f9c927afc9f22b9f2ed70f0928821342af99c0431f7c82ab",
+          "bytes": 248
+        },
+        {
+          "file": "w1-ttg-rendered.txt",
+          "sha256": "ab8899ce3b2042f06ca2d85cf3b97d11a808728168f77d1829c8ee020c7141af",
+          "bytes": 3218
+        }
+      ],
+      "job_id_sha256": "8524bf0ccd4b884dd28b45f9c2e2254c2a341560f2f5bf42ff02905e46cd3864",
+      "export_checks": {
+        "id": "w1-ttg",
+        "csv_sha256": "31a75ddf4c8638b4f9c927afc9f22b9f2ed70f0928821342af99c0431f7c82ab",
+        "n_candidates": 1,
+        "candidate_starts_zero_based": [
+          25
+        ],
+        "n_candidates_with_warnings": 0,
+        "selected_start_returned": true,
+        "max_component_sum_residual_kcal_mol": 4.440892098500626e-16,
+        "scope": "export integrity and target coverage; not experimental accuracy"
+      }
+    },
+    {
+      "id": "w1-ctg",
+      "input_sha256": "e79e76eea57a324accabc7ca4ec7e88bebb27a581b089d5025ed6a42e73f1bf9",
+      "status": "finished_empty",
+      "exports": [
+        {
+          "file": "w1-ctg-rendered.txt",
+          "sha256": "0e588024d354a8807bd829c93ffd49dd2edbf112e1d6b93abf231c901815951d",
+          "bytes": 1619
+        }
+      ],
+      "job_id_sha256": "d97cc9cb4914f21289444a6f69b3c66e4c1fa7cb63eafb680f44a3b99d7f9a0b",
+      "empty_reason": "server reports no canonical start codons",
+      "n_candidates": 0,
+      "ran_timestamp_available": false
+    },
+    {
+      "id": "w1-short-spacer",
+      "input_sha256": "27d9fc2f5f8e6d32f9ae3a83a88d887f70f64e7cbef2cef1bc3ffc97eb56b6ed",
+      "status": "finished_exported",
+      "exports": [
+        {
+          "file": "w1-short-spacer.csv",
+          "sha256": "68d55087f462b0f6acc4ebdf70c4d042ba74ab30a22e629620480fce2da0182d",
+          "bytes": 269
+        },
+        {
+          "file": "w1-short-spacer-rendered.txt",
+          "sha256": "942295b168447fdfd09ce56ecfd3593a94e8a19b2c32d776abbbba6e60c9607f",
+          "bytes": 3201
+        }
+      ],
+      "job_id_sha256": "e8759ee9127c9ea1a8d08876150ea3716f218b54f4ccea06d84965c9981b3d7c",
+      "export_checks": {
+        "id": "w1-short-spacer",
+        "csv_sha256": "68d55087f462b0f6acc4ebdf70c4d042ba74ab30a22e629620480fce2da0182d",
+        "n_candidates": 1,
+        "candidate_starts_zero_based": [
+          21
+        ],
+        "n_candidates_with_warnings": 0,
+        "selected_start_returned": true,
+        "max_component_sum_residual_kcal_mol": 0.0,
+        "scope": "export integrity and target coverage; not experimental accuracy"
+      }
+    },
+    {
+      "id": "w1-long-spacer",
+      "input_sha256": "cc1406fdbfe98649f7b55e3196b88e719e73283c642e0a60ca1cc76c4080b014",
+      "status": "finished_exported",
+      "exports": [
+        {
+          "file": "w1-long-spacer.csv",
+          "sha256": "ea9d7add5242843ad928304c214d67f6758a9f2c483e8ec04888b9b05d9280ac",
+          "bytes": 248
+        },
+        {
+          "file": "w1-long-spacer-rendered.txt",
+          "sha256": "7c5c641309ccdca141b327f37df1bafa24c2278b68d55703c9349d2572cb2410",
+          "bytes": 3264
+        }
+      ],
+      "job_id_sha256": "15230b7cab67d1047274b6e6e679f55636443bf63fcac2b57c5ae1e1516b725f",
+      "export_checks": {
+        "id": "w1-long-spacer",
+        "csv_sha256": "ea9d7add5242843ad928304c214d67f6758a9f2c483e8ec04888b9b05d9280ac",
+        "n_candidates": 1,
+        "candidate_starts_zero_based": [
+          31
+        ],
+        "n_candidates_with_warnings": 0,
+        "selected_start_returned": true,
+        "max_component_sum_residual_kcal_mol": 8.881784197001252e-16,
+        "scope": "export integrity and target coverage; not experimental accuracy"
+      }
+    },
+    {
+      "id": "w1-no-sd",
+      "input_sha256": "4a076d5497f09838a968ca95eb35b5761bc73b350c845c058921b89e98e03950",
+      "status": "finished_exported",
+      "exports": [
+        {
+          "file": "w1-no-sd.csv",
+          "sha256": "53ecc91195a9a59d2a498c103c781372b348f1a0697497784de0fa615934a6ed",
+          "bytes": 263
+        },
+        {
+          "file": "w1-no-sd-rendered.txt",
+          "sha256": "2b14abbadb3b412991f0dad56390c453a40dde2bcf5643d842989f3ab6e85a0c",
+          "bytes": 3201
+        }
+      ],
+      "job_id_sha256": "2358ed3997c6a22693531674788c757fd08d8cf84f3500503ae40be67debf39d",
+      "export_checks": {
+        "id": "w1-no-sd",
+        "csv_sha256": "53ecc91195a9a59d2a498c103c781372b348f1a0697497784de0fa615934a6ed",
+        "n_candidates": 1,
+        "candidate_starts_zero_based": [
+          25
+        ],
+        "n_candidates_with_warnings": 0,
+        "selected_start_returned": true,
+        "max_component_sum_residual_kcal_mol": 0.0,
+        "scope": "export integrity and target coverage; not experimental accuracy"
+      }
+    },
+    {
+      "id": "w1-hairpin",
+      "input_sha256": "431d1f5d8d3a678d79d8229cb2e07988ad7f7d4ef5b738aa71fa109a8f58a3dc",
+      "status": "finished_exported",
+      "exports": [
+        {
+          "file": "w1-hairpin.csv",
+          "sha256": "0b319578624707d2e19fab9e3d949740fec5b9012afbfbbe550b3f2380fb7fb7",
+          "bytes": 270
+        },
+        {
+          "file": "w1-hairpin-rendered.txt",
+          "sha256": "27809bfbd36e89863a327e6102effd9079c2f9d5eccbd67ebdfe4fe1614ff948",
+          "bytes": 3323
+        }
+      ],
+      "job_id_sha256": "b747644a44df1c2dfbfe139fbb1e76baba0ce56d29de4d4002be2e65c036d235",
+      "export_checks": {
+        "id": "w1-hairpin",
+        "csv_sha256": "0b319578624707d2e19fab9e3d949740fec5b9012afbfbbe550b3f2380fb7fb7",
+        "n_candidates": 1,
+        "candidate_starts_zero_based": [
+          41
+        ],
+        "n_candidates_with_warnings": 0,
+        "selected_start_returned": true,
+        "max_component_sum_residual_kcal_mol": 0.0,
+        "scope": "export integrity and target coverage; not experimental accuracy"
+      }
+    },
+    {
+      "id": "w1-leaderless",
+      "input_sha256": "d7a9a9528c33bb92e5cfbb7b7a8c44cd51392eda23cb76dbf08b93d7b717c3b3",
+      "status": "form_rejected",
+      "exports": [
+        {
+          "file": "w1-leaderless-form-rejection.json",
+          "sha256": "2bca581b99a47303614712b930203face0dd686e23070c48fbe1b1bd14f2ceb4",
+          "bytes": 112
+        }
+      ],
+      "rejection_reason": "99-base input is below the form minimum of 100 characters"
+    },
+    {
+      "id": "w1-no-start",
+      "input_sha256": "1d992769eb41340d0d06a171ae06f8d8fde50d19044c88d85074199c588c7ca2",
+      "status": "finished_empty",
+      "exports": [
+        {
+          "file": "w1-no-start-rendered.txt",
+          "sha256": "d60755c639af1f30469b36503109f81bd29e6d4fb3899a7d4f1a43644525ef39",
+          "bytes": 1626
+        }
+      ],
+      "job_id_sha256": "9b4abd7fd7a3892f8a5ebe69c20b00ce241b49da63b2b370ae5ac07c4f48970b",
+      "empty_reason": "server reports no canonical start codons",
+      "n_candidates": 0,
+      "ran_timestamp_available": false
+    },
+    {
+      "id": "w1-standby2014-136",
+      "input_sha256": "de0f89ca9a8f73590f663fe9781b29148eb976f5d8b384d023d02320ab5dd059",
+      "status": "finished_exported",
+      "exports": [
+        {
+          "file": "w1-standby2014-136.csv",
+          "sha256": "7b3cd7c0f55ce194efeb625fdc4e318c48648bb85324d378bdeeb401c5fb8d82",
+          "bytes": 808
+        },
+        {
+          "file": "w1-standby2014-136-rendered.txt",
+          "sha256": "135d861872845c8e8b7fb5d8d2a7ab5b9fc2f4bdda9abfdd239c237233fa96c1",
+          "bytes": 3490
+        }
+      ],
+      "job_id_sha256": "7f215c239123b437cb5a9e3c08a865f678ad280f070b87a1ecbd48abab83ac87",
+      "export_checks": {
+        "id": "w1-standby2014-136",
+        "csv_sha256": "7b3cd7c0f55ce194efeb625fdc4e318c48648bb85324d378bdeeb401c5fb8d82",
+        "n_candidates": 5,
+        "candidate_starts_zero_based": [
+          28,
+          61,
+          79,
+          119,
+          125
+        ],
+        "n_candidates_with_warnings": 0,
+        "selected_start_returned": true,
+        "max_component_sum_residual_kcal_mol": 1.7763568394002505e-15,
+        "scope": "export integrity and target coverage; not experimental accuracy"
+      }
+    },
+    {
+      "id": "w1-standby2014-1",
+      "input_sha256": "94d14316d7082322838b8f87fafd30a5a8cec8069641b8e8d586aab30cc40916",
+      "status": "finished_exported",
+      "exports": [
+        {
+          "file": "w1-standby2014-1.csv",
+          "sha256": "8f49fbf7a9d157f51e74b900d56d5000ccea15f57d13d018d5c67d63610d86d6",
+          "bytes": 832
+        },
+        {
+          "file": "w1-standby2014-1-rendered.txt",
+          "sha256": "22ec82982a269ef10f186b68baf582553748323fa437118635aa009314c1c0c5",
+          "bytes": 3638
+        }
+      ],
+      "job_id_sha256": "dcf4cfdb2f8c2646206b8d5c8ce245b111e8c440deaef4b7afbebeea92e8800b",
+      "export_checks": {
+        "id": "w1-standby2014-1",
+        "csv_sha256": "8f49fbf7a9d157f51e74b900d56d5000ccea15f57d13d018d5c67d63610d86d6",
+        "n_candidates": 5,
+        "candidate_starts_zero_based": [
+          57,
+          90,
+          108,
+          148,
+          154
+        ],
+        "n_candidates_with_warnings": 0,
+        "selected_start_returned": true,
+        "max_component_sum_residual_kcal_mol": 3.552713678800501e-15,
+        "scope": "export integrity and target coverage; not experimental accuracy"
+      }
+    }
+  ],
+  "n_attempted": 12,
+  "n_finished_empty": 2,
+  "n_form_rejected": 1,
+  "n_pending": 0,
+  "authorized_panel_cap_coins": 12,
+  "balance_observed_at_utc": "2026-10-16T20:04:10.144381+00:00",
+  "acquisition_state": "complete_for_frozen_panel",
+  "billing_policy": "Owner authorized continuing at one budgeted coin per accepted job despite unchanged balance; no waived charge is inferred.",
+  "returned_settings_verified_job_count": 11,
+  "form_minimum_length_observed_nt": 100
+}
