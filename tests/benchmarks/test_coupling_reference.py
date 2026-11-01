@@ -525,6 +525,7 @@ def test_failed_record_contradictions(fixture):
     record.update(status="invalid_input", reason=None)
     with pytest.raises(ref.AdmissionError, match="Failure reason"):
         ref.record_shape(record)
+
     record["reason"] = "invalid"
     with pytest.raises(ref.AdmissionError, match="null fields"):
         ref.record_shape(record)
@@ -537,3 +538,418 @@ def test_failed_record_contradictions(fixture):
     )
     with pytest.raises(ref.AdmissionError, match="Deadline reason"):
         ref.record_shape(record)
+
+
+def refresh_campaign(directory, result=None, receipt=None, freeze=None):
+    if result is not None:
+        result.pop("prediction_sha256", None)
+        result["prediction_sha256"] = ref.sha(ref.canonical(result))
+        (directory / "result.json").write_bytes(ref.canonical(result) + b"\n")
+    if receipt is None:
+        receipt = json.loads((directory / "execution.json").read_bytes())
+    receipt["stdout_bytes"] = (directory / "result.json").stat().st_size
+    receipt["stderr_bytes"] = (directory / "stderr.bin").stat().st_size
+    (directory / "execution.json").write_bytes(ref.pretty(receipt))
+    if freeze is not None:
+        (directory / "freeze.json").write_bytes(ref.pretty(freeze))
+    frozen = (directory / "freeze.json").read_bytes()
+    acquisition = {
+        "schema_version": "coupling-numeric-acquisition-1",
+        "freeze": ref.pin(frozen),
+        "outputs": {
+            name: ref.pin((directory / name).read_bytes())
+            for name in ("result.json", "stderr.bin", "execution.json")
+        },
+    }
+    (directory / "acquisition.json").write_bytes(ref.pretty(acquisition))
+    return ref.sha(frozen), ref.sha(ref.pretty(acquisition))
+
+
+@pytest.fixture
+def campaign(tmp_path, fixture, protocol):
+    for name, data in {
+        "protocol.json": PROTOCOL.read_bytes(),
+        "fixtures.json": ref.pretty(fixture),
+        "public-contract.json": ref.pretty(PUBLIC_CONTRACT),
+        "request.json": ref.pretty(fixture["request"]),
+        "stderr.bin": b"",
+    }.items():
+        (tmp_path / name).write_bytes(data)
+    freeze = {
+        "schema_version": "coupling-numeric-freeze-1",
+        "candidate": protocol["candidate"],
+        "inputs": {
+            name: ref.pin((tmp_path / name).read_bytes())
+            for name in (*ref.TRUSTED, "request.json")
+        },
+        "runtime": {"identity": "artificial-runtime-only"},
+        "argv": ["artificial-cli", "request.json"],
+        "environment": {"LANG": "C"},
+        "limits": copy.deepcopy(ref.LIMITS),
+    }
+    freeze["inputs"]["tool"] = ref.pin(Path(ref.__file__).read_bytes())
+    result = artificial_envelope(fixture)
+    result["model"], result["warnings"] = (
+        copy.deepcopy(PUBLIC_CONTRACT["model"]),
+        copy.deepcopy(PUBLIC_CONTRACT["warnings"]),
+    )
+    result["request_sha256"] = ref.sha(ref.canonical(fixture["request"]))
+    receipt = {
+        "attempts": 1,
+        "argv": freeze["argv"],
+        "environment": freeze["environment"],
+        "runtime": freeze["runtime"],
+        "exit_code": 1,
+        "elapsed_seconds": 0.125,
+        "stop_reason": None,
+        "request_sha256": ref.sha((tmp_path / "request.json").read_bytes()),
+        "stdout_bytes": 0,
+        "stderr_bytes": 0,
+    }
+    pins = refresh_campaign(tmp_path, result, receipt, freeze)
+    return tmp_path, pins, result, receipt, freeze
+
+
+def test_complete_saved_check_and_cli(campaign, capsys):
+    directory, pins, result, _, _ = campaign
+    report = ref.check_saved(directory, *pins)
+    assert report["all_cases_conform"] and report["requested"] == 24
+    assert report["native_coverage"]["successful"] == 11
+    args = [
+        "check",
+        "--directory",
+        str(directory),
+        "--freeze-sha256",
+        pins[0],
+        "--acquisition-sha256",
+        pins[1],
+        "--output",
+        str(directory / "report.json"),
+    ]
+    assert ref.main(args) == 0
+    assert "24/24" in capsys.readouterr().out
+    assert ref.main(args) == 2
+    result["records"][0]["scores"]["downstream_total"]["value"] *= 2
+    pins = refresh_campaign(directory, result)
+    args[args.index("--acquisition-sha256") + 1] = pins[1]
+    args[-1] = str(directory / "failed-report.json")
+    assert ref.main(args) == 1
+    report = json.loads((directory / "failed-report.json").read_bytes())
+    assert report["nonconforming"] == 1 and len(report["cases"]) == 24
+
+
+@pytest.mark.parametrize(
+    "path,value,match",
+    [
+        ("model/implementation_version", "0.16.0rc2", "model"),
+        ("warnings/0", "changed", "warning"),
+        ("request_sha256", "1" * 64, "request hash"),
+        ("settings/seconds_total", 10, "settings"),
+        ("records/0/energies/upstream_total_kcal_mol", 0, "energy"),
+        ("coverage/successful", 12, "Coverage"),
+        ("records/0/index", 1, "roster"),
+        ("records/0/scores/downstream_total/value", None, "contradiction"),
+    ],
+)
+def test_consistently_rehashed_admission_failures(campaign, path, value, match):
+    directory, _, result, _, _ = campaign
+    set_path(result, path, value)
+    pins = refresh_campaign(directory, result)
+    with pytest.raises(ref.AdmissionError, match=match):
+        ref.check_saved(directory, *pins)
+
+
+@pytest.mark.parametrize(
+    "path,value",
+    [
+        ("records/0/scores/downstream_total/log_value", 3.0),
+        ("records/5/geometry/upstream/interval/0", 1),
+        ("records/2/geometry/distance_nt", 0),
+        ("records/16/scores/downstream_total/value", 1.0),
+    ],
+)
+def test_consistently_rehashed_semantic_failures(campaign, path, value):
+    directory, _, result, _, _ = campaign
+    set_path(result, path, value)
+    pins = refresh_campaign(directory, result)
+    report = ref.check_saved(directory, *pins)
+    assert not report["all_cases_conform"] and report["requested"] == 24
+    assert report["nonconforming"] == 1
+
+
+@pytest.mark.parametrize(
+    "key,value",
+    [
+        ("attempts", 2),
+        ("attempts", True),
+        ("argv", ["different"]),
+        ("environment", {}),
+        ("runtime", {"changed": True}),
+        ("request_sha256", "0" * 64),
+        ("stop_reason", "timeout"),
+        ("elapsed_seconds", 31),
+        ("elapsed_seconds", False),
+        ("exit_code", 0),
+        ("exit_code", True),
+    ],
+)
+def test_execution_mismatch(campaign, key, value):
+    directory, _, _, receipt, _ = campaign
+    receipt[key] = value
+    pins = refresh_campaign(directory, receipt=receipt)
+    with pytest.raises(ref.AdmissionError):
+        ref.check_saved(directory, *pins)
+
+
+@pytest.mark.parametrize(
+    "path,value",
+    [
+        ("schema_version", "bad"),
+        ("candidate/version", "0.16"),
+        ("limits/wall_seconds", 60.0),
+        ("runtime", {}),
+        ("argv", []),
+        ("environment", {"PYTHONHOME": "unused"}),
+        ("environment", {"LANG": 1}),
+        ("inputs", {}),
+    ],
+)
+def test_freeze_mismatch(campaign, path, value):
+    directory, _, _, _, freeze = campaign
+    set_path(freeze, path, value)
+    pins = refresh_campaign(directory, freeze=freeze)
+    with pytest.raises(ref.AdmissionError):
+        ref.check_saved(directory, *pins)
+
+
+def test_invalid_hashes_wire_and_output_caps(campaign):
+    directory, pins, result, receipt, freeze = campaign
+    with pytest.raises(ref.AdmissionError, match="Freeze trust"):
+        ref.check_saved(directory, "0" * 64, pins[1])
+    with pytest.raises(ref.AdmissionError, match="Acquisition trust"):
+        ref.check_saved(directory, pins[0], "0" * 64)
+    result["prediction_sha256"] = "0" * 64
+    (directory / "result.json").write_bytes(ref.canonical(result) + b"\n")
+    pins = refresh_campaign(directory)
+    with pytest.raises(ref.AdmissionError, match="prediction hash"):
+        ref.check_saved(directory, *pins)
+    for data in (
+        ref.pretty(result),
+        ref.canonical(result),
+        ref.canonical(result) + b"\n\n",
+    ):
+        (directory / "result.json").write_bytes(data)
+        pins = refresh_campaign(directory)
+        with pytest.raises(ref.AdmissionError, match="Authoritative"):
+            ref.check_saved(directory, *pins)
+    refresh_campaign(directory, result)
+    (directory / "stderr.bin").write_bytes(b"warning")
+    pins = refresh_campaign(directory)
+    with pytest.raises(ref.AdmissionError, match="stderr"):
+        ref.check_saved(directory, *pins)
+    (directory / "stderr.bin").write_bytes(b"x" * 65537)
+    pins = refresh_campaign(directory)
+    with pytest.raises(ref.AdmissionError, match="stderr_bytes"):
+        ref.check_saved(directory, *pins)
+
+
+def test_empty_failure_records_and_complete_envelope(campaign):
+    directory, _, result, receipt, _ = campaign
+    record = result["records"][0]
+    record.update(
+        status="not_evaluated",
+        reason="time_budget_exhausted",
+        geometry=None,
+        energies=None,
+        coefficient=None,
+        scores=None,
+    )
+    result["coverage"].update(successful=10, not_evaluated=1)
+    pins = refresh_campaign(directory, result)
+    assert ref.check_saved(directory, *pins)["nonconforming"] == 1
+    template = copy.deepcopy(result["records"][1])
+    for index, record in enumerate(result["records"]):
+        ident = record["id"]
+        energies = ref.strict_json((directory / "fixtures.json").read_bytes())[
+            "request"
+        ]["records"][index]["energies"]
+        record.clear()
+        record.update(copy.deepcopy(template))
+        record.update(index=index, id=ident, energies=energies)
+    result["status"] = "complete"
+    result["coverage"].update(successful=24, failed_or_unsupported=0, not_evaluated=0)
+    receipt["exit_code"] = 0
+    pins = refresh_campaign(directory, result, receipt)
+    assert not ref.check_saved(directory, *pins)["all_cases_conform"]
+
+
+def test_wire_number_identity_and_depth():
+    assert ref.sha(ref.canonical({"x": 0.0})) != ref.sha(ref.canonical({"x": -0.0}))
+    assert ref.strict_json(b"[" * 32 + b"0" + b"]" * 32)
+    with pytest.raises(ref.AdmissionError, match="structure"):
+        ref.strict_json(b"[" * 33 + b"0" + b"]" * 33)
+
+
+@pytest.mark.parametrize("name", list(ref.TRUSTED))
+def test_reference_cannot_be_repinned(campaign, name):
+    directory, _, _, _, freeze = campaign
+    path = directory / name
+    path.write_bytes(path.read_bytes() + b" ")
+    freeze["inputs"][name] = ref.pin(path.read_bytes())
+    pins = refresh_campaign(directory, freeze=freeze)
+    with pytest.raises(ref.AdmissionError, match="Immutable reference"):
+        ref.check_saved(directory, *pins)
+
+
+def test_request_byte_cap_and_exact_number_spelling(campaign):
+    directory, _, _, _, freeze = campaign
+    request = json.loads((directory / "request.json").read_bytes())
+    request["settings"]["seconds_total"] = 10
+    (directory / "request.json").write_bytes(ref.pretty(request))
+    freeze["inputs"]["request.json"] = ref.pin(ref.pretty(request))
+    pins = refresh_campaign(directory, freeze=freeze)
+    with pytest.raises(ref.AdmissionError, match="Frozen request"):
+        ref.check_saved(directory, *pins)
+    data = b" " * 1_048_577
+    (directory / "request.json").write_bytes(data)
+    freeze["inputs"]["request.json"] = ref.pin(data)
+    pins = refresh_campaign(directory, freeze=freeze)
+    with pytest.raises(ref.AdmissionError, match="received byte"):
+        ref.check_saved(directory, *pins)
+
+
+@pytest.mark.parametrize(
+    "path,value",
+    [("schema_version", "bad"), ("freeze/sha256", "0" * 64), ("outputs", {})],
+)
+def test_acquisition_contract(campaign, path, value):
+    directory, pins, _, _, _ = campaign
+    acquisition = json.loads((directory / "acquisition.json").read_bytes())
+    set_path(acquisition, path, value)
+    data = ref.pretty(acquisition)
+    (directory / "acquisition.json").write_bytes(data)
+    with pytest.raises(ref.AdmissionError):
+        ref.check_saved(directory, pins[0], ref.sha(data))
+
+
+@pytest.mark.parametrize(
+    "field,value",
+    [
+        ("bytes", False),
+        ("bytes", -1),
+        ("bytes", ref.MAX_BYTES + 1),
+        ("sha256", "invalid"),
+        ("extra", 1),
+    ],
+)
+def test_explicit_pin_shapes(tmp_path, field, value):
+    path = tmp_path / "empty"
+    path.write_bytes(b"")
+    expected = ref.pin(b"")
+    expected[field] = value
+    with pytest.raises(ref.AdmissionError):
+        ref.read_bytes(path, expected)
+
+
+def test_saved_output_count_is_checked(campaign):
+    directory, _, _, receipt, _ = campaign
+    receipt["stdout_bytes"] = False
+    (directory / "execution.json").write_bytes(ref.pretty(receipt))
+    acquisition = json.loads((directory / "acquisition.json").read_bytes())
+    acquisition["outputs"]["execution.json"] = ref.pin(ref.pretty(receipt))
+    (directory / "acquisition.json").write_bytes(ref.pretty(acquisition))
+    with pytest.raises(ref.AdmissionError, match="stdout_bytes"):
+        ref.check_saved(
+            directory,
+            ref.sha((directory / "freeze.json").read_bytes()),
+            ref.sha(ref.pretty(acquisition)),
+        )
+
+
+# Literal outcome-free A contract at 194f515; no scorer source or outputs.
+PUBLIC_CONTRACT = {
+    "candidate_executions": 0,
+    "encoding": {
+        "allow_nan": False,
+        "encoding": "ascii",
+        "ensure_ascii": True,
+        "hash": "sha256",
+        "hash_trailing_newline": False,
+        "separators": [",", ":"],
+        "sort_keys": True,
+        "wire_trailing_newline": True,
+    },
+    "implementation_version": "0.14.0rc2",
+    "limits": {
+        "canonical_api_object_bytes": 6291456,
+        "container_depth": 32,
+        "encoded_output_bytes_including_newline": 4194304,
+        "received_input_bytes": 1048576,
+        "records": 100,
+        "seconds_total_exclusive_lower": 0,
+        "seconds_total_inclusive_upper": 60,
+    },
+    "model": {
+        "backend": None,
+        "beta_mol_per_kcal": 0.45,
+        "coefficient_domain": {"distance_0_to_25": 0.0072, "distance_minus_4": 0.022},
+        "id": "tian2015-reinitiation-only-1",
+        "implementation_version": "0.14.0rc2",
+        "k_p": 10.0,
+        "score_scale": (
+            "dimensionless exp(-beta*G); no intercept or absolute conversion"
+        ),
+        "source_doi": "10.1093/nar/gkv635",
+        "source_pdf_sha256": (
+            "83bbe3bcd87380b4716c93ad0844134ed71cf4f977d6486ef3d3d38f0a566ff7"
+        ),
+    },
+    "prediction_payload": "complete result object excluding only prediction_sha256",
+    "request_payload": (
+        "complete parsed request before normalization; no fields removed"
+    ),
+    "schema_version": "coupling-public-contract-1",
+    "scientific_outcomes": False,
+    "source_commit": "ebff076d14789735b56e71501ccfaa5b2b0f82fc",
+    "source_files": {
+        "src/regsite/__init__.py": {
+            "bytes": 107,
+            "sha256": (
+                "5bd7662b682dc0bc95cc693c9584e2600a25ea9bb534a22611952c018e981024"
+            ),
+        },
+        "src/regsite/coupling.py": {
+            "bytes": 9308,
+            "sha256": (
+                "c40ad92c727000e0b98d206952e1ee2ccde0bbc0f69e8090a44ac8f4e9311b31"
+            ),
+        },
+        "src/regsite/coupling_cli.py": {
+            "bytes": 1606,
+            "sha256": (
+                "883bb5d77993ac29a717bcb9f524c4c7715674b0f58e397a4269eafa6f966af3"
+            ),
+        },
+        "src/regsite/coupling_io.py": {
+            "bytes": 2528,
+            "sha256": (
+                "8cbc549897a6f664bf88cece2d390a0e19a3eca72f46439cf55352345bc980cf"
+            ),
+        },
+    },
+    "warnings": [
+        (
+            "Energies and their common convention are"
+            " supplied by the caller, not verified."
+        ),
+        (
+            "Reinitiation only: RNA unfolding and seq"
+            "uence-derived energies are unavailable."
+        ),
+        "Historical E. coli component; native-host calibration is unestablished.",
+        (
+            "Assumes initiation-limited translation; "
+            "outputs are relative scores, not rates."
+        ),
+    ],
+}

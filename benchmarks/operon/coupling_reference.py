@@ -69,6 +69,14 @@ EQUATIONS = {
     "unfolding_correction": None,
     "upstream": "exp(-beta*G_up)",
 }
+TRUSTED = {
+    "protocol.json": "9390e29f40eb3ef0f2b09bfe36ab6df8a523369de203d7e096ee70a5494ddc64",
+    "fixtures.json": "115cc7f71d352e1dcecc85afce5bf6a70bc50f381ae009d0c11beff1f1f722b1",
+    "public-contract.json": (
+        "7a236d9ef4b1a42ac48c11244eb6a637b48e98e02191478edd4322f109b0f018"
+    ),
+}
+LIMITS = {"wall_seconds": 30.0, "stdout_bytes": MAX_BYTES, "stderr_bytes": 65536}
 
 
 def require(condition: bool, message: str) -> None:
@@ -120,7 +128,12 @@ def strict_json(data: bytes) -> Any:
     while pending:
         item, depth = pending.pop()
         nodes += 1
-        require(nodes <= 100_000 and depth <= 32, "JSON structure limit")
+        require(
+            nodes <= 100_000
+            and depth <= 32
+            and (not isinstance(item, (dict, list)) or depth < 32),
+            "JSON structure limit",
+        )
         if isinstance(item, dict):
             pending.extend((v, depth + 1) for v in item.values())
         elif isinstance(item, list):
@@ -132,6 +145,17 @@ def strict_json(data: bytes) -> Any:
 
 def read_bytes(path: Path, expected: dict[str, Any] | None = None) -> bytes:
     """Read one explicitly named file, bounded irrespective of advertised size."""
+    if expected is not None:
+        exact_keys(expected, "bytes sha256", "File pin")
+        require(
+            type(expected["bytes"]) is int and 0 <= expected["bytes"] <= MAX_BYTES,
+            "File pin size",
+        )
+        require(
+            isinstance(expected["sha256"], str)
+            and re.fullmatch(r"[a-f0-9]{64}", expected["sha256"]) is not None,
+            "File pin digest",
+        )
     with path.open("rb") as stream:
         data = stream.read(MAX_BYTES + 1)
     require(len(data) <= MAX_BYTES, f"File byte limit: {path.name}")
@@ -682,6 +706,188 @@ def result_accounting(result: Any) -> None:
     )
 
 
+def check_saved(
+    directory: Path, freeze_sha: str, acquisition_sha: str
+) -> dict[str, Any]:
+    """Admit explicit saved bytes before comparing every frozen artificial case.
+
+    A's reviewed execution/material receipt is an external trust boundary. This
+    checker verifies its complete declared runtime object against the execution
+    receipt; it neither discovers nor opens installed runtime material.
+    """
+    freeze_data = read_bytes(directory / "freeze.json")
+    acquisition_data = read_bytes(directory / "acquisition.json")
+    require(sha(freeze_data) == freeze_sha, "Freeze trust pin")
+    require(sha(acquisition_data) == acquisition_sha, "Acquisition trust pin")
+    freeze, acquisition = strict_json(freeze_data), strict_json(acquisition_data)
+    exact_keys(
+        freeze,
+        "schema_version candidate inputs runtime argv environment limits",
+        "Freeze",
+    )
+    require(freeze["schema_version"] == "coupling-numeric-freeze-1", "Freeze schema")
+    exact_keys(acquisition, "schema_version freeze outputs", "Acquisition")
+    require(
+        acquisition["schema_version"] == "coupling-numeric-acquisition-1",
+        "Acquisition schema",
+    )
+    require(acquisition["freeze"] == pin(freeze_data), "Acquisition/freeze binding")
+    require(canonical(freeze["limits"]) == canonical(LIMITS), "Frozen limits")
+    require(
+        isinstance(freeze["runtime"], dict) and bool(freeze["runtime"]),
+        "Complete declared runtime required",
+    )
+    require(
+        isinstance(freeze["argv"], list)
+        and bool(freeze["argv"])
+        and all(isinstance(v, str) for v in freeze["argv"]),
+        "Frozen argv",
+    )
+    require(
+        isinstance(freeze["environment"], dict)
+        and all(
+            isinstance(k, str) and isinstance(v, str)
+            for k, v in freeze["environment"].items()
+        ),
+        "Frozen environment",
+    )
+    require(
+        not {"MULTICA_TOKEN", "TYPESAFE_API_KEY", "PYTHONHOME"}
+        & freeze["environment"].keys(),
+        "Forbidden environment key",
+    )
+    exact_keys(
+        freeze["inputs"],
+        "protocol.json fixtures.json public-contract.json request.json tool",
+        "Frozen input allowlist",
+    )
+    exact_keys(
+        acquisition["outputs"],
+        "result.json stderr.bin execution.json",
+        "Output allowlist",
+    )
+    raw = {
+        name: read_bytes(directory / name, freeze["inputs"][name])
+        for name in (*TRUSTED, "request.json")
+    }
+    for name, digest in TRUSTED.items():
+        require(sha(raw[name]) == digest, f"Immutable reference pin: {name}")
+    read_bytes(Path(__file__), freeze["inputs"]["tool"])
+    raw.update(
+        {
+            name: read_bytes(directory / name, expected)
+            for name, expected in acquisition["outputs"].items()
+        }
+    )
+    protocol = strict_json(raw["protocol.json"])
+    fixture = strict_json(raw["fixtures.json"])
+    contract = strict_json(raw["public-contract.json"])
+    require(
+        canonical(freeze["candidate"]) == canonical(protocol["candidate"]),
+        "Candidate identity",
+    )
+    require(
+        fixture["protocol"] == pin(raw["protocol.json"]), "Fixture/protocol binding"
+    )
+    require(len(raw["request.json"]) <= 1_048_576, "Request received byte limit")
+    request = strict_json(raw["request.json"])
+    require(
+        canonical(request) == canonical(fixture["request"]), "Frozen request identity"
+    )
+    receipt = strict_json(raw["execution.json"])
+    exact_keys(
+        receipt,
+        (
+            "attempts argv environment runtime exit_c"
+            "ode elapsed_seconds stop_reason request_sha256 stdout_bytes stderr_bytes"
+        ),
+        "Execution",
+    )
+    require(
+        type(receipt["attempts"]) is int and receipt["attempts"] == 1,
+        "One attempt required",
+    )
+    for name in ("argv", "environment", "runtime"):
+        require(
+            canonical(receipt[name]) == canonical(freeze[name]), f"Execution {name}"
+        )
+    require(
+        receipt["request_sha256"] == sha(raw["request.json"]), "Executed request bytes"
+    )
+    require(receipt["stop_reason"] is None, "Execution stopped")
+    require(
+        finite_number(receipt["elapsed_seconds"])
+        and 0 <= receipt["elapsed_seconds"] <= LIMITS["wall_seconds"],
+        "Execution elapsed limit",
+    )
+    for field, filename, cap in (
+        ("stdout_bytes", "result.json", MAX_BYTES),
+        ("stderr_bytes", "stderr.bin", 65536),
+    ):
+        require(
+            type(receipt[field]) is int and receipt[field] == len(raw[filename]) <= cap,
+            f"Execution {field}",
+        )
+    require(not raw["stderr.bin"], "Unexpected candidate stderr")
+    result = strict_json(raw["result.json"])
+    result_accounting(result)
+    require(
+        raw["result.json"] == canonical(result) + b"\n",
+        "Authoritative compact result bytes",
+    )
+    require(
+        type(receipt["exit_code"]) is int
+        and receipt["exit_code"] == (0 if result["status"] == "complete" else 1),
+        "Exit/status mismatch",
+    )
+    require(
+        canonical(result["model"]) == canonical(contract["model"]),
+        "Result model identity",
+    )
+    require(result["warnings"] == contract["warnings"], "Result warning identity")
+    require(result["request_sha256"] == sha(canonical(request)), "Result request hash")
+    require(
+        result["prediction_sha256"]
+        == sha(
+            canonical({k: v for k, v in result.items() if k != "prediction_sha256"})
+        ),
+        "Result prediction hash",
+    )
+    require(
+        canonical(result["settings"]) == canonical(request["settings"]),
+        "Result settings identity",
+    )
+    cases = compare_records(fixture, result["records"])
+    for expected, observed in zip(request["records"], result["records"], strict=True):
+        if observed["energies"] is not None:
+            require(
+                canonical(observed["energies"]) == canonical(expected["energies"]),
+                "Result supplied-energy identity",
+            )
+    passed = sum(c["conforms"] for c in cases)
+    return {
+        "schema_version": "coupling-numeric-report-1",
+        "scope": "independent artificial numerical/coordinate conformance",
+        "freeze": pin(freeze_data),
+        "acquisition": pin(acquisition_data),
+        "inputs": freeze["inputs"],
+        "outputs": acquisition["outputs"],
+        "candidate": freeze["candidate"],
+        "admission": "passed",
+        "runtime_material_verification": (
+            "external A receipt; not re-executed or independently inspected here"
+        ),
+        "cases": cases,
+        "requested": len(cases),
+        "conforming": passed,
+        "nonconforming": len(cases) - passed,
+        "native_coverage": result["coverage"],
+        "all_cases_conform": passed == len(cases),
+        "predictor_calls": 0,
+        "limitations": protocol["limitations"],
+    }
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     sub = parser.add_subparsers(dest="command", required=True)
@@ -690,8 +896,23 @@ def main(argv: list[str] | None = None) -> int:
     prep.add_argument("--protocol-sha256", required=True)
     prep.add_argument("--root", required=True, type=Path)
     prep.add_argument("--output", required=True, type=Path)
+    check = sub.add_parser("check")
+    check.add_argument("--directory", required=True, type=Path)
+    check.add_argument("--freeze-sha256", required=True)
+    check.add_argument("--acquisition-sha256", required=True)
+    check.add_argument("--output", required=True, type=Path)
     args = parser.parse_args(argv)
     try:
+        if args.command == "check":
+            report = check_saved(
+                args.directory, args.freeze_sha256, args.acquisition_sha256
+            )
+            write_new(args.output, report)
+            print(
+                f"Conforming {report['conforming']}/{report['requested']}; "
+                "predictions_executed=0"
+            )
+            return 0 if report["all_cases_conform"] else 1
         prepare(args.protocol, args.protocol_sha256, args.root, args.output)
     except (AdmissionError, OSError, KeyError, TypeError, ValueError) as error:
         print(f"coupling-reference: {error}", file=sys.stderr)
