@@ -1,7 +1,7 @@
 # Drafting tabular export
 
 - Purpose: Inspect supplied-rate stationary records with explicit native identities and numerical representations.
-- Scope: `drafting-csv-1` producer-owned projection; implementation checked locally, independent review pending.
+- Scope: Independently reviewed `drafting-csv-1` producer-owned projection.
 - Last verified: 2026-10-31
 
 `regsite-drafting REQUEST --format csv` writes UTF-8 CSV. `--format json` and
@@ -20,16 +20,18 @@ merged. Exact 42-column order:
 csv_schema_version,row_type,schema_version,model_id,implementation_version,source_doi,theory_sha256,backend_json,rate_origin,request_sha256,prediction_sha256,json_sha256,result_status,result_reason,requested_records,evaluated_records,successful_records,complete,warnings_json,record_index,record_id,record_status,record_reason,rate_unit,rate_provenance,a1,a2,a_fold,a_elong,accessible_value,accessible_ln_value,accessible_representation,folded_value,folded_ln_value,folded_representation,occupied_value,occupied_ln_value,occupied_representation,throughput_unit,throughput_value,throughput_ln_value,throughput_representation
 ```
 
-The first 19 metadata columns repeat on every row. Record-only cells are blank
-on the result row. Coverage is copied from native JSON; null coverage stays
+The first 19 columns describe the result; their values repeat on every row
+except `row_type`, which changes from `result` to `record`. Record-only cells
+are blank on the result row. Coverage is copied from native JSON; null coverage stays
 blank, including `complete`, rather than inventing zero requested records.
 `backend_json` is blank for the current null backend; structured backend metadata
 and `warnings_json` use compact sorted finite JSON with ASCII escaping.
 
 Normalized supplied rates, their common unit, caller provenance and native
-status/reason strings are retained. Missing/null cells are blank; numeric zero
-is `0.0` and booleans are `true` or `false`. Numbers use Python's deterministic
-round-trippable string representation, without rounding or unit conversion.
+status/reason strings are retained. Missing/null cells are blank; floating
+rate/quantity zero is `0.0`, integer indices/counts retain `0`, and booleans are
+`true` or `false`. Numbers use Python's deterministic round-trippable string
+representation, without rounding or unit conversion.
 Every occupancy and throughput retains its `value`, `ln_value` and
 `representation` triple:
 
@@ -75,7 +77,10 @@ byte-for-byte with the frozen pre-export CLI on ten existing/artificial request
 cases, including malformed input and surrogate text. Run the two focused modules
 with external test/cache/coverage paths and `--noconftest -p pytest_cov`, covering
 `regsite.drafting_export` and `regsite.drafting_cli`; no backend fixture is needed.
-Local checks pass all 56 tests and all 85 statements/18 branches. Independent
-exact-patch review is pending. Full coverage and independent review are
-engineering checks, not new numerical or biological accuracy evidence. No model,
-source, fixture, schema or prediction-hash change is implied.
+Local checks pass all 56 tests and all 85 statements/18 branches. Independent A
+review accepted the runtime patch and compared six artificial requests against
+the unchanged installed package, checking complete CSV rosters, values/logs,
+identities, JSON bytes/exits and the surrogate refusal's native hashes. Full
+coverage and independent review are engineering checks, not new numerical or
+biological accuracy evidence. No model, source, fixture, schema or prediction-hash
+change is implied.

@@ -24,7 +24,6 @@ A owns remaining runtime/release/improvement scopes 04/06/13; B owns broader sou
 
 | Status | Updated | Ticket | Priority | Scope |
 | --- | --- | --- | --- | --- |
-| A | 2026-10-31 | [A_drafting-tabular-export__20261031.md](A_drafting-tabular-export__20261031.md) | P1 | C: bounded supplied-rate CSV preserving all records, native identities and numerical representations; [#78](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/78), parent #11 |
 | A | 2026-10-31 | [A_bounded-rbs-design__20261031.md](A_bounded-rbs-design__20261031.md) | P1 | A: bounded model-target leader design, explicit constraints/budgets; [#74](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/74) |
 | A | 2026-10-31 | [A_conditional-concentration-sweep__20261031.md](A_conditional-concentration-sweep__20261031.md) | P1 | A: explicit bounded ligand-total sweep with unchanged supplied-energy model; [#77](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/77) |
 | A | 2026-10-31 | [A_native-rbs-development-recheck__20261022.md](A_native-rbs-development-recheck__20261022.md) | P1 | B: four-configuration PCC 6803 development recheck; A/C bounded repairs accepted, final freeze/acknowledgement pending, no execution; [#73](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/73), parent #12 |
