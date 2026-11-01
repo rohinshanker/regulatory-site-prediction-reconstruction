@@ -1,7 +1,7 @@
 # Bounded Promoter design
 
 - Purpose: Enumerate explicit substitutions toward caller-supplied historical Promoter log-score targets.
-- Scope: Original deterministic wrapper around the admitted predictor; independent exact-patch review pending.
+- Scope: Independently accepted original deterministic wrapper around the admitted predictor; no biological-performance or publication approval.
 - Last verified: 2026-11-01
 
 This uses the unchanged [historical Promoter model](promoter-model-card.md).
@@ -95,9 +95,19 @@ leaves selection null; never try an alternate proposal afterward.
 overrun occurred. `partial` has at least one observed success but some failure,
 unstarted candidate, unsuccessful confirmation or overrun. `no_candidate` has
 no fully successful candidate, including zero starts. `invalid_input` has no
-admitted search roster. Coverage records planned/attempted/successful/failed/
-not-run candidate counts, predictor call count (confirmation included), complete
-scoring, outer deadline status and stop reason. A selection from incomplete
+admitted search roster. Coverage uses these exact counts:
+
+| Field | Meaning |
+| --- | --- |
+| `planned` | Complete enumerated candidate count. |
+| `attempted` | Candidates whose predictor call started. |
+| `successful` | Candidates with admitted all-target success and a finite objective. |
+| `failed` | `attempted - successful`, including admitted non-success outcomes. |
+| `not_run` | `planned - attempted`. |
+| `prediction_calls` | `attempted` plus one if fresh confirmation was attempted. |
+| `all_candidates_scored` | `successful == planned`. |
+
+Coverage also records outer deadline status and stop reason. A selection from incomplete
 coverage is only the best verified observed success. Even complete enumeration
 does not imply reaching the target or a global/biological optimum.
 
@@ -163,6 +173,9 @@ stdin/files/no-follow/output errors, and full new statement/branch coverage.
 Use only small original artificial inputs; no source retrieval, folding,
 biological dataset, fitting or private benchmark. Independent exact-patch review
 belongs to A; self-tests are engineering evidence, not scientific acceptance.
+The accepted implementation at `87510bdfd53099b7fbbec174305ca676fdf66c46`
+passed independent unchanged-predictor comparisons, including the 64-candidate,
+eight-target bound, both strands, invalid requests and file transport.
 
 Run the original example from a source checkout with `PYTHONPATH=src python -m
 regsite.promoter_design_cli examples/promoter-design-single.json`. Focused tests
