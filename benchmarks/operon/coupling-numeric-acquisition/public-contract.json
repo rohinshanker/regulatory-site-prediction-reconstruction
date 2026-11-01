@@ -1,0 +1,69 @@
+{
+  "candidate_executions": 0,
+  "encoding": {
+    "allow_nan": false,
+    "encoding": "ascii",
+    "ensure_ascii": true,
+    "hash": "sha256",
+    "hash_trailing_newline": false,
+    "separators": [
+      ",",
+      ":"
+    ],
+    "sort_keys": true,
+    "wire_trailing_newline": true
+  },
+  "implementation_version": "0.14.0rc2",
+  "limits": {
+    "canonical_api_object_bytes": 6291456,
+    "container_depth": 32,
+    "encoded_output_bytes_including_newline": 4194304,
+    "received_input_bytes": 1048576,
+    "records": 100,
+    "seconds_total_exclusive_lower": 0,
+    "seconds_total_inclusive_upper": 60
+  },
+  "model": {
+    "backend": null,
+    "beta_mol_per_kcal": 0.45,
+    "coefficient_domain": {
+      "distance_0_to_25": 0.0072,
+      "distance_minus_4": 0.022
+    },
+    "id": "tian2015-reinitiation-only-1",
+    "implementation_version": "0.14.0rc2",
+    "k_p": 10.0,
+    "score_scale": "dimensionless exp(-beta*G); no intercept or absolute conversion",
+    "source_doi": "10.1093/nar/gkv635",
+    "source_pdf_sha256": "83bbe3bcd87380b4716c93ad0844134ed71cf4f977d6486ef3d3d38f0a566ff7"
+  },
+  "prediction_payload": "complete result object excluding only prediction_sha256",
+  "request_payload": "complete parsed request before normalization; no fields removed",
+  "schema_version": "coupling-public-contract-1",
+  "scientific_outcomes": false,
+  "source_commit": "ebff076d14789735b56e71501ccfaa5b2b0f82fc",
+  "source_files": {
+    "src/regsite/__init__.py": {
+      "bytes": 107,
+      "sha256": "5bd7662b682dc0bc95cc693c9584e2600a25ea9bb534a22611952c018e981024"
+    },
+    "src/regsite/coupling.py": {
+      "bytes": 9308,
+      "sha256": "c40ad92c727000e0b98d206952e1ee2ccde0bbc0f69e8090a44ac8f4e9311b31"
+    },
+    "src/regsite/coupling_cli.py": {
+      "bytes": 1606,
+      "sha256": "883bb5d77993ac29a717bcb9f524c4c7715674b0f58e397a4269eafa6f966af3"
+    },
+    "src/regsite/coupling_io.py": {
+      "bytes": 2528,
+      "sha256": "8cbc549897a6f664bf88cece2d390a0e19a3eca72f46439cf55352345bc980cf"
+    }
+  },
+  "warnings": [
+    "Energies and their common convention are supplied by the caller, not verified.",
+    "Reinitiation only: RNA unfolding and sequence-derived energies are unavailable.",
+    "Historical E. coli component; native-host calibration is unestablished.",
+    "Assumes initiation-limited translation; outputs are relative scores, not rates."
+  ]
+}

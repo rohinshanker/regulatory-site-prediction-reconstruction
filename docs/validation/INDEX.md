@@ -4,7 +4,7 @@ Verification dates cover the stated source observations or specification review;
 
 | Area | Purpose | Last verified | Document |
 | --- | --- | --- | --- |
-| coupling-numeric-evaluation | Independent supplied-energy arithmetic/geometry fixtures, pinned identity admission and quantitative fixed-tolerance reporting; reviewed freeze precedes execution. | 2026-11-01 | [coupling-numeric-evaluation.md](coupling-numeric-evaluation.md) |
+| coupling-numeric-evaluation | Frozen 0.14rc2 supplied-energy evaluation:22/24 conformance, two retained precision failures; reproducible public artifacts and strict checker. | 2026-11-01 | [coupling-numeric-evaluation.md](coupling-numeric-evaluation.md) |
 | Engineering 0.15 package | Frozen Promoter design integration, exact archives and independent/software gate boundaries | 2026-11-01 | [engineering-0.15-candidate.md](engineering-0.15-candidate.md) |
 | promoter-design | Bounded substitution search over nominated historical Promoter targets, complete-context constraints and fresh native confirmation; independent review pending. | 2026-11-01 | [promoter-design.md](promoter-design.md) |
 | Engineering 0.14rc2 package | Frozen drafting-export integration, exact artifacts and verification boundaries | 2026-11-01 | [engineering-0.14rc2-candidate.md](engineering-0.14rc2-candidate.md) |

@@ -1,0 +1,18 @@
+{
+  "ack": {
+    "bytes": 4898,
+    "sha256": "16b84c1b5f0d8a3ef91183c4405e514819ca68bef6486b6d1c88332546fa58bf"
+  },
+  "ack_path": "/Users/Rohin/.cache/regsite-wave10-20261031/b-coupling-freeze-check/acknowledgement.json",
+  "authorized": true,
+  "freeze": {
+    "bytes": 16675,
+    "sha256": "fc3a3347a498506d84b32409f3230530475446e00c9d89ed2d7ecf5370465eae"
+  },
+  "review": {
+    "bytes": 5354,
+    "sha256": "c1bf1ac9841dc41ba889b92dd10d8d0a4d46801e287e1f99d44c3f43405de146"
+  },
+  "review_path": "/Users/Rohin/.cache/regsite-closeout-20261101/coupling-review/report-recheck/review.md",
+  "tool_path": "/Users/Rohin/Desktop/coding_stuff/ISAACS-LAB/worktrees/reconstruction-coupling-numeric-20261101/benchmarks/operon/coupling_reference.py"
+}

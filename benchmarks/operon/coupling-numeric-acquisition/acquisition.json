@@ -1,0 +1,21 @@
+{
+  "freeze": {
+    "bytes": 16675,
+    "sha256": "fc3a3347a498506d84b32409f3230530475446e00c9d89ed2d7ecf5370465eae"
+  },
+  "outputs": {
+    "execution.json": {
+      "bytes": 15586,
+      "sha256": "0beb0cacee121d0f247f96d59657fe65a3b08b751fbe647b35fedfe774cf226d"
+    },
+    "result.json": {
+      "bytes": 27656,
+      "sha256": "19b17b657a418d9d945b6639944f7c993f4b339f4aa936ac52522ad1ffe429b1"
+    },
+    "stderr.bin": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "schema_version": "coupling-numeric-acquisition-1"
+}

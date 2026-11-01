@@ -1,0 +1,40 @@
+{
+  "acquisition_directory": "/Users/Rohin/.cache/regsite-closeout-20261101/coupling-acquisition",
+  "candidate_invocations": 1,
+  "no_retry": true,
+  "pins": {
+    "acquisition.json": {
+      "bytes": 593,
+      "sha256": "99f539ea79573d82b4457fbb449c035c4bf386324f011e277c04f38249bc3a87"
+    },
+    "attempt-started.json": {
+      "bytes": 722,
+      "sha256": "111c9595ebbcdf3ca23ce105c4ac0d197c3dc07cd0c8e81214517842aa059ab7"
+    },
+    "authorization.json": {
+      "bytes": 747,
+      "sha256": "7c41d5df35d1819d2c42a5e7680f271dac058d9a6353d1e2a77dcb5b90274fbf"
+    },
+    "execution.json": {
+      "bytes": 15586,
+      "sha256": "0beb0cacee121d0f247f96d59657fe65a3b08b751fbe647b35fedfe774cf226d"
+    },
+    "freeze.json": {
+      "bytes": 16675,
+      "sha256": "fc3a3347a498506d84b32409f3230530475446e00c9d89ed2d7ecf5370465eae"
+    },
+    "material-after.json": {
+      "bytes": 41,
+      "sha256": "fc24a2176a412877bc458701d77facd48987d6b50c060615ad63008c6b720500"
+    },
+    "result.json": {
+      "bytes": 27656,
+      "sha256": "19b17b657a418d9d945b6639944f7c993f4b339f4aa936ac52522ad1ffe429b1"
+    },
+    "stderr.bin": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "source": "ebff076d14789735b56e71501ccfaa5b2b0f82fc"
+}

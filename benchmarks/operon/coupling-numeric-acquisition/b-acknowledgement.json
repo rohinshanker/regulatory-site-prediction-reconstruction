@@ -1,0 +1,111 @@
+{
+  "a_acceptance": {
+    "bytes": 1474,
+    "path": "/Users/Rohin/.cache/regsite-closeout-20261101/a-to-b-final-review-accepted.md",
+    "sha256": "fd9ecf407ec192aacdee97e55f2f1897184baaf534fc2f55af6f74b501f44061"
+  },
+  "acknowledgement": "ACCEPTED: exact final freeze and independently accepted checker; A may perform the single original frozen invocation",
+  "acquisition_program": {
+    "bytes": 10797,
+    "path": "/Users/Rohin/.cache/regsite-closeout-20261101/acquire-coupling-once-v2.py",
+    "sha256": "31f1051661673e72970199373df245ba71add5037cb6f61cab5f22292733f2cc"
+  },
+  "approved_for_a_single_acquisition": true,
+  "argv": [
+    "/Users/Rohin/.cache/regsite-wave10-20261031/engineering-0.14rc2-installed/source/.cache/fresh/bin/python",
+    "-I",
+    "-B",
+    "-m",
+    "regsite.coupling_cli",
+    "/Users/Rohin/.cache/regsite-closeout-20261101/coupling-acquisition/request.json"
+  ],
+  "b_candidate_invocations": 0,
+  "candidate": {
+    "runtime_model_material_freeze_required": true,
+    "sdist_sha256": "887cee014014b67bb863430eb2d9e07bfe49a3e7ae2b989f1e741cab4ba76b15",
+    "source_commit": "ebff076d14789735b56e71501ccfaa5b2b0f82fc",
+    "version": "0.14.0rc2",
+    "wheel_sha256": "14ac432db000abd2a680c52e3968081d03ab937419fca08ca8ddaf6433226ac6"
+  },
+  "complete_runtime_canonical_sha256": "e297070df5bf0fcaea2fb4eecea24e8efb1c7a0a9186248b321a84c519c1bc4b",
+  "conditions": [
+    "Use the exact frozen candidate, request, argv, selected environment, limits and reviewed capture-v2 bytes",
+    "A performs the reviewed full pre/post material and input checks; preserve their receipts",
+    "One attempt only; retain complete bounded streams, exit, elapsed, stop/failure and not-completed evidence; no retry or prefix salvage",
+    "B evaluates all24 retained cases with exact456091f checker, unchanged fixtures/protocol/tolerances and quantitative discrepancies",
+    "No scientific tuning, new source/worker/scope, further wave, consumer admission or publication is authorized"
+  ],
+  "coordinator_and_executor": "baf5b738-1792172297",
+  "environment": {
+    "LANG": "C",
+    "LC_ALL": "C",
+    "PATH": "/usr/bin:/bin"
+  },
+  "freeze": {
+    "bytes": 16675,
+    "sha256": "fc3a3347a498506d84b32409f3230530475446e00c9d89ed2d7ecf5370465eae"
+  },
+  "freeze_path": "/Users/Rohin/.cache/regsite-closeout-20261101/coupling-acquisition/freeze.json",
+  "inputs": {
+    "fixtures.json": {
+      "bytes": 83630,
+      "sha256": "115cc7f71d352e1dcecc85afce5bf6a70bc50f381ae009d0c11beff1f1f722b1"
+    },
+    "geometry-contract.json": {
+      "bytes": 1370,
+      "sha256": "0c623e8b2c64608a5945ecccf73cdedeeaa1072cda657df751680827b97d03ee"
+    },
+    "protocol.json": {
+      "bytes": 10748,
+      "sha256": "9390e29f40eb3ef0f2b09bfe36ab6df8a523369de203d7e096ee70a5494ddc64"
+    },
+    "public-contract.json": {
+      "bytes": 2385,
+      "sha256": "7a236d9ef4b1a42ac48c11244eb6a637b48e98e02191478edd4322f109b0f018"
+    },
+    "request.json": {
+      "bytes": 11103,
+      "sha256": "53fe5609089c2c9fd7e3c6e90a14b41608332b51646b43b5eb995bc0b6e063cc"
+    },
+    "tool": {
+      "bytes": 37496,
+      "sha256": "defd3e4ca97714069f171e7dcb88052453fe35000ba921ed4dd6d2900b242c19"
+    }
+  },
+  "limits": {
+    "stderr_bytes": 65536,
+    "stdout_bytes": 4194304,
+    "wall_seconds": 30.0
+  },
+  "max_attempts": 1,
+  "owner": "9677689a-1792176763",
+  "pre_execution_absence_checked": {
+    "acquisition.json": true,
+    "attempt-started.json": true,
+    "authorization.json": true,
+    "execution.json": true,
+    "material-after.json": true,
+    "result.json": true,
+    "stderr.bin": true
+  },
+  "prior_conditional_inspection": {
+    "bytes": 3905,
+    "path": "/Users/Rohin/.cache/regsite-wave10-20261031/b-coupling-freeze-check/conditional-inspection.json",
+    "sha256": "e6d4122e587cf8879429f895a3e5c8f2cfe653f58a18a8f1b00718a526c9f51f"
+  },
+  "records_requested": 24,
+  "review": {
+    "bytes": 5354,
+    "path": "/Users/Rohin/.cache/regsite-closeout-20261101/coupling-review/report-recheck/review.md",
+    "sha256": "c1bf1ac9841dc41ba889b92dd10d8d0a4d46801e287e1f99d44c3f43405de146"
+  },
+  "review_receipt": {
+    "bytes": 4806,
+    "path": "/Users/Rohin/.cache/regsite-closeout-20261101/coupling-review/report-recheck/receipt.json",
+    "sha256": "f58a5bce52f9af194e0c3cb87c9448e16e6961270bc4d4f0d461a546cf2983fe"
+  },
+  "runtime_material_boundary": "Full manifest metadata reconciled to the pinned reviewed preparation and public contracts; installed source/data, interpreter/archive bytes and nested referenced receipts were not opened or executed by B. A retains reviewed pre/post material verification.",
+  "schema_version": "coupling-b-freeze-acknowledgement-1",
+  "tool_commit": "456091f9cf86ede228b38408d2399bd14bfc39da",
+  "tool_path": "/Users/Rohin/Desktop/coding_stuff/ISAACS-LAB/worktrees/reconstruction-coupling-numeric-20261101/benchmarks/operon/coupling_reference.py"
+}

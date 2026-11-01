@@ -1,7 +1,7 @@
 # Independent coupling numerical evaluation
 
 - Purpose: Check the admitted supplied-energy reinitiation equations and complete-CDS coordinates independently of runtime implementation.
-- Scope: Artificial-only #81 oracle/protocol preparation; no candidate execution or biological evaluation.
+- Scope: Frozen 0.14.0rc2 artificial supplied-energy evaluation; no biological accuracy or host-transfer evaluation.
 - Last verified: 2026-11-01
 
 The [protocol](../../benchmarks/operon/coupling-numeric-protocol.json) fixes 24
@@ -11,11 +11,11 @@ request/result schemas and five original scalar source fixtures. Exact source
 bytes are pinned. Scorer modules, implementation tests, candidate outputs, source
 workbooks and private outcomes are not expectation inputs.
 
-The reserved candidate is independently package-reviewed 0.14.0rc2, source
-`ebff076d14789735b56e71501ccfaa5b2b0f82fc`. This reservation grants no execution
-authority. A supplies complete public model/runtime/material identities after
-oracle review, then a separate frozen execution receipt; B acknowledges it before
-A's one-shot acquisition. Newer engineering packages cannot silently substitute.
+The evaluated candidate is independently package-reviewed 0.14.0rc2, source
+`ebff076d14789735b56e71501ccfaa5b2b0f82fc`. The completed run below used reviewed public model/runtime/material identities,
+a separate frozen execution receipt and explicit B acknowledgement before A's
+one-shot acquisition. A later candidate needs its own reviewed freeze; newer
+engineering packages cannot silently substitute.
 
 The roster includes positive and mirrored negative strands; admitted distances
 -4, 0, 3 and 25; valid unsupported distances -7, -1 and 26; equal and unequal
@@ -221,3 +221,93 @@ Passing this evaluation would establish numerical and coordinate conformance of
 the supplied-energy component. It would not establish experimental accuracy,
 host transfer, sequence-derived energies, full Operon prediction, the unresolved
 unfolding correction, consumer admission or publication.
+
+
+## Frozen 0.14rc2 results
+
+The [complete independent report](../../benchmarks/operon/coupling-numeric-results.json)
+and [identity/accounting receipt](../../benchmarks/operon/coupling-numeric-receipt.json)
+retain **22/24 conforming cases and two precision failures**. The acquisition
+passed admission: all 24 requested records returned, none were unstarted, and no
+transport, material-integrity or schema failure was reported. A made one original
+candidate invocation; B executed only the saved-output checker. No retry,
+expectation change or tuning occurred.
+
+| Expected and observed status | Requested / returned | Conforming | Nonconforming |
+| --- | ---: | ---: | ---: |
+| `ok` | 11 / 11 | 11 | 0 |
+| `numerical_range` | 7 / 7 | 5 | 2 |
+| `unsupported_distance` | 6 / 6 | 6 | 0 |
+| **All cases** | **24 / 24** | **22** | **2** |
+
+Native `successful` is 11/24, distinct from conformance 22/24. Its
+`failed_or_unsupported` count of 13 consists of seven expected numerical-range
+records and six expected unsupported distances; these are not 13 process
+failures. `not_evaluated`, `invalid_input` and `unsupported_geometry` counts are
+all zero. The 18 supported records have 180 score slots: 154 expected numbers and
+26 expected nulls. Four numeric slots differ; all nulls, geometry, record
+identities, coefficients and statuses conform. Unsupported records retain null
+scores and are included in the all-case denominator.
+
+Both failures are fold-change precision discrepancies at the two supplied-energy
+limits. Each has the two mismatched fields `/scores/fold_change/log_value` and
+`/scores/fold_change/value`. The full report preserves exact compared values and
+80-digit Decimal error diagnostics; the table rounds only displayed errors.
+
+| Case | Expected fold | Observed fold | Absolute log error | Relative linear error |
+| --- | ---: | ---: | ---: | ---: |
+| `upper_energy_bound` | 1.072 | 1.0719999999886614 | 1.0577067000e-11 | 1.0577152752e-11 |
+| `lower_energy_bound` | 1.22 | 1.219999999973867 | 2.1420448748e-11 | 2.1420388232e-11 |
+
+These exceed the original applicable 1e-12 tolerances and remain failures.
+No causal diagnosis was assigned and no scorer internals were read. The
+pre-execution artificial conditioning controls and this evaluation do not make
+biological-accuracy claims. Any later numerical correction needs separate runtime
+review and a separately frozen candidate; this original result must remain
+unchanged. These 24 artificial cases are now consumed conformance evidence.
+
+The native batch exited 1 for its valid partial status, with 27,656 stdout bytes,
+zero stderr, null stop reason and 0.08595145799999998 seconds elapsed as recorded
+by A. The independent checker also exited 1, for the two precision failures.
+Exit 1 here is a completed all-case evaluation, not admission failure.
+
+Exact identities:
+
+- Checker: `456091f9cf86ede228b38408d2399bd14bfc39da`, SHA256 `defd3e4ca97714069f171e7dcb88052453fe35000ba921ed4dd6d2900b242c19`.
+- Freeze: 16,675 bytes, SHA256 `fc3a3347a498506d84b32409f3230530475446e00c9d89ed2d7ecf5370465eae`.
+- Acquisition receipt: 593 bytes, SHA256 `99f539ea79573d82b4457fbb449c035c4bf386324f011e277c04f38249bc3a87`.
+- Independent report: 11,009 bytes, SHA256 `609b85e8c4e6570d2db560b09f0ffc2f880981cc6617f34746ac0049d3772d18`.
+
+The small [acquisition bundle](../../benchmarks/operon/coupling-numeric-acquisition/)
+contains unchanged raw output, request, execution/freeze/acquisition receipts,
+public identity definitions, one-attempt/authorization/material metadata and B's
+ACK. It omits installed code, archives and external review logs. The existing
+protocol and fixture are shared without duplication. References to installed
+files and external receipts are opaque; reproducing this checker does not
+independently repeat or prove A's original process/material checks.
+
+Reproduce only the saved-result verification from the repository root:
+
+```sh
+audit_dir=$(mktemp -d)
+for name in freeze.json acquisition.json execution.json result.json stderr.bin request.json public-contract.json geometry-contract.json; do
+  cp "benchmarks/operon/coupling-numeric-acquisition/$name" "$audit_dir/$name"
+done
+cp benchmarks/operon/coupling-numeric-protocol.json "$audit_dir/protocol.json"
+cp benchmarks/operon/coupling-numeric-fixtures.json "$audit_dir/fixtures.json"
+git show 456091f9cf86ede228b38408d2399bd14bfc39da:benchmarks/operon/coupling_reference.py > "$audit_dir/coupling_reference.py"
+python "$audit_dir/coupling_reference.py" check \
+  --directory "$audit_dir" \
+  --freeze-sha256 fc3a3347a498506d84b32409f3230530475446e00c9d89ed2d7ecf5370465eae \
+  --acquisition-sha256 99f539ea79573d82b4457fbb449c035c4bf386324f011e277c04f38249bc3a87 \
+  --output "$audit_dir/report.json"
+checker_status=$?
+test "$checker_status" -eq 1
+cmp "$audit_dir/report.json" benchmarks/operon/coupling-numeric-results.json
+```
+
+This requires no predictor, folding backend or network. Keep the expected checker
+exit 1; do not weaken the comparison to obtain exit 0. The broader Operon and
+benchmark parents remain open. This evaluation grants no full-Operon, native-host,
+sequence-derived-energy, consumer or publication approval, and starts no further
+wave.
