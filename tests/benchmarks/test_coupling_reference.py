@@ -356,6 +356,59 @@ def test_comparison_types_and_fixed_tolerances(expected, observed, path, passes)
     assert (not ref.differences(expected, observed, path)) is passes
 
 
+@pytest.mark.parametrize(
+    "expected,observed,absolute,relative",
+    [
+        (2.0, 5.0, "3", "1.5"),
+        (0.0, 1.0, "1", None),
+        (-2.0, 1.0, "3", "1.5"),
+        (None, 1.0, None, None),
+        (1.0, None, None, None),
+        (1, 3, "2", "2"),
+    ],
+)
+def test_numeric_diagnostic_values_and_nullable_denominators(
+    expected, observed, absolute, relative
+):
+    wanted, actual = {"value": expected}, {"value": observed}
+    fields = ref.differences(wanted, actual)
+    assert ref.numeric_mismatches(wanted, actual, fields) == [
+        {
+            "path": "/value",
+            "expected": expected,
+            "observed": observed,
+            "absolute_error_decimal": absolute,
+            "relative_error_decimal": relative,
+        }
+    ]
+
+
+def test_numeric_diagnostic_range_does_not_overflow_or_underflow():
+    maximum, minimum = sys.float_info.max, math.ulp(0.0)
+    wanted = {"log": maximum, "linear": minimum, "null": None, "status": "ok"}
+    actual = {"log": -maximum, "linear": maximum, "null": None, "status": "failed"}
+    details = ref.numeric_mismatches(wanted, actual, ref.differences(wanted, actual))
+    assert [d["path"] for d in details] == ["/linear", "/log"]
+    linear, log = details
+    assert Decimal(log["absolute_error_decimal"]) > Decimal(maximum)
+    assert Decimal(log["relative_error_decimal"]) == 2
+    assert Decimal(linear["relative_error_decimal"]) > Decimal("1e631")
+    assert all(
+        Decimal(d[key]).is_finite() and Decimal(d[key]) > 0
+        for d in details
+        for key in ("absolute_error_decimal", "relative_error_decimal")
+    )
+    # A real, smallest binary64 difference is retained as nonzero Decimal text.
+    details = ref.numeric_mismatches({"v": 0.0}, {"v": minimum}, ["/v"])
+    assert (
+        Decimal("4e-324")
+        < Decimal(details[0]["absolute_error_decimal"])
+        < Decimal("5e-324")
+    )
+    assert details[0]["relative_error_decimal"] is None
+    assert ref.strict_json(ref.pretty(details)) == details
+
+
 def test_fixture_exact_pin_and_determinism(fixture):
     committed = ROOT / "benchmarks/operon/coupling-numeric-fixtures.json"
     assert committed.read_bytes() == ref.pretty(fixture)
@@ -754,6 +807,7 @@ def test_consistently_rehashed_admission_failures(campaign, path, value, match):
         ("records/0/scores/downstream_total/log_value", 3.0),
         ("records/5/geometry/upstream/interval/0", 1),
         ("records/2/geometry/distance_nt", 0),
+        ("records/2/geometry/distance_nt", 10**1000),
         ("records/16/scores/downstream_total/value", 1.0),
     ],
 )
@@ -764,6 +818,15 @@ def test_consistently_rehashed_semantic_failures(campaign, path, value):
     report = ref.check_saved(directory, *pins)
     assert not report["all_cases_conform"] and report["requested"] == 24
     assert report["nonconforming"] == 1
+    index = int(path.split("/")[1])
+    detail = report["cases"][index]["numeric_mismatches"][0]
+    assert detail["path"] == "/" + path.split("/", 2)[2]
+    assert detail["observed"] == value
+    if detail["expected"] is None:
+        assert detail["absolute_error_decimal"] is None
+        assert detail["relative_error_decimal"] is None
+    else:
+        assert Decimal(detail["absolute_error_decimal"]) > 0
 
 
 @pytest.mark.parametrize(
@@ -999,6 +1062,45 @@ def test_conditioning_mismatch_keeps_fixed_tolerances(campaign, index):
     assert report["nonconforming"] == 1
     assert report["numerics"] == ref.NUMERICS
     assert "does not alone contradict" in report["interpretation"]
+    small = report["cases"][index]
+    expected = json.loads((directory / "fixtures.json").read_bytes())[
+        "expected_records"
+    ][index]["scores"]["fold_change"]
+    for detail in small["numeric_mismatches"]:
+        field = detail["path"].rsplit("/", 1)[1]
+        assert detail["expected"] == expected[field]
+        assert detail["observed"] == record["scores"]["fold_change"][field]
+        assert (
+            Decimal("1e-12")
+            < Decimal(detail["absolute_error_decimal"])
+            < Decimal("1e-9")
+        )
+    # A gross artificial error on the same fields retains the same decisions,
+    # but its saved diagnostics must show the different values and magnitude.
+    gross_log = expected["log_value"] + 0.001
+    record["scores"]["fold_change"] = {
+        "log_value": gross_log,
+        "value": math.exp(gross_log),
+    }
+    pins = refresh_campaign(directory, result)
+    gross_report = ref.check_saved(directory, *pins)
+    gross = gross_report["cases"][index]
+    assert gross_report["conforming"] == report["conforming"] == 23
+    assert gross_report["nonconforming"] == report["nonconforming"] == 1
+    assert gross["mismatched_fields"] == small["mismatched_fields"]
+    assert not gross["conforms"] and not small["conforms"]
+    assert gross != small
+    for a, b in zip(
+        small["numeric_mismatches"], gross["numeric_mismatches"], strict=True
+    ):
+        assert a["path"] == b["path"]
+        assert a["expected"] == b["expected"]
+        assert a["observed"] != b["observed"]
+        assert Decimal(b["absolute_error_decimal"]) > Decimal("1e-4")
+        assert Decimal(b["absolute_error_decimal"]) > Decimal(
+            a["absolute_error_decimal"]
+        ) * Decimal("1e6")
+    assert ref.strict_json(ref.pretty(gross_report)) == gross_report
 
 
 # Literal outcome-free A contract at 194f515; no scorer source or outputs.

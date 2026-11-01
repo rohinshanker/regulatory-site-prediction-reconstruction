@@ -485,6 +485,50 @@ def differences(expected: Any, observed: Any, path: str = "") -> list[str]:
     return [] if type(expected) is type(observed) and expected == observed else [path]
 
 
+def numeric_mismatches(
+    expected: dict[str, Any], observed: dict[str, Any], fields: list[str]
+) -> list[dict[str, Any]]:
+    """Describe existing mismatches without influencing pass/fail."""
+    details = []
+    for path in fields:
+        values = []
+        for record in (expected, observed):
+            value: Any = record
+            for key in path.removeprefix("/").split("/"):
+                value = value[int(key)] if isinstance(value, list) else value.get(key)
+            values.append(value)
+        wanted, actual = values
+        numeric = [
+            type(value) is int or type(value) is float and math.isfinite(value)
+            for value in values
+        ]
+        if not any(numeric):
+            continue
+        absolute = relative = None
+        if all(numeric):
+            # Convert the compared binary64/int values exactly, then calculate
+            # diagnostic magnitudes in Decimal so range loss cannot yield inf/0.
+            with localcontext() as context:
+                context.prec = 80
+                context.rounding = ROUND_HALF_EVEN
+                context.Emin, context.Emax = -999999, 999999
+                target = Decimal(wanted)
+                error = abs(Decimal(actual) - target)
+                absolute = str(error)
+                if target != 0:
+                    relative = str(error / abs(target))
+        details.append(
+            {
+                "path": path,
+                "expected": wanted,
+                "observed": actual,
+                "absolute_error_decimal": absolute,
+                "relative_error_decimal": relative,
+            }
+        )
+    return details
+
+
 def compare_records(fixture: dict[str, Any], records: Any) -> list[dict[str, Any]]:
     """Retain every case, including expected unsupported and numerical outcomes."""
     expected = fixture["expected_records"]
@@ -510,6 +554,7 @@ def compare_records(fixture: dict[str, Any], records: Any) -> list[dict[str, Any
                 "observed_status": actual.get("status"),
                 "conforms": not fields,
                 "mismatched_fields": fields,
+                "numeric_mismatches": numeric_mismatches(wanted, actual, fields),
             }
         )
     return cases
@@ -884,6 +929,15 @@ def check_saved(
             "equations or demonstrate biological inaccuracy."
         ),
         "numerics": protocol["numerics"],
+        "numeric_diagnostics": (
+            "Expected/observed values are the compared JSON numbers or null. "
+            "Error magnitudes are Decimal strings, calculated from exact stored "
+            "binary64/int values with 80 significant digits, ROUND_HALF_EVEN. "
+            "Absolute error is abs(observed-expected); relative error divides "
+            "by abs(expected). Both are null unless both values are numeric; "
+            "relative error is also null for expected zero. No diagnostic "
+            "changes conformance or classifies the cause."
+        ),
         "freeze": pin(freeze_data),
         "acquisition": pin(acquisition_data),
         "inputs": freeze["inputs"],

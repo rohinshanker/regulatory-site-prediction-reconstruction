@@ -166,7 +166,30 @@ The report separates native successful counts from numerical conformance:
 expected unsupported/null behavior can conform without being a successful native
 prediction. It binds every consumed file, the original candidate and all 24 case
 results, and carries the fixed numerical tolerances and their interpretation.
-It does not independently prove that an execution receipt truthfully
+
+Each case keeps its original `mismatched_fields` and `conforms` decision. The
+additive `numeric_mismatches` list describes those mismatched scalar fields for
+which either compared value is numeric. Each entry retains `path`, `expected`
+and `observed` without substituting for null, plus `absolute_error_decimal` and
+`relative_error_decimal`. Absolute error is `abs(observed - expected)`; relative
+error divides that magnitude by `abs(expected)`. For logarithmic scores the
+absolute quantity is a difference in natural-log units; for linear scores the
+relative quantity is the fractional error, not a percentage. Coordinate errors
+remain in coordinate units.
+
+Error magnitudes are Decimal **strings** calculated from the exact stored
+binary64/integer values, rounded to 80 significant digits with `ROUND_HALF_EVEN`.
+This diagnostic arithmetic is separate from the frozen numerical reference and
+comparison tolerances. Text preserves magnitudes outside binary64 range without
+infinity or a fabricated zero. Both magnitudes are null unless both compared
+values are numeric; relative error is also null when expected is zero. A null
+expected linear score remains null, never an inferred finite or infinite value.
+Non-numeric/container mismatches stay in `mismatched_fields`; the new list does
+not expand them into invented scalar observations. No diagnostic changes
+pass/fail or classifies the cause. Artificial cancellation and gross-error
+controls on identical field paths must retain distinct quantitative diagnostics.
+
+The report does not independently prove that an execution receipt truthfully
 records a process: A's reviewed collector/material checks remain an external
 trust boundary. Runtime files and bytecode are not inspected here, and local
 file/path swaps after verification are not prevented by this offline checker.
