@@ -120,6 +120,27 @@ def test_full_fixture_and_mirrors(fixture):
     )
 
 
+@pytest.mark.parametrize("index", [0, 5])
+def test_geometry_hash_payload_from_public_contract(fixture, index):
+    record = copy.deepcopy(fixture["request"]["records"][index])
+    normalized = "".join(record["sequence"].upper().split()).replace("T", "U")
+    record["sequence"] = "\t" + " \n".join(normalized.lower().replace("u", "t")) + "\r"
+    result = ref.geometry(record)
+    oriented = normalized
+    if record["strand"] == "-":
+        oriented = "".join(
+            dict(zip("ACGU", "UGCA", strict=True))[c] for c in normalized
+        )[::-1]
+    assert result["sequence_sha256"] == ref.sha(normalized.encode("utf-8"))
+    assert result["oriented_sequence_sha256"] == ref.sha(oriented.encode("utf-8"))
+    assert result["sequence_sha256"] != ref.sha(normalized.replace("U", "T").encode())
+    assert result["sequence_sha256"] != ref.sha((normalized + "\n").encode())
+    assert result == fixture["expected_records"][index]["geometry"]
+    assert (
+        ref.sha(ref.pretty(GEOMETRY_CONTRACT)) == ref.TRUSTED["geometry-contract.json"]
+    )
+
+
 @pytest.mark.parametrize(
     "change,match",
     [
@@ -638,6 +659,7 @@ def campaign(tmp_path, fixture, protocol):
         "protocol.json": PROTOCOL.read_bytes(),
         "fixtures.json": ref.pretty(fixture),
         "public-contract.json": ref.pretty(PUBLIC_CONTRACT),
+        "geometry-contract.json": ref.pretty(GEOMETRY_CONTRACT),
         "request.json": ref.pretty(fixture["request"]),
         "stderr.bin": b"",
     }.items():
@@ -933,6 +955,52 @@ def test_saved_output_count_is_checked(campaign):
         )
 
 
+@pytest.mark.parametrize("mutation", ["float", "bool", "extra", "missing", "digest"])
+def test_acquisition_freeze_pin_strict_types_after_rehash(campaign, mutation):
+    directory, pins, _, _, _ = campaign
+    acquisition = json.loads((directory / "acquisition.json").read_bytes())
+    frozen = acquisition["freeze"]
+    if mutation == "float":
+        frozen["bytes"] = float(frozen["bytes"])
+    elif mutation == "bool":
+        frozen["bytes"] = True
+    elif mutation == "extra":
+        frozen["extra"] = 0
+    elif mutation == "missing":
+        del frozen["bytes"]
+    else:
+        frozen["sha256"] = 7
+    data = ref.pretty(acquisition)
+    (directory / "acquisition.json").write_bytes(data)
+    with pytest.raises(ref.AdmissionError, match="File pin"):
+        ref.check_saved(directory, pins[0], ref.sha(data))
+
+
+@pytest.mark.parametrize("index", [22, 23])
+def test_conditioning_mismatch_keeps_fixed_tolerances(campaign, index):
+    directory, _, result, _, _ = campaign
+    record = result["records"][index]
+    # Generic binary64 arithmetic, not the candidate or a claim about its output.
+    log_independent = (
+        -0.45 * record["energies"]["downstream_independent_total_kcal_mol"]
+    )
+    log_reinitiation = log_independent + math.log(10 * record["coefficient"])
+    log_total = log_independent + math.log1p(
+        math.exp(log_reinitiation - log_independent)
+    )
+    log_fold = log_total - log_independent
+    record["scores"]["fold_change"] = {
+        "log_value": log_fold,
+        "value": math.exp(log_fold),
+    }
+    pins = refresh_campaign(directory, result)
+    report = ref.check_saved(directory, *pins)
+    assert report["conforming"] == 23
+    assert report["nonconforming"] == 1
+    assert report["numerics"] == ref.NUMERICS
+    assert "does not alone contradict" in report["interpretation"]
+
+
 # Literal outcome-free A contract at 194f515; no scorer source or outputs.
 PUBLIC_CONTRACT = {
     "candidate_executions": 0,
@@ -1018,5 +1086,54 @@ PUBLIC_CONTRACT = {
             "Assumes initiation-limited translation; "
             "outputs are relative scores, not rates."
         ),
+    ],
+}
+
+
+# Literal outcome-free A geometry supplement at 51f9e21; references stay opaque.
+GEOMETRY_CONTRACT = {
+    "candidate_version": "0.14.0rc2",
+    "derivation": "static source syntax only; no model import or candidate invocation",
+    "normalization": {
+        "alphabet": "ACGU",
+        "coordinate_space": "normalized supplied sequence",
+        "expression": "''.join(value.upper().split()).replace('T', 'U')",
+        "normalized_length_maximum": 100000,
+        "normalized_length_minimum": 1,
+        "raw_text_max_characters": 1000000,
+    },
+    "oriented_sequence_sha256": {
+        "algorithm": "sha256",
+        "encoding": "utf-8",
+        "minus_orientation": "sequence.translate(str.maketrans('ACGU', 'UGCA'))[::-1]",
+        "payload": "transcript-oriented normalized RNA",
+        "plus_orientation": "unchanged normalized input",
+        "prefix": "",
+        "suffix": "",
+    },
+    "schema_version": "coupling-geometry-identity-0.14rc2-1",
+    "sequence_sha256": {
+        "algorithm": "sha256",
+        "encoding": "utf-8",
+        "payload": "normalized input-orientation RNA",
+        "prefix": "",
+        "suffix": "",
+    },
+    "source_commit": "ebff076d14789735b56e71501ccfaa5b2b0f82fc",
+    "source_files": [
+        {
+            "bytes": 5536,
+            "path": "src/regsite/coupling_geometry.py",
+            "sha256": (
+                "802d253d6db6bc9967ef80af9f21566ca56262c4a4e78f70070971b826ddee25"
+            ),
+        },
+        {
+            "bytes": 2699,
+            "path": "src/regsite/sequence.py",
+            "sha256": (
+                "1d38b3e074092ebcbeec2b6fd1b0a95492f3a8d57a215d72adee81ee53ddbb24"
+            ),
+        },
     ],
 }

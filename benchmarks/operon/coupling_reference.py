@@ -75,6 +75,9 @@ TRUSTED = {
     "public-contract.json": (
         "7a236d9ef4b1a42ac48c11244eb6a637b48e98e02191478edd4322f109b0f018"
     ),
+    "geometry-contract.json": (
+        "0c623e8b2c64608a5945ecccf73cdedeeaa1072cda657df751680827b97d03ee"
+    ),
 }
 LIMITS = {"wall_seconds": 30.0, "stdout_bytes": MAX_BYTES, "stderr_bytes": 65536}
 
@@ -143,19 +146,24 @@ def strict_json(data: bytes) -> Any:
     return value
 
 
+def validate_pin(expected: Any) -> None:
+    """Validate pin structure before Python's numeric equality can coerce it."""
+    exact_keys(expected, "bytes sha256", "File pin")
+    require(
+        type(expected["bytes"]) is int and 0 <= expected["bytes"] <= MAX_BYTES,
+        "File pin size",
+    )
+    require(
+        isinstance(expected["sha256"], str)
+        and re.fullmatch(r"[a-f0-9]{64}", expected["sha256"]) is not None,
+        "File pin digest",
+    )
+
+
 def read_bytes(path: Path, expected: dict[str, Any] | None = None) -> bytes:
     """Read one explicitly named file, bounded irrespective of advertised size."""
     if expected is not None:
-        exact_keys(expected, "bytes sha256", "File pin")
-        require(
-            type(expected["bytes"]) is int and 0 <= expected["bytes"] <= MAX_BYTES,
-            "File pin size",
-        )
-        require(
-            isinstance(expected["sha256"], str)
-            and re.fullmatch(r"[a-f0-9]{64}", expected["sha256"]) is not None,
-            "File pin digest",
-        )
+        validate_pin(expected)
     with path.open("rb") as stream:
         data = stream.read(MAX_BYTES + 1)
     require(len(data) <= MAX_BYTES, f"File byte limit: {path.name}")
@@ -253,14 +261,14 @@ def reverse_complement(sequence: str) -> str:
 
 def geometry(record: dict[str, Any]) -> dict[str, Any]:
     """Independently check complete CDSs and project their half-open intervals."""
-    sequence = "".join(record["sequence"].split()).upper().replace("T", "U")
+    sequence = "".join(record["sequence"].upper().split()).replace("T", "U")
     require(bool(sequence) and set(sequence) <= set("ACGU"), "Invalid fixture RNA")
     require(record["strand"] in ("+", "-"), "Invalid fixture strand")
     length = len(sequence)
     oriented = sequence if record["strand"] == "+" else reverse_complement(sequence)
     result: dict[str, Any] = {
-        "sequence_sha256": sha(sequence.encode("ascii")),
-        "oriented_sequence_sha256": sha(oriented.encode("ascii")),
+        "sequence_sha256": sha(sequence.encode("utf-8")),
+        "oriented_sequence_sha256": sha(oriented.encode("utf-8")),
         "sequence_length": length,
         "strand": record["strand"],
     }
@@ -731,6 +739,7 @@ def check_saved(
         acquisition["schema_version"] == "coupling-numeric-acquisition-1",
         "Acquisition schema",
     )
+    validate_pin(acquisition["freeze"])
     require(acquisition["freeze"] == pin(freeze_data), "Acquisition/freeze binding")
     require(canonical(freeze["limits"]) == canonical(LIMITS), "Frozen limits")
     require(
@@ -758,7 +767,8 @@ def check_saved(
     )
     exact_keys(
         freeze["inputs"],
-        "protocol.json fixtures.json public-contract.json request.json tool",
+        "protocol.json fixtures.json public-contract.json geometry-contract.json "
+        "request.json tool",
         "Frozen input allowlist",
     )
     exact_keys(
@@ -868,6 +878,12 @@ def check_saved(
     return {
         "schema_version": "coupling-numeric-report-1",
         "scope": "independent artificial numerical/coordinate conformance",
+        "interpretation": (
+            "Conformance uses fixed prospective numerical tolerances. A mismatch "
+            "requires diagnosis; it does not alone contradict the published "
+            "equations or demonstrate biological inaccuracy."
+        ),
+        "numerics": protocol["numerics"],
         "freeze": pin(freeze_data),
         "acquisition": pin(acquisition_data),
         "inputs": freeze["inputs"],

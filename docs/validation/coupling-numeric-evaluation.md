@@ -25,6 +25,14 @@ The independent reference uses 80-digit Decimal arithmetic. The protocol records
 log tolerances and linear relative/ULP tolerances before outputs exist. No zero
 or null is substituted for a valid positive quantity.
 
+Conformance is to these fixed numerical tolerances. At extreme supplied energies,
+a mathematically equivalent binary64 calculation can lose precision when
+subtracting nearly equal large logarithms. Such a mismatch requires diagnosis;
+it does not by itself contradict the published equations or demonstrate
+biological inaccuracy. The report retains the original tolerances and every
+mismatch. Independent artificial conditioning controls test this interpretation;
+they are not candidate results and do not change the protocol or expectations.
+
 Complete-CDS geometry matters independently of a scalar coefficient domain.
 Distance -3 overlays a required stop with a required start; at -5, the invariant
 third start base G would be the first stop base. Those distances are not used as
@@ -78,6 +86,18 @@ preserve original parsed numbers/strings. Prediction hashes omit only the
 prediction hash field itself. Authoritative output is compact sorted ASCII finite
 JSON plus one LF, inclusive cap 4,194,304 bytes. It is not pretty JSON.
 
+The additive [geometry identity supplement](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/blob/51f9e21e215d47f30506ecf21b36301de37a167e/docs/validation/coupling-geometry-identity-0.14rc2.md)
+defines the sequence-hash payloads. Its [geometry JSON contract](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/blob/51f9e21e215d47f30506ecf21b36301de37a167e/models/coupling/0.14.0rc2/geometry-contract.json)
+is 1,370 bytes, SHA256
+`0c623e8b2c64608a5945ecccf73cdedeeaa1072cda657df751680827b97d03ee`.
+The checker pins this separately, leaving the original protocol, fixtures and
+public contract unchanged. It confirms the existing expected hashes: normalize
+with `"".join(value.upper().split()).replace("T", "U")`, then SHA256 the UTF-8
+RNA bytes in supplied orientation for `sequence_sha256`; for the oriented hash,
+reverse-complement the entire normalized sequence only on the minus strand.
+There is no wrapper, header, NUL or newline. Admitted ACGU bytes encode identically
+in ASCII and UTF-8. Referenced source files remain opaque and unopened.
+
 ## Frozen execution and saved-result input contract
 
 Implementation does not authorize acquisition. After finite independent tooling
@@ -86,12 +106,13 @@ acknowledges them before A's single original 0.14rc2 batch invocation. A retains
 complete output, exit, elapsed time and failure evidence without retry. An aborted
 or unverifiable attempt cannot produce a successful-prefix report.
 
-The checker opens only nine explicitly named files in the supplied directory:
+The checker opens only ten explicitly named files in the supplied directory:
 `freeze.json`, `acquisition.json`, `protocol.json`, `fixtures.json`,
-`public-contract.json`, `request.json`, `result.json`, `stderr.bin` and
-`execution.json`. It additionally hashes its own source file. No path from a JSON
+`public-contract.json`, `geometry-contract.json`, `request.json`, `result.json`,
+`stderr.bin` and `execution.json`. It additionally hashes its own source file. No path from a JSON
 reference is traversed. Every pin has exactly `bytes` (nonnegative integer,
-not boolean) and `sha256` (64 lowercase hex digits). Both CLI trust hashes come
+not boolean or float) and `sha256` (64 lowercase hex digits). Pin types are checked
+before equality, including the acquisition's pin of the freeze. Both CLI trust hashes come
 from A's separate immutable handoff; never derive a trusted hash silently from
 the artifact being checked.
 
@@ -101,7 +122,7 @@ the artifact being checked.
 | --- | --- |
 | `schema_version` | `coupling-numeric-freeze-1` |
 | `candidate` | Complete, unchanged protocol `candidate` object |
-| `inputs` | Pins for `protocol.json`, `fixtures.json`, `public-contract.json`, `request.json`, and `tool` (this checker source) |
+| `inputs` | Pins for `protocol.json`, `fixtures.json`, `public-contract.json`, `geometry-contract.json`, `request.json`, and `tool` (this checker source) |
 | `runtime` | A's complete nonempty frozen runtime identity object, preserved verbatim |
 | `argv` | Complete nonempty string array for the one invocation |
 | `environment` | Exact explicitly selected, nonsecret string-to-string child environment; excludes MULTICA_TOKEN, TYPESAFE_API_KEY and PYTHONHOME |
@@ -144,7 +165,8 @@ atomically with mode0600 and no overwrite. An existing report remains untouched.
 The report separates native successful counts from numerical conformance:
 expected unsupported/null behavior can conform without being a successful native
 prediction. It binds every consumed file, the original candidate and all 24 case
-results. It does not independently prove that an execution receipt truthfully
+results, and carries the fixed numerical tolerances and their interpretation.
+It does not independently prove that an execution receipt truthfully
 records a process: A's reviewed collector/material checks remain an external
 trust boundary. Runtime files and bytecode are not inspected here, and local
 file/path swaps after verification are not prevented by this offline checker.
