@@ -95,9 +95,10 @@ with the [offline artifact manifest tool](docs/validation/calculator-artifact-st
 
 The job runner has a frozen [0.10.0rc2 package](docs/validation/offline-jobs-0.10rc2-candidate.md)
 with installed-byte checks and explicit CI status. Development source `0.14.0rc1` integrates bounded RBS design, explicit conditional
-concentration sweeps, and conditional/termination CSV exports. The package and
-platform checks for this engineering candidate are tracked separately from the
-frozen scientific candidate below. The earlier `0.12.0rc1` integrates the independently reviewed optional
+concentration sweeps, and conditional/termination CSV exports. The [engineering package](docs/validation/engineering-0.14-candidate.md) passed
+independent package review, fresh offline examples and 7,516 local tests with
+zero skips and full measured coverage; its platform CI remains pending. These
+checks are separate from the frozen scientific candidate below. The earlier `0.12.0rc1` integrates the independently reviewed optional
 [intrinsic-termination adapter](docs/validation/intrinsic-termination-runtime.md);
 its [0.11 package](docs/validation/termination-0.11-candidate.md) passed local
 validation. The [combined 0.12 package](docs/validation/drafting-0.12-candidate.md), including
