@@ -4,6 +4,7 @@ Verification dates cover the stated source observations or specification review;
 
 | Area | Purpose | Last verified | Document |
 | --- | --- | --- | --- |
+| conditional-concentration-sweep | Explicit finite concentration roster under unchanged supplied-energy assumptions; implementation pending. | 2026-10-31 | [conditional-concentration-sweep.md](conditional-concentration-sweep.md) |
 | conditional-tabular-export | Independently reviewed bounded state/response CSV with native status/null semantics and authoritative JSON binding. | 2026-10-31 | [conditional-tabular-export.md](conditional-tabular-export.md) |
 | rbs-native-development-recheck | Pinned public-input preparation, exact runner/result admission and four-configuration ranks; bounded repair accepted, execution freeze pending. | 2026-10-31 | [rbs-native-development-recheck.md](rbs-native-development-recheck.md) |
 | rbs-drafting-numeric-results | Frozen original 0.12 supplied-rate artificial evaluation, complete accounting and separate execution/semantic evidence. | 2026-10-22 | [rbs-drafting-numeric-results.md](rbs-drafting-numeric-results.md) |

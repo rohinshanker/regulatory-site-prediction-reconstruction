@@ -24,6 +24,7 @@ A owns remaining runtime/release/improvement scopes 04/06/13; B owns broader sou
 
 | Status | Updated | Ticket | Priority | Scope |
 | --- | --- | --- | --- | --- |
+| A | 2026-10-31 | [A_conditional-concentration-sweep__20261031.md](A_conditional-concentration-sweep__20261031.md) | P1 | A: explicit bounded ligand-total sweep with unchanged supplied-energy model; [#77](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/77) |
 | A | 2026-10-31 | [A_native-rbs-development-recheck__20261022.md](A_native-rbs-development-recheck__20261022.md) | P1 | B: four-configuration PCC 6803 development recheck; A/C bounded repairs accepted, final freeze/acknowledgement pending, no execution; [#73](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/73), parent #12 |
 | A | 2026-10-21 | [A_component-calculator-jobs__20261021.md](A_component-calculator-jobs__20261021.md) | P1 | A: version-2 offline dispatch for all eight reviewed components with separate native identities; [issue #68](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/68) |
 | O | 2026-10-21 | [O_rbs-host-transfer__20261021.md](O_rbs-host-transfer__20261021.md) | P0 | Session B: existing-aggregate failure analysis recorded; source audit/independent review provider-blocked, no new UTEX accuracy result; [#58](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/58), parent #12 |
