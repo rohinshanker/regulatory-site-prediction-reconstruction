@@ -1,0 +1,42 @@
+{
+  "schema_version": "rbs-vector-design-request-1",
+  "rbs": {
+    "schema_version": "1.0",
+    "id": "artificial-two-cistron-component-design",
+    "host": null,
+    "sequence": "AAAAAAAAAAAAAAAAAAAGGAGGAAAAAAATGAAAAAAAAAAAAAAAAAAAAAGGAGGAAAAAAATGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+    "anti_sd": "ACCUCCUUA",
+    "temperature_c": 37,
+    "strand": "+",
+    "start_positions": [
+      30,
+      65
+    ]
+  },
+  "profile": "historical",
+  "cds": [
+    {
+      "id": "first",
+      "start": 30,
+      "end": 48
+    },
+    {
+      "id": "second",
+      "start": 65,
+      "end": 89
+    }
+  ],
+  "target_tirs": [
+    1000,
+    1000
+  ],
+  "editable_positions": [
+    55
+  ],
+  "max_changes": 1,
+  "limits": {
+    "max_candidates": 4,
+    "seconds_per_score": 20,
+    "seconds_total": 180
+  }
+}

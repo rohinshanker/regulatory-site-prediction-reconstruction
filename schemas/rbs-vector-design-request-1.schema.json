@@ -1,0 +1,175 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "rbs-vector-design-request-1"
+    },
+    "rbs": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "const": "1.0",
+          "default": "1.0"
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "host": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "sequence": {
+          "type": "string",
+          "pattern": "^[ACGT]+$",
+          "minLength": 1,
+          "maxLength": 10000
+        },
+        "anti_sd": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 90
+        },
+        "strand": {
+          "enum": [
+            "+",
+            "-"
+          ]
+        },
+        "start_positions": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 10,
+          "uniqueItems": true,
+          "items": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 9997
+          }
+        },
+        "temperature_c": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        }
+      },
+      "required": [
+        "sequence",
+        "anti_sd",
+        "start_positions"
+      ]
+    },
+    "profile": {
+      "enum": [
+        "historical",
+        "footprint2017",
+        "context2017",
+        "standby2014",
+        "joint_standby"
+      ]
+    },
+    "cds": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "start": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 9997
+          },
+          "end": {
+            "type": "integer",
+            "minimum": 4,
+            "maximum": 10000
+          }
+        },
+        "required": [
+          "id",
+          "start",
+          "end"
+        ]
+      },
+      "minItems": 1,
+      "maxItems": 10
+    },
+    "target_tirs": {
+      "type": "array",
+      "items": {
+        "type": "number",
+        "exclusiveMinimum": 0,
+        "maximum": 1.7976931348623157e+308
+      },
+      "minItems": 1,
+      "maxItems": 10
+    },
+    "editable_positions": {
+      "type": "array",
+      "items": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 9999
+      },
+      "minItems": 0,
+      "maxItems": 10000,
+      "uniqueItems": true
+    },
+    "max_changes": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 2
+    },
+    "limits": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "max_candidates": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 64
+        },
+        "seconds_per_score": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 30
+        },
+        "seconds_total": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 600
+        }
+      },
+      "required": [
+        "max_candidates",
+        "seconds_per_score",
+        "seconds_total"
+      ]
+    }
+  },
+  "required": [
+    "schema_version",
+    "rbs",
+    "profile",
+    "cds",
+    "target_tirs",
+    "editable_positions",
+    "max_changes",
+    "limits"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Bounded multi-target RBS design request 1",
+  "$comment": "Runtime also validates genuine Python integer controls, complete aligned and sorted CDS/start/target rosters, supported codons, frame/span bounds, all coding locks, leader windows and whole combinatorial capacity."
+}

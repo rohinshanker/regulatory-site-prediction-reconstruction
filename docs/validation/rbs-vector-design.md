@@ -4,7 +4,8 @@
 - Scope: Original enumeration wrapper of admitted component predictors; no new biological model, operon inference or calibration.
 - Last verified: 2026-11-01
 
-Contract frozen; implementation gates are pending.
+The contract applies to the library and module CLI. Independent review and
+package/platform admission are separate gates.
 
 ## Input and coordinate contract
 
@@ -57,7 +58,8 @@ JSON and noncanonical DNA are rejected. The shared strict JSON transport is
 
 ## Native scoring and validation
 
-Each started candidate makes one unchanged native `rbs.predict` call containing
+Each candidate passing its immediate backend-identity check makes one unchanged
+native `rbs.predict` call containing
 **all** nominated starts and the whole candidate sequence. Shared folding context
 therefore changes wherever an allowed substitution affects any target. This does
 not add translational coupling, drafting, elongation, decay, termination or a
@@ -74,10 +76,20 @@ Before and after each call, require unchanged backend identity. Require the
 complete expected native model object, schema, ID, normalized/oriented input
 provenance and original prediction ID (including declared budget). Model identity
 is derived from the existing profile and native source/parameter constants;
-no prediction call is used as validation or parameter discovery. Validate the
+no prediction call is used as validation or parameter discovery. Compare identity
+objects and coordinate objects by canonical JSON, preserving numeric types;
+booleans or floating-point replacements cannot stand in for integer coordinates.
+Validate the
 exact start roster/order, native record/site status precedence, null/reason
 semantics, start codons and scoring-window coordinates. For each success require
-finite positive TIR and finite consistent log TIR. Preserve full native results,
+finite positive TIR, finite log TIR and finite reported `dG_total`. Check TIR
+against the native `initiation_rate(dG_total)` helper with relative tolerance
+`1e-12` and zero absolute tolerance, and log TIR against
+`log(2500)-dG_total/2.222` with relative and absolute tolerance `1e-12`.
+Checking the original equations separately preserves legitimate subnormal
+rounding in the native exponential; `log(tir)` need not reproduce native log TIR
+there. A reported energy outside the native rate's representable range is an
+integrity failure. Preserve full native results,
 including structures, energy terms, warnings and valid mixed failures; the
 wrapper does not independently rescore those thermodynamic terms.
 
@@ -97,14 +109,15 @@ ensure_ascii=True,allow_nan=False)` plus one LF, encoded ASCII. Retain at most
 524,288 bytes per native envelope, accounting also for six additional indentation
 spaces per native line when nested. Compute the full authoritative byte count
 and hash where serializable; an over-cap payload is omitted, its identity is
-retained, and the integrity stop is explicit. This is bounded direct producer
+retained, and the integrity stop is explicit. Nonobject payloads are likewise omitted
+while retaining a serializable byte identity. This is bounded direct producer
 output handling, not an external JSON importer.
 
 ## Objective, confirmation and result
 
 A candidate is rankable only if all target sites succeeded. Objective is
 `math.fsum(abs(observed_log_tir-target_log_tir))/number_of_targets`.
-Rank by objective, edit count, then canonical DNA. Individual target status,
+Rank by objective, edit count, then lexicographic supplied-input canonical DNA. Individual target status,
 reason, TIR/log TIR and error are retained, including partial native vectors.
 No missing or failed value becomes zero. This scalar is an explicit design
 objective, not an expression-combination equation.
@@ -144,8 +157,9 @@ Proposal and selected objects contain `index`, `candidate_id`, `sequence`,
 `objective`. Confirmation is null only when there is no successful proposal.
 
 Coverage contains `planned`, `attempted`, `successful`, `failed` (=attempted minus
-successful), `not_run` (=planned minus attempted), `prediction_calls` (including
-any confirmation), `all_candidates_scored` (=successful equals planned),
+successful), `not_run` (=planned minus attempted), `prediction_calls` (actual predictor invocations, including
+any confirmation; a pre-call identity failure counts as an attempted evaluation
+but not a predictor invocation), `all_candidates_scored` (=successful equals planned),
 `deadline_exceeded`, and first `stop_reason` or null. `complete` requires every
 candidate successful, selected confirmation and no deadline overrun. `partial`
 has a successful proposal but incomplete/failed coverage or confirmation;
@@ -183,3 +197,24 @@ Use real artificial two-start native controls without experimental outcomes.
 Independent review and A's installed/platform gates follow the exact committed
 implementation. Keep full scientific/reference artifacts external and retain
 all existing source/provider/private/consumer/publication holds.
+
+## Local reproduction
+
+Run from a source checkout with the existing pinned development environment:
+
+```sh
+PYTHONPATH=src python -m regsite.rbs_vector_design_cli examples/rbs-vector-design.json --backend-root /absolute/RNAstructure
+PYTHONPATH=src:. python -m pytest tests/test_rbs_vector_design*.py --cov=regsite.rbs_vector_design --cov=regsite.rbs_vector_design_cli --cov-branch --cov-report=term-missing
+python -m ruff check src/regsite/rbs_vector_design.py src/regsite/rbs_vector_design_cli.py tests/test_rbs_vector_design*.py
+python -m mypy src/regsite/rbs_vector_design.py src/regsite/rbs_vector_design_cli.py
+```
+
+The committed two-start example is artificial. For opposite-strand checks,
+reverse-complement its DNA, set strand minus, reflect each supplied-input editable
+position as length-1-position, and retain oriented CDS/start coordinates. Compare
+the complete candidate sets after orienting sequences, all per-target native
+quantities and reflected input intervals; a supplied-input lexical tie need not
+select the same oriented sequence. Save full outputs and byte identities in
+external storage. Compare each native record with the unchanged scorer under the
+same declared profile/backend/budget; wrapper confirmation alone is not an
+independent reference. Preserve unexpected outcomes rather than replacing them.
