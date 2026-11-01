@@ -2,8 +2,8 @@
 
 - Purpose: Describe coverage and rank association for four fixed configurations on existing public PCC 6803 development-validation inputs.
 - Scope: Consumed-study exploratory analysis; no fitting, promotion, final outcomes or new experimental planning.
-- Last verified: 2026-10-31
-- State: A/C accepted the bounded admission repairs at d8c9a43, integrated by A at ef46acd. B acknowledged A's exact execution freeze; verified acquisition and scientific evaluation remain pending.
+- Last verified: 2026-11-01
+- State: Frozen acquisition admitted and evaluated once with unchanged reviewed tooling. Public aggregates/report await finite independent review; this is consumed-study exploratory evidence.
 
 The [protocol](../../benchmarks/rbs/native-development-recheck-protocol.json)
 fixes the cohort, candidate, configurations, packing, resources and endpoints
@@ -32,6 +32,78 @@ outlier removal, pseudocounts or library renormalization. The released training
 records are not evaluation rows. Private final/LC/plasmid outcomes and source
 workbooks are not inputs and must not be opened. This consumed development study
 cannot establish UTEX accuracy, general host transfer or recoding effects.
+
+## Frozen 0.12 results
+
+All 120 runner jobs completed and verified, returning all 1,916 requested
+record/configuration outcomes. Successful prediction coverage differs by profile:
+the two historical configurations each return 449 scores and 30 explicit
+`no_candidate` outcomes; context and standby each return 479 scores. The reason
+for all historical missing scores is `no_interstrand_candidate_in_bounded_search`.
+Runner success therefore does not imply successful scoring of every record.
+
+| Fixed configuration | Successful / all inputs | Coverage | Successful measured groups / all groups | Spearman rho | Descriptive 95% group interval |
+| --- | ---: | ---: | ---: | ---: | --- |
+| historical / original | 449 / 479 | 93.74% | 400 / 423 | 0.188643 | [0.102247, 0.276528] |
+| historical / linker-3 | 449 / 479 | 93.74% | 400 / 423 | 0.188643 | [0.102247, 0.276528] |
+| context2017 / linker-3 | 479 / 479 | 100% | 423 / 423 | 0.127502 | [0.037675, 0.217512] |
+| standby2014 / linker-3 | 479 / 479 | 100% | 423 / 423 | 0.111376 | [0.020518, 0.206013] |
+
+These per-profile correlations use different successful subsets. The frozen
+paired comparisons below instead use the same 449 successful measured records
+and 400 represented groups for both sides of each comparison. All 423 input
+groups, including groups without successful predictions, remain in the bootstrap
+sampling universe. Each contrast retains all 479 inputs for coverage accounting;
+none loses a reference success.
+
+| Contender minus reference | Common successful measured records | Change in Spearman rho | Descriptive 95% paired group interval |
+| --- | ---: | ---: | --- |
+| historical/linker-3 minus historical/original | 449 | 0.000000 | [0.000000, 0.000000] |
+| context2017/linker-3 minus historical/linker-3 | 449 | -0.066713 | [-0.137833, 0.005412] |
+| standby2014/linker-3 minus historical/linker-3 | 449 | -0.086302 | [-0.161770, -0.010781] |
+
+All seven interval calculations retained 2,000 usable draws and zero undefined
+draws under the fixed seed and percentile convention. The two historical
+backends give identical coverage and ranking endpoints on this cohort; that is
+not an energy-level equivalence or current-hosted-equivalence test. Context and
+standby recover the 30 historical no-candidate records. Neither shows a ranking
+gain on the common successful subset. Standby's paired interval lies below zero
+in this consumed study; context's interval includes zero. These are descriptive
+findings, not a model-promotion decision or confirmatory superiority test.
+
+The observed associations are weak. They concern the stored HC relative
+footprint/RNA proxy at assumed annotation starts and genomic flanks. They do not
+measure isolated initiation, completed protein output, site discovery, native
+transcript boundaries, UTEX performance or effects of original-versus-recoded
+sequences. Absolute-rate calibration, fold-error endpoints, experimental-replicate
+uncertainty and untouched-cohort confirmation are unavailable in this protocol.
+No fitting, normalization change, new exclusion or threshold was introduced.
+
+The sum of job-reported elapsed seconds was 419.003 for historical/original,
+401.762 for historical/linker-3, 597.609 for context2017 and 1,773.623 for standby.
+Each profile attempted all 30 jobs. These are batch-job diagnostics including
+execution overhead, not per-record timings or a controlled speed comparison.
+All jobs are retained, including batches containing explicit no-candidate rows.
+
+The [compact public summary](../../benchmarks/rbs/native-development-recheck-summary.json)
+copies complete-precision configuration and contrast aggregates from the original
+external report. No per-record measurements, predictions or raw native streams
+are included. The evaluated package is **0.12.0rc1**, source
+`356abc2d40198a95f807967a38126a14b0f3d0c9`; newer engineering packages do not inherit
+this result. Acquisition SHA256 is
+`9778a53ee4483a6fed3805349eaeeace6cabc9f0eafeceb8460599b76ed953c1`.
+The unchanged evaluator admitted all 608 mapped acquisition files before the
+public-label join and exited 0 after one invocation. It ran no predictor.
+
+The authoritative report is 158,784 bytes, SHA256
+`10822eddc7736d2d58114c58fef85c249a19d25fc7f4ccfaad97155a2d4f980a`,
+at external `regsite-wave10-20261031/b-evaluation-01/report.json`.
+The execution receipt in sibling `b-evaluation-execution-01/receipt.json` binds
+the pre-execution command, 18 before/after input pins, exit, stdout, timing log
+and report; SHA256
+`a4dd46ec586bee5dd3c5602ad282d6bfcf91924053271acd672d8585ae4d8827`.
+Reported metric values and interpretation remain pending the finite independent
+aggregate/report review; prior tooling acceptance is not that review.
 
 ## Fixed execution boundary
 
