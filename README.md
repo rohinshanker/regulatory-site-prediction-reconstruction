@@ -120,8 +120,10 @@ only explicitly listed upstream substitutions. Every candidate and target result
 is retained; incomplete vectors cannot win the search. The earlier
 [0.16.0rc1 package](docs/validation/engineering-0.16-candidate.md) passed local,
 fresh-install and platform checks. Independent review then identified a
-confirmation error-reporting defect. The isolated 0.16.0rc2 source preserves the
-first integrity stop even if its deadline also elapses; its independent repair review is accepted and its new package gates remain
+confirmation error-reporting defect. The [0.16.0rc2 replacement](docs/validation/engineering-0.16rc2-candidate.md)
+preserves the first integrity stop even if its deadline also elapses. Its repair
+is independently accepted; 7,994 local tests, 1,551 subtests and all 74 fresh
+installed outputs pass. Replacement package review and platform gates remain
 pending. These are individual model initiation scores,
 with no inferred coupling, joint protein abundance or demonstrated biological
 improvement.
