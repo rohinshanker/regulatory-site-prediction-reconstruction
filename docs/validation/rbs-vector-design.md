@@ -2,7 +2,9 @@
 
 - Purpose: Search explicitly allowed noncoding substitutions against several RBS model targets on one supplied sequence.
 - Scope: Original enumeration wrapper of admitted component predictors; no new biological model, operon inference or calibration.
-- Last verified: 2026-11-01 (contract frozen; implementation gates pending)
+- Last verified: 2026-11-01
+
+Contract frozen; implementation gates are pending.
 
 ## Input and coordinate contract
 
