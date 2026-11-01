@@ -4,8 +4,8 @@
 - Status: active
 - Opened: 2026-11-01
 - Updated: 2026-11-01
-- Current State: A owns the isolated exporter/CLI/tests and contract, base 7374d3849011dda4d8c8f1684c14d5e9ab8101e1 on wave11/coupling-csv. Contract committed before implementation. B's #81 numerical oracle and frozen 0.14rc2 are excluded.
-- Verification: Pending focused complete-path tests, static/doc checks, default JSON regression and independent exact-patch review. No biological accuracy claim.
+- Current State: A owns the isolated exporter/CLI/tests and contract, base 7374d3849011dda4d8c8f1684c14d5e9ab8101e1 on wave11/coupling-csv. Contract committed first at b64f076. Exporter/CLI and complete focused tests are implemented; independent review pending. B's #81 numerical oracle and frozen 0.14rc2 are excluded.
+- Verification: 43 focused tests pass with 100% of 81 statements/18 branches; Ruff/format four files and mypy two files pass. Default/explicit JSON bytes, exits and stderr match frozen 0.16rc2 on eight existing/artificial controls. Ticket/index/links/diff checks required after commit; independent exact-patch review and package gates pending. One import-order lint finding was corrected; original log preserved externally. No biological accuracy claim.
 - Cleanup: Owning A resolves only after finite review and required gates; distill reusable contract, remove resolved ticket/row and close #84. Parents remain open.
 - Owner: A baf5b738-1792172297; no child dispatch.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/84

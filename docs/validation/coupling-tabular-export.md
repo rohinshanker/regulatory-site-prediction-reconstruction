@@ -1,7 +1,7 @@
 # Supplied-energy coupling tabular export
 
 - Purpose: Inspect every supplied-energy coupling record with its native identity and numerical missingness.
-- Scope: Fixed `coupling-csv-1` projection; implementation and independent review pending.
+- Scope: Implemented `coupling-csv-1` projection; independent exact-patch review and package gates pending.
 - Last verified: 2026-11-01
 
 `regsite-coupling REQUEST --format csv` projects the existing producer result.
@@ -72,3 +72,23 @@ hash regression, malformed input, byte boundaries, text encoding and output
 errors. Use only existing producer examples and artificial software cases.
 Independent review and combined package/platform gates are separate. B's #81
 numerical fixtures/candidate are untouched; this export does not validate them.
+
+Focused local checks pass 43 tests with 100% coverage of all 81 statements and
+18 branches across exporter and CLI. Ruff/format pass four changed Python files;
+mypy passes both source files. Default and explicit JSON bytes, exits and stderr
+match frozen 0.16rc2 on eight existing/artificial request controls, including
+invalid JSON/envelopes, unsupported distance, Unicode and surrogates.
+No 0.14rc2 candidate call or B #81 fixture was used. These checks establish
+projection compatibility, not an independent numerical or biological evaluation.
+
+```sh
+PYTHONPATH=src python -m pytest --noconftest -p pytest_cov \
+  tests/test_coupling_export.py tests/test_coupling_cli.py \
+  --cov=regsite.coupling_export --cov=regsite.coupling_cli --cov-branch \
+  --cov-report=term-missing --cov-fail-under=100
+python -m ruff check src/regsite/coupling_export.py src/regsite/coupling_cli.py \
+  tests/test_coupling_export.py tests/test_coupling_cli.py
+python -m ruff format --check src/regsite/coupling_export.py src/regsite/coupling_cli.py \
+  tests/test_coupling_export.py tests/test_coupling_cli.py
+python -m mypy src/regsite/coupling_export.py src/regsite/coupling_cli.py
+```
