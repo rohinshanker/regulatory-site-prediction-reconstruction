@@ -286,7 +286,9 @@ protocol and fixture are shared without duplication. References to installed
 files and external receipts are opaque; reproducing this checker does not
 independently repeat or prove A's original process/material checks.
 
-Reproduce only the saved-result verification from the repository root:
+Reproduce only the saved-result verification from the repository root using
+Python 3.11 or newer. The command selects identical checker bytes from the
+integration commit, retained in main ancestry independently of B's branch:
 
 ```sh
 audit_dir=$(mktemp -d)
@@ -295,7 +297,7 @@ for name in freeze.json acquisition.json execution.json result.json stderr.bin r
 done
 cp benchmarks/operon/coupling-numeric-protocol.json "$audit_dir/protocol.json"
 cp benchmarks/operon/coupling-numeric-fixtures.json "$audit_dir/fixtures.json"
-git show 456091f9cf86ede228b38408d2399bd14bfc39da:benchmarks/operon/coupling_reference.py > "$audit_dir/coupling_reference.py"
+git show c0b7d010edab0490f6bcb45a22eed2c298c1d45a:benchmarks/operon/coupling_reference.py > "$audit_dir/coupling_reference.py"
 python "$audit_dir/coupling_reference.py" check \
   --directory "$audit_dir" \
   --freeze-sha256 fc3a3347a498506d84b32409f3230530475446e00c9d89ed2d7ecf5370465eae \

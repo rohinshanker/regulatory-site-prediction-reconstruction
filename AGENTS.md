@@ -2,17 +2,17 @@
 
 ## Scope and order
 
-- Owner priority on 2026-11-01 is to finish the current wave and close Sessions
-  A/B/C for now. A owns final integration; B retains the bounded #81 artificial
-  coupling evaluation; C has no pending work. Do not automatically dispatch the
-  next wave. Broader incomplete goals and stopped scopes remain open.
+- The owner requested current-wave closeout. There is no continuing A/B/C
+  implementation assignment. Do not automatically start another wave or treat
+  an old prompt or completion receipt as a new assignment. Broader incomplete
+  goals and stopped scopes remain open; resume only with a new owner request
+  and an agreed bounded scope.
 - Owner authorization on 2026-10-21 adds Session C for continued producer work.
   A owns runtime/package integration and bounded offline job execution; B owns
-  independent evidence/evaluation; C owns separately scoped Operon components,
-  currently reinitiation and intrinsic-termination admission. Agree exact paths
-  and bases before child dispatch.
-  Reviewed completion receipts trigger concrete next-task handoffs between the
-  coordinators; no duplicate workers or unattended unbounded task creation.
+  independent evidence/evaluation; C may own separately scoped Operon components.
+  Agree exact paths and bases before child dispatch. Completion receipts do not
+  authorize further work during closeout; no duplicate workers or unattended
+  unbounded task creation.
 - Owner authorization on 2026-10-21 resumes producer implementation, including
   the named native Promoter download/pilot and reviewed calculator branch
   integration. A owns runtime/source fidelity/integration; B owns independent
