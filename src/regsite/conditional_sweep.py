@@ -16,7 +16,8 @@ ALGORITHM = {
 }
 WARNINGS = [
     "Supplied energies, affinity, concentrations and volumes are caller assumptions.",
-    "Responses use the published-volume reconstruction without physical Kd equivalence.",
+    "Responses use the published-volume reconstruction "
+    "without physical Kd equivalence.",
     "Sequence-to-switch inference, host accuracy and efficacy are unestablished.",
     "The outer admission budget preserves each admitted point's native time budget.",
 ]
