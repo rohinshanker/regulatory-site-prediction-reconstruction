@@ -24,6 +24,7 @@ A owns remaining runtime/release/improvement scopes 04/06/13; B owns broader sou
 
 | Status | Updated | Ticket | Priority | Scope |
 | --- | --- | --- | --- | --- |
+| A | 2026-11-01 | [A_multi-rbs-bounded-design__20261101.md](A_multi-rbs-bounded-design__20261101.md) | P1 | A: bounded shared-sequence RBS target vector with immutable supplied coding intervals; [#80](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/80), parents #11/#8 |
 | A | 2026-11-01 | [A_promoter-bounded-design__20261031.md](A_promoter-bounded-design__20261031.md) | P1 | C: bounded Promoter design implemented; exact-patch A review pending; [#79](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/79), parents #11/#7 |
 | A | 2026-10-31 | [A_native-rbs-development-recheck__20261022.md](A_native-rbs-development-recheck__20261022.md) | P1 | B: four-configuration PCC 6803 development recheck; A/C bounded repairs accepted, final freeze/acknowledgement pending, no execution; [#73](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/73), parent #12 |
 | A | 2026-10-21 | [A_component-calculator-jobs__20261021.md](A_component-calculator-jobs__20261021.md) | P1 | A: version-2 offline dispatch for all eight reviewed components with separate native identities; [issue #68](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/68) |
