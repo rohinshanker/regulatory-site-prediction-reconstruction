@@ -3,7 +3,7 @@
 - Purpose: Compare explicit ligand-total concentrations under one unchanged supplied-energy model.
 - Scope: Bounded local orchestration of the existing conditional scalar component, without new inference or source admission.
 - Last verified: 2026-10-31
-- State: Contract first; implementation and independent review pending.
+- State: Implemented with focused tests and offline scalar CLI smoke; independent review and package/platform gates pending.
 
 ## Scientific boundary
 
@@ -99,3 +99,27 @@ states and exact byte caps. Use independent analytic controls where applicable,
 without treating generated values as experimental evidence. Every new runtime
 statement/branch, CLI error and schema is covered. Finite independent review and
 fresh offline installation precede acceptance; platform gates remain separate.
+
+## Offline invocation
+
+```sh
+regsite-conditional-sweep examples/conditional-sweep.json > /absolute/external/curve.json
+python -m regsite.conditional_sweep_cli examples/conditional-sweep.json
+```
+
+No folding installation or network is required. The committed artificial example
+requests six concentrations, including zero. All concentrations are mol/L.
+Structural contracts are [`conditional-sweep-request-1`](../../schemas/conditional-sweep-request-1.schema.json)
+and [`conditional-sweep-result-1`](../../schemas/conditional-sweep-result-1.schema.json).
+Resolve their native schema references from the same distribution; runtime requires
+only the Python standard library. Inspect `points[index].native.response` and its
+occupancy diagnostics, alongside each point's status/reasons and full provenance.
+Do not infer unrequested concentrations or an experimental EC50 from this curve.
+
+The pure native validation helpers are reused inside the same package so template
+admission does not introduce a second numerical/model implementation. Tests compare
+each generated point byte-for-byte with an independent direct native invocation
+and verify the equal-volume zero-switching quadratic and its boundary behavior.
+The focused library/CLI/schema tests require no native process and cover all new
+runtime statements/branches. Exact source pins, review and fresh-install evidence
+are required separately for a release candidate.
