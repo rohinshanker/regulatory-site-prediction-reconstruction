@@ -58,9 +58,10 @@ jobs:
         run: |
           ruff check src tests experiments tools
           ruff format --check src tests experiments tools
-          ruff check benchmarks/rbs/structural.py benchmarks/rbs/new_data.py benchmarks/rbs/wave4_*.py benchmarks/rbs/context_panel.py benchmarks/rbs/context_metrics.py benchmarks/rbs/context_collect.py benchmarks/rbs/drafting_numeric.py benchmarks/promoter benchmarks/recoding benchmarks/riboswitch
-          ruff format --check benchmarks/rbs/structural.py benchmarks/rbs/new_data.py benchmarks/rbs/wave4_*.py benchmarks/rbs/context_panel.py benchmarks/rbs/context_metrics.py benchmarks/rbs/context_collect.py benchmarks/rbs/drafting_numeric.py benchmarks/promoter benchmarks/recoding benchmarks/riboswitch
+          ruff check benchmarks/rbs/structural.py benchmarks/rbs/new_data.py benchmarks/rbs/wave4_*.py benchmarks/rbs/context_panel.py benchmarks/rbs/context_metrics.py benchmarks/rbs/context_collect.py benchmarks/rbs/drafting_numeric.py benchmarks/rbs/native_development_recheck.py benchmarks/promoter benchmarks/recoding benchmarks/riboswitch
+          ruff format --check benchmarks/rbs/structural.py benchmarks/rbs/new_data.py benchmarks/rbs/wave4_*.py benchmarks/rbs/context_panel.py benchmarks/rbs/context_metrics.py benchmarks/rbs/context_collect.py benchmarks/rbs/drafting_numeric.py benchmarks/rbs/native_development_recheck.py benchmarks/promoter benchmarks/recoding benchmarks/riboswitch
           mypy src/regsite experiments tools benchmarks/rbs/drafting_numeric.py
+          mypy --follow-imports=silent --ignore-missing-imports benchmarks/rbs/native_development_recheck.py
           python -m pytest --cov=regsite --cov=benchmarks.rbs --cov=benchmarks.promoter --cov=benchmarks.recoding --cov=benchmarks.riboswitch --cov=experiments.rbs --cov=experiments.promoter --cov=tools.derive_promoter_parameters --cov=tools.measure_promoter_resources --cov=tools.calculator_artifacts --cov=tools.build_termination_backend --cov-report=term-missing
           git diff --check
       - name: Build and validate both separately licensed repairs
@@ -143,6 +144,63 @@ jobs:
           .cache/fresh/bin/regsite-drafting examples/drafting-unsupported.json > .cache/drafting-unsupported.json || drafting_exit=$?
           test "$drafting_exit" -eq 1
           .cache/fresh/bin/python -c 'import json,math; a=json.load(open(".cache/drafting-single.json")); b=json.load(open(".cache/drafting-batch.json")); c=json.load(open(".cache/drafting-unsupported.json")); assert all(r["schema_version"]=="drafting-result-1" and r["status"]=="complete" and r["model"]["backend"] is None and r["model"]["id"]=="espahborujeni2016-supplied-rate-stationary-1" for r in (a,b)); assert math.isclose(a["records"][0]["throughput"]["quantity"]["value"],10/9,rel_tol=1e-12); assert len(b["records"])==3 and b["records"][1]["occupancies"]["folded"]=={"value":0.0,"ln_value":None,"representation":"exact_zero"}; assert c["status"]=="partial" and c["records"][0]["status"]=="unsupported_domain" and c["records"][0]["throughput"] is None; import hashlib,importlib.metadata as md; h=lambda x: hashlib.sha256(json.dumps(x,sort_keys=True,separators=(",",":"),ensure_ascii=True,allow_nan=False).encode()).hexdigest(); m={"id":"espahborujeni2016-supplied-rate-stationary-1","implementation_version":md.version("regulatory-site-prediction-reconstruction"),"source_doi":"10.1021/jacs.6b01453","theory_sha256":"a9ded599cbb0313d610267cb9fbdfd21abb1bdb7a467894701fa9b295f3fd6d6","backend":None,"rate_origin":"caller_supplied"}; assert all(r["model"]==m and r["request_sha256"]==h(json.load(open(f"examples/drafting-{n}.json"))) and r["prediction_sha256"]==h({k:v for k,v in r.items() if k!="prediction_sha256"}) for n,r in zip(("single","batch","unsupported"),(a,b,c)))'
+          .cache/fresh/bin/regsite-drafting examples/drafting-single.json --format csv > .cache/drafting-single.csv
+          .cache/fresh/bin/regsite-drafting examples/drafting-batch.json --format csv > .cache/drafting-batch.csv
+          drafting_csv_exit=0
+          .cache/fresh/bin/regsite-drafting examples/drafting-unsupported.json --format csv > .cache/drafting-unsupported.csv || drafting_csv_exit=$?
+          test "$drafting_csv_exit" -eq 1
+          .cache/fresh/bin/python - <<'PYDRAFTINGINPUT'
+          import json, math, sys
+          from pathlib import Path
+          request = json.loads(Path("examples/drafting-single.json").read_bytes())
+          request["records"][0]["rates"] = {"a1": math.ulp(0.0), "a2": math.ulp(0.0), "a_fold": sys.float_info.max, "a_elong": sys.float_info.max}
+          Path(".cache/drafting-underflow-request.json").write_text(json.dumps(request, sort_keys=True, allow_nan=False) + "\n")
+          PYDRAFTINGINPUT
+          .cache/fresh/bin/regsite-drafting .cache/drafting-underflow-request.json > .cache/drafting-underflow.json
+          .cache/fresh/bin/regsite-drafting .cache/drafting-underflow-request.json --format csv > .cache/drafting-underflow.csv
+          .cache/fresh/bin/python - <<'PYDRAFTINGCSV'
+          import csv, hashlib, json
+          from pathlib import Path
+          expected_header = (
+              "csv_schema_version,row_type,schema_version,model_id,implementation_version,"
+              "source_doi,theory_sha256,backend_json,rate_origin,request_sha256,"
+              "prediction_sha256,json_sha256,result_status,result_reason,requested_records,"
+              "evaluated_records,successful_records,complete,warnings_json,record_index,"
+              "record_id,record_status,record_reason,rate_unit,rate_provenance,a1,a2,a_fold,"
+              "a_elong,accessible_value,accessible_ln_value,accessible_representation,"
+              "folded_value,folded_ln_value,folded_representation,occupied_value,"
+              "occupied_ln_value,occupied_representation,throughput_unit,throughput_value,"
+              "throughput_ln_value,throughput_representation"
+          ).split(",")
+          for name in ("single", "batch", "unsupported", "underflow"):
+              raw = Path(f".cache/drafting-{name}.json").read_bytes()
+              native = json.loads(raw)
+              with open(f".cache/drafting-{name}.csv", newline="", encoding="utf-8") as stream:
+                  reader = csv.DictReader(stream)
+                  rows = list(reader)
+                  assert reader.fieldnames == expected_header
+              assert [row["row_type"] for row in rows] == ["result"] + ["record"] * len(native["records"])
+              assert all(row["csv_schema_version"] == "drafting-csv-1" and row["json_sha256"] == hashlib.sha256(raw).hexdigest() for row in rows)
+              assert all(row["prediction_sha256"] == native["prediction_sha256"] and row["request_sha256"] == native["request_sha256"] and row["implementation_version"] == native["model"]["implementation_version"] for row in rows)
+              for row in rows:
+                  for column, key in (("model_id", "id"), ("source_doi", "source_doi"), ("theory_sha256", "theory_sha256"), ("rate_origin", "rate_origin")):
+                      assert row[column] == native["model"][key]
+                  assert row["backend_json"] == "" and json.loads(row["warnings_json"]) == native["warnings"]
+                  assert row["result_status"] == native["status"]
+                  for key, value in native["coverage"].items():
+                      assert row[key] == str(value).lower()
+              for row, record in zip(rows[1:], native["records"], strict=True):
+                  assert row["record_index"] == str(record["index"]) and row["record_id"] == record["id"] and row["record_status"] == record["status"]
+                  assert row["record_reason"] == (record["reason"] or "")
+              if name == "batch":
+                  assert rows[2]["folded_value"] == "0.0" and rows[2]["folded_ln_value"] == "" and rows[2]["folded_representation"] == "exact_zero"
+              if name == "unsupported":
+                  assert rows[0]["successful_records"] == "0" and rows[0]["complete"] == "false"
+                  assert all(rows[1][key] == "" for key in expected_header[29:])
+              if name == "underflow":
+                  assert rows[1]["occupied_value"] == "" and rows[1]["occupied_representation"] == "underflow" and float(rows[1]["occupied_ln_value"]) < -1400
+                  assert rows[1]["throughput_value"] == "5e-324" and rows[1]["throughput_representation"] == "finite"
+          PYDRAFTINGCSV
           .cache/fresh/bin/regsite-termination examples/termination-single.json --backend-manifest "$REGSITE_TERMINATION_TEST_BACKEND" > .cache/termination-single.json
           .cache/fresh/bin/regsite-termination examples/termination-batch.json --backend-manifest "$REGSITE_TERMINATION_TEST_BACKEND" > .cache/termination-batch.json
           termination_exit=0

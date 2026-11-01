@@ -94,8 +94,11 @@ Register complete files in explicit external storage and check their byte identi
 with the [offline artifact manifest tool](docs/validation/calculator-artifact-storage.md).
 
 The job runner has a frozen [0.10.0rc2 package](docs/validation/offline-jobs-0.10rc2-candidate.md)
-with installed-byte checks and explicit CI status. Development source `0.14.0rc1` integrates bounded RBS design, explicit conditional
-concentration sweeps, and conditional/termination CSV exports. The [engineering package](docs/validation/engineering-0.14-candidate.md) passed
+with installed-byte checks and explicit CI status. Development source `0.14.0rc2` adds the independently accepted
+[drafting CSV export](docs/validation/drafting-tabular-export.md); its package
+gates are pending. The preceding [0.14.0rc1 engineering package](docs/validation/engineering-0.14-candidate.md)
+integrates bounded RBS design, explicit conditional concentration sweeps and
+conditional/termination CSV exports. It passed
 independent package review, fresh offline examples and 7,516 local tests with
 zero skips and full measured coverage; its platform CI remains pending. These
 checks are separate from the frozen scientific candidate below. The earlier `0.12.0rc1` integrates the independently reviewed optional
@@ -152,6 +155,7 @@ from four caller-supplied rates:
 ```sh
 .venv/bin/regsite-drafting examples/drafting-single.json
 .venv/bin/regsite-drafting examples/drafting-batch.json
+.venv/bin/regsite-drafting examples/drafting-batch.json --format csv
 ```
 
 Read the [drafting contract](docs/validation/rbs-drafting-contract.md) for units,
@@ -159,7 +163,9 @@ the admitted rate domain and explicit underflow/failure representations. This
 small kinetic calculation does not derive rates from DNA, modify the existing
 RBS profiles or predict completed protein production. Artificial controls check
 the mathematics; experimental calibration and sequence-to-rate inference remain
-separate dependencies. No folding backend or account is required.
+separate dependencies. No folding backend or account is required. The CSV projection retains all records
+and each value/log/representation triple, distinguishing exact zero from underflow.
+Keep native JSON for its complete hash-bound representation.
 
 Compare explicitly supplied ligand amounts without fitting a concentration grid:
 
