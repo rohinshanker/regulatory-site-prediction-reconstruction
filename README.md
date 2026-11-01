@@ -4,7 +4,9 @@ Build fully open-source, locally usable RBS, Promoter, Operon, and Riboswitch
 calculators, pursuing the closest demonstrable behavior to the production
 [De Novo DNA tools](https://www.denovodna.com/software/).
 
-**The RBS release candidate, 0.4.0rc1, runs locally.** It includes the historical
+**The current engineering package, [0.17.0rc1](docs/validation/engineering-0.17-candidate.md),
+runs locally.** It consolidates the reviewed calculator components, bounded design
+modes and exports. The RBS runtime includes the historical
 Salis v1 reconstruction, footprint/context/standby refinements, joint binding and
 standby selection, a native genome/transcript adapter, and experimental sequence
 and energy/sequence models.
