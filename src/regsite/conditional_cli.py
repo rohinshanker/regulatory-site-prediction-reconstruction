@@ -13,6 +13,7 @@ from regsite.conditional import (
     predict_conditional,
     result_bytes,
 )
+from regsite.conditional_export import csv_bytes
 from regsite.conditional_math import ConditionalError
 
 
@@ -49,9 +50,10 @@ def load_request(stream: BinaryIO) -> object:
 
 
 def main(argv: list[str] | None = None) -> int:
-    """Emit a full JSON result; return 0 complete, 1 failed/no-mRNA, or 2 refused."""
+    """Emit a full result; return 0 complete, 1 failed/no-mRNA, or 2 refused."""
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("input", help="conditional JSON request; '-' for stdin")
+    parser.add_argument("--format", choices=("json", "csv"), default="json")
     parser.add_argument(
         "--backend-root",
         help="separate admitted original RNAstructure installation; otherwise use "
@@ -70,7 +72,7 @@ def main(argv: list[str] | None = None) -> int:
             result = invalid_result(exc.code, str(exc))
         else:
             result = predict_conditional(request, args.backend_root)
-        raw = result_bytes(result)
+        raw = result_bytes(result) if args.format == "json" else csv_bytes(result)
         sys.stdout.buffer.write(raw)
         sys.stdout.flush()
         if result["status"] == "ok":
