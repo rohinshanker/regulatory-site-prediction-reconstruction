@@ -60,7 +60,9 @@ No retries or resume. Every planned candidate remains represented if time expire
 backend and native model identities. Each row retains canonical DNA, exact input
 and oriented edits, native outcome and score or explicit null. Full admitted
 native records are retained, with an independent canonical hash. All native
-identity/model/backend inconsistencies stop further scoring; they are not scores.
+identity/model/backend inconsistencies, including record ID and profile schema,
+stop further scoring; they are not scores.
+A rejected non-object response keeps its canonical hash with a null payload.
 Each embedded native record has a 128 KiB pretty-JSON allocation cap; oversized
 records remain explicit failures with their hash and no retained native payload.
 The full authoritative pretty JSON plus newline is capped at 64 MiB before stdout.

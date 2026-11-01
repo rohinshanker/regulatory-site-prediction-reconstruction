@@ -42,6 +42,8 @@ def native(value, engine, *, seconds, profile, execution_seconds):
         "budget_seconds": float(seconds),
     }
     return {
+        "schema_version": spec.schema_version,
+        "id": request.id,
         "model": model,
         "backend": stable["backend"],
         "input": stable["input"],

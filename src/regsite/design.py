@@ -238,6 +238,7 @@ def _native_result(
             len(pretty) + 6 * len(pretty.splitlines()) <= wire.NATIVE_LIMIT,
             "native_result_limit",
         )
+        require(type(native) is dict, "invalid_native_result")
         row["native"] = native
         native_input = asdict(RbsRequest.from_dict(value))
         require(
@@ -246,6 +247,8 @@ def _native_result(
         )
         require(
             native["input"] == native_input
+            and native["schema_version"] == request.profile.schema_version
+            and native["id"] == request.rbs.id
             and native["model"]["id"] == request.profile.model_id,
             "native_identity_mismatch",
         )
