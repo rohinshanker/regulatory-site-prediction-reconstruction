@@ -119,6 +119,71 @@ def invalid_result(reason: str) -> dict:
     )
 
 
+def _successful_scalar(native: dict) -> None:
+    """Admit the existing successful scalar shape, without redoing its science."""
+    try:
+        require(native["errors"] == [], "native_shape")
+        require(type(native["warnings"]) is list, "native_shape")
+        for warning in native["warnings"]:
+            conditional._object(warning, "code message")
+            require(
+                type(warning["code"]) is str
+                and bool(warning["code"])
+                and type(warning["message"]) is str,
+                "native_shape",
+            )
+        conditional._number(native["structural_cost_kcal_mol"], lower=0)
+        response = conditional._object(
+            native["response"],
+            "ligand_binding_kcal_mol switching_kcal_mol log_ar_max ar_max ar_conc "
+            "ar_actual metastability_factor metastability_applied occupancy",
+        )
+        for key in ("ligand_binding_kcal_mol", "switching_kcal_mol", "log_ar_max"):
+            conditional._number(response[key])
+        for key in ("ar_max", "ar_conc", "ar_actual"):
+            conditional._number(response[key], positive=True)
+        conditional._number(response["metastability_factor"], positive=True, upper=1)
+        require(type(response["metastability_applied"]) is bool, "native_shape")
+        occupancy = conditional._object(
+            response["occupancy"],
+            "mode status fraction concentrations volume_fractions solver",
+        )
+        require(
+            occupancy["mode"] == "published2015_volume" and occupancy["status"] == "ok",
+            "native_shape",
+        )
+        conditional._number(occupancy["fraction"], lower=0, upper=1)
+        concentrations = conditional._object(
+            occupancy["concentrations"],
+            "mrna_free_molar ligand_free_molar complex_molar "
+            "mrna_balance_error_molar ligand_balance_error_molar",
+        )
+        for key in ("mrna_free_molar", "ligand_free_molar", "complex_molar"):
+            conditional._number(concentrations[key], lower=0)
+        for key in ("mrna_balance_error_molar", "ligand_balance_error_molar"):
+            conditional._number(concentrations[key])
+        volumes = conditional._object(
+            occupancy["volume_fractions"], "mrna_free ligand_free complex sum"
+        )
+        for value in volumes.values():
+            conditional._number(value, lower=0)
+        solver = conditional._object(
+            occupancy["solver"], "iterations bracket_molar scaled_residual"
+        )
+        require(
+            type(solver["iterations"]) is int and 0 <= solver["iterations"] <= 256,
+            "native_shape",
+        )
+        bracket = solver["bracket_molar"]
+        require(type(bracket) is list and len(bracket) == 2, "native_shape")
+        for value in bracket:
+            conditional._number(value, lower=0)
+        if solver["scaled_residual"] is not None:
+            conditional._number(solver["scaled_residual"])
+    except ConditionalError as exc:
+        raise SweepError("native_shape") from exc
+
+
 def _point(request: dict, model: dict) -> tuple[dict, bool]:
     row: dict = {
         "status": "failed",
@@ -169,6 +234,8 @@ def _point(request: dict, model: dict) -> tuple[dict, bool]:
             else native["response"] is None or type(native["response"]) is dict,
             "native_shape",
         )
+        if status == "ok":
+            _successful_scalar(native)
         row.update(status=status, reasons=reasons)
         return row, False
     except SweepError as exc:

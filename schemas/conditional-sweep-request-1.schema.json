@@ -41,9 +41,8 @@
       "minItems": 1,
       "maxItems": 64,
       "items": {
-        "type": "number",
-        "minimum": 0,
-        "maximum": 1.7976931348623157e+308
+        "$ref": "conditional-aptamer-request-1.schema.json#/$defs/number",
+        "minimum": 0
       }
     },
     "seconds_total": {

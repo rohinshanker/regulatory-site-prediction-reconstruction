@@ -38,6 +38,9 @@ requested point; no sorting, interpolation, automatic logarithmic grid, adaptive
 sampling or retry. Resolve point concentrations to finite floats and preserve the
 complete raw parsed request separately. Zero ligand and zero RNA retain the
 underlying model's distinct boundary semantics.
+Raw numbers follow the native finite-conversion contract, including integers up
+to `2**1024 - 2**970 - 1` that round to a finite binary64 value. The request schema
+reuses that bound; resolved point rows use binary64 concentrations.
 
 Total admission budget is finite and positive, at most 120 seconds. The template's
 per-point `settings.seconds_total` stays unchanged (at most 30 seconds). Check the
@@ -60,7 +63,12 @@ not convert nulls into zero or discard failed points.
 
 Verify native request/model/profile/input/provenance/settings identity, status
 and scalar-only result shape. An unexpected identity/shape or oversized native
-record stops further admission, retaining every remaining row. Ordinary native
+record stops further admission, retaining every remaining row.
+Successful scalar admission checks response values, occupancy, concentrations,
+volume fractions, solver records and diagnostics against the supported types and
+null rules. It does not recompute their equations. Rejected object evidence remains
+in a failed row; only an admitted successful row asserts the full native schema.
+Ordinary native
 failed/no-mRNA/unsupported/invalid outcomes remain failures and do not silently
 change the settings. An exception retains its explicit failure reason. The
 selected concentration field is always the total ligand amount, never the solved

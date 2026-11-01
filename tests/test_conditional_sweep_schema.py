@@ -104,3 +104,86 @@ def test_inconsistent_complete_result_is_rejected():
             cursor = cursor[part]
         cursor[path[-1]] = bad
         assert not validator("result").is_valid(result), path
+
+
+@pytest.mark.parametrize(
+    "path,bad",
+    [
+        (["response"], {}),
+        (["response", "ar_actual"], None),
+        (["response", "ar_actual"], True),
+        (["response", "ar_actual"], 0),
+        (["response", "ar_max"], "1"),
+        (["response", "metastability_factor"], 2),
+        (["response", "metastability_applied"], 1),
+        (["response", "occupancy"], {}),
+        (["response", "occupancy", "mode"], "supplied_fraction"),
+        (["response", "occupancy", "status"], "failed"),
+        (["response", "occupancy", "fraction"], -1),
+        (["response", "occupancy", "fraction"], 2),
+        (["response", "occupancy", "concentrations"], None),
+        (["response", "occupancy", "concentrations", "complex_molar"], -1),
+        (["response", "occupancy", "concentrations", "mrna_balance_error_molar"], True),
+        (["response", "occupancy", "volume_fractions"], {}),
+        (["response", "occupancy", "volume_fractions", "sum"], -1),
+        (["response", "occupancy", "solver"], {}),
+        (["response", "occupancy", "solver", "iterations"], True),
+        (["response", "occupancy", "solver", "iterations"], -1),
+        (["response", "occupancy", "solver", "iterations"], 257),
+        (["response", "occupancy", "solver", "bracket_molar"], None),
+        (["response", "occupancy", "solver", "bracket_molar"], [0]),
+        (["response", "occupancy", "solver", "bracket_molar"], [-1, 0]),
+        (["response", "occupancy", "solver", "scaled_residual"], True),
+        (["errors"], [{"code": "bad", "message": "bad"}]),
+        (["warnings"], None),
+        (["warnings"], [{}]),
+        (["warnings"], [{"code": "", "message": ""}]),
+        (["warnings"], [{"code": "test", "message": 1}]),
+        (["structural_cost_kcal_mol"], None),
+        (["structural_cost_kcal_mol"], -1),
+    ],
+)
+def test_malformed_success_is_retained_as_failure(monkeypatch, path, bad):
+    original = sweep.conditional.predict_conditional
+
+    def changed(request):
+        native = original(request)
+        cursor = native
+        for key in path[:-1]:
+            cursor = cursor[key]
+        cursor[path[-1]] = bad
+        return native
+
+    monkeypatch.setattr(sweep.conditional, "predict_conditional", changed)
+    result = sweep.sweep(example())
+    assert result["status"] == "partial" and result["reason"] == "native_shape"
+    assert result["coverage"]["attempted"] == 1
+    assert result["coverage"]["failed"] == 1
+    assert result["coverage"]["not_run"] == 5
+    assert result["points"][0]["native"] is not None
+    validator("result").validate(result)
+
+
+@pytest.mark.parametrize("offset,accepted", [(0, True), (1, False)])
+def test_raw_integer_conversion_ceiling_matches_schemas(monkeypatch, offset, accepted):
+    request = example()
+    request["ligand_total_molar"] = [2**1024 - 2**970 - 1 + offset]
+    assert validator("request").is_valid(request) is accepted
+    ticks = iter([0, 121, 121])
+    monkeypatch.setattr(
+        sweep, "time", type("Clock", (), {"monotonic": lambda: next(ticks)})
+    )
+
+    def forbidden(*args):
+        raise AssertionError("deadline must prevent prediction")
+
+    monkeypatch.setattr(sweep.conditional, "predict_conditional", forbidden)
+    result = sweep.sweep(request)
+    assert result["status"] == ("partial" if accepted else "invalid_input")
+    validator("result").validate(result)
+    if accepted:
+        assert result["request"] == request
+        assert result["coverage"]["not_run"] == 1
+        assert result["points"][0]["ligand_total_molar"] == float.fromhex(
+            "0x1.fffffffffffffp1023"
+        )
