@@ -1,7 +1,7 @@
 # Bounded multi-target RBS design
 
 - Purpose: Search explicitly allowed noncoding substitutions against several RBS model targets on one supplied sequence.
-- Scope: Original enumeration wrapper of admitted component predictors; no new biological model, operon inference or calibration.
+- Scope: Independently accepted original enumeration wrapper of admitted component predictors; no new biological model, operon inference or calibration.
 - Last verified: 2026-11-01
 
 The contract applies to the library and module CLI. Independent review and
@@ -200,6 +200,14 @@ Use real artificial two-start native controls without experimental outcomes.
 Independent review and A's installed/platform gates follow the exact committed
 implementation. Keep full scientific/reference artifacts external and retain
 all existing source/provider/private/consumer/publication holds.
+
+The accepted implementation at `137585b1d175d7c789489e5ad5425f47b51240a2`
+passes 261 focused tests with full coverage of 306 statements and 64 branches.
+Independent saved-artificial replay checks both strands, complete candidate
+rosters/locks/objectives, mixed failures and confirmation integrity before/after
+a deadline. Repair review receipt SHA256 is
+`b36c7b11b20090e37735c7b3284c6f1ba3536c77aefe0a8d6cc090c50123da88`.
+No biological-performance or release acceptance follows from these checks.
 
 ## Local reproduction
 

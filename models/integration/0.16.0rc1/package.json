@@ -97,17 +97,42 @@
       }
     }
   ],
+  "documentation_check": {
+    "broken": [],
+    "checked": 750,
+    "correct_head": "22f881eb02f985350101374b21a40432586638b2",
+    "corrected": {
+      "bytes": 16442,
+      "sha256": "1318b22ab298c5ffb8c35a67d4f2ba503ffea5b15a0f36b339c6a0acd7f0ddf8"
+    },
+    "corrected_file": "016-doc-links-corrected.json",
+    "original": {
+      "bytes": 16365,
+      "sha256": "8aed13b2446107bc2e3f2114d6b0540b388b9a859e0c4c535e4934020c22c6ab"
+    },
+    "original_declared_head": "7b4ae1e43297d2c70b54286776eee191e32753e4",
+    "original_file": "016-doc-links.json",
+    "source_pins_identical": true
+  },
   "independent_implementation_review": {
+    "findings": [
+      "C80-F1"
+    ],
+    "note": "The accepted repair is not present in this preserved 0.16rc1 archive.",
+    "repair_review_receipt_sha256": "b36c7b11b20090e37735c7b3284c6f1ba3536c77aefe0a8d6cc090c50123da88",
+    "repaired_implementation_commit": "137585b1d175d7c789489e5ad5425f47b51240a2",
     "reviewer": "existing Session C",
     "scope": "New multi-target wrapper/contracts/tests only; previously accepted native models unchanged",
     "source_commit": "953906a4ffee6eb5b2d58b07e5a191484c1a34db",
-    "status": "pending"
+    "status": "correction_required_in_this_archive"
   },
   "independent_package_review": {
+    "evidence_correction_review_receipt_sha256": "0633073dd91fe16356f1857be17b7f6e5770a453522ca753eabac8f448b81d83",
+    "note": "Source/archive/installed and saved-output checks pass; this does not waive inherited implementation finding C80-F1.",
     "reviewer": "existing Session C",
     "scope": "A entrypoint/version/workflow plus exact archive/source/installed identity and saved artificial outputs",
     "source_commit": "7b4ae1e43297d2c70b54286776eee191e32753e4",
-    "status": "pending"
+    "status": "accepted_package_delta_and_corrected_evidence"
   },
   "installed_runtime_files": [
     {
@@ -1609,5 +1634,6 @@
       "sha256": "7276ac0105f4ac4d70ee72929ba37bd43a56416cc44596496e0c0f6aef075d3b"
     }
   ],
+  "status": "superseded_unreleased",
   "version": "0.16.0rc1"
 }

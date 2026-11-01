@@ -4,8 +4,8 @@ Verification dates cover the stated source observations or specification review;
 
 | Area | Purpose | Last verified | Document |
 | --- | --- | --- | --- |
-| engineering-0.16-candidate | Provisional multi-target RBS design package; local/fresh/platform and maximum-roster control pass, independent implementation/package review pending. | 2026-11-01 | [engineering-0.16-candidate.md](engineering-0.16-candidate.md) |
-| Multi-target RBS design | Fixed contract for explicit component targets, complete candidate accounting and immutable supplied coding spans | 2026-11-01 | [rbs-vector-design.md](rbs-vector-design.md) |
+| engineering-0.16-candidate | Preserved unreleased multi-target candidate; confirmation defect fixed separately, corrected evidence accepted; replacement package required. | 2026-11-01 | [engineering-0.16-candidate.md](engineering-0.16-candidate.md) |
+| Multi-target RBS design | Independently accepted explicit component targets, complete candidate accounting, immutable coding spans and first-cause confirmation errors | 2026-11-01 | [rbs-vector-design.md](rbs-vector-design.md) |
 | Engineering 0.15 package | Frozen Promoter design integration; local/fresh/platform and independent package gates pass | 2026-11-01 | [engineering-0.15-candidate.md](engineering-0.15-candidate.md) |
 | promoter-design | Independently accepted bounded historical Promoter target search, complete-context constraints, explicit coverage formulas and fresh native confirmation. | 2026-11-01 | [promoter-design.md](promoter-design.md) |
 | Engineering 0.14rc2 package | Frozen drafting-export integration, exact artifacts and verification boundaries | 2026-11-01 | [engineering-0.14rc2-candidate.md](engineering-0.14rc2-candidate.md) |

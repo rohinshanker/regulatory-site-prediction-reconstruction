@@ -121,8 +121,8 @@ is retained; incomplete vectors cannot win the search. The earlier
 [0.16.0rc1 package](docs/validation/engineering-0.16-candidate.md) passed local,
 fresh-install and platform checks. Independent review then identified a
 confirmation error-reporting defect. The isolated 0.16.0rc2 source preserves the
-first integrity stop even if its deadline also elapses; its exact repair review
-and package gates remain pending. These are individual model initiation scores,
+first integrity stop even if its deadline also elapses; its independent repair review is accepted and its new package gates remain
+pending. These are individual model initiation scores,
 with no inferred coupling, joint protein abundance or demonstrated biological
 improvement.
 

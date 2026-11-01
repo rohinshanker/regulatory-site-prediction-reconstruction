@@ -1,7 +1,7 @@
 # Provisional engineering package 0.16.0rc1
 
 - Purpose: Install bounded multi-target RBS design alongside the admitted calculator components.
-- Scope: Local, fresh-install and platform software gates pass; independent implementation/package review, scientific evaluation, consumer admission and publication remain separate.
+- Scope: Preserved, unreleased candidate with an implementation defect; superseded by the separately validated repaired candidate.
 - Last verified: 2026-11-01
 
 ## Frozen source and artifacts
@@ -12,7 +12,12 @@ The [receipt](../../models/integration/0.16.0rc1/package.json) binds source
 [0.15 engineering package](engineering-0.15-candidate.md), with the new command
 `regsite-rbs-vector-design`. Existing native equations, source/parameter identities
 and the five-kind job runner remain unchanged. The held eight-kind dispatcher
-is absent. Neither new implementation nor package review is yet accepted.
+is absent. Independent review found a confirmation-reporting defect in this
+archive: a fatal integrity reason could be lost or overwritten by a deadline.
+The accepted implementation repair is `137585b`, with review receipt SHA256
+`b36c7b11b20090e37735c7b3284c6f1ba3536c77aefe0a8d6cc090c50123da88`;
+it is not present in these preserved archives. Use a separately validated
+replacement package rather than treating this archive as repaired.
 
 | Archive | Bytes | SHA256 |
 | --- | ---: | --- |
@@ -85,10 +90,17 @@ original conditional pair passed in the local zero-skip suite. Every measured
 statement and branch is covered on each platform; statement totals vary with
 Python version and are recorded separately in the receipt.
 
-Independent implementation and package review by existing C remain pending;
-self-tests and CI do not replace those reviews. A retains the separate final
-integration gate. No release tag, package publication, main merge or consumer
-admission follows from this receipt.
+C independently checked the package/archive/installed identities and saved
+outputs. The supplemental documentation gate was corrected to identify the
+actual checked documentation commit `22f881e`: all 136 source-file pins and
+750 relative links belong to that descendant, not package source `7b4ae1e`.
+Original and corrected receipts remain preserved, with equal file-pin maps.
+C accepted the evidence correction; its receipt SHA256 is
+`0633073dd91fe16356f1857be17b7f6e5770a453522ca753eabac8f448b81d83`.
+The package receipt binds the corrected gate. No broken-link finding or runtime
+change followed from that attribution correction. The separate implementation
+defect still exists in these archives. No release tag, package publication,
+main merge or consumer admission follows from their software test results.
 
 ## Resource control and saved-output checks
 
