@@ -1,10 +1,10 @@
-# A_component-calculator-jobs__20261021 — Active
+# O_component-calculator-jobs__20261021 — Open
 
 - Scope: Versioned offline orchestration for reviewed coupling, termination and supplied-rate drafting; child of #6/#11.
-- Status: active
+- Status: open
 - Opened: 2026-10-21
-- Updated: 2026-10-21
-- Current State: A reserves the version-2 contract and one isolated engineering writer. Version-1 runner #59 is complete; this is a distinct eight-kind extension, not a change to calculator equations or consumer admission.
+- Updated: 2026-11-01
+- Current State: Held, with no active writer or retry authorized. Unmerged partial work is preserved on wave7/component-calculator-jobs at cb330eb and wave7/component-package-validation at d491068. Version-1 runner remains the admitted implementation. Later sessions must read the held-scope context before proposing any continuation; closing the current wave does not authorize a retry, reroute or admission of these branches.
 - Verification: Baseline 4eba1b6 preserves all runtime bytes that passed eight CI jobs at efe90fcb. New implementation requires full path coverage, unchanged v1 schema/source pins, finite independent review and installed mixed-backend checks before completion.
 - Cleanup: A records exact acceptance and remaining findings, distills reusable runbook guidance, resolves/removes this ticket and its own queue row, and closes only this child issue.
 - Owner: cyano-calcs-A / baf5b738-1792172297.

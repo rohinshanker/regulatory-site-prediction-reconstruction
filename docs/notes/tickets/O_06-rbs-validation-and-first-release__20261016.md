@@ -1,10 +1,10 @@
-# A_06-rbs-validation-and-first-release__20261016 — Active
+# O_06-rbs-validation-and-first-release__20261016 — Open
 
 - Scope: Validate and release the first fully usable open RBS calculator.
-- Status: active
+- Status: open
 - Opened: 2026-10-16
 - Updated: 2026-11-01
-- Current State: A owns release integration. The reviewed cumulative suite is frozen as 0.17.0rc1 at 7446866; the owner authorized completed-source main integration. Apply the exact-head eight-job platform merge gate in the package guide. Tag/registry publication and consumer admission remain separate; held #68 and B incomplete #81 remain excluded. Earlier scientific candidates and archives stay immutable.
+- Current State: Queued after the owner-requested current-wave closeout; no continuing implementation assignment. A owns release integration. The reviewed cumulative suite is frozen as 0.17.0rc1 at 7446866; source is merged at 1ccf965 through PR85. Both exact premerge and main platform matrices pass all eight jobs. Tag/registry publication and consumer admission remain separate; held #68 and B incomplete #81 remain excluded. Earlier scientific candidates and archives stay immutable.
 - Verification: [Engineering 0.17](../../validation/engineering-0.17-candidate.md) passes 8,024 tests/1,551 subtests/zero skips, 100% of 19,766 statements/7,036 branches, static checks and all 77 fresh-installed outputs. Independent source, CI-delta and package reviews accepted without findings. Final remote merge/check identities are recorded on the integration PR; preserve the native benchmark claims and separate tagged-release requirements.
 - Cleanup: Owning session records final checks and unresolved findings, resolves the ticket, distills reusable guidance into docs/validation/, updates both indexes and linked GitHub issue, then removes the resolved ticket.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/6

@@ -1,10 +1,10 @@
-# A_07-promoter-calculator-reconstruction__20261016 — Active
+# O_07-promoter-calculator-reconstruction__20261016 — Open
 
 - Scope: Recover and implement the production-oriented Promoter Calculator.
-- Status: active
+- Status: open
 - Opened: 2026-10-16
-- Updated: 2026-10-21
-- Current State: Historical local runtime, unchanged-output optimization and native pilot are implemented and independently reviewed. The complete anchor-centered native/source comparison agrees across 130,954 positions; native best-position localization is 900/1,597 within five bases versus 398 shuffled controls. Separate frozen count analysis yields weak control-count Spearman 0.173 (95% interval 0.126–0.219). These exposed-cohort results establish historical fidelity, not native strength calibration, hosted parity or model improvement. See [pilot results](../../validation/promoter-native-pilot-results.md). Broader scientific, publication and consumer-admission scope stays open.
+- Updated: 2026-11-01
+- Current State: Queued after the owner-requested current-wave closeout; no continuing implementation assignment. Historical local runtime, unchanged-output optimization and native pilot are implemented and independently reviewed. The complete anchor-centered native/source comparison agrees across 130,954 positions; native best-position localization is 900/1,597 within five bases versus 398 shuffled controls. Separate frozen count analysis yields weak control-count Spearman 0.173 (95% interval 0.126–0.219). These exposed-cohort results establish historical fidelity, not native strength calibration, hosted parity or model improvement. See [pilot results](../../validation/promoter-native-pilot-results.md). Broader scientific, publication and consumer-admission scope stays open.
 - Verification: Full combined local suite 5,658 passed/zero skips, 100% measured statements/branches; fresh installed package passes 22 offline checks across all seven commands. Source checker 139 tests and count evaluator 156 tests independently reviewed at full coverage. Frozen source fixtures and parameters remain unchanged. [Combined package identity](../../validation/integrated-runtime-build.md) distinguishes this build from earlier evaluated candidates; exact proposed-head remote CI remains a separate check.
 - Cleanup: Owning session records final checks and unresolved findings, resolves the ticket, distills reusable guidance into docs/validation/, updates both indexes and linked GitHub issue, then removes the resolved ticket.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/7

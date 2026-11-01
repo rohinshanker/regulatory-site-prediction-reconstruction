@@ -2,6 +2,10 @@
 
 ## Scope and order
 
+- Owner priority on 2026-11-01 is to finish the current wave and close Sessions
+  A/B/C for now. A owns final integration; B retains the bounded #81 artificial
+  coupling evaluation; C has no pending work. Do not automatically dispatch the
+  next wave. Broader incomplete goals and stopped scopes remain open.
 - Owner authorization on 2026-10-21 adds Session C for continued producer work.
   A owns runtime/package integration and bounded offline job execution; B owns
   independent evidence/evaluation; C owns separately scoped Operon components,
@@ -79,8 +83,9 @@
 ## Work and verification
 
 - One owner per ticket and one writer per worktree. Follow the user's Paseo-first
-  routing policy; Multica is retired and must not receive dispatches. Handoffs name scope, canonical checkout,
-  baseline/result target, acceptance criteria and allowed child work. Workers
+  routing policy; Multica is retired and must not receive dispatches. Handoffs
+  name scope, canonical checkout, baseline/result target, acceptance criteria
+  and allowed child work. Workers
   must not reroute the same assignment or initiate an unrequested review chain.
 - Keep source pins and test fixtures immutable. Tests ship with code; cover every
   new path, failures, boundaries, strand/coordinate conversions and reproducibility.

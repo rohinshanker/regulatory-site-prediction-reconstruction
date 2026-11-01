@@ -67,7 +67,10 @@ This reuses earlier implementation reviews and does not claim new scientific
 validation. The separate installed-CI delta review receipt SHA256 is
 `462daafbf7e3c0b3b2b98a76920df7d3b84622249c4808696be4a51c6ca8fc11`.
 
-Before main integration, require the complete eight-job workflow on the final
+The exact [premerge run](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/actions/runs/41336449191) at `97822b0`
+and [main run](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/actions/runs/41340745843) at `1ccf965692d247f5e6f4bf173f416c01c4cdd03e`
+passed all eight jobs. The main merge has the identical tested Git tree.
+For later main integration, require the complete eight-job workflow on the final
 PR head: Ubuntu 24.04/macOS 15, Python 3.11/3.14, runtime and resource jobs.
 Check the exact commit and every conclusion; an earlier passing candidate does
 not satisfy a changed runtime. Later documentation-only changes can retain this

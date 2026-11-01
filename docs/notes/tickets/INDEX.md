@@ -2,40 +2,38 @@
 
 Live queue of open and active tickets. Markdown is canonical; GitHub issues mirror scope and discussion.
 
-**Current owner priority (2026-10-21):** resume producer implementation with A
-owning runtime/integration and B independent benchmark/evidence tooling. The
-active wave runs the named native Promoter pilot and consolidates reviewed
-calculator components. Agree disjoint paths before dispatch; freeze evaluations
-before execution and preserve immutable evidence. Consumer preview PV-R1 and
-stopped DEM-577/568 remain held. The [paired handoff](../../validation/paired-consumer-preview.md)
-does not change, and consumer admission/publication retain separate gates.
-A new transcript adapter and the unaccepted portable-original-backend assignment
-are outside this wave; conditional admission does not follow from a new build.
+**Current owner priority (2026-11-01):** finish the current wave so Sessions A/B/C
+can close. A owns final integration; existing B alone finishes the already
+reserved #81 independent artificial checker/evaluation. C reports no pending
+implementation or review. No automatic next-wave dispatch or broad expansion.
+The reviewed 0.17 source is merged through [PR85](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/pull/85);
+its [package guide](../../validation/engineering-0.17-candidate.md) distinguishes
+software qualification from frozen scientific results and remaining inference.
 
-The [continuing delivery program](../../validation/calculator-delivery-program.md)
-orders current/recoded prediction and portable consumer outputs after the
-Promoter runtime, then admitted supplied-operon and conditional aptamer slices.
-
-Wave 5 is governed by the [two-phase program](../../validation/wave5-program.md) and [A](../../prompts/wave5-session-a.md)/[B](../../prompts/wave5-session-b.md) prompts. A owns the active release parent #6 and completed scoped runtime #33; B completed scoped evaluations #34/#39; the reviewed native, context and paired reports are indexed in validation. Reuse the cyano visualizer annotation-discrepancy decisions read-only. The owner authorized isolated calculator implementation alongside release preparation on 2026-10-18. Phase 2 proceeds under source-parity, candidate-freeze and independent-collection gates; publication and cyano admission remain separate.
-
-The reviewed RBS 0.4.0rc1 candidate is in [PR31](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/pull/31). Read the [release guide](../../validation/rbs-0.4-release.md) and [independent Wave 4 results](../../validation/rbs-wave4-results.md): joint selection did not pass the advancement gate, and the selected Cambray panel is consumed. Preserve all frozen models, protocols and private-outcome boundaries.
-
-A owns remaining runtime/release/improvement scopes 04/06/13; B owns broader source/live/benchmark scopes 01/05/12. Actual RBS release remains a publication/consumer-admission dependency; owner-authorized Promoter runtime 07/33 implementation proceeds in parallel. [Executed Promoter references](../../validation/promoter-executed-reference.md) are available. Operon, Riboswitch and design/suite work remain under 08/09/11. Check current assignments and newer work before starting a new development/evaluation cycle; completed Wave 4 prompts must not be replayed as untouched evaluation. No canonical/cyano edits or new website spending are implied.
+Queued parent tickets remain open, not completed. Read each scope and claim a
+bounded assignment before resuming. The [delivery program](../../validation/calculator-delivery-program.md)
+is a roadmap, not permission to restart held work. Preserve #68, #58/DEM-612/613,
+#64/DEM-624 and cyano preview PV-R1/DEM-577/568 without retry or rerouting.
+[Consumer admission](../../validation/paired-consumer-preview.md), tagged/registry
+publication, new source admission and paid-reference collection remain separate.
+Exposed cohorts remain consumed; do not replay old prompts as new confirmation.
+Canonical and cyano checkouts are preserved. Paseo is the current delegation
+route; retired Multica must not receive dispatches.
 
 | Status | Updated | Ticket | Priority | Scope |
 | --- | --- | --- | --- | --- |
 | A | 2026-11-01 | [A_wave-closeout__20261101.md](A_wave-closeout__20261101.md) | P0 | A: finish bounded current-wave work, preserve held scopes and leave resumable open dependencies |
 | O | 2026-11-01 | [O_coupling-numeric-evaluation__20261101.md](O_coupling-numeric-evaluation__20261101.md) | P1 | B: independent artificial coupling checker at 612750b; complete hash/acquisition admission and review pending, no candidate execution; [#81](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/81), parents #12/#8 |
-| A | 2026-10-21 | [A_component-calculator-jobs__20261021.md](A_component-calculator-jobs__20261021.md) | P1 | A: version-2 offline dispatch for all eight reviewed components with separate native identities; [issue #68](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/68) |
+| O | 2026-10-21 | [O_component-calculator-jobs__20261021.md](O_component-calculator-jobs__20261021.md) | P1 | A: held unmerged version-2 dispatch; no active writer or retry; admitted runner remains version 1; [issue #68](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/68) |
 | O | 2026-10-21 | [O_rbs-host-transfer__20261021.md](O_rbs-host-transfer__20261021.md) | P0 | Session B: existing-aggregate failure analysis recorded; source audit/independent review provider-blocked, no new UTEX accuracy result; [#58](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/58), parent #12 |
 | A | 2026-10-18 | [A_01-source-recovery-and-open-licensing__20261016.md](A_01-source-recovery-and-open-licensing__20261016.md) | P0 | RBS/Promoter evidence, bounded Operon/Riboswitch admission and canonical constrained-folding fixtures delivered; complete later-tool inference unresolved; [issue #1](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/1) |
-| A | 2026-10-22 | [A_04-rbs-published-refinements__20261016.md](A_04-rbs-published-refinements__20261016.md) | P0 | Footprint/context/standby implemented; kinetics, stacking, search completeness and backend parity remain; [issue #4](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/4) |
+| O | 2026-10-22 | [O_04-rbs-published-refinements__20261016.md](O_04-rbs-published-refinements__20261016.md) | P0 | Footprint/context/standby implemented; kinetics, stacking, search completeness and backend parity remain; [issue #4](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/4) |
 | A | 2026-10-19 | [A_05-live-calculator-reference-benchmarks__20261016.md](A_05-live-calculator-reference-benchmarks__20261016.md) | P0 | Reuse completed RBS panel; debit unreconciled; no new purchase recommended for preview; any later paid panel needs new freeze/pricing; [issue #5](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/5) |
-| A | 2026-11-01 | [A_06-rbs-validation-and-first-release__20261016.md](A_06-rbs-validation-and-first-release__20261016.md) | P0 | A: reviewed 0.17 cumulative source/package, 8024 local tests and 77 installed outputs; final exact-head platform/main integration gate; tag/consumer publication separate; [issue #6](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/6) |
-| A | 2026-10-21 | [A_07-promoter-calculator-reconstruction__20261016.md](A_07-promoter-calculator-reconstruction__20261016.md) | P1 | Historical source fidelity on all 130,954 native-pilot positions; weak native count association, hosted parity/calibration open; [issue #7](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/7) |
-| A | 2026-10-22 | [A_08-operon-calculator-reconstruction__20261016.md](A_08-operon-calculator-reconstruction__20261016.md) | P1 | Supplied-transcript component completed; full Operon mechanisms remain open; [issue #8](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/8) |
-| A | 2026-10-18 | [A_09-riboswitch-calculator-reconstruction__20261016.md](A_09-riboswitch-calculator-reconstruction__20261016.md) | P1 | Recover and implement the conditional Riboswitch Calculator; [issue #9](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/9) |
+| O | 2026-11-01 | [O_06-rbs-validation-and-first-release__20261016.md](O_06-rbs-validation-and-first-release__20261016.md) | P0 | A: reviewed 0.17 cumulative source/package, 8024 local tests and 77 installed outputs; premerge/main platform gates passed; tagged/registry and consumer admission queued; [issue #6](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/6) |
+| O | 2026-10-21 | [O_07-promoter-calculator-reconstruction__20261016.md](O_07-promoter-calculator-reconstruction__20261016.md) | P1 | Historical source fidelity on all 130,954 native-pilot positions; weak native count association, hosted parity/calibration open; [issue #7](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/7) |
+| O | 2026-10-22 | [O_08-operon-calculator-reconstruction__20261016.md](O_08-operon-calculator-reconstruction__20261016.md) | P1 | Supplied-transcript component completed; full Operon mechanisms remain open; [issue #8](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/8) |
+| O | 2026-10-18 | [O_09-riboswitch-calculator-reconstruction__20261016.md](O_09-riboswitch-calculator-reconstruction__20261016.md) | P1 | Recover and implement the conditional Riboswitch Calculator; [issue #9](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/9) |
 | O | 2026-10-16 | [O_10-cyano-consumer-adapter__20261016.md](O_10-cyano-consumer-adapter__20261016.md) | P1 | Integrate released calculator outputs into the cyano consumer; [issue #10](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/10) |
-| A | 2026-11-01 | [A_11-design-modes-and-open-suite-release__20261016.md](A_11-design-modes-and-open-suite-release__20261016.md) | P1 | A: bounded design/export implementations and 0.17 package accepted; complete suite inference/scientific/tagged-release gates open; [issue #11](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/11) |
+| O | 2026-11-01 | [O_11-design-modes-and-open-suite-release__20261016.md](O_11-design-modes-and-open-suite-release__20261016.md) | P1 | A: bounded design/export implementations and 0.17 package accepted; complete suite inference/scientific/tagged-release gates open; [issue #11](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/11) |
 | A | 2026-10-21 | [A_12-benchmark-quality-and-ground-truth__20261016.md](A_12-benchmark-quality-and-ground-truth__20261016.md) | P0 | Frozen native Promoter/count association, context, paired results and receipt checker independently reviewed; broader experimental/source gaps remain; [issue #12](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/12) |
-| A | 2026-11-01 | [A_13-ground-truth-model-improvements__20261016.md](A_13-ground-truth-model-improvements__20261016.md) | P0 | A: frozen #73 public report independently accepted; weak consumed PCC 6803 association, no UTEX/recoding accuracy. Repaired 0.16rc2 local/fresh gates pass; [issue #13](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/13) |
+| O | 2026-11-01 | [O_13-ground-truth-model-improvements__20261016.md](O_13-ground-truth-model-improvements__20261016.md) | P0 | A: frozen #73 public report independently accepted; weak consumed PCC 6803 association, no UTEX/recoding accuracy. Reviewed 0.17 source/package and platform gates pass; [issue #13](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/13) |
