@@ -248,10 +248,10 @@ jobs:
           from pathlib import Path
           from regsite.backend import RnaStructure
           from regsite.rbs import predict
-          
+
           def digest(value):
               return hashlib.sha256(json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=True, allow_nan=False).encode()).hexdigest()
-          
+
           version = importlib.metadata.version("regulatory-site-prediction-reconstruction")
           backend = RnaStructure.open(os.environ["REGSITE_RNASTRUCTURE"])
           results = {}
