@@ -112,3 +112,4 @@ Verification dates cover the stated source observations or specification review;
 | intrinsic-termination-runtime | Reviewed bounded external-engine adapter, accepted 0.12 package and Linux/macOS CI boundary. | 2026-10-21 | [intrinsic-termination-runtime.md](intrinsic-termination-runtime.md) |
 | rbs-design | Independently accepted bounded leader substitution search with explicit model target, constraints, failures and fresh confirmation. | 2026-10-31 | [rbs-design.md](rbs-design.md) |
 | coupling-numeric-evaluation | Independent supplied-energy arithmetic/geometry fixtures and strict saved-result checker; finite review and frozen execution remain separate. | 2026-11-01 | [coupling-numeric-evaluation.md](coupling-numeric-evaluation.md) |
+| [Coupling 0.14rc2 geometry identities](coupling-geometry-identity-0.14rc2.md) | Exact normalized/oriented RNA hash payloads and immutable source pins; outcome-free supplement |
