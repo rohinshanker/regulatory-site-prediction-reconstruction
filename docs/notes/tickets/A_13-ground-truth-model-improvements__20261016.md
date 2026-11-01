@@ -4,7 +4,7 @@
 - Status: active
 - Opened: 2026-10-16
 - Updated: 2026-10-31
-- Current State: Owner renewed calculator implementation on 2026-10-31. Wave 10 first completes the existing #73 public PCC 6803 development evaluation, without changing its scientific settings. B's four-finding repair is complete at d8c9a43; A accepted the exact argv repair against all 120 planned jobs. Same-C recheck of the other three findings, final freeze and B acknowledgement remain pending. Existing B/C sessions are queued behind Agent Deck's group limit; direct handoff delivery failed because they are not running. No native collection has started. Earlier joint-selection advancement failed and all consumed panels remain consumed; native promotion remains unestablished.
+- Current State: Wave10 #73 tooling repair d8c9a43 is independently accepted by A/C and integrated at ef46acd. B acknowledged the exact final freeze; the original native campaign and its installed verification finished with exit0, and the linker3 campaign is running once under its frozen budget. No outcomes have been joined or new accuracy claimed. A's bounded RBS design #74 is implemented at0a77347 and awaits C independent review; C's conditional CSV #76 is independently accepted and integrated at8e5b678. Earlier joint-selection advancement failed and consumed panels remain consumed.
 - Verification: The full 6,556-job collection completed without retries/artifact changes; 6,520 ok and 36 explicit no-candidate results. DEM-516 independently matched 464 floating/659 exact fields, maximum discrepancy zero, and accepted the publication metadata. Results, uncertainty, comparators, exposure caveats and ranked falsifiable next-cycle hypotheses are in rbs-wave4-results.md. Public development and consumed final panels cannot become untouched confirmation.
 - Cleanup: Owning session records results including negative findings, distills reusable model/evaluation contracts, updates indexes and GitHub issue, then removes the resolved ticket.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/13
@@ -36,38 +36,39 @@ old `prepared-b-01` remains immutable. Candidate receipt SHA256 remains
 `cb6fcb06c8db41c2c6ed5edb543de60363d1a18af500a4535facc629627e72c9`.
 Protocol/model/cohort/endpoints/resources are unchanged.
 
-A verified all seven repair file pins, both prepared plans and 154 existing
-package/backend material pins on 2026-10-31. Nothing was missing or changed.
-The pure frozen command formatter agrees with the repair on all 120 planned
-jobs; literal float/int checks and the focused regression pass. This accepts
-A73-R1 only. Same-C recheck of F1/F2/F3 remains required; B's local tests do not
-replace it. Merge preflight is conflict-free, with no unaccepted code integrated.
-All eight CI jobs at pushed `a53f65e` succeeded; that result does not cover the
-unintegrated repair or a new scientific result.
+A verified all seven repair file pins, both prepared plans and154 existing
+package/backend material pins. C accepted its three repairs after8focused tests
+and20 recreated artificial controls; A reproduced51focused/adjacent tests plus
+305subtests with100%393statement/80branch coverage after integration. Earlier
+eight-job CI at a53f65e passed; new combined CI remains pending.
 
-Current exact handoffs and receipts are under
-`/Users/Rohin/.cache/regsite-wave10-20261031/`: `c-recheck-handoff.md`,
-`b-continuation-handoff.md`, `a-recovery-material-check.json`, and
-`a-argv-recheck.json`. Original `/tmp` review files are unavailable; do not claim
-their bytes were reread. B's durable handoff and machine receipt survive in
-`/Users/Rohin/.cache/regsite-wave9-20261022/native-rbs-recheck/b-tooling-repair-01/`.
-B/C's existing session starts are queued by Agent Deck's group limit; direct
-handoff sends failed because the targets are not running. Owner capacity
-clarification is pending; no session was replaced or unrelated session stopped.
+Exact active receipts are under `/Users/Rohin/.cache/regsite-wave10-20261031/`.
+`execution-01/freeze.json` SHA256
+`7b8b435310949f86870993e4e754ef5952d0d487cfa7b762e67f3182f2b41e56`
+and `b-freeze-ack.json` SHA256
+`3d55a599a4eefb055965968eabc3787ca72dfcb4b7f007f9a5b60612c7ae4c12`
+bind the complete runtime and exact installed commands. Original and linker3
+campaigns each run once; no retry/repacking/resume. A will pin all consumed raw
+streams/receipts and installed run/verify summaries in the acquisition before B
+joins public labels. Retain all1,916 planned predictions, including failures and
+unstarted work. Report coverage, reasons, rank association and paired common-
+success contrasts with homology-group uncertainty. No scale calibration,
+fold-accuracy, superiority, UTEX or recoding-effect claim follows from this
+consumed-study diagnostic. Private final/LC/workbook outcomes remain excluded.
 
-Next acceptance: same-C exact recheck; A integration/relevant checks; immutable
-execution freeze and B acknowledgement; two single-attempt campaigns using the
-original installed runner and verifier; B verifies acquisition before joining
-public labels. Retain all 1,916 planned predictions, including failures and
-unstarted work, under unchanged limits. Report coverage/failure reasons and
-rank association with paired common-success contrasts and homology-group
-uncertainty. This consumed-study diagnostic establishes no scale calibration,
-fold-accuracy, superiority, UTEX accuracy or recoding-effect claim. Private
-final/LC/source-workbook outcomes remain excluded.
+A design #74 searches explicitly editable leader substitutions with unchanged
+named scoring profiles and fresh confirmation;169focused/native tests pass,
+with full new-runtime coverage. It does not optimize against #73 labels. Exact
+0a77347 is frozen for existing C review. C's independent #76 CSV delta00f7f7c
+passed A's finite review,100artifact pins and70focused tests; it keeps default
+JSON and scientific models unchanged. C owns its closure; A owns combined gates.
+The duplicate reserved #75 was closed, not implemented separately.
 
-After this finite cycle, choose the next unblocked calculator dependency from
-the evidence and agree exact path ownership. No new experiment inputs or paid
-hosted jobs are needed for this cycle.
+Actual B/C app conversations continue despite stale duplicate terminal states.
+Use shared handoffs and issue comments; never fork/restart through conversation
+locks or change group limits without owner decision. C's next exact review is
+`c-design-review-handoff.md`; no new provider/child dispatch is authorized.
+No experimental-input or paid-hosted purchase is needed for these tasks.
 
 The owner clarified on 2026-10-22 that future experimental work is undecided
 and should be sidelined. Earlier discussion of UTEX genomics, RNA-seq, ordinary
