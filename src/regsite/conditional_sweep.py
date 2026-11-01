@@ -127,7 +127,7 @@ def _point(request: dict, model: dict) -> tuple[dict, bool]:
         "native_json_sha256": None,
     }
     try:
-        native = conditional.predict_conditional(request)
+        native = conditional.predict_conditional(deepcopy(request))
         raw = conditional.result_bytes(native)
         row["native_json_sha256"] = hashlib.sha256(raw).hexdigest()
         require(
@@ -176,7 +176,7 @@ def _point(request: dict, model: dict) -> tuple[dict, bool]:
         return row, True
     except ConditionalError as exc:
         row["reasons"] = [exc.code]
-        return row, False
+        return row, exc.code == "result_limit"
     except (OSError, UnicodeError):
         row["reasons"] = ["prediction_execution_failed"]
         return row, False

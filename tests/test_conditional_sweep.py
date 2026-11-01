@@ -406,3 +406,32 @@ def test_authoritative_result_bytes_caps_and_unsupported_values(monkeypatch):
     for bad in [float("nan"), object()]:
         with pytest.raises(sweep.SweepError, match="result_serialization_failure"):
             sweep.result_bytes({"x": bad})
+
+
+def test_predictor_mutation_cannot_redefine_admitted_concentration(monkeypatch):
+    original = conditional.predict_conditional
+
+    def mutate(request):
+        request["input"]["occupancy"]["ligand_total_molar"] = 999
+        return original(request)
+
+    monkeypatch.setattr(conditional, "predict_conditional", mutate)
+    result = sweep.sweep(example())
+    assert result["coverage"]["attempted"] == 1
+    assert result["points"][0]["ligand_total_molar"] == 0
+    assert result["points"][0]["reasons"] == ["native_identity_mismatch"]
+    assert (
+        result["request"]["template"]["input"]["occupancy"]["ligand_total_molar"] == 1
+    )
+
+
+def test_native_serializer_cap_stops_without_inventing_unavailable_hash(monkeypatch):
+    def fail(request):
+        raise ConditionalError("result_limit", "native result cap")
+
+    monkeypatch.setattr(conditional, "predict_conditional", fail)
+    result = sweep.sweep(example())
+    assert result["coverage"]["attempted"] == 1
+    assert result["coverage"]["not_run"] == 5
+    assert result["points"][0]["native_json_sha256"] is None
+    assert result["reason"] == "result_limit"

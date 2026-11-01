@@ -81,7 +81,9 @@ when their native results match; their roster indices remain distinct.
 
 Input is at most 65,536 received bytes and canonical parsed bytes. Each embedded
 native result is bounded to 65,536 authoritative pretty bytes plus six bytes per
-line for envelope indentation. An oversized record keeps its hash with null payload.
+line for envelope indentation. An oversized record keeps its hash with null payload when the authoritative
+native serializer returned bytes; rejection by that serializer's own cap has
+no available native hash and also stops further points.
 The complete authoritative envelope (sorted-key ASCII JSON, indent 2 plus final LF)
 is capped at 8 MiB before stdout. Refusal never emits a selected/truncated prefix.
 OS stream failures can still occur after a write begins. Binary stdin or regular
