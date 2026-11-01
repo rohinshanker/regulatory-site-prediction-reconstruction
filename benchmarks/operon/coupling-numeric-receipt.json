@@ -1,0 +1,224 @@
+{
+  "accepted_independent_review": {
+    "bytes": 5354,
+    "receipt_bytes": 4806,
+    "receipt_sha256": "f58a5bce52f9af194e0c3cb87c9448e16e6961270bc4d4f0d461a546cf2983fe",
+    "review_bytes_in_this_bundle": false,
+    "scope": "same reviewer exact456091f report delta/freeze acceptance; earlier math,geometry,identity,admission and acquisition coverage reused",
+    "sha256": "c1bf1ac9841dc41ba889b92dd10d8d0a4d46801e287e1f99d44c3f43405de146"
+  },
+  "acquisition_artifacts": {
+    "benchmarks/operon/coupling-numeric-acquisition/a-handoff.json": {
+      "bytes": 1304,
+      "sha256": "45d213aff94834ab2b5504861e14b2cdd6afe2ca136e5ae9419db1e844a73eab"
+    },
+    "benchmarks/operon/coupling-numeric-acquisition/acquisition.json": {
+      "bytes": 593,
+      "sha256": "99f539ea79573d82b4457fbb449c035c4bf386324f011e277c04f38249bc3a87"
+    },
+    "benchmarks/operon/coupling-numeric-acquisition/attempt-started.json": {
+      "bytes": 722,
+      "sha256": "111c9595ebbcdf3ca23ce105c4ac0d197c3dc07cd0c8e81214517842aa059ab7"
+    },
+    "benchmarks/operon/coupling-numeric-acquisition/authorization.json": {
+      "bytes": 747,
+      "sha256": "7c41d5df35d1819d2c42a5e7680f271dac058d9a6353d1e2a77dcb5b90274fbf"
+    },
+    "benchmarks/operon/coupling-numeric-acquisition/b-acknowledgement.json": {
+      "bytes": 4898,
+      "sha256": "16b84c1b5f0d8a3ef91183c4405e514819ca68bef6486b6d1c88332546fa58bf"
+    },
+    "benchmarks/operon/coupling-numeric-acquisition/execution.json": {
+      "bytes": 15586,
+      "sha256": "0beb0cacee121d0f247f96d59657fe65a3b08b751fbe647b35fedfe774cf226d"
+    },
+    "benchmarks/operon/coupling-numeric-acquisition/freeze.json": {
+      "bytes": 16675,
+      "sha256": "fc3a3347a498506d84b32409f3230530475446e00c9d89ed2d7ecf5370465eae"
+    },
+    "benchmarks/operon/coupling-numeric-acquisition/geometry-contract.json": {
+      "bytes": 1370,
+      "sha256": "0c623e8b2c64608a5945ecccf73cdedeeaa1072cda657df751680827b97d03ee"
+    },
+    "benchmarks/operon/coupling-numeric-acquisition/material-after.json": {
+      "bytes": 41,
+      "sha256": "fc24a2176a412877bc458701d77facd48987d6b50c060615ad63008c6b720500"
+    },
+    "benchmarks/operon/coupling-numeric-acquisition/public-contract.json": {
+      "bytes": 2385,
+      "sha256": "7a236d9ef4b1a42ac48c11244eb6a637b48e98e02191478edd4322f109b0f018"
+    },
+    "benchmarks/operon/coupling-numeric-acquisition/request.json": {
+      "bytes": 11103,
+      "sha256": "53fe5609089c2c9fd7e3c6e90a14b41608332b51646b43b5eb995bc0b6e063cc"
+    },
+    "benchmarks/operon/coupling-numeric-acquisition/result.json": {
+      "bytes": 27656,
+      "sha256": "19b17b657a418d9d945b6639944f7c993f4b339f4aa936ac52522ad1ffe429b1"
+    },
+    "benchmarks/operon/coupling-numeric-acquisition/stderr.bin": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "acquisition_owner": "baf5b738-1792172297",
+  "admission": "passed",
+  "candidate": {
+    "runtime_model_material_freeze_required": true,
+    "sdist_sha256": "887cee014014b67bb863430eb2d9e07bfe49a3e7ae2b989f1e741cab4ba76b15",
+    "source_commit": "ebff076d14789735b56e71501ccfaa5b2b0f82fc",
+    "version": "0.14.0rc2",
+    "wheel_sha256": "14ac432db000abd2a680c52e3968081d03ab937419fca08ca8ddaf6433226ac6"
+  },
+  "checker": {
+    "bytes": 37496,
+    "sha256": "defd3e4ca97714069f171e7dcb88052453fe35000ba921ed4dd6d2900b242c19"
+  },
+  "checker_commit": "456091f9cf86ede228b38408d2399bd14bfc39da",
+  "conformance": {
+    "by_expected_status": {
+      "numerical_range": {
+        "conforming": 5,
+        "requested": 7
+      },
+      "ok": {
+        "conforming": 11,
+        "requested": 11
+      },
+      "unsupported_distance": {
+        "conforming": 6,
+        "requested": 6
+      }
+    },
+    "conforming": 22,
+    "mismatched_cases": [
+      {
+        "conforms": false,
+        "expected_status": "numerical_range",
+        "id": "upper_energy_bound",
+        "index": 22,
+        "mismatched_fields": [
+          "/scores/fold_change/log_value",
+          "/scores/fold_change/value"
+        ],
+        "numeric_mismatches": [
+          {
+            "absolute_error_decimal": "1.05770670000282507317024283111095428466796875E-11",
+            "expected": 0.06952606264861025,
+            "observed": 0.06952606263803318,
+            "path": "/scores/fold_change/log_value",
+            "relative_error_decimal": "1.5213096495174065461409177073646602051535790233402497650005987030550773089469704E-10"
+          },
+          {
+            "absolute_error_decimal": "1.13387077504967237473465502262115478515625E-11",
+            "expected": 1.072,
+            "observed": 1.0719999999886614,
+            "path": "/scores/fold_change/value",
+            "relative_error_decimal": "1.0577152752329032715438279327332612855178936723654201414379933504305714704333910E-11"
+          }
+        ],
+        "observed_status": "numerical_range"
+      },
+      {
+        "conforms": false,
+        "expected_status": "numerical_range",
+        "id": "lower_energy_bound",
+        "index": 23,
+        "mismatched_fields": [
+          "/scores/fold_change/log_value",
+          "/scores/fold_change/value"
+        ],
+        "numeric_mismatches": [
+          {
+            "absolute_error_decimal": "2.14204487480884608885389752686023712158203125E-11",
+            "expected": 0.1988508587451652,
+            "observed": 0.19885085872374475,
+            "path": "/scores/fold_change/log_value",
+            "relative_error_decimal": "1.0772117798867323912057511432327322329467308670773782349718815459486234546316943E-10"
+          },
+          {
+            "absolute_error_decimal": "2.61328736428367847111076116561889648437500E-11",
+            "expected": 1.22,
+            "observed": 1.219999999973867,
+            "path": "/scores/fold_change/value",
+            "relative_error_decimal": "2.1420388231833430558902794040637908382282889656092610312933825740713274128429756E-11"
+          }
+        ],
+        "observed_status": "numerical_range"
+      }
+    ],
+    "mismatched_fields": 4,
+    "nonconforming": 2,
+    "requested": 24,
+    "returned": 24,
+    "unavailable_or_unstarted": 0
+  },
+  "evaluation_owner": "9677689a-1792176763",
+  "execution": {
+    "b_candidate_calls": 0,
+    "candidate_attempts": 1,
+    "checker_exit_code": 1,
+    "elapsed_seconds": 0.08595145799999998,
+    "native_exit_code": 1,
+    "protocol_or_tolerance_changes": false,
+    "retry": false,
+    "stderr_bytes": 0,
+    "stdout_bytes": 27656,
+    "stop_reason": null
+  },
+  "expected_status_counts": {
+    "numerical_range": 7,
+    "ok": 11,
+    "unsupported_distance": 6
+  },
+  "limitations": [
+    "Two extreme-energy fold-change precision failures remain in the original candidate; no cause classification or correction was performed.",
+    "The24artificial cases are consumed conformance evidence, not a biological or untouched experimental test.",
+    "Native coverage successful=11 is distinct from conformance=22;7numerical_range and6unsupported_distance records remain accounted for.",
+    "A attests the one process and full pre/post installed-material verification; copied metadata do not independently prove process truth.",
+    "No accuracy, host-transfer, sequence-derived-energy, unfolding/full-operon, consumer admission or publication approval.",
+    "Parents#8/#12 remain open; no next wave authorized."
+  ],
+  "native_coverage": {
+    "failed_or_unsupported": 13,
+    "not_evaluated": 0,
+    "requested": 24,
+    "returned": 24,
+    "successful": 11
+  },
+  "observed_status_counts": {
+    "invalid_input": 0,
+    "not_evaluated": 0,
+    "numerical_range": 7,
+    "ok": 11,
+    "unsupported_distance": 6,
+    "unsupported_geometry": 0
+  },
+  "report": {
+    "bytes": 11009,
+    "path": "benchmarks/operon/coupling-numeric-results.json",
+    "sha256": "609b85e8c4e6570d2db560b09f0ffc2f880981cc6617f34746ac0049d3772d18"
+  },
+  "reproduction": "Assemble eight checker input files from acquisition directory plus the two shared frozen inputs; run exact checker without a predictor. Other receipt/source/runtime paths are opaque references, not files to discover.",
+  "schema_version": "coupling-numeric-evaluation-receipt-1",
+  "scope": "artificial supplied-energy numerical and coordinate conformance; no biological accuracy claim",
+  "score_field_denominators": {
+    "expected_null": 26,
+    "expected_numeric": 154,
+    "mismatched_slots": 4,
+    "score_slots_including_nulls": 180,
+    "supported_records": 18
+  },
+  "shared_inputs": {
+    "fixtures.json": {
+      "bytes": 83630,
+      "path": "benchmarks/operon/coupling-numeric-fixtures.json",
+      "sha256": "115cc7f71d352e1dcecc85afce5bf6a70bc50f381ae009d0c11beff1f1f722b1"
+    },
+    "protocol.json": {
+      "bytes": 10748,
+      "path": "benchmarks/operon/coupling-numeric-protocol.json",
+      "sha256": "9390e29f40eb3ef0f2b09bfe36ab6df8a523369de203d7e096ee70a5494ddc64"
+    }
+  }
+}
