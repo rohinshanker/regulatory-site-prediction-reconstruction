@@ -160,7 +160,10 @@ Coverage contains `planned`, `attempted`, `successful`, `failed` (=attempted min
 successful), `not_run` (=planned minus attempted), `prediction_calls` (actual predictor invocations, including
 any confirmation; a pre-call identity failure counts as an attempted evaluation
 but not a predictor invocation), `all_candidates_scored` (=successful equals planned),
-`deadline_exceeded`, and first `stop_reason` or null. `complete` requires every
+`deadline_exceeded`, and first `stop_reason` or null. A fatal native-integrity
+failure during fresh confirmation is also a stop reason. If the deadline is
+observed afterward, its flag is set without replacing that earlier integrity
+reason in confirmation, coverage or the top-level result. `complete` requires every
 candidate successful, selected confirmation and no deadline overrun. `partial`
 has a successful proposal but incomplete/failed coverage or confirmation;
 `no_candidate` has no fully successful candidate, including zero starts.

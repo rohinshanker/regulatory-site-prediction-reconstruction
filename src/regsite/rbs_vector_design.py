@@ -676,14 +676,16 @@ def design(value: object, backend: RnaStructure) -> dict:
             confirmation["reason"] = confirmation["reason"] or stop
             confirmation["targets"] = _targets(request, confirmation["reason"])
         else:
-            outcome, _, called = _evaluate(
+            outcome, fatal, called = _evaluate(
                 best["native_request"], request, backend, identity, model, remaining
             )
             calls += called
             confirmation.update(outcome, attempted=True)
+            if fatal:
+                stop = outcome["reason"]
             if time.monotonic() > deadline:
                 expired = True
-                stop = "deadline_exceeded"
+                stop = stop or "deadline_exceeded"
                 confirmation.update(status="failed", reason=stop)
             elif (
                 outcome["status"] == "ok"

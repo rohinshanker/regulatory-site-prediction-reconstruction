@@ -434,6 +434,45 @@ def test_unsuccessful_confirmation_never_chooses_alternative(monkeypatch, fake, 
     assert result["confirmation"]["reason"]
 
 
+@pytest.mark.parametrize("late", [False, True])
+def test_confirmation_integrity_stop_precedes_later_deadline(monkeypatch, fake, late):
+    clock = Clock()
+    monkeypatch.setattr(module.time, "monotonic", clock)
+    score = rbs.predict
+
+    def corrupt_confirmation(*args, **kwargs):
+        native = score(*args, **kwargs)
+        if len(fake) == 5:
+            native["prediction_id"] = "0" * 64
+            if late:
+                clock.now = 181
+        return native
+
+    monkeypatch.setattr(rbs, "predict", corrupt_confirmation)
+    result = module.design(example(), Backend())
+    assert result["status"] == "partial" and result["selected"] is None
+    assert result["proposal"] is not None
+    assert result["reason"] == "native_identity_mismatch"
+    assert result["confirmation"]["status"] == "failed"
+    assert result["confirmation"]["reason"] == "native_identity_mismatch"
+    assert result["confirmation"]["attempted"]
+    assert not result["confirmation"]["native_admitted"]
+    assert result["coverage"] == {
+        "planned": 4,
+        "attempted": 4,
+        "successful": 4,
+        "failed": 0,
+        "not_run": 0,
+        "prediction_calls": 5,
+        "all_candidates_scored": True,
+        "deadline_exceeded": late,
+        "stop_reason": "native_identity_mismatch",
+    }
+    assert len(fake) == 5
+    assert all(row["status"] == "ok" for row in result["candidates"])
+    assert all(len(row["targets"]) == 2 for row in result["candidates"])
+
+
 def test_integrity_failure_after_success_blocks_confirmation(monkeypatch, fake):
     score = rbs.predict
     calls = []
