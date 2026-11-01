@@ -1,7 +1,7 @@
 # Provisional engineering package 0.16.0rc1
 
 - Purpose: Install bounded multi-target RBS design alongside the admitted calculator components.
-- Scope: Local software gates pass; independent implementation/package review, platform CI, scientific evaluation, consumer admission and publication remain separate.
+- Scope: Local, fresh-install and platform software gates pass; independent implementation/package review, scientific evaluation, consumer admission and publication remain separate.
 - Last verified: 2026-11-01
 
 ## Frozen source and artifacts
@@ -72,10 +72,50 @@ experimental measurements or evidence of native-host calibration.
 
 The new implementation at `953906a` has 259 focused tests with full coverage of
 304 statements and 62 branches. Saved real native controls also pass final
-admission replay and request/result schema validation. Independent review by
-existing C and exact-source platform checks are pending; self-tests do not
-replace them. A retains the separate final integration gate. No release tag,
-package publication, main merge or consumer admission follows from this receipt.
+admission replay and request/result schema validation.
+
+[Platform run 41276194527](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/actions/runs/41276194527)
+passed all eight jobs at `22f881eb02f985350101374b21a40432586638b2`, whose
+runtime, tests, schemas, package configuration and workflow equal the frozen
+package source. macOS 14 and Ubuntu 24.04 each passed Python 3.11 and 3.14
+runtime and Promoter resource jobs. Each runtime job passed 7,991 tests with one
+declared original conditional structural-pair skip, both 3,492-test repaired
+backend selections, and the fresh offline installation. The separately admitted
+original conditional pair passed in the local zero-skip suite. Every measured
+statement and branch is covered on each platform; statement totals vary with
+Python version and are recorded separately in the receipt.
+
+Independent implementation and package review by existing C remain pending;
+self-tests and CI do not replace those reviews. A retains the separate final
+integration gate. No release tag, package publication, main merge or consumer
+admission follows from this receipt.
+
+## Resource control and saved-output checks
+
+One predeclared artificial search exercised the maximum roster of 64 candidates
+and ten targets on a 655-base transcript, with one allowed substitution among
+21 upstream positions. All 64 candidates and all ten targets per candidate
+succeeded. A fresh confirmation brought the total to 65 native record calls;
+every coding interval stayed fixed and the nine unaffected downstream sites
+retained their complete native results.
+
+The run took 319.628 seconds, produced 3,624,395 JSON bytes and reached 12,053,508
+peak traced Python bytes, including serialization but excluding native-process
+memory. It used the original RNAstructure 6.6 backend, historical profile,
+37 degrees Celsius, null host, 20 seconds per native record and a 600-second
+cooperative total deadline. The receipt includes the exact artificial request,
+predeclared plan and immutable request/result/script hashes; raw output stays
+outside the repository in `vector-resource-64x10/` beside the package artifacts.
+Reproduction uses that request with the installed `regsite-rbs-vector-design`
+command and the matching admitted backend. This is one maximum-roster case,
+not worst-case sequence or structure complexity, a performance guarantee, or
+biological evidence.
+
+The saved plus-strand, minus-strand, semantic-cap-refusal and maximum-roster
+outputs also pass the frozen request/result schemas. All 75 retained native
+records, containing 670 native sites, pass the original native-result schema.
+The cap-refusal request is syntactically valid and fails semantic preflight as
+intended. These checks used saved bytes without another scoring invocation.
 
 The PCC 6803 scientific acquisition remains frozen at **0.12.0rc1**, source
 `356abc2d40198a95f807967a38126a14b0f3d0c9`, with B's independent analysis separate.

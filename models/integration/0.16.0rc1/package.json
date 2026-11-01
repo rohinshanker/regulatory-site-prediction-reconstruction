@@ -469,10 +469,441 @@
     "xml_sha256": "14dbd17a0d2e1caa5cfdd8cf938b9fbd38ace4e2bce86f0ba7bcb12eefaf9301"
   },
   "platform_ci": {
-    "note": "Separate 0.16 exact-head checks are required; 0.15 does not cover the new wrapper or installed assertions.",
-    "status": "pending"
+    "changed_paths": [
+      "README.md",
+      "docs/notes/tickets/A_11-design-modes-and-open-suite-release__20261016.md",
+      "docs/notes/tickets/A_multi-rbs-bounded-design__20261101.md",
+      "docs/notes/tickets/INDEX.md",
+      "docs/validation/INDEX.md",
+      "docs/validation/engineering-0.16-candidate.md",
+      "models/integration/0.16.0rc1/package.json"
+    ],
+    "coverage_note": "Statement totals differ by Python interpreter; every reported statement and branch is covered in each job.",
+    "declared_skip": "The original conditional structural pair test requires its separately admitted backend configuration in CI; it passed in the zero-skip local full suite.",
+    "jobs": [
+      {
+        "completedAt": "2026-11-01T05:16:25Z",
+        "conclusion": "success",
+        "name": "promoter-resources (ubuntu-24.04, 3.11)",
+        "startedAt": "2026-11-01T05:14:56Z",
+        "url": "https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/actions/runs/41276194527/job/124758738237"
+      },
+      {
+        "branches": 7020,
+        "completedAt": "2026-11-01T05:52:58Z",
+        "conclusion": "success",
+        "coverage_percent": 100,
+        "fresh_offline_install": "pass",
+        "name": "runtime (macos-14, 3.11)",
+        "repaired_backend_selections": [
+          {
+            "passed": 3492,
+            "warnings": 6
+          },
+          {
+            "passed": 3492,
+            "warnings": 6
+          }
+        ],
+        "startedAt": "2026-11-01T05:14:56Z",
+        "statements": 19845,
+        "tests_passed": 7991,
+        "tests_skipped": 1,
+        "url": "https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/actions/runs/41276194527/job/124758738384",
+        "warnings": 8
+      },
+      {
+        "branches": 7020,
+        "completedAt": "2026-11-01T05:39:29Z",
+        "conclusion": "success",
+        "coverage_percent": 100,
+        "fresh_offline_install": "pass",
+        "name": "runtime (macos-14, 3.14)",
+        "repaired_backend_selections": [
+          {
+            "passed": 3492,
+            "warnings": 6
+          },
+          {
+            "passed": 3492,
+            "warnings": 6
+          }
+        ],
+        "startedAt": "2026-11-01T05:14:56Z",
+        "statements": 19712,
+        "tests_passed": 7991,
+        "tests_skipped": 1,
+        "url": "https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/actions/runs/41276194527/job/124758738386",
+        "warnings": 8
+      },
+      {
+        "branches": 7020,
+        "completedAt": "2026-11-01T05:44:42Z",
+        "conclusion": "success",
+        "coverage_percent": 100,
+        "fresh_offline_install": "pass",
+        "name": "runtime (ubuntu-24.04, 3.14)",
+        "repaired_backend_selections": [
+          {
+            "passed": 3492,
+            "warnings": 6
+          },
+          {
+            "passed": 3492,
+            "warnings": 6
+          }
+        ],
+        "startedAt": "2026-11-01T05:14:56Z",
+        "statements": 19712,
+        "tests_passed": 7991,
+        "tests_skipped": 1,
+        "url": "https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/actions/runs/41276194527/job/124758738396",
+        "warnings": 8
+      },
+      {
+        "branches": 7020,
+        "completedAt": "2026-11-01T06:04:24Z",
+        "conclusion": "success",
+        "coverage_percent": 100,
+        "fresh_offline_install": "pass",
+        "name": "runtime (ubuntu-24.04, 3.11)",
+        "repaired_backend_selections": [
+          {
+            "passed": 3492,
+            "warnings": 6
+          },
+          {
+            "passed": 3492,
+            "warnings": 6
+          }
+        ],
+        "startedAt": "2026-11-01T05:14:56Z",
+        "statements": 19845,
+        "tests_passed": 7991,
+        "tests_skipped": 1,
+        "url": "https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/actions/runs/41276194527/job/124758738417",
+        "warnings": 8
+      },
+      {
+        "completedAt": "2026-11-01T05:15:56Z",
+        "conclusion": "success",
+        "name": "promoter-resources (macos-14, 3.11)",
+        "startedAt": "2026-11-01T05:14:56Z",
+        "url": "https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/actions/runs/41276194527/job/124758738442"
+      },
+      {
+        "completedAt": "2026-11-01T05:15:44Z",
+        "conclusion": "success",
+        "name": "promoter-resources (macos-14, 3.14)",
+        "startedAt": "2026-11-01T05:14:56Z",
+        "url": "https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/actions/runs/41276194527/job/124758738513"
+      },
+      {
+        "completedAt": "2026-11-01T05:16:06Z",
+        "conclusion": "success",
+        "name": "promoter-resources (ubuntu-24.04, 3.14)",
+        "startedAt": "2026-11-01T05:14:56Z",
+        "url": "https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/actions/runs/41276194527/job/124758738531"
+      }
+    ],
+    "log": {
+      "bytes": 2851720,
+      "sha256": "9f2366fe030dd6c75112846ff8f741653007a3c6fb53ec6e07500c4151c35feb"
+    },
+    "package_source_commit": "7b4ae1e43297d2c70b54286776eee191e32753e4",
+    "run_id": 41276194527,
+    "source_commit": "22f881eb02f985350101374b21a40432586638b2",
+    "source_equivalence": "Only documentation and package receipt differ; runtime, tests, schemas, package configuration and workflow are identical.",
+    "status": "success",
+    "status_receipt": {
+      "bytes": 19184,
+      "sha256": "c8c0e2dbd560a84e9498a72ccebab866546fdb35e6b98199226785fb7ec695c2"
+    },
+    "url": "https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/actions/runs/41276194527"
   },
   "publication_authorized": false,
+  "resource_controls": [
+    {
+      "contract_checks": "pass",
+      "coverage": {
+        "all_candidates_scored": true,
+        "attempted": 64,
+        "deadline_exceeded": false,
+        "failed": 0,
+        "not_run": 0,
+        "planned": 64,
+        "prediction_calls": 65,
+        "stop_reason": null,
+        "successful": 64
+      },
+      "elapsed_seconds": 319.6275439998135,
+      "installed_runtime_unchanged": true,
+      "interpretation": "One artificial maximum-roster case, not worst-case sequence/structure complexity, a performance guarantee or biological validation.",
+      "invariant_successful_downstream_sites": 9,
+      "memory_scope": "Python allocations only, including serialization; excludes native-process memory",
+      "peak_python_traced_bytes": 12053508,
+      "plan": {
+        "bytes": 1097,
+        "sha256": "a69b919470130ccfa00d824fe058331480893945c51c5f0928a2c9a7f6e5d95e"
+      },
+      "plan_object": {
+        "backend": "existing original RNAstructure6.6",
+        "candidate_count": 64,
+        "deadline_kind": "600s cooperative design deadline; 20s per native record; save late/failure states honestly",
+        "expectations": [
+          "Every candidate and every target retained",
+          "Actual successes/failures/unstarted and budget flags reported without retry",
+          "Every coding span fixed",
+          "Targets2\u201310 invariant when successfully scored because allowed edits are outside their native windows",
+          "Selected candidate requires fresh complete native confirmation"
+        ],
+        "maximum_record_predictions": 65,
+        "measurement": "Elapsed time, output bytes, peak Python-traced allocations only; excludes native-process memory",
+        "native_call_parallelism": 1,
+        "profile": "historical",
+        "retry": "none; save partial/failure and diagnose before any further run",
+        "scope": "One artificial maximum-roster resource control of provisional0.16; no experimental data or model tuning",
+        "seconds_per_score": 20,
+        "seconds_total": 600,
+        "source": "7b4ae1e43297d2c70b54286776eee191e32753e4",
+        "target_count": 10
+      },
+      "python_traced_bytes_after_serialization": 8429535,
+      "reason": null,
+      "request": {
+        "bytes": 2316,
+        "sha256": "4cd259caf3fa944bf4990ed2ce954be0412b2b64ecf4a1618acc70098f15f0fb"
+      },
+      "request_object": {
+        "cds": [
+          {
+            "end": 62,
+            "id": "artificial-1",
+            "start": 35
+          },
+          {
+            "end": 124,
+            "id": "artificial-2",
+            "start": 97
+          },
+          {
+            "end": 186,
+            "id": "artificial-3",
+            "start": 159
+          },
+          {
+            "end": 248,
+            "id": "artificial-4",
+            "start": 221
+          },
+          {
+            "end": 310,
+            "id": "artificial-5",
+            "start": 283
+          },
+          {
+            "end": 372,
+            "id": "artificial-6",
+            "start": 345
+          },
+          {
+            "end": 434,
+            "id": "artificial-7",
+            "start": 407
+          },
+          {
+            "end": 496,
+            "id": "artificial-8",
+            "start": 469
+          },
+          {
+            "end": 558,
+            "id": "artificial-9",
+            "start": 531
+          },
+          {
+            "end": 620,
+            "id": "artificial-10",
+            "start": 593
+          }
+        ],
+        "editable_positions": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20
+        ],
+        "limits": {
+          "max_candidates": 64,
+          "seconds_per_score": 20,
+          "seconds_total": 600
+        },
+        "max_changes": 1,
+        "profile": "historical",
+        "rbs": {
+          "anti_sd": "ACCUCCUUA",
+          "host": null,
+          "id": "artificial-64-candidate-10-target-resource-control",
+          "schema_version": "1.0",
+          "sequence": "AAAAAAAAAAAAAAAAAAAAAGGAGGAAAAAAAAAATGAAAAAAAAAAAAAAAAAAAAATAAAAAAAAAAAAAAAAAAAAAAAGGAGGAAAAAAAAAATGAAAAAAAAAAAAAAAAAAAAATAAAAAAAAAAAAAAAAAAAAAAAGGAGGAAAAAAAAAATGAAAAAAAAAAAAAAAAAAAAATAAAAAAAAAAAAAAAAAAAAAAAGGAGGAAAAAAAAAATGAAAAAAAAAAAAAAAAAAAAATAAAAAAAAAAAAAAAAAAAAAAAGGAGGAAAAAAAAAATGAAAAAAAAAAAAAAAAAAAAATAAAAAAAAAAAAAAAAAAAAAAAGGAGGAAAAAAAAAATGAAAAAAAAAAAAAAAAAAAAATAAAAAAAAAAAAAAAAAAAAAAAGGAGGAAAAAAAAAATGAAAAAAAAAAAAAAAAAAAAATAAAAAAAAAAAAAAAAAAAAAAAGGAGGAAAAAAAAAATGAAAAAAAAAAAAAAAAAAAAATAAAAAAAAAAAAAAAAAAAAAAAGGAGGAAAAAAAAAATGAAAAAAAAAAAAAAAAAAAAATAAAAAAAAAAAAAAAAAAAAAAAGGAGGAAAAAAAAAATGAAAAAAAAAAAAAAAAAAAAATAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "start_positions": [
+            35,
+            97,
+            159,
+            221,
+            283,
+            345,
+            407,
+            469,
+            531,
+            593
+          ],
+          "strand": "+",
+          "temperature_c": 37
+        },
+        "schema_version": "rbs-vector-design-request-1",
+        "target_tirs": [
+          1000,
+          1000,
+          1000,
+          1000,
+          1000,
+          1000,
+          1000,
+          1000,
+          1000,
+          1000
+        ]
+      },
+      "result": {
+        "bytes": 3624395,
+        "sha256": "cc05ef06fa984f965f9220d5161eed4ce984c8cb5599fd84e4857b4c179b110e"
+      },
+      "scope": "One artificial maximum-roster resource control of provisional0.16; no experimental data or model tuning",
+      "script": {
+        "bytes": 4509,
+        "sha256": "9ff67bfca50c85321120dd269628fc996e87db725241047591731fdb9f36bd86"
+      },
+      "source": "7b4ae1e43297d2c70b54286776eee191e32753e4",
+      "status": "complete",
+      "verified_receipt": {
+        "bytes": 1494,
+        "sha256": "1e67db7a373d4c688e652bb395079fffae6bf63bea1ab7234979c4409458c5fc"
+      },
+      "version": "0.16.0rc1"
+    }
+  ],
+  "saved_output_schema_check": {
+    "cases": [
+      {
+        "name": "plus",
+        "native_records": 5,
+        "native_sites": 10,
+        "nested_native_schema": "pass",
+        "request": {
+          "bytes": 790,
+          "sha256": "1b6da14729077ad15a92ed981f21ffedcb6e450bfc61d0ee31bbc7016a8bc77d"
+        },
+        "request_schema": "pass",
+        "result": {
+          "bytes": 78751,
+          "sha256": "99f29564b1be8e92929cd38802598d921d2b329437bb72717649d70298695a38"
+        },
+        "result_schema": "pass",
+        "status": "complete"
+      },
+      {
+        "name": "minus",
+        "native_records": 5,
+        "native_sites": 10,
+        "nested_native_schema": "pass",
+        "request": {
+          "bytes": 621,
+          "sha256": "12106d7788408167bd9695e891e861323c541692679a7f7d0fe337d42daa35ff"
+        },
+        "request_schema": "pass",
+        "result": {
+          "bytes": 78748,
+          "sha256": "8d83cd94114fc625da4d0205efb30b952c3a30b5baa76eefe2fd60b98d430bed"
+        },
+        "result_schema": "pass",
+        "status": "complete"
+      },
+      {
+        "name": "semantic-cap-refusal",
+        "native_records": 0,
+        "native_sites": 0,
+        "nested_native_schema": "pass",
+        "request": {
+          "bytes": 621,
+          "sha256": "068db02d33818f117a17ebaea2d8c518045ac42b0c800eac63f0c17d7a684a68"
+        },
+        "request_schema": "pass",
+        "result": {
+          "bytes": 1100,
+          "sha256": "64a943d22bee44c1d1f091ac03014b1bbf69e528366b89ea163de1180ac615cd"
+        },
+        "result_schema": "pass",
+        "status": "invalid_input"
+      },
+      {
+        "name": "maximum-roster",
+        "native_records": 65,
+        "native_sites": 650,
+        "nested_native_schema": "pass",
+        "request": {
+          "bytes": 2316,
+          "sha256": "4cd259caf3fa944bf4990ed2ce954be0412b2b64ecf4a1618acc70098f15f0fb"
+        },
+        "request_schema": "pass",
+        "result": {
+          "bytes": 3624395,
+          "sha256": "cc05ef06fa984f965f9220d5161eed4ce984c8cb5599fd84e4857b4c179b110e"
+        },
+        "result_schema": "pass",
+        "status": "complete"
+      }
+    ],
+    "native_processes": 0,
+    "receipt": {
+      "bytes": 2745,
+      "sha256": "65bb286d2a2e8b99ff7008bd34af581292d5c12f98f97f396b6be9bf50f2c005"
+    },
+    "schema_pins": {
+      "rbs-result-1.0.schema.json": {
+        "bytes": 35306,
+        "sha256": "bad2ac5e455df400d68fbf71013b5f4b61075ce2a6e0027686bdb993f90a60e7"
+      },
+      "rbs-vector-design-request-1.schema.json": {
+        "bytes": 3900,
+        "sha256": "39bc88f0a10c40df19f1281cf22fc3a35276d17ef532ec2136a8fe5cf389d5cf"
+      },
+      "rbs-vector-design-result-1.schema.json": {
+        "bytes": 37701,
+        "sha256": "8a2dcdc68ae1fc5f9b6251c4b979cc78ae1c7f62c39727299425d4de57ec7e06"
+      }
+    },
+    "scope": "Saved artificial wire/schema admission only; semantic-cap refusal is syntactically valid input with a semantic preflight failure",
+    "scorer_imports": false,
+    "source": "7b4ae1e43297d2c70b54286776eee191e32753e4"
+  },
   "schema_version": "regsite-engineering-package-1",
   "scope": "provisional software and artificial supplied-model examples; implementation and package independent review pending; no new biological evaluation",
   "script": {
