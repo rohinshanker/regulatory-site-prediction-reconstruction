@@ -5,6 +5,7 @@ Verification dates cover the stated source observations or specification review;
 | Area | Purpose | Last verified | Document |
 | --- | --- | --- | --- |
 | Engineering 0.14 package | Frozen design/sweep/export package, exact artifacts and verification boundaries | 2026-10-31 | [engineering-0.14-candidate.md](engineering-0.14-candidate.md) |
+| drafting-tabular-export | Independently reviewed supplied-rate CSV retaining every record, explicit numerical representations and authoritative JSON binding. | 2026-10-31 | [drafting-tabular-export.md](drafting-tabular-export.md) |
 | conditional-concentration-sweep | Explicit finite concentration roster under unchanged supplied-energy assumptions; independent review pending. | 2026-10-31 | [conditional-concentration-sweep.md](conditional-concentration-sweep.md) |
 | conditional-tabular-export | Independently reviewed bounded state/response CSV with native status/null semantics and authoritative JSON binding. | 2026-10-31 | [conditional-tabular-export.md](conditional-tabular-export.md) |
 | rbs-native-development-recheck | Pinned public-input preparation, exact runner/result admission and four-configuration ranks; bounded repair accepted, execution freeze pending. | 2026-10-31 | [rbs-native-development-recheck.md](rbs-native-development-recheck.md) |
