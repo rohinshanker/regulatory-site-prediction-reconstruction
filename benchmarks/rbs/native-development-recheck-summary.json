@@ -1,0 +1,287 @@
+{
+  "acquisition_sha256": "9778a53ee4483a6fed3805349eaeeace6cabc9f0eafeceb8460599b76ed953c1",
+  "candidate_receipt_sha256": "cb6fcb06c8db41c2c6ed5edb543de60363d1a18af500a4535facc629627e72c9",
+  "configurations": {
+    "context2017-linker3": {
+      "coverage": 1.0,
+      "failure_reasons": {},
+      "n_inputs": 479,
+      "n_observed": 479,
+      "n_success": 479,
+      "rank": {
+        "attempted_draws": 2000,
+        "interval95": [
+          0.037675111640761365,
+          0.21751186047050491
+        ],
+        "interval_status": "ok",
+        "n_groups": 423,
+        "n_inputs": 479,
+        "n_successful_groups": 423,
+        "n_successful_measured": 479,
+        "requested_draws": 2000,
+        "spearman_rho": 0.12750150627707535,
+        "undefined_draws": 0,
+        "usable_draws": 2000
+      },
+      "runtime_diagnostic": {
+        "attempted_jobs": 30,
+        "elapsed_max_seconds": 21.384345,
+        "elapsed_sum_seconds": 597.608862,
+        "interpretation": "Job timing; not isolated engine or per-record timing",
+        "jobs_with_elapsed": 30,
+        "n_jobs": 30,
+        "state_counts": {
+          "succeeded": 30
+        }
+      },
+      "status_counts": {
+        "ok": 479
+      }
+    },
+    "historical-linker3": {
+      "coverage": 0.9373695198329853,
+      "failure_reasons": {
+        "no_interstrand_candidate_in_bounded_search": 30
+      },
+      "n_inputs": 479,
+      "n_observed": 479,
+      "n_success": 449,
+      "rank": {
+        "attempted_draws": 2000,
+        "interval95": [
+          0.10224739326394763,
+          0.2765277277347893
+        ],
+        "interval_status": "ok",
+        "n_groups": 423,
+        "n_inputs": 479,
+        "n_successful_groups": 400,
+        "n_successful_measured": 449,
+        "requested_draws": 2000,
+        "spearman_rho": 0.18864308899886653,
+        "undefined_draws": 0,
+        "usable_draws": 2000
+      },
+      "runtime_diagnostic": {
+        "attempted_jobs": 30,
+        "elapsed_max_seconds": 15.127863,
+        "elapsed_sum_seconds": 401.761507,
+        "interpretation": "Job timing; not isolated engine or per-record timing",
+        "jobs_with_elapsed": 30,
+        "n_jobs": 30,
+        "state_counts": {
+          "succeeded": 30
+        }
+      },
+      "status_counts": {
+        "no_candidate": 30,
+        "ok": 449
+      }
+    },
+    "historical-original": {
+      "coverage": 0.9373695198329853,
+      "failure_reasons": {
+        "no_interstrand_candidate_in_bounded_search": 30
+      },
+      "n_inputs": 479,
+      "n_observed": 479,
+      "n_success": 449,
+      "rank": {
+        "attempted_draws": 2000,
+        "interval95": [
+          0.10224739326394763,
+          0.2765277277347893
+        ],
+        "interval_status": "ok",
+        "n_groups": 423,
+        "n_inputs": 479,
+        "n_successful_groups": 400,
+        "n_successful_measured": 449,
+        "requested_draws": 2000,
+        "spearman_rho": 0.18864308899886653,
+        "undefined_draws": 0,
+        "usable_draws": 2000
+      },
+      "runtime_diagnostic": {
+        "attempted_jobs": 30,
+        "elapsed_max_seconds": 15.246174,
+        "elapsed_sum_seconds": 419.003241,
+        "interpretation": "Job timing; not isolated engine or per-record timing",
+        "jobs_with_elapsed": 30,
+        "n_jobs": 30,
+        "state_counts": {
+          "succeeded": 30
+        }
+      },
+      "status_counts": {
+        "no_candidate": 30,
+        "ok": 449
+      }
+    },
+    "standby2014-linker3": {
+      "coverage": 1.0,
+      "failure_reasons": {},
+      "n_inputs": 479,
+      "n_observed": 479,
+      "n_success": 479,
+      "rank": {
+        "attempted_draws": 2000,
+        "interval95": [
+          0.02051849543540708,
+          0.20601284159754465
+        ],
+        "interval_status": "ok",
+        "n_groups": 423,
+        "n_inputs": 479,
+        "n_successful_groups": 423,
+        "n_successful_measured": 479,
+        "requested_draws": 2000,
+        "spearman_rho": 0.11137642966605579,
+        "undefined_draws": 0,
+        "usable_draws": 2000
+      },
+      "runtime_diagnostic": {
+        "attempted_jobs": 30,
+        "elapsed_max_seconds": 109.660681,
+        "elapsed_sum_seconds": 1773.623452,
+        "interpretation": "Job timing; not isolated engine or per-record timing",
+        "jobs_with_elapsed": 30,
+        "n_jobs": 30,
+        "state_counts": {
+          "succeeded": 30
+        }
+      },
+      "status_counts": {
+        "ok": 479
+      }
+    }
+  },
+  "contrasts": [
+    {
+      "attempted_draws": 2000,
+      "contender": "historical-linker3",
+      "interval95": [
+        0.0,
+        0.0
+      ],
+      "interval_status": "ok",
+      "lost_reference_successes": 0,
+      "n_blocks": 423,
+      "n_common_blocks": 400,
+      "n_common_measured": 449,
+      "n_common_success": 449,
+      "n_inputs": 479,
+      "rank_gain": 0.0,
+      "reference": "historical-original",
+      "requested_draws": 2000,
+      "undefined_draws": 0,
+      "usable_draws": 2000
+    },
+    {
+      "attempted_draws": 2000,
+      "contender": "context2017-linker3",
+      "interval95": [
+        -0.13783302897941932,
+        0.005411983606484705
+      ],
+      "interval_status": "ok",
+      "lost_reference_successes": 0,
+      "n_blocks": 423,
+      "n_common_blocks": 400,
+      "n_common_measured": 449,
+      "n_common_success": 449,
+      "n_inputs": 479,
+      "rank_gain": -0.06671258453821803,
+      "reference": "historical-linker3",
+      "requested_draws": 2000,
+      "undefined_draws": 0,
+      "usable_draws": 2000
+    },
+    {
+      "attempted_draws": 2000,
+      "contender": "standby2014-linker3",
+      "interval95": [
+        -0.161769966656517,
+        -0.010781300725977772
+      ],
+      "interval_status": "ok",
+      "lost_reference_successes": 0,
+      "n_blocks": 423,
+      "n_common_blocks": 400,
+      "n_common_measured": 449,
+      "n_common_success": 449,
+      "n_inputs": 479,
+      "rank_gain": -0.08630165331815111,
+      "reference": "historical-linker3",
+      "requested_draws": 2000,
+      "undefined_draws": 0,
+      "usable_draws": 2000
+    }
+  ],
+  "evaluated_candidate": {
+    "source_commit": "356abc2d40198a95f807967a38126a14b0f3d0c9",
+    "version": "0.12.0rc1"
+  },
+  "freeze_sha256": "7b8b435310949f86870993e4e754ef5952d0d487cfa7b762e67f3182f2b41e56",
+  "input_pins": {
+    "development": {
+      "path": "benchmarks/rbs/karlsen2018-development.json",
+      "sha256": "53ba87998de7e3d423fb7d6818db48a1bf93ede98bdb46bb6137b0119cfa39a4"
+    },
+    "split": {
+      "path": "benchmarks/rbs/native-splits.json",
+      "sha256": "d989341afcb3e463112e85134a322086d968a4cea6ad4b9cb4fa8cc893312409"
+    }
+  },
+  "limitations": [
+    "consumed PCC 6803 development-validation cohort, not final/held-out confirmation",
+    "HC TE is an assay-derived occupancy/RNA proxy, not isolated initiation or completed protein production",
+    "assumed genomic flanks/current annotation starts; native transcript boundaries unmeasured",
+    "no UTEX accuracy, cross-host superiority, native calibration or current/recoded-effect claim",
+    "no new experimental planning in this task",
+    "private final, LC, source-workbook and other excluded outcomes remain unopened"
+  ],
+  "plan_sha256": "0e1ed70e1c8851c9eb691e60972c7ddd0471dba8994219e76562564a0159ef94",
+  "protocol_sha256": "e6a881341a522967956deb42cb4d05ad319a9920d2fbd1bb52363eaf1e739d24",
+  "review_status": "evaluation complete; independent aggregate/report acceptance pending",
+  "schema_version": "native-rbs-development-public-summary-1",
+  "scope": {
+    "consumed_cohort": true,
+    "fitting": false,
+    "n_configurations": 4,
+    "n_homology_groups": 423,
+    "n_planned_jobs": 120,
+    "n_planned_record_predictions": 1916,
+    "n_records": 479,
+    "organism": "Synechocystis sp. PCC 6803",
+    "partition": "development_validation",
+    "recoding_effect_validation": false,
+    "utex_calibration": false
+  },
+  "source_report": {
+    "bytes": 158784,
+    "sha256": "10822eddc7736d2d58114c58fef85c249a19d25fc7f4ccfaad97155a2d4f980a"
+  },
+  "stage": "exploratory_consumed_development",
+  "tool_files": {
+    "benchmarks/promoter/count_association.py": "a3b612164b6a414696cfa55512c3f3b500a9f9c400890dc0b2e0c0834b2c9ea7",
+    "benchmarks/rbs/metrics.py": "c3ed9ecaa6c0ace5d145f9fad94651fe0c3cff3231598e42e1b0bc86d28ace11",
+    "benchmarks/rbs/native_development_recheck.py": "63ccc7f167aa692ff9fef3740ea56fa95e4cbc79fad37bbeb61dd742b8e7c047",
+    "benchmarks/rbs/wave4_metrics.py": "dc1a4535315c57f708692887184d90ec1c9ef315354fb9175e2bec5061deed1c",
+    "schemas/calculator-job-campaign-1.schema.json": "87cddb4a6a002af840e13ca8e4303950aab6905ca089b96e4dbe984b9aabb8c4",
+    "schemas/calculator-job-receipt-1.schema.json": "5ce086314cae6cdf934fba342dfa940f9991b207cbb51a989b499d51d19d5a82",
+    "schemas/calculator-job-summary-1.schema.json": "b7766a7146247aaeb2fd73fc9d7799f3c0f32d947371c1fa1046e530f828915b",
+    "schemas/rbs-result-1.0.schema.json": "bad2ac5e455df400d68fbf71013b5f4b61075ce2a6e0027686bdb993f90a60e7",
+    "schemas/rbs-result-1.1.schema.json": "7d3b8d8eb7daf795fdb08c5cb4a37f0f001b285a7a9512abccf1be0b123b382f",
+    "schemas/rbs-result-1.2.schema.json": "a8660b31aada067a73c763778c0f17fc8f9e0bb056306a17086fe4d1d022a12b"
+  },
+  "uncertainty": {
+    "bootstrap_unit": "all input homology groups, retaining failed-only groups before success filtering",
+    "confidence_level": 0.95,
+    "interpretation": "descriptive consumed-study group resampling; not biological-replicate or untouched-validation uncertainty",
+    "min_usable_draws": 1800,
+    "resamples": 2000,
+    "seed": 20261022
+  }
+}
