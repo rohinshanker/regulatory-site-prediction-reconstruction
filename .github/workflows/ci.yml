@@ -273,7 +273,7 @@ jobs:
                   native_request["sequence"] = row["sequence"]
                   assert row["native_request"] == native_request and row["native_request_sha256"] == digest(native_request)
                   # Direct unchanged predictor, independent of the search implementation.
-                  native = predict(native_request, backend, seconds=float(request["limits"]["seconds_per_score"]), profile=request["profile"])
+                  native = json.loads(json.dumps(predict(native_request, backend, seconds=float(request["limits"]["seconds_per_score"]), profile=request["profile"]), allow_nan=False))
                   assert row["native"] == native and row["native_admitted"] is True
                   assert result["backend"] == native["backend"] and result["model"] == native["model"]
                   wire = (json.dumps(native, sort_keys=True, indent=2, ensure_ascii=True, allow_nan=False)+"\n").encode()
