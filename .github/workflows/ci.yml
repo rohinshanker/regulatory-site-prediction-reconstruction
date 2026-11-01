@@ -84,6 +84,59 @@ jobs:
           python -m build --no-isolation
           python -m venv .cache/fresh
           .cache/fresh/bin/python -m pip install --no-index --no-deps dist/*.whl
+          .cache/fresh/bin/regsite-design examples/rbs-design-single.json > .cache/design-single.json
+          .cache/fresh/bin/regsite-conditional-sweep examples/conditional-sweep.json > .cache/conditional-sweep.json
+          .cache/fresh/bin/regsite-conditional examples/conditional-supplied-half-occupancy.json > .cache/conditional-export.json
+          .cache/fresh/bin/regsite-conditional examples/conditional-supplied-half-occupancy.json --format csv > .cache/conditional-export.csv
+          .cache/fresh/bin/python - <<'PYWAVE10'
+          import copy, csv, hashlib, importlib.metadata, json
+          from pathlib import Path
+          def digest(value):
+              raw = json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=True, allow_nan=False).encode()
+              return hashlib.sha256(raw).hexdigest()
+          version = importlib.metadata.version("regulatory-site-prediction-reconstruction")
+          design = json.loads(Path(".cache/design-single.json").read_bytes())
+          request = json.loads(Path("examples/rbs-design-single.json").read_bytes())
+          assert design["status"] == "complete" and design["request"] == request
+          assert design["algorithm"] == {"id": "exhaustive-rbs-leader-substitutions-1", "implementation_version": version}
+          assert design["request_sha256"] == digest(request)
+          assert design["design_id"] == digest({"request": request, "algorithm": design["algorithm"]["id"], "implementation_version": version, "backend": design["backend"]})
+          assert design["coverage"]["planned"] == design["coverage"]["successful"] == 4
+          assert design["coverage"]["prediction_calls"] == 5
+          assert design["confirmation"]["status"] == "verified" and design["selected"] is not None
+          seed = request["rbs"]["sequence"]
+          assert {r["sequence"] for r in design["candidates"]} == {seed[:4] + base + seed[5:] for base in "ACGT"}
+          for row in design["candidates"]:
+              assert row["native_sha256"] == digest(row["native"])
+              assert row["native"]["model"] == design["model"] and row["native"]["backend"] == design["backend"]
+          chosen = design["candidates"][design["selected"]["index"]]
+          assert design["confirmation"]["native_sha256"] == chosen["native_sha256"]
+          assert design["selected"]["score"]["absolute_log_error"] == min(r["score"]["absolute_log_error"] for r in design["candidates"])
+          curve = json.loads(Path(".cache/conditional-sweep.json").read_bytes())
+          sweep_request = json.loads(Path("examples/conditional-sweep.json").read_bytes())
+          assert curve["status"] == "complete" and curve["request"] == sweep_request
+          assert curve["algorithm"] == {"id": "explicit-conditional-concentration-sweep-1", "implementation_version": version}
+          assert curve["request_sha256"] == digest(sweep_request)
+          assert curve["sweep_id"] == digest({"request": sweep_request, "algorithm": curve["algorithm"], "model": curve["model"]})
+          assert curve["model"]["backend"] is None and curve["coverage"]["successful"] == 6
+          assert [r["index"] for r in curve["points"]] == list(range(6))
+          assert [r["ligand_total_molar"] for r in curve["points"]] == sweep_request["ligand_total_molar"]
+          for row in curve["points"]:
+              point = copy.deepcopy(sweep_request["template"])
+              point["input"]["occupancy"]["ligand_total_molar"] = float(row["ligand_total_molar"])
+              assert row["point_request_sha256"] == row["native"]["request_sha256"] == digest(point)
+              assert row["native"]["input"] == point["input"] and row["native"]["model"] == curve["model"]
+              raw = (json.dumps(row["native"], sort_keys=True, indent=2, ensure_ascii=True, allow_nan=False) + "\n").encode()
+              assert row["native_json_sha256"] == hashlib.sha256(raw).hexdigest()
+          for result in (design, curve):
+              assert result["result_sha256"] == digest({k: v for k, v in result.items() if k != "result_sha256"})
+          raw = Path(".cache/conditional-export.json").read_bytes()
+          with open(".cache/conditional-export.csv", newline="", encoding="utf-8") as stream:
+              rows = list(csv.DictReader(stream))
+          assert [row["row_type"] for row in rows] == ["result", "response"]
+          assert all(row["csv_schema_version"] == "conditional-csv-1" and row["json_sha256"] == hashlib.sha256(raw).hexdigest() for row in rows)
+          assert rows[1]["ar_actual"] == "2.5"
+          PYWAVE10
           .cache/fresh/bin/regsite-drafting examples/drafting-single.json > .cache/drafting-single.json
           .cache/fresh/bin/regsite-drafting examples/drafting-batch.json > .cache/drafting-batch.json
           drafting_exit=0

@@ -94,8 +94,10 @@ Register complete files in explicit external storage and check their byte identi
 with the [offline artifact manifest tool](docs/validation/calculator-artifact-storage.md).
 
 The job runner has a frozen [0.10.0rc2 package](docs/validation/offline-jobs-0.10rc2-candidate.md)
-with installed-byte checks and explicit CI status. Current development source
-`0.12.0rc1` additionally integrates the independently reviewed optional
+with installed-byte checks and explicit CI status. Development source `0.14.0rc1` integrates bounded RBS design, explicit conditional
+concentration sweeps, and conditional/termination CSV exports. The package and
+platform checks for this engineering candidate are tracked separately from the
+frozen scientific candidate below. The earlier `0.12.0rc1` integrates the independently reviewed optional
 [intrinsic-termination adapter](docs/validation/intrinsic-termination-runtime.md);
 its [0.11 package](docs/validation/termination-0.11-candidate.md) passed local
 validation. The [combined 0.12 package](docs/validation/drafting-0.12-candidate.md), including
@@ -157,6 +159,20 @@ small kinetic calculation does not derive rates from DNA, modify the existing
 RBS profiles or predict completed protein production. Artificial controls check
 the mathematics; experimental calibration and sequence-to-rate inference remain
 separate dependencies. No folding backend or account is required.
+
+Compare explicitly supplied ligand amounts without fitting a concentration grid:
+
+```sh
+regsite-conditional-sweep examples/conditional-sweep.json
+regsite-conditional examples/conditional-supplied-half-occupancy.json --format csv
+```
+
+The [concentration sweep](docs/validation/conditional-concentration-sweep.md)
+reuses the existing supplied-energy/volume model, keeping every concentration,
+duplicate, failed and unstarted point. Energies, affinity and RNA amount are caller
+assumptions; this is not sequence-to-switch inference or a measured dose response.
+The [conditional CSV](docs/validation/conditional-tabular-export.md) is a projection;
+retain native JSON for the complete model, inputs, warnings and execution evidence.
 
 ## Run the RBS calculator
 
