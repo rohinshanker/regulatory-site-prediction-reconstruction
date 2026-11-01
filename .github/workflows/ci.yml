@@ -219,6 +219,97 @@ jobs:
           assert invalid["candidates"] == [] and invalid["selected"] is None and invalid["coverage"] is None
           assert invalid["result_sha256"] == digest({k: v for k, v in invalid.items() if k != "result_sha256"})
           PYPROMOTERDESIGN
+          .cache/fresh/bin/python - <<'PYVECTORINPUTS'
+          import copy
+          import json
+          from pathlib import Path
+          request = json.loads(Path("examples/rbs-vector-design.json").read_bytes())
+          minus = copy.deepcopy(request)
+          sequence = minus["rbs"]["sequence"]
+          minus["rbs"].update(sequence=sequence.translate(str.maketrans("ACGT", "TGCA"))[::-1], strand="-")
+          minus["editable_positions"] = [len(sequence)-1-p for p in request["editable_positions"]]
+          Path(".cache/vector-design-minus-request.json").write_text(json.dumps(minus))
+          invalid = copy.deepcopy(request)
+          invalid["limits"]["max_candidates"] = 3
+          Path(".cache/vector-design-invalid-request.json").write_text(json.dumps(invalid))
+          PYVECTORINPUTS
+          .cache/fresh/bin/regsite-rbs-vector-design examples/rbs-vector-design.json > .cache/vector-design-plus.json
+          .cache/fresh/bin/regsite-rbs-vector-design .cache/vector-design-minus-request.json > .cache/vector-design-minus.json
+          vector_design_exit=0
+          .cache/fresh/bin/regsite-rbs-vector-design .cache/vector-design-invalid-request.json > .cache/vector-design-invalid.json || vector_design_exit=$?
+          test "$vector_design_exit" -eq 2
+          .cache/fresh/bin/python - <<'PYVECTORDESIGN'
+          import copy
+          import hashlib
+          import importlib.metadata
+          import json
+          import math
+          import os
+          from pathlib import Path
+          from regsite.backend import RnaStructure
+          from regsite.rbs import predict
+          
+          def digest(value):
+              return hashlib.sha256(json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=True, allow_nan=False).encode()).hexdigest()
+          
+          version = importlib.metadata.version("regulatory-site-prediction-reconstruction")
+          backend = RnaStructure.open(os.environ["REGSITE_RNASTRUCTURE"])
+          results = {}
+          for name, path in [("plus", "examples/rbs-vector-design.json"), ("minus", ".cache/vector-design-minus-request.json")]:
+              request = json.loads(Path(path).read_bytes())
+              result = json.loads(Path(f".cache/vector-design-{name}.json").read_bytes())
+              assert result["status"] == "complete" and result["request"] == request
+              assert result["algorithm"] == {"id": "bounded-rbs-vector-substitution-enumeration-1", "implementation_version": version}
+              assert result["request_sha256"] == digest(request)
+              assert result["design_id"] == digest({k: result[k] for k in ("request_sha256", "algorithm", "backend", "model", "targets", "limits")})
+              assert result["coverage"] == {"planned": 4, "attempted": 4, "successful": 4, "failed": 0, "not_run": 0, "prediction_calls": 5, "all_candidates_scored": True, "deadline_exceeded": False, "stop_reason": None}
+              seed = request["rbs"]["sequence"]
+              position, = request["editable_positions"]
+              expected = [seed] + [seed[:position]+base+seed[position+1:] for base in "ACGT" if base != seed[position]]
+              assert [r["sequence"] for r in result["candidates"]] == expected
+              assert [r["index"] for r in result["candidates"]] == list(range(4))
+              for row in result["candidates"]:
+                  native_request = copy.deepcopy(request["rbs"])
+                  native_request["sequence"] = row["sequence"]
+                  assert row["native_request"] == native_request and row["native_request_sha256"] == digest(native_request)
+                  # Direct unchanged predictor, independent of the search implementation.
+                  native = predict(native_request, backend, seconds=request["limits"]["seconds_per_score"], profile=request["profile"])
+                  assert row["native"] == native and row["native_admitted"] is True
+                  assert result["backend"] == native["backend"] and result["model"] == native["model"]
+                  wire = (json.dumps(native, sort_keys=True, indent=2, ensure_ascii=True, allow_nan=False)+"\n").encode()
+                  assert row["native_bytes"] == len(wire) and row["native_json_sha256"] == hashlib.sha256(wire).hexdigest()
+                  assert row["sequence_sha256"] == hashlib.sha256(row["sequence"].encode()).hexdigest()
+                  assert row["candidate_id"] == digest({"design_id": result["design_id"], "index": row["index"], "sequence_sha256": row["sequence_sha256"]})
+                  errors = [abs(site["log_tir"]-math.log(target)) for site, target in zip(native["sites"], request["target_tirs"], strict=True)]
+                  assert [t["absolute_log_error"] for t in row["targets"]] == errors
+                  assert row["objective"] == math.fsum(errors)/len(errors)
+                  oriented = row["sequence"] if name == "plus" else row["sequence"].translate(str.maketrans("ACGT", "TGCA"))[::-1]
+                  original = seed if name == "plus" else seed.translate(str.maketrans("ACGT", "TGCA"))[::-1]
+                  for cds in request["cds"]:
+                      assert oriented[cds["start"]:cds["end"]] == original[cds["start"]:cds["end"]]
+                  changed = [i for i, (a, b) in enumerate(zip(seed, row["sequence"], strict=True)) if a != b]
+                  assert set(changed) <= {position} and len(changed) <= 1
+                  assert [edit["input_position"] for edit in row["edits"]] == changed
+                  assert all(edit["oriented_position"] == 55 for edit in row["edits"])
+              best = min(result["candidates"], key=lambda r: (r["objective"], len(r["edits"]), r["sequence"]))
+              assert result["selected"] == result["proposal"] and result["selected"]["index"] == best["index"]
+              assert result["confirmation"]["status"] == "verified" and result["confirmation"]["attempted"] is True
+              assert result["confirmation"]["native"] == best["native"] and result["confirmation"]["native_json_sha256"] == best["native_json_sha256"]
+              assert result["result_sha256"] == digest({k: v for k, v in result.items() if k != "result_sha256"})
+              results[name] = result
+          plus = {r["sequence"]: r for r in results["plus"]["candidates"]}
+          for row in results["minus"]["candidates"]:
+              sequence = row["sequence"].translate(str.maketrans("ACGT", "TGCA"))[::-1]
+              forward = plus[sequence]
+              assert row["objective"] == forward["objective"]
+              for a, b in zip(forward["native"]["sites"], row["native"]["sites"], strict=True):
+                  assert a["tir"] == b["tir"] and a["log_tir"] == b["log_tir"] and a["energies"] == b["energies"]
+                  assert b["start_codon"] == {"start": len(sequence)-a["start_codon"]["end"], "end": len(sequence)-a["start_codon"]["start"], "strand": "-"}
+          invalid = json.loads(Path(".cache/vector-design-invalid.json").read_bytes())
+          assert invalid["status"] == "invalid_input" and invalid["reason"] == "search_space_limit"
+          assert invalid["candidates"] == [] and invalid["selected"] is None and invalid["coverage"] is None
+          assert invalid["result_sha256"] == digest({k: v for k, v in invalid.items() if k != "result_sha256"})
+          PYVECTORDESIGN
           .cache/fresh/bin/regsite-drafting examples/drafting-single.json > .cache/drafting-single.json
           .cache/fresh/bin/regsite-drafting examples/drafting-batch.json > .cache/drafting-batch.json
           drafting_exit=0

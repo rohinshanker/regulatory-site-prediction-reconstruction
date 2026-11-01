@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "regulatory-site-prediction-reconstruction"
-version = "0.15.0rc1"
+version = "0.16.0rc1"
 description = "Explicit, reproducible open reconstructions of regulatory sequence models"
 readme = "README.md"
 requires-python = ">=3.11"
@@ -27,6 +27,7 @@ regsite-jobs = "regsite.jobs:main"
 regsite-termination = "regsite.termination_cli:main"
 regsite-drafting = "regsite.drafting_cli:main"
 regsite-design = "regsite.design_cli:main"
+regsite-rbs-vector-design = "regsite.rbs_vector_design_cli:main"
 
 [tool.setuptools.package-data]
 regsite = ["data/*.json", "data/*.txt"]

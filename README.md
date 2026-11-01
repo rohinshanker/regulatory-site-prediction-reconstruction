@@ -108,6 +108,20 @@ which passed 7,733 local tests, 1,551 subtests, zero skips, full measured covera
 and 69 fresh-installed outputs. Independent package review and platform CI remain
 pending.
 
+A provisional [multi-target RBS design mode](docs/validation/rbs-vector-design.md)
+searches a supplied transcript against one to ten component initiation targets:
+
+```sh
+regsite-rbs-vector-design examples/rbs-vector-design.json --backend-root /absolute/path/to/RNAstructure
+```
+
+It keeps every supplied coding interval fixed, including overlaps, and permits
+only explicitly listed upstream substitutions. Every candidate and target result
+is retained; incomplete vectors cannot win the search. This branch's 0.16.0rc1
+entry point and package are under validation, and independent implementation
+review is pending. These are individual model initiation scores, with no inferred
+coupling, joint protein abundance or demonstrated biological improvement.
+
 Register complete files in explicit external storage and check their byte identity
 with the [offline artifact manifest tool](docs/validation/calculator-artifact-storage.md).
 
