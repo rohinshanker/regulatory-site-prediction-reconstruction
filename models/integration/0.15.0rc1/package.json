@@ -106,9 +106,14 @@
     "source_commit": "87510bdfd53099b7fbbec174305ca676fdf66c46"
   },
   "independent_package_review": {
+    "findings": [],
+    "prediction_calls": 0,
+    "receipt_sha256": "229bb7a813b4ca2fc379dbd06345aaf0e5498da4b33e0cacebaab0b38f7b821c",
+    "review_sha256": "56cace29007a7c9e9e363ed90b01c7a5150798e21094fb0062d19e84c3a98894",
     "reviewer": "existing Session C",
     "scope": "A entry point/version/workflow and archives/installed byte identity; C implementation acceptance is independently supplied by A",
-    "status": "pending"
+    "source_commit": "597edc4ef9b965b661e019cb8dffaa01d361a03c",
+    "status": "accepted"
   },
   "installed_runtime_files": [
     {

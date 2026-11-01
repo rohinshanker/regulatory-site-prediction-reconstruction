@@ -64,15 +64,23 @@ refusal. These are artificial software cases, not experimental observations.
 A independently accepted C's exact implementation `87510bdf` after reading its
 bounded delta and running 42 controls prepared against the unchanged prior
 installed scorer. C's 179 focused tests have full new statement/branch coverage.
-Independent review of A's package integration remains pending.
+C independently accepted A's exact package integration at `597edc4`: all archive,
+source, installed metadata and saved-output pins match, including 65 runtime
+files, 75 schema/example files, 14 entry points and 69 saved outputs. Independent
+saved-output checks preserve the complete Promoter rosters, constraints, native
+identities, objectives, confirmation and typed cap refusal. Review receipt SHA256
+is `229bb7a813b4ca2fc379dbd06345aaf0e5498da4b33e0cacebaab0b38f7b821c`,
+preserved under `regsite-wave10-20261031/c-015-package-review/`. The review reused
+A's independent implementation acceptance and made no new prediction calls.
 [Platform run 41272983356](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/actions/runs/41272983356)
 passes all eight jobs at `1bfe4c48`; runtime, tests and workflow match the frozen
 package source. Each runtime job passes 7,732 tests with one declared original-
 conditional fixture skip, both 3,233-test repaired-backend selections and the
 installed offline workflow. The local suite separately exercised the exact
-original conditional pair without that skip. Platform success does not replace
-independent package acceptance. These are
-branch artifacts, not a published release or production consumer admission.
+original conditional pair without that skip. Independent package acceptance and
+platform success are separate software gates, both satisfied here. These remain
+branch artifacts; release publication and production consumer admission require
+their separate disposition.
 
 The PCC 6803 acquisition used frozen **0.12.0rc1** source
 `356abc2d40198a95f807967a38126a14b0f3d0c9`; B's independent biological analysis
