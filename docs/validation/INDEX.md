@@ -4,6 +4,7 @@ Verification dates cover the stated source observations or specification review;
 
 | Area | Purpose | Last verified | Document |
 | --- | --- | --- | --- |
+| Coupling 0.14rc2 identity | Exact outcome-free hash payloads, canonical wire encoding, model/warnings and failure semantics for independent admission | 2026-11-01 | [coupling-identity-0.14rc2.md](coupling-identity-0.14rc2.md) |
 | Engineering 0.16rc2 package | Accepted multi-target repair, exact replacement archives and local/fresh gates; replacement package/platform review pending | 2026-11-01 | [engineering-0.16rc2-candidate.md](engineering-0.16rc2-candidate.md) |
 | engineering-0.16-candidate | Preserved unreleased multi-target candidate; confirmation defect fixed separately, corrected evidence accepted; replacement package required. | 2026-11-01 | [engineering-0.16-candidate.md](engineering-0.16-candidate.md) |
 | Multi-target RBS design | Independently accepted explicit component targets, complete candidate accounting, immutable coding spans and first-cause confirmation errors | 2026-11-01 | [rbs-vector-design.md](rbs-vector-design.md) |
