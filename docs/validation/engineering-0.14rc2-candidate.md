@@ -2,7 +2,7 @@
 
 - Purpose: Install the reviewed calculator workflows with lossless declared drafting CSV fields.
 - Scope: Software verification; scientific candidates and publication remain separate.
-- Last verified: 2026-10-31
+- Last verified: 2026-11-01
 
 ## Frozen package and installation
 
@@ -59,8 +59,13 @@ A independently accepted C's exact export implementation `67a755e` using 18 CLI
 comparisons against unchanged rc1 JSON and artificial controls. Documentation
 clarifications are in `4836824`; runtime/test bytes did not change. C independently accepted A's rc2 package and installed assertions, checking both
 archives, 143 source/contract files, all 64 outputs, 68 wheel RECORD entries and
-all 42 cells across ten saved CSV rows. Exact rc2 platform CI remains pending;
-prior rc1 success cannot replace it. These are branch
+all 42 cells across ten saved CSV rows. All eight jobs in
+[CI41269701808](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/actions/runs/41269701808)
+passed at `47ae3e50589641c279c60dcadf7607673949aab4`, whose runtime, tests and
+workflow equal the frozen source. Each runtime job passed 7,553 tests and the
+single declared original-conditional skip; that exact integration is enabled
+locally. Both repaired-backend selections passed 3,233 tests per runtime job,
+and fresh installed examples passed on every platform. These remain branch
 artifacts, not a published release or consumer admission.
 
 The completed PCC 6803 acquisition used frozen **0.12.0rc1** source

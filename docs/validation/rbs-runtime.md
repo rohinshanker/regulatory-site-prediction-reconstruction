@@ -137,8 +137,10 @@ the historical default remain unchanged. Native JSON accepts all these profiles.
 - Starts at position zero are unsupported leaderless initiation. The sequence
   scorer does not infer circular wrapping or genome coordinates; use the
   [native adapter](rbs-native-runtime.md) with explicit genomic paths for those.
-  Kinetic RBS models and design are not implemented. Unsupported cases emit no feature
-  intervals. Refined equilibrium profiles and their coding-footprint intervals
+  Kinetic RBS models are not implemented. A separate
+  [bounded design wrapper](rbs-design.md) searches explicit upstream substitutions
+  using this unchanged scorer; it does not add a kinetic model. Unsupported cases
+  emit no feature intervals. Refined equilibrium profiles and their coding-footprint intervals
   are specified separately.
 
 | Status | Meaning |

@@ -4,8 +4,9 @@ Verification dates cover the stated source observations or specification review;
 
 | Area | Purpose | Last verified | Document |
 | --- | --- | --- | --- |
+| Engineering 0.15 package | Frozen Promoter design integration, exact archives and independent/software gate boundaries | 2026-11-01 | [engineering-0.15-candidate.md](engineering-0.15-candidate.md) |
 | promoter-design | Bounded substitution search over nominated historical Promoter targets, complete-context constraints and fresh native confirmation; independent review pending. | 2026-11-01 | [promoter-design.md](promoter-design.md) |
-| Engineering 0.14rc2 package | Frozen drafting-export integration, exact artifacts and verification boundaries | 2026-10-31 | [engineering-0.14rc2-candidate.md](engineering-0.14rc2-candidate.md) |
+| Engineering 0.14rc2 package | Frozen drafting-export integration, exact artifacts and verification boundaries | 2026-11-01 | [engineering-0.14rc2-candidate.md](engineering-0.14rc2-candidate.md) |
 | Engineering 0.14 package | Frozen design/sweep/export package, exact artifacts and verification boundaries | 2026-10-31 | [engineering-0.14-candidate.md](engineering-0.14-candidate.md) |
 | drafting-tabular-export | Independently reviewed supplied-rate CSV retaining every record, explicit numerical representations and authoritative JSON binding. | 2026-10-31 | [drafting-tabular-export.md](drafting-tabular-export.md) |
 | conditional-concentration-sweep | Independently reviewed finite concentration roster under unchanged supplied-energy assumptions. | 2026-10-31 | [conditional-concentration-sweep.md](conditional-concentration-sweep.md) |

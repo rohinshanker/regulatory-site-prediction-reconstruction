@@ -19,6 +19,11 @@ state with its sequence windows and score contributions. It scores candidates; i
 does not find promoters. It reproduces the historical equations, not a measured
 cyanobacterial, hosted-service or design capability.
 
+A later [bounded design wrapper](promoter-design.md) uses this unchanged predictor
+to enumerate explicitly permitted substitutions against supplied target log
+scores. Its software validation is separate from this model's biological
+evaluation. It does not recover the hosted optimizer or establish expression gains.
+
 | Question | Answer |
 | --- | --- |
 | Is it a runnable local predictor? | Yes. Offline, no accounts or network, Python 3.11+ standard library only. |
@@ -269,7 +274,9 @@ For a current sequence and a recoded sequence:
   Absolute scores are not calibrated cyano expression. Treat any difference as
   a model-based prioritization signal pending independent native evidence and
   the consumer's own admission rules ([consumer boundary](cyano-integration.md)).
-- No recoding optimizer or design mode exists; this model does not propose edits.
+- The prediction model does not propose edits. The separate bounded design
+  wrapper requires explicit editable/locked bases and does not infer coding
+  regions or enforce synonymous recoding.
 
 ## Evaluated and not evaluated
 
@@ -284,7 +291,7 @@ For a current sequence and a recoded sequence:
 | Context sensitivity of unchanged RBS (companion diagnostic) | Evaluated on 124 scenarios per profile; score sensitivity, not translation accuracy; [report](rbs-wave5-context-results.md) |
 | Cyanobacterial strength calibration and specificity | Not established; positive-TSS localization does not supply either |
 | Hosted-tool equivalence | Not evaluated, not claimed |
-| New optimizer, site discovery, probability of a site | Not implemented, out of scope |
+| Hosted optimizer, site discovery, probability of a site | Not implemented by this prediction model; the separate bounded design wrapper does not establish these capabilities |
 
 Update this table only from reviewed, independently reproduced artifacts. Do not
 repair or tune against an exposed final outcome and describe the rerun as

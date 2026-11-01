@@ -103,7 +103,10 @@ preserve: the tool does not infer genes or enforce synonymous substitutions.
 It retains every candidate and verifies the selected sequence with a fresh call
 to the same scorer. Targets are model quantities; no cyanobacterial calibration
 or measured expression gain follows from completing the search. This addition
-is in development version `0.15.0rc1`; its package/platform gates are pending.
+is in the [0.15.0rc1 engineering package](docs/validation/engineering-0.15-candidate.md),
+which passed 7,733 local tests, 1,551 subtests, zero skips, full measured coverage
+and 69 fresh-installed outputs. Independent package review and platform CI remain
+pending.
 
 Register complete files in explicit external storage and check their byte identity
 with the [offline artifact manifest tool](docs/validation/calculator-artifact-storage.md).
@@ -112,8 +115,8 @@ The job runner has a frozen [0.10.0rc2 package](docs/validation/offline-jobs-0.1
 with installed-byte checks and explicit CI status. The [0.14.0rc2 engineering package](docs/validation/engineering-0.14rc2-candidate.md)
 adds the independently accepted [drafting CSV export](docs/validation/drafting-tabular-export.md).
 It passed 7,554 local tests with zero skips and full measured coverage, and all
-64 fresh-installed example outputs. Independent package review is accepted;
-platform CI remains pending. The preceding [0.14.0rc1 engineering package](docs/validation/engineering-0.14-candidate.md)
+64 fresh-installed example outputs. Independent package review and all eight
+platform CI41269701808 jobs pass at `47ae3e50`. The preceding [0.14.0rc1 engineering package](docs/validation/engineering-0.14-candidate.md)
 integrates bounded RBS design, explicit conditional concentration sweeps and
 conditional/termination CSV exports. It passed
 independent package review, fresh offline examples and 7,516 local tests with

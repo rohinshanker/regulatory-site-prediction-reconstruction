@@ -434,8 +434,62 @@
     "xml_sha256": "04a7714e166c0e0108b4390b08e043025fa76051094e0348fe53a6110808634f"
   },
   "platform_ci": {
-    "note": "The separate rc1 run41266499984 does not cover the added drafting export or rc2 source.",
-    "status": "pending"
+    "head_commit": "47ae3e50589641c279c60dcadf7607673949aab4",
+    "jobs": [
+      {
+        "conclusion": "success",
+        "job_id": 124739759080,
+        "name": "runtime (macos-14, 3.11)"
+      },
+      {
+        "conclusion": "success",
+        "job_id": 124739759198,
+        "name": "runtime (ubuntu-24.04, 3.14)"
+      },
+      {
+        "conclusion": "success",
+        "job_id": 124739759219,
+        "name": "promoter-resources (macos-14, 3.11)"
+      },
+      {
+        "conclusion": "success",
+        "job_id": 124739759229,
+        "name": "promoter-resources (ubuntu-24.04, 3.14)"
+      },
+      {
+        "conclusion": "success",
+        "job_id": 124739759239,
+        "name": "runtime (macos-14, 3.14)"
+      },
+      {
+        "conclusion": "success",
+        "job_id": 124739759252,
+        "name": "promoter-resources (ubuntu-24.04, 3.11)"
+      },
+      {
+        "conclusion": "success",
+        "job_id": 124739759259,
+        "name": "promoter-resources (macos-14, 3.14)"
+      },
+      {
+        "conclusion": "success",
+        "job_id": 124739759293,
+        "name": "runtime (ubuntu-24.04, 3.11)"
+      }
+    ],
+    "log_sha256": "86a5e6a48324d1d0bca29f768b825ca16960da41e37ad419d90181a1cddfed3c",
+    "repair_selection_tests_per_variant_per_runtime_job": 3233,
+    "run_id": 41269701808,
+    "runtime_and_workflow_equal_frozen_source": true,
+    "runtime_tests_per_job": {
+      "passed": 7553,
+      "skipped": 1,
+      "warnings": 8
+    },
+    "skip": "Exact admitted original conditional backend integration; enabled and passed in the zero-skip local suite.",
+    "source_commit": "ebff076d14789735b56e71501ccfaa5b2b0f82fc",
+    "status": "success",
+    "url": "https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/actions/runs/41269701808"
   },
   "publication_authorized": false,
   "schema_version": "regsite-engineering-package-1",
