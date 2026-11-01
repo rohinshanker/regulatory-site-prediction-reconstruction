@@ -1,3 +1,3 @@
 """Versioned open regulatory-site models and their explicit input contracts."""
 
-__version__ = "0.16.0rc2"
+__version__ = "0.17.0rc1"

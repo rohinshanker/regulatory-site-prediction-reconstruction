@@ -1,7 +1,7 @@
 # Engineering package 0.16.0rc2
 
 - Purpose: Install the independently accepted multi-target RBS implementation with its corrected confirmation reporting.
-- Scope: Local/fresh software gates pass; replacement package review and platform CI remain pending. Scientific, consumer and publication gates are separate.
+- Scope: Local/fresh software gates, independent package review and supported-platform CI pass. Scientific, consumer and publication gates are separate.
 - Last verified: 2026-11-01
 
 ## Frozen identity and installation
@@ -72,9 +72,14 @@ SHA256 is `b36c7b11b20090e37735c7b3284c6f1ba3536c77aefe0a8d6cc090c50123da88`.
 The separate original documentation-attribution correction is also accepted;
 all original receipts remain preserved and corrected source pins match Git.
 
-Replacement [platform run 41326470205](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/actions/runs/41326470205)
-and independent byte review of these new archives remain pending. Earlier green
-package results do not replace those gates. The earlier 64-candidate/ten-target
+Independent native Codex review accepted these exact archives and saved outputs;
+its receipt SHA256 is `e77c114cc380b0f4e89f9260e68e5285872ca0378fdf4a664834873f4617cc3a`.
+The original [platform run 41326470205](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/actions/runs/41326470205)
+was interrupted by the macOS 14 runner brownout. The supported-platform
+[run 41327483781](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/actions/runs/41327483781)
+passes all eight jobs at `fbf2cf0cee20d1174b89a9d30b7502cb657ca858` on Ubuntu
+24.04/macOS 15 and Python 3.11/3.14. Source comparison preserves runtime, tests,
+contracts, examples and dependencies; the workflow changes only its two OS labels. The earlier 64-candidate/ten-target
 resource control belongs to 0.16rc1 and has not been rerun or relabelled as a new
 0.16rc2 measurement. No worst-case performance bound is claimed.
 

@@ -132,8 +132,8 @@ fresh-install and platform checks. Independent review then identified a
 confirmation error-reporting defect. The [0.16.0rc2 replacement](docs/validation/engineering-0.16rc2-candidate.md)
 preserves the first integrity stop even if its deadline also elapses. Its repair
 is independently accepted; 7,994 local tests, 1,551 subtests and all 74 fresh
-installed outputs pass. Replacement package review and platform gates remain
-pending. These are individual model initiation scores,
+installed outputs pass. Independent replacement package review and all eight Ubuntu 24.04/macOS 15
+platform jobs now pass. These are individual model initiation scores,
 with no inferred coupling, joint protein abundance or demonstrated biological
 improvement.
 
