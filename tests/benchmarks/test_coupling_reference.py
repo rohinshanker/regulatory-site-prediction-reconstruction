@@ -391,6 +391,7 @@ def test_tool_import_boundary():
         "json",
         "math",
         "os",
+        "re",
         "pathlib",
         "sys",
         "tempfile",
@@ -400,3 +401,139 @@ def test_tool_import_boundary():
     assert not any(
         name == "regsite" or name.startswith("regsite.") for name in sys.modules
     )
+
+
+def artificial_envelope(fixture):
+    return {
+        "schema_version": "coupling-result-1",
+        "model": {"independent_test_only": True},
+        "request_sha256": "0" * 64,
+        "prediction_sha256": "0" * 64,
+        "status": "partial",
+        "reason": None,
+        "settings": fixture["request"]["settings"],
+        "coverage": {
+            "requested": 24,
+            "returned": 24,
+            "successful": 11,
+            "failed_or_unsupported": 13,
+            "not_evaluated": 0,
+        },
+        "warnings": ["artificial-only"] * 4,
+        "records": copy.deepcopy(fixture["expected_records"]),
+    }
+
+
+def set_path(value, path, replacement):
+    parts = path.split("/")
+    for part in parts[:-1]:
+        value = value[int(part)] if isinstance(value, list) else value[part]
+    value[int(parts[-1]) if isinstance(value, list) else parts[-1]] = replacement
+
+
+def test_all_record_statuses_and_accounting(fixture):
+    result = artificial_envelope(fixture)
+    ref.result_accounting(result)
+    for status in ("invalid_input", "unsupported_geometry", "not_evaluated"):
+        r = result["records"][0]
+        r.update(
+            status=status,
+            reason="time_budget_exhausted"
+            if status == "not_evaluated"
+            else "artificial",
+            geometry=None,
+            energies=None,
+            coefficient=None,
+            scores=None,
+        )
+        result["coverage"].update(
+            successful=10,
+            failed_or_unsupported=14 - (status == "not_evaluated"),
+            not_evaluated=int(status == "not_evaluated"),
+        )
+        ref.result_accounting(result)
+        cases = ref.compare_records(fixture, result["records"])
+        assert len(cases) == 24 and not cases[0]["conforms"]
+    r["id"] = None
+    ref.record_shape(r)
+    result = artificial_envelope(fixture)
+    result["records"] = result["records"][:1]
+    result["coverage"] = {
+        "requested": 1,
+        "returned": 1,
+        "successful": 1,
+        "failed_or_unsupported": 0,
+        "not_evaluated": 0,
+    }
+    result["status"] = "complete"
+    ref.result_accounting(result)
+
+
+@pytest.mark.parametrize(
+    "path,value",
+    [
+        ("schema_version", "wrong"),
+        ("reason", "unexpected"),
+        ("settings/seconds_total", False),
+        ("settings/seconds_total", 0),
+        ("settings/seconds_total", 61),
+        ("settings", {}),
+        ("warnings", []),
+        ("warnings", [1, 2, 3, 4]),
+        ("request_sha256", None),
+        ("prediction_sha256", "ABC"),
+        ("records", []),
+        ("records", None),
+        ("status", "complete"),
+        ("coverage/successful", 12),
+        ("coverage/not_evaluated", False),
+        ("records/0/index", True),
+        ("records/0/id", "invalid space"),
+        ("records/0/id", None),
+        ("records/0/status", "invented"),
+        ("records/0/unfolding_correction", 0),
+        ("records/0/reason", "bad"),
+        ("records/0/geometry/sequence_sha256", "f" * 63),
+        ("records/0/geometry/strand", "?"),
+        ("records/0/geometry/distance_nt", 0.0),
+        ("records/0/geometry/sequence_length", 0),
+        ("records/0/geometry/upstream/id", ""),
+        ("records/0/geometry/upstream/interval", [True, 33]),
+        ("records/0/geometry/upstream/oriented_interval", [3, 100001]),
+        ("records/0/geometry/upstream/start_codon", "AAA"),
+        ("records/0/geometry/upstream/stop_codon", "CCC"),
+        ("records/0/energies/upstream_total_kcal_mol", 1000001),
+        ("records/0/energies/beta_mol_per_kcal", 1),
+        ("records/0/energies/provenance", ""),
+        ("records/0/coefficient", 0.22),
+        ("records/0/scores/downstream_total/log_value", math.inf),
+        ("records/0/scores/downstream_total/value", 0.0),
+        ("records/0/scores/downstream_total/value", None),
+        ("records/10/coefficient", 0.0072),
+        ("records/16/reason", "wrong"),
+    ],
+)
+def test_structure_and_accounting_mutations(fixture, path, value):
+    result = artificial_envelope(fixture)
+    set_path(result, path, value)
+    with pytest.raises(ref.AdmissionError):
+        ref.result_accounting(result)
+
+
+def test_failed_record_contradictions(fixture):
+    record = copy.deepcopy(fixture["expected_records"][0])
+    record.update(status="invalid_input", reason=None)
+    with pytest.raises(ref.AdmissionError, match="Failure reason"):
+        ref.record_shape(record)
+    record["reason"] = "invalid"
+    with pytest.raises(ref.AdmissionError, match="null fields"):
+        ref.record_shape(record)
+    record.update(
+        geometry=None,
+        energies=None,
+        scores=None,
+        coefficient=None,
+        status="not_evaluated",
+    )
+    with pytest.raises(ref.AdmissionError, match="Deadline reason"):
+        ref.record_shape(record)

@@ -11,6 +11,7 @@ import hashlib
 import json
 import math
 import os
+import re
 import sys
 import tempfile
 from decimal import ROUND_HALF_EVEN, Decimal, localcontext
@@ -480,6 +481,205 @@ def compare_records(fixture: dict[str, Any], records: Any) -> list[dict[str, Any
             }
         )
     return cases
+
+
+def exact_keys(value: Any, names: str, label: str) -> None:
+    require(
+        isinstance(value, dict) and set(value) == set(names.split()), f"{label} keys"
+    )
+
+
+def finite_number(value: Any) -> bool:
+    return type(value) in (int, float) and abs(value) <= sys.float_info.max
+
+
+def record_shape(record: Any) -> None:
+    """Validate the public record structure independently of expected outcomes."""
+    exact_keys(
+        record,
+        "index id status reason geometry energies coefficient scores "
+        "unfolding_correction",
+        "Record",
+    )
+    require(type(record["index"]) is int and 0 <= record["index"] <= 99, "Record index")
+    require(
+        record["id"] is None
+        or isinstance(record["id"], str)
+        and re.fullmatch(r"[A-Za-z0-9_.:-]{1,128}", record["id"]) is not None,
+        "Record ID",
+    )
+    require(record["unfolding_correction"] is None, "Unexpected unfolding correction")
+    status = record["status"]
+    require(
+        status
+        in (
+            "ok",
+            "numerical_range",
+            "unsupported_distance",
+            "invalid_input",
+            "unsupported_geometry",
+            "not_evaluated",
+        ),
+        "Record status",
+    )
+    if status in ("invalid_input", "unsupported_geometry", "not_evaluated"):
+        require(isinstance(record["reason"], str), "Failure reason")
+        require(
+            all(
+                record[key] is None
+                for key in ("geometry", "energies", "coefficient", "scores")
+            ),
+            "Failure null fields",
+        )
+        if status == "not_evaluated":
+            require(record["reason"] == "time_budget_exhausted", "Deadline reason")
+        return
+    require(record["id"] is not None, "Valid-geometry record ID")
+    g = record["geometry"]
+    exact_keys(
+        g,
+        "sequence_sha256 oriented_sequence_sha256 strand distance_nt "
+        "upstream downstream sequence_length",
+        "Geometry",
+    )
+    for key in ("sequence_sha256", "oriented_sequence_sha256"):
+        require(
+            isinstance(g[key], str)
+            and re.fullmatch(r"[a-f0-9]{64}", g[key]) is not None,
+            "Sequence hash",
+        )
+    require(g["strand"] in ("+", "-"), "Geometry strand")
+    require(type(g["distance_nt"]) is int, "Geometry distance")
+    require(
+        type(g["sequence_length"]) is int and 1 <= g["sequence_length"] <= 100_000,
+        "Geometry length",
+    )
+    for name in ("upstream", "downstream"):
+        cds = g[name]
+        exact_keys(cds, "id interval oriented_interval start_codon stop_codon", "CDS")
+        require(
+            isinstance(cds["id"], str)
+            and re.fullmatch(r"[A-Za-z0-9_.:-]{1,128}", cds["id"]) is not None,
+            "CDS ID",
+        )
+        for key in ("interval", "oriented_interval"):
+            interval = cds[key]
+            require(
+                isinstance(interval, list)
+                and len(interval) == 2
+                and all(type(x) is int and 0 <= x <= 100_000 for x in interval),
+                "CDS interval",
+            )
+        require(
+            cds["start_codon"] in ("AUG", "GUG", "UUG")
+            and cds["stop_codon"] in ("UAA", "UAG", "UGA"),
+            "CDS codons",
+        )
+    e = record["energies"]
+    exact_keys(
+        e,
+        "upstream_total_kcal_mol downstream_independent_total_kcal_mol "
+        "beta_mol_per_kcal provenance",
+        "Energies",
+    )
+    require(
+        all(
+            finite_number(e[key]) and abs(e[key]) <= 1e6
+            for key in (
+                "upstream_total_kcal_mol",
+                "downstream_independent_total_kcal_mol",
+            )
+        ),
+        "Result energy bounds",
+    )
+    require(
+        finite_number(e["beta_mol_per_kcal"]) and e["beta_mol_per_kcal"] == 0.45,
+        "Result beta",
+    )
+    require(
+        isinstance(e["provenance"], str) and 1 <= len(e["provenance"]) <= 1000,
+        "Result provenance",
+    )
+    if status == "unsupported_distance":
+        require(
+            record["reason"] == "no_admitted_distance_coefficient"
+            and record["coefficient"] is None
+            and record["scores"] is None,
+            "Unsupported fields",
+        )
+        return
+    require(
+        finite_number(record["coefficient"])
+        and record["coefficient"] in (0.0072, 0.022),
+        "Result coefficient",
+    )
+    exact_keys(record["scores"], " ".join(SCORES), "Scores")
+    missing = 0
+    for score in record["scores"].values():
+        exact_keys(score, "value log_value", "Score")
+        require(finite_number(score["log_value"]), "Log value")
+        require(
+            score["value"] is None
+            or finite_number(score["value"])
+            and score["value"] > 0,
+            "Linear value",
+        )
+        missing += score["value"] is None
+    require(
+        (status == "ok" and missing == 0 and record["reason"] is None)
+        or (
+            status == "numerical_range"
+            and missing > 0
+            and record["reason"] == "linear_score_outside_binary64"
+        ),
+        "Status/null/reason contradiction",
+    )
+
+
+def result_accounting(result: Any) -> None:
+    """Reject inconsistent envelopes/denominators before numerical comparison."""
+    exact_keys(
+        result,
+        "schema_version model request_sha256 status reason settings coverage "
+        "warnings records prediction_sha256",
+        "Result",
+    )
+    require(result["schema_version"] == "coupling-result-1", "Result schema")
+    require(result["reason"] is None, "Envelope reason")
+    exact_keys(result["settings"], "seconds_total", "Settings")
+    budget = result["settings"]["seconds_total"]
+    require(finite_number(budget) and 0 < budget <= 60, "Result budget")
+    warnings = result["warnings"]
+    require(
+        isinstance(warnings, list)
+        and len(warnings) == 4
+        and all(isinstance(w, str) for w in warnings),
+        "Warnings shape",
+    )
+    for key in ("request_sha256", "prediction_sha256"):
+        require(
+            isinstance(result[key], str)
+            and re.fullmatch(r"[a-f0-9]{64}", result[key]) is not None,
+            "Result hash shape",
+        )
+    records = result["records"]
+    require(isinstance(records, list) and 1 <= len(records) <= 24, "Record count bound")
+    for record in records:
+        record_shape(record)
+    n = len(records)
+    ok = sum(r["status"] == "ok" for r in records)
+    not_evaluated = sum(r["status"] == "not_evaluated" for r in records)
+    counts = {
+        "requested": n,
+        "returned": n,
+        "successful": ok,
+        "failed_or_unsupported": n - ok - not_evaluated,
+        "not_evaluated": not_evaluated,
+    }
+    require(not differences(counts, result["coverage"]), "Coverage accounting")
+    require(
+        result["status"] == ("complete" if ok == n else "partial"), "Envelope status"
+    )
 
 
 def main(argv: list[str] | None = None) -> int:

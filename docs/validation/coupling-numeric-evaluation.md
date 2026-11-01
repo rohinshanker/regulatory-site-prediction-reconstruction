@@ -53,8 +53,16 @@ python -m benchmarks.operon.coupling_reference prepare \
   --root . --output /explicit/new/fixture.json
 ```
 
-The saved-result checker will separate transport and identity admission from
-numerical/geometry conformance. Consistently rehashed artificial mutations must
+The record-structure/accounting layer checks all six native statuses, complete
+field sets, finite scores, status/null/reason consistency and exact coverage
+partitions before numerical comparison. Unexpected valid failures remain in
+the full case roster and fail conformance; they are never omitted or counted
+as successful numerical checks. Invalid structure/accounting fails admission.
+The saved-result checker still requires its public identity supplement and
+acquisition binding before it can admit candidate outputs.
+
+Transport and identity admission remain separate from numerical/geometry
+conformance. Consistently rehashed artificial mutations must
 reach semantic guards. Every new path requires focused tests; no candidate,
 folding, network or scorer import belongs to those tests. A finite existing-root
 review precedes fixture/protocol/code freeze and later execution.
