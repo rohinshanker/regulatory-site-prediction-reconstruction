@@ -3,8 +3,8 @@
 - Scope: Complete design modes and release the fully usable open calculator suite.
 - Status: active
 - Opened: 2026-10-16
-- Updated: 2026-10-31
-- Current State: A owns suite integration. Bounded RBS design is implemented and independently accepted under #74; conditional concentration sweeps under #77 and conditional, termination and drafting CSV projections under #76/#71/#78 are integrated. Frozen engineering candidates have separate package and platform evidence. Promoter target-profile design, multi-cistron objectives, complete sequence-to-switch design, broader biological validation and public release remain unfinished.
+- Updated: 2026-11-01
+- Current State: A owns suite integration. Bounded RBS design is implemented and independently accepted under #74; conditional concentration sweeps under #77 and conditional, termination and drafting CSV projections under #76/#71/#78 are integrated. Frozen engineering candidates have separate package and platform evidence. C’s bounded Promoter design #79 at87510bdf is independently accepted after42 A CLI checks and integrated at ac6fc7e. A owns0.15.0rc1 entry point/package/README/CI integration now; C retains its child closure. Multi-cistron objectives, complete sequence-to-switch design, broader biological validation and public release remain unfinished.
 - Verification: The [0.14.0rc1 engineering candidate](../../validation/engineering-0.14-candidate.md) passed independent review, fresh installation and 7,516 local tests with zero skips and full measured coverage. All eight rc1 platform jobs passed in CI41266499984. New drafting CSV0.14.0rc2 passed7,554local tests/zero skips/full coverage,64installed outputs and independent package review; its exact platform gate is pending. Publication retains a separate gate.
 - Cleanup: Owning session records final checks and unresolved findings, resolves the ticket, distills reusable guidance into docs/validation/, updates both indexes and linked GitHub issue, then removes the resolved ticket.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/11

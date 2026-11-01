@@ -138,6 +138,87 @@ jobs:
           assert all(row["csv_schema_version"] == "conditional-csv-1" and row["json_sha256"] == hashlib.sha256(raw).hexdigest() for row in rows)
           assert rows[1]["ar_actual"] == "2.5"
           PYWAVE10
+          .cache/fresh/bin/regsite-promoter-design examples/promoter-design-single.json > .cache/promoter-design-single.json
+          .cache/fresh/bin/python - <<'PYPROMOTERINPUTS'
+          import copy
+          import json
+          from pathlib import Path
+          request = json.loads(Path("examples/promoter-design-single.json").read_bytes())
+          neutral = copy.deepcopy(request)
+          neutral["promoter"]["scan"]["positions"] = [{"strand": "+", "tss": 100}]
+          neutral["target_log_scores"] = [0.0]
+          neutral["editable_positions"] = [118]
+          neutral["immutable_intervals"] = []
+          Path(".cache/promoter-design-neutral-request.json").write_text(json.dumps(neutral))
+          invalid = copy.deepcopy(request)
+          invalid["limits"]["max_candidates"] = 3
+          Path(".cache/promoter-design-invalid-request.json").write_text(json.dumps(invalid))
+          PYPROMOTERINPUTS
+          .cache/fresh/bin/regsite-promoter-design .cache/promoter-design-neutral-request.json > .cache/promoter-design-neutral.json
+          promoter_design_exit=0
+          .cache/fresh/bin/regsite-promoter-design .cache/promoter-design-invalid-request.json > .cache/promoter-design-invalid.json || promoter_design_exit=$?
+          test "$promoter_design_exit" -eq 2
+          .cache/fresh/bin/python - <<'PYPROMOTERDESIGN'
+          import copy
+          import hashlib
+          import importlib.metadata
+          import json
+          import math
+          from pathlib import Path
+          from regsite import promoter_io
+
+          def digest(value):
+              return hashlib.sha256(json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=True, allow_nan=False).encode()).hexdigest()
+
+          version = importlib.metadata.version("regulatory-site-prediction-reconstruction")
+          for request_path, output_path in [
+              ("examples/promoter-design-single.json", ".cache/promoter-design-single.json"),
+              (".cache/promoter-design-neutral-request.json", ".cache/promoter-design-neutral.json"),
+          ]:
+              request = json.loads(Path(request_path).read_bytes())
+              result = json.loads(Path(output_path).read_bytes())
+              assert result["status"] == "complete" and result["request"] == request
+              assert result["algorithm"] == {"id": "bounded-promoter-substitution-enumeration-1", "implementation_version": version}
+              assert result["request_sha256"] == digest(request)
+              assert result["design_id"] == digest({k: result[k] for k in ("request_sha256", "algorithm", "model_identity", "targets", "limits")})
+              assert result["coverage"] == {"planned": 4, "attempted": 4, "successful": 4, "failed": 0, "not_run": 0, "prediction_calls": 5, "all_candidates_scored": True, "deadline_exceeded": False, "stop_reason": None}
+              seed = request["promoter"]["sequence"]
+              position = request["editable_positions"][0]
+              assert {r["sequence"] for r in result["candidates"]} == {seed[:position] + base + seed[position+1:] for base in "ACGT"}
+              assert [r["index"] for r in result["candidates"]] == list(range(4))
+              for row in result["candidates"]:
+                  changed = [i for i, (a, b) in enumerate(zip(seed, row["sequence"])) if a != b]
+                  assert set(changed) <= {position} and len(changed) <= 1
+                  assert all(not start <= i < end for i in changed for start, end in request["immutable_intervals"])
+                  assert row["sequence_sha256"] == hashlib.sha256(row["sequence"].encode()).hexdigest()
+                  assert row["candidate_id"] == digest({"design_id": result["design_id"], "index": row["index"], "sequence_sha256": row["sequence_sha256"]})
+                  native_request = copy.deepcopy(request["promoter"])
+                  native_request["sequence"] = row["sequence"]
+                  assert row["native_request"] == native_request and row["native_request_sha256"] == digest(native_request)
+                  # Direct unchanged predictor, independent of the search implementation.
+                  native = promoter_io.predict_batch(native_request, seconds_per_record=1.0, seconds_per_batch=1.0)
+                  assert row["native"] == native and row["native_admitted"] is True
+                  wire = (json.dumps(native, sort_keys=True, indent=2, ensure_ascii=True, allow_nan=False) + "\n").encode()
+                  assert row["native_bytes"] == len(wire) and row["native_sha256"] == hashlib.sha256(wire).hexdigest()
+                  assert native["model"] == result["model"]
+                  scores = [s["selected"]["log_relative_transcription_score"] for s in native["results"][0]["sites"]]
+                  assert row["observed_log_scores"] == scores
+                  errors = [abs(a-b) for a, b in zip(scores, request["target_log_scores"])]
+                  assert row["absolute_log_errors"] == errors and row["objective"] == math.fsum(errors)/len(errors)
+                  assert row["status"] == "ok" and row["attempted"] is True and row["reason"] is None
+              best = min(result["candidates"], key=lambda r: (r["objective"], len(r["edits"]), r["sequence"]))
+              assert result["selected"] == result["proposal"] and result["selected"]["index"] == best["index"]
+              assert result["confirmation"]["status"] == "matched" and result["confirmation"]["attempted"] is True
+              assert result["confirmation"]["native"] == best["native"] and result["confirmation"]["native_sha256"] == best["native_sha256"]
+              assert result["result_sha256"] == digest({k: v for k, v in result.items() if k != "result_sha256"})
+              if "neutral" in output_path:
+                  assert result["selected"]["index"] == 0 and result["selected"]["edits"] == []
+                  assert all(r["observed_log_scores"] == result["candidates"][0]["observed_log_scores"] for r in result["candidates"])
+          invalid = json.loads(Path(".cache/promoter-design-invalid.json").read_bytes())
+          assert invalid["status"] == "invalid_input" and invalid["reason"]
+          assert invalid["candidates"] == [] and invalid["selected"] is None and invalid["coverage"] is None
+          assert invalid["result_sha256"] == digest({k: v for k, v in invalid.items() if k != "result_sha256"})
+          PYPROMOTERDESIGN
           .cache/fresh/bin/regsite-drafting examples/drafting-single.json > .cache/drafting-single.json
           .cache/fresh/bin/regsite-drafting examples/drafting-batch.json > .cache/drafting-batch.json
           drafting_exit=0

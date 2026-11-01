@@ -90,6 +90,21 @@ The target uses the selected model's relative initiation units. Completing a
 search does not mean the target was reached or expression improved; inspect the
 reported log error, coverage and confirmation. Coding bases remain fixed.
 
+A bounded [Promoter design mode](docs/validation/promoter-design.md) searches
+caller-selected substitutions against a vector of historical-model log scores
+at nominated transcription-start positions on either strand:
+
+```sh
+regsite-promoter-design examples/promoter-design-single.json
+```
+
+All unlisted bases remain fixed. Explicitly lock any coding regions you need to
+preserve: the tool does not infer genes or enforce synonymous substitutions.
+It retains every candidate and verifies the selected sequence with a fresh call
+to the same scorer. Targets are model quantities; no cyanobacterial calibration
+or measured expression gain follows from completing the search. This addition
+is in development version `0.15.0rc1`; its package/platform gates are pending.
+
 Register complete files in explicit external storage and check their byte identity
 with the [offline artifact manifest tool](docs/validation/calculator-artifact-storage.md).
 
