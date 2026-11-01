@@ -117,9 +117,9 @@ regsite-rbs-vector-design examples/rbs-vector-design.json --backend-root /absolu
 
 It keeps every supplied coding interval fixed, including overlaps, and permits
 only explicitly listed upstream substitutions. Every candidate and target result
-is retained; incomplete vectors cannot win the search. This branch's 0.16.0rc1
-entry point and package are under validation, and independent implementation
-review is pending. These are individual model initiation scores, with no inferred
+is retained; incomplete vectors cannot win the search. The provisional [0.16.0rc1 package](docs/validation/engineering-0.16-candidate.md)
+passes 7,992 local tests, 1,551 subtests and 74 fresh-installed outputs. Independent
+implementation/package review and platform checks remain pending. These are individual model initiation scores, with no inferred
 coupling, joint protein abundance or demonstrated biological improvement.
 
 Register complete files in explicit external storage and check their byte identity
