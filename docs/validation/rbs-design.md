@@ -2,7 +2,8 @@
 
 - Purpose: Enumerate a small, explicitly allowed leader substitution neighborhood and rank it using an existing named RBS profile.
 - Scope: Original local design algorithm, not recovered hosted optimization or biological validation.
-- State: Contract-first implementation; independent review and offline smoke pending.
+- Last verified: 2026-10-31
+- State: Implemented; focused software tests and real artificial smoke pass. Independent review and final package/platform gates pending.
 
 ## Source and scientific meaning
 
@@ -80,6 +81,14 @@ coverage. No-candidate means no successful candidate was observed. Invalid input
 has no admitted roster or selected sequence. A verified selected sequence is
 never called the global optimum when any candidate is missing or failed.
 CLI exits: 0 complete, 1 partial/no-candidate, 2 invalid/setup/transport error.
+The request and result structural schemas are
+[`rbs-design-request-1`](../../schemas/rbs-design-request-1.schema.json) and
+[`rbs-design-result-1`](../../schemas/rbs-design-result-1.schema.json). Runtime
+checks enforce the additional sequence, roster, identity and count relationships.
+A native record rejected for its identity/shape may be retained as opaque failure
+evidence; its presence is not admission. The CLI reads binary stdin or a regular
+file without following its final symlink; directory/FIFO inputs are refused.
+
 JSON is the default and sole initial transport; raw records stay in external
 files for real runs. No browser/consumer or existing job-runner change is included.
 
@@ -92,3 +101,32 @@ confirmation mismatch; byte caps and transport errors; exact result hashes;
 real tiny artificial offline search with a pinned backend; fresh install and
 existing regression gates. Artificial controls verify software behavior, not
 biological accuracy. Scientific endpoints require a separate frozen protocol.
+
+## Identity and reproducible invocation
+
+All canonical hashes use SHA256 over `json.dumps(value, sort_keys=True,
+separators=(",", ":"), ensure_ascii=True, allow_nan=False).encode("utf-8")`.
+`request_sha256` binds the admitted request as supplied; input number spelling
+normalized by the JSON parser is not retained. `design_id` hashes the object
+with exactly `request`, `algorithm` (the algorithm ID string),
+`implementation_version` and `backend`. `result_sha256` hashes the whole result
+excluding only that field. It includes elapsed time, so repeat runs can have
+stable design IDs and different result hashes. Native record hashes bind their
+entire retained values. Native prediction IDs retain the predictor's declared
+float score budget; an enclosing shorter execution allowance never changes it.
+DNA hashes use the supplied canonical uppercase DNA bytes; oriented edits are
+reported separately. No additional genomic assembly or transcript binding is inferred.
+
+Use the existing development environment and explicit separate backend:
+
+```sh
+python -m regsite.design_cli examples/rbs-design-single.json --backend-root /absolute/path/to/RNAstructure
+python -m pytest tests/test_design.py tests/test_design_io.py tests/test_design_cli.py tests/test_design_schema.py
+REGSITE_RNASTRUCTURE=/absolute/path/to/RNAstructure python -m pytest tests/test_design_native.py
+```
+
+The small committed example searches four candidates and makes one fresh
+confirmation call. A complete result can still be far from its requested target:
+`absolute_log_error` is the distance that was actually achieved, not a pass gate
+or a biological validation statistic. The target may be unreachable within the
+caller-selected edits. Full candidate results make that limitation inspectable.

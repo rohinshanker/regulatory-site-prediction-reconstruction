@@ -78,6 +78,18 @@ Tan 2018 supplies transcription starts and RNA context, not measured translation
 starts or RBS strengths. Native site localization and strength prediction have
 separate validation gates.
 
+A bounded [local RBS design mode](docs/validation/rbs-design.md) enumerates only
+caller-selected upstream substitutions, retains every outcome, and freshly
+rescores its best observed sequence before selecting it:
+
+```sh
+regsite-design examples/rbs-design-single.json --backend-root /absolute/path/to/RNAstructure
+```
+
+The target uses the selected model's relative initiation units. Completing a
+search does not mean the target was reached or expression improved; inspect the
+reported log error, coverage and confirmation. Coding bases remain fixed.
+
 Register complete files in explicit external storage and check their byte identity
 with the [offline artifact manifest tool](docs/validation/calculator-artifact-storage.md).
 

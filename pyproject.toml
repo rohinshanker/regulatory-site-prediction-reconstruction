@@ -24,6 +24,7 @@ regsite-coupling = "regsite.coupling_cli:main"
 regsite-jobs = "regsite.jobs:main"
 regsite-termination = "regsite.termination_cli:main"
 regsite-drafting = "regsite.drafting_cli:main"
+regsite-design = "regsite.design_cli:main"
 
 [tool.setuptools.package-data]
 regsite = ["data/*.json", "data/*.txt"]

@@ -1,0 +1,26 @@
+{
+  "schema_version": "rbs-design-request-1",
+  "rbs": {
+    "schema_version": "1.0",
+    "id": "synthetic-sd-smoke",
+    "host": null,
+    "sequence": "AAAGGAGGAAAAAAATGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+    "anti_sd": "ACCUCCUUA",
+    "temperature_c": 37,
+    "strand": "+",
+    "start_positions": [
+      14
+    ]
+  },
+  "profile": "historical",
+  "target_tir": 1000,
+  "editable_positions": [
+    4
+  ],
+  "max_changes": 1,
+  "limits": {
+    "max_candidates": 4,
+    "seconds_per_score": 20,
+    "seconds_total": 180
+  }
+}

@@ -1,0 +1,1295 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "rbs-design-result-1"
+    },
+    "status": {
+      "enum": [
+        "complete",
+        "partial",
+        "no_candidate",
+        "invalid_input"
+      ]
+    },
+    "reason": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "algorithm": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "const": "exhaustive-rbs-leader-substitutions-1"
+        },
+        "implementation_version": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "id",
+        "implementation_version"
+      ]
+    },
+    "request": {
+      "anyOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "schema_version": {
+              "const": "rbs-design-request-1"
+            },
+            "rbs": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "schema_version": {
+                  "const": "1.0",
+                  "default": "1.0"
+                },
+                "id": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 128
+                },
+                "host": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "minLength": 1,
+                  "maxLength": 128
+                },
+                "sequence": {
+                  "type": "string",
+                  "pattern": "^[ACGT]+$",
+                  "minLength": 1,
+                  "maxLength": 1000
+                },
+                "anti_sd": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 90
+                },
+                "strand": {
+                  "enum": [
+                    "+",
+                    "-"
+                  ]
+                },
+                "start_positions": {
+                  "type": "array",
+                  "minItems": 1,
+                  "maxItems": 1,
+                  "items": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 997
+                  }
+                },
+                "temperature_c": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 100
+                }
+              },
+              "required": [
+                "sequence",
+                "anti_sd",
+                "start_positions"
+              ]
+            },
+            "profile": {
+              "enum": [
+                "historical",
+                "footprint2017",
+                "context2017",
+                "standby2014",
+                "joint_standby"
+              ]
+            },
+            "target_tir": {
+              "type": "number",
+              "exclusiveMinimum": 0,
+              "maximum": 1.7976931348623157e+308
+            },
+            "editable_positions": {
+              "type": "array",
+              "uniqueItems": true,
+              "maxItems": 1000,
+              "items": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 999
+              }
+            },
+            "max_changes": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 2
+            },
+            "limits": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "max_candidates": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 256
+                },
+                "seconds_per_score": {
+                  "type": "number",
+                  "exclusiveMinimum": 0,
+                  "maximum": 120
+                },
+                "seconds_total": {
+                  "type": "number",
+                  "exclusiveMinimum": 0,
+                  "maximum": 3600
+                }
+              },
+              "required": [
+                "max_candidates",
+                "seconds_per_score",
+                "seconds_total"
+              ]
+            }
+          },
+          "required": [
+            "schema_version",
+            "rbs",
+            "profile",
+            "target_tir",
+            "editable_positions",
+            "max_changes",
+            "limits"
+          ],
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "title": "Bounded RBS design request 1",
+          "description": "Structural JSON schema. Runtime additionally requires exact integer Python values for edit/count fields, normalized 9-base anti-SD, supported transcript-oriented start, valid upstream edit positions and the complete combinatorial roster within the declared cap. No hosted design equivalence or expression calibration."
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "request_sha256": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "design_id": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "backend": {
+      "anyOf": [
+        {
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "model": {
+      "anyOf": [
+        {
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "coverage": {
+      "anyOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "planned": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "attempted": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "successful": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "not_run": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "failed": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "prediction_calls": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "all_candidates_scored": {
+              "type": "boolean"
+            },
+            "elapsed_seconds": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1.7976931348623157e+308
+            }
+          },
+          "required": [
+            "planned",
+            "attempted",
+            "successful",
+            "not_run",
+            "failed",
+            "prediction_calls",
+            "all_candidates_scored",
+            "elapsed_seconds"
+          ]
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "candidates": {
+      "type": "array",
+      "maxItems": 256,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "index": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "sequence": {
+            "type": "string",
+            "pattern": "^[ACGT]+$",
+            "minLength": 1,
+            "maxLength": 1000
+          },
+          "sequence_sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "edits": {
+            "type": "array",
+            "maxItems": 2,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "input_position": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "oriented_position": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "from": {
+                  "enum": [
+                    "A",
+                    "C",
+                    "G",
+                    "T"
+                  ]
+                },
+                "to": {
+                  "enum": [
+                    "A",
+                    "C",
+                    "G",
+                    "T"
+                  ]
+                }
+              },
+              "required": [
+                "input_position",
+                "oriented_position",
+                "from",
+                "to"
+              ]
+            }
+          },
+          "score": {
+            "anyOf": [
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "tir": {
+                    "type": "number",
+                    "exclusiveMinimum": 0,
+                    "maximum": 1.7976931348623157e+308
+                  },
+                  "log_tir": {
+                    "type": "number",
+                    "minimum": -1.7976931348623157e+308,
+                    "maximum": 1.7976931348623157e+308
+                  },
+                  "absolute_log_error": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1500
+                  }
+                },
+                "required": [
+                  "tir",
+                  "log_tir",
+                  "absolute_log_error"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "attempted": {
+            "type": "boolean"
+          },
+          "status": {
+            "enum": [
+              "ok",
+              "failed",
+              "unsupported",
+              "no_candidate",
+              "not_run"
+            ]
+          },
+          "reason": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "native": {
+            "anyOf": [
+              {
+                "type": "object",
+                "description": "Opaque complete producer record, retained even when its critical identity or shape is rejected. See each candidate status/reason. It is not an imported or independently schema-admitted result."
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "native_sha256": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "index",
+          "sequence",
+          "sequence_sha256",
+          "edits",
+          "score",
+          "attempted",
+          "status",
+          "reason",
+          "native",
+          "native_sha256"
+        ],
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "status": {
+                  "const": "ok"
+                }
+              },
+              "required": [
+                "status"
+              ]
+            },
+            "then": {
+              "properties": {
+                "attempted": {
+                  "const": true
+                },
+                "reason": {
+                  "type": "null"
+                },
+                "score": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "tir": {
+                      "type": "number",
+                      "exclusiveMinimum": 0,
+                      "maximum": 1.7976931348623157e+308
+                    },
+                    "log_tir": {
+                      "type": "number",
+                      "minimum": -1.7976931348623157e+308,
+                      "maximum": 1.7976931348623157e+308
+                    },
+                    "absolute_log_error": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 1500
+                    }
+                  },
+                  "required": [
+                    "tir",
+                    "log_tir",
+                    "absolute_log_error"
+                  ]
+                },
+                "native": {
+                  "type": "object"
+                },
+                "native_sha256": {
+                  "type": "string",
+                  "pattern": "^[0-9a-f]{64}$"
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "status": {
+                  "const": "not_run"
+                }
+              },
+              "required": [
+                "status"
+              ]
+            },
+            "then": {
+              "properties": {
+                "attempted": {
+                  "const": false
+                },
+                "reason": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "score": {
+                  "type": "null"
+                },
+                "native": {
+                  "type": "null"
+                },
+                "native_sha256": {
+                  "type": "null"
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "status": {
+                  "enum": [
+                    "failed",
+                    "unsupported",
+                    "no_candidate"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "attempted": {
+                  "const": true
+                },
+                "reason": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "score": {
+                  "type": "null"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "best_observed_index": {
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "selected": {
+      "anyOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "index": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "sequence": {
+              "type": "string",
+              "pattern": "^[ACGT]+$",
+              "minLength": 1,
+              "maxLength": 1000
+            },
+            "sequence_sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "edits": {
+              "type": "array",
+              "maxItems": 2,
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "input_position": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "oriented_position": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "from": {
+                    "enum": [
+                      "A",
+                      "C",
+                      "G",
+                      "T"
+                    ]
+                  },
+                  "to": {
+                    "enum": [
+                      "A",
+                      "C",
+                      "G",
+                      "T"
+                    ]
+                  }
+                },
+                "required": [
+                  "input_position",
+                  "oriented_position",
+                  "from",
+                  "to"
+                ]
+              }
+            },
+            "score": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "tir": {
+                  "type": "number",
+                  "exclusiveMinimum": 0,
+                  "maximum": 1.7976931348623157e+308
+                },
+                "log_tir": {
+                  "type": "number",
+                  "minimum": -1.7976931348623157e+308,
+                  "maximum": 1.7976931348623157e+308
+                },
+                "absolute_log_error": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1500
+                }
+              },
+              "required": [
+                "tir",
+                "log_tir",
+                "absolute_log_error"
+              ]
+            }
+          },
+          "required": [
+            "index",
+            "sequence",
+            "sequence_sha256",
+            "edits",
+            "score"
+          ]
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "confirmation": {
+      "anyOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "status": {
+              "enum": [
+                "verified",
+                "failed",
+                "unsupported",
+                "no_candidate",
+                "not_run"
+              ]
+            },
+            "reason": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "minLength": 1
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "candidate_index": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "native": {
+              "anyOf": [
+                {
+                  "type": "object",
+                  "description": "Opaque complete producer record, retained even when its critical identity or shape is rejected. See each candidate status/reason. It is not an imported or independently schema-admitted result."
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "native_sha256": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "pattern": "^[0-9a-f]{64}$"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "status",
+            "reason",
+            "candidate_index",
+            "native",
+            "native_sha256"
+          ],
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "status": {
+                    "const": "verified"
+                  }
+                },
+                "required": [
+                  "status"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "reason": {
+                    "type": "null"
+                  },
+                  "candidate_index": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "native": {
+                    "type": "object"
+                  },
+                  "native_sha256": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "status": {
+                    "const": "not_run"
+                  }
+                },
+                "required": [
+                  "status"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "reason": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "native": {
+                    "type": "null"
+                  },
+                  "native_sha256": {
+                    "type": "null"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "warnings": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "result_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  },
+  "required": [
+    "schema_version",
+    "status",
+    "reason",
+    "algorithm",
+    "request",
+    "request_sha256",
+    "design_id",
+    "backend",
+    "model",
+    "coverage",
+    "candidates",
+    "best_observed_index",
+    "selected",
+    "confirmation",
+    "warnings",
+    "result_sha256"
+  ],
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "invalid_input"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "reason": {
+            "type": "string",
+            "minLength": 1
+          },
+          "request": {
+            "type": "null"
+          },
+          "request_sha256": {
+            "type": "null"
+          },
+          "design_id": {
+            "type": "null"
+          },
+          "backend": {
+            "type": "null"
+          },
+          "model": {
+            "type": "null"
+          },
+          "coverage": {
+            "type": "null"
+          },
+          "candidates": {
+            "maxItems": 0
+          },
+          "best_observed_index": {
+            "type": "null"
+          },
+          "selected": {
+            "type": "null"
+          },
+          "confirmation": {
+            "type": "null"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "enum": [
+              "complete",
+              "partial",
+              "no_candidate"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "request": {
+            "type": "object"
+          },
+          "request_sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "design_id": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "backend": {
+            "type": "object"
+          },
+          "coverage": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "planned": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "attempted": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "successful": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "not_run": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "failed": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "prediction_calls": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "all_candidates_scored": {
+                "type": "boolean"
+              },
+              "elapsed_seconds": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1.7976931348623157e+308
+              }
+            },
+            "required": [
+              "planned",
+              "attempted",
+              "successful",
+              "not_run",
+              "failed",
+              "prediction_calls",
+              "all_candidates_scored",
+              "elapsed_seconds"
+            ]
+          },
+          "candidates": {
+            "minItems": 1
+          },
+          "confirmation": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "status": {
+                "enum": [
+                  "verified",
+                  "failed",
+                  "unsupported",
+                  "no_candidate",
+                  "not_run"
+                ]
+              },
+              "reason": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "candidate_index": {
+                "anyOf": [
+                  {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "native": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "description": "Opaque complete producer record, retained even when its critical identity or shape is rejected. See each candidate status/reason. It is not an imported or independently schema-admitted result."
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "native_sha256": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "status",
+              "reason",
+              "candidate_index",
+              "native",
+              "native_sha256"
+            ],
+            "allOf": [
+              {
+                "if": {
+                  "properties": {
+                    "status": {
+                      "const": "verified"
+                    }
+                  },
+                  "required": [
+                    "status"
+                  ]
+                },
+                "then": {
+                  "properties": {
+                    "reason": {
+                      "type": "null"
+                    },
+                    "candidate_index": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "native": {
+                      "type": "object"
+                    },
+                    "native_sha256": {
+                      "type": "string",
+                      "pattern": "^[0-9a-f]{64}$"
+                    }
+                  }
+                }
+              },
+              {
+                "if": {
+                  "properties": {
+                    "status": {
+                      "const": "not_run"
+                    }
+                  },
+                  "required": [
+                    "status"
+                  ]
+                },
+                "then": {
+                  "properties": {
+                    "reason": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "native": {
+                      "type": "null"
+                    },
+                    "native_sha256": {
+                      "type": "null"
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "complete"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "reason": {
+            "type": "null"
+          },
+          "selected": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "index": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "sequence": {
+                "type": "string",
+                "pattern": "^[ACGT]+$",
+                "minLength": 1,
+                "maxLength": 1000
+              },
+              "sequence_sha256": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              },
+              "edits": {
+                "type": "array",
+                "maxItems": 2,
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "input_position": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "oriented_position": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "from": {
+                      "enum": [
+                        "A",
+                        "C",
+                        "G",
+                        "T"
+                      ]
+                    },
+                    "to": {
+                      "enum": [
+                        "A",
+                        "C",
+                        "G",
+                        "T"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "input_position",
+                    "oriented_position",
+                    "from",
+                    "to"
+                  ]
+                }
+              },
+              "score": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "tir": {
+                    "type": "number",
+                    "exclusiveMinimum": 0,
+                    "maximum": 1.7976931348623157e+308
+                  },
+                  "log_tir": {
+                    "type": "number",
+                    "minimum": -1.7976931348623157e+308,
+                    "maximum": 1.7976931348623157e+308
+                  },
+                  "absolute_log_error": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1500
+                  }
+                },
+                "required": [
+                  "tir",
+                  "log_tir",
+                  "absolute_log_error"
+                ]
+              }
+            },
+            "required": [
+              "index",
+              "sequence",
+              "sequence_sha256",
+              "edits",
+              "score"
+            ]
+          },
+          "best_observed_index": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "coverage": {
+            "properties": {
+              "all_candidates_scored": {
+                "const": true
+              }
+            }
+          },
+          "confirmation": {
+            "properties": {
+              "status": {
+                "const": "verified"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "no_candidate"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "reason": {
+            "type": "string",
+            "minLength": 1
+          },
+          "selected": {
+            "type": "null"
+          },
+          "best_observed_index": {
+            "type": "null"
+          },
+          "coverage": {
+            "properties": {
+              "successful": {
+                "const": 0
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "partial"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "reason": {
+            "type": "string",
+            "minLength": 1
+          },
+          "best_observed_index": {
+            "type": "integer",
+            "minimum": 0
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "selected": {
+            "type": "object"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "confirmation": {
+            "properties": {
+              "status": {
+                "const": "verified"
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Bounded RBS design result 1",
+  "description": "Complete finite search receipt with all failures/unstarted candidates. Cross-field hashes, exhaustive roster, count consistency and score equations are runtime/test invariants beyond this structural schema. A verified design is a model-relative proposal, not validated expression improvement."
+}

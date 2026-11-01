@@ -98,4 +98,4 @@ Verification dates cover the stated source observations or specification review;
 | intrinsic-termination-source | Pinned TransTermHP candidate-score source, parameter and fragment admission boundary. | 2026-10-21 | [intrinsic-termination-source.md](intrinsic-termination-source.md) |
 | intrinsic-termination-runtime | Reviewed bounded external-engine adapter, accepted 0.12 package and Linux/macOS CI boundary. | 2026-10-21 | [intrinsic-termination-runtime.md](intrinsic-termination-runtime.md) |
 
-- [Bounded RBS design](rbs-design.md): request/search/selection/resource contract; implementation and independent acceptance pending.
+| rbs-design | Bounded leader substitution search with explicit model target, constraints, failures and fresh confirmation; independent acceptance pending. | 2026-10-31 | [rbs-design.md](rbs-design.md) |
