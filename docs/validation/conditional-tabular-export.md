@@ -3,7 +3,7 @@
 - Purpose: Inspect admitted conditional-calculator results as bounded UTF-8 CSV.
 - Scope: Standalone producer export; no new inference, schema or backend admission.
 - Last verified: 2026-10-31
-- State: Implemented and locally verified; independent exact-patch review pending.
+- State: Independently reviewed standalone projection; package/platform and scientific acceptance remain separate.
 
 `regsite-conditional REQUEST.json --format csv` projects the existing
 [conditional result](conditional-aptamer-runtime.md). The default and explicit
@@ -116,7 +116,8 @@ broken pipes; compare default and explicit JSON against the frozen original CLI.
 No new native/folding/version process or biological data is required for this export.
 
 The implementation has 70 passing focused tests with full 110-statement and
-26-branch exporter/CLI coverage. A separate ten-case artificial module check
+26-branch exporter/CLI coverage; independent exact-patch review reproduced all
+70 without warnings or skips. A separate ten-case artificial module check
 compares default and explicit JSON bytes/exit/stderr with the pre-export CLI at
 `ef46acd69b16021d1d83c4de5c65a682ad37faad`, including malformed input, unsupported
 requests, no-mRNA, Unicode, lone-surrogate and missing-backend cases. CSV rows
