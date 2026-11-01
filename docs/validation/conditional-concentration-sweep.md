@@ -3,7 +3,7 @@
 - Purpose: Compare explicit ligand-total concentrations under one unchanged supplied-energy model.
 - Scope: Bounded local orchestration of the existing conditional scalar component, without new inference or source admission.
 - Last verified: 2026-10-31
-- State: Implemented with focused tests and offline scalar CLI smoke; independent review accepted; package/platform gates pending.
+- State: Implemented and independently accepted; local, fresh-install and platform gates pass in the [0.14.0rc1 engineering package](engineering-0.14-candidate.md). Publication and scientific validation remain separate.
 
 ## Scientific boundary
 

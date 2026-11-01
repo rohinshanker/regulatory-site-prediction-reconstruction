@@ -4,6 +4,7 @@ Verification dates cover the stated source observations or specification review;
 
 | Area | Purpose | Last verified | Document |
 | --- | --- | --- | --- |
+| Engineering 0.14rc2 package | Frozen drafting-export integration, exact artifacts and verification boundaries | 2026-10-31 | [engineering-0.14rc2-candidate.md](engineering-0.14rc2-candidate.md) |
 | Engineering 0.14 package | Frozen design/sweep/export package, exact artifacts and verification boundaries | 2026-10-31 | [engineering-0.14-candidate.md](engineering-0.14-candidate.md) |
 | drafting-tabular-export | Independently reviewed supplied-rate CSV retaining every record, explicit numerical representations and authoritative JSON binding. | 2026-10-31 | [drafting-tabular-export.md](drafting-tabular-export.md) |
 | conditional-concentration-sweep | Independently reviewed finite concentration roster under unchanged supplied-energy assumptions. | 2026-10-31 | [conditional-concentration-sweep.md](conditional-concentration-sweep.md) |

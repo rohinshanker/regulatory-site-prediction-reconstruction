@@ -3,7 +3,7 @@
 - Purpose: Enumerate a small, explicitly allowed leader substitution neighborhood and rank it using an existing named RBS profile.
 - Scope: Original local design algorithm, not recovered hosted optimization or biological validation.
 - Last verified: 2026-10-31
-- State: Implemented; focused software tests and real artificial smoke pass. Independent review and final package/platform gates pending.
+- State: Implemented and independently accepted; local, fresh-install and platform gates pass in the [0.14.0rc1 engineering package](engineering-0.14-candidate.md). Publication and scientific validation remain separate.
 
 ## Source and scientific meaning
 

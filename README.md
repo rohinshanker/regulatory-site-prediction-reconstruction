@@ -94,13 +94,16 @@ Register complete files in explicit external storage and check their byte identi
 with the [offline artifact manifest tool](docs/validation/calculator-artifact-storage.md).
 
 The job runner has a frozen [0.10.0rc2 package](docs/validation/offline-jobs-0.10rc2-candidate.md)
-with installed-byte checks and explicit CI status. Development source `0.14.0rc2` adds the independently accepted
-[drafting CSV export](docs/validation/drafting-tabular-export.md); its package
-gates are pending. The preceding [0.14.0rc1 engineering package](docs/validation/engineering-0.14-candidate.md)
+with installed-byte checks and explicit CI status. The [0.14.0rc2 engineering package](docs/validation/engineering-0.14rc2-candidate.md)
+adds the independently accepted [drafting CSV export](docs/validation/drafting-tabular-export.md).
+It passed 7,554 local tests with zero skips and full measured coverage, and all
+64 fresh-installed example outputs. Independent package review is accepted;
+platform CI remains pending. The preceding [0.14.0rc1 engineering package](docs/validation/engineering-0.14-candidate.md)
 integrates bounded RBS design, explicit conditional concentration sweeps and
 conditional/termination CSV exports. It passed
 independent package review, fresh offline examples and 7,516 local tests with
-zero skips and full measured coverage; its platform CI remains pending. These
+zero skips and full measured coverage; all eight platform CI jobs passed at
+`db2919a8`. These
 checks are separate from the frozen scientific candidate below. The earlier `0.12.0rc1` integrates the independently reviewed optional
 [intrinsic-termination adapter](docs/validation/intrinsic-termination-runtime.md);
 its [0.11 package](docs/validation/termination-0.11-candidate.md) passed local

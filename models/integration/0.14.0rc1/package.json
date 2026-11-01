@@ -429,8 +429,62 @@
     "xml_sha256": "0c76be795e40b92853fb2fc511b3618443605d94fbc412d1de4cb73d0114796f"
   },
   "platform_ci": {
-    "note": "Prior d6efdab CI does not cover this source.",
-    "status": "pending"
+    "head_commit": "db2919a8886aa1453c32553228c26679a5d7d4b8",
+    "jobs": [
+      {
+        "conclusion": "success",
+        "job_id": 124730340444,
+        "name": "runtime (ubuntu-24.04, 3.14)"
+      },
+      {
+        "conclusion": "success",
+        "job_id": 124730340466,
+        "name": "runtime (ubuntu-24.04, 3.11)"
+      },
+      {
+        "conclusion": "success",
+        "job_id": 124730340471,
+        "name": "promoter-resources (macos-14, 3.11)"
+      },
+      {
+        "conclusion": "success",
+        "job_id": 124730340503,
+        "name": "runtime (macos-14, 3.11)"
+      },
+      {
+        "conclusion": "success",
+        "job_id": 124730340520,
+        "name": "promoter-resources (ubuntu-24.04, 3.14)"
+      },
+      {
+        "conclusion": "success",
+        "job_id": 124730340527,
+        "name": "runtime (macos-14, 3.14)"
+      },
+      {
+        "conclusion": "success",
+        "job_id": 124730340529,
+        "name": "promoter-resources (macos-14, 3.14)"
+      },
+      {
+        "conclusion": "success",
+        "job_id": 124730340599,
+        "name": "promoter-resources (ubuntu-24.04, 3.11)"
+      }
+    ],
+    "log_sha256": "3d2b25206fbd9a7fffed8505978442a19a3df99b6d2f54152ba7626174600cf2",
+    "repair_selection_tests_per_variant_per_runtime_job": 3233,
+    "run_id": 41266499984,
+    "runtime_and_workflow_equal_frozen_source": true,
+    "runtime_tests_per_job": {
+      "passed": 7515,
+      "skipped": 1,
+      "warnings": 8
+    },
+    "skip": "Exact admitted original conditional backend integration; enabled and passed in the zero-skip local suite.",
+    "source_commit": "d12a03feb83f579634df43bbce6203b222b88f70",
+    "status": "success",
+    "url": "https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/actions/runs/41266499984"
   },
   "publication_authorized": false,
   "schema_version": "regsite-engineering-package-1",

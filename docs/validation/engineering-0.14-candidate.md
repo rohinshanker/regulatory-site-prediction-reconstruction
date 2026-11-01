@@ -81,8 +81,14 @@ local Markdown file links passed. An exploratory wider benchmark type-check
 found preexisting dependency annotation/stub gaps outside that documented gate;
 no claim of repository-wide mypy cleanliness is made.
 
-Platform CI for the new integrated candidate is pending. Local acceptance does
-not substitute for those platform checks or grant publication approval.
+All eight jobs passed in [CI41266499984](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/actions/runs/41266499984)
+at `db2919a8886aa1453c32553228c26679a5d7d4b8`, whose runtime, tests and workflow
+equal the frozen source. Each macOS14/Ubuntu24.04 and Python3.11/3.14 runtime job
+passed 7,515 tests, with one declared exact-original-conditional integration skip
+and full measured coverage; that integration passed locally above. Each also
+passed both 3,233-test repaired-backend selections and fresh offline installation.
+The four Promoter resource jobs passed. These checks do not grant publication
+approval or transfer acceptance to a later source version.
 
 The 479-gene PCC 6803 development recheck runs the unchanged frozen 0.12 candidate,
 not this package. New source versions cannot inherit a biological evaluation by

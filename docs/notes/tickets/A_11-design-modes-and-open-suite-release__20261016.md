@@ -1,16 +1,16 @@
-# O_11-design-modes-and-open-suite-release__20261016 — Open
+# A_11-design-modes-and-open-suite-release__20261016 — Active
 
 - Scope: Complete design modes and release the fully usable open calculator suite.
-- Status: open
+- Status: active
 - Opened: 2026-10-16
-- Updated: 2026-10-16
-- Current State: Planned; implementation has not started. See the work and acceptance criteria below.
-- Verification: Repository setup checked ticket H1/fields, queue membership and local links on 2026-10-16; implementation validation is specified below and has not run.
+- Updated: 2026-10-31
+- Current State: A owns suite integration. Bounded RBS design is implemented and independently accepted under #74; conditional concentration sweeps under #77 and conditional, termination and drafting CSV projections under #76/#71/#78 are integrated. Frozen engineering candidates have separate package and platform evidence. Promoter target-profile design, multi-cistron objectives, complete sequence-to-switch design, broader biological validation and public release remain unfinished.
+- Verification: The [0.14.0rc1 engineering candidate](../../validation/engineering-0.14-candidate.md) passed independent review, fresh installation and 7,516 local tests with zero skips and full measured coverage. All eight rc1 platform jobs passed in CI41266499984. New drafting CSV0.14.0rc2 passed7,554local tests/zero skips/full coverage,64installed outputs and independent package review; its exact platform gate is pending. Publication retains a separate gate.
 - Cleanup: Owning session records final checks and unresolved findings, resolves the ticket, distills reusable guidance into docs/validation/, updates both indexes and linked GitHub issue, then removes the resolved ticket.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/11
 - Priority: P1
-- Owner: Unclaimed; the implementing session must claim this ticket before writing its scope.
-- Dependencies: Core 02, released predictors 06–09 and model-specific reference panels 05; RBS design may begin immediately after 06.
+- Owner: Session A (baf5b738-1792172297), runtime and integration; B retains independent scientific evaluation and C owns its separately agreed component slices.
+- Dependencies: Core 02, admitted predictors 06–09 and model-specific reference panels 05. Owner-authorized branch implementation may precede publication; scientific and publication acceptance remain separate.
 
 Complete production-relevant design capabilities and release all four calculators as a coherent public, reproducible suite. The owner intends unrestricted public accessibility under open-source terms; ordinary use must not consume De Novo DNA coins or require its accounts.
 
