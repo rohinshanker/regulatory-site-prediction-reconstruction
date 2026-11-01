@@ -1,0 +1,2654 @@
+{
+  "decimal_scores": [
+    {
+      "id": "d0_zero_plus",
+      "scores": {
+        "downstream_independent": {
+          "decimal_log_value": "0",
+          "decimal_value": "1"
+        },
+        "downstream_total": {
+          "decimal_log_value": "0.069526062648610245285026118143336400065628974776597425520520465846125164374808318",
+          "decimal_value": "1.0720"
+        },
+        "fold_change": {
+          "decimal_log_value": "0.069526062648610245285026118143336400065628974776597425520520465846125164374808318",
+          "decimal_value": "1.0720"
+        },
+        "reinitiation_contribution": {
+          "decimal_log_value": "-2.6310891599660817410117875258335115092818229471600542622685550071475483766857554",
+          "decimal_value": "0.0720"
+        },
+        "upstream_independent": {
+          "decimal_log_value": "0",
+          "decimal_value": "1"
+        }
+      }
+    },
+    {
+      "id": "d25_zero_plus",
+      "scores": {
+        "downstream_independent": {
+          "decimal_log_value": "0",
+          "decimal_value": "1"
+        },
+        "downstream_total": {
+          "decimal_log_value": "0.069526062648610245285026118143336400065628974776597425520520465846125164374808318",
+          "decimal_value": "1.0720"
+        },
+        "fold_change": {
+          "decimal_log_value": "0.069526062648610245285026118143336400065628974776597425520520465846125164374808318",
+          "decimal_value": "1.0720"
+        },
+        "reinitiation_contribution": {
+          "decimal_log_value": "-2.6310891599660817410117875258335115092818229471600542622685550071475483766857554",
+          "decimal_value": "0.0720"
+        },
+        "upstream_independent": {
+          "decimal_log_value": "0",
+          "decimal_value": "1"
+        }
+      }
+    },
+    {
+      "id": "dm4_zero_plus",
+      "scores": {
+        "downstream_independent": {
+          "decimal_log_value": "0",
+          "decimal_value": "1"
+        },
+        "downstream_total": {
+          "decimal_log_value": "0.19885085874516519013263831551506289918897890018397036499140785397768820945993849",
+          "decimal_value": "1.2200"
+        },
+        "fold_change": {
+          "decimal_log_value": "0.19885085874516519013263831551506289918897890018397036499140785397768820945993849",
+          "decimal_value": "1.2200"
+        },
+        "reinitiation_contribution": {
+          "decimal_log_value": "-1.5141277326297755145568072099454225473049959889598735227274080833111779734717735",
+          "decimal_value": "0.2200"
+        },
+        "upstream_independent": {
+          "decimal_log_value": "0",
+          "decimal_value": "1"
+        }
+      }
+    },
+    {
+      "id": "d3_unequal_plus",
+      "scores": {
+        "downstream_independent": {
+          "decimal_log_value": "0.69314718055994527500000000000000000000000000000000000000000000000000000000000001",
+          "decimal_value": "1.9999999999999999311655357570836480483948666336119731350871719396073077256254508"
+        },
+        "downstream_total": {
+          "decimal_log_value": "0.82767807351755142698091401155645023845311283180291033189702036404454488222419870",
+          "decimal_value": "2.2879999999999999113412100551237390274817978919639688596632032015253626616821964"
+        },
+        "fold_change": {
+          "decimal_log_value": "0.13453089295760615198091401155645023845311283180291033189702036404454488222419871",
+          "decimal_value": "1.1439999999999999950439185745100226594844303976200620657262763796517261562450325"
+        },
+        "reinitiation_contribution": {
+          "decimal_log_value": "-1.2447947988461911910117875258335115092818229471600542622685550071475483766857554",
+          "decimal_value": "0.28799999999999998017567429804009097908693125835199572457603126191805493605674555"
+        },
+        "upstream_independent": {
+          "decimal_log_value": "1.3862943611198905500000000000000000000000000000000000000000000000000000000000000",
+          "decimal_value": "3.9999999999999997246621430283345969317629341437777183968893230821952074452325771"
+        }
+      }
+    },
+    {
+      "id": "dm4_unequal_plus",
+      "scores": {
+        "downstream_independent": {
+          "decimal_log_value": "0.69314718055994527500000000000000000000000000000000000000000000000000000000000001",
+          "decimal_value": "1.9999999999999999311655357570836480483948666336119731350871719396073077256254508"
+        },
+        "downstream_total": {
+          "decimal_log_value": "1.0577902941478545169070595687523643296024628161561781054082108730338789665091339",
+          "decimal_value": "2.8799999999999998705912072233172593733827121452430711824028230176902533635766178"
+        },
+        "fold_change": {
+          "decimal_log_value": "0.36464311358790924190705956875236432960246281615617810540821087303387896650913389",
+          "decimal_value": "1.4399999999999999848564178665584025706468706593946340897191778267136076996375992"
+        },
+        "reinitiation_contribution": {
+          "decimal_log_value": "-0.12783337150988496455680720994542254730499598895987352272740808331117797347177354",
+          "decimal_value": "0.87999999999999993942567146623361132498784551163109804731565107808294563795116696"
+        },
+        "upstream_independent": {
+          "decimal_log_value": "1.3862943611198905500000000000000000000000000000000000000000000000000000000000000",
+          "decimal_value": "3.9999999999999997246621430283345969317629341437777183968893230821952074452325771"
+        }
+      }
+    },
+    {
+      "id": "d0_zero_minus",
+      "scores": {
+        "downstream_independent": {
+          "decimal_log_value": "0",
+          "decimal_value": "1"
+        },
+        "downstream_total": {
+          "decimal_log_value": "0.069526062648610245285026118143336400065628974776597425520520465846125164374808318",
+          "decimal_value": "1.0720"
+        },
+        "fold_change": {
+          "decimal_log_value": "0.069526062648610245285026118143336400065628974776597425520520465846125164374808318",
+          "decimal_value": "1.0720"
+        },
+        "reinitiation_contribution": {
+          "decimal_log_value": "-2.6310891599660817410117875258335115092818229471600542622685550071475483766857554",
+          "decimal_value": "0.0720"
+        },
+        "upstream_independent": {
+          "decimal_log_value": "0",
+          "decimal_value": "1"
+        }
+      }
+    },
+    {
+      "id": "d25_zero_minus",
+      "scores": {
+        "downstream_independent": {
+          "decimal_log_value": "0",
+          "decimal_value": "1"
+        },
+        "downstream_total": {
+          "decimal_log_value": "0.069526062648610245285026118143336400065628974776597425520520465846125164374808318",
+          "decimal_value": "1.0720"
+        },
+        "fold_change": {
+          "decimal_log_value": "0.069526062648610245285026118143336400065628974776597425520520465846125164374808318",
+          "decimal_value": "1.0720"
+        },
+        "reinitiation_contribution": {
+          "decimal_log_value": "-2.6310891599660817410117875258335115092818229471600542622685550071475483766857554",
+          "decimal_value": "0.0720"
+        },
+        "upstream_independent": {
+          "decimal_log_value": "0",
+          "decimal_value": "1"
+        }
+      }
+    },
+    {
+      "id": "dm4_zero_minus",
+      "scores": {
+        "downstream_independent": {
+          "decimal_log_value": "0",
+          "decimal_value": "1"
+        },
+        "downstream_total": {
+          "decimal_log_value": "0.19885085874516519013263831551506289918897890018397036499140785397768820945993849",
+          "decimal_value": "1.2200"
+        },
+        "fold_change": {
+          "decimal_log_value": "0.19885085874516519013263831551506289918897890018397036499140785397768820945993849",
+          "decimal_value": "1.2200"
+        },
+        "reinitiation_contribution": {
+          "decimal_log_value": "-1.5141277326297755145568072099454225473049959889598735227274080833111779734717735",
+          "decimal_value": "0.2200"
+        },
+        "upstream_independent": {
+          "decimal_log_value": "0",
+          "decimal_value": "1"
+        }
+      }
+    },
+    {
+      "id": "d3_unequal_minus",
+      "scores": {
+        "downstream_independent": {
+          "decimal_log_value": "0.69314718055994527500000000000000000000000000000000000000000000000000000000000001",
+          "decimal_value": "1.9999999999999999311655357570836480483948666336119731350871719396073077256254508"
+        },
+        "downstream_total": {
+          "decimal_log_value": "0.82767807351755142698091401155645023845311283180291033189702036404454488222419870",
+          "decimal_value": "2.2879999999999999113412100551237390274817978919639688596632032015253626616821964"
+        },
+        "fold_change": {
+          "decimal_log_value": "0.13453089295760615198091401155645023845311283180291033189702036404454488222419871",
+          "decimal_value": "1.1439999999999999950439185745100226594844303976200620657262763796517261562450325"
+        },
+        "reinitiation_contribution": {
+          "decimal_log_value": "-1.2447947988461911910117875258335115092818229471600542622685550071475483766857554",
+          "decimal_value": "0.28799999999999998017567429804009097908693125835199572457603126191805493605674555"
+        },
+        "upstream_independent": {
+          "decimal_log_value": "1.3862943611198905500000000000000000000000000000000000000000000000000000000000000",
+          "decimal_value": "3.9999999999999997246621430283345969317629341437777183968893230821952074452325771"
+        }
+      }
+    },
+    {
+      "id": "dm4_unequal_minus",
+      "scores": {
+        "downstream_independent": {
+          "decimal_log_value": "0.69314718055994527500000000000000000000000000000000000000000000000000000000000001",
+          "decimal_value": "1.9999999999999999311655357570836480483948666336119731350871719396073077256254508"
+        },
+        "downstream_total": {
+          "decimal_log_value": "1.0577902941478545169070595687523643296024628161561781054082108730338789665091339",
+          "decimal_value": "2.8799999999999998705912072233172593733827121452430711824028230176902533635766178"
+        },
+        "fold_change": {
+          "decimal_log_value": "0.36464311358790924190705956875236432960246281615617810540821087303387896650913389",
+          "decimal_value": "1.4399999999999999848564178665584025706468706593946340897191778267136076996375992"
+        },
+        "reinitiation_contribution": {
+          "decimal_log_value": "-0.12783337150988496455680720994542254730499598895987352272740808331117797347177354",
+          "decimal_value": "0.87999999999999993942567146623361132498784551163109804731565107808294563795116696"
+        },
+        "upstream_independent": {
+          "decimal_log_value": "1.3862943611198905500000000000000000000000000000000000000000000000000000000000000",
+          "decimal_value": "3.9999999999999997246621430283345969317629341437777183968893230821952074452325771"
+        }
+      }
+    },
+    {
+      "id": "dm7_unsupported_plus",
+      "scores": null
+    },
+    {
+      "id": "dm1_unsupported_plus",
+      "scores": null
+    },
+    {
+      "id": "d26_unsupported_plus",
+      "scores": null
+    },
+    {
+      "id": "dm7_unsupported_minus",
+      "scores": null
+    },
+    {
+      "id": "dm1_unsupported_minus",
+      "scores": null
+    },
+    {
+      "id": "d26_unsupported_minus",
+      "scores": null
+    },
+    {
+      "id": "both_underflow",
+      "scores": {
+        "downstream_independent": {
+          "decimal_log_value": "-900.00000000000000000000000000000000000000000000000000000000000000000000000000000",
+          "decimal_value": "1.3644772123656827616994909268146948513831989098164982303453765055968303081282816E-391"
+        },
+        "downstream_total": {
+          "decimal_log_value": "-899.93047393735138975471497388185666359993437102522340257447947953415387483562519",
+          "decimal_value": "1.4627195716560119205418542735453528806827892313232861029302436139998020903135179E-391"
+        },
+        "fold_change": {
+          "decimal_log_value": "0.069526062648610245285026118143336400065628974776597425520520465846125164374808318",
+          "decimal_value": "1.0720000000000000000000000000000000000000000000000000000000000000000000000000000"
+        },
+        "reinitiation_contribution": {
+          "decimal_log_value": "-902.63108915996608174101178752583351150928182294716005426226855500714754837668576",
+          "decimal_value": "9.8242359290329158842363346730658029299590321506787872584867108402971782185236275E-393"
+        },
+        "upstream_independent": {
+          "decimal_log_value": "-900.00000000000000000000000000000000000000000000000000000000000000000000000000000",
+          "decimal_value": "1.3644772123656827616994909268146948513831989098164982303453765055968303081282816E-391"
+        }
+      }
+    },
+    {
+      "id": "both_overflow",
+      "scores": {
+        "downstream_independent": {
+          "decimal_log_value": "900.00000000000000000000000000000000000000000000000000000000000000000000000000000",
+          "decimal_value": "7.3288142223074217051886647317938099622008033724702574008074635515805299883831438E+390"
+        },
+        "downstream_total": {
+          "decimal_log_value": "900.06952606264861024528502611814333640006562897477659742552052046584612516437481",
+          "decimal_value": "7.8564888463135560679622485924829642794792612152881159336656009272943281475467302E+390"
+        },
+        "fold_change": {
+          "decimal_log_value": "0.069526062648610245285026118143336400065628974776597425520520465846125164374808318",
+          "decimal_value": "1.0720000000000000000000000000000000000000000000000000000000000000000000000000000"
+        },
+        "reinitiation_contribution": {
+          "decimal_log_value": "897.36891084003391825898821247416648849071817705283994573773144499285245162331424",
+          "decimal_value": "5.2767462400613436277358386068915431727845784281785853285813737571379815916358635E+389"
+        },
+        "upstream_independent": {
+          "decimal_log_value": "900.00000000000000000000000000000000000000000000000000000000000000000000000000000",
+          "decimal_value": "7.3288142223074217051886647317938099622008033724702574008074635515805299883831438E+390"
+        }
+      }
+    },
+    {
+      "id": "up_over_down_under",
+      "scores": {
+        "downstream_independent": {
+          "decimal_log_value": "-900.00000000000000000000000000000000000000000000000000000000000000000000000000000",
+          "decimal_value": "1.3644772123656827616994909268146948513831989098164982303453765055968303081282816E-391"
+        },
+        "downstream_total": {
+          "decimal_log_value": "898.48587226737022448544319279005457745269500401104012647727259191668882202652823",
+          "decimal_value": "1.6123391289076327751415062409946381916841767419434566281776419813477165974442916E+390"
+        },
+        "fold_change": {
+          "decimal_log_value": "1798.4858722673702244854431927900545774526950040110401264772725919166888220265282",
+          "decimal_value": "1.1816533939121018451161589786067170994175969178750013238387614711396722052027645E+781"
+        },
+        "reinitiation_contribution": {
+          "decimal_log_value": "898.48587226737022448544319279005457745269500401104012647727259191668882202652823",
+          "decimal_value": "1.6123391289076327751415062409946381916841767419434566281776419813477165974442916E+390"
+        },
+        "upstream_independent": {
+          "decimal_log_value": "900.00000000000000000000000000000000000000000000000000000000000000000000000000000",
+          "decimal_value": "7.3288142223074217051886647317938099622008033724702574008074635515805299883831438E+390"
+        }
+      }
+    },
+    {
+      "id": "up_under_down_over",
+      "scores": {
+        "downstream_independent": {
+          "decimal_log_value": "900.00000000000000000000000000000000000000000000000000000000000000000000000000000",
+          "decimal_value": "7.3288142223074217051886647317938099622008033724702574008074635515805299883831438E+390"
+        },
+        "downstream_total": {
+          "decimal_log_value": "900.00000000000000000000000000000000000000000000000000000000000000000000000000000",
+          "decimal_value": "7.3288142223074217051886647317938099622008033724702574008074635515805299883831438E+390"
+        },
+        "fold_change": {
+          "decimal_log_value": "0",
+          "decimal_value": "1"
+        },
+        "reinitiation_contribution": {
+          "decimal_log_value": "-901.51412773262977551455680720994542254730499598895987352272740808331117797347177",
+          "decimal_value": "3.0018498672045020757388800389923286730430376015962961067598283123130266778822195E-392"
+        },
+        "upstream_independent": {
+          "decimal_log_value": "-900.00000000000000000000000000000000000000000000000000000000000000000000000000000",
+          "decimal_value": "1.3644772123656827616994909268146948513831989098164982303453765055968303081282816E-391"
+        }
+      }
+    },
+    {
+      "id": "small_finite",
+      "scores": {
+        "downstream_independent": {
+          "decimal_log_value": "-450.00000000000000000000000000000000000000000000000000000000000000000000000000000",
+          "decimal_value": "3.6938830684872562187934275245707479984912684809256483768734951290937725795252247E-196"
+        },
+        "downstream_total": {
+          "decimal_log_value": "-449.93047393735138975471497388185666359993437102522340257447947953415387483562519",
+          "decimal_value": "3.9598426494183386665465543063398418543826398115522950600083867783885242052510409E-196"
+        },
+        "fold_change": {
+          "decimal_log_value": "0.069526062648610245285026118143336400065628974776597425520520465846125164374808318",
+          "decimal_value": "1.0720000000000000000000000000000000000000000000000000000000000000000000000000000"
+        },
+        "reinitiation_contribution": {
+          "decimal_log_value": "-452.63108915996608174101178752583351150928182294716005426226855500714754837668576",
+          "decimal_value": "2.6595958093108244775312678176909385589137133062664668313489164929475162572581618E-197"
+        },
+        "upstream_independent": {
+          "decimal_log_value": "-450.00000000000000000000000000000000000000000000000000000000000000000000000000000",
+          "decimal_value": "3.6938830684872562187934275245707479984912684809256483768734951290937725795252247E-196"
+        }
+      }
+    },
+    {
+      "id": "fold_only_overflow",
+      "scores": {
+        "downstream_independent": {
+          "decimal_log_value": "-450.00000000000000000000000000000000000000000000000000000000000000000000000000000",
+          "decimal_value": "3.6938830684872562187934275245707479984912684809256483768734951290937725795252247E-196"
+        },
+        "downstream_total": {
+          "decimal_log_value": "447.36891084003391825898821247416648849071817705283994573773144499285245162331424",
+          "decimal_value": "1.9491683592866387928287835497866217898721277264156581215976236895599310762691414E+194"
+        },
+        "fold_change": {
+          "decimal_log_value": "897.36891084003391825898821247416648849071817705283994573773144499285245162331424",
+          "decimal_value": "5.2767462400613436277358386068915431727845784281785853285813737571379815916358635E+389"
+        },
+        "reinitiation_contribution": {
+          "decimal_log_value": "447.36891084003391825898821247416648849071817705283994573773144499285245162331424",
+          "decimal_value": "1.9491683592866387928287835497866217898721277264156581215976236895599310762691414E+194"
+        },
+        "upstream_independent": {
+          "decimal_log_value": "450.00000000000000000000000000000000000000000000000000000000000000000000000000000",
+          "decimal_value": "2.7071782767869983233733104858147524859335107311328585022189217910554598281515853E+195"
+        }
+      }
+    },
+    {
+      "id": "upper_energy_bound",
+      "scores": {
+        "downstream_independent": {
+          "decimal_log_value": "-450000.00000000000000000000000000000000000000000000000000000000000000000000000000",
+          "decimal_value": "3.0418902207427960548448037699164443323459135112424945436870442481209760351537005E-195433"
+        },
+        "downstream_total": {
+          "decimal_log_value": "-449999.93047393735138975471497388185666359993437102522340257447947953415387483563",
+          "decimal_value": "3.2609063166362773707936296413504283242748192840519541508325114339856863096847669E-195433"
+        },
+        "fold_change": {
+          "decimal_log_value": "0.069526062648610245285026118143336400065628974776597425520520465846125164374808318",
+          "decimal_value": "1.0720000000000000000000000000000000000000000000000000000000000000000000000000000"
+        },
+        "reinitiation_contribution": {
+          "decimal_log_value": "-450002.63108915996608174101178752583351150928182294716005426226855500714754837669",
+          "decimal_value": "2.1901609589348131594882587143398399192890577280945960714546718586471027453106644E-195434"
+        },
+        "upstream_independent": {
+          "decimal_log_value": "-450000.00000000000000000000000000000000000000000000000000000000000000000000000000",
+          "decimal_value": "3.0418902207427960548448037699164443323459135112424945436870442481209760351537005E-195433"
+        }
+      }
+    },
+    {
+      "id": "lower_energy_bound",
+      "scores": {
+        "downstream_independent": {
+          "decimal_log_value": "450000.00000000000000000000000000000000000000000000000000000000000000000000000000",
+          "decimal_value": "3.2874296159044524133833482568799021758558705887182078986379623240334150895569077E+195432"
+        },
+        "downstream_total": {
+          "decimal_log_value": "450000.19885085874516519013263831551506289918897890018397036499140785397768820946",
+          "decimal_value": "4.0106641314034319443276848733934806545441621182362136363383140353207664092594274E+195432"
+        },
+        "fold_change": {
+          "decimal_log_value": "0.19885085874516519013263831551506289918897890018397036499140785397768820945993849",
+          "decimal_value": "1.2200000000000000000000000000000000000000000000000000000000000000000000000000000"
+        },
+        "reinitiation_contribution": {
+          "decimal_log_value": "449998.48587226737022448544319279005457745269500401104012647727259191668882202653",
+          "decimal_value": "7.2323451549897953094433661651357847868829152951800573770035171128735131970251969E+195431"
+        },
+        "upstream_independent": {
+          "decimal_log_value": "450000.00000000000000000000000000000000000000000000000000000000000000000000000000",
+          "decimal_value": "3.2874296159044524133833482568799021758558705887182078986379623240334150895569077E+195432"
+        }
+      }
+    }
+  ],
+  "expected_records": [
+    {
+      "coefficient": 0.0072,
+      "energies": {
+        "beta_mol_per_kcal": 0.45,
+        "downstream_independent_total_kcal_mol": 0.0,
+        "provenance": "Independent artificial fixture; common exp(-beta*G) scale; no intercept or unfolding correction.",
+        "upstream_total_kcal_mol": 0.0
+      },
+      "geometry": {
+        "distance_nt": 0,
+        "downstream": {
+          "id": "toy-down",
+          "interval": [
+            33,
+            63
+          ],
+          "oriented_interval": [
+            33,
+            63
+          ],
+          "start_codon": "AUG",
+          "stop_codon": "UAG"
+        },
+        "oriented_sequence_sha256": "f97014a882ded198411b64b3d74c5372e5fd7955e9aba504b48d3a76c74e99b6",
+        "sequence_length": 70,
+        "sequence_sha256": "f97014a882ded198411b64b3d74c5372e5fd7955e9aba504b48d3a76c74e99b6",
+        "strand": "+",
+        "upstream": {
+          "id": "toy-up",
+          "interval": [
+            3,
+            33
+          ],
+          "oriented_interval": [
+            3,
+            33
+          ],
+          "start_codon": "AUG",
+          "stop_codon": "UAA"
+        }
+      },
+      "id": "d0_zero_plus",
+      "index": 0,
+      "reason": null,
+      "scores": {
+        "downstream_independent": {
+          "log_value": 0.0,
+          "value": 1.0
+        },
+        "downstream_total": {
+          "log_value": 0.06952606264861025,
+          "value": 1.072
+        },
+        "fold_change": {
+          "log_value": 0.06952606264861025,
+          "value": 1.072
+        },
+        "reinitiation_contribution": {
+          "log_value": -2.631089159966082,
+          "value": 0.072
+        },
+        "upstream_independent": {
+          "log_value": 0.0,
+          "value": 1.0
+        }
+      },
+      "status": "ok",
+      "unfolding_correction": null
+    },
+    {
+      "coefficient": 0.0072,
+      "energies": {
+        "beta_mol_per_kcal": 0.45,
+        "downstream_independent_total_kcal_mol": 0.0,
+        "provenance": "Independent artificial fixture; common exp(-beta*G) scale; no intercept or unfolding correction.",
+        "upstream_total_kcal_mol": 0.0
+      },
+      "geometry": {
+        "distance_nt": 25,
+        "downstream": {
+          "id": "toy-down",
+          "interval": [
+            58,
+            88
+          ],
+          "oriented_interval": [
+            58,
+            88
+          ],
+          "start_codon": "GUG",
+          "stop_codon": "UAG"
+        },
+        "oriented_sequence_sha256": "8de8f45700332949a4fad1e0657646d15b7f597f18799d0be754393e234180e0",
+        "sequence_length": 95,
+        "sequence_sha256": "8de8f45700332949a4fad1e0657646d15b7f597f18799d0be754393e234180e0",
+        "strand": "+",
+        "upstream": {
+          "id": "toy-up",
+          "interval": [
+            3,
+            33
+          ],
+          "oriented_interval": [
+            3,
+            33
+          ],
+          "start_codon": "GUG",
+          "stop_codon": "UAA"
+        }
+      },
+      "id": "d25_zero_plus",
+      "index": 1,
+      "reason": null,
+      "scores": {
+        "downstream_independent": {
+          "log_value": 0.0,
+          "value": 1.0
+        },
+        "downstream_total": {
+          "log_value": 0.06952606264861025,
+          "value": 1.072
+        },
+        "fold_change": {
+          "log_value": 0.06952606264861025,
+          "value": 1.072
+        },
+        "reinitiation_contribution": {
+          "log_value": -2.631089159966082,
+          "value": 0.072
+        },
+        "upstream_independent": {
+          "log_value": 0.0,
+          "value": 1.0
+        }
+      },
+      "status": "ok",
+      "unfolding_correction": null
+    },
+    {
+      "coefficient": 0.022,
+      "energies": {
+        "beta_mol_per_kcal": 0.45,
+        "downstream_independent_total_kcal_mol": 0.0,
+        "provenance": "Independent artificial fixture; common exp(-beta*G) scale; no intercept or unfolding correction.",
+        "upstream_total_kcal_mol": 0.0
+      },
+      "geometry": {
+        "distance_nt": -4,
+        "downstream": {
+          "id": "toy-down",
+          "interval": [
+            29,
+            59
+          ],
+          "oriented_interval": [
+            29,
+            59
+          ],
+          "start_codon": "UUG",
+          "stop_codon": "UAG"
+        },
+        "oriented_sequence_sha256": "afaf913498c443dc9a8e0f4895822e5b03dc122e07b871203ad39a23397c7c5e",
+        "sequence_length": 66,
+        "sequence_sha256": "afaf913498c443dc9a8e0f4895822e5b03dc122e07b871203ad39a23397c7c5e",
+        "strand": "+",
+        "upstream": {
+          "id": "toy-up",
+          "interval": [
+            3,
+            33
+          ],
+          "oriented_interval": [
+            3,
+            33
+          ],
+          "start_codon": "AUG",
+          "stop_codon": "UGA"
+        }
+      },
+      "id": "dm4_zero_plus",
+      "index": 2,
+      "reason": null,
+      "scores": {
+        "downstream_independent": {
+          "log_value": 0.0,
+          "value": 1.0
+        },
+        "downstream_total": {
+          "log_value": 0.1988508587451652,
+          "value": 1.22
+        },
+        "fold_change": {
+          "log_value": 0.1988508587451652,
+          "value": 1.22
+        },
+        "reinitiation_contribution": {
+          "log_value": -1.5141277326297755,
+          "value": 0.22
+        },
+        "upstream_independent": {
+          "log_value": 0.0,
+          "value": 1.0
+        }
+      },
+      "status": "ok",
+      "unfolding_correction": null
+    },
+    {
+      "coefficient": 0.0072,
+      "energies": {
+        "beta_mol_per_kcal": 0.45,
+        "downstream_independent_total_kcal_mol": -1.5403270679109895,
+        "provenance": "Independent artificial fixture; common exp(-beta*G) scale; no intercept or unfolding correction.",
+        "upstream_total_kcal_mol": -3.080654135821979
+      },
+      "geometry": {
+        "distance_nt": 3,
+        "downstream": {
+          "id": "toy-down",
+          "interval": [
+            36,
+            66
+          ],
+          "oriented_interval": [
+            36,
+            66
+          ],
+          "start_codon": "AUG",
+          "stop_codon": "UAG"
+        },
+        "oriented_sequence_sha256": "901bc85f29ac0d153b747d0d7dc4e164987981f836d7cf7fb3ce097f7bbc2037",
+        "sequence_length": 73,
+        "sequence_sha256": "901bc85f29ac0d153b747d0d7dc4e164987981f836d7cf7fb3ce097f7bbc2037",
+        "strand": "+",
+        "upstream": {
+          "id": "toy-up",
+          "interval": [
+            3,
+            33
+          ],
+          "oriented_interval": [
+            3,
+            33
+          ],
+          "start_codon": "UUG",
+          "stop_codon": "UAA"
+        }
+      },
+      "id": "d3_unequal_plus",
+      "index": 3,
+      "reason": null,
+      "scores": {
+        "downstream_independent": {
+          "log_value": 0.6931471805599453,
+          "value": 2.0
+        },
+        "downstream_total": {
+          "log_value": 0.8276780735175514,
+          "value": 2.288
+        },
+        "fold_change": {
+          "log_value": 0.13453089295760615,
+          "value": 1.144
+        },
+        "reinitiation_contribution": {
+          "log_value": -1.2447947988461912,
+          "value": 0.288
+        },
+        "upstream_independent": {
+          "log_value": 1.3862943611198906,
+          "value": 3.9999999999999996
+        }
+      },
+      "status": "ok",
+      "unfolding_correction": null
+    },
+    {
+      "coefficient": 0.022,
+      "energies": {
+        "beta_mol_per_kcal": 0.45,
+        "downstream_independent_total_kcal_mol": -1.5403270679109895,
+        "provenance": "Independent artificial fixture; common exp(-beta*G) scale; no intercept or unfolding correction.",
+        "upstream_total_kcal_mol": -3.080654135821979
+      },
+      "geometry": {
+        "distance_nt": -4,
+        "downstream": {
+          "id": "toy-down",
+          "interval": [
+            29,
+            59
+          ],
+          "oriented_interval": [
+            29,
+            59
+          ],
+          "start_codon": "AUG",
+          "stop_codon": "UAG"
+        },
+        "oriented_sequence_sha256": "7d532c5c637f8ed95e1658c35ca583ebcf3ac596e34689258583c7a55b8394ba",
+        "sequence_length": 66,
+        "sequence_sha256": "7d532c5c637f8ed95e1658c35ca583ebcf3ac596e34689258583c7a55b8394ba",
+        "strand": "+",
+        "upstream": {
+          "id": "toy-up",
+          "interval": [
+            3,
+            33
+          ],
+          "oriented_interval": [
+            3,
+            33
+          ],
+          "start_codon": "AUG",
+          "stop_codon": "UGA"
+        }
+      },
+      "id": "dm4_unequal_plus",
+      "index": 4,
+      "reason": null,
+      "scores": {
+        "downstream_independent": {
+          "log_value": 0.6931471805599453,
+          "value": 2.0
+        },
+        "downstream_total": {
+          "log_value": 1.0577902941478545,
+          "value": 2.88
+        },
+        "fold_change": {
+          "log_value": 0.36464311358790924,
+          "value": 1.44
+        },
+        "reinitiation_contribution": {
+          "log_value": -0.12783337150988497,
+          "value": 0.8799999999999999
+        },
+        "upstream_independent": {
+          "log_value": 1.3862943611198906,
+          "value": 3.9999999999999996
+        }
+      },
+      "status": "ok",
+      "unfolding_correction": null
+    },
+    {
+      "coefficient": 0.0072,
+      "energies": {
+        "beta_mol_per_kcal": 0.45,
+        "downstream_independent_total_kcal_mol": 0.0,
+        "provenance": "Independent artificial fixture; common exp(-beta*G) scale; no intercept or unfolding correction.",
+        "upstream_total_kcal_mol": 0.0
+      },
+      "geometry": {
+        "distance_nt": 0,
+        "downstream": {
+          "id": "toy-down",
+          "interval": [
+            7,
+            37
+          ],
+          "oriented_interval": [
+            33,
+            63
+          ],
+          "start_codon": "AUG",
+          "stop_codon": "UAG"
+        },
+        "oriented_sequence_sha256": "f97014a882ded198411b64b3d74c5372e5fd7955e9aba504b48d3a76c74e99b6",
+        "sequence_length": 70,
+        "sequence_sha256": "75e3f3f4238fa5ed6d7c9d28710ff51ef421b8858b05153c35e8241c4de36393",
+        "strand": "-",
+        "upstream": {
+          "id": "toy-up",
+          "interval": [
+            37,
+            67
+          ],
+          "oriented_interval": [
+            3,
+            33
+          ],
+          "start_codon": "AUG",
+          "stop_codon": "UAA"
+        }
+      },
+      "id": "d0_zero_minus",
+      "index": 5,
+      "reason": null,
+      "scores": {
+        "downstream_independent": {
+          "log_value": 0.0,
+          "value": 1.0
+        },
+        "downstream_total": {
+          "log_value": 0.06952606264861025,
+          "value": 1.072
+        },
+        "fold_change": {
+          "log_value": 0.06952606264861025,
+          "value": 1.072
+        },
+        "reinitiation_contribution": {
+          "log_value": -2.631089159966082,
+          "value": 0.072
+        },
+        "upstream_independent": {
+          "log_value": 0.0,
+          "value": 1.0
+        }
+      },
+      "status": "ok",
+      "unfolding_correction": null
+    },
+    {
+      "coefficient": 0.0072,
+      "energies": {
+        "beta_mol_per_kcal": 0.45,
+        "downstream_independent_total_kcal_mol": 0.0,
+        "provenance": "Independent artificial fixture; common exp(-beta*G) scale; no intercept or unfolding correction.",
+        "upstream_total_kcal_mol": 0.0
+      },
+      "geometry": {
+        "distance_nt": 25,
+        "downstream": {
+          "id": "toy-down",
+          "interval": [
+            7,
+            37
+          ],
+          "oriented_interval": [
+            58,
+            88
+          ],
+          "start_codon": "GUG",
+          "stop_codon": "UAG"
+        },
+        "oriented_sequence_sha256": "8de8f45700332949a4fad1e0657646d15b7f597f18799d0be754393e234180e0",
+        "sequence_length": 95,
+        "sequence_sha256": "50c5712bed4a0d9f43ae771e64e04fed8c220e82f039d5a89c31c6d55e053827",
+        "strand": "-",
+        "upstream": {
+          "id": "toy-up",
+          "interval": [
+            62,
+            92
+          ],
+          "oriented_interval": [
+            3,
+            33
+          ],
+          "start_codon": "GUG",
+          "stop_codon": "UAA"
+        }
+      },
+      "id": "d25_zero_minus",
+      "index": 6,
+      "reason": null,
+      "scores": {
+        "downstream_independent": {
+          "log_value": 0.0,
+          "value": 1.0
+        },
+        "downstream_total": {
+          "log_value": 0.06952606264861025,
+          "value": 1.072
+        },
+        "fold_change": {
+          "log_value": 0.06952606264861025,
+          "value": 1.072
+        },
+        "reinitiation_contribution": {
+          "log_value": -2.631089159966082,
+          "value": 0.072
+        },
+        "upstream_independent": {
+          "log_value": 0.0,
+          "value": 1.0
+        }
+      },
+      "status": "ok",
+      "unfolding_correction": null
+    },
+    {
+      "coefficient": 0.022,
+      "energies": {
+        "beta_mol_per_kcal": 0.45,
+        "downstream_independent_total_kcal_mol": 0.0,
+        "provenance": "Independent artificial fixture; common exp(-beta*G) scale; no intercept or unfolding correction.",
+        "upstream_total_kcal_mol": 0.0
+      },
+      "geometry": {
+        "distance_nt": -4,
+        "downstream": {
+          "id": "toy-down",
+          "interval": [
+            7,
+            37
+          ],
+          "oriented_interval": [
+            29,
+            59
+          ],
+          "start_codon": "UUG",
+          "stop_codon": "UAG"
+        },
+        "oriented_sequence_sha256": "afaf913498c443dc9a8e0f4895822e5b03dc122e07b871203ad39a23397c7c5e",
+        "sequence_length": 66,
+        "sequence_sha256": "c4d73069acec5a928e1542b63dcbeadcc259794fa578be875fbfc931e3ea2807",
+        "strand": "-",
+        "upstream": {
+          "id": "toy-up",
+          "interval": [
+            33,
+            63
+          ],
+          "oriented_interval": [
+            3,
+            33
+          ],
+          "start_codon": "AUG",
+          "stop_codon": "UGA"
+        }
+      },
+      "id": "dm4_zero_minus",
+      "index": 7,
+      "reason": null,
+      "scores": {
+        "downstream_independent": {
+          "log_value": 0.0,
+          "value": 1.0
+        },
+        "downstream_total": {
+          "log_value": 0.1988508587451652,
+          "value": 1.22
+        },
+        "fold_change": {
+          "log_value": 0.1988508587451652,
+          "value": 1.22
+        },
+        "reinitiation_contribution": {
+          "log_value": -1.5141277326297755,
+          "value": 0.22
+        },
+        "upstream_independent": {
+          "log_value": 0.0,
+          "value": 1.0
+        }
+      },
+      "status": "ok",
+      "unfolding_correction": null
+    },
+    {
+      "coefficient": 0.0072,
+      "energies": {
+        "beta_mol_per_kcal": 0.45,
+        "downstream_independent_total_kcal_mol": -1.5403270679109895,
+        "provenance": "Independent artificial fixture; common exp(-beta*G) scale; no intercept or unfolding correction.",
+        "upstream_total_kcal_mol": -3.080654135821979
+      },
+      "geometry": {
+        "distance_nt": 3,
+        "downstream": {
+          "id": "toy-down",
+          "interval": [
+            7,
+            37
+          ],
+          "oriented_interval": [
+            36,
+            66
+          ],
+          "start_codon": "AUG",
+          "stop_codon": "UAG"
+        },
+        "oriented_sequence_sha256": "901bc85f29ac0d153b747d0d7dc4e164987981f836d7cf7fb3ce097f7bbc2037",
+        "sequence_length": 73,
+        "sequence_sha256": "00bf7616be06a151faf1877ec52dc229045ed818c460a89c58d1d617c03f7f43",
+        "strand": "-",
+        "upstream": {
+          "id": "toy-up",
+          "interval": [
+            40,
+            70
+          ],
+          "oriented_interval": [
+            3,
+            33
+          ],
+          "start_codon": "UUG",
+          "stop_codon": "UAA"
+        }
+      },
+      "id": "d3_unequal_minus",
+      "index": 8,
+      "reason": null,
+      "scores": {
+        "downstream_independent": {
+          "log_value": 0.6931471805599453,
+          "value": 2.0
+        },
+        "downstream_total": {
+          "log_value": 0.8276780735175514,
+          "value": 2.288
+        },
+        "fold_change": {
+          "log_value": 0.13453089295760615,
+          "value": 1.144
+        },
+        "reinitiation_contribution": {
+          "log_value": -1.2447947988461912,
+          "value": 0.288
+        },
+        "upstream_independent": {
+          "log_value": 1.3862943611198906,
+          "value": 3.9999999999999996
+        }
+      },
+      "status": "ok",
+      "unfolding_correction": null
+    },
+    {
+      "coefficient": 0.022,
+      "energies": {
+        "beta_mol_per_kcal": 0.45,
+        "downstream_independent_total_kcal_mol": -1.5403270679109895,
+        "provenance": "Independent artificial fixture; common exp(-beta*G) scale; no intercept or unfolding correction.",
+        "upstream_total_kcal_mol": -3.080654135821979
+      },
+      "geometry": {
+        "distance_nt": -4,
+        "downstream": {
+          "id": "toy-down",
+          "interval": [
+            7,
+            37
+          ],
+          "oriented_interval": [
+            29,
+            59
+          ],
+          "start_codon": "AUG",
+          "stop_codon": "UAG"
+        },
+        "oriented_sequence_sha256": "7d532c5c637f8ed95e1658c35ca583ebcf3ac596e34689258583c7a55b8394ba",
+        "sequence_length": 66,
+        "sequence_sha256": "dca7b6d136dd4f6de2650fc29d1fcda0c06d4f96e3079f478e17f0e6a051cc63",
+        "strand": "-",
+        "upstream": {
+          "id": "toy-up",
+          "interval": [
+            33,
+            63
+          ],
+          "oriented_interval": [
+            3,
+            33
+          ],
+          "start_codon": "AUG",
+          "stop_codon": "UGA"
+        }
+      },
+      "id": "dm4_unequal_minus",
+      "index": 9,
+      "reason": null,
+      "scores": {
+        "downstream_independent": {
+          "log_value": 0.6931471805599453,
+          "value": 2.0
+        },
+        "downstream_total": {
+          "log_value": 1.0577902941478545,
+          "value": 2.88
+        },
+        "fold_change": {
+          "log_value": 0.36464311358790924,
+          "value": 1.44
+        },
+        "reinitiation_contribution": {
+          "log_value": -0.12783337150988497,
+          "value": 0.8799999999999999
+        },
+        "upstream_independent": {
+          "log_value": 1.3862943611198906,
+          "value": 3.9999999999999996
+        }
+      },
+      "status": "ok",
+      "unfolding_correction": null
+    },
+    {
+      "coefficient": null,
+      "energies": {
+        "beta_mol_per_kcal": 0.45,
+        "downstream_independent_total_kcal_mol": 0.0,
+        "provenance": "Independent artificial fixture; common exp(-beta*G) scale; no intercept or unfolding correction.",
+        "upstream_total_kcal_mol": 0.0
+      },
+      "geometry": {
+        "distance_nt": -7,
+        "downstream": {
+          "id": "toy-down",
+          "interval": [
+            26,
+            56
+          ],
+          "oriented_interval": [
+            26,
+            56
+          ],
+          "start_codon": "AUG",
+          "stop_codon": "UAG"
+        },
+        "oriented_sequence_sha256": "5a1641751a963d36bf4a3ffaee369c8caaa995f06a5d5d4f708f1acca6ff3587",
+        "sequence_length": 63,
+        "sequence_sha256": "5a1641751a963d36bf4a3ffaee369c8caaa995f06a5d5d4f708f1acca6ff3587",
+        "strand": "+",
+        "upstream": {
+          "id": "toy-up",
+          "interval": [
+            3,
+            33
+          ],
+          "oriented_interval": [
+            3,
+            33
+          ],
+          "start_codon": "AUG",
+          "stop_codon": "UAA"
+        }
+      },
+      "id": "dm7_unsupported_plus",
+      "index": 10,
+      "reason": "no_admitted_distance_coefficient",
+      "scores": null,
+      "status": "unsupported_distance",
+      "unfolding_correction": null
+    },
+    {
+      "coefficient": null,
+      "energies": {
+        "beta_mol_per_kcal": 0.45,
+        "downstream_independent_total_kcal_mol": 0.0,
+        "provenance": "Independent artificial fixture; common exp(-beta*G) scale; no intercept or unfolding correction.",
+        "upstream_total_kcal_mol": 0.0
+      },
+      "geometry": {
+        "distance_nt": -1,
+        "downstream": {
+          "id": "toy-down",
+          "interval": [
+            32,
+            62
+          ],
+          "oriented_interval": [
+            32,
+            62
+          ],
+          "start_codon": "AUG",
+          "stop_codon": "UAG"
+        },
+        "oriented_sequence_sha256": "8f46e1c19f9c1622e6247d317f5aa28d437df36fe3a557add704acb22cb72ef3",
+        "sequence_length": 69,
+        "sequence_sha256": "8f46e1c19f9c1622e6247d317f5aa28d437df36fe3a557add704acb22cb72ef3",
+        "strand": "+",
+        "upstream": {
+          "id": "toy-up",
+          "interval": [
+            3,
+            33
+          ],
+          "oriented_interval": [
+            3,
+            33
+          ],
+          "start_codon": "AUG",
+          "stop_codon": "UAA"
+        }
+      },
+      "id": "dm1_unsupported_plus",
+      "index": 11,
+      "reason": "no_admitted_distance_coefficient",
+      "scores": null,
+      "status": "unsupported_distance",
+      "unfolding_correction": null
+    },
+    {
+      "coefficient": null,
+      "energies": {
+        "beta_mol_per_kcal": 0.45,
+        "downstream_independent_total_kcal_mol": 0.0,
+        "provenance": "Independent artificial fixture; common exp(-beta*G) scale; no intercept or unfolding correction.",
+        "upstream_total_kcal_mol": 0.0
+      },
+      "geometry": {
+        "distance_nt": 26,
+        "downstream": {
+          "id": "toy-down",
+          "interval": [
+            59,
+            89
+          ],
+          "oriented_interval": [
+            59,
+            89
+          ],
+          "start_codon": "AUG",
+          "stop_codon": "UAG"
+        },
+        "oriented_sequence_sha256": "5240829a6f7eef4bdae10aaada56b1a7b4b30748e01ddbc361efa56e6c9bd019",
+        "sequence_length": 96,
+        "sequence_sha256": "5240829a6f7eef4bdae10aaada56b1a7b4b30748e01ddbc361efa56e6c9bd019",
+        "strand": "+",
+        "upstream": {
+          "id": "toy-up",
+          "interval": [
+            3,
+            33
+          ],
+          "oriented_interval": [
+            3,
+            33
+          ],
+          "start_codon": "AUG",
+          "stop_codon": "UAA"
+        }
+      },
+      "id": "d26_unsupported_plus",
+      "index": 12,
+      "reason": "no_admitted_distance_coefficient",
+      "scores": null,
+      "status": "unsupported_distance",
+      "unfolding_correction": null
+    },
+    {
+      "coefficient": null,
+      "energies": {
+        "beta_mol_per_kcal": 0.45,
+        "downstream_independent_total_kcal_mol": 0.0,
+        "provenance": "Independent artificial fixture; common exp(-beta*G) scale; no intercept or unfolding correction.",
+        "upstream_total_kcal_mol": 0.0
+      },
+      "geometry": {
+        "distance_nt": -7,
+        "downstream": {
+          "id": "toy-down",
+          "interval": [
+            7,
+            37
+          ],
+          "oriented_interval": [
+            26,
+            56
+          ],
+          "start_codon": "AUG",
+          "stop_codon": "UAG"
+        },
+        "oriented_sequence_sha256": "5a1641751a963d36bf4a3ffaee369c8caaa995f06a5d5d4f708f1acca6ff3587",
+        "sequence_length": 63,
+        "sequence_sha256": "d3a0374e16a9f95c3cd7b21b17df01fa24390f0a2e5b2da050e874817ced1ccd",
+        "strand": "-",
+        "upstream": {
+          "id": "toy-up",
+          "interval": [
+            30,
+            60
+          ],
+          "oriented_interval": [
+            3,
+            33
+          ],
+          "start_codon": "AUG",
+          "stop_codon": "UAA"
+        }
+      },
+      "id": "dm7_unsupported_minus",
+      "index": 13,
+      "reason": "no_admitted_distance_coefficient",
+      "scores": null,
+      "status": "unsupported_distance",
+      "unfolding_correction": null
+    },
+    {
+      "coefficient": null,
+      "energies": {
+        "beta_mol_per_kcal": 0.45,
+        "downstream_independent_total_kcal_mol": 0.0,
+        "provenance": "Independent artificial fixture; common exp(-beta*G) scale; no intercept or unfolding correction.",
+        "upstream_total_kcal_mol": 0.0
+      },
+      "geometry": {
+        "distance_nt": -1,
+        "downstream": {
+          "id": "toy-down",
+          "interval": [
+            7,
+            37
+          ],
+          "oriented_interval": [
+            32,
+            62
+          ],
+          "start_codon": "AUG",
+          "stop_codon": "UAG"
+        },
+        "oriented_sequence_sha256": "8f46e1c19f9c1622e6247d317f5aa28d437df36fe3a557add704acb22cb72ef3",
+        "sequence_length": 69,
+        "sequence_sha256": "f1fe8fe9a65fcfc43d3a28683e1b9be02e94d03c9b9314afcf6e1e0bbbf016e9",
+        "strand": "-",
+        "upstream": {
+          "id": "toy-up",
+          "interval": [
+            36,
+            66
+          ],
+          "oriented_interval": [
+            3,
+            33
+          ],
+          "start_codon": "AUG",
+          "stop_codon": "UAA"
+        }
+      },
+      "id": "dm1_unsupported_minus",
+      "index": 14,
+      "reason": "no_admitted_distance_coefficient",
+      "scores": null,
+      "status": "unsupported_distance",
+      "unfolding_correction": null
+    },
+    {
+      "coefficient": null,
+      "energies": {
+        "beta_mol_per_kcal": 0.45,
+        "downstream_independent_total_kcal_mol": 0.0,
+        "provenance": "Independent artificial fixture; common exp(-beta*G) scale; no intercept or unfolding correction.",
+        "upstream_total_kcal_mol": 0.0
+      },
+      "geometry": {
+        "distance_nt": 26,
+        "downstream": {
+          "id": "toy-down",
+          "interval": [
+            7,
+            37
+          ],
+          "oriented_interval": [
+            59,
+            89
+          ],
+          "start_codon": "AUG",
+          "stop_codon": "UAG"
+        },
+        "oriented_sequence_sha256": "5240829a6f7eef4bdae10aaada56b1a7b4b30748e01ddbc361efa56e6c9bd019",
+        "sequence_length": 96,
+        "sequence_sha256": "fec30efa03df4e29ff2cef5d2827a68455b7f601c39e59642d607d9a6ee0e160",
+        "strand": "-",
+        "upstream": {
+          "id": "toy-up",
+          "interval": [
+            63,
+            93
+          ],
+          "oriented_interval": [
+            3,
+            33
+          ],
+          "start_codon": "AUG",
+          "stop_codon": "UAA"
+        }
+      },
+      "id": "d26_unsupported_minus",
+      "index": 15,
+      "reason": "no_admitted_distance_coefficient",
+      "scores": null,
+      "status": "unsupported_distance",
+      "unfolding_correction": null
+    },
+    {
+      "coefficient": 0.0072,
+      "energies": {
+        "beta_mol_per_kcal": 0.45,
+        "downstream_independent_total_kcal_mol": 2000.0,
+        "provenance": "Independent artificial fixture; common exp(-beta*G) scale; no intercept or unfolding correction.",
+        "upstream_total_kcal_mol": 2000.0
+      },
+      "geometry": {
+        "distance_nt": 0,
+        "downstream": {
+          "id": "toy-down",
+          "interval": [
+            33,
+            63
+          ],
+          "oriented_interval": [
+            33,
+            63
+          ],
+          "start_codon": "AUG",
+          "stop_codon": "UAG"
+        },
+        "oriented_sequence_sha256": "f97014a882ded198411b64b3d74c5372e5fd7955e9aba504b48d3a76c74e99b6",
+        "sequence_length": 70,
+        "sequence_sha256": "f97014a882ded198411b64b3d74c5372e5fd7955e9aba504b48d3a76c74e99b6",
+        "strand": "+",
+        "upstream": {
+          "id": "toy-up",
+          "interval": [
+            3,
+            33
+          ],
+          "oriented_interval": [
+            3,
+            33
+          ],
+          "start_codon": "AUG",
+          "stop_codon": "UAA"
+        }
+      },
+      "id": "both_underflow",
+      "index": 16,
+      "reason": "linear_score_outside_binary64",
+      "scores": {
+        "downstream_independent": {
+          "log_value": -900.0,
+          "value": null
+        },
+        "downstream_total": {
+          "log_value": -899.9304739373514,
+          "value": null
+        },
+        "fold_change": {
+          "log_value": 0.06952606264861025,
+          "value": 1.072
+        },
+        "reinitiation_contribution": {
+          "log_value": -902.6310891599661,
+          "value": null
+        },
+        "upstream_independent": {
+          "log_value": -900.0,
+          "value": null
+        }
+      },
+      "status": "numerical_range",
+      "unfolding_correction": null
+    },
+    {
+      "coefficient": 0.0072,
+      "energies": {
+        "beta_mol_per_kcal": 0.45,
+        "downstream_independent_total_kcal_mol": -2000.0,
+        "provenance": "Independent artificial fixture; common exp(-beta*G) scale; no intercept or unfolding correction.",
+        "upstream_total_kcal_mol": -2000.0
+      },
+      "geometry": {
+        "distance_nt": 0,
+        "downstream": {
+          "id": "toy-down",
+          "interval": [
+            7,
+            37
+          ],
+          "oriented_interval": [
+            33,
+            63
+          ],
+          "start_codon": "AUG",
+          "stop_codon": "UAG"
+        },
+        "oriented_sequence_sha256": "f97014a882ded198411b64b3d74c5372e5fd7955e9aba504b48d3a76c74e99b6",
+        "sequence_length": 70,
+        "sequence_sha256": "75e3f3f4238fa5ed6d7c9d28710ff51ef421b8858b05153c35e8241c4de36393",
+        "strand": "-",
+        "upstream": {
+          "id": "toy-up",
+          "interval": [
+            37,
+            67
+          ],
+          "oriented_interval": [
+            3,
+            33
+          ],
+          "start_codon": "AUG",
+          "stop_codon": "UAA"
+        }
+      },
+      "id": "both_overflow",
+      "index": 17,
+      "reason": "linear_score_outside_binary64",
+      "scores": {
+        "downstream_independent": {
+          "log_value": 900.0,
+          "value": null
+        },
+        "downstream_total": {
+          "log_value": 900.0695260626486,
+          "value": null
+        },
+        "fold_change": {
+          "log_value": 0.06952606264861025,
+          "value": 1.072
+        },
+        "reinitiation_contribution": {
+          "log_value": 897.3689108400339,
+          "value": null
+        },
+        "upstream_independent": {
+          "log_value": 900.0,
+          "value": null
+        }
+      },
+      "status": "numerical_range",
+      "unfolding_correction": null
+    },
+    {
+      "coefficient": 0.022,
+      "energies": {
+        "beta_mol_per_kcal": 0.45,
+        "downstream_independent_total_kcal_mol": 2000.0,
+        "provenance": "Independent artificial fixture; common exp(-beta*G) scale; no intercept or unfolding correction.",
+        "upstream_total_kcal_mol": -2000.0
+      },
+      "geometry": {
+        "distance_nt": -4,
+        "downstream": {
+          "id": "toy-down",
+          "interval": [
+            29,
+            59
+          ],
+          "oriented_interval": [
+            29,
+            59
+          ],
+          "start_codon": "AUG",
+          "stop_codon": "UAG"
+        },
+        "oriented_sequence_sha256": "7d532c5c637f8ed95e1658c35ca583ebcf3ac596e34689258583c7a55b8394ba",
+        "sequence_length": 66,
+        "sequence_sha256": "7d532c5c637f8ed95e1658c35ca583ebcf3ac596e34689258583c7a55b8394ba",
+        "strand": "+",
+        "upstream": {
+          "id": "toy-up",
+          "interval": [
+            3,
+            33
+          ],
+          "oriented_interval": [
+            3,
+            33
+          ],
+          "start_codon": "AUG",
+          "stop_codon": "UGA"
+        }
+      },
+      "id": "up_over_down_under",
+      "index": 18,
+      "reason": "linear_score_outside_binary64",
+      "scores": {
+        "downstream_independent": {
+          "log_value": -900.0,
+          "value": null
+        },
+        "downstream_total": {
+          "log_value": 898.4858722673703,
+          "value": null
+        },
+        "fold_change": {
+          "log_value": 1798.4858722673703,
+          "value": null
+        },
+        "reinitiation_contribution": {
+          "log_value": 898.4858722673703,
+          "value": null
+        },
+        "upstream_independent": {
+          "log_value": 900.0,
+          "value": null
+        }
+      },
+      "status": "numerical_range",
+      "unfolding_correction": null
+    },
+    {
+      "coefficient": 0.022,
+      "energies": {
+        "beta_mol_per_kcal": 0.45,
+        "downstream_independent_total_kcal_mol": -2000.0,
+        "provenance": "Independent artificial fixture; common exp(-beta*G) scale; no intercept or unfolding correction.",
+        "upstream_total_kcal_mol": 2000.0
+      },
+      "geometry": {
+        "distance_nt": -4,
+        "downstream": {
+          "id": "toy-down",
+          "interval": [
+            7,
+            37
+          ],
+          "oriented_interval": [
+            29,
+            59
+          ],
+          "start_codon": "AUG",
+          "stop_codon": "UAG"
+        },
+        "oriented_sequence_sha256": "7d532c5c637f8ed95e1658c35ca583ebcf3ac596e34689258583c7a55b8394ba",
+        "sequence_length": 66,
+        "sequence_sha256": "dca7b6d136dd4f6de2650fc29d1fcda0c06d4f96e3079f478e17f0e6a051cc63",
+        "strand": "-",
+        "upstream": {
+          "id": "toy-up",
+          "interval": [
+            33,
+            63
+          ],
+          "oriented_interval": [
+            3,
+            33
+          ],
+          "start_codon": "AUG",
+          "stop_codon": "UGA"
+        }
+      },
+      "id": "up_under_down_over",
+      "index": 19,
+      "reason": "linear_score_outside_binary64",
+      "scores": {
+        "downstream_independent": {
+          "log_value": 900.0,
+          "value": null
+        },
+        "downstream_total": {
+          "log_value": 900.0,
+          "value": null
+        },
+        "fold_change": {
+          "log_value": 0.0,
+          "value": 1.0
+        },
+        "reinitiation_contribution": {
+          "log_value": -901.5141277326297,
+          "value": null
+        },
+        "upstream_independent": {
+          "log_value": -900.0,
+          "value": null
+        }
+      },
+      "status": "numerical_range",
+      "unfolding_correction": null
+    },
+    {
+      "coefficient": 0.0072,
+      "energies": {
+        "beta_mol_per_kcal": 0.45,
+        "downstream_independent_total_kcal_mol": 1000.0,
+        "provenance": "Independent artificial fixture; common exp(-beta*G) scale; no intercept or unfolding correction.",
+        "upstream_total_kcal_mol": 1000.0
+      },
+      "geometry": {
+        "distance_nt": 25,
+        "downstream": {
+          "id": "toy-down",
+          "interval": [
+            58,
+            88
+          ],
+          "oriented_interval": [
+            58,
+            88
+          ],
+          "start_codon": "AUG",
+          "stop_codon": "UAG"
+        },
+        "oriented_sequence_sha256": "e0dc54382c3c25bc260168cdacd9ae26cba9af5860945b71369c19db0cb5f514",
+        "sequence_length": 95,
+        "sequence_sha256": "e0dc54382c3c25bc260168cdacd9ae26cba9af5860945b71369c19db0cb5f514",
+        "strand": "+",
+        "upstream": {
+          "id": "toy-up",
+          "interval": [
+            3,
+            33
+          ],
+          "oriented_interval": [
+            3,
+            33
+          ],
+          "start_codon": "AUG",
+          "stop_codon": "UAA"
+        }
+      },
+      "id": "small_finite",
+      "index": 20,
+      "reason": null,
+      "scores": {
+        "downstream_independent": {
+          "log_value": -450.0,
+          "value": 3.693883068487256e-196
+        },
+        "downstream_total": {
+          "log_value": -449.9304739373514,
+          "value": 3.9598426494183386e-196
+        },
+        "fold_change": {
+          "log_value": 0.06952606264861025,
+          "value": 1.072
+        },
+        "reinitiation_contribution": {
+          "log_value": -452.6310891599661,
+          "value": 2.6595958093108246e-197
+        },
+        "upstream_independent": {
+          "log_value": -450.0,
+          "value": 3.693883068487256e-196
+        }
+      },
+      "status": "ok",
+      "unfolding_correction": null
+    },
+    {
+      "coefficient": 0.0072,
+      "energies": {
+        "beta_mol_per_kcal": 0.45,
+        "downstream_independent_total_kcal_mol": 1000.0,
+        "provenance": "Independent artificial fixture; common exp(-beta*G) scale; no intercept or unfolding correction.",
+        "upstream_total_kcal_mol": -1000.0
+      },
+      "geometry": {
+        "distance_nt": 3,
+        "downstream": {
+          "id": "toy-down",
+          "interval": [
+            7,
+            37
+          ],
+          "oriented_interval": [
+            36,
+            66
+          ],
+          "start_codon": "AUG",
+          "stop_codon": "UAG"
+        },
+        "oriented_sequence_sha256": "1d46bc94aa9334e3e294be94c4485cccea513c1bef56f4669af6dabbe0a62325",
+        "sequence_length": 73,
+        "sequence_sha256": "a28363f4e434e32f20332ab7c18a76b28b727d8c75b51430e9facf3935df28da",
+        "strand": "-",
+        "upstream": {
+          "id": "toy-up",
+          "interval": [
+            40,
+            70
+          ],
+          "oriented_interval": [
+            3,
+            33
+          ],
+          "start_codon": "AUG",
+          "stop_codon": "UAA"
+        }
+      },
+      "id": "fold_only_overflow",
+      "index": 21,
+      "reason": "linear_score_outside_binary64",
+      "scores": {
+        "downstream_independent": {
+          "log_value": -450.0,
+          "value": 3.693883068487256e-196
+        },
+        "downstream_total": {
+          "log_value": 447.3689108400339,
+          "value": 1.9491683592866387e+194
+        },
+        "fold_change": {
+          "log_value": 897.3689108400339,
+          "value": null
+        },
+        "reinitiation_contribution": {
+          "log_value": 447.3689108400339,
+          "value": 1.9491683592866387e+194
+        },
+        "upstream_independent": {
+          "log_value": 450.0,
+          "value": 2.7071782767869983e+195
+        }
+      },
+      "status": "numerical_range",
+      "unfolding_correction": null
+    },
+    {
+      "coefficient": 0.0072,
+      "energies": {
+        "beta_mol_per_kcal": 0.45,
+        "downstream_independent_total_kcal_mol": 1000000.0,
+        "provenance": "Independent artificial fixture; common exp(-beta*G) scale; no intercept or unfolding correction.",
+        "upstream_total_kcal_mol": 1000000.0
+      },
+      "geometry": {
+        "distance_nt": 0,
+        "downstream": {
+          "id": "toy-down",
+          "interval": [
+            33,
+            63
+          ],
+          "oriented_interval": [
+            33,
+            63
+          ],
+          "start_codon": "AUG",
+          "stop_codon": "UAG"
+        },
+        "oriented_sequence_sha256": "f97014a882ded198411b64b3d74c5372e5fd7955e9aba504b48d3a76c74e99b6",
+        "sequence_length": 70,
+        "sequence_sha256": "f97014a882ded198411b64b3d74c5372e5fd7955e9aba504b48d3a76c74e99b6",
+        "strand": "+",
+        "upstream": {
+          "id": "toy-up",
+          "interval": [
+            3,
+            33
+          ],
+          "oriented_interval": [
+            3,
+            33
+          ],
+          "start_codon": "AUG",
+          "stop_codon": "UAA"
+        }
+      },
+      "id": "upper_energy_bound",
+      "index": 22,
+      "reason": "linear_score_outside_binary64",
+      "scores": {
+        "downstream_independent": {
+          "log_value": -450000.0,
+          "value": null
+        },
+        "downstream_total": {
+          "log_value": -449999.93047393736,
+          "value": null
+        },
+        "fold_change": {
+          "log_value": 0.06952606264861025,
+          "value": 1.072
+        },
+        "reinitiation_contribution": {
+          "log_value": -450002.63108916,
+          "value": null
+        },
+        "upstream_independent": {
+          "log_value": -450000.0,
+          "value": null
+        }
+      },
+      "status": "numerical_range",
+      "unfolding_correction": null
+    },
+    {
+      "coefficient": 0.022,
+      "energies": {
+        "beta_mol_per_kcal": 0.45,
+        "downstream_independent_total_kcal_mol": -1000000.0,
+        "provenance": "Independent artificial fixture; common exp(-beta*G) scale; no intercept or unfolding correction.",
+        "upstream_total_kcal_mol": -1000000.0
+      },
+      "geometry": {
+        "distance_nt": -4,
+        "downstream": {
+          "id": "toy-down",
+          "interval": [
+            7,
+            37
+          ],
+          "oriented_interval": [
+            29,
+            59
+          ],
+          "start_codon": "AUG",
+          "stop_codon": "UAG"
+        },
+        "oriented_sequence_sha256": "7d532c5c637f8ed95e1658c35ca583ebcf3ac596e34689258583c7a55b8394ba",
+        "sequence_length": 66,
+        "sequence_sha256": "dca7b6d136dd4f6de2650fc29d1fcda0c06d4f96e3079f478e17f0e6a051cc63",
+        "strand": "-",
+        "upstream": {
+          "id": "toy-up",
+          "interval": [
+            33,
+            63
+          ],
+          "oriented_interval": [
+            3,
+            33
+          ],
+          "start_codon": "AUG",
+          "stop_codon": "UGA"
+        }
+      },
+      "id": "lower_energy_bound",
+      "index": 23,
+      "reason": "linear_score_outside_binary64",
+      "scores": {
+        "downstream_independent": {
+          "log_value": 450000.0,
+          "value": null
+        },
+        "downstream_total": {
+          "log_value": 450000.1988508587,
+          "value": null
+        },
+        "fold_change": {
+          "log_value": 0.1988508587451652,
+          "value": 1.22
+        },
+        "reinitiation_contribution": {
+          "log_value": 449998.4858722674,
+          "value": null
+        },
+        "upstream_independent": {
+          "log_value": 450000.0,
+          "value": null
+        }
+      },
+      "status": "numerical_range",
+      "unfolding_correction": null
+    }
+  ],
+  "protocol": {
+    "bytes": 10748,
+    "sha256": "9390e29f40eb3ef0f2b09bfe36ab6df8a523369de203d7e096ee70a5494ddc64"
+  },
+  "request": {
+    "records": [
+      {
+        "downstream": {
+          "id": "toy-down",
+          "interval": [
+            33,
+            63
+          ]
+        },
+        "energies": {
+          "beta_mol_per_kcal": 0.45,
+          "downstream_independent_total_kcal_mol": 0.0,
+          "provenance": "Independent artificial fixture; common exp(-beta*G) scale; no intercept or unfolding correction.",
+          "upstream_total_kcal_mol": 0.0
+        },
+        "id": "d0_zero_plus",
+        "sequence": "CCCAUGCCCCCCCCCCCCCCCCCCCCCCCCUAAAUGCCCCCCCCCCCCCCCCCCCCCCCCUAGCCCCCCC",
+        "strand": "+",
+        "upstream": {
+          "id": "toy-up",
+          "interval": [
+            3,
+            33
+          ]
+        }
+      },
+      {
+        "downstream": {
+          "id": "toy-down",
+          "interval": [
+            58,
+            88
+          ]
+        },
+        "energies": {
+          "beta_mol_per_kcal": 0.45,
+          "downstream_independent_total_kcal_mol": 0.0,
+          "provenance": "Independent artificial fixture; common exp(-beta*G) scale; no intercept or unfolding correction.",
+          "upstream_total_kcal_mol": 0.0
+        },
+        "id": "d25_zero_plus",
+        "sequence": "CCCGUGCCCCCCCCCCCCCCCCCCCCCCCCUAACCCCCCCCCCCCCCCCCCCCCCCCCGUGCCCCCCCCCCCCCCCCCCCCCCCCUAGCCCCCCC",
+        "strand": "+",
+        "upstream": {
+          "id": "toy-up",
+          "interval": [
+            3,
+            33
+          ]
+        }
+      },
+      {
+        "downstream": {
+          "id": "toy-down",
+          "interval": [
+            29,
+            59
+          ]
+        },
+        "energies": {
+          "beta_mol_per_kcal": 0.45,
+          "downstream_independent_total_kcal_mol": 0.0,
+          "provenance": "Independent artificial fixture; common exp(-beta*G) scale; no intercept or unfolding correction.",
+          "upstream_total_kcal_mol": 0.0
+        },
+        "id": "dm4_zero_plus",
+        "sequence": "CCCAUGCCCCCCCCCCCCCCCCCCCCCCCUUGACCCCCCCCCCCCCCCCCCCCCCCUAGCCCCCCC",
+        "strand": "+",
+        "upstream": {
+          "id": "toy-up",
+          "interval": [
+            3,
+            33
+          ]
+        }
+      },
+      {
+        "downstream": {
+          "id": "toy-down",
+          "interval": [
+            36,
+            66
+          ]
+        },
+        "energies": {
+          "beta_mol_per_kcal": 0.45,
+          "downstream_independent_total_kcal_mol": -1.5403270679109895,
+          "provenance": "Independent artificial fixture; common exp(-beta*G) scale; no intercept or unfolding correction.",
+          "upstream_total_kcal_mol": -3.080654135821979
+        },
+        "id": "d3_unequal_plus",
+        "sequence": "CCCUUGCCCCCCCCCCCCCCCCCCCCCCCCUAACCCAUGCCCCCCCCCCCCCCCCCCCCCCCCUAGCCCCCCC",
+        "strand": "+",
+        "upstream": {
+          "id": "toy-up",
+          "interval": [
+            3,
+            33
+          ]
+        }
+      },
+      {
+        "downstream": {
+          "id": "toy-down",
+          "interval": [
+            29,
+            59
+          ]
+        },
+        "energies": {
+          "beta_mol_per_kcal": 0.45,
+          "downstream_independent_total_kcal_mol": -1.5403270679109895,
+          "provenance": "Independent artificial fixture; common exp(-beta*G) scale; no intercept or unfolding correction.",
+          "upstream_total_kcal_mol": -3.080654135821979
+        },
+        "id": "dm4_unequal_plus",
+        "sequence": "CCCAUGCCCCCCCCCCCCCCCCCCCCCCCAUGACCCCCCCCCCCCCCCCCCCCCCCUAGCCCCCCC",
+        "strand": "+",
+        "upstream": {
+          "id": "toy-up",
+          "interval": [
+            3,
+            33
+          ]
+        }
+      },
+      {
+        "downstream": {
+          "id": "toy-down",
+          "interval": [
+            7,
+            37
+          ]
+        },
+        "energies": {
+          "beta_mol_per_kcal": 0.45,
+          "downstream_independent_total_kcal_mol": 0.0,
+          "provenance": "Independent artificial fixture; common exp(-beta*G) scale; no intercept or unfolding correction.",
+          "upstream_total_kcal_mol": 0.0
+        },
+        "id": "d0_zero_minus",
+        "sequence": " \ngggggggctag \nggggggggggg \nggggggggggg \ngcatttagggg \nggggggggggg \ngggggggggca \ntggg\t",
+        "strand": "-",
+        "upstream": {
+          "id": "toy-up",
+          "interval": [
+            37,
+            67
+          ]
+        }
+      },
+      {
+        "downstream": {
+          "id": "toy-down",
+          "interval": [
+            7,
+            37
+          ]
+        },
+        "energies": {
+          "beta_mol_per_kcal": 0.45,
+          "downstream_independent_total_kcal_mol": 0.0,
+          "provenance": "Independent artificial fixture; common exp(-beta*G) scale; no intercept or unfolding correction.",
+          "upstream_total_kcal_mol": 0.0
+        },
+        "id": "d25_zero_minus",
+        "sequence": " \ngggggggctag \nggggggggggg \nggggggggggg \ngcacggggggg \nggggggggggg \ngggggggttag \nggggggggggg \nggggggggggg \ngcacggg\t",
+        "strand": "-",
+        "upstream": {
+          "id": "toy-up",
+          "interval": [
+            62,
+            92
+          ]
+        }
+      },
+      {
+        "downstream": {
+          "id": "toy-down",
+          "interval": [
+            7,
+            37
+          ]
+        },
+        "energies": {
+          "beta_mol_per_kcal": 0.45,
+          "downstream_independent_total_kcal_mol": 0.0,
+          "provenance": "Independent artificial fixture; common exp(-beta*G) scale; no intercept or unfolding correction.",
+          "upstream_total_kcal_mol": 0.0
+        },
+        "id": "dm4_zero_minus",
+        "sequence": " \ngggggggctag \nggggggggggg \nggggggggggg \ntcaaggggggg \nggggggggggg \ngggggcatggg\t",
+        "strand": "-",
+        "upstream": {
+          "id": "toy-up",
+          "interval": [
+            33,
+            63
+          ]
+        }
+      },
+      {
+        "downstream": {
+          "id": "toy-down",
+          "interval": [
+            7,
+            37
+          ]
+        },
+        "energies": {
+          "beta_mol_per_kcal": 0.45,
+          "downstream_independent_total_kcal_mol": -1.5403270679109895,
+          "provenance": "Independent artificial fixture; common exp(-beta*G) scale; no intercept or unfolding correction.",
+          "upstream_total_kcal_mol": -3.080654135821979
+        },
+        "id": "d3_unequal_minus",
+        "sequence": " \ngggggggctag \nggggggggggg \nggggggggggg \ngcatgggttag \nggggggggggg \nggggggggggg \ngcaaggg\t",
+        "strand": "-",
+        "upstream": {
+          "id": "toy-up",
+          "interval": [
+            40,
+            70
+          ]
+        }
+      },
+      {
+        "downstream": {
+          "id": "toy-down",
+          "interval": [
+            7,
+            37
+          ]
+        },
+        "energies": {
+          "beta_mol_per_kcal": 0.45,
+          "downstream_independent_total_kcal_mol": -1.5403270679109895,
+          "provenance": "Independent artificial fixture; common exp(-beta*G) scale; no intercept or unfolding correction.",
+          "upstream_total_kcal_mol": -3.080654135821979
+        },
+        "id": "dm4_unequal_minus",
+        "sequence": " \ngggggggctag \nggggggggggg \nggggggggggg \ntcatggggggg \nggggggggggg \ngggggcatggg\t",
+        "strand": "-",
+        "upstream": {
+          "id": "toy-up",
+          "interval": [
+            33,
+            63
+          ]
+        }
+      },
+      {
+        "downstream": {
+          "id": "toy-down",
+          "interval": [
+            26,
+            56
+          ]
+        },
+        "energies": {
+          "beta_mol_per_kcal": 0.45,
+          "downstream_independent_total_kcal_mol": 0.0,
+          "provenance": "Independent artificial fixture; common exp(-beta*G) scale; no intercept or unfolding correction.",
+          "upstream_total_kcal_mol": 0.0
+        },
+        "id": "dm7_unsupported_plus",
+        "sequence": "CCCAUGCCCCCCCCCCCCCCCCCCCCAUGCUAACCCCCCCCCCCCCCCCCCCCUAGCCCCCCC",
+        "strand": "+",
+        "upstream": {
+          "id": "toy-up",
+          "interval": [
+            3,
+            33
+          ]
+        }
+      },
+      {
+        "downstream": {
+          "id": "toy-down",
+          "interval": [
+            32,
+            62
+          ]
+        },
+        "energies": {
+          "beta_mol_per_kcal": 0.45,
+          "downstream_independent_total_kcal_mol": 0.0,
+          "provenance": "Independent artificial fixture; common exp(-beta*G) scale; no intercept or unfolding correction.",
+          "upstream_total_kcal_mol": 0.0
+        },
+        "id": "dm1_unsupported_plus",
+        "sequence": "CCCAUGCCCCCCCCCCCCCCCCCCCCCCCCUAAUGCCCCCCCCCCCCCCCCCCCCCCCCUAGCCCCCCC",
+        "strand": "+",
+        "upstream": {
+          "id": "toy-up",
+          "interval": [
+            3,
+            33
+          ]
+        }
+      },
+      {
+        "downstream": {
+          "id": "toy-down",
+          "interval": [
+            59,
+            89
+          ]
+        },
+        "energies": {
+          "beta_mol_per_kcal": 0.45,
+          "downstream_independent_total_kcal_mol": 0.0,
+          "provenance": "Independent artificial fixture; common exp(-beta*G) scale; no intercept or unfolding correction.",
+          "upstream_total_kcal_mol": 0.0
+        },
+        "id": "d26_unsupported_plus",
+        "sequence": "CCCAUGCCCCCCCCCCCCCCCCCCCCCCCCUAACCCCCCCCCCCCCCCCCCCCCCCCCCAUGCCCCCCCCCCCCCCCCCCCCCCCCUAGCCCCCCC",
+        "strand": "+",
+        "upstream": {
+          "id": "toy-up",
+          "interval": [
+            3,
+            33
+          ]
+        }
+      },
+      {
+        "downstream": {
+          "id": "toy-down",
+          "interval": [
+            7,
+            37
+          ]
+        },
+        "energies": {
+          "beta_mol_per_kcal": 0.45,
+          "downstream_independent_total_kcal_mol": 0.0,
+          "provenance": "Independent artificial fixture; common exp(-beta*G) scale; no intercept or unfolding correction.",
+          "upstream_total_kcal_mol": 0.0
+        },
+        "id": "dm7_unsupported_minus",
+        "sequence": "GGGGGGGCUAGGGGGGGGGGGGGGGGGGGGUUAGCAUGGGGGGGGGGGGGGGGGGGGCAUGGG",
+        "strand": "-",
+        "upstream": {
+          "id": "toy-up",
+          "interval": [
+            30,
+            60
+          ]
+        }
+      },
+      {
+        "downstream": {
+          "id": "toy-down",
+          "interval": [
+            7,
+            37
+          ]
+        },
+        "energies": {
+          "beta_mol_per_kcal": 0.45,
+          "downstream_independent_total_kcal_mol": 0.0,
+          "provenance": "Independent artificial fixture; common exp(-beta*G) scale; no intercept or unfolding correction.",
+          "upstream_total_kcal_mol": 0.0
+        },
+        "id": "dm1_unsupported_minus",
+        "sequence": "GGGGGGGCUAGGGGGGGGGGGGGGGGGGGGGGGGCAUUAGGGGGGGGGGGGGGGGGGGGGGGGCAUGGG",
+        "strand": "-",
+        "upstream": {
+          "id": "toy-up",
+          "interval": [
+            36,
+            66
+          ]
+        }
+      },
+      {
+        "downstream": {
+          "id": "toy-down",
+          "interval": [
+            7,
+            37
+          ]
+        },
+        "energies": {
+          "beta_mol_per_kcal": 0.45,
+          "downstream_independent_total_kcal_mol": 0.0,
+          "provenance": "Independent artificial fixture; common exp(-beta*G) scale; no intercept or unfolding correction.",
+          "upstream_total_kcal_mol": 0.0
+        },
+        "id": "d26_unsupported_minus",
+        "sequence": "GGGGGGGCUAGGGGGGGGGGGGGGGGGGGGGGGGCAUGGGGGGGGGGGGGGGGGGGGGGGGGGUUAGGGGGGGGGGGGGGGGGGGGGGGGCAUGGG",
+        "strand": "-",
+        "upstream": {
+          "id": "toy-up",
+          "interval": [
+            63,
+            93
+          ]
+        }
+      },
+      {
+        "downstream": {
+          "id": "toy-down",
+          "interval": [
+            33,
+            63
+          ]
+        },
+        "energies": {
+          "beta_mol_per_kcal": 0.45,
+          "downstream_independent_total_kcal_mol": 2000.0,
+          "provenance": "Independent artificial fixture; common exp(-beta*G) scale; no intercept or unfolding correction.",
+          "upstream_total_kcal_mol": 2000.0
+        },
+        "id": "both_underflow",
+        "sequence": "CCCAUGCCCCCCCCCCCCCCCCCCCCCCCCUAAAUGCCCCCCCCCCCCCCCCCCCCCCCCUAGCCCCCCC",
+        "strand": "+",
+        "upstream": {
+          "id": "toy-up",
+          "interval": [
+            3,
+            33
+          ]
+        }
+      },
+      {
+        "downstream": {
+          "id": "toy-down",
+          "interval": [
+            7,
+            37
+          ]
+        },
+        "energies": {
+          "beta_mol_per_kcal": 0.45,
+          "downstream_independent_total_kcal_mol": -2000.0,
+          "provenance": "Independent artificial fixture; common exp(-beta*G) scale; no intercept or unfolding correction.",
+          "upstream_total_kcal_mol": -2000.0
+        },
+        "id": "both_overflow",
+        "sequence": "GGGGGGGCUAGGGGGGGGGGGGGGGGGGGGGGGGCAUUUAGGGGGGGGGGGGGGGGGGGGGGGGCAUGGG",
+        "strand": "-",
+        "upstream": {
+          "id": "toy-up",
+          "interval": [
+            37,
+            67
+          ]
+        }
+      },
+      {
+        "downstream": {
+          "id": "toy-down",
+          "interval": [
+            29,
+            59
+          ]
+        },
+        "energies": {
+          "beta_mol_per_kcal": 0.45,
+          "downstream_independent_total_kcal_mol": 2000.0,
+          "provenance": "Independent artificial fixture; common exp(-beta*G) scale; no intercept or unfolding correction.",
+          "upstream_total_kcal_mol": -2000.0
+        },
+        "id": "up_over_down_under",
+        "sequence": "CCCAUGCCCCCCCCCCCCCCCCCCCCCCCAUGACCCCCCCCCCCCCCCCCCCCCCCUAGCCCCCCC",
+        "strand": "+",
+        "upstream": {
+          "id": "toy-up",
+          "interval": [
+            3,
+            33
+          ]
+        }
+      },
+      {
+        "downstream": {
+          "id": "toy-down",
+          "interval": [
+            7,
+            37
+          ]
+        },
+        "energies": {
+          "beta_mol_per_kcal": 0.45,
+          "downstream_independent_total_kcal_mol": -2000.0,
+          "provenance": "Independent artificial fixture; common exp(-beta*G) scale; no intercept or unfolding correction.",
+          "upstream_total_kcal_mol": 2000.0
+        },
+        "id": "up_under_down_over",
+        "sequence": "GGGGGGGCUAGGGGGGGGGGGGGGGGGGGGGGGUCAUGGGGGGGGGGGGGGGGGGGGGGGCAUGGG",
+        "strand": "-",
+        "upstream": {
+          "id": "toy-up",
+          "interval": [
+            33,
+            63
+          ]
+        }
+      },
+      {
+        "downstream": {
+          "id": "toy-down",
+          "interval": [
+            58,
+            88
+          ]
+        },
+        "energies": {
+          "beta_mol_per_kcal": 0.45,
+          "downstream_independent_total_kcal_mol": 1000.0,
+          "provenance": "Independent artificial fixture; common exp(-beta*G) scale; no intercept or unfolding correction.",
+          "upstream_total_kcal_mol": 1000.0
+        },
+        "id": "small_finite",
+        "sequence": "CCCAUGCCCCCCCCCCCCCCCCCCCCCCCCUAACCCCCCCCCCCCCCCCCCCCCCCCCAUGCCCCCCCCCCCCCCCCCCCCCCCCUAGCCCCCCC",
+        "strand": "+",
+        "upstream": {
+          "id": "toy-up",
+          "interval": [
+            3,
+            33
+          ]
+        }
+      },
+      {
+        "downstream": {
+          "id": "toy-down",
+          "interval": [
+            7,
+            37
+          ]
+        },
+        "energies": {
+          "beta_mol_per_kcal": 0.45,
+          "downstream_independent_total_kcal_mol": 1000.0,
+          "provenance": "Independent artificial fixture; common exp(-beta*G) scale; no intercept or unfolding correction.",
+          "upstream_total_kcal_mol": -1000.0
+        },
+        "id": "fold_only_overflow",
+        "sequence": "GGGGGGGCUAGGGGGGGGGGGGGGGGGGGGGGGGCAUGGGUUAGGGGGGGGGGGGGGGGGGGGGGGGCAUGGG",
+        "strand": "-",
+        "upstream": {
+          "id": "toy-up",
+          "interval": [
+            40,
+            70
+          ]
+        }
+      },
+      {
+        "downstream": {
+          "id": "toy-down",
+          "interval": [
+            33,
+            63
+          ]
+        },
+        "energies": {
+          "beta_mol_per_kcal": 0.45,
+          "downstream_independent_total_kcal_mol": 1000000.0,
+          "provenance": "Independent artificial fixture; common exp(-beta*G) scale; no intercept or unfolding correction.",
+          "upstream_total_kcal_mol": 1000000.0
+        },
+        "id": "upper_energy_bound",
+        "sequence": "CCCAUGCCCCCCCCCCCCCCCCCCCCCCCCUAAAUGCCCCCCCCCCCCCCCCCCCCCCCCUAGCCCCCCC",
+        "strand": "+",
+        "upstream": {
+          "id": "toy-up",
+          "interval": [
+            3,
+            33
+          ]
+        }
+      },
+      {
+        "downstream": {
+          "id": "toy-down",
+          "interval": [
+            7,
+            37
+          ]
+        },
+        "energies": {
+          "beta_mol_per_kcal": 0.45,
+          "downstream_independent_total_kcal_mol": -1000000.0,
+          "provenance": "Independent artificial fixture; common exp(-beta*G) scale; no intercept or unfolding correction.",
+          "upstream_total_kcal_mol": -1000000.0
+        },
+        "id": "lower_energy_bound",
+        "sequence": "GGGGGGGCUAGGGGGGGGGGGGGGGGGGGGGGGUCAUGGGGGGGGGGGGGGGGGGGGGGGCAUGGG",
+        "strand": "-",
+        "upstream": {
+          "id": "toy-up",
+          "interval": [
+            33,
+            63
+          ]
+        }
+      }
+    ],
+    "schema_version": "coupling-request-1",
+    "settings": {
+      "seconds_total": 10.0
+    }
+  },
+  "schema_version": "coupling-numeric-fixtures-1",
+  "source_checks": [
+    {
+      "id": "separated_equal",
+      "reinitiation": "0.0720",
+      "total": "1.0720"
+    },
+    {
+      "id": "separated_upper_boundary",
+      "reinitiation": "0.0720",
+      "total": "1.0720"
+    },
+    {
+      "id": "four_base_overlap",
+      "reinitiation": "0.2200",
+      "total": "1.2200"
+    },
+    {
+      "id": "separated_unequal",
+      "reinitiation": "0.2880",
+      "total": "2.2880"
+    },
+    {
+      "id": "overlap_unequal",
+      "reinitiation": "0.8800",
+      "total": "2.8800"
+    }
+  ],
+  "source_scalar_fixture": {
+    "bytes": 1213,
+    "sha256": "de30c6c13ba3a676a5b1c724d5452ffbe8b276e3438721498a0b2815916b7328"
+  }
+}

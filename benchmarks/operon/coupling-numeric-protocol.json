@@ -1,0 +1,344 @@
+{
+  "acquisition": {
+    "attempts": 1,
+    "command_kind": "one installed regsite-coupling batch call after separate A freeze/B acknowledgement",
+    "native_folding": false,
+    "requests": 1,
+    "required_before_execution": [
+      "independent oracle/protocol/fixture review",
+      "exact request and fixture hashes",
+      "complete model/warnings/runtime/material binding",
+      "A execution receipt and B acknowledgement"
+    ],
+    "retry": false,
+    "stderr_bytes_maximum": 65536,
+    "stdout_bytes_maximum": 4194304,
+    "wall_seconds_maximum": 30.0
+  },
+  "candidate": {
+    "runtime_model_material_freeze_required": true,
+    "sdist_sha256": "887cee014014b67bb863430eb2d9e07bfe49a3e7ae2b989f1e741cab4ba76b15",
+    "source_commit": "ebff076d14789735b56e71501ccfaa5b2b0f82fc",
+    "version": "0.14.0rc2",
+    "wheel_sha256": "14ac432db000abd2a680c52e3968081d03ab937419fca08ca8ddaf6433226ac6"
+  },
+  "case_specs": [
+    {
+      "distance_nt": 0,
+      "downstream_energy": "0.0",
+      "downstream_start": "AUG",
+      "id": "d0_zero_plus",
+      "input_style": "rna",
+      "strand": "+",
+      "upstream_energy": "0.0",
+      "upstream_start": "AUG"
+    },
+    {
+      "distance_nt": 25,
+      "downstream_energy": "0.0",
+      "downstream_start": "GUG",
+      "id": "d25_zero_plus",
+      "input_style": "rna",
+      "strand": "+",
+      "upstream_energy": "0.0",
+      "upstream_start": "GUG"
+    },
+    {
+      "distance_nt": -4,
+      "downstream_energy": "0.0",
+      "downstream_start": "UUG",
+      "id": "dm4_zero_plus",
+      "input_style": "rna",
+      "strand": "+",
+      "upstream_energy": "0.0",
+      "upstream_start": "AUG"
+    },
+    {
+      "distance_nt": 3,
+      "downstream_energy": "-1.5403270679109895",
+      "downstream_start": "AUG",
+      "id": "d3_unequal_plus",
+      "input_style": "rna",
+      "strand": "+",
+      "upstream_energy": "-3.080654135821979",
+      "upstream_start": "UUG"
+    },
+    {
+      "distance_nt": -4,
+      "downstream_energy": "-1.5403270679109895",
+      "downstream_start": "AUG",
+      "id": "dm4_unequal_plus",
+      "input_style": "rna",
+      "strand": "+",
+      "upstream_energy": "-3.080654135821979",
+      "upstream_start": "AUG"
+    },
+    {
+      "distance_nt": 0,
+      "downstream_energy": "0.0",
+      "downstream_start": "AUG",
+      "id": "d0_zero_minus",
+      "input_style": "dna_whitespace",
+      "strand": "-",
+      "upstream_energy": "0.0",
+      "upstream_start": "AUG"
+    },
+    {
+      "distance_nt": 25,
+      "downstream_energy": "0.0",
+      "downstream_start": "GUG",
+      "id": "d25_zero_minus",
+      "input_style": "dna_whitespace",
+      "strand": "-",
+      "upstream_energy": "0.0",
+      "upstream_start": "GUG"
+    },
+    {
+      "distance_nt": -4,
+      "downstream_energy": "0.0",
+      "downstream_start": "UUG",
+      "id": "dm4_zero_minus",
+      "input_style": "dna_whitespace",
+      "strand": "-",
+      "upstream_energy": "0.0",
+      "upstream_start": "AUG"
+    },
+    {
+      "distance_nt": 3,
+      "downstream_energy": "-1.5403270679109895",
+      "downstream_start": "AUG",
+      "id": "d3_unequal_minus",
+      "input_style": "dna_whitespace",
+      "strand": "-",
+      "upstream_energy": "-3.080654135821979",
+      "upstream_start": "UUG"
+    },
+    {
+      "distance_nt": -4,
+      "downstream_energy": "-1.5403270679109895",
+      "downstream_start": "AUG",
+      "id": "dm4_unequal_minus",
+      "input_style": "dna_whitespace",
+      "strand": "-",
+      "upstream_energy": "-3.080654135821979",
+      "upstream_start": "AUG"
+    },
+    {
+      "distance_nt": -7,
+      "downstream_energy": "0.0",
+      "downstream_start": "AUG",
+      "id": "dm7_unsupported_plus",
+      "input_style": "rna",
+      "strand": "+",
+      "upstream_energy": "0.0",
+      "upstream_start": "AUG"
+    },
+    {
+      "distance_nt": -1,
+      "downstream_energy": "0.0",
+      "downstream_start": "AUG",
+      "id": "dm1_unsupported_plus",
+      "input_style": "rna",
+      "strand": "+",
+      "upstream_energy": "0.0",
+      "upstream_start": "AUG"
+    },
+    {
+      "distance_nt": 26,
+      "downstream_energy": "0.0",
+      "downstream_start": "AUG",
+      "id": "d26_unsupported_plus",
+      "input_style": "rna",
+      "strand": "+",
+      "upstream_energy": "0.0",
+      "upstream_start": "AUG"
+    },
+    {
+      "distance_nt": -7,
+      "downstream_energy": "0.0",
+      "downstream_start": "AUG",
+      "id": "dm7_unsupported_minus",
+      "input_style": "rna",
+      "strand": "-",
+      "upstream_energy": "0.0",
+      "upstream_start": "AUG"
+    },
+    {
+      "distance_nt": -1,
+      "downstream_energy": "0.0",
+      "downstream_start": "AUG",
+      "id": "dm1_unsupported_minus",
+      "input_style": "rna",
+      "strand": "-",
+      "upstream_energy": "0.0",
+      "upstream_start": "AUG"
+    },
+    {
+      "distance_nt": 26,
+      "downstream_energy": "0.0",
+      "downstream_start": "AUG",
+      "id": "d26_unsupported_minus",
+      "input_style": "rna",
+      "strand": "-",
+      "upstream_energy": "0.0",
+      "upstream_start": "AUG"
+    },
+    {
+      "distance_nt": 0,
+      "downstream_energy": "2000.0",
+      "downstream_start": "AUG",
+      "id": "both_underflow",
+      "input_style": "rna",
+      "strand": "+",
+      "upstream_energy": "2000.0",
+      "upstream_start": "AUG"
+    },
+    {
+      "distance_nt": 0,
+      "downstream_energy": "-2000.0",
+      "downstream_start": "AUG",
+      "id": "both_overflow",
+      "input_style": "rna",
+      "strand": "-",
+      "upstream_energy": "-2000.0",
+      "upstream_start": "AUG"
+    },
+    {
+      "distance_nt": -4,
+      "downstream_energy": "2000.0",
+      "downstream_start": "AUG",
+      "id": "up_over_down_under",
+      "input_style": "rna",
+      "strand": "+",
+      "upstream_energy": "-2000.0",
+      "upstream_start": "AUG"
+    },
+    {
+      "distance_nt": -4,
+      "downstream_energy": "-2000.0",
+      "downstream_start": "AUG",
+      "id": "up_under_down_over",
+      "input_style": "rna",
+      "strand": "-",
+      "upstream_energy": "2000.0",
+      "upstream_start": "AUG"
+    },
+    {
+      "distance_nt": 25,
+      "downstream_energy": "1000.0",
+      "downstream_start": "AUG",
+      "id": "small_finite",
+      "input_style": "rna",
+      "strand": "+",
+      "upstream_energy": "1000.0",
+      "upstream_start": "AUG"
+    },
+    {
+      "distance_nt": 3,
+      "downstream_energy": "1000.0",
+      "downstream_start": "AUG",
+      "id": "fold_only_overflow",
+      "input_style": "rna",
+      "strand": "-",
+      "upstream_energy": "-1000.0",
+      "upstream_start": "AUG"
+    },
+    {
+      "distance_nt": 0,
+      "downstream_energy": "1000000.0",
+      "downstream_start": "AUG",
+      "id": "upper_energy_bound",
+      "input_style": "rna",
+      "strand": "+",
+      "upstream_energy": "1000000.0",
+      "upstream_start": "AUG"
+    },
+    {
+      "distance_nt": -4,
+      "downstream_energy": "-1000000.0",
+      "downstream_start": "AUG",
+      "id": "lower_energy_bound",
+      "input_style": "rna",
+      "strand": "-",
+      "upstream_energy": "-1000000.0",
+      "upstream_start": "AUG"
+    }
+  ],
+  "checker": {
+    "admission_failure": "preserve acquisition; reject malformed/duplicate/nonfinite JSON, inconsistent transport/roster/identity; no successful-prefix report",
+    "identity_public_supplement_required": true,
+    "prediction_calls": 0,
+    "report_no_replacement": true,
+    "semantic_failure": "retain every case with field-level mismatch and failed conformance; never adjust expectations or repeat candidate",
+    "stdlib_only": true
+  },
+  "equations": {
+    "beta": "0.45",
+    "coefficient_minus4": "0.0220",
+    "coefficient_zero_to25": "0.0072",
+    "distance": "oriented_downstream_start-oriented_upstream_end",
+    "fold_change": "total/independent",
+    "independent": "exp(-beta*G_down)",
+    "k_p": "10",
+    "reinitiation": "k_p*k(d)*upstream",
+    "total": "independent+reinitiation",
+    "unfolding_correction": null,
+    "upstream": "exp(-beta*G_up)"
+  },
+  "execution_authorized": false,
+  "limitations": [
+    "Numerical/coordinate conformance only; no empirical accuracy or host transfer.",
+    "Caller-supplied energies, no sequence-derived folding or full Operon inference.",
+    "Unresolved unfolding sign and all held source scopes remain excluded.",
+    "No model fitting, biological measurements, private outcomes or source workbook reads."
+  ],
+  "numerics": {
+    "decimal_precision": 80,
+    "input_interpretation": "exact decimal spelling of the binary64 JSON request numbers",
+    "linear_absolute_tolerance": "0",
+    "linear_relative_tolerance": "1e-12",
+    "linear_target": "nearest binary64 conversion of Decimal value; zero/inf conversion means expected null",
+    "linear_ulp_allowance": 4,
+    "log_absolute_tolerance": "1e-12",
+    "log_relative_tolerance": "1e-12",
+    "rounding": "ROUND_HALF_EVEN",
+    "zero_is_not_missing": true
+  },
+  "request": {
+    "input_geometry": "upstream [3,33), downstream [33+d,63+d), three-base prefix and seven-base suffix; complete CDSs, C-filled non-codon bases; stop UGA for d=-4, otherwise UAA; downstream stop UAG",
+    "n_records": 24,
+    "provenance": "Independent artificial fixture; common exp(-beta*G) scale; no intercept or unfolding correction.",
+    "schema_version": "coupling-request-1",
+    "seconds_total": 10.0
+  },
+  "schema_version": "coupling-numeric-protocol-1",
+  "source_fixture_checks": "Reuse all five admitted scalar cases with exact Decimal arithmetic; not experimental evidence. Unsupported source scalar distances need not be realizable complete-CDS geometry.",
+  "source_pins": {
+    "benchmarks/operon-coupling/source-manifest.json": {
+      "bytes": 1679,
+      "sha256": "1e4207ad1195d981dffb141ca42745e8bb71b29fbfe887a0633e3db07accd941"
+    },
+    "benchmarks/operon-coupling/synthetic-fixtures.json": {
+      "bytes": 1213,
+      "sha256": "de30c6c13ba3a676a5b1c724d5452ffbe8b276e3438721498a0b2815916b7328"
+    },
+    "docs/validation/operon-coupling-runtime.md": {
+      "bytes": 9126,
+      "sha256": "1180ad050c408fc748d01b5cb32cd249f1c55100420276a9e42a220a20f59745"
+    },
+    "docs/validation/operon-coupling-source.md": {
+      "bytes": 6604,
+      "sha256": "dd6a53df71489c33c2c209601abeff97635e9a7ffdb6f97a19cdc318236d56f3"
+    },
+    "schemas/coupling-request-1.schema.json": {
+      "bytes": 4133,
+      "sha256": "84a2a469fc56506584be49c08616b69802b1e4ff818f28ec941908872d39dac7"
+    },
+    "schemas/coupling-result-1.schema.json": {
+      "bytes": 23353,
+      "sha256": "0731eb702754f31d7556c0df917bcdd1dfea5ad48caf2b7102c451c593c2b20a"
+    }
+  },
+  "stage": "independent_artificial_numerical_conformance",
+  "tooling_baseline": "1bfe4c483163529bb0c140a5bdeb9f33072aba0f"
+}
