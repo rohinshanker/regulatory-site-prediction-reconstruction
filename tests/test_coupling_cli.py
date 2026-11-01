@@ -1,5 +1,6 @@
 """Installed-style module execution, refusal exits and stdout failures."""
 
+import csv
 import io
 import json
 import runpy
@@ -10,7 +11,7 @@ from types import SimpleNamespace
 
 import pytest
 
-from regsite import coupling_cli, coupling_io
+from regsite import coupling, coupling_cli, coupling_io
 
 
 @pytest.mark.parametrize("case", ["unicode-provenance", "unicode-whitespace"])
@@ -132,3 +133,106 @@ def test_broken_pipe_redirects_shutdown_flush(monkeypatch):
     )
     assert coupling_cli.main(["examples/coupling-single.json"]) == 2
     assert redirects == [77]
+
+
+@pytest.mark.parametrize("name,code", [("single", 0), ("batch", 0), ("unsupported", 1)])
+def test_default_explicit_json_and_csv_bind_same_native_result(name, code):
+    path = f"examples/coupling-{name}.json"
+    request = json.loads(Path(path).read_text())
+    expected = coupling_io.result_bytes(coupling.predict_coupling(request))
+    outputs = []
+    for suffix in ([], ["--format", "json"], ["--format", "csv"]):
+        process = subprocess.run(
+            [sys.executable, "-m", "regsite.coupling_cli", path, *suffix],
+            capture_output=True,
+            timeout=10,
+        )
+        assert process.returncode == code and process.stderr == b""
+        outputs.append(process.stdout)
+    assert outputs[0] == outputs[1] == expected
+    table = list(csv.DictReader(io.StringIO(outputs[2].decode(), newline="")))
+    result = json.loads(expected)
+    assert len(table) == 1 + len(result["records"])
+    assert all(row["prediction_sha256"] == result["prediction_sha256"] for row in table)
+    assert [row["record_status"] for row in table[1:]] == [
+        r["status"] for r in result["records"]
+    ]
+
+
+@pytest.mark.parametrize("raw", [b'{"x":1,"x":2}', b"\xff", b"[]", b"NaN"])
+def test_csv_invalid_stdin_preserves_native_refusal(raw, monkeypatch, capsys):
+    monkeypatch.setattr(sys, "stdin", io.TextIOWrapper(io.BytesIO(raw)))
+    assert coupling_cli.main(["-", "--format", "csv"]) == 2
+    captured = capsys.readouterr()
+    table = list(csv.DictReader(io.StringIO(captured.out, newline="")))
+    assert captured.err == "" and len(table) == 1
+    assert table[0]["row_type"] == "result"
+    assert table[0]["result_status"] == "invalid_input"
+    assert table[0]["requested_records"] == ""
+
+
+def test_csv_valid_stdin(monkeypatch, capsys):
+    monkeypatch.setattr(
+        sys,
+        "stdin",
+        io.TextIOWrapper(io.BytesIO(Path("examples/coupling-batch.json").read_bytes())),
+    )
+    assert coupling_cli.main(["-", "--format", "csv"]) == 0
+    captured = capsys.readouterr()
+    table = list(csv.DictReader(io.StringIO(captured.out, newline="")))
+    assert len(table) == 4 and captured.err == ""
+    assert [row["record_id"] for row in table[1:]] == [
+        "separated",
+        "overlap",
+        "reverse_overlap",
+    ]
+
+
+@pytest.mark.parametrize("kind", ["missing", "cap", "surrogate"])
+def test_csv_transport_failure_has_no_prefix(kind, tmp_path, monkeypatch, capsys):
+    path = "examples/coupling-single.json"
+    if kind == "missing":
+        path = str(tmp_path / "absent")
+    elif kind == "cap":
+        monkeypatch.setattr(coupling_io, "OUTPUT_LIMIT", 1)
+    else:
+        request = json.loads(Path(path).read_text())
+        request["records"][0]["energies"]["provenance"] = "artificial \ud800"
+        target = tmp_path / "request.json"
+        target.write_text(json.dumps(request))
+        path = str(target)
+    assert coupling_cli.main([path, "--format", "csv"]) == 2
+    captured = capsys.readouterr()
+    assert captured.out == "" and "Input or output unavailable" in captured.err
+
+
+@pytest.mark.parametrize("operation", ["write", "flush"])
+@pytest.mark.parametrize("format_name", ["json", "csv"])
+def test_output_device_errors_preserve_exit_and_generic_diagnostic(
+    operation, format_name, monkeypatch, capsys
+):
+    def fail(*args):
+        raise OSError("artificial private device detail")
+
+    stream = SimpleNamespace(
+        buffer=SimpleNamespace(
+            write=fail if operation == "write" else lambda raw: len(raw)
+        ),
+        flush=fail,
+    )
+    monkeypatch.setattr(sys, "stdout", stream)
+    assert (
+        coupling_cli.main(["examples/coupling-single.json", "--format", format_name])
+        == 2
+    )
+    captured = capsys.readouterr()
+    assert captured.out == "" and "private device detail" not in captured.err
+    assert "Input or output unavailable" in captured.err
+
+
+def test_invalid_format_is_argparse_failure(capsys):
+    with pytest.raises(SystemExit) as exc:
+        coupling_cli.main(["examples/coupling-single.json", "--format", "tsv"])
+    assert exc.value.code == 2
+    captured = capsys.readouterr()
+    assert captured.out == "" and "invalid choice" in captured.err

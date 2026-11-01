@@ -24,6 +24,7 @@ A owns remaining runtime/release/improvement scopes 04/06/13; B owns broader sou
 
 | Status | Updated | Ticket | Priority | Scope |
 | --- | --- | --- | --- | --- |
+| A | 2026-11-01 | [A_coupling-tabular-export__20261101.md](A_coupling-tabular-export__20261101.md) | P1 | A: bounded supplied-energy CSV with complete failures/native identities; [#84](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/84), parents #8/#11; B #81 untouched |
 | O | 2026-11-01 | [O_coupling-numeric-evaluation__20261101.md](O_coupling-numeric-evaluation__20261101.md) | P1 | B next after #73: independent artificial supplied-energy coupling oracle; A reserved paths/base, no implementation or execution yet; [#81](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/81), parents #12/#8 |
 | A | 2026-10-21 | [A_component-calculator-jobs__20261021.md](A_component-calculator-jobs__20261021.md) | P1 | A: version-2 offline dispatch for all eight reviewed components with separate native identities; [issue #68](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/68) |
 | O | 2026-10-21 | [O_rbs-host-transfer__20261021.md](O_rbs-host-transfer__20261021.md) | P0 | Session B: existing-aggregate failure analysis recorded; source audit/independent review provider-blocked, no new UTEX accuracy result; [#58](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/58), parent #12 |

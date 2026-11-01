@@ -42,6 +42,15 @@ failed. These are experimental models with measured limitations, independent of
 De Novo DNA/Salis Lab. Production equivalence and native UTEX 2973 calibration
 remain unestablished.
 
+The separately [reviewed native RBS recheck](docs/validation/rbs-native-development-recheck.md)
+also found weak associations on 479 previously consumed PCC 6803 inputs.
+Historical scoring returned 449 predictions, with Spearman correlation 0.189
+against the ribosome-occupancy/RNA proxy. Context and standby scoring covered
+all 479 inputs, but their correlations were 0.128 and 0.111. Broader coverage did
+not improve ranking. These results belong to frozen 0.12.0rc1, not later design
+packages; they do not measure recoding effects, completed protein production or
+UTEX accuracy. The report retains failed predictions and paired comparisons.
+
 **The historical Promoter model also runs locally.**
 It scores explicitly requested transcription-start candidates on either strand,
 returns the model's sequence windows and score contributions, and exports JSON,

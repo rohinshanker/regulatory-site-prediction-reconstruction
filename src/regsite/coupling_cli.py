@@ -6,14 +6,17 @@ import sys
 from contextlib import nullcontext
 
 from regsite.coupling import invalid_result, predict_coupling
+from regsite.coupling_export import csv_bytes
 from regsite.coupling_io import CouplingInputError, load_request, result_bytes
 
 
 def main(argv: list[str] | None = None) -> int:
-    """Write one JSON result; return 0 complete, 1 partial, 2 invalid or I/O error."""
+    """Write native JSON or CSV; return 0 complete, 1 partial, 2 invalid/I/O error."""
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("input", help="coupling-request-1 JSON; '-' reads stdin")
+    parser.add_argument("--format", choices=("json", "csv"), default="json")
     args = parser.parse_args(argv)
+    serialize = csv_bytes if args.format == "csv" else result_bytes
     try:
         try:
             with (
@@ -26,7 +29,7 @@ def main(argv: list[str] | None = None) -> int:
             result = invalid_result("invalid_json_or_input_limit")
         else:
             result = predict_coupling(request)
-        raw = result_bytes(result)
+        raw = serialize(result)
         sys.stdout.buffer.write(raw)
         sys.stdout.flush()
         return {"complete": 0, "partial": 1, "invalid_input": 2}[result["status"]]
