@@ -1,0 +1,1287 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "algorithm",
+    "model",
+    "model_identity",
+    "request",
+    "request_sha256",
+    "design_id",
+    "targets",
+    "constraints",
+    "limits",
+    "status",
+    "reason",
+    "coverage",
+    "candidates",
+    "proposal",
+    "confirmation",
+    "selected",
+    "elapsed_seconds",
+    "warnings",
+    "result_sha256"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "promoter-design-result-1"
+    },
+    "algorithm": {
+      "$ref": "#/$defs/algorithm"
+    },
+    "model": {
+      "anyOf": [
+        {
+          "$ref": "promoter-result-1.0.schema.json#/$defs/model"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "model_identity": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/model_identity"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "request": {
+      "anyOf": [
+        {
+          "$ref": "promoter-design-request-1.schema.json"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "request_sha256": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "design_id": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "targets": {
+      "type": "array",
+      "minItems": 0,
+      "maxItems": 8,
+      "items": {
+        "$ref": "#/$defs/target"
+      }
+    },
+    "constraints": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/constraints"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "limits": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/limits"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "status": {
+      "enum": [
+        "complete",
+        "partial",
+        "no_candidate",
+        "invalid_input"
+      ]
+    },
+    "reason": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "coverage": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/coverage"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "candidates": {
+      "type": "array",
+      "minItems": 0,
+      "maxItems": 64,
+      "items": {
+        "$ref": "#/$defs/candidate"
+      }
+    },
+    "proposal": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/proposal"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "confirmation": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/confirmation"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "selected": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/proposal"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "elapsed_seconds": {
+      "type": "number",
+      "minimum": 0
+    },
+    "warnings": {
+      "type": "array",
+      "minItems": 0,
+      "maxItems": 16,
+      "items": {
+        "type": "string"
+      }
+    },
+    "result_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "invalid_input"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "model": {
+            "type": "null"
+          },
+          "model_identity": {
+            "type": "null"
+          },
+          "request": {
+            "type": "null"
+          },
+          "request_sha256": {
+            "type": "null"
+          },
+          "design_id": {
+            "type": "null"
+          },
+          "constraints": {
+            "type": "null"
+          },
+          "limits": {
+            "type": "null"
+          },
+          "coverage": {
+            "type": "null"
+          },
+          "proposal": {
+            "type": "null"
+          },
+          "confirmation": {
+            "type": "null"
+          },
+          "selected": {
+            "type": "null"
+          },
+          "targets": {
+            "maxItems": 0
+          },
+          "candidates": {
+            "maxItems": 0
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "model": {
+            "$ref": "promoter-result-1.0.schema.json#/$defs/model"
+          },
+          "model_identity": {
+            "$ref": "#/$defs/model_identity"
+          },
+          "request": {
+            "$ref": "promoter-design-request-1.schema.json"
+          },
+          "request_sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "design_id": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "targets": {
+            "minItems": 1
+          },
+          "constraints": {
+            "$ref": "#/$defs/constraints"
+          },
+          "limits": {
+            "$ref": "#/$defs/limits"
+          },
+          "coverage": {
+            "$ref": "#/$defs/coverage"
+          },
+          "candidates": {
+            "minItems": 1
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "complete"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "reason": {
+            "type": "null"
+          },
+          "proposal": {
+            "$ref": "#/$defs/proposal"
+          },
+          "selected": {
+            "$ref": "#/$defs/proposal"
+          },
+          "confirmation": {
+            "allOf": [
+              {
+                "$ref": "#/$defs/confirmation"
+              },
+              {
+                "properties": {
+                  "status": {
+                    "const": "matched"
+                  }
+                }
+              }
+            ]
+          },
+          "coverage": {
+            "properties": {
+              "all_candidates_scored": {
+                "const": true
+              },
+              "deadline_exceeded": {
+                "const": false
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "no_candidate"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "proposal": {
+            "type": "null"
+          },
+          "confirmation": {
+            "type": "null"
+          },
+          "selected": {
+            "type": "null"
+          },
+          "coverage": {
+            "properties": {
+              "successful": {
+                "const": 0
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "partial"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "coverage": {
+            "properties": {
+              "successful": {
+                "minimum": 1
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Bounded Promoter design result 1",
+  "$comment": "Structural contract only. Runtime checks complete identities/hashes, exact native shape/coordinate/score semantics, coverage accounting, ordering, constraints, all-target objective and confirmation equality. Unadmitted native objects are bounded opaque failure evidence, not valid predictions. Canonical result hash excludes itself; native hash binds authoritative pretty JSON plus LF. Package version distinguishes wrapper/native identity without changing source/model parameters. No scientific or global-optimum claim.",
+  "$defs": {
+    "algorithm": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "implementation_version"
+      ],
+      "properties": {
+        "id": {
+          "const": "bounded-promoter-substitution-enumeration-1"
+        },
+        "implementation_version": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "model_identity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "implementation_version",
+        "parameter_json_sha256",
+        "coefficient_array_sha256",
+        "intercept_array_sha256",
+        "source_commit"
+      ],
+      "properties": {
+        "id": {
+          "const": "promoter-lafleur2022-historical-1"
+        },
+        "implementation_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "parameter_json_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "coefficient_array_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "intercept_array_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "source_commit": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40}$"
+        }
+      }
+    },
+    "target": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "index",
+        "strand",
+        "forward_base",
+        "oriented_base",
+        "target_log_score",
+        "admission_interval"
+      ],
+      "properties": {
+        "index": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 7
+        },
+        "strand": {
+          "enum": [
+            "+",
+            "-"
+          ]
+        },
+        "forward_base": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 999
+        },
+        "oriented_base": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 999
+        },
+        "target_log_score": {
+          "type": "number",
+          "minimum": -1000000.0,
+          "maximum": 1000000.0
+        },
+        "admission_interval": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "prefixItems": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1000
+            },
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1000
+            }
+          ],
+          "items": false
+        }
+      }
+    },
+    "constraints": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "editable_positions",
+        "immutable_intervals",
+        "max_changes"
+      ],
+      "properties": {
+        "editable_positions": {
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 1000,
+          "items": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 999
+          }
+        },
+        "immutable_intervals": {
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 1000,
+          "items": {
+            "type": "array",
+            "minItems": 2,
+            "maxItems": 2,
+            "prefixItems": [
+              {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 1000
+              },
+              {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 1000
+              }
+            ],
+            "items": false
+          }
+        },
+        "max_changes": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 2
+        }
+      }
+    },
+    "limits": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "max_candidates",
+        "seconds_per_candidate",
+        "seconds_total"
+      ],
+      "properties": {
+        "max_candidates": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 64
+        },
+        "seconds_per_candidate": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 10
+        },
+        "seconds_total": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 120
+        }
+      }
+    },
+    "native_request": {
+      "allOf": [
+        {
+          "$ref": "promoter-request-1.0.schema.json"
+        },
+        {
+          "type": "object",
+          "required": [
+            "schema_version",
+            "id",
+            "sequence",
+            "calibration",
+            "scan",
+            "output"
+          ],
+          "properties": {
+            "schema_version": {
+              "const": "1.0"
+            },
+            "sequence": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1000,
+              "pattern": "^[ACGT]+$"
+            },
+            "calibration": {
+              "enum": [
+                "ecoli_mg1655",
+                "in_vitro"
+              ]
+            },
+            "scan": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "mode",
+                "positions"
+              ],
+              "properties": {
+                "mode": {
+                  "const": "positions"
+                },
+                "positions": {
+                  "type": "array",
+                  "minItems": 1,
+                  "maxItems": 8,
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "strand",
+                      "tss"
+                    ],
+                    "properties": {
+                      "strand": {
+                        "enum": [
+                          "+",
+                          "-"
+                        ]
+                      },
+                      "tss": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 999
+                      }
+                    }
+                  },
+                  "uniqueItems": true
+                }
+              }
+            },
+            "output": {
+              "const": {
+                "states": "selected",
+                "legacy_keys": false,
+                "elements": true
+              }
+            }
+          }
+        }
+      ]
+    },
+    "edit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "position",
+        "from",
+        "to",
+        "oriented"
+      ],
+      "properties": {
+        "position": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 999
+        },
+        "from": {
+          "enum": [
+            "A",
+            "C",
+            "G",
+            "T"
+          ]
+        },
+        "to": {
+          "enum": [
+            "A",
+            "C",
+            "G",
+            "T"
+          ]
+        },
+        "oriented": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 8,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "target_index",
+              "position",
+              "from",
+              "to"
+            ],
+            "properties": {
+              "target_index": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 7
+              },
+              "position": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 999
+              },
+              "from": {
+                "enum": [
+                  "A",
+                  "C",
+                  "G",
+                  "T"
+                ]
+              },
+              "to": {
+                "enum": [
+                  "A",
+                  "C",
+                  "G",
+                  "T"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "proposal": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "index",
+        "candidate_id",
+        "sequence",
+        "sequence_sha256",
+        "edits",
+        "native_sha256",
+        "objective",
+        "observed_log_scores",
+        "absolute_log_errors"
+      ],
+      "properties": {
+        "index": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 63
+        },
+        "candidate_id": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "sequence": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1000,
+          "pattern": "^[ACGT]+$"
+        },
+        "sequence_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "edits": {
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 2,
+          "items": {
+            "$ref": "#/$defs/edit"
+          }
+        },
+        "native_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "objective": {
+          "type": "number",
+          "minimum": 0
+        },
+        "observed_log_scores": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 8,
+          "items": {
+            "type": "number"
+          }
+        },
+        "absolute_log_errors": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 8,
+          "items": {
+            "type": "number",
+            "minimum": 0
+          }
+        }
+      }
+    },
+    "candidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "index",
+        "candidate_id",
+        "sequence",
+        "sequence_sha256",
+        "edits",
+        "native_request",
+        "native_request_sha256",
+        "attempted",
+        "status",
+        "reason",
+        "native",
+        "native_sha256",
+        "native_bytes",
+        "native_admitted",
+        "objective",
+        "observed_log_scores",
+        "absolute_log_errors"
+      ],
+      "properties": {
+        "index": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 63
+        },
+        "candidate_id": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "sequence": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1000,
+          "pattern": "^[ACGT]+$"
+        },
+        "sequence_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "edits": {
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 2,
+          "items": {
+            "$ref": "#/$defs/edit"
+          }
+        },
+        "native_request": {
+          "$ref": "#/$defs/native_request"
+        },
+        "native_request_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "attempted": {
+          "type": "boolean"
+        },
+        "status": {
+          "enum": [
+            "not_run",
+            "ok",
+            "failed",
+            "no_candidate",
+            "unsupported"
+          ]
+        },
+        "reason": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "native": {
+          "anyOf": [
+            {
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "native_sha256": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "native_bytes": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "native_admitted": {
+          "type": "boolean"
+        },
+        "objective": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "observed_log_scores": {
+          "anyOf": [
+            {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 8,
+              "items": {
+                "type": "number"
+              }
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "absolute_log_errors": {
+          "anyOf": [
+            {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 8,
+              "items": {
+                "type": "number",
+                "minimum": 0
+              }
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "native_admitted": {
+                "const": true
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "native": {
+                "$ref": "promoter-result-1.0.schema.json"
+              },
+              "native_sha256": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              },
+              "native_bytes": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 131072
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "ok"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "attempted": {
+                "const": true
+              },
+              "reason": {
+                "type": "null"
+              },
+              "native_admitted": {
+                "const": true
+              },
+              "objective": {
+                "type": "number",
+                "minimum": 0
+              },
+              "observed_log_scores": {
+                "type": "array",
+                "minItems": 1,
+                "maxItems": 8,
+                "items": {
+                  "type": "number"
+                }
+              },
+              "absolute_log_errors": {
+                "type": "array",
+                "minItems": 1,
+                "maxItems": 8,
+                "items": {
+                  "type": "number",
+                  "minimum": 0
+                }
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "objective": {
+                "type": "null"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "not_run"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "attempted": {
+                "const": false
+              },
+              "native": {
+                "type": "null"
+              },
+              "native_sha256": {
+                "type": "null"
+              },
+              "native_bytes": {
+                "type": "null"
+              },
+              "native_admitted": {
+                "const": false
+              }
+            }
+          }
+        }
+      ]
+    },
+    "confirmation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "candidate_index",
+        "attempted",
+        "status",
+        "reason",
+        "native_request_sha256",
+        "native",
+        "native_sha256",
+        "native_bytes",
+        "native_admitted"
+      ],
+      "properties": {
+        "candidate_index": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 63
+        },
+        "attempted": {
+          "type": "boolean"
+        },
+        "status": {
+          "enum": [
+            "matched",
+            "mismatch",
+            "failed",
+            "not_run"
+          ]
+        },
+        "reason": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "native_request_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "native": {
+          "anyOf": [
+            {
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "native_sha256": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "native_bytes": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "native_admitted": {
+          "type": "boolean"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "native_admitted": {
+                "const": true
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "native": {
+                "$ref": "promoter-result-1.0.schema.json"
+              },
+              "native_sha256": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              },
+              "native_bytes": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 131072
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "matched"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "attempted": {
+                "const": true
+              },
+              "native_admitted": {
+                "const": true
+              },
+              "reason": {
+                "type": "null"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "not_run"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "attempted": {
+                "const": false
+              },
+              "native": {
+                "type": "null"
+              },
+              "native_admitted": {
+                "const": false
+              }
+            }
+          }
+        }
+      ]
+    },
+    "coverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "planned",
+        "attempted",
+        "successful",
+        "failed",
+        "not_run",
+        "prediction_calls",
+        "all_candidates_scored",
+        "deadline_exceeded",
+        "stop_reason"
+      ],
+      "properties": {
+        "planned": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 64
+        },
+        "attempted": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 64
+        },
+        "successful": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 64
+        },
+        "failed": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 64
+        },
+        "not_run": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 64
+        },
+        "prediction_calls": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 65
+        },
+        "all_candidates_scored": {
+          "type": "boolean"
+        },
+        "deadline_exceeded": {
+          "type": "boolean"
+        },
+        "stop_reason": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    }
+  }
+}
