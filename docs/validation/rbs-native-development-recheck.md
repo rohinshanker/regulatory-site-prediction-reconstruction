@@ -3,7 +3,7 @@
 - Purpose: Describe coverage and rank association for four fixed configurations on existing public PCC 6803 development-validation inputs.
 - Scope: Consumed-study exploratory analysis; no fitting, promotion, final outcomes or new experimental planning.
 - Last verified: 2026-10-31
-- State: A/C accepted the bounded admission repairs at d8c9a43; final A disposition and the separately acknowledged execution freeze remain pending. No native prediction has run for this task.
+- State: A/C accepted the bounded admission repairs at d8c9a43, integrated by A at ef46acd. B acknowledged A's exact execution freeze; verified acquisition and scientific evaluation remain pending.
 
 The [protocol](../../benchmarks/rbs/native-development-recheck-protocol.json)
 fixes the cohort, candidate, configurations, packing, resources and endpoints
@@ -79,9 +79,9 @@ receipt consistency and stream hashes without executing a prediction. The
 proposed separation has A run and pin those two verification summaries, while B
 binds them and verifies every consumed receipt/output byte before semantics.
 This avoids importing scorer modules through the runner library in B tooling.
-The artifact interface below implements this separation, with the bounded
-admission repairs independently accepted. Final A disposition and execution acknowledgement remain required; the
-interface does not weaken the installed runner verification requirement.
+The artifact interface below implements the accepted separation. B's independent
+freeze acknowledgement precedes A's one-attempt acquisition; the interface does
+not weaken the installed runner verification requirement.
 
 A complete valid exit-1 JSON batch may retain successful rows beside explicit
 native failures. Timed-out, truncated, refused, abnormal, interrupted or unstarted
@@ -135,6 +135,15 @@ independent full-suite run. Review evidence remains external under
 `30d89a7370897d1641ec2431603a5040aab8324ce43f363678d11b34dc8e89ef`.
 This acceptance is about admission tooling, not biological accuracy or permission
 to collect. Preserve the original code/protocol/plan pins in the execution freeze.
+
+The separate execution freeze is SHA256
+`7b8b435310949f86870993e4e754ef5952d0d487cfa7b762e67f3182f2b41e56`;
+B's acknowledgement is SHA256
+`3d55a599a4eefb055965968eabc3787ca72dfcb4b7f007f9a5b60612c7ae4c12`.
+Both remain external under `regsite-wave10-20261031/`. They authorize only A's
+exact original-0.12 one-attempt commands and preserve every frozen limit. An
+acknowledgement is not a completed run or an admitted acquisition; B still
+requires independently communicated acquisition pins before scientific analysis.
 
 
 ## Frozen producer wire and result semantics
