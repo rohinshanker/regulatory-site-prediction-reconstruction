@@ -2,8 +2,8 @@
 
 - Purpose: Describe coverage and rank association for four fixed configurations on existing public PCC 6803 development-validation inputs.
 - Scope: Consumed-study exploratory analysis; no fitting, promotion, final outcomes or new experimental planning.
-- Last verified: 2026-10-22
-- State: Local tooling implements the finite A/C admission corrections; exact repair recheck and final execution freeze remain pending. No native prediction has run for this task.
+- Last verified: 2026-10-31
+- State: A/C accepted the bounded admission repairs at d8c9a43; final A disposition and the separately acknowledged execution freeze remain pending. No native prediction has run for this task.
 
 The [protocol](../../benchmarks/rbs/native-development-recheck-protocol.json)
 fixes the cohort, candidate, configurations, packing, resources and endpoints
@@ -79,8 +79,8 @@ receipt consistency and stream hashes without executing a prediction. The
 proposed separation has A run and pin those two verification summaries, while B
 binds them and verifies every consumed receipt/output byte before semantics.
 This avoids importing scorer modules through the runner library in B tooling.
-The artifact interface below implements this proposed separation for finite A/C
-review. Final acceptance and execution acknowledgement remain required; the
+The artifact interface below implements this separation, with the bounded
+admission repairs independently accepted. Final A disposition and execution acknowledgement remain required; the
 interface does not weaken the installed runner verification requirement.
 
 A complete valid exit-1 JSON batch may retain successful rows beside explicit
@@ -124,6 +124,17 @@ Final collection requires their accepted tooling and a separate acknowledged
 execution freeze. The provisional preparation receipt is not authorization.
 No worker dispatch, scoring import, predictor call, new source, private outcome,
 consumer change or publication belongs to B's tooling step.
+
+The exact repair `d8c9a43b0157234e3cca18404cbb13f6ade0fc3a` has no remaining
+finding in the bounded A/C recheck. A checked all 120 planned argv lists against
+the frozen formatter; C checked failure accounting, prediction identity and
+window geometry using eight focused tests and 20 independent artificial controls.
+The existing 51-test coverage receipt is reused, not represented as a new
+independent full-suite run. Review evidence remains external under
+`regsite-wave10-20261031/c-recheck/`; its receipt SHA256 is
+`30d89a7370897d1641ec2431603a5040aab8324ce43f363678d11b34dc8e89ef`.
+This acceptance is about admission tooling, not biological accuracy or permission
+to collect. Preserve the original code/protocol/plan pins in the execution freeze.
 
 
 ## Frozen producer wire and result semantics
