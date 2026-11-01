@@ -3,7 +3,7 @@
 - Purpose: Describe coverage and rank association for four fixed configurations on existing public PCC 6803 development-validation inputs.
 - Scope: Consumed-study exploratory analysis; no fitting, promotion, final outcomes or new experimental planning.
 - Last verified: 2026-11-01
-- State: Frozen acquisition admitted and evaluated once with unchanged reviewed tooling. Public aggregates/report await finite independent review; this is consumed-study exploratory evidence.
+- State: Frozen acquisition admitted and evaluated once with unchanged reviewed tooling. Independent aggregate/report review and coordinator acceptance are complete; this remains consumed-study exploratory evidence.
 
 The [protocol](../../benchmarks/rbs/native-development-recheck-protocol.json)
 fixes the cohort, candidate, configurations, packing, resources and endpoints
@@ -102,8 +102,21 @@ The execution receipt in sibling `b-evaluation-execution-01/receipt.json` binds
 the pre-execution command, 18 before/after input pins, exit, stdout, timing log
 and report; SHA256
 `a4dd46ec586bee5dd3c5602ad282d6bfcf91924053271acd672d8585ae4d8827`.
-Reported metric values and interpretation remain pending the finite independent
-aggregate/report review; prior tooling acceptance is not that review.
+[Independent C review](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/73#issuecomment-6560581981)
+and [A acceptance](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/73#issuecomment-6560617150)
+cover exact report commit `1ce781d134784e52df69423721b37cb36d95da21`, including
+full-precision projection, printed rounding, denominators, missingness, interval
+accounting and the immutable receipt chain. No actionable finding remains in
+this scoped evaluation. The finite review reuses previously accepted admission
+and arithmetic tooling; it is not a second empirical evaluation or approval to
+promote, tune or publish a model.
+
+The review receipt is external
+`regsite-wave10-20261031/c-native-report-review/receipt.json`, SHA256
+`3ec612a56a4d2b0352d1c389d4353c961f139ff1f431b344ed02d1ae5a4b69e6`.
+The compact summary binds the original reviewed summary bytes and these later
+acceptance receipts separately; only review metadata changed after acceptance.
+All aggregate values, original report and execution artifacts remain unchanged.
 
 ## Fixed execution boundary
 
