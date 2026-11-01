@@ -1,8 +1,8 @@
 # Bounded Promoter design
 
 - Purpose: Enumerate explicit substitutions toward caller-supplied historical Promoter log-score targets.
-- Scope: Original deterministic wrapper around the admitted predictor; contract fixed before implementation, independent review pending.
-- Last verified: 2026-10-31
+- Scope: Original deterministic wrapper around the admitted predictor; independent exact-patch review pending.
+- Last verified: 2026-11-01
 
 This uses the unchanged [historical Promoter model](promoter-model-card.md).
 It does not recover the unavailable published/hosted optimizer, discover TSSs,
@@ -130,7 +130,8 @@ Canonical enumeration order is reported separately in `constraints`.
   `native_bytes` records that byte length when serializable.
 - `result_sha256`: canonical hash of the entire wrapper result excluding only
   itself. It includes elapsed time; stable design IDs need not imply identical
-  wrapper result hashes between executions.
+  wrapper result hashes between executions. Elapsed time ends at the final
+  admission/confirmation decision, before wrapper hashing and serialization.
 
 The result has exactly `schema_version`, `algorithm`, `model`, `model_identity`,
 `request`, `request_sha256`, `design_id`, `targets`, `constraints`, `limits`,
@@ -162,3 +163,11 @@ stdin/files/no-follow/output errors, and full new statement/branch coverage.
 Use only small original artificial inputs; no source retrieval, folding,
 biological dataset, fitting or private benchmark. Independent exact-patch review
 belongs to A; self-tests are engineering evidence, not scientific acceptance.
+
+Run the original example from a source checkout with `PYTHONPATH=src python -m
+regsite.promoter_design_cli examples/promoter-design-single.json`. Focused tests
+are `tests/test_promoter_design*.py`; isolate their pytest configuration with
+`--noconftest`, disable plugin autoload and explicitly enable `pytest_cov` for
+coverage of the three new modules. Keep coverage, pytest cache and basetemp
+outside the checkout. Ruff check/format and mypy apply to these modules; schemas
+resolve only against the checked-in native schemas, without network retrieval.
