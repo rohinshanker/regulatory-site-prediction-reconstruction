@@ -428,6 +428,12 @@ and [request/result contract](docs/validation/operon-coupling-runtime.md).
 The [0.9.0rc1 package receipt](docs/validation/coupling-0.9-candidate.md) pins its
 source and artifacts separately from earlier candidates.
 
+The independent [0.14.0rc2 numerical evaluation](docs/validation/coupling-numeric-evaluation.md)
+retained all 24 artificial cases: 22 conform under the frozen tolerances. Two
+extreme-energy cases have fold-change discrepancies of about 1e-11; all geometry
+and status fields agree. Those discrepancies remain recorded, and this test does
+not establish biological accuracy or full Operon prediction.
+
 ## Conditional aptamer components
 
 The 0.7.0rc1 development runtime provides two explicit components:
@@ -460,22 +466,21 @@ and [immutable package validation](docs/validation/conditional-0.7-candidate.md)
 
 ## Start a new implementation session
 
-**Producer implementation resumed on 2026-10-21.** A owns runtime and integration;
-B owns independent benchmark/evidence tooling. The completed
-[native Promoter pilot](docs/validation/promoter-native-pilot-results.md) and reviewed
-calculator components form the next baseline. A now owns bounded offline jobs
-with external artifact storage; C completed the reviewed reinitiation component
-and now owns separate intrinsic-termination admission. B's public receipt checker
-is complete; its next evidence slice assesses experimental terminator datasets.
-Agree scope and paths before starting another
-assignment, preserve immutable candidates, and freeze new evaluation protocols.
+**No new implementation wave is active.** Completed components, numerical
+checks and experimental reports remain available; incomplete goals are queued
+in the [live ticket index](docs/notes/tickets/INDEX.md). Start further work only
+with a new owner request and an agreed bounded assignment. Keep runtime/package
+integration separate from independent evidence/evaluation, reserve exact paths,
+and freeze a new candidate/protocol before collecting outcomes. Previously
+exposed cohorts and artificial panels are consumed evidence, not untouched tests.
 The cyano preview remains separately held on the
 [paired 0.6 handoff](docs/validation/paired-consumer-preview.md); this producer
 wave does not authorize consumer admission or publication. A new transcript
 adapter and the unaccepted portable-original-backend assignment are outside
 this wave; a new backend build does not grant conditional admission.
 
-Read the [current release guide](docs/validation/rbs-0.4-release.md),
+Read the [current engineering package](docs/validation/engineering-0.17-candidate.md),
+[RBS release guide](docs/validation/rbs-0.4-release.md),
 [independent Wave 4 result](docs/validation/rbs-wave4-results.md) and live ticket
 queue before starting work. Wave 4's scoped implementation/evaluation is complete;
 the public-release milestone remains under ticket 06. Its

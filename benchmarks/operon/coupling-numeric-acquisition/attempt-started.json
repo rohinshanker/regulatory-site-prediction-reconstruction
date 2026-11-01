@@ -1,0 +1,24 @@
+{
+  "ack": {
+    "bytes": 4898,
+    "sha256": "16b84c1b5f0d8a3ef91183c4405e514819ca68bef6486b6d1c88332546fa58bf"
+  },
+  "acquisition_program": {
+    "bytes": 10797,
+    "path": "/Users/Rohin/.cache/regsite-closeout-20261101/acquire-coupling-once-v2.py",
+    "sha256": "31f1051661673e72970199373df245ba71add5037cb6f61cab5f22292733f2cc"
+  },
+  "attempts": 1,
+  "authorization": {
+    "bytes": 747,
+    "sha256": "7c41d5df35d1819d2c42a5e7680f271dac058d9a6353d1e2a77dcb5b90274fbf"
+  },
+  "freeze": {
+    "bytes": 16675,
+    "sha256": "fc3a3347a498506d84b32409f3230530475446e00c9d89ed2d7ecf5370465eae"
+  },
+  "review": {
+    "bytes": 5354,
+    "sha256": "c1bf1ac9841dc41ba889b92dd10d8d0a4d46801e287e1f99d44c3f43405de146"
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "candidate_version": "0.14.0rc2",
+  "derivation": "static source syntax only; no model import or candidate invocation",
+  "normalization": {
+    "alphabet": "ACGU",
+    "coordinate_space": "normalized supplied sequence",
+    "expression": "''.join(value.upper().split()).replace('T', 'U')",
+    "normalized_length_maximum": 100000,
+    "normalized_length_minimum": 1,
+    "raw_text_max_characters": 1000000
+  },
+  "oriented_sequence_sha256": {
+    "algorithm": "sha256",
+    "encoding": "utf-8",
+    "minus_orientation": "sequence.translate(str.maketrans('ACGU', 'UGCA'))[::-1]",
+    "payload": "transcript-oriented normalized RNA",
+    "plus_orientation": "unchanged normalized input",
+    "prefix": "",
+    "suffix": ""
+  },
+  "schema_version": "coupling-geometry-identity-0.14rc2-1",
+  "sequence_sha256": {
+    "algorithm": "sha256",
+    "encoding": "utf-8",
+    "payload": "normalized input-orientation RNA",
+    "prefix": "",
+    "suffix": ""
+  },
+  "source_commit": "ebff076d14789735b56e71501ccfaa5b2b0f82fc",
+  "source_files": [
+    {
+      "bytes": 5536,
+      "path": "src/regsite/coupling_geometry.py",
+      "sha256": "802d253d6db6bc9967ef80af9f21566ca56262c4a4e78f70070971b826ddee25"
+    },
+    {
+      "bytes": 2699,
+      "path": "src/regsite/sequence.py",
+      "sha256": "1d38b3e074092ebcbeec2b6fd1b0a95492f3a8d57a215d72adee81ee53ddbb24"
+    }
+  ]
+}

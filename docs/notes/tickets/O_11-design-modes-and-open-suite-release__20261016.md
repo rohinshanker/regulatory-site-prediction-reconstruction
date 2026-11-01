@@ -1,11 +1,11 @@
-# A_11-design-modes-and-open-suite-release__20261016 — Active
+# O_11-design-modes-and-open-suite-release__20261016 — Open
 
 - Scope: Complete design modes and release the fully usable open calculator suite.
-- Status: active
+- Status: open
 - Opened: 2026-10-16
 - Updated: 2026-11-01
-- Current State: A owns suite integration. Bounded RBS, Promoter and multi-target design, conditional sweeps and component exports are independently accepted and consolidated in 0.17.0rc1. Complete Operon mechanisms, sequence-to-switch design, broader biological validation and tagged/registry release remain unfinished. The accepted coupling CSV does not complete B's independent #81 evaluation.
-- Verification: [Engineering 0.17](../../validation/engineering-0.17-candidate.md) passes 8,024 tests/1,551 subtests/zero skips, full measured coverage, static checks and 77 fresh-installed outputs; independent source/package review accepted. Apply the final exact-head platform merge gate. Frozen scientific/resource measurements retain their original package identities; model-target success is not experimentally improved expression.
+- Current State: Queued after the owner-requested current-wave closeout; no continuing implementation assignment. A owns suite integration. Bounded RBS, Promoter and multi-target design, conditional sweeps and component exports are independently accepted and consolidated in 0.17.0rc1. Complete Operon mechanisms, sequence-to-switch design, broader biological validation and tagged/registry release remain unfinished. The accepted coupling CSV does not complete B's independent #81 evaluation.
+- Verification: [Engineering 0.17](../../validation/engineering-0.17-candidate.md) passes 8,024 tests/1,551 subtests/zero skips, full measured coverage, static checks and 77 fresh-installed outputs; independent source/package review accepted. Both premerge and main platform matrices pass at the identities in the 0.17 guide. Frozen scientific/resource measurements retain their original package identities; model-target success is not experimentally improved expression.
 - Cleanup: Owning session records final checks and unresolved findings, resolves the ticket, distills reusable guidance into docs/validation/, updates both indexes and linked GitHub issue, then removes the resolved ticket.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/11
 - Priority: P1

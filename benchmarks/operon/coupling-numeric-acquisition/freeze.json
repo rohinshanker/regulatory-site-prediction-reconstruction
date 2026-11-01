@@ -1,0 +1,460 @@
+{
+  "argv": [
+    "/Users/Rohin/.cache/regsite-wave10-20261031/engineering-0.14rc2-installed/source/.cache/fresh/bin/python",
+    "-I",
+    "-B",
+    "-m",
+    "regsite.coupling_cli",
+    "/Users/Rohin/.cache/regsite-closeout-20261101/coupling-acquisition/request.json"
+  ],
+  "candidate": {
+    "runtime_model_material_freeze_required": true,
+    "sdist_sha256": "887cee014014b67bb863430eb2d9e07bfe49a3e7ae2b989f1e741cab4ba76b15",
+    "source_commit": "ebff076d14789735b56e71501ccfaa5b2b0f82fc",
+    "version": "0.14.0rc2",
+    "wheel_sha256": "14ac432db000abd2a680c52e3968081d03ab937419fca08ca8ddaf6433226ac6"
+  },
+  "environment": {
+    "LANG": "C",
+    "LC_ALL": "C",
+    "PATH": "/usr/bin:/bin"
+  },
+  "inputs": {
+    "fixtures.json": {
+      "bytes": 83630,
+      "sha256": "115cc7f71d352e1dcecc85afce5bf6a70bc50f381ae009d0c11beff1f1f722b1"
+    },
+    "geometry-contract.json": {
+      "bytes": 1370,
+      "sha256": "0c623e8b2c64608a5945ecccf73cdedeeaa1072cda657df751680827b97d03ee"
+    },
+    "protocol.json": {
+      "bytes": 10748,
+      "sha256": "9390e29f40eb3ef0f2b09bfe36ab6df8a523369de203d7e096ee70a5494ddc64"
+    },
+    "public-contract.json": {
+      "bytes": 2385,
+      "sha256": "7a236d9ef4b1a42ac48c11244eb6a637b48e98e02191478edd4322f109b0f018"
+    },
+    "request.json": {
+      "bytes": 11103,
+      "sha256": "53fe5609089c2c9fd7e3c6e90a14b41608332b51646b43b5eb995bc0b6e063cc"
+    },
+    "tool": {
+      "bytes": 37496,
+      "sha256": "defd3e4ca97714069f171e7dcb88052453fe35000ba921ed4dd6d2900b242c19"
+    }
+  },
+  "limits": {
+    "stderr_bytes": 65536,
+    "stdout_bytes": 4194304,
+    "wall_seconds": 30.0
+  },
+  "runtime": {
+    "acquisition_program": {
+      "bytes": 10797,
+      "path": "/Users/Rohin/.cache/regsite-closeout-20261101/acquire-coupling-once-v2.py",
+      "sha256": "31f1051661673e72970199373df245ba71add5037cb6f61cab5f22292733f2cc"
+    },
+    "artifacts": [
+      {
+        "bytes": 208568,
+        "path": "/Users/Rohin/.cache/regsite-wave10-20261031/engineering-0.14rc2-installed/dist/regulatory_site_prediction_reconstruction-0.14.0rc2-py3-none-any.whl",
+        "sha256": "14ac432db000abd2a680c52e3968081d03ab937419fca08ca8ddaf6433226ac6"
+      },
+      {
+        "bytes": 5438652,
+        "path": "/Users/Rohin/.cache/regsite-wave10-20261031/engineering-0.14rc2-installed/dist/regulatory_site_prediction_reconstruction-0.14.0rc2.tar.gz",
+        "sha256": "887cee014014b67bb863430eb2d9e07bfe49a3e7ae2b989f1e741cab4ba76b15"
+      }
+    ],
+    "backends": null,
+    "code": {
+      "files": 62,
+      "sha256": "8b88d55fd4a317c17e2c9e2c0b678b366391f330775f55aace29555728eaa5db"
+    },
+    "import_controls": {
+      "installed_bytecode_files": 0,
+      "isolated": true,
+      "site_pth_files": 0,
+      "sitecustomize_files": 0,
+      "system_site_packages": false,
+      "usercustomize_files": 0,
+      "write_bytecode": false
+    },
+    "installed_root": "/Users/Rohin/.cache/regsite-wave10-20261031/engineering-0.14rc2-installed/source/.cache/fresh/lib/python3.14/site-packages/regsite",
+    "model": {
+      "backend": null,
+      "beta_mol_per_kcal": 0.45,
+      "coefficient_domain": {
+        "distance_0_to_25": 0.0072,
+        "distance_minus_4": 0.022
+      },
+      "id": "tian2015-reinitiation-only-1",
+      "implementation_version": "0.14.0rc2",
+      "k_p": 10.0,
+      "score_scale": "dimensionless exp(-beta*G); no intercept or absolute conversion",
+      "source_doi": "10.1093/nar/gkv635",
+      "source_pdf_sha256": "83bbe3bcd87380b4716c93ad0844134ed71cf4f977d6486ef3d3d38f0a566ff7"
+    },
+    "preparation_receipt": {
+      "bytes": 11784,
+      "path": "/Users/Rohin/.cache/regsite-wave10-20261031/coupling-81-material-preparation/receipt.json",
+      "sha256": "c3d38df2fcb53ab1dd624de16bc635068e8ea057b89d1e546dfe880bfa5ce9f6"
+    },
+    "prior_independent_review": {
+      "accepted": true,
+      "receipt_sha256": "b0e9ee86819427160922d3eaa6d6042a4e50fcb5dc7a92947f5dfb4ae45abea1",
+      "reviewer": "existing Session C",
+      "scope": "A archive/source/installed identity and new installed-workflow assertions; export code independently accepted by A; no platform or biological certification",
+      "source_commit": "ebff076d14789735b56e71501ccfaa5b2b0f82fc"
+    },
+    "public_package_receipt": {
+      "bytes": 38588,
+      "path": "/Users/Rohin/Desktop/coding_stuff/ISAACS-LAB/worktrees/reconstruction-wave-closeout-20261101/models/integration/0.14.0rc2/package.json",
+      "sha256": "24c9a2e08e9bd093743c406c651ce1b3bee18d7795dc02258e70d7e85fe25a4e"
+    },
+    "python": {
+      "cache_tag": "cpython-314",
+      "executable": "/Users/Rohin/.cache/regsite-wave10-20261031/engineering-0.14rc2-installed/source/.cache/fresh/bin/python",
+      "executable_sha256": "87d4df53fd91304be5bac391fb204643c36b7df2023c04a0953bcbc7d4fdf634",
+      "implementation": "cpython",
+      "machine": "arm64",
+      "platform": "darwin",
+      "pyvenv_cfg": {
+        "bytes": 488,
+        "path": "/Users/Rohin/.cache/regsite-wave10-20261031/engineering-0.14rc2-installed/source/.cache/fresh/pyvenv.cfg",
+        "sha256": "94834a100389382219b8ac78590689119d421be4c084ba0d9eacc95ed4119b5b"
+      },
+      "resolved_executable": "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+      "shared_library": {
+        "bytes": 5452528,
+        "path": "/opt/homebrew/opt/python@3.14/Frameworks/Python.framework/Versions/3.14/Python",
+        "sha256": "b112695af23f5e46d84a7c4ef6057603b70b94aacc32e9d548808c2875759d47"
+      },
+      "version": "3.14.7 (main, Aug  5 2026, 10:29:49) [Clang 21.0.0 (clang-2100.1.1.101)]"
+    },
+    "regsite_version": "0.14.0rc2",
+    "runtime_files": [
+      {
+        "bytes": 107,
+        "path": "regsite/__init__.py",
+        "sha256": "5bd7662b682dc0bc95cc693c9584e2600a25ea9bb534a22611952c018e981024"
+      },
+      {
+        "bytes": 106,
+        "path": "regsite/__main__.py",
+        "sha256": "03909d4646d450af7366c3753e048c9591cf1cb5788afdda1c2b85642aab0358"
+      },
+      {
+        "bytes": 13229,
+        "path": "regsite/backend.py",
+        "sha256": "c63d27f6c73a0414553a02fb229cd0fc198276cbc3e26289d27cb5e3dfde515c"
+      },
+      {
+        "bytes": 2465,
+        "path": "regsite/cli.py",
+        "sha256": "71001ec89b5f01fe6f21d3c2690e24215d7bf397ee3d373f72776e99cc557b96"
+      },
+      {
+        "bytes": 21541,
+        "path": "regsite/conditional.py",
+        "sha256": "6cbf2987313387eca39f10b688d843390eb6498e28d80779b07974b847e46797"
+      },
+      {
+        "bytes": 14461,
+        "path": "regsite/conditional_backend.py",
+        "sha256": "ae514ca664caece8b53a4ba7be88fd3611535dee89c667c0f70691a0656a617b"
+      },
+      {
+        "bytes": 3449,
+        "path": "regsite/conditional_cli.py",
+        "sha256": "4b06d7ceb3c7a421dd2e541a7c21a3432ee4e8644b9ab322796b91bcb239ad3b"
+      },
+      {
+        "bytes": 6569,
+        "path": "regsite/conditional_export.py",
+        "sha256": "05836b98d9a388a197a6be3373bf2c009f98704ea373ec54d6365833f169b840"
+      },
+      {
+        "bytes": 15070,
+        "path": "regsite/conditional_math.py",
+        "sha256": "4326de8702aaf211efcba552415d2539be68639bebc73e0d001fca35c85bbb42"
+      },
+      {
+        "bytes": 12579,
+        "path": "regsite/conditional_sweep.py",
+        "sha256": "5a67dd28706135f12925eee0cad165a1bd149fe5cd93ad4618edfb9b742f0e14"
+      },
+      {
+        "bytes": 2369,
+        "path": "regsite/conditional_sweep_cli.py",
+        "sha256": "ec0456bcd375bb7c2b89c6cbefc2b96389ffd5c44b79fa1468c3ce87eebcc6d6"
+      },
+      {
+        "bytes": 4382,
+        "path": "regsite/contracts.py",
+        "sha256": "44dec45866842e47bf0a97d2908d9bcbabdde46db80899c0c15c22b27e1e9a7f"
+      },
+      {
+        "bytes": 9308,
+        "path": "regsite/coupling.py",
+        "sha256": "c40ad92c727000e0b98d206952e1ee2ccde0bbc0f69e8090a44ac8f4e9311b31"
+      },
+      {
+        "bytes": 1606,
+        "path": "regsite/coupling_cli.py",
+        "sha256": "883bb5d77993ac29a717bcb9f524c4c7715674b0f58e397a4269eafa6f966af3"
+      },
+      {
+        "bytes": 5536,
+        "path": "regsite/coupling_geometry.py",
+        "sha256": "802d253d6db6bc9967ef80af9f21566ca56262c4a4e78f70070971b826ddee25"
+      },
+      {
+        "bytes": 2528,
+        "path": "regsite/coupling_io.py",
+        "sha256": "8cbc549897a6f664bf88cece2d390a0e19a3eca72f46439cf55352345bc980cf"
+      },
+      {
+        "bytes": 3712,
+        "path": "regsite/data/conditional-parameters-1.json",
+        "sha256": "99bb08423e2d321947e1cf5bb8cc3061bd99ab02414bff4d25377b5003f51b3f"
+      },
+      {
+        "bytes": 724,
+        "path": "regsite/data/promoter-ORIGINAL-NOTICE.txt",
+        "sha256": "45d25f34fe826d27d344175bd622cbf3d35cbf53bd993d1350d44ee706571ffd"
+      },
+      {
+        "bytes": 9792,
+        "path": "regsite/data/promoter-parameters-1.json",
+        "sha256": "f45bda817d1a0db323964b1ab8f37cb5d2e071dc9e09adf0ef5d791f2415f15e"
+      },
+      {
+        "bytes": 3971,
+        "path": "regsite/data/rnastructure-tables.json",
+        "sha256": "ece4c4b535783cb4e03c7ce8f243d09be84a165ecd113b1d20941b5ed8b69501"
+      },
+      {
+        "bytes": 17675,
+        "path": "regsite/design.py",
+        "sha256": "e96b9a7d3932a68a6c0e60005120e5b155b6ea7a0508c8d38b13d7f08d02ce6a"
+      },
+      {
+        "bytes": 3036,
+        "path": "regsite/design_cli.py",
+        "sha256": "e651cb229a12622f2549e7961dfcd5f446cc573e51d7882c2c43dc3cf030b6c4"
+      },
+      {
+        "bytes": 2215,
+        "path": "regsite/design_io.py",
+        "sha256": "6ef411e37b6d74f4e580f553bed4e1e9667e621ac03b163d26c31cb1eb702fda"
+      },
+      {
+        "bytes": 7479,
+        "path": "regsite/drafting.py",
+        "sha256": "25cb9808381eef20e6b4071cdb31cbc0498e417b684dcfd27fbcfd8ed5c62300"
+      },
+      {
+        "bytes": 1946,
+        "path": "regsite/drafting_cli.py",
+        "sha256": "b029f55afe98422e6ed58512e45835400d4b3552aaf9b14e9e6eeffc0cd64380"
+      },
+      {
+        "bytes": 4450,
+        "path": "regsite/drafting_export.py",
+        "sha256": "40281efe751819a77b60277e6e27aa1d19ee80918a0f22b092c358cd511014af"
+      },
+      {
+        "bytes": 3083,
+        "path": "regsite/drafting_io.py",
+        "sha256": "6dc0cb8afeb6379b8c70d3bd43768a8237bd2e873a60bef9819ed981402a42f9"
+      },
+      {
+        "bytes": 9827,
+        "path": "regsite/edits.py",
+        "sha256": "524d52dab481714b3346f18df20d9bc5f8755ee59dd25927dbc31d07590d2388"
+      },
+      {
+        "bytes": 6599,
+        "path": "regsite/features.py",
+        "sha256": "92c7cafd07d81c606c55a99b3022f9121686a94e51c937ed3d57525c9fbfb341"
+      },
+      {
+        "bytes": 3790,
+        "path": "regsite/genome.py",
+        "sha256": "851215db437765611cc60358ab8b485fcccd2c5848950488394bb8cdd9e7f0fc"
+      },
+      {
+        "bytes": 3155,
+        "path": "regsite/io.py",
+        "sha256": "dc6e29533632a68fce08baa0e8bff37a9c6f098e8e0462ab710fe6ed9fa21bba"
+      },
+      {
+        "bytes": 55262,
+        "path": "regsite/jobs.py",
+        "sha256": "f73022d8e535661f382d2d45189573f975d4c606e7140c32b9cce2a67fd2bbb8"
+      },
+      {
+        "bytes": 7554,
+        "path": "regsite/learned.py",
+        "sha256": "6a0d94edbffbe943ea06028a53120b830a90675fc62ab38f9ddfaa05ffc21f63"
+      },
+      {
+        "bytes": 2095,
+        "path": "regsite/learned_cli.py",
+        "sha256": "7d8ad38d4788f2ad40df80d5f72c823aad00a9b888fe52ca3f84349a44c127db"
+      },
+      {
+        "bytes": 14984,
+        "path": "regsite/learning.py",
+        "sha256": "8a3e3d7b6a238c9a8e199f20d1298aef382692d7ec52693dbdfb1117095095ff"
+      },
+      {
+        "bytes": 20477,
+        "path": "regsite/native.py",
+        "sha256": "d6b90c66780cd53167cb81c50f3c941b52cc20bdd4f8dcee0bcbe089bc508766"
+      },
+      {
+        "bytes": 2281,
+        "path": "regsite/native_cli.py",
+        "sha256": "71a3c15662e03a3dfba026bf2b9d15602184ae969c748c9bcde765fc8c39c1c7"
+      },
+      {
+        "bytes": 5782,
+        "path": "regsite/native_io.py",
+        "sha256": "7e55167f95ccdf63ce6240fcc68d3246410a2af7ffebc55792574942846c75f5"
+      },
+      {
+        "bytes": 24539,
+        "path": "regsite/paired.py",
+        "sha256": "b95cb715802e4b1d30d23d8ec31cdd1aae58aa240e306b2e5821b1bab12df93d"
+      },
+      {
+        "bytes": 1898,
+        "path": "regsite/paired_cli.py",
+        "sha256": "8c2d92b1c681e0d356b84ae56e6f8b1b18a97f7573202d895aad8062933d585b"
+      },
+      {
+        "bytes": 5156,
+        "path": "regsite/paired_io.py",
+        "sha256": "16ce1e0b71782e4cc86dd64b264c87638b5af111f602eebda67ffd6ab20c6459"
+      },
+      {
+        "bytes": 5141,
+        "path": "regsite/partitioned_training.py",
+        "sha256": "03cfca3bc27e94f763c3075f0a8104f34df461ad34b2309443ac0f291cbe617b"
+      },
+      {
+        "bytes": 1686,
+        "path": "regsite/profiles.py",
+        "sha256": "17c3a8d1858425ef042eab8b6513161e77c0ca5ad611c90dbb2df2f65e6887be"
+      },
+      {
+        "bytes": 26062,
+        "path": "regsite/promoter.py",
+        "sha256": "2db4b002d6e4db22aeab25226b228c6f830505b33e466f61f9c6c1a4fbf4d8e7"
+      },
+      {
+        "bytes": 2395,
+        "path": "regsite/promoter_cli.py",
+        "sha256": "7a32fb2d251d1af91fe5eeb7848b04f671cf89762ae055cb227a327bfec6a84e"
+      },
+      {
+        "bytes": 37087,
+        "path": "regsite/promoter_io.py",
+        "sha256": "a06de643dec20daaf19a8e5afb93bd97afda89bbd72b53e73eac2775fecead42"
+      },
+      {
+        "bytes": 1735,
+        "path": "regsite/provenance.py",
+        "sha256": "53afe99e8c8230cefd180c724aaa007a212f700b1c1040bb914e64add4beffed"
+      },
+      {
+        "bytes": 32271,
+        "path": "regsite/rbs.py",
+        "sha256": "2bdd62771ba9d276dc34897cf182e0ecd8fdf3ddc9d9d1e4fe0027bfeb571309"
+      },
+      {
+        "bytes": 2699,
+        "path": "regsite/sequence.py",
+        "sha256": "1d38b3e074092ebcbeec2b6fd1b0a95492f3a8d57a215d72adee81ee53ddbb24"
+      },
+      {
+        "bytes": 11391,
+        "path": "regsite/standby.py",
+        "sha256": "9b8803766853fd6de98abc99622ff4bc973a8a7749e64f824a9268ffe5ed4a9b"
+      },
+      {
+        "bytes": 4809,
+        "path": "regsite/structures.py",
+        "sha256": "68f694b4b91e33690287136445fdad0fbad58c4130516ed1946eb56821fbe4cc"
+      },
+      {
+        "bytes": 11073,
+        "path": "regsite/termination.py",
+        "sha256": "ba11a869a78fe93f57eeea132a9fea8b7d3ac780704a1e3945146a2facac2e66"
+      },
+      {
+        "bytes": 15240,
+        "path": "regsite/termination_backend.py",
+        "sha256": "fb3734ce744f7dcfa8b2c062e1456deb3ac7321e4f985a43ab2ae6da68b422d3"
+      },
+      {
+        "bytes": 2821,
+        "path": "regsite/termination_cli.py",
+        "sha256": "ea180ae00b598db72f7b0432a867080271a370e6e28b52ad191c5f2626221bc7"
+      },
+      {
+        "bytes": 4600,
+        "path": "regsite/termination_export.py",
+        "sha256": "f474491121d8c2d1a5d0ba5ae78000df7f33630c50ab91fdb3ff0f759b4358bf"
+      },
+      {
+        "bytes": 2553,
+        "path": "regsite/termination_io.py",
+        "sha256": "41c4fa9ddb1a7efee146ffdac6ad4fc8cc75684fba10ed24d548bbe763a2f884"
+      },
+      {
+        "bytes": 7838,
+        "path": "regsite/termination_output.py",
+        "sha256": "10dd3228cbb25c0f0470f8b5b6c063a867a075d318daced082a93eea6f9e8c63"
+      },
+      {
+        "bytes": 5305,
+        "path": "regsite/training.py",
+        "sha256": "7406355889db9c1012d184a6ce4cc61fa92ace707e1eaa97a5094332615b594a"
+      },
+      {
+        "bytes": 28616,
+        "path": "regsite/transcript.py",
+        "sha256": "1036c8d98ab3c83c4972d52397e0cf491e00a21294e667a3d79f74b4d32741f1"
+      },
+      {
+        "bytes": 1930,
+        "path": "regsite/transcript_cli.py",
+        "sha256": "b87aa03494d0563b4264e143f4b2bcfac05a902cbec16e153787e14781aefe07"
+      },
+      {
+        "bytes": 4833,
+        "path": "regsite/transcript_geometry.py",
+        "sha256": "2892cf6f05cb0eeb599596d4e13f9d19521a669f5a04709a3f44599fb076c4e7"
+      },
+      {
+        "bytes": 4581,
+        "path": "regsite/transcript_io.py",
+        "sha256": "acb711feb9e4c782b920d1adbe23130304f2f794c1bfa80b8d16c2712e514b6d"
+      }
+    ],
+    "schema_version": "coupling-evaluation-runtime-1",
+    "source_commit": "ebff076d14789735b56e71501ccfaa5b2b0f82fc",
+    "warnings": [
+      "Energies and their common convention are supplied by the caller, not verified.",
+      "Reinitiation only: RNA unfolding and sequence-derived energies are unavailable.",
+      "Historical E. coli component; native-host calibration is unestablished.",
+      "Assumes initiation-limited translation; outputs are relative scores, not rates."
+    ]
+  },
+  "schema_version": "coupling-numeric-freeze-1"
+}

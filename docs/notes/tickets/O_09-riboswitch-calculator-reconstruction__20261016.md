@@ -1,10 +1,10 @@
-# A_09-riboswitch-calculator-reconstruction__20261016 — Active
+# O_09-riboswitch-calculator-reconstruction__20261016 — Open
 
 - Scope: Recover and implement the conditional Riboswitch Calculator.
-- Status: active
+- Status: open
 - Opened: 2026-10-16
-- Updated: 2026-10-31
-- Current State: A completed scoped#43 canonical structural-state and supplied-energy profiles, frozen at163802f (0.7.0rc1, PR46). B #40/#42 independently admitted component sources/fixtures. Portable original-backend qualification is the next bounded dependency; B's assigned validation-tool scope is not yet acknowledged. Full sequence-derived ligand-constrained ribosome states, pseudoknot/steric inference and a complete Riboswitch Calculator remain unfinished.
+- Updated: 2026-11-01
+- Current State: Queued after the owner-requested current-wave closeout; no continuing implementation assignment. A completed scoped#43 canonical structural-state and supplied-energy profiles, frozen at163802f (0.7.0rc1, PR46). B #40/#42 independently admitted component sources/fixtures. Portable original-backend qualification is the next bounded dependency; B's assigned validation-tool scope is not yet acknowledged. Full sequence-derived ligand-constrained ribosome states, pseudoknot/steric inference and a complete Riboswitch Calculator remain unfinished.
 - Current bounded additions: Independently accepted conditional CSV #76 and explicit supplied-energy concentration sweep #77 are integrated in0.14; no sequence/affinity inference or equation changes. Local combined/fresh-package gates pass; platform CI pending. Original structural binary admission and portable-backend/source holds are unchanged.
 - Verification: 476 focused tests with100%747statements320branches; independent review accepted624fa4f. Fresh offline package passed9bounded requests and16sequential backend jobs; B independently checked3saved controls. All8CI39183611595 jobs passed and exact admission is recorded in docs/validation/conditional-0.7-candidate.md. Structural admission remains restricted to the verified original macOS arm64 binary pair; portable scalar inference passed Linux/macOS/Python3.11/3.14. No native accuracy or hosted equivalence.
 - Cleanup: Owning session records final checks and unresolved findings, resolves the ticket, distills reusable guidance into docs/validation/, updates both indexes and linked GitHub issue, then removes the resolved ticket.

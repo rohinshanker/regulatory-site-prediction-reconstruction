@@ -1,15 +1,15 @@
-# A_01-source-recovery-and-open-licensing__20261016 — Active
+# O_01-source-recovery-and-open-licensing__20261016 — Open
 
 - Scope: Recover complete sources and establish an open dependency path.
-- Status: active
+- Status: open
 - Opened: 2026-10-16
-- Updated: 2026-10-18
-- Current State: RBS structural oracles and open backend/source evidence delivered. Pinned Promoter historical inference and public fork execute with independent finite-state agreement; source, parameter and dependency notices are retained, with legacy API/Python limitations documented. The bounded Wave 5 source-admission slice (#35) is complete: 27 source files, isolated Stability feature-list smoke and five independent Riboswitch scalar fixtures are pinned in [the component contract](../../validation/operon-riboswitch-source-admission.md). The canonical constrained RNAstructure component (#40) now has nine executed synthetic fixtures, exact pin/constraint checks and a reviewed offline audit; full constrained cofolding and occupancy remain separate. Complete Operon/Riboswitch inference and their missing submodels remain unresolved; this parent stays active.
+- Updated: 2026-11-01
+- Current State: Queued/open at owner-requested session close; no active broad-parent assignment. RBS structural oracles and open backend/source evidence delivered. Pinned Promoter historical inference and public fork execute with independent finite-state agreement; source, parameter and dependency notices are retained, with legacy API/Python limitations documented. The bounded Wave 5 source-admission slice (#35) is complete: 27 source files, isolated Stability feature-list smoke and five independent Riboswitch scalar fixtures are pinned in [the component contract](../../validation/operon-riboswitch-source-admission.md). The canonical constrained RNAstructure component (#40) now has nine executed synthetic fixtures, exact pin/constraint checks and a reviewed offline audit; full constrained cofolding and occupancy remain separate. Complete Operon/Riboswitch inference and their missing submodels remain unresolved; this parent stays open.
 - Verification: The prior Wave 4 benchmark suite passed 235 tests with 100% statement/branch coverage. Independent source execution, fixture and compatibility review is recorded in promoter-executed-reference.md; frozen input/source identities and evaluation rules are in rbs-new-evaluation-data.md and rbs-wave4-evaluation.md. Earlier results remain unchanged.
 - Cleanup: Owning session records final checks and unresolved findings, resolves the ticket, distills reusable guidance into docs/validation/, updates both indexes and linked GitHub issue, then removes the resolved ticket.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/1
 - Priority: P0
-- Owner: Session B (`9677689a-1792176763`), Wave 5 evidence; branch `wave5/promoter-evidence`, baseline `d37ebd7d8eb2422389d003e3fc2ebab2aa5c6466`.
+- Owner: Session B (`9677689a-1792176763`) retains scope ownership; no active broad-parent writer or collection.
 - Dependencies: None; complete the RBS slice first.
 
 Search public repositories, historical releases, papers, supplements and permitted website downloads for complete implementations of all four calculators. Distinguish a runnable model from wrappers, UI assets and bytecode. Select reuse versus reconstruction per component.

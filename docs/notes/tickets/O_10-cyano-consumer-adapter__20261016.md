@@ -3,8 +3,8 @@
 - Scope: Integrate released calculator outputs into the cyano consumer.
 - Status: open
 - Opened: 2026-10-16
-- Updated: 2026-10-16
-- Current State: Planned; implementation has not started. See the work and acceptance criteria below.
+- Updated: 2026-11-01
+- Current State: A bounded paired 0.6 consumer preview exists under the [separate handoff](../../validation/paired-consumer-preview.md). Production admission remains held by PV-R1; accepted UI findings do not clear that blocker. No consumer implementation, release or held-scope retry belongs to this wave closeout.
 - Verification: Repository setup checked ticket H1/fields, queue membership and local links on 2026-10-16; implementation validation is specified below and has not run.
 - Cleanup: Owning session records final checks and unresolved findings, resolves the ticket, distills reusable guidance into docs/validation/, updates both indexes and linked GitHub issue, then removes the resolved ticket.
 - GitHub Issue: https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/10

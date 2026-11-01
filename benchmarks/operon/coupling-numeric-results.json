@@ -1,0 +1,347 @@
+{
+  "acquisition": {
+    "bytes": 593,
+    "sha256": "99f539ea79573d82b4457fbb449c035c4bf386324f011e277c04f38249bc3a87"
+  },
+  "admission": "passed",
+  "all_cases_conform": false,
+  "candidate": {
+    "runtime_model_material_freeze_required": true,
+    "sdist_sha256": "887cee014014b67bb863430eb2d9e07bfe49a3e7ae2b989f1e741cab4ba76b15",
+    "source_commit": "ebff076d14789735b56e71501ccfaa5b2b0f82fc",
+    "version": "0.14.0rc2",
+    "wheel_sha256": "14ac432db000abd2a680c52e3968081d03ab937419fca08ca8ddaf6433226ac6"
+  },
+  "cases": [
+    {
+      "conforms": true,
+      "expected_status": "ok",
+      "id": "d0_zero_plus",
+      "index": 0,
+      "mismatched_fields": [],
+      "numeric_mismatches": [],
+      "observed_status": "ok"
+    },
+    {
+      "conforms": true,
+      "expected_status": "ok",
+      "id": "d25_zero_plus",
+      "index": 1,
+      "mismatched_fields": [],
+      "numeric_mismatches": [],
+      "observed_status": "ok"
+    },
+    {
+      "conforms": true,
+      "expected_status": "ok",
+      "id": "dm4_zero_plus",
+      "index": 2,
+      "mismatched_fields": [],
+      "numeric_mismatches": [],
+      "observed_status": "ok"
+    },
+    {
+      "conforms": true,
+      "expected_status": "ok",
+      "id": "d3_unequal_plus",
+      "index": 3,
+      "mismatched_fields": [],
+      "numeric_mismatches": [],
+      "observed_status": "ok"
+    },
+    {
+      "conforms": true,
+      "expected_status": "ok",
+      "id": "dm4_unequal_plus",
+      "index": 4,
+      "mismatched_fields": [],
+      "numeric_mismatches": [],
+      "observed_status": "ok"
+    },
+    {
+      "conforms": true,
+      "expected_status": "ok",
+      "id": "d0_zero_minus",
+      "index": 5,
+      "mismatched_fields": [],
+      "numeric_mismatches": [],
+      "observed_status": "ok"
+    },
+    {
+      "conforms": true,
+      "expected_status": "ok",
+      "id": "d25_zero_minus",
+      "index": 6,
+      "mismatched_fields": [],
+      "numeric_mismatches": [],
+      "observed_status": "ok"
+    },
+    {
+      "conforms": true,
+      "expected_status": "ok",
+      "id": "dm4_zero_minus",
+      "index": 7,
+      "mismatched_fields": [],
+      "numeric_mismatches": [],
+      "observed_status": "ok"
+    },
+    {
+      "conforms": true,
+      "expected_status": "ok",
+      "id": "d3_unequal_minus",
+      "index": 8,
+      "mismatched_fields": [],
+      "numeric_mismatches": [],
+      "observed_status": "ok"
+    },
+    {
+      "conforms": true,
+      "expected_status": "ok",
+      "id": "dm4_unequal_minus",
+      "index": 9,
+      "mismatched_fields": [],
+      "numeric_mismatches": [],
+      "observed_status": "ok"
+    },
+    {
+      "conforms": true,
+      "expected_status": "unsupported_distance",
+      "id": "dm7_unsupported_plus",
+      "index": 10,
+      "mismatched_fields": [],
+      "numeric_mismatches": [],
+      "observed_status": "unsupported_distance"
+    },
+    {
+      "conforms": true,
+      "expected_status": "unsupported_distance",
+      "id": "dm1_unsupported_plus",
+      "index": 11,
+      "mismatched_fields": [],
+      "numeric_mismatches": [],
+      "observed_status": "unsupported_distance"
+    },
+    {
+      "conforms": true,
+      "expected_status": "unsupported_distance",
+      "id": "d26_unsupported_plus",
+      "index": 12,
+      "mismatched_fields": [],
+      "numeric_mismatches": [],
+      "observed_status": "unsupported_distance"
+    },
+    {
+      "conforms": true,
+      "expected_status": "unsupported_distance",
+      "id": "dm7_unsupported_minus",
+      "index": 13,
+      "mismatched_fields": [],
+      "numeric_mismatches": [],
+      "observed_status": "unsupported_distance"
+    },
+    {
+      "conforms": true,
+      "expected_status": "unsupported_distance",
+      "id": "dm1_unsupported_minus",
+      "index": 14,
+      "mismatched_fields": [],
+      "numeric_mismatches": [],
+      "observed_status": "unsupported_distance"
+    },
+    {
+      "conforms": true,
+      "expected_status": "unsupported_distance",
+      "id": "d26_unsupported_minus",
+      "index": 15,
+      "mismatched_fields": [],
+      "numeric_mismatches": [],
+      "observed_status": "unsupported_distance"
+    },
+    {
+      "conforms": true,
+      "expected_status": "numerical_range",
+      "id": "both_underflow",
+      "index": 16,
+      "mismatched_fields": [],
+      "numeric_mismatches": [],
+      "observed_status": "numerical_range"
+    },
+    {
+      "conforms": true,
+      "expected_status": "numerical_range",
+      "id": "both_overflow",
+      "index": 17,
+      "mismatched_fields": [],
+      "numeric_mismatches": [],
+      "observed_status": "numerical_range"
+    },
+    {
+      "conforms": true,
+      "expected_status": "numerical_range",
+      "id": "up_over_down_under",
+      "index": 18,
+      "mismatched_fields": [],
+      "numeric_mismatches": [],
+      "observed_status": "numerical_range"
+    },
+    {
+      "conforms": true,
+      "expected_status": "numerical_range",
+      "id": "up_under_down_over",
+      "index": 19,
+      "mismatched_fields": [],
+      "numeric_mismatches": [],
+      "observed_status": "numerical_range"
+    },
+    {
+      "conforms": true,
+      "expected_status": "ok",
+      "id": "small_finite",
+      "index": 20,
+      "mismatched_fields": [],
+      "numeric_mismatches": [],
+      "observed_status": "ok"
+    },
+    {
+      "conforms": true,
+      "expected_status": "numerical_range",
+      "id": "fold_only_overflow",
+      "index": 21,
+      "mismatched_fields": [],
+      "numeric_mismatches": [],
+      "observed_status": "numerical_range"
+    },
+    {
+      "conforms": false,
+      "expected_status": "numerical_range",
+      "id": "upper_energy_bound",
+      "index": 22,
+      "mismatched_fields": [
+        "/scores/fold_change/log_value",
+        "/scores/fold_change/value"
+      ],
+      "numeric_mismatches": [
+        {
+          "absolute_error_decimal": "1.05770670000282507317024283111095428466796875E-11",
+          "expected": 0.06952606264861025,
+          "observed": 0.06952606263803318,
+          "path": "/scores/fold_change/log_value",
+          "relative_error_decimal": "1.5213096495174065461409177073646602051535790233402497650005987030550773089469704E-10"
+        },
+        {
+          "absolute_error_decimal": "1.13387077504967237473465502262115478515625E-11",
+          "expected": 1.072,
+          "observed": 1.0719999999886614,
+          "path": "/scores/fold_change/value",
+          "relative_error_decimal": "1.0577152752329032715438279327332612855178936723654201414379933504305714704333910E-11"
+        }
+      ],
+      "observed_status": "numerical_range"
+    },
+    {
+      "conforms": false,
+      "expected_status": "numerical_range",
+      "id": "lower_energy_bound",
+      "index": 23,
+      "mismatched_fields": [
+        "/scores/fold_change/log_value",
+        "/scores/fold_change/value"
+      ],
+      "numeric_mismatches": [
+        {
+          "absolute_error_decimal": "2.14204487480884608885389752686023712158203125E-11",
+          "expected": 0.1988508587451652,
+          "observed": 0.19885085872374475,
+          "path": "/scores/fold_change/log_value",
+          "relative_error_decimal": "1.0772117798867323912057511432327322329467308670773782349718815459486234546316943E-10"
+        },
+        {
+          "absolute_error_decimal": "2.61328736428367847111076116561889648437500E-11",
+          "expected": 1.22,
+          "observed": 1.219999999973867,
+          "path": "/scores/fold_change/value",
+          "relative_error_decimal": "2.1420388231833430558902794040637908382282889656092610312933825740713274128429756E-11"
+        }
+      ],
+      "observed_status": "numerical_range"
+    }
+  ],
+  "conforming": 22,
+  "freeze": {
+    "bytes": 16675,
+    "sha256": "fc3a3347a498506d84b32409f3230530475446e00c9d89ed2d7ecf5370465eae"
+  },
+  "inputs": {
+    "fixtures.json": {
+      "bytes": 83630,
+      "sha256": "115cc7f71d352e1dcecc85afce5bf6a70bc50f381ae009d0c11beff1f1f722b1"
+    },
+    "geometry-contract.json": {
+      "bytes": 1370,
+      "sha256": "0c623e8b2c64608a5945ecccf73cdedeeaa1072cda657df751680827b97d03ee"
+    },
+    "protocol.json": {
+      "bytes": 10748,
+      "sha256": "9390e29f40eb3ef0f2b09bfe36ab6df8a523369de203d7e096ee70a5494ddc64"
+    },
+    "public-contract.json": {
+      "bytes": 2385,
+      "sha256": "7a236d9ef4b1a42ac48c11244eb6a637b48e98e02191478edd4322f109b0f018"
+    },
+    "request.json": {
+      "bytes": 11103,
+      "sha256": "53fe5609089c2c9fd7e3c6e90a14b41608332b51646b43b5eb995bc0b6e063cc"
+    },
+    "tool": {
+      "bytes": 37496,
+      "sha256": "defd3e4ca97714069f171e7dcb88052453fe35000ba921ed4dd6d2900b242c19"
+    }
+  },
+  "interpretation": "Conformance uses fixed prospective numerical tolerances. A mismatch requires diagnosis; it does not alone contradict the published equations or demonstrate biological inaccuracy.",
+  "limitations": [
+    "Numerical/coordinate conformance only; no empirical accuracy or host transfer.",
+    "Caller-supplied energies, no sequence-derived folding or full Operon inference.",
+    "Unresolved unfolding sign and all held source scopes remain excluded.",
+    "No model fitting, biological measurements, private outcomes or source workbook reads."
+  ],
+  "native_coverage": {
+    "failed_or_unsupported": 13,
+    "not_evaluated": 0,
+    "requested": 24,
+    "returned": 24,
+    "successful": 11
+  },
+  "nonconforming": 2,
+  "numeric_diagnostics": "Expected/observed values are the compared JSON numbers or null. Error magnitudes are Decimal strings, calculated from exact stored binary64/int values with 80 significant digits, ROUND_HALF_EVEN. Absolute error is abs(observed-expected); relative error divides by abs(expected). Both are null unless both values are numeric; relative error is also null for expected zero. No diagnostic changes conformance or classifies the cause.",
+  "numerics": {
+    "decimal_precision": 80,
+    "input_interpretation": "exact decimal spelling of the binary64 JSON request numbers",
+    "linear_absolute_tolerance": "0",
+    "linear_relative_tolerance": "1e-12",
+    "linear_target": "nearest binary64 conversion of Decimal value; zero/inf conversion means expected null",
+    "linear_ulp_allowance": 4,
+    "log_absolute_tolerance": "1e-12",
+    "log_relative_tolerance": "1e-12",
+    "rounding": "ROUND_HALF_EVEN",
+    "zero_is_not_missing": true
+  },
+  "outputs": {
+    "execution.json": {
+      "bytes": 15586,
+      "sha256": "0beb0cacee121d0f247f96d59657fe65a3b08b751fbe647b35fedfe774cf226d"
+    },
+    "result.json": {
+      "bytes": 27656,
+      "sha256": "19b17b657a418d9d945b6639944f7c993f4b339f4aa936ac52522ad1ffe429b1"
+    },
+    "stderr.bin": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "predictor_calls": 0,
+  "requested": 24,
+  "runtime_material_verification": "external A receipt; not re-executed or independently inspected here",
+  "schema_version": "coupling-numeric-report-1",
+  "scope": "independent artificial numerical/coordinate conformance"
+}
