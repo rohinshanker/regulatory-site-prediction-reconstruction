@@ -930,7 +930,7 @@
     "source": "7b4ae1e43297d2c70b54286776eee191e32753e4"
   },
   "schema_version": "regsite-engineering-package-1",
-  "scope": "provisional software and artificial supplied-model examples; implementation and package independent review pending; no new biological evaluation",
+  "scope": "preserved unreleased software candidate; package delta and corrected evidence reviewed, but this archive retains C80-F1 and requires a repaired replacement; no new biological evaluation",
   "script": {
     "bytes": 6514,
     "sha256": "9f6bd8c8728aacde4c138e9012dc7a082dc4d507e6654ba50dd779c74d23ac5f"
