@@ -167,7 +167,13 @@ are excluded. Output metadata is copied and cannot mutate model constants.
 
 ## Installation and reproducibility
 
-Python ≥3.11; CI targets Python 3.11 and 3.14 on Ubuntu 24.04 and macOS 14.
+Python ≥3.11; CI targets Python 3.11 and 3.14 on Ubuntu 24.04 and macOS 15.
+The runtime and resource matrices use the same explicit OS labels. GitHub
+[retires macOS 14 on November 2, 2026](https://github.com/actions/runner-images/issues/13518);
+its scheduled brownout can cancel jobs before checkout. Such cancellation is an
+infrastructure failure, never a passing gate. Retain the failed run and validate
+the replacement matrix without weakening assertions, native admission or
+required Python versions. Older package receipts keep their actual OS labels.
 Windows is unverified. The Python runtime has no third-party dependencies.
 Build/test dependencies are version/hash locked in `requirements-dev.lock`.
 Their installed metadata identifies MIT, BSD, Apache-2.0, MPL-2.0 or PSF-2.0
