@@ -1,0 +1,178 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "promoter",
+    "target_log_scores",
+    "editable_positions",
+    "immutable_intervals",
+    "max_changes",
+    "limits"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "promoter-design-request-1"
+    },
+    "promoter": {
+      "allOf": [
+        {
+          "$ref": "promoter-request-1.0.schema.json"
+        },
+        {
+          "type": "object",
+          "required": [
+            "schema_version",
+            "id",
+            "sequence",
+            "calibration",
+            "scan",
+            "output"
+          ],
+          "properties": {
+            "schema_version": {
+              "const": "1.0"
+            },
+            "sequence": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1000,
+              "pattern": "^[ACGT]+$"
+            },
+            "calibration": {
+              "enum": [
+                "ecoli_mg1655",
+                "in_vitro"
+              ]
+            },
+            "scan": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "mode",
+                "positions"
+              ],
+              "properties": {
+                "mode": {
+                  "const": "positions"
+                },
+                "positions": {
+                  "type": "array",
+                  "minItems": 1,
+                  "maxItems": 8,
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "strand",
+                      "tss"
+                    ],
+                    "properties": {
+                      "strand": {
+                        "enum": [
+                          "+",
+                          "-"
+                        ]
+                      },
+                      "tss": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 999
+                      }
+                    }
+                  },
+                  "uniqueItems": true
+                }
+              }
+            },
+            "output": {
+              "const": {
+                "states": "selected",
+                "legacy_keys": false,
+                "elements": true
+              }
+            }
+          }
+        }
+      ]
+    },
+    "target_log_scores": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 8,
+      "items": {
+        "type": "number",
+        "minimum": -1000000.0,
+        "maximum": 1000000.0
+      }
+    },
+    "editable_positions": {
+      "type": "array",
+      "minItems": 0,
+      "maxItems": 1000,
+      "items": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 999
+      },
+      "uniqueItems": true
+    },
+    "immutable_intervals": {
+      "type": "array",
+      "minItems": 0,
+      "maxItems": 1000,
+      "items": {
+        "type": "array",
+        "minItems": 2,
+        "maxItems": 2,
+        "prefixItems": [
+          {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 1000
+          }
+        ],
+        "items": false
+      }
+    },
+    "max_changes": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 2
+    },
+    "limits": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "max_candidates",
+        "seconds_per_candidate",
+        "seconds_total"
+      ],
+      "properties": {
+        "max_candidates": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 64
+        },
+        "seconds_per_candidate": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 10
+        },
+        "seconds_total": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 120
+        }
+      }
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Bounded Promoter design request 1",
+  "$comment": "Structural contract. Strict finite JSON/raw and canonical byte caps, exact native validity, distinct ordered targets, complete 30-state context, matching target-vector length, sorted nonoverlapping immutable intervals, editable window membership, max_changes <= editable count, full enumeration size and integer/bool distinctions require runtime checks. Admission windows are complete-context [t-67,t+20); membership does not imply score influence. Integral floats follow native integer semantics. No model/scientific validation is implied."
+}
