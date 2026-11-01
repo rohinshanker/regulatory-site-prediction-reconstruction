@@ -1,7 +1,7 @@
 # Drafting tabular export
 
 - Purpose: Inspect supplied-rate stationary records with explicit native identities and numerical representations.
-- Scope: `drafting-csv-1` producer-owned projection; implementation and independent review pending.
+- Scope: `drafting-csv-1` producer-owned projection; implementation checked locally, independent review pending.
 - Last verified: 2026-10-31
 
 `regsite-drafting REQUEST --format csv` writes UTF-8 CSV. `--format json` and
@@ -67,11 +67,15 @@ output-error and broken-pipe behavior is unchanged; exits remain 0 complete,
 
 ## Verification boundary
 
-Focused checks must cover exact columns/row order, all record/envelope statuses,
+Focused exporter/CLI tests cover exact columns/row order, all record/envelope statuses,
 null coverage, both units, finite/exact-zero/underflow distinctions, identity and
 JSON-byte binding, quoting/newlines/Unicode/surrogates, exact size limits,
-stdin/files/options and output failures. Compare default and explicit JSON
-byte-for-byte with the frozen pre-export CLI on existing artificial requests.
-Full new-code statement/branch coverage and independent exact-patch review are
+stdin/files/options and output failures. Default and explicit JSON were compared
+byte-for-byte with the frozen pre-export CLI on ten existing/artificial request
+cases, including malformed input and surrogate text. Run the two focused modules
+with external test/cache/coverage paths and `--noconftest -p pytest_cov`, covering
+`regsite.drafting_export` and `regsite.drafting_cli`; no backend fixture is needed.
+Local checks pass all 56 tests and all 85 statements/18 branches. Independent
+exact-patch review is pending. Full coverage and independent review are
 engineering checks, not new numerical or biological accuracy evidence. No model,
 source, fixture, schema or prediction-hash change is implied.

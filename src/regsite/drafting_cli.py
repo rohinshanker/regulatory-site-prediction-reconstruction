@@ -6,14 +6,17 @@ import sys
 from contextlib import nullcontext
 
 from regsite.drafting import invalid_result, predict
+from regsite.drafting_export import csv_bytes
 from regsite.drafting_io import DraftingInputError, load_request, result_bytes
 
 
 def main(argv: list[str] | None = None) -> int:
-    """Write one authoritative result; exit 0 complete, 1 partial, 2 invalid."""
+    """Write native JSON or its CSV projection; exit 0/1/2 for result status."""
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("input", help="drafting-request-1 JSON; '-' reads stdin")
+    parser.add_argument("--format", choices=("json", "csv"), default="json")
     args = parser.parse_args(argv)
+    serialize = csv_bytes if args.format == "csv" else result_bytes
     try:
         try:
             with (
@@ -29,10 +32,10 @@ def main(argv: list[str] | None = None) -> int:
         else:
             result = predict(request)
         try:
-            raw = result_bytes(result)
+            raw = serialize(result)
         except DraftingInputError:
             result = invalid_result("result_serialization_failure")
-            raw = result_bytes(result)
+            raw = serialize(result)
         sys.stdout.buffer.write(raw)
         sys.stdout.flush()
         return {"complete": 0, "partial": 1, "invalid_input": 2}[result["status"]]
