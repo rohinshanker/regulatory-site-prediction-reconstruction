@@ -4,6 +4,7 @@ Verification dates cover the stated source observations or specification review;
 
 | Area | Purpose | Last verified | Document |
 | --- | --- | --- | --- |
+| conditional-tabular-export | Bounded deterministic state/response CSV with native status/null semantics and authoritative JSON binding. | 2026-10-31 | [conditional-tabular-export.md](conditional-tabular-export.md) |
 | rbs-native-development-recheck | Pinned public-input preparation, exact runner/result admission and four-configuration ranks; repair recheck/execution pending. | 2026-10-22 | [rbs-native-development-recheck.md](rbs-native-development-recheck.md) |
 | rbs-drafting-numeric-results | Frozen original 0.12 supplied-rate artificial evaluation, complete accounting and separate execution/semantic evidence. | 2026-10-22 | [rbs-drafting-numeric-results.md](rbs-drafting-numeric-results.md) |
 | termination-tabular-export | Deterministic bounded CSV projection preserving every record/candidate, native text and fragment-relative coordinates. | 2026-10-22 | [termination-tabular-export.md](termination-tabular-export.md) |
