@@ -24,6 +24,7 @@ A owns remaining runtime/release/improvement scopes 04/06/13; B owns broader sou
 
 | Status | Updated | Ticket | Priority | Scope |
 | --- | --- | --- | --- | --- |
+| A | 2026-11-01 | [A_wave-closeout__20261101.md](A_wave-closeout__20261101.md) | P0 | A: finish bounded current-wave work, preserve held scopes and leave resumable open dependencies |
 | O | 2026-11-01 | [O_coupling-numeric-evaluation__20261101.md](O_coupling-numeric-evaluation__20261101.md) | P1 | B: independent artificial coupling checker at 612750b; complete hash/acquisition admission and review pending, no candidate execution; [#81](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/81), parents #12/#8 |
 | A | 2026-10-21 | [A_component-calculator-jobs__20261021.md](A_component-calculator-jobs__20261021.md) | P1 | A: version-2 offline dispatch for all eight reviewed components with separate native identities; [issue #68](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/68) |
 | O | 2026-10-21 | [O_rbs-host-transfer__20261021.md](O_rbs-host-transfer__20261021.md) | P0 | Session B: existing-aggregate failure analysis recorded; source audit/independent review provider-blocked, no new UTEX accuracy result; [#58](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/issues/58), parent #12 |

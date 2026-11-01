@@ -78,8 +78,8 @@
 
 ## Work and verification
 
-- One owner per ticket and one writer per worktree. Follow the user's Multica-first
-  routing policy where available; handoffs name scope, canonical checkout,
+- One owner per ticket and one writer per worktree. Follow the user's Paseo-first
+  routing policy; Multica is retired and must not receive dispatches. Handoffs name scope, canonical checkout,
   baseline/result target, acceptance criteria and allowed child work. Workers
   must not reroute the same assignment or initiate an unrequested review chain.
 - Keep source pins and test fixtures immutable. Tests ship with code; cover every
