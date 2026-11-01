@@ -106,7 +106,7 @@ or measured expression gain follows from completing the search. This addition
 is in the [0.15.0rc1 engineering package](docs/validation/engineering-0.15-candidate.md),
 which passed 7,733 local tests, 1,551 subtests, zero skips, full measured coverage
 and 69 fresh-installed outputs. All eight [platform jobs](https://github.com/rohinshanker/regulatory-site-prediction-reconstruction/actions/runs/41272983356)
-pass at `1bfe4c48`; independent package review remains pending.
+pass at `1bfe4c48`; C independently accepted the exact package integration.
 
 A provisional [multi-target RBS design mode](docs/validation/rbs-vector-design.md)
 searches a supplied transcript against one to ten component initiation targets:
@@ -117,10 +117,14 @@ regsite-rbs-vector-design examples/rbs-vector-design.json --backend-root /absolu
 
 It keeps every supplied coding interval fixed, including overlaps, and permits
 only explicitly listed upstream substitutions. Every candidate and target result
-is retained; incomplete vectors cannot win the search. The provisional [0.16.0rc1 package](docs/validation/engineering-0.16-candidate.md)
-passes 7,992 local tests, 1,551 subtests and 74 fresh-installed outputs. Independent
-implementation/package review and platform checks remain pending. These are individual model initiation scores, with no inferred
-coupling, joint protein abundance or demonstrated biological improvement.
+is retained; incomplete vectors cannot win the search. The earlier
+[0.16.0rc1 package](docs/validation/engineering-0.16-candidate.md) passed local,
+fresh-install and platform checks. Independent review then identified a
+confirmation error-reporting defect. The isolated 0.16.0rc2 source preserves the
+first integrity stop even if its deadline also elapses; its exact repair review
+and package gates remain pending. These are individual model initiation scores,
+with no inferred coupling, joint protein abundance or demonstrated biological
+improvement.
 
 Register complete files in explicit external storage and check their byte identity
 with the [offline artifact manifest tool](docs/validation/calculator-artifact-storage.md).
